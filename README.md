@@ -23,4 +23,8 @@ Any arguments are passed to the underlying `cargo run` command.
 ## Documentation
 See [`docs`][docs].
 
-[docs]: ./docs
+## License
+Distributed under the terms of the [MIT License][license].
+
+[docs]:    ./docs
+[license]: ./LICENSE
