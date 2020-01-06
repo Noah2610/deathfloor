@@ -6,11 +6,21 @@ __Working title...__
 A little platformer game, in which the player must  
 jump their way upwards to escape the _deathfloor_.
 
-## Design documentation
-See [`docs/DESIGN.md`][DESIGN]
+## Running
+Binaries are not yet available.
 
-## Roadmap
-See [`docs/ROADMAP.md`][ROADMAP]
+To compile and run from source, first `clone` the repo,  
+then compile and run the project with `cargo` ...
+```
+cargo run --release
+```
+Or you can use the development script `bin/run`.  
+Note that certain dependencies are required for this script,  
+such as `rustup` and a specific `nightly` rust toolchain;  
+run the script to see what's missing.  
+Any arguments are passed to the underlying `cargo run` command.
 
-[DESIGN]:  docs/DESIGN.md
-[ROADMAP]: docs/ROADMAP.md
+## Documentation
+See [`docs`][docs].
+
+[docs]: ./docs
