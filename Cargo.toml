@@ -3,6 +3,7 @@ name = "deathfloor"
 version = "0.0.0"
 authors = ["Noah Rosenzweig <rosenzweig.noah@gmail.com>"]
 edition = "2018"
+readme = "./README.md"
 
 [dependencies]
 deathframe = "0.5.1"
