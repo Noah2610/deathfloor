@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# shellcheck source=./util.sh
+_dir="$( dirname "$0" )"
+[ -f "${_dir}/util.sh" ] || bash "${_dir}/download-util.sh" || exit 1
+source "${_dir}/util.sh"
+unset _dir
+
+RUST_TOOLCHAIN="nightly-2019-12-12"
+
+check "rustup"
+
+function main {
+    check_installed_toolchain
+
+    local args
+    local cmd
+    args=( --features nightly "$@" )
+    cmd=( \
+        rustup run "$RUST_TOOLCHAIN" \
+        cargo run \
+        "${args[@]}" \
+    )
+
+    msg_strong "Running $( colored "$COLOR_CODE" "${cmd[*]}" )"
+    if should_run_in_terminal; then
+        run_terminal "${cmd[*]}"
+    else
+        ${cmd[*]}
+    fi
+}
+
+function check_installed_toolchain {
+    local errmsg
+    errmsg="\
+Rust toolchain $( colored "$COLOR_CODE" "${RUST_TOOLCHAIN}" ) is not installed.
+Install with ...
+    $( colored "$COLOR_CODE" "rustup install ${RUST_TOOLCHAIN}" )"
+
+    (rustup toolchain list \
+        | grep -Ex "${RUST_TOOLCHAIN}-.+" \
+        &> /dev/null) \
+        || err "$errmsg"
+}
+
+main "$@"
