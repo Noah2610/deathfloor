@@ -7,15 +7,12 @@ readme = "./README.md"
 license = "MIT"
 
 [dependencies]
-deathframe = "0.5.1"
 
-[dependencies.amethyst]
-git = "https://github.com/amethyst/amethyst"
-rev = "8c022f464e3d17a4b997cad83c5a1a62c7289ace"
-default-features = false
-# features = ["animation", "audio", "locale", "network", "renderer"]
-features = ["audio", "renderer", "vulkan"]
+[dependencies.deathframe]
+git = "https://github.com/Noah2610/deathframe"
+branch = "develop"
+features = ["vulkan"]
 
 [features]
 default = []
-nightly = ["amethyst/nightly"]
+nightly = ["deathframe/nightly"]
