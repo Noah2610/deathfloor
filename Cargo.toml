@@ -7,6 +7,7 @@ readme = "./README.md"
 license = "MIT"
 
 [dependencies]
+ron = "0.5.1"
 
 [dependencies.deathframe]
 git = "https://github.com/Noah2610/deathframe"
