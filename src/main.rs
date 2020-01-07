@@ -9,6 +9,8 @@ mod systems;
 use deathframe::amethyst;
 use deathframe::custom_game_data::prelude::*;
 
+use helpers::resource;
+
 fn main() {
     if let Err(e) = init_game() {
         eprintln!("An error occured: {}", e);
@@ -19,7 +21,6 @@ fn main() {
 fn init_game() -> amethyst::Result<()> {
     use amethyst::utils::app_root_dir::application_root_dir;
     use amethyst::ApplicationBuilder;
-    use helpers::resource;
 
     use std::fs::File;
 
@@ -54,5 +55,25 @@ fn start_logger() {
 
 fn build_game_data<'a, 'b>() -> amethyst::Result<states::GameDataBuilder<'a, 'b>>
 {
-    unimplemented!()
+    use amethyst::core::transform::TransformBundle;
+    use amethyst::renderer::types::DefaultBackend;
+    use amethyst::renderer::{RenderFlat2D, RenderToWindow, RenderingBundle};
+    use states::prelude::*;
+
+    // Bundles
+    let rendering_bundle = RenderingBundle::<DefaultBackend>::new()
+        .with_plugin(
+            RenderToWindow::from_config_path(resource("config/display.ron"))?
+                .with_clear([0.0, 0.0, 0.0, 1.0]),
+        )
+        .with_plugin(RenderFlat2D::default());
+    let transform_bundle = TransformBundle::new();
+
+    let custom_game_data = GameDataBuilder::default()
+        .custom(CustomData::default())
+        .dispatcher(DispatcherId::Startup)?
+        .with_core_bundle(rendering_bundle)?
+        .with_core_bundle(transform_bundle)?;
+
+    Ok(custom_game_data)
 }

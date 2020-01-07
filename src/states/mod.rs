@@ -4,7 +4,7 @@ pub mod prelude {
     pub use super::startup::Startup;
     pub use super::CustomData;
     pub use super::DispatcherId;
-    pub use super::GameData;
+    pub use super::{GameData, GameDataBuilder};
 }
 
 pub mod state_prelude {
