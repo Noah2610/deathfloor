@@ -40,20 +40,20 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
     use amethyst::renderer::types::DefaultBackend;
     use amethyst::renderer::{RenderFlat2D, RenderToWindow, RenderingBundle};
 
-    // Bundles
+    let transform_bundle = TransformBundle::new();
     let rendering_bundle = RenderingBundle::<DefaultBackend>::new()
         .with_plugin(
             RenderToWindow::from_config_path(resource("config/display.ron"))?
                 .with_clear([0.0, 0.0, 0.0, 1.0]),
         )
         .with_plugin(RenderFlat2D::default());
-    let transform_bundle = TransformBundle::new();
 
     let custom_game_data = GameDataBuilder::default()
         .custom(CustomData::default())
         .dispatcher(DispatcherId::Ingame)?
-        .with_core_bundle(rendering_bundle)?
         .with_core_bundle(transform_bundle)?
+        .with_core_bundle(rendering_bundle)?
+        .with_core(ScaleSpritesSystem::default(), "scale_sprites_system", &[])?
         .with_core(CameraOrthoSystem::default(), "camera_ortho_system", &[])?
         .with(
             DispatcherId::Ingame,

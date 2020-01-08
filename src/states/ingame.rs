@@ -22,11 +22,19 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Ingame {
 
 fn create_player(world: &mut World) -> Entity {
     const PLAYER_Z: f32 = 1.0;
+    const PLAYER_SIZE: (f32, f32) = (32.0, 64.0);
 
     let mut transform = Transform::default();
     transform.set_translation_xyz(0.0, 0.0, PLAYER_Z);
 
-    world.create_entity().with(transform).build()
+    let size = Size::from(PLAYER_SIZE);
+
+    world
+        .create_entity()
+        .with(transform)
+        .with(size)
+        .with(ScaleOnce::default())
+        .build()
 }
 
 fn create_camera(world: &mut World, player_entity_opt: Option<Entity>) {
