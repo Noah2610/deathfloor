@@ -2,7 +2,7 @@ use amethyst::core::frame_limiter::FrameRateLimitConfig;
 use deathframe::amethyst;
 
 use crate::helpers::resource;
-use crate::states;
+use crate::states::prelude::*;
 
 pub fn init_game() -> amethyst::Result<()> {
     use amethyst::utils::app_root_dir::application_root_dir;
@@ -10,13 +10,10 @@ pub fn init_game() -> amethyst::Result<()> {
 
     start_logger();
 
-    let mut game: amethyst::CoreApplication<states::GameData> =
-        ApplicationBuilder::new(
-            application_root_dir()?,
-            states::prelude::Startup::default(),
-        )?
-        .with_frame_limit_config(frame_rate_limit_config()?)
-        .build(build_game_data()?)?;
+    let mut game: amethyst::CoreApplication<GameData> =
+        ApplicationBuilder::new(application_root_dir()?, Startup::default())?
+            .with_frame_limit_config(frame_rate_limit_config()?)
+            .build(build_game_data()?)?;
     game.run();
 
     Ok(())
@@ -37,12 +34,10 @@ fn frame_rate_limit_config() -> amethyst::Result<FrameRateLimitConfig> {
     ))?)?)
 }
 
-fn build_game_data<'a, 'b>() -> amethyst::Result<states::GameDataBuilder<'a, 'b>>
-{
+fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
     use amethyst::core::transform::TransformBundle;
     use amethyst::renderer::types::DefaultBackend;
     use amethyst::renderer::{RenderFlat2D, RenderToWindow, RenderingBundle};
-    use states::prelude::*;
 
     // Bundles
     let rendering_bundle = RenderingBundle::<DefaultBackend>::new()
@@ -55,7 +50,7 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<states::GameDataBuilder<'a, 'b>
 
     let custom_game_data = GameDataBuilder::default()
         .custom(CustomData::default())
-        .dispatcher(DispatcherId::Startup)?
+        .dispatcher(DispatcherId::Ingame)?
         .with_core_bundle(rendering_bundle)?
         .with_core_bundle(transform_bundle)?;
 
