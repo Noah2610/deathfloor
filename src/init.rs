@@ -35,6 +35,7 @@ fn frame_rate_limit_config() -> amethyst::Result<FrameRateLimitConfig> {
 }
 
 fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
+    use crate::systems::prelude::*;
     use amethyst::core::transform::TransformBundle;
     use amethyst::renderer::types::DefaultBackend;
     use amethyst::renderer::{RenderFlat2D, RenderToWindow, RenderingBundle};
@@ -52,7 +53,20 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
         .custom(CustomData::default())
         .dispatcher(DispatcherId::Ingame)?
         .with_core_bundle(rendering_bundle)?
-        .with_core_bundle(transform_bundle)?;
+        .with_core_bundle(transform_bundle)?
+        .with_core(CameraOrthoSystem::default(), "camera_ortho_system", &[])?
+        .with(
+            DispatcherId::Ingame,
+            MoveEntitiesSystem::<crate::solid_tag::SolidTag>::default(),
+            "move_entities_system",
+            &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            FollowSystem::default(),
+            "follow_system",
+            &[],
+        )?;
 
     Ok(custom_game_data)
 }

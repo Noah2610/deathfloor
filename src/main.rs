@@ -5,6 +5,7 @@ extern crate specs_derive;
 mod components;
 mod helpers;
 mod init;
+mod solid_tag;
 mod states;
 mod systems;
 

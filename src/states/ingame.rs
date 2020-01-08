@@ -63,5 +63,9 @@ fn create_camera(world: &mut World, player_entity_opt: Option<Entity>) {
         .with(size)
         .with(camera);
 
+    if let Some(player_entity) = player_entity_opt {
+        camera = camera.with(Follow::new(player_entity));
+    }
+
     camera.build();
 }

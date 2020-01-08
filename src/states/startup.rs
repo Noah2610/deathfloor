@@ -5,6 +5,7 @@ pub struct Startup;
 
 impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Startup {
     fn on_start(&mut self, data: StateData<GameData<'a, 'b>>) {
+        register_components(data.world);
     }
 
     fn update(
@@ -14,4 +15,9 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Startup {
         data.data.update_core(data.world);
         Trans::Switch(Box::new(Ingame::default()))
     }
+}
+
+fn register_components(world: &mut World) {
+    world.register::<Player>();
+    world.register::<Camera>();
 }
