@@ -10,11 +10,15 @@ pub mod prelude {
 }
 
 pub mod state_prelude {
-    pub use deathframe::amethyst::ecs::{World, WorldExt};
-    pub use deathframe::amethyst::{State, StateData, StateEvent, Trans};
+    pub use amethyst::ecs::{Entity, World, WorldExt};
+    pub use amethyst::prelude::Builder;
+    pub use amethyst::renderer::Camera;
+    pub use amethyst::{State, StateData, StateEvent, Trans};
+    pub use deathframe::amethyst;
     pub use deathframe::custom_game_data::prelude::*;
 
     pub use super::prelude::*;
+    pub use crate::components::prelude::*;
 }
 
 mod aliases {

@@ -8,6 +8,7 @@ license = "MIT"
 
 [dependencies]
 ron = "0.5.1"
+specs-derive = "0.4.0"
 
 [dependencies.deathframe]
 git = "https://github.com/Noah2610/deathframe"

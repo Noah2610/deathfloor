@@ -1,5 +1,6 @@
 extern crate deathframe;
 extern crate ron;
+extern crate specs_derive;
 
 mod components;
 mod helpers;
