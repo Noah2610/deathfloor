@@ -48,6 +48,7 @@ fn create_player(world: &mut World) -> Entity {
         .with(size)
         .with(sprite_render)
         .with(ScaleOnce::default())
+        .with(Velocity::new(5.0, 0.0))
         .build()
 }
 
@@ -83,11 +84,13 @@ fn create_camera(world: &mut World, player_entity_opt: Option<Entity>) {
         .create_entity()
         .with(transform)
         .with(size)
-        .with(camera);
+        .with(camera)
+        .with(camera_ortho);
 
-    if let Some(player_entity) = player_entity_opt {
-        camera = camera.with(Follow::new(player_entity));
-    }
+    // TODO
+    // if let Some(player_entity) = player_entity_opt {
+    //     camera = camera.with(Follow::new(player_entity));
+    // }
 
     camera.build();
 }
