@@ -16,6 +16,10 @@ path = "../deathframe"
 # branch = "develop"
 features = ["vulkan"]
 
+[dependencies.serde]
+version = "1.0.104"
+features = ["derive"]
+
 [features]
 default = []
 nightly = ["deathframe/nightly"]

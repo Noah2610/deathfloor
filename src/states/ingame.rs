@@ -44,6 +44,7 @@ fn create_player(world: &mut World) -> Entity {
 
     world
         .create_entity()
+        .with(Player::default())
         .with(transform)
         .with(size)
         .with(sprite_render)

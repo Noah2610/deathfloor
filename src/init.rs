@@ -2,6 +2,7 @@ use amethyst::core::frame_limiter::FrameRateLimitConfig;
 use deathframe::amethyst;
 
 use crate::helpers::resource;
+use crate::input;
 use crate::states::prelude::*;
 
 pub fn init_game() -> amethyst::Result<()> {
@@ -47,6 +48,7 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
                 .with_clear([0.0, 0.0, 0.0, 1.0]),
         )
         .with_plugin(RenderFlat2D::default());
+    let ingame_input_bundle = input::ingame_input_bundle()?;
 
     let custom_game_data = GameDataBuilder::default()
         .custom(CustomData::default())
@@ -55,6 +57,13 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
         .with_core_bundle(rendering_bundle)?
         .with_core(ScaleSpritesSystem::default(), "scale_sprites_system", &[])?
         .with_core(CameraOrthoSystem::default(), "camera_ortho_system", &[])?
+        .with_bundle(DispatcherId::Ingame, ingame_input_bundle)?
+        .with(
+            DispatcherId::Ingame,
+            InputManagerSystem::<input::IngameBindings>::default(),
+            "ingame_input_manager_system",
+            &[],
+        )?
         .with(
             DispatcherId::Ingame,
             MoveEntitiesSystem::<crate::solid_tag::SolidTag>::default(),
@@ -65,6 +74,12 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
             DispatcherId::Ingame,
             FollowSystem::default(),
             "follow_system",
+            &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            ControlPlayerSystem::default(),
+            "control_player_system",
             &[],
         )?;
 
