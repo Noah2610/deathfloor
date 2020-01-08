@@ -1,7 +1,8 @@
-(
-    texture_width:  500,
-    texture_height: 500,
-    sprites: [
+List(
+    SpriteList(
+        texture_width:  500,
+        texture_height: 500,
+        sprites: [
         ( // 0 - black square
             x:      0,
             y:      0,
@@ -172,5 +173,6 @@
             width:  7,
             height: 16,
         ),
-    ],
-)
+        ],
+        )
+        )

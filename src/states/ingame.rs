@@ -36,7 +36,7 @@ fn create_player(world: &mut World) -> Entity {
         let mut spritesheet_handles =
             world.write_resource::<SpriteSheetHandles>();
         SpriteRender {
-            sprite_number: 0,
+            sprite_number: 1,
             sprite_sheet:  spritesheet_handles
                 .get_or_load(resource("spritesheets/player.png"), world),
         }
@@ -46,10 +46,10 @@ fn create_player(world: &mut World) -> Entity {
         .create_entity()
         .with(Player::default())
         .with(transform)
+        .with(Velocity::default())
         .with(size)
         .with(sprite_render)
         .with(ScaleOnce::default())
-        .with(Velocity::new(5.0, 0.0))
         .build()
 }
 
