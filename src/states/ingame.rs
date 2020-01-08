@@ -1,4 +1,5 @@
 use super::state_prelude::*;
+use crate::helpers::resource;
 
 #[derive(Default)]
 pub struct Ingame;
@@ -29,10 +30,23 @@ fn create_player(world: &mut World) -> Entity {
 
     let size = Size::from(PLAYER_SIZE);
 
+    let sprite_render = {
+        use amethyst::renderer::SpriteRender;
+
+        let mut spritesheet_handles =
+            world.write_resource::<SpriteSheetHandles>();
+        SpriteRender {
+            sprite_number: 0,
+            sprite_sheet:  spritesheet_handles
+                .get_or_load(resource("spritesheets/player.png"), world),
+        }
+    };
+
     world
         .create_entity()
         .with(transform)
         .with(size)
+        .with(sprite_render)
         .with(ScaleOnce::default())
         .build()
 }
