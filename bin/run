@@ -31,16 +31,35 @@ function main {
 }
 
 function check_installed_toolchain {
-    local errmsg
-    errmsg="\
-Rust toolchain $( colored "$COLOR_CODE" "${RUST_TOOLCHAIN}" ) is not installed.
-Install with ...
-    $( colored "$COLOR_CODE" "rustup install ${RUST_TOOLCHAIN}" )"
-
     (rustup toolchain list \
         | grep -Ex "${RUST_TOOLCHAIN}-.+" \
         &> /dev/null) \
-        || err "$errmsg"
+        || err_toolchain_not_installed
+}
+
+function err_toolchain_not_installed {
+    local input
+    local errmsg
+    errmsg="\
+$( colored "$COLOR_ERR" "Error:" ) Rust toolchain $( colored "$COLOR_CODE" "$RUST_TOOLCHAIN" ) is not installed.
+Install automatically with $( colored "$COLOR_CODE" "rustup" )? [y|N] "
+
+    while [ -z "$input" ]; do
+        echo -en "$errmsg"
+        read -r input
+        case "${input:0:1}" in
+            ""|"n"|"N")
+                exit 0
+                ;;
+            "y"|"Y")
+                also_to_stderr=1 try_run \
+                    "rustup install $RUST_TOOLCHAIN"
+                ;;
+            *)
+                input=
+                ;;
+        esac
+    done
 }
 
 main "$@"
