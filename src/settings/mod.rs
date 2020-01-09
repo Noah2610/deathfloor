@@ -6,9 +6,12 @@ pub mod prelude {
 mod player_settings;
 
 use deathframe::amethyst;
+use prelude::*;
 
 #[derive(Deserialize)]
-pub struct Settings {}
+pub struct Settings {
+    pub player: PlayerSettings,
+}
 
 impl Settings {
     pub fn load() -> amethyst::Result<Self> {
