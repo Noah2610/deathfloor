@@ -72,6 +72,18 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
         )?
         .with(
             DispatcherId::Ingame,
+            DecreaseVelocitiesSystem::default(),
+            "decrease_velocities_system",
+            &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            GravitySystem::default(),
+            "gravity_system",
+            &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
             FollowSystem::default(),
             "follow_system",
             &[],

@@ -8,7 +8,7 @@ mod player_settings;
 use deathframe::amethyst;
 use prelude::*;
 
-#[derive(Deserialize)]
+#[derive(Clone, Deserialize)]
 pub struct Settings {
     pub player: PlayerSettings,
 }

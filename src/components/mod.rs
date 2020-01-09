@@ -1,8 +1,10 @@
-pub mod player;
+mod movement_data;
+mod player;
 
 pub mod prelude {
     pub use deathframe::components::prelude::*;
 
+    pub use super::movement_data::MovementData;
     pub use super::player::Player;
 }
 
