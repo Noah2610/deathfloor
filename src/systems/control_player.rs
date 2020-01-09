@@ -10,6 +10,7 @@ impl<'a> System<'a> for ControlPlayerSystem {
         ReadStorage<'a, Player>,
         ReadStorage<'a, MovementData>,
         WriteStorage<'a, Velocity>,
+        WriteStorage<'a, DecreaseVelocity>,
     );
 
     fn run(
@@ -20,25 +21,42 @@ impl<'a> System<'a> for ControlPlayerSystem {
             players,
             movement_data_store,
             mut velocities,
+            mut decr_velocities,
         ): Self::SystemData,
     ) {
         let dt = time.delta_seconds() as f32;
 
-        for (_, player_movement_data, player_velocity) in
-            (&players, &movement_data_store, &mut velocities).join()
+        for (_, player_movement_data, player_velocity, player_decr_velocity) in
+            (
+                &players,
+                &movement_data_store,
+                &mut velocities,
+                &mut decr_velocities,
+            )
+                .join()
         {
             if let Some(x) = input_manager.axis_value(PlayerX) {
                 if x != 0.0 {
                     if let Some(acceleration) =
                         player_movement_data.acceleration.0
                     {
+                        let speed = acceleration * x * dt;
                         player_velocity.increase_x_with_max(
-                            acceleration * x * dt,
+                            speed,
                             player_movement_data
                                 .max_velocity
                                 .0
                                 .map(|max| max * x.abs()),
                         );
+                        match speed {
+                            s if s > 0.0 => {
+                                player_decr_velocity.dont_decrease_x_when_pos()
+                            }
+                            s if s < 0.0 => {
+                                player_decr_velocity.dont_decrease_x_when_neg()
+                            }
+                            _ => (),
+                        }
                     }
                 }
             }
@@ -47,13 +65,23 @@ impl<'a> System<'a> for ControlPlayerSystem {
                     if let Some(acceleration) =
                         player_movement_data.acceleration.1
                     {
+                        let speed = acceleration * y * dt;
                         player_velocity.increase_y_with_max(
-                            acceleration * y * dt,
+                            speed,
                             player_movement_data
                                 .max_velocity
                                 .1
                                 .map(|max| max * y.abs()),
                         );
+                        match speed {
+                            s if s > 0.0 => {
+                                player_decr_velocity.dont_decrease_y_when_pos()
+                            }
+                            s if s < 0.0 => {
+                                player_decr_velocity.dont_decrease_y_when_neg()
+                            }
+                            _ => (),
+                        }
                     }
                 }
             }
