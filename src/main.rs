@@ -8,6 +8,8 @@ mod components;
 mod helpers;
 mod init;
 mod input;
+mod resources;
+mod settings;
 mod solid_tag;
 mod states;
 mod systems;

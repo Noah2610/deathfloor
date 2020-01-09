@@ -6,7 +6,7 @@ pub struct Startup;
 impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Startup {
     fn on_start(&mut self, data: StateData<GameData<'a, 'b>>) {
         register_components(data.world);
-        init_resources(data.world);
+        insert_resources(data.world).expect("failed to load resources");
     }
 
     fn update(
@@ -21,8 +21,4 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Startup {
 fn register_components(world: &mut World) {
     world.register::<Player>();
     world.register::<Camera>();
-}
-
-fn init_resources(world: &mut World) {
-    world.insert(SpriteSheetHandles::default());
 }

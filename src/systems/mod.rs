@@ -13,4 +13,5 @@ mod system_prelude {
 
     pub use crate::components::prelude::*;
     pub use crate::input::prelude::*;
+    pub use crate::resources::prelude::*;
 }
