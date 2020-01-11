@@ -38,7 +38,6 @@
             }
         }
 
-        // TODO save to file
         const file = new TextFile(fileName, TextFile.WriteOnly);
         file.write(JSON.stringify(outputMap));
         file.commit();
