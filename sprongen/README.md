@@ -4,8 +4,8 @@
 `Gen`erator
 
 ## Description
-Generates spritesheet config RON files for your spritesheet PNG images.
-The spritesheet configs are generated for the `amethyst` engine.
+Generates spritesheet config RON files for your spritesheet PNG images.  
+The spritesheet configs are generated for the `amethyst` engine.  
 Generated RON files are placed next to the corresponding PNG image file.
 
 ## Installation
