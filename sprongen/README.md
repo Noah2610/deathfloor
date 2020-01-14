@@ -9,10 +9,10 @@ The spritesheet configs are generated for the `amethyst` engine.
 Generated RON files are placed next to the corresponding PNG image file.
 
 ## Installation
-After cloning the parent `deathfloor` repo, and `cd`-ing into it,  
+After cloning the parent `deathfloor` repo,  
 you can install it locally using `cargo` with ...
 ```
-deathfloor/ $ cargo install --force --path sprongen
+cargo install --force --path ./deathfloor/sprongen
 ```
 
 ## Usage
