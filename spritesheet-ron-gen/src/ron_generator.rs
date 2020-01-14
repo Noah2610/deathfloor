@@ -117,6 +117,7 @@ pub fn generate_rons_for_pngs(
         let mut ron_file = fs::OpenOptions::new()
             .write(true)
             .create(true)
+            .truncate(true)
             .open(&ron_file_path)
             .map_err(|e| {
                 format!(
