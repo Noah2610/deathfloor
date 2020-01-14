@@ -61,12 +61,14 @@ struct RonWrapper(SpritesheetData);
 
 pub struct GenerateOptions {
     pub tile_size: Size,
+    pub pretty:    bool,
 }
 
 impl Default for GenerateOptions {
     fn default() -> Self {
         Self {
             tile_size: Size::from(DEFAULT_TILE_SIZE),
+            pretty:    false,
         }
     }
 }
@@ -98,11 +100,17 @@ pub fn generate_rons_for_pngs(
         let wrapper = RonWrapper(spritesheet_data);
 
         // TODO: add command-line flag for pretty/ugly RON formatting
-        let pretty_config = ron::ser::PrettyConfig::default();
-        let ron_s = ron::ser::to_string_pretty(&wrapper, pretty_config)
-            .map_err(|e| {
-                format!("Couldn't serialize spritesheet data: {}", e)
-            })?;
+        let ron_s = {
+            let ser_err_fn =
+                |e| format!("Couldn't serialize spritesheet data: {}", e);
+            if generate_options.pretty {
+                let pretty_config = ron::ser::PrettyConfig::default();
+                ron::ser::to_string_pretty(&wrapper, pretty_config)
+                    .map_err(ser_err_fn)?
+            } else {
+                ron::ser::to_string(&wrapper).map_err(ser_err_fn)?
+            }
+        };
 
         // TODO: add command-line option to set where to save generated
         //       RON file, relative to its PNG file

@@ -13,6 +13,7 @@ impl Action {
     pub fn current() -> Result<Self, String> {
         const HELP_OPTS: [&str; 3] = ["help", "--help", "-h"];
         const TILE_SIZE_OPTS: [&str; 2] = ["--tile-size", "-s"];
+        const PRETTY_OPTS: [&str; 2] = ["--pretty", "-p"];
 
         let mut generate_options = GenerateOptions::default();
         let mut files = Vec::new();
@@ -21,8 +22,8 @@ impl Action {
 
         for arg in env::args().skip(1) {
             let mut add_arg_as_file = true;
-
             let s = arg.as_str();
+
             if HELP_OPTS.contains(&s) {
                 return Ok(Action::Help);
             }
@@ -33,6 +34,10 @@ impl Action {
             } else if TILE_SIZE_OPTS.contains(&s) {
                 add_arg_as_file = false;
                 next_arg_is_tile_size = true;
+            }
+            if PRETTY_OPTS.contains(&s) {
+                add_arg_as_file = false;
+                generate_options.pretty = true;
             }
 
             if add_arg_as_file {

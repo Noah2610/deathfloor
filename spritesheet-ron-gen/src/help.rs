@@ -10,7 +10,7 @@ pub fn print_help() {
 {DESCRIPTION}
 
 USAGE
-    {EXECUTABLE} [OPTIONS] <FILES...>
+    {EXECUTABLE} [OPTIONS] [FLAGS] <FILES...>
     {EXECUTABLE} --help
 
 ARGUMENTS
@@ -24,6 +24,12 @@ OPTIONS
         SIZE format is `<width>x<height>`,
         where <width> and <height> are positive integers.
         DEFAULT: {default_tile_size}
+
+FLAGS
+    --pretty, -p
+        Pretty format the generated RON files,
+        when this option is set.
+        Without this, generated RONs will have no new-lines/spacing.
 
     --help, -h
         Print this help text and exit."#,
