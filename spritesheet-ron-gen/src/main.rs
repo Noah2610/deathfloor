@@ -1,8 +1,12 @@
 extern crate png;
+extern crate ron;
+#[macro_use]
+extern crate serde;
 
 use std::path::PathBuf;
 
 mod action;
+mod help;
 mod meta;
 mod png_data;
 
@@ -25,7 +29,7 @@ fn run_action(action: Action) -> Result<(), String> {
             generate_rons_for_pngs(png_data)?;
             Ok(())
         }
-        Action::Help => Ok(print_help()),
+        Action::Help => Ok(help::print_help()),
     }
 }
 
@@ -42,32 +46,4 @@ fn get_png_info(paths: Vec<PathBuf>) -> Result<Vec<PngData>, String> {
 
 fn generate_rons_for_pngs(png_data: Vec<PngData>) -> Result<(), String> {
     unimplemented!()
-}
-
-fn print_help() {
-    let help_txt = format!(
-        r#"{NAME} v{VERSION}
-{DESCRIPTION}
-
-USAGE
-    {EXECUTABLE} [OPTIONS] <FILES...>
-    {EXECUTABLE} --help
-
-ARGUMENTS
-    FILES
-        List of file paths to PNG images,
-        for which to generate RON files.
-
-OPTIONS
-    --help, -h
-        Print this help text and exit."#,
-        NAME = meta::NAME,
-        VERSION = meta::VERSION,
-        DESCRIPTION = meta::DESCRIPTION,
-        EXECUTABLE = meta::NAME,
-    );
-
-    println!("{}", help_txt);
-
-    std::process::exit(0);
 }
