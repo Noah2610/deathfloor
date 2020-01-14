@@ -15,4 +15,4 @@ features = ["derive"]
 
 [dependencies.structopt]
 version = "0.3.7"
-no-default-features = true
+default-features = false
