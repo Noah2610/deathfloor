@@ -1,22 +1,8 @@
+use crate::Size;
 use png::Decoder;
 use std::convert::TryFrom;
 use std::fs::File;
 use std::path::PathBuf;
-
-#[derive(Debug)]
-pub struct Size {
-    pub w: u32,
-    pub h: u32,
-}
-
-impl From<png::OutputInfo> for Size {
-    fn from(info: png::OutputInfo) -> Self {
-        Self {
-            w: info.width,
-            h: info.height,
-        }
-    }
-}
 
 #[derive(Debug)]
 pub struct PngData {
