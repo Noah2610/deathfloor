@@ -1,0 +1,9 @@
+[package]
+name = "spritesheet-ron-gen"
+version = "0.0.0"
+authors = ["Noah Rosenzweig <rosenzweig.noah@gmail.com>"]
+edition = "2018"
+description = "Generate RON files for the given spritesheet PNG images"
+
+[dependencies]
+png = "0.15.3"
