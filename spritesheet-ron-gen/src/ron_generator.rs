@@ -3,9 +3,6 @@ use std::fs;
 use std::io::Write;
 use std::path::Path;
 
-// TODO: use tile size from command-line option
-pub const DEFAULT_TILE_SIZE: (u32, u32) = (32, 32);
-
 #[derive(Debug, Serialize)]
 struct SpriteData {
     x:      u32,
@@ -63,16 +60,6 @@ pub struct GenerateOptions {
     pub verbose:   bool,
     pub tile_size: Size,
     pub pretty:    bool,
-}
-
-impl Default for GenerateOptions {
-    fn default() -> Self {
-        Self {
-            verbose:   false,
-            tile_size: Size::from(DEFAULT_TILE_SIZE),
-            pretty:    false,
-        }
-    }
 }
 
 pub fn generate_rons_for_pngs(
