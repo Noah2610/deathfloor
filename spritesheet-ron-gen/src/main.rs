@@ -21,9 +21,8 @@ fn main() {
 fn run_action(action: Action) -> Result<(), String> {
     match action {
         Action::Gen(files) => {
-            let files_info = get_png_info(files)?;
-            dbg!(&files_info);
-            // generate_rons_for_files(files)?;
+            let png_data = get_png_info(files)?;
+            generate_rons_for_pngs(png_data)?;
             Ok(())
         }
         Action::Help => Ok(print_help()),
@@ -39,6 +38,10 @@ fn get_png_info(paths: Vec<PathBuf>) -> Result<Vec<PngData>, String> {
             Err(format!("File doesn't exist: {:?}", path))
         }
     })
+}
+
+fn generate_rons_for_pngs(png_data: Vec<PngData>) -> Result<(), String> {
+    unimplemented!()
 }
 
 fn print_help() {

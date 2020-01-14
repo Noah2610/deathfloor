@@ -4,9 +4,24 @@ use std::fs::File;
 use std::path::PathBuf;
 
 #[derive(Debug)]
+pub struct Size {
+    pub w: u32,
+    pub h: u32,
+}
+
+impl From<png::OutputInfo> for Size {
+    fn from(info: png::OutputInfo) -> Self {
+        Self {
+            w: info.width,
+            h: info.height,
+        }
+    }
+}
+
+#[derive(Debug)]
 pub struct PngData {
     pub path: PathBuf,
-    pub info: png::OutputInfo,
+    pub size: Size,
 }
 
 impl TryFrom<PathBuf> for PngData {
@@ -23,6 +38,7 @@ impl TryFrom<PathBuf> for PngData {
                 format!("Couldn't read PNG file's metadata: {:?}\n{}", path, e)
             })?
             .0;
-        Ok(Self { path, info })
+        let size = Size::from(info);
+        Ok(Self { path, size })
     }
 }
