@@ -47,11 +47,53 @@ impl Default for Action {
 
 fn main() {
     let action = Action::current();
-
-    match action {
-        Action::Gen(files) => {}
-        Action::Help => print_help(),
+    if let Err(e) = run_action(action) {
+        eprintln!("Error:\n{}", e);
+        std::process::exit(1);
     }
+}
+
+fn run_action(action: Action) -> Result<(), String> {
+    match action {
+        Action::Gen(files) => {
+            let files_info = get_files_info(&files)?;
+            // generate_rons_for_files(files)?;
+            Ok(())
+        }
+        Action::Help => Ok(print_help()),
+    }
+}
+
+fn get_files_info(
+    paths: &Vec<PathBuf>,
+) -> Result<Vec<png::OutputInfo>, String> {
+    use png::Decoder;
+    use std::fs::File;
+
+    let mut files_info = Vec::new();
+
+    for path in paths {
+        if path.is_file() {
+            let file = File::open(path).map_err(|e| {
+                format!("Couldn't open file for reading: {:?}\n{}", path, e)
+            })?;
+            let decoder = Decoder::new(file);
+            let info = decoder
+                .read_info()
+                .map_err(|e| {
+                    format!(
+                        "Couldn't read PNG file's metadata: {:?}\n{}",
+                        path, e
+                    )
+                })?
+                .0;
+            files_info.push(info);
+        } else {
+            return Err(format!("File doesn't exist: {:?}", path));
+        }
+    }
+
+    Ok(files_info)
 }
 
 fn print_help() {
