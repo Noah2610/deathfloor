@@ -18,18 +18,22 @@ use size::Size;
 use std::convert::TryFrom;
 
 fn main() {
-    let action = Action::current();
-    if let Err(e) = run_action(action) {
+    if let Err(e) = run() {
         eprintln!("Error:\n{}", e);
         std::process::exit(1);
     }
 }
 
+fn run() -> Result<(), String> {
+    let action = Action::current()?;
+    run_action(action)
+}
+
 fn run_action(action: Action) -> Result<(), String> {
     match action {
-        Action::Gen(files) => {
+        Action::Gen(files, generate_options) => {
             let png_data = get_png_info(files)?;
-            ron_generator::generate_rons_for_pngs(png_data)?;
+            ron_generator::generate_rons_for_pngs(png_data, generate_options)?;
             Ok(())
         }
         Action::Help => Ok(help::print_help()),

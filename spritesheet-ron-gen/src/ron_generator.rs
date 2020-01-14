@@ -4,7 +4,7 @@ use std::io::Write;
 use std::path::Path;
 
 // TODO: use tile size from command-line option
-const TILE_SIZE: (u32, u32) = (32, 32);
+pub const DEFAULT_TILE_SIZE: (u32, u32) = (32, 32);
 
 #[derive(Debug, Serialize)]
 struct SpriteData {
@@ -59,7 +59,22 @@ impl From<PngData> for SpritesheetData {
 #[derive(Debug, Serialize)]
 struct RonWrapper(SpritesheetData);
 
-pub fn generate_rons_for_pngs(pngs_data: Vec<PngData>) -> Result<(), String> {
+pub struct GenerateOptions {
+    pub tile_size: Size,
+}
+
+impl Default for GenerateOptions {
+    fn default() -> Self {
+        Self {
+            tile_size: Size::from(DEFAULT_TILE_SIZE),
+        }
+    }
+}
+
+pub fn generate_rons_for_pngs(
+    pngs_data: Vec<PngData>,
+    generate_options: GenerateOptions,
+) -> Result<(), String> {
     for png_data in pngs_data {
         let ron_file_path = {
             let dir = png_data.path.parent().unwrap_or(Path::new("."));
@@ -77,7 +92,8 @@ pub fn generate_rons_for_pngs(pngs_data: Vec<PngData>) -> Result<(), String> {
         };
 
         let mut spritesheet_data = SpritesheetData::from(png_data);
-        spritesheet_data.gen_sprites_with_tile_size(Size::from(TILE_SIZE));
+        spritesheet_data
+            .gen_sprites_with_tile_size(Size::from(DEFAULT_TILE_SIZE));
 
         // TODO: add command-line flag to set if this wrapper should be used or not
         let wrapper = RonWrapper(spritesheet_data);
