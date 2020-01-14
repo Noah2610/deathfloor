@@ -161,7 +161,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "spritesheet-ron-gen"
+name = "sprongen"
 version = "0.0.0"
 dependencies = [
  "png 0.15.3 (registry+https://github.com/rust-lang/crates.io-index)",

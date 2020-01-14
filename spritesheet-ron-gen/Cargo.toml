@@ -1,5 +1,5 @@
 [package]
-name = "spritesheet-ron-gen"
+name = "sprongen"
 version = "0.0.0"
 authors = ["Noah Rosenzweig <rosenzweig.noah@gmail.com>"]
 edition = "2018"
