@@ -1,4 +1,5 @@
 use std::convert::TryFrom;
+use std::str::FromStr;
 
 #[derive(Debug, Clone, Copy)]
 pub struct Size {
@@ -55,6 +56,13 @@ impl TryFrom<&str> for Size {
 impl TryFrom<String> for Size {
     type Error = String;
     fn try_from(s: String) -> Result<Self, Self::Error> {
+        Self::try_from_s(s)
+    }
+}
+
+impl FromStr for Size {
+    type Err = String;
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
         Self::try_from_s(s)
     }
 }

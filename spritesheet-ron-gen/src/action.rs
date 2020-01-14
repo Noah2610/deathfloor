@@ -1,8 +1,7 @@
+use crate::opts::Opts;
 use crate::ron_generator::GenerateOptions;
-use crate::size::Size;
-use std::convert::TryFrom;
-use std::env;
 use std::path::PathBuf;
+use structopt::StructOpt;
 
 pub enum Action {
     Gen(Vec<PathBuf>, GenerateOptions),
@@ -10,51 +9,17 @@ pub enum Action {
 }
 
 impl Action {
-    pub fn current() -> Result<Self, String> {
-        const HELP_OPTS: [&str; 3] = ["help", "--help", "-h"];
-        const TILE_SIZE_OPTS: [&str; 2] = ["--tile-size", "-s"];
-        const PRETTY_OPTS: [&str; 2] = ["--pretty", "-p"];
-        const VERBOSE_OPTS: [&str; 2] = ["--verbose", "-v"];
-
-        let mut generate_options = GenerateOptions::default();
-        let mut files = Vec::new();
-
-        let mut next_arg_is_tile_size = false;
-
-        for arg in env::args().skip(1) {
-            let mut add_arg_as_file = true;
-            let s = arg.as_str();
-
-            if HELP_OPTS.contains(&s) {
-                return Ok(Action::Help);
-            }
-            if next_arg_is_tile_size {
-                next_arg_is_tile_size = false;
-                add_arg_as_file = false;
-                generate_options.tile_size = Size::try_from(s)?;
-            } else if TILE_SIZE_OPTS.contains(&s) {
-                add_arg_as_file = false;
-                next_arg_is_tile_size = true;
-            }
-            if PRETTY_OPTS.contains(&s) {
-                add_arg_as_file = false;
-                generate_options.pretty = true;
-            }
-            if VERBOSE_OPTS.contains(&s) {
-                add_arg_as_file = false;
-                generate_options.verbose = true;
-            }
-
-            if add_arg_as_file {
-                let file = PathBuf::from(s);
-                files.push(file);
-            }
-        }
-
-        Ok(if files.is_empty() {
+    pub fn new() -> Result<Self, String> {
+        let opts = Opts::from_args();
+        Ok(if opts.files.is_empty() {
             Self::default()
         } else {
-            Action::Gen(files, generate_options)
+            let generate_options = GenerateOptions {
+                verbose:   opts.verbose,
+                pretty:    opts.pretty,
+                tile_size: opts.tile_size,
+            };
+            Action::Gen(opts.files, generate_options)
         })
     }
 }

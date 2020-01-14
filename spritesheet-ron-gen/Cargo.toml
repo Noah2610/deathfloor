@@ -8,4 +8,11 @@ description = "Generate RON files for the given spritesheet PNG images"
 [dependencies]
 png = "0.15.3"
 ron = "0.5.1"
-serde = { version = "1.0.104", features = ["derive"] }
+
+[dependencies.serde]
+version = "1.0.104"
+features = ["derive"]
+
+[dependencies.structopt]
+version = "0.3.7"
+no-default-features = true
