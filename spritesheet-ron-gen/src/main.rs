@@ -21,7 +21,7 @@ fn main() {
 fn run_action(action: Action) -> Result<(), String> {
     match action {
         Action::Gen(files) => {
-            let files_info = get_files_info(files)?;
+            let files_info = get_png_info(files)?;
             dbg!(&files_info);
             // generate_rons_for_files(files)?;
             Ok(())
@@ -30,18 +30,15 @@ fn run_action(action: Action) -> Result<(), String> {
     }
 }
 
-fn get_files_info(paths: Vec<PathBuf>) -> Result<Vec<PngData>, String> {
-    let mut files_data = Vec::new();
-
-    for path in paths {
+fn get_png_info(paths: Vec<PathBuf>) -> Result<Vec<PngData>, String> {
+    paths.into_iter().try_fold(Vec::new(), |mut data, path| {
         if path.is_file() {
-            files_data.push(PngData::try_from(path)?);
+            data.push(PngData::try_from(path)?);
+            Ok(data)
         } else {
-            return Err(format!("File doesn't exist: {:?}", path));
+            Err(format!("File doesn't exist: {:?}", path))
         }
-    }
-
-    Ok(files_data)
+    })
 }
 
 fn print_help() {
