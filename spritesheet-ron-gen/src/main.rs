@@ -54,7 +54,7 @@ fn print_help() -> Result<(), String> {
     use structopt::StructOpt;
 
     opts::Opts::clap()
-        .print_help()
+        .print_long_help()
         .map_err(|e| format!("Couldn't print clap help\n{}", e))?;
     std::process::exit(1);
 }

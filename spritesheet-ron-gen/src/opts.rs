@@ -29,6 +29,6 @@ pub struct Opts {
     #[structopt(short = "s", long, default_value = "32x32")]
     pub tile_size: Size,
 
-    #[structopt(name = "FILES", multiple = true)]
+    #[structopt(name = "FILES", multiple = true, required = true)]
     pub files: Vec<PathBuf>,
 }
