@@ -1,7 +1,7 @@
 # `sprongen`
-__Spr__itesheet  
-__RON__  
-__Gen__erator
+`Spr`itesheet  
+`RON`  
+`Gen`erator
 
 ## Description
 Generates spritesheet config RON files for your spritesheet PNG images.
