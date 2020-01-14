@@ -1,4 +1,7 @@
 use crate::{PngData, Size};
+use std::fs;
+use std::io::Write;
+use std::path::Path;
 
 // TODO: use tile size from command-line option
 const TILE_SIZE: (u32, u32) = (32, 32);
@@ -58,6 +61,21 @@ struct RonWrapper(SpritesheetData);
 
 pub fn generate_rons_for_pngs(pngs_data: Vec<PngData>) -> Result<(), String> {
     for png_data in pngs_data {
+        let ron_file_path = {
+            let dir = png_data.path.parent().unwrap_or(Path::new("."));
+            let name = png_data
+                .path
+                .file_stem()
+                .ok_or_else(|| {
+                    String::from("PngData's path should have file name")
+                })?
+                .to_str()
+                .ok_or_else(|| String::from("Couldn't convert &OsStr to &str"))?
+                .to_string()
+                + ".ron";
+            dir.join(name)
+        };
+
         let mut spritesheet_data = SpritesheetData::from(png_data);
         spritesheet_data.gen_sprites_with_tile_size(Size::from(TILE_SIZE));
 
@@ -70,8 +88,26 @@ pub fn generate_rons_for_pngs(pngs_data: Vec<PngData>) -> Result<(), String> {
             .map_err(|e| {
                 format!("Couldn't serialize spritesheet data: {}", e)
             })?;
-        println!("{}", &ron_s);
+
+        // TODO: add command-line option to set where to save generated
+        //       RON file, relative to its PNG file
+        let mut ron_file = fs::OpenOptions::new()
+            .write(true)
+            .create(true)
+            .open(&ron_file_path)
+            .map_err(|e| {
+                format!(
+                    "Couldn't open RON file for writing: {:?}\n{}",
+                    &ron_file_path, e
+                )
+            })?;
+        ron_file.write_all(ron_s.as_bytes()).map_err(|e| {
+            format!("Couldn't write to RON file: {:?}\n{}", &ron_file_path, e)
+        })?;
+        ron_file.flush().map_err(|e| {
+            format!("Couldn't flush file: {:?}\n{}", &ron_file_path, e)
+        })?;
     }
 
-    unimplemented!()
+    Ok(())
 }
