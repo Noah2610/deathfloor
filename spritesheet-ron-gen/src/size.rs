@@ -1,6 +1,6 @@
 use std::convert::TryFrom;
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub struct Size {
     pub w: u32,
     pub h: u32,

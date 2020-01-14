@@ -92,8 +92,7 @@ pub fn generate_rons_for_pngs(
         };
 
         let mut spritesheet_data = SpritesheetData::from(png_data);
-        spritesheet_data
-            .gen_sprites_with_tile_size(Size::from(DEFAULT_TILE_SIZE));
+        spritesheet_data.gen_sprites_with_tile_size(generate_options.tile_size);
 
         // TODO: add command-line flag to set if this wrapper should be used or not
         let wrapper = RonWrapper(spritesheet_data);
