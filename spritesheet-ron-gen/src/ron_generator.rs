@@ -60,6 +60,7 @@ impl From<PngData> for SpritesheetData {
 struct RonWrapper(SpritesheetData);
 
 pub struct GenerateOptions {
+    pub verbose:   bool,
     pub tile_size: Size,
     pub pretty:    bool,
 }
@@ -67,6 +68,7 @@ pub struct GenerateOptions {
 impl Default for GenerateOptions {
     fn default() -> Self {
         Self {
+            verbose:   false,
             tile_size: Size::from(DEFAULT_TILE_SIZE),
             pretty:    false,
         }
@@ -77,6 +79,19 @@ pub fn generate_rons_for_pngs(
     pngs_data: Vec<PngData>,
     generate_options: GenerateOptions,
 ) -> Result<(), String> {
+    if generate_options.verbose {
+        let tile_size_s: String = generate_options.tile_size.into();
+        eprintln!("Tile Size: {}", tile_size_s);
+        eprintln!(
+            "Pretty RON formatting?: {}",
+            if generate_options.pretty {
+                "TRUE"
+            } else {
+                "FALSE"
+            }
+        );
+    }
+
     for png_data in pngs_data {
         let ron_file_path = {
             let dir = png_data.path.parent().unwrap_or(Path::new("."));
@@ -93,13 +108,19 @@ pub fn generate_rons_for_pngs(
             dir.join(name)
         };
 
+        if generate_options.verbose {
+            eprintln!(
+                "PNG    {:?}\nto RON {:?}",
+                &png_data.path, &ron_file_path
+            );
+        }
+
         let mut spritesheet_data = SpritesheetData::from(png_data);
         spritesheet_data.gen_sprites_with_tile_size(generate_options.tile_size);
 
         // TODO: add command-line flag to set if this wrapper should be used or not
         let wrapper = RonWrapper(spritesheet_data);
 
-        // TODO: add command-line flag for pretty/ugly RON formatting
         let ron_s = {
             let ser_err_fn =
                 |e| format!("Couldn't serialize spritesheet data: {}", e);

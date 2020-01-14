@@ -26,6 +26,13 @@ OPTIONS
         DEFAULT: {default_tile_size}
 
 FLAGS
+    --verbose, -v
+        Enable verbose logging.
+        Prints information about used options,
+        what PNG files are read,
+        and what RON files are being generated.
+        Is printed to stderr.
+
     --pretty, -p
         Pretty format the generated RON files,
         when this option is set.

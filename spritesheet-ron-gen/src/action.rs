@@ -14,6 +14,7 @@ impl Action {
         const HELP_OPTS: [&str; 3] = ["help", "--help", "-h"];
         const TILE_SIZE_OPTS: [&str; 2] = ["--tile-size", "-s"];
         const PRETTY_OPTS: [&str; 2] = ["--pretty", "-p"];
+        const VERBOSE_OPTS: [&str; 2] = ["--verbose", "-v"];
 
         let mut generate_options = GenerateOptions::default();
         let mut files = Vec::new();
@@ -38,6 +39,10 @@ impl Action {
             if PRETTY_OPTS.contains(&s) {
                 add_arg_as_file = false;
                 generate_options.pretty = true;
+            }
+            if VERBOSE_OPTS.contains(&s) {
+                add_arg_as_file = false;
+                generate_options.verbose = true;
             }
 
             if add_arg_as_file {
