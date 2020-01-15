@@ -1,3 +1,5 @@
+use crate::components::prelude::Size as SizeComp;
+use crate::components::prelude::Transform;
 use std::collections::HashMap;
 
 mod propful;
@@ -25,10 +27,25 @@ pub struct Pos {
     pub y: f32,
 }
 
+impl Into<Transform> for Pos {
+    fn into(self) -> Transform {
+        let mut t = Transform::default();
+        t.set_translation_x(self.x);
+        t.set_translation_y(self.y);
+        t
+    }
+}
+
 #[derive(Debug, Clone, Copy, Deserialize)]
 pub struct Size {
     pub w: f32,
     pub h: f32,
+}
+
+impl Into<SizeComp> for Size {
+    fn into(self) -> SizeComp {
+        SizeComp::new(self.w, self.h)
+    }
 }
 
 #[derive(Debug, Deserialize)]

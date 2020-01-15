@@ -11,9 +11,9 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Ingame {
         crate::map_loader::load_map(data.world, resource("levels/level.json"))
             .unwrap();
 
-        let player_entity = create_player(data.world);
-        // create_camera(data.world, Some(player_entity));
-        create_camera(data.world, None);
+        // let player_entity = create_player(data.world);
+        // // create_camera(data.world, Some(player_entity));
+        // create_camera(data.world, None);
     }
 
     fn update(

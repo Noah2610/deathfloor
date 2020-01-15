@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="64" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="2">
  <editorsettings>
-  <export target="map.json" format="deathfloor-export"/>
+  <export target="../resources/levels/level.json" format="deathfloor-export"/>
  </editorsettings>
  <tileset firstgid="1" source="tileset.tsx"/>
  <layer id="1" name="Tile Layer 1" width="64" height="32">
@@ -47,6 +47,10 @@
   <properties>
    <property name="z" type="float" value="1"/>
   </properties>
-  <object id="1" name="Player" type="Player" x="48" y="400" width="16" height="32"/>
+  <object id="1" name="Player" type="Player" x="48" y="400" width="16" height="32">
+   <properties>
+    <property name="solid" type="bool" value="true"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
