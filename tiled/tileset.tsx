@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.3.1" name="tileset" tilewidth="16" tileheight="16" tilecount="96" columns="16">
- <image source="tilesets/tileset.png" width="256" height="96"/>
+ <image source="../resources/spritesheets/tiles/tileset.png" width="256" height="96"/>
  <tile id="0">
   <properties>
    <property name="solid" type="bool" value="true"/>

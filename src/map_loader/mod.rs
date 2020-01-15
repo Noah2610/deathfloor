@@ -81,7 +81,7 @@ fn load_tiles(
         entity.build();
     }
 
-    unimplemented!()
+    Ok(())
 }
 
 // TODO: Don't know about this function...
