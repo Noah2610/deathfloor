@@ -34,7 +34,7 @@
                 outputMap.objects = [].concat(
                     outputMap.objects,
                     getObjectsFromLayer(layer)
-                ); // [...outputMap.tiles, ...getTilesFromLayer(layer)]
+                ); // [...outputMap.tiles, ...getObjectsFromLayer(layer)]
             }
         }
 
@@ -70,7 +70,7 @@
                         ts: tilesetName,
                         pos: {
                             x: x * tile.size.width,
-                            y: y * tile.size.height,
+                            y: (layerSize.h * tile.height) - (y * tile.size.height), // TODO
                         },
                         props: Object.assign({}, layerProps, tileProps), // { ...layerProps, ...tileProps }
                     };
@@ -103,7 +103,7 @@
                 type: object.type,
                 pos: {
                     x: object.x,
-                    y: object.y,
+                    y: (layer.map.height * layer.map.tileHeight) - object.y, // TODO
                 },
                 size: {
                     w: object.width,
