@@ -2,12 +2,14 @@ extern crate deathframe;
 extern crate ron;
 #[macro_use]
 extern crate serde;
+extern crate serde_json;
 extern crate specs_derive;
 
 mod components;
 mod helpers;
 mod init;
 mod input;
+mod map_loader;
 mod resources;
 mod settings;
 mod solid_tag;
