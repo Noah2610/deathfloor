@@ -8,6 +8,10 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Ingame {
     fn on_start(&mut self, data: StateData<GameData<'a, 'b>>) {
         data.world.delete_all();
 
+        // use crate::map_loader;
+        // map_loader::load_map_data(resource("levels/level.json"), data.world)
+        //     .unwrap();
+
         let player_entity = create_player(data.world);
         // create_camera(data.world, Some(player_entity));
         create_camera(data.world, None);

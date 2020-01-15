@@ -1,6 +1,16 @@
 use std::collections::HashMap;
 
-type Props = HashMap<String, serde_json::Value>;
+pub mod prelude {
+    pub use super::Level;
+    pub use super::Map;
+    pub use super::Object;
+    pub use super::Pos;
+    pub use super::Props;
+    pub use super::Size;
+    pub use super::Tile;
+}
+
+pub type Props = HashMap<String, serde_json::Value>;
 
 #[derive(Debug, Deserialize)]
 pub struct Pos {
