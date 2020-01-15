@@ -10,8 +10,14 @@ unset _dir
 
 SPRITESHEETS_DIR="${ROOT}/resources/spritesheets/tiles"
 TILE_SIZE="16x16"
+MIN_SPRONGEN_VERSION="0.0.2"
 
 check "cargo"
+
+# https://stackoverflow.com/a/4024263/10927893
+version_ge() {
+    [  "$1" = "$( echo -e "$1\n$2" | sort -Vr | head -n1 )" ]
+}
 
 function main {
     check_dir "$SPRITESHEETS_DIR"
@@ -27,14 +33,18 @@ function main {
 }
 
 function check_installed_sprongen {
-    is_available "sprongen" || err_sprongen_not_installed
+    (is_available "sprongen" \
+        && version_ge \
+            "$( sprongen --version | cut -d" " -f2 )" \
+            "$MIN_SPRONGEN_VERSION" ) \
+        || err_sprongen_not_installed
 }
 
 function err_sprongen_not_installed {
     local input
     local errmsg
     errmsg="\
-$( colored "$COLOR_ERR" "Error:" ) $( colored "$COLOR_CODE" "sprongen" ) CLI app is not installed.
+$( colored "$COLOR_ERR" "Error:" ) $( colored "$COLOR_CODE" "sprongen" ) CLI app is not installed or is out-dated.
 Install automatically with $( colored "$COLOR_CODE" "cargo" )? [y|N] "
 
     while [ -z "$input" ]; do
@@ -46,7 +56,7 @@ Install automatically with $( colored "$COLOR_CODE" "cargo" )? [y|N] "
                 ;;
             "y"|"Y")
                 also_to_stderr=1 try_run \
-                    "cargo --color always install sprongen"
+                    "cargo --color always install sprongen --version ${MIN_SPRONGEN_VERSION} --force"
                 ;;
             *)
                 input=
