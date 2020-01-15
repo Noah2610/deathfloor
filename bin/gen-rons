@@ -24,7 +24,11 @@ function main {
     check_installed_sprongen
 
     local args
-    args=( --tile-size "$TILE_SIZE" "$@" )
+    args=( \
+        --amethyst-version "master" \
+        --tile-size "$TILE_SIZE" \
+        "$@" \
+    )
 
     msg "Generating RON config files for PNG spritesheets in
     $( colored "$COLOR_CODE" "$SPRITESHEETS_DIR" )"
