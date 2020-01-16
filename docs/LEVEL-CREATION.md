@@ -74,8 +74,13 @@ You'll need to add the custom export script / extension to your _Tiled_.
 4) Open _Tiled_.  
    You can check the _Tiled_ console to see if the script was loaded successfully,  
    by ticking the checkbox under `View -> Views and Toolbars -> Console`.  
-   If everything's right, then you should be able to export your map with the export script,  
-   by selecting `deathfloor export script` in the file-type drop-down in the export window (`ctrl+shift+e`).
+
+If everything's right, then you should be able to export your map with the export script,  
+by selecting `deathfloor export script` in the file-type drop-down in the export window (`ctrl+shift+e`).  
+
+__TODO__  
+For now, the game loads the level file at `resources/levels/level.json`,  
+so be sure to export to that location.
 
 ### Generating RON config files for tileset spritesheets
 Whenever you add or change a tileset image, you must regenerate the RON config files  
