@@ -1,5 +1,4 @@
 use super::helpers::prelude::*;
-use crate::resources::prelude::SettingsRes;
 
 /// Builds the player entity.
 pub(super) fn build(

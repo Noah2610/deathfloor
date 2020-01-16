@@ -1,9 +1,11 @@
 pub mod prelude {
+    pub use super::camera_settings::CameraSettings;
     pub use super::player_settings::PlayerSettings;
     pub use super::Settings;
     pub use super::SizeSettings;
 }
 
+mod camera_settings;
 mod player_settings;
 
 use deathframe::amethyst;
@@ -11,6 +13,7 @@ use prelude::*;
 
 #[derive(Clone, Deserialize)]
 pub struct Settings {
+    pub camera: CameraSettings,
     pub player: PlayerSettings,
 }
 
