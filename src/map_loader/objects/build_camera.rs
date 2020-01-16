@@ -78,38 +78,3 @@ pub(super) fn build(
 
     Ok(())
 }
-
-// TODO
-// use amethyst::ecs::Entity;
-// use amethyst::renderer::camera::Camera;
-// let mut transform = Transform::default();
-// transform.set_translation_xyz(0.0, 0.0, CAMERA_Z);
-
-// let size = Size::from(CAMERA_SIZE);
-
-// let camera = Camera::standard_2d(size.w, size.h);
-// let mut camera_ortho =
-//     CameraOrtho::normalized(CameraNormalizeMode::Contain);
-// camera_ortho.world_coordinates = {
-//     let half_size = (size.w * 0.5, size.h * 0.5);
-//     CameraOrthoWorldCoordinates {
-//         top:    half_size.1,
-//         bottom: -half_size.1,
-//         left:   -half_size.0,
-//         right:  half_size.0,
-//     }
-// };
-
-// let mut camera = world
-//     .create_entity()
-//     .with(transform)
-//     .with(size)
-//     .with(camera)
-//     .with(camera_ortho);
-
-// if let Some(player_entity) = player_entity_opt {
-//     camera = camera.with(Follow::new(player_entity));
-// }
-
-// camera.build();
-// }
