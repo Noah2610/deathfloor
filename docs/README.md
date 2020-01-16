@@ -1,6 +1,7 @@
 # Documentation
 - [DESIGN](./DESIGN.md)
 - [ROADMAP](./ROADMAP.md)
+- [LEVEL-CREATION](./LEVEL-CREATION.md)
 
 # Concept Art
 [`concept-art/`](./concept-art)
