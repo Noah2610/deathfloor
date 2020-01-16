@@ -1,5 +1,4 @@
 use super::{Object, Props, Tile};
-use crate::components::prelude::Transform;
 
 pub trait Propful {
     fn props(&self) -> &Props;

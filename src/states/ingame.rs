@@ -37,8 +37,6 @@ fn create_player(world: &mut World) -> Entity {
     let size = Size::from(PLAYER_SIZE);
 
     let sprite_render = {
-        use amethyst::renderer::SpriteRender;
-
         let mut spritesheet_handles =
             world.write_resource::<SpriteSheetHandles>();
         SpriteRender {

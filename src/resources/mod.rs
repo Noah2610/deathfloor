@@ -5,7 +5,7 @@ pub mod prelude {
 
 mod settings;
 
-use amethyst::ecs::{World, WorldExt};
+use amethyst::ecs::World;
 use deathframe::amethyst;
 
 pub fn insert_resources(world: &mut World) -> amethyst::Result<()> {
