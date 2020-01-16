@@ -1,10 +1,16 @@
+mod build_player;
+mod helpers;
+mod object_type;
+
 use super::map_data::prelude::*;
 use crate::components::prelude::*;
 use crate::helpers::resource;
-use amethyst::ecs::{World, WorldExt};
+use amethyst::ecs::{EntityBuilder, World, WorldExt};
 use amethyst::prelude::Builder;
 use deathframe::amethyst;
 use deathframe::handles::SpriteSheetHandles;
+use object_type::ObjectType;
+use std::convert::TryFrom;
 
 pub(super) fn load_objects(
     world: &mut World,
@@ -18,45 +24,14 @@ pub(super) fn load_objects(
 
         let size: Size = object.size.into();
 
-        let sprite_render_opt = {
-            let (handle, number) = {
-                let (path, number) = match object.object_type.as_str() {
-                    "Player" => ("spritesheets/player.png", 1),
-                    t => {
-                        return Err(amethyst::Error::from_string(format!(
-                            "Invalid object type: {}",
-                            t
-                        )))
-                    }
-                };
-                let handle = world
-                    .write_resource::<SpriteSheetHandles>()
-                    .get_or_load(resource(path), world);
-                (handle, number)
-            };
-            Some(SpriteRender {
-                sprite_sheet:  handle.clone(),
-                sprite_number: number,
-            })
-        };
+        let object_type = ObjectType::try_from(object.object_type.as_str())?;
 
-        let mut entity = world
-            .create_entity()
-            .with(transform)
-            .with(size.clone())
-            .with(ScaleOnce::default())
-            .with(Transparent);
-
-        if object.is_solid() {
-            entity = entity.with(Solid::new(SolidTag::Tile));
+        match object_type {
+            ObjectType::Player => {
+                let entity = build_player::build(world, object)?;
+                create_camera(world, Some(entity));
+            }
         }
-
-        if let Some(sprite_render) = sprite_render_opt {
-            entity = entity.with(sprite_render);
-        }
-
-        let entity = entity.build();
-        create_camera(world, Some(entity));
     }
 
     Ok(())
