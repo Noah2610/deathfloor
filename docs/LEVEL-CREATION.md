@@ -1,5 +1,12 @@
 # Level Creation with _Tiled_
-[TOC]
+- [Properties](#properties)
+  - [Generic Properties](#generic-properties)
+  - [Tile Properties](#tile-properties)
+- [Object Types](#object-types)
+- [Tilesets](#tilesets)
+- [Exporting the map](#exporting-the-map)
+  - [Setup the export script](#setup-the-export-script)
+  - [Generating RON config files for tileset spritesheets](#generating-ron-config-files-for-tileset-spritesheets)
 
 ## Properties
 Any properties given to _layers_ are passed down  
