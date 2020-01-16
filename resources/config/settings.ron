@@ -1,11 +1,15 @@
 #![enable(implicit_some)]
 (
     player: (
+        size: (
+            width:  32.0,
+            height: 64.0,
+        ),
         movement: (
             acceleration:  (100.0, None),
             max_velocity:  (100.0, 100.0),
             decr_velocity: (50.0, None),
-            gravity:       (None, 100.0),
+            gravity:       (None, -100.0),
         ),
     ),
 )
