@@ -1,5 +1,7 @@
 use super::system_prelude::*;
 
+// TODO
+
 #[derive(Default)]
 pub struct ControlPlayerSystem;
 
@@ -9,8 +11,8 @@ impl<'a> System<'a> for ControlPlayerSystem {
         Read<'a, InputManager<IngameBindings>>,
         ReadStorage<'a, Player>,
         ReadStorage<'a, MovementData>,
-        WriteStorage<'a, Velocity>,
-        WriteStorage<'a, DecreaseVelocity>,
+        // WriteStorage<'a, Velocity>,
+        // WriteStorage<'a, DecreaseVelocity>,
     );
 
     fn run(
@@ -20,35 +22,36 @@ impl<'a> System<'a> for ControlPlayerSystem {
             input_manager,
             players,
             movement_data_store,
-            mut velocities,
-            mut decr_velocities,
+            // mut velocities,
+            // mut decr_velocities,
         ): Self::SystemData,
     ) {
-        let dt = time.delta_seconds() as f32;
+        // let dt = time.delta_seconds() as f32;
 
-        for (_, player_movement_data, player_velocity, player_decr_velocity) in
-            (
-                &players,
-                &movement_data_store,
-                &mut velocities,
-                &mut decr_velocities,
-            )
-                .join()
-        {
-            Axis::for_each(|axis| {
-                handle_move_on_axis(
-                    axis,
-                    dt,
-                    &input_manager,
-                    player_movement_data,
-                    player_velocity,
-                    player_decr_velocity,
-                );
-            });
-        }
+        // for (_, player_movement_data, player_velocity, player_decr_velocity) in
+        //     (
+        //         &players,
+        //         &movement_data_store,
+        //         &mut velocities,
+        //         &mut decr_velocities,
+        //     )
+        //         .join()
+        // {
+        //     Axis::for_each(|axis| {
+        //         handle_move_on_axis(
+        //             axis,
+        //             dt,
+        //             &input_manager,
+        //             player_movement_data,
+        //             player_velocity,
+        //             player_decr_velocity,
+        //         );
+        //     });
+        // }
     }
 }
 
+/*
 fn handle_move_on_axis(
     axis: Axis,
     dt: f32,
@@ -75,3 +78,4 @@ fn handle_move_on_axis(
         }
     }
 }
+*/

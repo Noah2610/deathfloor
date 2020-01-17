@@ -38,9 +38,10 @@ pub(super) fn load_tiles(
             .with(ScaleOnce::default())
             .with(Transparent);
 
-        if tile.is_solid() {
-            entity = entity.with(Solid::new(SolidTag::Tile));
-        }
+        // TODO
+        // if tile.is_solid() {
+        //     entity = entity.with(Solid::new(SolidTag::Tile));
+        // }
 
         if let Some(sprite_render) = sprite_render_opt {
             entity = entity.with(sprite_render);

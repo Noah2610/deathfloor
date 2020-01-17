@@ -12,7 +12,6 @@ mod input;
 mod map_loader;
 mod resources;
 mod settings;
-mod solid_tag;
 mod states;
 mod systems;
 
