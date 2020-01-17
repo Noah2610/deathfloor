@@ -14,7 +14,7 @@ specs-derive = "0.4.0"
 [dependencies.deathframe]
 # path = "../deathframe"
 git = "https://github.com/Noah2610/deathframe"
-branch = "develop"
+branch = "specs-physics"
 features = ["vulkan"]
 
 [dependencies.serde]

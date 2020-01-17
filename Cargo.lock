@@ -855,7 +855,7 @@ dependencies = [
 name = "deathfloor"
 version = "0.0.0"
 dependencies = [
- "deathframe 0.5.1 (git+https://github.com/Noah2610/deathframe?branch=develop)",
+ "deathframe 0.5.1 (git+https://github.com/Noah2610/deathframe?branch=specs-physics)",
  "ron 0.5.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde 1.0.104 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde_json 1.0.44 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -865,7 +865,7 @@ dependencies = [
 [[package]]
 name = "deathframe"
 version = "0.5.1"
-source = "git+https://github.com/Noah2610/deathframe?branch=develop#28f6d3951d61d3fe4e6d77532ddb9c89d4960879"
+source = "git+https://github.com/Noah2610/deathframe?branch=specs-physics#28f6d3951d61d3fe4e6d77532ddb9c89d4960879"
 dependencies = [
  "amethyst 0.13.2 (git+https://github.com/amethyst/amethyst?rev=8c022f464e3d17a4b997cad83c5a1a62c7289ace)",
  "regex 1.3.1 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -3293,7 +3293,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum crossbeam-utils 0.6.6 (registry+https://github.com/rust-lang/crates.io-index)" = "04973fa96e96579258a5091af6003abde64af786b860f18622b82e026cca60e6"
 "checksum crossbeam-utils 0.7.0 (registry+https://github.com/rust-lang/crates.io-index)" = "ce446db02cdc3165b94ae73111e570793400d0794e46125cc4056c81cbb039f4"
 "checksum ctor 0.1.12 (registry+https://github.com/rust-lang/crates.io-index)" = "cd8ce37ad4184ab2ce004c33bf6379185d3b1c95801cab51026bd271bf68eedc"
-"checksum deathframe 0.5.1 (git+https://github.com/Noah2610/deathframe?branch=develop)" = "<none>"
+"checksum deathframe 0.5.1 (git+https://github.com/Noah2610/deathframe?branch=specs-physics)" = "<none>"
 "checksum deflate 0.7.20 (registry+https://github.com/rust-lang/crates.io-index)" = "707b6a7b384888a70c8d2e8650b3e60170dfc6a67bb4aa67b6dfca57af4bedb4"
 "checksum derivative 1.0.3 (registry+https://github.com/rust-lang/crates.io-index)" = "942ca430eef7a3806595a6737bc388bf51adb888d3fc0dd1b50f1c170167ee3a"
 "checksum derive-new 0.5.8 (registry+https://github.com/rust-lang/crates.io-index)" = "71f31892cd5c62e414316f2963c5689242c43d8e7bbcaaeca97e5e28c95d91d9"
