@@ -1,4 +1,5 @@
 use deathframe::amethyst::input::BindingTypes;
+use deathframe::geo::Axis;
 use std::fmt;
 
 #[derive(Default, Debug, PartialEq, Eq, Hash)]
@@ -42,5 +43,14 @@ impl Default for IngameAxisBinding {
 impl Default for IngameActionBinding {
     fn default() -> Self {
         IngameActionBinding::PlayerJump
+    }
+}
+
+impl From<Axis> for IngameAxisBinding {
+    fn from(axis: Axis) -> Self {
+        match axis {
+            Axis::X => IngameAxisBinding::PlayerX,
+            Axis::Y => IngameAxisBinding::PlayerY,
+        }
     }
 }

@@ -35,54 +35,41 @@ impl<'a> System<'a> for ControlPlayerSystem {
             )
                 .join()
         {
-            if let Some(x) = input_manager.axis_value(PlayerX) {
-                if x != 0.0 {
-                    if let Some(acceleration) =
-                        player_movement_data.acceleration.0
-                    {
-                        let speed = acceleration * x * dt;
-                        player_velocity.increase_x_with_max(
-                            speed,
-                            player_movement_data
-                                .max_velocity
-                                .0
-                                .map(|max| max * x.abs()),
-                        );
-                        match speed {
-                            s if s > 0.0 => {
-                                player_decr_velocity.dont_decrease_x_when_pos()
-                            }
-                            s if s < 0.0 => {
-                                player_decr_velocity.dont_decrease_x_when_neg()
-                            }
-                            _ => (),
-                        }
-                    }
-                }
-            }
-            if let Some(y) = input_manager.axis_value(PlayerY) {
-                if y != 0.0 {
-                    if let Some(acceleration) =
-                        player_movement_data.acceleration.1
-                    {
-                        let speed = acceleration * y * dt;
-                        player_velocity.increase_y_with_max(
-                            speed,
-                            player_movement_data
-                                .max_velocity
-                                .1
-                                .map(|max| max * y.abs()),
-                        );
-                        match speed {
-                            s if s > 0.0 => {
-                                player_decr_velocity.dont_decrease_y_when_pos()
-                            }
-                            s if s < 0.0 => {
-                                player_decr_velocity.dont_decrease_y_when_neg()
-                            }
-                            _ => (),
-                        }
-                    }
+            Axis::for_each(|axis| {
+                handle_move_on_axis(
+                    axis,
+                    dt,
+                    &input_manager,
+                    player_movement_data,
+                    player_velocity,
+                    player_decr_velocity,
+                );
+            });
+        }
+    }
+}
+
+fn handle_move_on_axis(
+    axis: Axis,
+    dt: f32,
+    input_manager: &InputManager<IngameBindings>,
+    movement_data: &MovementData,
+    velocity: &mut Velocity,
+    decr_velocity: &mut DecreaseVelocity,
+) {
+    let axis_binding = IngameAxisBinding::from(axis);
+    if let Some(val) = input_manager.axis_value(axis_binding) {
+        if val != 0.0 {
+            if let Some(acceleration) = movement_data.acceleration.0 {
+                let speed = acceleration * val * dt;
+                velocity.increase_x_with_max(
+                    speed,
+                    movement_data.max_velocity.0.map(|max| max * val.abs()),
+                );
+                match speed {
+                    s if s > 0.0 => decr_velocity.dont_decrease_x_when_pos(),
+                    s if s < 0.0 => decr_velocity.dont_decrease_x_when_neg(),
+                    _ => (),
                 }
             }
         }
