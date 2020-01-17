@@ -12,7 +12,18 @@ pub(super) mod prelude {
         WorldExt,
     };
     pub(in super::super) use amethyst::prelude::Builder;
-    pub(in super::super) use deathframe::amethyst;
+    pub(in super::super) use deathframe::geo::Vector;
+    pub(in super::super) use deathframe::{amethyst, specs_physics};
+    pub(in super::super) use specs_physics::ncollide::shape::{
+        Cuboid,
+        ShapeHandle,
+    };
+    pub(in super::super) use specs_physics::nphysics::object::{
+        Body,
+        ColliderDesc,
+        RigidBodyDesc,
+    };
+    pub(in super::super) use specs_physics::EntityBuilderExt;
 }
 
 use deathframe::handles::SpriteSheetHandles;

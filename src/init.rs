@@ -1,5 +1,6 @@
 use amethyst::core::frame_limiter::FrameRateLimitConfig;
 use deathframe::amethyst;
+use deathframe::specs_physics;
 
 use crate::helpers::resource;
 use crate::input;
@@ -36,10 +37,13 @@ fn frame_rate_limit_config() -> amethyst::Result<FrameRateLimitConfig> {
 }
 
 fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
+    use crate::components::prelude::Transform;
     use crate::systems::prelude::*;
     use amethyst::core::transform::TransformBundle;
     use amethyst::renderer::types::DefaultBackend;
     use amethyst::renderer::{RenderFlat2D, RenderToWindow, RenderingBundle};
+    use deathframe::geo::Vector;
+    use specs_physics::PhysicsBundle;
 
     let transform_bundle = TransformBundle::new();
     let rendering_bundle = RenderingBundle::<DefaultBackend>::new()
@@ -50,6 +54,9 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
         .with_plugin(RenderFlat2D::default());
     let ingame_input_bundle = input::ingame_input_bundle()?;
 
+    let physics_bundle =
+        PhysicsBundle::<f32, Transform>::new(Vector::y() * -9.81, &[]);
+
     let custom_game_data = GameDataBuilder::default()
         .custom(CustomData::default())
         .dispatcher(DispatcherId::Ingame)?
@@ -57,6 +64,7 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
         .with_core_bundle(rendering_bundle)?
         .with_core(ScaleSpritesSystem::default(), "scale_sprites_system", &[])?
         .with_core(CameraOrthoSystem::default(), "camera_ortho_system", &[])?
+        .with_bundle(DispatcherId::Ingame, physics_bundle)?
         .with_bundle(DispatcherId::Ingame, ingame_input_bundle)?
         .with(
             DispatcherId::Ingame,
