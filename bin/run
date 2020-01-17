@@ -7,6 +7,7 @@ source "${_dir}/util.sh"
 unset _dir
 
 RUST_TOOLCHAIN="nightly-2019-12-12"
+[ -z "$CARGO_CMD" ] && CARGO_CMD="run"
 
 check "rustup"
 
@@ -18,7 +19,7 @@ function main {
     args=( --features nightly "$@" )
     cmd=( \
         rustup run "$RUST_TOOLCHAIN" \
-        cargo run \
+        cargo "$CARGO_CMD" \
         "${args[@]}" \
     )
 
