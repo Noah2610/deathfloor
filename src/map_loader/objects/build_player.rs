@@ -9,11 +9,11 @@ pub(super) fn build(
 
     let size: Size = player_settings.size.into();
     let sprite_render = get_sprite_render(world, "spritesheets/player.png", 1)?;
-    let movement_data = player_settings.movement;
+    let physics_data = player_settings.physics;
 
     // TODO
-    // let decr_velocity = DecreaseVelocity::from(movement_data.decr_velocity);
-    // let gravity = Gravity::from(movement_data.gravity);
+    // let decr_velocity = DecreaseVelocity::from(physics_data.decr_velocity);
+    // let gravity = Gravity::from(physics_data.gravity);
 
     const DEFAULT_Z: f32 = 1.0;
     let mut transform: Transform = object.pos.into();
@@ -25,7 +25,10 @@ pub(super) fn build(
     };
     let body = RigidBodyDesc::<f32>::new()
         .translation(pos)
-        .enable_gravity(true)
+        .gravity_enabled(true)
+        .mass(physics_data.mass)
+        .status(BodyStatus::Dynamic)
+        .linear_damping(physics_data.damping) // NOTE: This is DecreaseVelocity
         .build();
     let shape =
         ShapeHandle::new(Cuboid::new(Vector::new(size.w * 0.5, size.h * 0.5)));
@@ -41,7 +44,7 @@ pub(super) fn build(
         .with(sprite_render)
         // .with(decr_velocity)
         // .with(gravity)
-        .with(movement_data)
+        .with(physics_data)
         // .with(Solid::new(SolidTag::Player))
         .build();
 

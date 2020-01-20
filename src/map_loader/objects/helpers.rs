@@ -20,6 +20,7 @@ pub(super) mod prelude {
     };
     pub(in super::super) use specs_physics::nphysics::object::{
         Body,
+        BodyStatus,
         ColliderDesc,
         RigidBodyDesc,
     };

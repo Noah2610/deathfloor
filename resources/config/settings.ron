@@ -19,12 +19,15 @@
             width:  32.0,
             height: 64.0,
         ),
-        /// The player's movement data; anything involving velocity.
-        movement: (
-            acceleration:  (100.0, None),
+        /// The player's physics data; anything involving physics.
+        physics: (
+            acceleration:  (1000.0, None),
             max_velocity:  (100.0, 100.0),
-            decr_velocity: (50.0, None),
-            gravity:       (None, -100.0),
+            damping:       10.0,
+            mass:          100.0, // NOTE: Player's mass is ignored when applying force
+            has_gravity:   true,
+            // decr_velocity: (50.0, None),
+            // gravity:       (None, -100.0),
         ),
     ),
 )
