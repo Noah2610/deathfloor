@@ -28,6 +28,10 @@
             mass:          1.0, // NOTE: Player's mass is ignored when applying force
             has_gravity:   true,
             body_status:   Dynamic,
+            shape:         Cuboid(
+                half_width:  16.0,
+                half_height: 32.0,
+            ),
             friction:      1.0,
             restitution:   1.0,
         ),

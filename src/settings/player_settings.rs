@@ -1,5 +1,5 @@
+use super::physics_data::PhysicsData;
 use super::SizeSettings;
-use crate::components::prelude::PhysicsData;
 
 #[derive(Clone, Deserialize)]
 pub struct PlayerSettings {

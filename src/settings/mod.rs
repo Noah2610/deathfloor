@@ -1,12 +1,14 @@
 pub mod prelude {
     pub use super::camera_settings::CameraSettings;
+    pub use super::physics_data::PhysicsData;
     pub use super::player_settings::PlayerSettings;
     pub use super::Settings;
     pub use super::SizeSettings;
 }
 
-mod camera_settings;
-mod player_settings;
+pub mod camera_settings;
+pub mod physics_data;
+pub mod player_settings;
 
 use deathframe::amethyst;
 use prelude::*;

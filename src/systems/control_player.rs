@@ -1,4 +1,5 @@
 use super::system_prelude::*;
+use crate::settings::physics_data::PhysicsUserData;
 
 #[derive(Default)]
 pub struct ControlPlayerSystem;
@@ -8,7 +9,7 @@ impl<'a> System<'a> for ControlPlayerSystem {
         Read<'a, Time>,
         Read<'a, InputManager<IngameBindings>>,
         ReadStorage<'a, Player>,
-        ReadStorage<'a, PhysicsData>,
+        // ReadStorage<'a, PhysicsData>,
         WriteRigidBodies<'a>,
         // WriteStorage<'a, Velocity>,
         // WriteStorage<'a, DecreaseVelocity>,
@@ -20,7 +21,7 @@ impl<'a> System<'a> for ControlPlayerSystem {
             time,
             input_manager,
             players,
-            physics_data_store,
+            // physics_data_store,
             mut rigid_bodies,
             // mut velocities,
             // mut decr_velocities,
@@ -28,15 +29,15 @@ impl<'a> System<'a> for ControlPlayerSystem {
     ) {
         let dt = time.delta_seconds() as f32;
 
-        for (_, player_physics_data, player_rigid_body) in
-            (&players, &physics_data_store, &mut rigid_bodies).join()
+        for (_, /*player_physics_data,*/ player_rigid_body) in
+            (&players, /*&physics_data_store,*/ &mut rigid_bodies).join()
         {
             Axis::for_each(|axis| {
                 handle_move_on_axis(
                     axis,
                     dt,
                     &input_manager,
-                    player_physics_data,
+                    // player_physics_data,
                     player_rigid_body,
                 );
             });
@@ -48,7 +49,7 @@ fn handle_move_on_axis(
     axis: Axis,
     dt: f32,
     input_manager: &InputManager<IngameBindings>,
-    physics_data: &PhysicsData,
+    // physics_data: &PhysicsData,
     rigid_body: &mut RigidBody,
     // velocity: &mut Velocity,
     // decr_velocity: &mut DecreaseVelocity,
@@ -72,10 +73,21 @@ fn handle_move_on_axis(
     // let center_of_mass = rigid_body.center_of_mass();
     if let Some(val) = input_manager.axis_value(axis_binding) {
         if val != 0.0 {
-            if let Some(acceleration) = match &axis {
-                Axis::X => physics_data.acceleration.0,
-                Axis::Y => physics_data.acceleration.1,
-            } {
+            let acceleration_opt = {
+                if let Some(user_data) = rigid_body
+                    .user_data()
+                    .and_then(|data| data.downcast_ref::<PhysicsUserData>())
+                {
+                    match &axis {
+                        Axis::X => user_data.acceleration.0,
+                        Axis::Y => user_data.acceleration.1,
+                    }
+                } else {
+                    None
+                }
+            };
+
+            if let Some(acceleration) = acceleration_opt {
                 let speed = acceleration * val; // * dt; // NOTE: dt is included with some ForceTypes / physics bundle
 
                 // let should_apply_force = is_velocity_below_max(rigid_body);

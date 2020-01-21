@@ -1,36 +1,17 @@
-use super::component_prelude::*;
-use crate::settings::SizeSettings;
+use deathframe::specs_physics;
 use specs_physics::ncollide::shape::{Cuboid, ShapeHandle};
 use specs_physics::nphysics::material::{BasicMaterial, MaterialHandle};
-use specs_physics::nphysics::object::{
-    BodyStatus,
-    ColliderDesc,
-    RigidBodyDesc,
-};
+use specs_physics::nphysics::object::{ColliderDesc, RigidBodyDesc};
+
+mod body_status_wrapper;
+mod shape_wrapper;
+
+pub use body_status_wrapper::BodyStatusWrapper;
+pub use shape_wrapper::ShapeWrapper;
 
 type AccelerationSpeed = (Option<f32>, Option<f32>);
 
-#[derive(Clone, Component, Deserialize)]
-pub enum BodyStatusWrapper {
-    Disabled,
-    Static,
-    Dynamic,
-    Kinematic,
-}
-
-impl Into<BodyStatus> for &BodyStatusWrapper {
-    fn into(self) -> BodyStatus {
-        match self {
-            BodyStatusWrapper::Disabled => BodyStatus::Disabled,
-            BodyStatusWrapper::Static => BodyStatus::Static,
-            BodyStatusWrapper::Dynamic => BodyStatus::Dynamic,
-            BodyStatusWrapper::Kinematic => BodyStatus::Kinematic,
-        }
-    }
-}
-
-#[derive(Clone, Component, Deserialize)]
-#[storage(DenseVecStorage)]
+#[derive(Clone, Deserialize)]
 pub struct PhysicsData {
     /// Optional acceleration for x/y axes.
     /// Not used in physics objects, added to RigidBody as user data.
@@ -54,6 +35,9 @@ pub struct PhysicsData {
     /// See `specs_physics::nphysics::object::BodyStatus`.
     pub body_status: BodyStatusWrapper,
 
+    /// See `specs_physics::::ncollide::shape`.
+    pub shape: ShapeWrapper,
+
     /// The material's friction.
     pub friction: f32,
 
@@ -73,22 +57,22 @@ impl PhysicsData {
             .user_data(self.user_data())
     }
 
-    pub fn collider(&self, size: (f32, f32)) -> ColliderDesc<f32> {
-        let shape = ShapeHandle::new(Cuboid::new(Vector::new(
-            size.0 * 0.5,
-            size.1 * 0.5,
-        )));
-        ColliderDesc::new(shape).material(self.material())
+    pub fn collider(&self) -> ColliderDesc<f32> {
+        ColliderDesc::new(self.shape()).material(self.material())
+    }
+
+    fn shape(&self) -> ShapeHandle<f32> {
+        (&self.shape).into()
+    }
+
+    fn material(&self) -> MaterialHandle<f32> {
+        MaterialHandle::new(BasicMaterial::new(self.restitution, self.friction))
     }
 
     fn user_data(&self) -> PhysicsUserData {
         PhysicsUserData {
             acceleration: self.acceleration,
         }
-    }
-
-    fn material(&self) -> MaterialHandle<f32> {
-        MaterialHandle::new(BasicMaterial::new(self.restitution, self.friction))
     }
 }
 

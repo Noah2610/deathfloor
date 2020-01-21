@@ -35,7 +35,7 @@ pub(super) fn build(
     // let collider = ColliderDesc::new(shape);
 
     let body = physics_data.rigid_body().translation(pos).build();
-    let collider = physics_data.collider((&size).into());
+    let collider = physics_data.collider();
 
     let entity = base_object_entity(world, object)?
         .with_body::<f32, _>(body)
@@ -47,7 +47,7 @@ pub(super) fn build(
         .with(sprite_render)
         // .with(decr_velocity)
         // .with(gravity)
-        .with(physics_data)
+        // .with(physics_data)
         // .with(Solid::new(SolidTag::Player))
         .build();
 

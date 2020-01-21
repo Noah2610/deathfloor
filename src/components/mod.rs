@@ -1,4 +1,3 @@
-mod physics_data;
 mod player;
 
 pub mod prelude {
@@ -19,7 +18,6 @@ pub mod prelude {
         RigidBody as _,
     };
 
-    pub use super::physics_data::PhysicsData;
     pub use super::player::Player;
 }
 
