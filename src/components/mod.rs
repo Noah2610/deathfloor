@@ -1,4 +1,4 @@
-mod player;
+pub mod player;
 
 pub mod prelude {
     pub type RigidBody = specs_physics::nphysics::object::RigidBody<f32>;

@@ -34,7 +34,13 @@ pub(super) fn build(
     //     ShapeHandle::new(Cuboid::new(Vector::new(size.w * 0.5, size.h * 0.5)));
     // let collider = ColliderDesc::new(shape);
 
-    let body = physics_data.rigid_body().translation(pos).build();
+    let body = physics_data
+        .rigid_body()
+        .translation(pos)
+        .user_data(crate::components::player::PlayerData {
+            acceleration: player_settings.acceleration,
+        })
+        .build();
     let collider = physics_data.collider();
 
     let entity = base_object_entity(world, object)?

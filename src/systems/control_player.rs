@@ -1,5 +1,5 @@
 use super::system_prelude::*;
-use crate::settings::physics_data::PhysicsUserData;
+use crate::components::player::PlayerData;
 
 #[derive(Default)]
 pub struct ControlPlayerSystem;
@@ -76,7 +76,7 @@ fn handle_move_on_axis(
             let acceleration_opt = {
                 if let Some(user_data) = rigid_body
                     .user_data()
-                    .and_then(|data| data.downcast_ref::<PhysicsUserData>())
+                    .and_then(|data| data.downcast_ref::<PlayerData>())
                 {
                     match &axis {
                         Axis::X => user_data.acceleration.0,

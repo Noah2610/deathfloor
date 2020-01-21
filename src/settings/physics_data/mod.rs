@@ -1,5 +1,5 @@
 use deathframe::specs_physics;
-use specs_physics::ncollide::shape::{Cuboid, ShapeHandle};
+use specs_physics::ncollide::shape::ShapeHandle;
 use specs_physics::nphysics::material::{BasicMaterial, MaterialHandle};
 use specs_physics::nphysics::object::{ColliderDesc, RigidBodyDesc};
 
@@ -9,15 +9,8 @@ mod shape_wrapper;
 pub use body_status_wrapper::BodyStatusWrapper;
 pub use shape_wrapper::ShapeWrapper;
 
-type AccelerationSpeed = (Option<f32>, Option<f32>);
-
 #[derive(Clone, Deserialize)]
 pub struct PhysicsData {
-    /// Optional acceleration for x/y axes.
-    /// Not used in physics objects, added to RigidBody as user data.
-    /// For now, this is only used with the player in the ControlPlayerSystem.
-    pub acceleration: AccelerationSpeed,
-
     /// Optional max linear velocity.
     pub max_velocity: Option<f32>,
 
@@ -54,7 +47,6 @@ impl PhysicsData {
             .linear_damping(self.damping)
             .max_linear_velocity(self.max_velocity.unwrap_or(f32::MAX))
             .mass(self.mass)
-            .user_data(self.user_data())
     }
 
     pub fn collider(&self) -> ColliderDesc<f32> {
@@ -68,15 +60,4 @@ impl PhysicsData {
     fn material(&self) -> MaterialHandle<f32> {
         MaterialHandle::new(BasicMaterial::new(self.restitution, self.friction))
     }
-
-    fn user_data(&self) -> PhysicsUserData {
-        PhysicsUserData {
-            acceleration: self.acceleration,
-        }
-    }
-}
-
-#[derive(Debug, Clone)]
-pub struct PhysicsUserData {
-    pub acceleration: AccelerationSpeed,
 }
