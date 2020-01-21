@@ -23,16 +23,19 @@ pub(super) fn build(
         let translation = transform.translation();
         Vector::new(translation.x, translation.y)
     };
-    let body = RigidBodyDesc::<f32>::new()
-        .translation(pos)
-        .gravity_enabled(true)
-        .mass(physics_data.mass)
-        .status(BodyStatus::Dynamic)
-        .linear_damping(physics_data.damping) // NOTE: This is DecreaseVelocity
-        .build();
-    let shape =
-        ShapeHandle::new(Cuboid::new(Vector::new(size.w * 0.5, size.h * 0.5)));
-    let collider = ColliderDesc::new(shape);
+    // let body = RigidBodyDesc::<f32>::new()
+    //     .translation(pos)
+    //     .gravity_enabled(true)
+    //     .mass(physics_data.mass)
+    //     .status(BodyStatus::Dynamic)
+    //     .linear_damping(physics_data.damping) // NOTE: This is DecreaseVelocity
+    //     .build();
+    // let shape =
+    //     ShapeHandle::new(Cuboid::new(Vector::new(size.w * 0.5, size.h * 0.5)));
+    // let collider = ColliderDesc::new(shape);
+
+    let body = physics_data.rigid_body().translation(pos).build();
+    let collider = physics_data.collider((&size).into());
 
     let entity = base_object_entity(world, object)?
         .with_body::<f32, _>(body)

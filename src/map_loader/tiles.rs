@@ -7,6 +7,7 @@ use deathframe::geo::Vector;
 use deathframe::handles::SpriteSheetHandles;
 use deathframe::{amethyst, specs_physics};
 use specs_physics::ncollide::shape::{Cuboid, ShapeHandle};
+use specs_physics::nphysics::material::{BasicMaterial, MaterialHandle};
 use specs_physics::nphysics::object::{
     BodyStatus,
     ColliderDesc,
@@ -51,7 +52,8 @@ pub(super) fn load_tiles(
             .with(Transparent);
 
         if tile.is_solid() {
-            // entity = entity.with(Solid::new(SolidTag::Tile));
+            const TILE_RESTITUTION: f32 = 1.0;
+            const TILE_FRICTION: f32 = 1.0;
 
             let body = RigidBodyDesc::<f32>::new()
                 .translation(pos)
@@ -62,7 +64,9 @@ pub(super) fn load_tiles(
                 size.w * 0.5,
                 size.h * 0.5,
             )));
-            let collider = ColliderDesc::new(shape);
+            let material = BasicMaterial::new(TILE_RESTITUTION, TILE_FRICTION);
+            let material_handle = MaterialHandle::new(material);
+            let collider = ColliderDesc::new(shape).material(material_handle);
 
             entity = entity
                 .with_body::<f32, _>(body)
