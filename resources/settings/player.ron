@@ -14,7 +14,7 @@
     /// NOTE: Max speed is `acceleration / damping`.
     physics: (
         max_velocity:  None,
-        damping:       0.0,
+        damping:       1.0,
         mass:          1.0, // NOTE: Player's mass is ignored when applying force
         has_gravity:   true,
         body_status:   Dynamic,
@@ -22,7 +22,7 @@
             half_width:  15.99,
             half_height: 31.99,
         ),
-        friction:      0.0,
+        friction:      0.5,
         restitution:   0.0,
         solid_margin:  0.01,
     ),
