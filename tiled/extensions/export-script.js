@@ -67,6 +67,7 @@
                     const tileProps = tile.properties();
                     const tileOutput = {
                         id: tile.id,
+                        type: tile.type,
                         ts: tilesetName,
                         pos: {
                             x: x * tile.size.width,

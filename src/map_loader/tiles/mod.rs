@@ -23,7 +23,7 @@ pub(super) fn load_tiles(
             base_tile_entity(world, tile, tile_size)?.with(sprite_render);
 
         if let Some(tile_settings) = tiles_settings.types.get(&tile_type) {
-            if tile.is_solid() {
+            if tile_settings.solid {
                 let body = tile_settings
                     .physics
                     .rigid_body()

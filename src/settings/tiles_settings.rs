@@ -10,6 +10,7 @@ pub struct TilesSettings {
 
 #[derive(Clone, Deserialize)]
 pub struct TileSettings {
+    pub solid:   bool,
     pub physics: PhysicsData,
 }
 
