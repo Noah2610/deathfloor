@@ -1,5 +1,6 @@
 use crate::components::prelude::Size as SizeComp;
 use crate::components::prelude::Transform;
+use deathframe::geo::Vector;
 use std::collections::HashMap;
 
 mod propful;
@@ -36,6 +37,12 @@ impl Into<Transform> for Pos {
     }
 }
 
+impl Into<Vector> for Pos {
+    fn into(self) -> Vector {
+        Vector::new(self.x, self.y)
+    }
+}
+
 #[derive(Debug, Clone, Copy, Deserialize)]
 pub struct Size {
     pub w: f32,
@@ -63,9 +70,11 @@ pub struct Level {
 
 #[derive(Debug, Deserialize)]
 pub struct Tile {
-    pub id:    usize,
-    pub ts:    String,
-    pub pos:   Pos,
+    #[serde(rename = "type")]
+    pub tile_type: String,
+    pub id: usize,
+    pub ts: String,
+    pub pos: Pos,
     pub props: Props,
 }
 

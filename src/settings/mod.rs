@@ -2,6 +2,7 @@ pub mod prelude {
     pub use super::camera_settings::CameraSettings;
     pub use super::physics_data::PhysicsData;
     pub use super::player_settings::PlayerSettings;
+    pub use super::tiles_settings::{TileSettings, TileType, TilesSettings};
     pub use super::Settings;
     pub use super::SizeSettings;
 }
@@ -9,6 +10,7 @@ pub mod prelude {
 pub mod camera_settings;
 pub mod physics_data;
 pub mod player_settings;
+pub mod tiles_settings;
 
 use deathframe::amethyst;
 use prelude::*;
@@ -17,6 +19,7 @@ use prelude::*;
 pub struct Settings {
     pub camera: CameraSettings,
     pub player: PlayerSettings,
+    pub tiles:  TilesSettings,
 }
 
 impl Settings {

@@ -12,17 +12,21 @@ pub use shape_wrapper::ShapeWrapper;
 #[derive(Clone, Deserialize)]
 pub struct PhysicsData {
     /// Optional max linear velocity.
+    #[serde(default)]
     pub max_velocity: Option<f32>,
 
     /// How much movement is damped.
     /// When moving with the acceleration above,
     /// the max speed reached is `acceleration / damping`.
+    #[serde(default)]
     pub damping: f32,
 
     /// The body's mass.
+    #[serde(default)]
     pub mass: f32,
 
     /// If gravity is enabled for this body.
+    #[serde(default)]
     pub has_gravity: bool,
 
     /// See `specs_physics::nphysics::object::BodyStatus`.

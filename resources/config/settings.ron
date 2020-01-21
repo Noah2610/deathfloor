@@ -36,7 +36,24 @@
                 half_height: 32.0,
             ),
             friction:      1.0,
-            restitution:   1.0,
+            restitution:   0.0,
         ),
+    ),
+
+    /// Tile settings for all TileTypes.
+    tiles: (
+        types: {
+            Ground: (
+                physics: (
+                    body_status:   Static,
+                    shape:         Cuboid(
+                        half_width:  8.0,
+                        half_height: 8.0,
+                    ),
+                    friction:      0.0,
+                    restitution:   0.0,
+                ),
+            ),
+        },
     ),
 )
