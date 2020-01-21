@@ -93,6 +93,12 @@ fn build_game_data<'a, 'b>(
             ControlPlayerSystem::default(),
             "control_player_system",
             &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            CheckGroundedSystem::default(),
+            "check_grounded_system",
+            &[],
         )?;
 
     Ok(custom_game_data)
