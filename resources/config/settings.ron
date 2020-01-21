@@ -20,6 +20,7 @@
             height: 64.0,
         ),
         /// The player's physics data; anything involving physics.
+        /// NOTE: Max speed is `acceleration / damping`.
         physics: (
             acceleration:  (5000.0, None),
             max_velocity:  (100.0, 100.0),

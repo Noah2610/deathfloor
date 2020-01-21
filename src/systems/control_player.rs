@@ -72,7 +72,10 @@ fn handle_move_on_axis(
     // let center_of_mass = rigid_body.center_of_mass();
     if let Some(val) = input_manager.axis_value(axis_binding) {
         if val != 0.0 {
-            if let Some(acceleration) = physics_data.acceleration.0 {
+            if let Some(acceleration) = match &axis {
+                Axis::X => physics_data.acceleration.0,
+                Axis::Y => physics_data.acceleration.1,
+            } {
                 let speed = acceleration * val; // * dt; // NOTE: dt is included with some ForceTypes / physics bundle
 
                 // let should_apply_force = is_velocity_below_max(rigid_body);
