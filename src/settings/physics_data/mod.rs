@@ -40,6 +40,13 @@ pub struct PhysicsData {
 
     /// The material's restitution.
     pub restitution: f32,
+
+    /// The solid margin for the collider.
+    /// Should be low.
+    /// Consider subtracting the shape's size by the solid_margin.
+    /// Defaults to 0.01
+    #[serde(default)]
+    pub solid_margin: Option<f32>,
 }
 
 impl PhysicsData {
@@ -54,7 +61,9 @@ impl PhysicsData {
     }
 
     pub fn collider(&self) -> ColliderDesc<f32> {
-        ColliderDesc::new(self.shape()).material(self.material())
+        ColliderDesc::new(self.shape())
+            .margin(self.solid_margin.unwrap_or(0.01))
+            .material(self.material())
     }
 
     fn shape(&self) -> ShapeHandle<f32> {

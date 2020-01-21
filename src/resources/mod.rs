@@ -12,8 +12,10 @@ pub fn insert_resources(world: &mut World) -> amethyst::Result<()> {
     use crate::settings::Settings;
     use prelude::*;
 
+    // NOTE: Settings resource is added in init::init_game
+    // world.insert(SettingsRes::new(Settings::load()?));
+
     world.insert(SpriteSheetHandles::default());
-    world.insert(SettingsRes::new(Settings::load()?));
 
     Ok(())
 }

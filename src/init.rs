@@ -4,6 +4,8 @@ use deathframe::specs_physics;
 
 use crate::helpers::resource;
 use crate::input;
+use crate::resources::prelude::SettingsRes;
+use crate::settings::Settings;
 use crate::states::prelude::*;
 
 pub fn init_game() -> amethyst::Result<()> {
@@ -12,10 +14,14 @@ pub fn init_game() -> amethyst::Result<()> {
 
     start_logger();
 
+    let settings = Settings::load()?;
+    let game_data = build_game_data(&settings)?;
+
     let mut game: amethyst::CoreApplication<GameData> =
         ApplicationBuilder::new(application_root_dir()?, Startup::default())?
             .with_frame_limit_config(frame_rate_limit_config()?)
-            .build(build_game_data()?)?;
+            .with_resource(SettingsRes::new(settings))
+            .build(game_data)?;
     game.run();
 
     Ok(())
@@ -36,7 +42,9 @@ fn frame_rate_limit_config() -> amethyst::Result<FrameRateLimitConfig> {
     ))?)?)
 }
 
-fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
+fn build_game_data<'a, 'b>(
+    settings: &Settings,
+) -> amethyst::Result<GameDataBuilder<'a, 'b>> {
     use crate::components::prelude::Transform;
     use crate::systems::prelude::*;
     use amethyst::core::transform::TransformBundle;
@@ -54,8 +62,10 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
         .with_plugin(RenderFlat2D::default());
     let ingame_input_bundle = input::ingame_input_bundle()?;
 
-    let physics_bundle =
-        PhysicsBundle::<f32, Transform>::new(Vector::y() * -9.81, &[]);
+    let physics_bundle = PhysicsBundle::<f32, Transform>::new(
+        Vector::y() * settings.world.gravity,
+        &[],
+    );
 
     let custom_game_data = GameDataBuilder::default()
         .custom(CustomData::default())

@@ -3,6 +3,7 @@ pub mod prelude {
     pub use super::physics_data::PhysicsData;
     pub use super::player_settings::PlayerSettings;
     pub use super::tiles_settings::{TileSettings, TileType, TilesSettings};
+    pub use super::world_settings::WorldSettings;
     pub use super::Settings;
     pub use super::SizeSettings;
 }
@@ -11,6 +12,7 @@ pub mod camera_settings;
 pub mod physics_data;
 pub mod player_settings;
 pub mod tiles_settings;
+pub mod world_settings;
 
 use deathframe::amethyst;
 use prelude::*;
@@ -21,6 +23,7 @@ pub struct Settings {
     pub camera: CameraSettings,
     pub player: PlayerSettings,
     pub tiles:  TilesSettings,
+    pub world:  WorldSettings,
 }
 
 impl Settings {
@@ -29,6 +32,7 @@ impl Settings {
             camera: Self::load_file::<CameraSettings, _>("camera.ron")?,
             player: Self::load_file::<PlayerSettings, _>("player.ron")?,
             tiles:  Self::load_file::<TilesSettings, _>("tiles.ron")?,
+            world:  Self::load_file::<WorldSettings, _>("world.ron")?,
         })
     }
 

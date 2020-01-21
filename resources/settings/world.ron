@@ -1,0 +1,6 @@
+#![enable(implicit_some)]
+/// General game settings.
+(
+    /// The gravity strength.
+    gravity: -1000.0,
+)
