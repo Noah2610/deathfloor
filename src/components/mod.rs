@@ -24,7 +24,7 @@ pub mod prelude {
         RigidBody as _,
     };
 
-    pub use super::grounded::Grounded;
+    pub use super::grounded::{Grounded, GroundedInitialized};
     pub use super::player::Player;
 }
 
