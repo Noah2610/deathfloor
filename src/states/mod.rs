@@ -16,7 +16,7 @@ pub mod state_prelude {
     pub use amethyst::{State, StateData, StateEvent, Trans};
     pub use deathframe::amethyst;
     pub use deathframe::custom_game_data::prelude::*;
-    pub use deathframe::handles::prelude::*;
+    pub use deathframe::sprite_sheet_handles::SpriteSheetHandles;
 
     pub use super::prelude::*;
     pub use crate::components::prelude::*;
