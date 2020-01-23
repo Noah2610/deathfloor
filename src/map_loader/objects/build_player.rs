@@ -24,7 +24,8 @@ pub(super) fn build(
         .rigid_body()
         .translation(pos)
         .user_data(crate::components::player::PlayerData {
-            acceleration: player_settings.acceleration,
+            acceleration:  player_settings.acceleration,
+            jump_strength: player_settings.jump_strength,
         })
         .build();
     let collider = physics_data.collider();
