@@ -30,6 +30,7 @@ pub(super) fn load_tiles(
                     .translation(tile.pos.into());
                 let collider = tile_settings.physics.collider();
                 entity = entity
+                    .with(Solid::default())
                     .with_body::<f32, _>(body.build())
                     .with_collider::<f32>(&collider);
             }

@@ -29,6 +29,9 @@ pub(super) fn build(
         .build();
     let collider = physics_data.collider();
 
+    let grounded =
+        Grounded::default().with_padding(player_settings.grounded_padding);
+
     let entity = base_object_entity(world, object)?
         .with_body::<f32, _>(body)
         .with_collider::<f32>(&collider)
@@ -36,6 +39,7 @@ pub(super) fn build(
         .with(Player::default())
         .with(size)
         .with(sprite_render)
+        .with(grounded)
         .build();
 
     Ok(entity)

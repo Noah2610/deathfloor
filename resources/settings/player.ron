@@ -8,7 +8,11 @@
     ),
 
     /// The player's acceleration.
-    acceleration:  (1000.0, 2000.0),
+    acceleration: (1000.0, 2000.0),
+
+    /// Amount of pixels the player can be away from the solid ground,
+    /// where it still counts as standing on ground. (less than or equals to padding).
+    grounded_padding: 1.0,
 
     /// The player's physics data; anything involving physics.
     /// NOTE: Max speed is `acceleration / damping`.

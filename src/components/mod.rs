@@ -1,5 +1,6 @@
 pub mod grounded;
 pub mod player;
+pub mod solid;
 pub mod tile;
 
 pub mod prelude {
@@ -27,6 +28,7 @@ pub mod prelude {
 
     pub use super::grounded::Grounded;
     pub use super::player::Player;
+    pub use super::solid::Solid;
     pub use super::tile::Tile;
 }
 
