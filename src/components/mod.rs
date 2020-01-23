@@ -1,5 +1,6 @@
 pub mod grounded;
 pub mod player;
+pub mod tile;
 
 pub mod prelude {
     pub type BodyComponent = specs_physics::bodies::BodyComponent<f32>;
@@ -24,8 +25,9 @@ pub mod prelude {
         RigidBody as _,
     };
 
-    pub use super::grounded::{Grounded, GroundedInitialized};
+    pub use super::grounded::Grounded;
     pub use super::player::Player;
+    pub use super::tile::Tile;
 }
 
 mod component_prelude {

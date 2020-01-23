@@ -7,6 +7,7 @@ use prelude::*;
 
 /// Adds base components to tile entity.
 /// Components include:
+///     - `Tile`
 ///     - `Transform`
 ///     - `Size`
 ///     - `ScaleOnce`
@@ -25,6 +26,7 @@ pub(super) fn base_tile_entity<'a>(
 
     let entity = world
         .create_entity()
+        .with(Tile::default())
         .with(transform)
         .with(size)
         .with(ScaleOnce::default())

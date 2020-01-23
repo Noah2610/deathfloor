@@ -15,7 +15,3 @@ impl Grounded {
         !self.on_ground
     }
 }
-
-#[derive(Default, Component)]
-#[storage(NullStorage)]
-pub struct GroundedInitialized;
