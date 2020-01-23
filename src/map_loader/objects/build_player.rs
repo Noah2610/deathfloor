@@ -37,6 +37,7 @@ pub(super) fn build(
     // .build();
 
     let collider = physics_data.collider();
+    // let collider = physics_data.collider().translation(pos);
 
     let grounded =
         Grounded::default().with_padding(player_settings.grounded_padding);

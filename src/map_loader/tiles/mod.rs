@@ -25,6 +25,7 @@ pub(super) fn load_tiles(
         if let Some(tile_settings) = tiles_settings.types.get(&tile_type) {
             if tile_settings.solid {
                 let collider = tile_settings.physics.collider();
+                // .translation(tile.pos.into());
                 entity = entity
                     .with(Solid::default())
                     // .with_body::<f32, _>(body)

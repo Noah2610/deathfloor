@@ -35,9 +35,9 @@
                 half_width:  15.99,
                 half_height: 31.99,
             ),
-            friction:      0.5,
-            restitution:   0.0,
-            solid_margin:  0.01,
+            friction:     0.5,
+            restitution:  0.0,
+            solid_margin: 0.01,
         ),
     ),
 )
