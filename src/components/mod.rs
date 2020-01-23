@@ -10,6 +10,7 @@ pub mod prelude {
         specs_physics::colliders::ColliderComponent<f32>;
     pub type ColliderSet<'f> = specs_physics::colliders::ColliderSet<'f, f32>;
     pub type Force = specs_physics::nphysics::algebra::Force2<f32>;
+    pub type Ground = specs_physics::nphysics::object::Ground<f32>;
     pub type ReadRigidBodies<'a> = specs_physics::ReadRigidBodies<'a, f32>;
     pub type RigidBody = specs_physics::nphysics::object::RigidBody<f32>;
     pub type Velocity = specs_physics::nphysics::math::Velocity<f32>;
@@ -21,8 +22,9 @@ pub mod prelude {
     pub use deathframe::specs_physics;
     pub use specs_physics::nphysics::algebra::ForceType;
     pub use specs_physics::nphysics::object::{
-        Body as _,
-        BodyPart as _,
+        Body,
+        BodyPart,
+        Ground as _,
         RigidBody as _,
     };
 

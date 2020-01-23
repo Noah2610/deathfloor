@@ -45,7 +45,12 @@ impl Settings {
         use std::fs::File;
 
         let file = File::open(resource(format!("settings/{}", filename)))?;
-        Ok(ron::de::from_reader(file)?)
+        Ok(ron::de::from_reader(file).map_err(|e| {
+            amethyst::Error::from_string(format!(
+                "Failed parsing ron settings file: {}\n{:#?}",
+                filename, e
+            ))
+        })?)
     }
 }
 

@@ -20,14 +20,22 @@ pub(super) fn build(
         Vector::new(translation.x, translation.y)
     };
 
-    let body = physics_data
-        .rigid_body()
-        .translation(pos)
-        .user_data(crate::components::player::PlayerData {
-            acceleration:  player_settings.acceleration,
-            jump_strength: player_settings.jump_strength,
-        })
-        .build();
+    let mut body =
+        *physics_data.body().downcast::<RigidBody>().map_err(|_| {
+            amethyst::Error::from_string("Player should have a RigidBody body")
+        })?;
+
+    body.set_position(Isometry2::new(pos, 0.0));
+
+    body.set_user_data(Some(Box::new(crate::components::player::PlayerData {
+        acceleration:  player_settings.acceleration,
+        jump_strength: player_settings.jump_strength,
+    })));
+
+    // .translation(pos)
+    // .user_data()
+    // .build();
+
     let collider = physics_data.collider();
 
     let grounded =

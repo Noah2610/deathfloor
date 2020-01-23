@@ -8,7 +8,7 @@
     ),
 
     /// The player's acceleration.
-    acceleration: (1000.0, None),
+    acceleration: (1000.0, 3000.0),
 
     /// The player's jump strength.
     jump_strength: 1000.0,
@@ -20,17 +20,24 @@
     /// The player's physics data; anything involving physics.
     /// NOTE: Max speed is `acceleration / damping`.
     physics: (
-        max_velocity:  None,
-        damping:       1.0,
-        mass:          1.0, // NOTE: Player's mass is ignored when applying force
-        has_gravity:   true,
-        body_status:   Dynamic,
-        shape:         Cuboid(
-            half_width:  15.99,
-            half_height: 31.99,
+        /// Data describing the player's body.
+        body: RigidBody((
+            max_velocity: None,
+            damping:      1.0,
+            mass:         1.0,
+            has_gravity:  true,
+            body_status:  Dynamic,
+        )),
+        /// Data describing the player's collider.
+        collider: (
+            /// Data describing the player's shape.
+            shape: Cuboid(
+                half_width:  15.99,
+                half_height: 31.99,
+            ),
+            friction:      0.5,
+            restitution:   0.0,
+            solid_margin:  0.01,
         ),
-        friction:      0.5,
-        restitution:   0.0,
-        solid_margin:  0.01,
     ),
 )

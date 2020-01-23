@@ -24,20 +24,39 @@ pub(super) fn load_tiles(
 
         if let Some(tile_settings) = tiles_settings.types.get(&tile_type) {
             if tile_settings.solid {
-                let body = tile_settings
-                    .physics
-                    .rigid_body()
-                    .translation(tile.pos.into());
                 let collider = tile_settings.physics.collider();
                 entity = entity
                     .with(Solid::default())
-                    .with_body::<f32, _>(body.build())
+                    // .with_body::<f32, _>(body)
                     .with_collider::<f32>(&collider);
+
+                let body = tile_settings.physics.body();
+
+                match body.downcast::<Ground>() {
+                    Ok(ground_body) => {
+                        entity = entity.with_body::<f32, _>(*ground_body);
+                    }
+                    Err(body) => {
+                        if let Ok(rigid_body) = body.downcast::<RigidBody>() {
+                            let mut rigid = *rigid_body;
+                            rigid.set_position(Isometry2::new(
+                                tile.pos.into(),
+                                0.0,
+                            ));
+                            entity = entity.with_body::<f32, _>(rigid);
+                        } else {
+                            return Err(amethyst::Error::from_string(
+                                "Solid tile's body must be Ground or RigidBody",
+                            ));
+                        }
+                    }
+                }
+                // body.set_position();
+                // body.translation(tile.pos.into());
             }
         }
 
         entity.build();
     }
-
     Ok(())
 }

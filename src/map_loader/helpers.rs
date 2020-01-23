@@ -9,6 +9,7 @@ pub(super) mod prelude {
     pub use amethyst::prelude::Builder;
     pub use deathframe::geo::Vector;
     pub use deathframe::{amethyst, specs_physics};
+    pub use specs_physics::nalgebra::geometry::Isometry2;
     pub use specs_physics::EntityBuilderExt;
 }
 
