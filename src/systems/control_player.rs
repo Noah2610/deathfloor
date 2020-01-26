@@ -67,12 +67,7 @@ fn handle_move_on_axis(
                     }) * speed
                 });
 
-                rigid_body.apply_force(
-                    0,
-                    &force,
-                    ForceType::AccelerationChange,
-                    true,
-                );
+                rigid_body.apply_force(0, &force, ForceType::Force, true);
             }
         }
     }

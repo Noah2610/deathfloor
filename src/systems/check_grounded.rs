@@ -23,8 +23,8 @@ impl<'a> System<'a> for CheckGroundedSystem {
         {
             let ray_origin = {
                 let pos = grounded_transform.translation();
-                let player_shape = grounded_collider.shape();
-                let aabb = player_shape
+                let grounded_shape = grounded_collider.shape();
+                let aabb = grounded_shape
                     .aabb(&Isometry2::new(Vector::new(pos.x, pos.y), 0.0));
                 let mut point = aabb.center();
                 point.y -= aabb.half_extents().y;
