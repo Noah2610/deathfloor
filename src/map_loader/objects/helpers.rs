@@ -15,7 +15,7 @@ pub(super) mod prelude {
     pub(in super::super) use deathframe::amethyst;
 }
 
-use deathframe::handles::SpriteSheetHandles;
+use deathframe::resources::SpriteSheetHandles;
 use prelude::*;
 
 /// Adds base components to object entity.

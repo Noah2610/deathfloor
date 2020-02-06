@@ -1,24 +1,26 @@
-use deathframe::components::solid::SolidTag as STag;
+// TODO
 
-#[derive(Clone)]
-pub enum SolidTag {
-    Player,
-    Tile,
-}
+// use deathframe::components::solid::SolidTag as STag;
 
-impl STag for SolidTag {
-    fn collides_with(&self, other: &Self) -> bool {
-        match (self, other) {
-            (SolidTag::Player, SolidTag::Tile)
-            | (SolidTag::Tile, SolidTag::Player) => true,
-            (SolidTag::Player, SolidTag::Player) => true,
-            (SolidTag::Tile, SolidTag::Tile) => true,
-        }
-    }
-}
+// #[derive(Clone)]
+// pub enum SolidTag {
+//     Player,
+//     Tile,
+// }
 
-impl Default for SolidTag {
-    fn default() -> Self {
-        SolidTag::Tile
-    }
-}
+// impl STag for SolidTag {
+//     fn collides_with(&self, other: &Self) -> bool {
+//         match (self, other) {
+//             (SolidTag::Player, SolidTag::Tile)
+//             | (SolidTag::Tile, SolidTag::Player) => true,
+//             (SolidTag::Player, SolidTag::Player) => true,
+//             (SolidTag::Tile, SolidTag::Tile) => true,
+//         }
+//     }
+// }
+
+// impl Default for SolidTag {
+//     fn default() -> Self {
+//         SolidTag::Tile
+//     }
+// }

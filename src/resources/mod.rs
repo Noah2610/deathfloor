@@ -1,6 +1,6 @@
 pub mod prelude {
     pub use super::settings::SettingsRes;
-    pub use deathframe::handles::SpriteSheetHandles;
+    pub use deathframe::resources::prelude::*;
 }
 
 mod settings;

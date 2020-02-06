@@ -64,24 +64,27 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
             "ingame_input_manager_system",
             &[],
         )?
-        .with(
-            DispatcherId::Ingame,
-            MoveEntitiesSystem::<crate::solid_tag::SolidTag>::default(),
-            "move_entities_system",
-            &[],
-        )?
-        .with(
-            DispatcherId::Ingame,
-            DecreaseVelocitiesSystem::default(),
-            "decrease_velocities_system",
-            &[],
-        )?
-        .with(
-            DispatcherId::Ingame,
-            GravitySystem::default(),
-            "gravity_system",
-            &[],
-        )?
+        // TODO
+        // .with(
+        //     DispatcherId::Ingame,
+        //     MoveEntitiesSystem::<crate::solid_tag::SolidTag>::default(),
+        //     "move_entities_system",
+        //     &[],
+        // )?
+        // TODO
+        // .with(
+        //     DispatcherId::Ingame,
+        //     DecreaseVelocitiesSystem::default(),
+        //     "decrease_velocities_system",
+        //     &[],
+        // )?
+        // TODO
+        // .with(
+        //     DispatcherId::Ingame,
+        //     GravitySystem::default(),
+        //     "gravity_system",
+        //     &[],
+        // )?
         .with(
             DispatcherId::Ingame,
             FollowSystem::default(),

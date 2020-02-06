@@ -4,7 +4,7 @@ use crate::helpers::resource;
 use amethyst::ecs::{World, WorldExt};
 use amethyst::prelude::Builder;
 use deathframe::amethyst;
-use deathframe::handles::SpriteSheetHandles;
+use deathframe::resources::SpriteSheetHandles;
 
 pub(super) fn load_tiles(
     world: &mut World,
@@ -39,7 +39,9 @@ pub(super) fn load_tiles(
             .with(Transparent);
 
         if tile.is_solid() {
-            entity = entity.with(Solid::new(SolidTag::Tile));
+            dbg!("TODO: SOLID TILES");
+            // TODO
+            // entity = entity.with(Solid::new(SolidTag::Tile));
         }
 
         if let Some(sprite_render) = sprite_render_opt {

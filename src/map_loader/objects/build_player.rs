@@ -10,18 +10,19 @@ pub(super) fn build(
     let size: Size = player_settings.size.into();
     let sprite_render = get_sprite_render(world, "spritesheets/player.png", 1)?;
     let movement_data = player_settings.movement;
-    let decr_velocity = DecreaseVelocity::from(movement_data.decr_velocity);
-    let gravity = Gravity::from(movement_data.gravity);
+    // TODO
+    // let decr_velocity = DecreaseVelocity::from(movement_data.decr_velocity);
+    // let gravity = Gravity::from(movement_data.gravity);
 
     let entity = base_object_entity(world, object)?
         .with(Player::default())
-        .with(Velocity::default())
+        // .with(Velocity::default())
         .with(size)
         .with(sprite_render)
-        .with(decr_velocity)
-        .with(gravity)
+        // .with(decr_velocity)
+        // .with(gravity)
         .with(movement_data)
-        .with(Solid::new(SolidTag::Player))
+        // .with(Solid::new(SolidTag::Player))
         .build();
 
     Ok(entity)

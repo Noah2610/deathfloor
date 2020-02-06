@@ -1,5 +1,5 @@
 use deathframe::amethyst::input::BindingTypes;
-use deathframe::geo::Axis;
+use deathframe::core::geo::Axis;
 use std::fmt;
 
 #[derive(Default, Debug, PartialEq, Eq, Hash)]
