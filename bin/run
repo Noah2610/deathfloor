@@ -27,7 +27,7 @@ function main {
 
     msg "$(clr yellow black bold)Running$(clrrs) $(clr "${CLR_CODE[@]}")${cmd[*]}$(clrrs)"
     if should_run_in_terminal; then
-        run_terminal "${cmd[*]}"
+        run_terminal "${cmd[@]}"
     else
         ${cmd[*]}
     fi
