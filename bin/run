@@ -6,7 +6,7 @@ _dir="$( dirname "$0" )"
 source "${_dir}/util.sh"
 unset _dir
 
-RUST_TOOLCHAIN="nightly-2019-12-12"
+RUST_TOOLCHAIN="nightly-2020-02-06"
 [ -z "$CARGO_CMD" ] && CARGO_CMD="run"
 
 check "rustup"
