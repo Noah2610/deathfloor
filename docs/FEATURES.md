@@ -48,3 +48,9 @@ Death Floor V3 early feature list (roughly descending in priority / expected eff
     above would be required.
 
 - Basic enemy system: Basic grounded "roamer" enemies that stun the player on contact and simply trace left and right until they either hit a wall or encounter a ledge.
+
+- Parallax 
+
+- State / switch system for enviromental entities: Define two or more states for an object and be able to set an interval in tiled, based on which the object cycles through its states.
+  Example: Spike platform - state 1 has spikes attatched to the platform on its horizontal sides, state 2 on the vertical ones. An interval of 2 sec is being set, thus every 2 sec a short
+  transitional animation is played and the hitboxes are being adjusted.
