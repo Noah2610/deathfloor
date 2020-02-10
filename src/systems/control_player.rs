@@ -84,7 +84,6 @@ fn handle_move_on_axis(
                 } else {
                     velocity.increase(&axis, speed);
                 }
-                dbg!(&velocity);
                 // TODO
                 // match speed {
                 //     s if s > 0.0 => decr_velocity.dont_decrease_x_when_pos(),
