@@ -39,7 +39,9 @@ pub(super) fn load_tiles(
             .with(Transparent);
 
         if tile.is_solid() {
+            let hitbox = Hitbox::new().with_rect((&size).into());
             entity = entity
+                .with(hitbox)
                 .with(Collidable::new(CollisionTag::Tile))
                 .with(Solid::new(SolidTag::Tile));
         }

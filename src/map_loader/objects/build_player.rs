@@ -8,6 +8,7 @@ pub(super) fn build(
     let player_settings = world.read_resource::<SettingsRes>().0.player.clone();
 
     let size: Size = player_settings.size.into();
+    let hitbox = Hitbox::new().with_rect((&size).into());
     let sprite_render = get_sprite_render(world, "spritesheets/player.png", 1)?;
     let movement_data = player_settings.movement;
     // TODO
@@ -22,6 +23,7 @@ pub(super) fn build(
         // .with(decr_velocity)
         // .with(gravity)
         .with(movement_data)
+        .with(hitbox)
         .with(Collider::new(CollisionTag::Player))
         .with(Solid::new(SolidTag::Player))
         .build();

@@ -13,6 +13,7 @@ pub(super) mod prelude {
     };
     pub(in super::super) use amethyst::prelude::Builder;
     pub(in super::super) use deathframe::amethyst;
+    pub(in super::super) use deathframe::core::geo::prelude::*;
 }
 
 use deathframe::resources::SpriteSheetHandles;
