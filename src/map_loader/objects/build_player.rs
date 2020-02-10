@@ -16,13 +16,14 @@ pub(super) fn build(
 
     let entity = base_object_entity(world, object)?
         .with(Player::default())
-        // .with(Velocity::default())
+        .with(Velocity::default())
         .with(size)
         .with(sprite_render)
         // .with(decr_velocity)
         // .with(gravity)
         .with(movement_data)
-        // .with(Solid::new(SolidTag::Player))
+        .with(Collider::new(CollisionTag::Player))
+        .with(Solid::new(SolidTag::Player))
         .build();
 
     Ok(entity)

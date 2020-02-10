@@ -21,8 +21,8 @@
         ),
         /// The player's movement data; anything involving velocity.
         movement: (
-            acceleration:  (100.0, None),
-            max_velocity:  (100.0, 100.0),
+            acceleration:  (500.0, 500.0),
+            max_velocity:  (500.0, 500.0),
             decr_velocity: (50.0, None),
             gravity:       (None, -100.0),
         ),

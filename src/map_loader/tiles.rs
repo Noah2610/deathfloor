@@ -39,9 +39,9 @@ pub(super) fn load_tiles(
             .with(Transparent);
 
         if tile.is_solid() {
-            dbg!("TODO: SOLID TILES");
-            // TODO
-            // entity = entity.with(Solid::new(SolidTag::Tile));
+            entity = entity
+                .with(Collidable::new(CollisionTag::Tile))
+                .with(Solid::new(SolidTag::Tile));
         }
 
         if let Some(sprite_render) = sprite_render_opt {

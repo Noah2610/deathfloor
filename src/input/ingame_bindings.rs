@@ -46,9 +46,12 @@ impl Default for IngameActionBinding {
     }
 }
 
-impl From<Axis> for IngameAxisBinding {
-    fn from(axis: Axis) -> Self {
-        match axis {
+impl<A> From<A> for IngameAxisBinding
+where
+    A: Into<Axis>,
+{
+    fn from(axis: A) -> Self {
+        match axis.into() {
             Axis::X => IngameAxisBinding::PlayerX,
             Axis::Y => IngameAxisBinding::PlayerY,
         }

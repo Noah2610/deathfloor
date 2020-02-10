@@ -8,8 +8,7 @@ pub mod prelude {
 
     pub use super::movement_data::MovementData;
     pub use super::player::Player;
-    // TODO
-    // pub use crate::solid_tag::SolidTag;
+    pub use crate::collision_tag::{CollisionTag, SolidTag};
 }
 
 mod component_prelude {
