@@ -54,7 +54,8 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
     let physics_bundle = PhysicsBundle::<
         collision_tag::CollisionTag,
         collision_tag::SolidTag,
-    >::new();
+    >::new()
+    .with_deps(&["control_player_system"]);
 
     let custom_game_data = GameDataBuilder::default()
         .custom(CustomData::default())

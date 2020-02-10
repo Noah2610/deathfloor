@@ -11,6 +11,7 @@ impl<'a> System<'a> for ControlPlayerSystem {
         ReadStorage<'a, MovementData>,
         WriteStorage<'a, Velocity>,
         // WriteStorage<'a, DecreaseVelocity>, // TODO
+        WriteStorage<'a, BaseFriction>,
     );
 
     fn run(
@@ -22,6 +23,7 @@ impl<'a> System<'a> for ControlPlayerSystem {
             movement_data_store,
             mut velocities,
             // mut decr_velocities, // TODO
+            mut base_frictions,
         ): Self::SystemData,
     ) {
         let dt = time.delta_seconds() as f32;
@@ -31,11 +33,13 @@ impl<'a> System<'a> for ControlPlayerSystem {
             player_movement_data,
             player_velocity,
             // player_decr_velocity, // TODO
+            mut player_base_friction_opt,
         ) in (
             &players,
             &movement_data_store,
             &mut velocities,
             // &mut decr_velocities, // TODO
+            (&mut base_frictions).maybe(),
         )
             .join()
         {
@@ -47,6 +51,7 @@ impl<'a> System<'a> for ControlPlayerSystem {
                     player_movement_data,
                     player_velocity,
                     // player_decr_velocity, // TODO
+                    &mut player_base_friction_opt,
                 );
             });
         }
@@ -60,7 +65,9 @@ fn handle_move_on_axis(
     movement_data: &MovementData,
     velocity: &mut Velocity,
     // decr_velocity: &mut DecreaseVelocity, // TODO
+    base_friction_opt: &mut Option<&mut BaseFriction>,
 ) {
+    let mut friction_enabled = true;
     let axis_binding = IngameAxisBinding::from(axis.clone());
     if let Some(val) = input_manager.axis_value(axis_binding) {
         let limit_max = |max_vel: f32| -> f32 { max_vel * val.abs() };
@@ -84,6 +91,10 @@ fn handle_move_on_axis(
                 } else {
                     velocity.increase(&axis, speed);
                 }
+
+                friction_enabled =
+                    velocity.get(&axis).signum() != speed.signum();
+
                 // TODO
                 // match speed {
                 //     s if s > 0.0 => decr_velocity.dont_decrease_x_when_pos(),
@@ -92,5 +103,9 @@ fn handle_move_on_axis(
                 // }
             }
         }
+    }
+
+    if let Some(base_friction) = base_friction_opt {
+        base_friction.set_enabled(&axis, friction_enabled);
     }
 }
