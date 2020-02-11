@@ -1,10 +1,12 @@
 mod control_player;
+mod handle_movables;
 
 pub mod prelude {
     pub use deathframe::amethyst::utils::ortho_camera::CameraOrthoSystem;
     pub use deathframe::systems::prelude::*;
 
     pub use super::control_player::ControlPlayerSystem;
+    pub use super::handle_movables::HandleMovablesSystem;
 }
 
 mod system_prelude {
