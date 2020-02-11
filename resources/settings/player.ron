@@ -1,0 +1,25 @@
+#![enable(implicit_some)]
+/// Player settings.
+(
+    /// The player's in-game size.
+    size: (
+        width:  32.0,
+        height: 64.0,
+    ),
+    /// The player's movement data; anything involving velocity.
+    movement: (
+        acceleration:  (500.0, 1600.0),
+        max_velocity:  (500.0, 500.0),
+        base_friction: (1.0, None),
+        gravity:       (None, -800.0),
+    ),
+    /// The player's hitbox.
+    hitbox: Custom([
+        (
+           top:    24.0,
+           bottom: -32.0,
+           left:   -16.0,
+           right:  16.0,
+        ),
+    ]),
+)

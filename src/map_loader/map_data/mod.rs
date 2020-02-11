@@ -63,9 +63,11 @@ pub struct Level {
 
 #[derive(Debug, Deserialize)]
 pub struct Tile {
-    pub id:    usize,
-    pub ts:    String,
-    pub pos:   Pos,
+    #[serde(rename = "type")]
+    pub tile_type: String,
+    pub id: usize,
+    pub ts: String,
+    pub pos: Pos,
     pub props: Props,
 }
 

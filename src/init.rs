@@ -1,6 +1,7 @@
 use amethyst::core::frame_limiter::FrameRateLimitConfig;
 use deathframe::amethyst;
 
+use crate::collision_tag;
 use crate::helpers::resource;
 use crate::input;
 use crate::states::prelude::*;
@@ -40,6 +41,7 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
     use amethyst::core::transform::TransformBundle;
     use amethyst::renderer::types::DefaultBackend;
     use amethyst::renderer::{RenderFlat2D, RenderToWindow, RenderingBundle};
+    use deathframe::bundles::PhysicsBundle;
 
     let transform_bundle = TransformBundle::new();
     let rendering_bundle = RenderingBundle::<DefaultBackend>::new()
@@ -49,6 +51,11 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
         )
         .with_plugin(RenderFlat2D::default());
     let ingame_input_bundle = input::ingame_input_bundle()?;
+    let physics_bundle = PhysicsBundle::<
+        collision_tag::CollisionTag,
+        collision_tag::SolidTag,
+    >::new()
+    .with_deps(&["control_player_system"]);
 
     let custom_game_data = GameDataBuilder::default()
         .custom(CustomData::default())
@@ -58,30 +65,27 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
         .with_core(ScaleSpritesSystem::default(), "scale_sprites_system", &[])?
         .with_core(CameraOrthoSystem::default(), "camera_ortho_system", &[])?
         .with_bundle(DispatcherId::Ingame, ingame_input_bundle)?
+        .with_bundle(DispatcherId::Ingame, physics_bundle)?
         .with(
             DispatcherId::Ingame,
             InputManagerSystem::<input::IngameBindings>::default(),
             "ingame_input_manager_system",
             &[],
         )?
-        .with(
-            DispatcherId::Ingame,
-            MoveEntitiesSystem::<crate::solid_tag::SolidTag>::default(),
-            "move_entities_system",
-            &[],
-        )?
-        .with(
-            DispatcherId::Ingame,
-            DecreaseVelocitiesSystem::default(),
-            "decrease_velocities_system",
-            &[],
-        )?
-        .with(
-            DispatcherId::Ingame,
-            GravitySystem::default(),
-            "gravity_system",
-            &[],
-        )?
+        // TODO
+        // .with(
+        //     DispatcherId::Ingame,
+        //     DecreaseVelocitiesSystem::default(),
+        //     "decrease_velocities_system",
+        //     &[],
+        // )?
+        // TODO
+        // .with(
+        //     DispatcherId::Ingame,
+        //     GravitySystem::default(),
+        //     "gravity_system",
+        //     &[],
+        // )?
         .with(
             DispatcherId::Ingame,
             FollowSystem::default(),

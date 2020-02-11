@@ -10,19 +10,30 @@ pub(super) fn build(
     let size: Size = player_settings.size.into();
     let sprite_render = get_sprite_render(world, "spritesheets/player.png", 1)?;
     let movement_data = player_settings.movement;
-    let decr_velocity = DecreaseVelocity::from(movement_data.decr_velocity);
+    let base_friction = BaseFriction::from(movement_data.base_friction);
     let gravity = Gravity::from(movement_data.gravity);
 
-    let entity = base_object_entity(world, object)?
+    let mut entity_builder = base_object_entity(world, object)?
         .with(Player::default())
         .with(Velocity::default())
-        .with(size)
         .with(sprite_render)
-        .with(decr_velocity)
-        .with(gravity)
         .with(movement_data)
-        .with(Solid::new(SolidTag::Player))
-        .build();
+        .with(base_friction);
+
+    if let Some(hitbox_config) = &player_settings.hitbox {
+        let hitbox = match hitbox_config {
+            HitboxConfig::Size => Hitbox::new().with_rect(Rect::from(&size)),
+            HitboxConfig::Custom(rects) => {
+                Hitbox::new().with_rects(rects.clone())
+            }
+        };
+        entity_builder = entity_builder
+            .with(Collider::new(CollisionTag::Player))
+            .with(Solid::new(SolidTag::Player))
+            .with(hitbox);
+    }
+
+    let entity = entity_builder.with(size).with(gravity).build();
 
     Ok(entity)
 }

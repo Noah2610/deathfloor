@@ -5,6 +5,7 @@ extern crate serde;
 extern crate serde_json;
 extern crate specs_derive;
 
+mod collision_tag;
 mod components;
 mod helpers;
 mod init;
@@ -12,7 +13,6 @@ mod input;
 mod map_loader;
 mod resources;
 mod settings;
-mod solid_tag;
 mod states;
 mod systems;
 

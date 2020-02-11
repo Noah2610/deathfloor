@@ -1,21 +1,8 @@
 pub(super) mod prelude {
     pub(in super::super) use super::base_object_entity;
-    pub(in super::super) use super::get_sprite_render;
-    pub(in super::super) use crate::components::prelude::*;
-    pub(in super::super) use crate::helpers::resource;
-    pub(in super::super) use crate::map_loader::map_data::prelude::*;
-    pub(in super::super) use crate::resources::prelude::*;
-    pub(in super::super) use amethyst::ecs::{
-        Entity,
-        EntityBuilder,
-        World,
-        WorldExt,
-    };
-    pub(in super::super) use amethyst::prelude::Builder;
-    pub(in super::super) use deathframe::amethyst;
+    pub use crate::map_loader::helpers::prelude::*;
 }
 
-use deathframe::handles::SpriteSheetHandles;
 use prelude::*;
 
 /// Adds base components to object entity.
@@ -43,18 +30,4 @@ pub(super) fn base_object_entity<'a>(
         .with(Transparent);
 
     Ok(entity)
-}
-
-pub(super) fn get_sprite_render(
-    world: &mut World,
-    spritesheet_path: &str,
-    sprite_number: usize,
-) -> amethyst::Result<SpriteRender> {
-    let handle = world
-        .write_resource::<SpriteSheetHandles>()
-        .get_or_load(resource(spritesheet_path), world);
-    Ok(SpriteRender {
-        sprite_sheet:  handle,
-        sprite_number: sprite_number,
-    })
 }

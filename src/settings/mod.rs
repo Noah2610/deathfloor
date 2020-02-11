@@ -1,12 +1,16 @@
 pub mod prelude {
     pub use super::camera_settings::CameraSettings;
+    pub use super::hitbox_config::HitboxConfig;
     pub use super::player_settings::PlayerSettings;
+    pub use super::tiles_settings::{TileSettings, TileType, TilesSettings};
     pub use super::Settings;
     pub use super::SizeSettings;
 }
 
 mod camera_settings;
+mod hitbox_config;
 mod player_settings;
+mod tiles_settings;
 
 use deathframe::amethyst;
 use prelude::*;
@@ -15,16 +19,33 @@ use prelude::*;
 pub struct Settings {
     pub camera: CameraSettings,
     pub player: PlayerSettings,
+    pub tiles:  TilesSettings,
 }
 
 impl Settings {
     pub fn load() -> amethyst::Result<Self> {
+        Ok(Settings {
+            camera: Self::load_file::<CameraSettings, _>("camera.ron")?,
+            player: Self::load_file::<PlayerSettings, _>("player.ron")?,
+            tiles:  Self::load_file::<TilesSettings, _>("tiles.ron")?,
+        })
+    }
+
+    fn load_file<T, S>(filename: S) -> amethyst::Result<T>
+    where
+        for<'de> T: serde::Deserialize<'de>,
+        S: std::fmt::Display,
+    {
         use crate::helpers::resource;
         use std::fs::File;
 
-        let file = File::open(resource("config/settings.ron"))?;
-
-        Ok(ron::de::from_reader(file)?)
+        let file = File::open(resource(format!("settings/{}", filename)))?;
+        Ok(ron::de::from_reader(file).map_err(|e| {
+            amethyst::Error::from_string(format!(
+                "Failed parsing ron settings file: {}\n{:#?}",
+                filename, e
+            ))
+        })?)
     }
 }
 

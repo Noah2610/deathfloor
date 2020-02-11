@@ -1,3 +1,4 @@
+mod helpers;
 mod map_data;
 mod objects;
 mod tiles;
