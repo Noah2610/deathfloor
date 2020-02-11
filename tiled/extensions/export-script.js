@@ -60,7 +60,7 @@
                 const tile = layer.tileAt(x, y);
                 if (tile) {
                     if (tile.objectGroup) {
-                        for (object of tile.objectGroup.objects) {
+                        for (let object of tile.objectGroup.objects) {
                             if (object.shape === MapObject.Rectangle) {
                                 console.log("TODO: Export tile collision objects!"); // TODO
                             } else {
