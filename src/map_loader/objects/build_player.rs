@@ -11,8 +11,7 @@ pub(super) fn build(
     let sprite_render = get_sprite_render(world, "spritesheets/player.png", 1)?;
     let movement_data = player_settings.movement;
     let base_friction = BaseFriction::from(movement_data.base_friction);
-    // let decr_velocity = DecreaseVelocity::from(movement_data.decr_velocity);
-    // let gravity = Gravity::from(movement_data.gravity);
+    let gravity = Gravity::from(movement_data.gravity);
 
     let mut entity_builder = base_object_entity(world, object)?
         .with(Player::default())
@@ -34,11 +33,7 @@ pub(super) fn build(
             .with(hitbox);
     }
 
-    let entity = entity_builder
-        .with(size)
-        // .with(decr_velocity)
-        // .with(gravity)
-        .build();
+    let entity = entity_builder.with(size).with(gravity).build();
 
     Ok(entity)
 }
