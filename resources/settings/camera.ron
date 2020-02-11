@@ -1,0 +1,12 @@
+#![enable(implicit_some)]
+/// Camera settings.
+(
+    /// The camera's size. This is _NOT_ the window's size.
+    /// This is more like the camera's viewport.
+    size: (
+        width:  800.0,
+        height: 800.0,
+    ),
+    /// Z position, should be larger than any other entity's Z position.
+    z: 10.0,
+)

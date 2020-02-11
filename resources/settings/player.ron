@@ -1,0 +1,16 @@
+#![enable(implicit_some)]
+/// Player settings.
+(
+    /// The player's in-game size.
+    size: (
+        width:  32.0,
+        height: 64.0,
+    ),
+    /// The player's movement data; anything involving velocity.
+    movement: (
+        acceleration:  (500.0, 500.0),
+        max_velocity:  (500.0, 500.0),
+        decr_velocity: (50.0, None),
+        gravity:       (None, -100.0),
+    ),
+)
