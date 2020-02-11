@@ -66,12 +66,12 @@ fn handle_move_on_axis(
         if val != 0.0 {
             let limit_max = |max_vel: f32| -> f32 { max_vel * val.abs() };
 
-            // max_movement_velocity_opt.as_mut().map(|maxvel| {
-            //     maxvel.set_opt(
-            //         &axis,
-            //         movement_data.max_velocity.by_axis(&axis).map(limit_max),
-            //     )
-            // });
+            max_movement_velocity_opt.as_mut().map(|maxvel| {
+                maxvel.set_opt(
+                    &axis,
+                    movement_data.max_velocity.by_axis(&axis).map(limit_max),
+                )
+            });
 
             let acceleration_opt = movement_data.acceleration.by_axis(&axis);
 
