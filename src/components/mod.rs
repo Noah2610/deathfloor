@@ -1,3 +1,4 @@
+mod movable;
 mod movement_data;
 mod player;
 
@@ -6,6 +7,7 @@ pub mod prelude {
     pub use deathframe::amethyst;
     pub use deathframe::components::prelude::*;
 
+    pub use super::movable::{Movable, MoveAction};
     pub use super::movement_data::MovementData;
     pub use super::player::Player;
     pub use crate::collision_tag::{CollisionTag, SolidTag};
