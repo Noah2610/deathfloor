@@ -24,6 +24,13 @@
  <tile id="65" type="Ground"/>
  <tile id="66" type="Ground"/>
  <tile id="67" type="Ground"/>
+ <tile id="75">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="1.97844" y="2.63792" width="7.96449" height="8.97907"/>
+   <object id="2" x="5.63094" y="3.39886" width="8.82689" height="10.8561"/>
+   <object id="3" x="2.63792" y="7.8123" width="5.83386" height="6.84845"/>
+  </objectgroup>
+ </tile>
  <tile id="84" type="Ground"/>
  <tile id="85" type="Ground"/>
  <tile id="86" type="Ground"/>

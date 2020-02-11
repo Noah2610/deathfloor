@@ -59,6 +59,16 @@
             for (let x = 0; x < layerSize.w; x++) {
                 const tile = layer.tileAt(x, y);
                 if (tile) {
+                    if (tile.objectGroup) {
+                        for (object of tile.objectGroup.objects) {
+                            if (object.shape === MapObject.Rectangle) {
+                                console.log("TODO: Export tile collision objects!"); // TODO
+                            } else {
+                                console.warn("Tile collision objects can only be rectangle shapes, ignoring.");
+                            }
+                        }
+                    }
+
                     const tileset = tile.tileset;
                     const tilesetName = tileset.image.split("/").pop()
                         || "MISSING-TILESET.png";
