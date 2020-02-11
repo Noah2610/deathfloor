@@ -10,7 +10,7 @@
     movement: (
         acceleration:  (500.0, 500.0),
         max_velocity:  (500.0, 500.0),
-        decr_velocity: (50.0, None),
+        base_friction: (1.0, None),
         gravity:       (None, -100.0),
     ),
     /// The player's hitbox.

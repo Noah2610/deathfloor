@@ -10,15 +10,9 @@ pub(super) fn build(
     let size: Size = player_settings.size.into();
     let sprite_render = get_sprite_render(world, "spritesheets/player.png", 1)?;
     let movement_data = player_settings.movement;
-    // TODO
+    let base_friction = BaseFriction::from(movement_data.base_friction);
     // let decr_velocity = DecreaseVelocity::from(movement_data.decr_velocity);
     // let gravity = Gravity::from(movement_data.gravity);
-    // TODO
-    let base_friction = BaseFriction::builder()
-        .friction(&Axis::X, 1.0)
-        .friction(&Axis::Y, 1.0)
-        .build()
-        .unwrap();
 
     let mut entity_builder = base_object_entity(world, object)?
         .with(Player::default())
