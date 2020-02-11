@@ -8,6 +8,7 @@ impl<'a> System<'a> for HandleMovablesSystem {
         Entities<'a>,
         WriteStorage<'a, Movable>,
         WriteStorage<'a, Velocity>,
+        WriteStorage<'a, BaseFriction>,
         ReadStorage<'a, MaxMovementVelocity>,
         ReadStorage<'a, Loadable>,
         ReadStorage<'a, Loaded>,
@@ -19,22 +20,29 @@ impl<'a> System<'a> for HandleMovablesSystem {
             entities,
             mut movables,
             mut velocities,
+            mut base_frictions,
             max_movement_velocities,
             loadables,
             loadeds,
         ): Self::SystemData,
     ) {
-        for (_, movable, velocity, max_velocity_opt) in (
+        // TODO
+        use crate::get_by_axis::GetByAxis;
+
+        for (_, movable, velocity, max_velocity_opt, mut base_friction_opt) in (
             &entities,
             &mut movables,
             &mut velocities,
             max_movement_velocities.maybe(),
+            (&mut base_frictions).maybe(),
         )
             .join()
-            .filter(|(entity, _, _, _)| {
+            .filter(|(entity, _, _, _, _)| {
                 is_entity_loaded(*entity, &loadables, &loadeds)
             })
         {
+            let mut friction_enabled = (true, true);
+
             for action in movable.drain_actions() {
                 match action {
                     MoveAction::Walk(axis, spd) => {
@@ -45,10 +53,22 @@ impl<'a> System<'a> for HandleMovablesSystem {
                         } else {
                             velocity.increase(&axis, spd);
                         }
+
+                        if base_friction_opt.is_some() {
+                            *(&mut friction_enabled).by_axis(&axis) =
+                                velocity.get(&axis).signum() != spd.signum();
+                        }
                     }
                     MoveAction::Jump(strength) => {
                         velocity.increase(&Axis::Y, strength);
                     }
+                }
+            }
+
+            if let Some(base_friction) = base_friction_opt.as_mut() {
+                for axis in Axis::iter() {
+                    base_friction
+                        .set_enabled(&axis, *friction_enabled.by_axis(&axis));
                 }
             }
         }
