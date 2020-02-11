@@ -1,12 +1,19 @@
 pub mod prelude {
     pub use super::camera_settings::CameraSettings;
     pub use super::player_settings::PlayerSettings;
+    pub use super::tiles_settings::{
+        TileHitboxType,
+        TileSettings,
+        TileType,
+        TilesSettings,
+    };
     pub use super::Settings;
     pub use super::SizeSettings;
 }
 
 mod camera_settings;
 mod player_settings;
+mod tiles_settings;
 
 use deathframe::amethyst;
 use prelude::*;
@@ -15,6 +22,7 @@ use prelude::*;
 pub struct Settings {
     pub camera: CameraSettings,
     pub player: PlayerSettings,
+    pub tiles:  TilesSettings,
 }
 
 impl Settings {
