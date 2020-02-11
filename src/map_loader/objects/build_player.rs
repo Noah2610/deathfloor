@@ -15,10 +15,7 @@ pub(super) fn build(
     let max_movement_velocity = {
         let mut builder = MaxMovementVelocity::builder();
         for axis in Axis::iter() {
-            let max_opt = match &axis {
-                Axis::X => movement_data.max_velocity.0,
-                Axis::Y => movement_data.max_velocity.1,
-            };
+            let max_opt = movement_data.max_velocity.by_axis(&axis);
             builder = builder.with_opt(&axis, max_opt);
         }
         builder.build().unwrap()

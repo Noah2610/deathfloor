@@ -1,4 +1,4 @@
-use deathframe::core::geo::prelude::Axis;
+use deathframe::core::geo::prelude::{Axis, ByAxis};
 use std::hash::{Hash, Hasher};
 
 pub enum MoveAction {
@@ -11,11 +11,7 @@ impl MoveAction {
         match self {
             MoveAction::Jump(_) => 0,
             MoveAction::Walk(axis, spd) => {
-                spd.signum() as i8
-                    + match axis {
-                        Axis::X => 2,
-                        Axis::Y => 5,
-                    }
+                spd.signum() as i8 + (2, 5).by_axis(&axis)
             }
         }
     }

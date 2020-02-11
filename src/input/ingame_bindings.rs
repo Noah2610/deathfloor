@@ -1,5 +1,5 @@
 use deathframe::amethyst::input::BindingTypes;
-use deathframe::core::geo::Axis;
+use deathframe::core::geo::prelude::{Axis, ByAxis};
 use std::fmt;
 
 #[derive(Default, Debug, PartialEq, Eq, Hash)]
@@ -51,9 +51,7 @@ where
     A: Into<Axis>,
 {
     fn from(axis: A) -> Self {
-        match axis.into() {
-            Axis::X => IngameAxisBinding::PlayerX,
-            Axis::Y => IngameAxisBinding::PlayerY,
-        }
+        (IngameAxisBinding::PlayerX, IngameAxisBinding::PlayerY)
+            .by_axis(&axis.into())
     }
 }
