@@ -13,4 +13,13 @@
         decr_velocity: (50.0, None),
         gravity:       (None, -100.0),
     ),
+    /// The player's hitbox.
+    hitbox: Custom([
+        (
+           top:    24.0,
+           bottom: -32.0,
+           left:   -16.0,
+           right:  16.0,
+        ),
+    ]),
 )

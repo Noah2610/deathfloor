@@ -1,5 +1,5 @@
+use super::hitbox_config::HitboxConfig;
 use deathframe::amethyst;
-use deathframe::core::geo::prelude::Rect;
 use std::collections::HashMap;
 use std::convert::TryFrom;
 
@@ -19,17 +19,7 @@ pub enum TileType {
 
 #[derive(Clone, Deserialize)]
 pub struct TileSettings {
-    pub hitbox: Option<TileHitboxType>,
-    // pub solid: bool,
-    // pub physics: PhysicsData,
-}
-
-#[derive(Clone, Deserialize)]
-pub enum TileHitboxType {
-    /// Uses it's Size as the hitbox.
-    Size,
-    /// Use a custom collection of `Rect`s as the hitbox' rects.
-    Custom(Vec<Rect>),
+    pub hitbox: Option<HitboxConfig>,
 }
 
 impl Default for TileType {

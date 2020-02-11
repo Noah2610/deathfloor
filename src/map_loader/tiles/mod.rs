@@ -27,10 +27,10 @@ pub(super) fn load_tiles(
         if let Some(tile_settings) = tiles_settings.types.get(&tile_type) {
             if let Some(hitbox_type) = &tile_settings.hitbox {
                 let hitbox = match hitbox_type {
-                    TileHitboxType::Size => {
+                    HitboxConfig::Size => {
                         Hitbox::new().with_rect((&size).into())
                     }
-                    TileHitboxType::Custom(rects) => {
+                    HitboxConfig::Custom(rects) => {
                         Hitbox::new().with_rects(rects.clone())
                     }
                 };

@@ -1,3 +1,4 @@
+use super::hitbox_config::HitboxConfig;
 use super::SizeSettings;
 use crate::components::prelude::MovementData;
 
@@ -5,4 +6,5 @@ use crate::components::prelude::MovementData;
 pub struct PlayerSettings {
     pub size:     SizeSettings,
     pub movement: MovementData,
+    pub hitbox:   Option<HitboxConfig>,
 }

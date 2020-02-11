@@ -1,17 +1,14 @@
 pub mod prelude {
     pub use super::camera_settings::CameraSettings;
+    pub use super::hitbox_config::HitboxConfig;
     pub use super::player_settings::PlayerSettings;
-    pub use super::tiles_settings::{
-        TileHitboxType,
-        TileSettings,
-        TileType,
-        TilesSettings,
-    };
+    pub use super::tiles_settings::{TileSettings, TileType, TilesSettings};
     pub use super::Settings;
     pub use super::SizeSettings;
 }
 
 mod camera_settings;
+mod hitbox_config;
 mod player_settings;
 mod tiles_settings;
 

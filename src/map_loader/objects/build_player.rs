@@ -8,12 +8,6 @@ pub(super) fn build(
     let player_settings = world.read_resource::<SettingsRes>().0.player.clone();
 
     let size: Size = player_settings.size.into();
-    let hitbox = Hitbox::new().with_rect(
-        RectBuilder::from(&size)
-            .top(size.h * 0.5 - 8.0)
-            .build()
-            .unwrap(),
-    );
     let sprite_render = get_sprite_render(world, "spritesheets/player.png", 1)?;
     let movement_data = player_settings.movement;
     // TODO
@@ -21,24 +15,35 @@ pub(super) fn build(
     // let gravity = Gravity::from(movement_data.gravity);
     // TODO
     let base_friction = BaseFriction::builder()
-        .friction(&Axis::X, 5.0)
+        .friction(&Axis::X, 1.0)
         .friction(&Axis::Y, 1.0)
         .build()
         .unwrap();
-    dbg!(&base_friction);
 
-    let entity = base_object_entity(world, object)?
+    let mut entity_builder = base_object_entity(world, object)?
         .with(Player::default())
         .with(Velocity::default())
-        .with(size)
         .with(sprite_render)
+        .with(movement_data)
+        .with(base_friction);
+
+    if let Some(hitbox_config) = &player_settings.hitbox {
+        let hitbox = match hitbox_config {
+            HitboxConfig::Size => Hitbox::new().with_rect(Rect::from(&size)),
+            HitboxConfig::Custom(rects) => {
+                Hitbox::new().with_rects(rects.clone())
+            }
+        };
+        entity_builder = entity_builder
+            .with(Collider::new(CollisionTag::Player))
+            .with(Solid::new(SolidTag::Player))
+            .with(hitbox);
+    }
+
+    let entity = entity_builder
+        .with(size)
         // .with(decr_velocity)
         // .with(gravity)
-        .with(movement_data)
-        .with(hitbox)
-        .with(Collider::new(CollisionTag::Player))
-        .with(Solid::new(SolidTag::Player))
-        .with(base_friction)
         .build();
 
     Ok(entity)
