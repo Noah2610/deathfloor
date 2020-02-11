@@ -26,9 +26,6 @@ impl<'a> System<'a> for HandleMovablesSystem {
             loadeds,
         ): Self::SystemData,
     ) {
-        // TODO
-        use crate::get_by_axis::GetByAxis;
-
         for (_, movable, velocity, max_velocity_opt, mut base_friction_opt) in (
             &entities,
             &mut movables,
@@ -68,7 +65,7 @@ impl<'a> System<'a> for HandleMovablesSystem {
             if let Some(base_friction) = base_friction_opt.as_mut() {
                 for axis in Axis::iter() {
                     base_friction
-                        .set_enabled(&axis, *friction_enabled.by_axis(&axis));
+                        .set_enabled(&axis, friction_enabled.by_axis(&axis));
                 }
             }
         }

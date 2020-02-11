@@ -61,9 +61,6 @@ fn handle_move_on_axis(
     movable: &mut Movable,
     max_movement_velocity_opt: &mut Option<&mut MaxMovementVelocity>,
 ) {
-    // TODO
-    use crate::get_by_axis::GetByAxis;
-
     let axis_binding = IngameAxisBinding::from(axis.clone());
     if let Some(val) = input_manager.axis_value(axis_binding) {
         if val != 0.0 {
