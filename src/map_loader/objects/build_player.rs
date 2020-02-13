@@ -12,10 +12,20 @@ pub(super) fn build(
     let movement_data = player_settings.movement;
     let base_friction = BaseFriction::from(movement_data.base_friction);
     let gravity = Gravity::from(movement_data.gravity);
+    let max_movement_velocity = {
+        let mut builder = MaxMovementVelocity::builder();
+        for axis in Axis::iter() {
+            let max_opt = movement_data.max_velocity.by_axis(&axis);
+            builder = builder.with_opt(&axis, max_opt);
+        }
+        builder.build().unwrap()
+    };
 
     let mut entity_builder = base_object_entity(world, object)?
         .with(Player::default())
         .with(Velocity::default())
+        .with(Movable::default())
+        .with(max_movement_velocity)
         .with(sprite_render)
         .with(movement_data)
         .with(base_friction);

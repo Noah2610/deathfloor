@@ -9,9 +9,8 @@ impl<'a> System<'a> for ControlPlayerSystem {
         ReadExpect<'a, InputManager<IngameBindings>>,
         ReadStorage<'a, Player>,
         ReadStorage<'a, MovementData>,
-        WriteStorage<'a, Velocity>,
-        // WriteStorage<'a, DecreaseVelocity>, // TODO
-        WriteStorage<'a, BaseFriction>,
+        WriteStorage<'a, Movable>,
+        WriteStorage<'a, MaxMovementVelocity>,
     );
 
     fn run(
@@ -21,9 +20,8 @@ impl<'a> System<'a> for ControlPlayerSystem {
             input_manager,
             players,
             movement_data_store,
-            mut velocities,
-            // mut decr_velocities, // TODO
-            mut base_frictions,
+            mut movables,
+            mut max_movement_velocities,
         ): Self::SystemData,
     ) {
         let dt = time.delta_seconds() as f32;
@@ -31,15 +29,13 @@ impl<'a> System<'a> for ControlPlayerSystem {
         for (
             _,
             player_movement_data,
-            player_velocity,
-            // player_decr_velocity, // TODO
-            mut player_base_friction_opt,
+            player_movable,
+            mut player_max_velocity_opt,
         ) in (
             &players,
             &movement_data_store,
-            &mut velocities,
-            // &mut decr_velocities, // TODO
-            (&mut base_frictions).maybe(),
+            &mut movables,
+            (&mut max_movement_velocities).maybe(),
         )
             .join()
         {
@@ -49,9 +45,8 @@ impl<'a> System<'a> for ControlPlayerSystem {
                     dt,
                     &input_manager,
                     player_movement_data,
-                    player_velocity,
-                    // player_decr_velocity, // TODO
-                    &mut player_base_friction_opt,
+                    player_movable,
+                    &mut player_max_velocity_opt,
                 );
             });
         }
@@ -63,49 +58,27 @@ fn handle_move_on_axis(
     dt: f32,
     input_manager: &InputManager<IngameBindings>,
     movement_data: &MovementData,
-    velocity: &mut Velocity,
-    // decr_velocity: &mut DecreaseVelocity, // TODO
-    base_friction_opt: &mut Option<&mut BaseFriction>,
+    movable: &mut Movable,
+    max_movement_velocity_opt: &mut Option<&mut MaxMovementVelocity>,
 ) {
-    let mut friction_enabled = true;
     let axis_binding = IngameAxisBinding::from(axis.clone());
     if let Some(val) = input_manager.axis_value(axis_binding) {
-        let limit_max = |max_vel: f32| -> f32 { max_vel * val.abs() };
-
         if val != 0.0 {
-            let (acceleration_opt, max_velocity_opt) = match &axis {
-                Axis::X => (
-                    movement_data.acceleration.0,
-                    movement_data.max_velocity.0.map(limit_max),
-                ),
-                Axis::Y => (
-                    movement_data.acceleration.1,
-                    movement_data.max_velocity.1.map(limit_max),
-                ),
-            };
+            let limit_max = |max_vel: f32| -> f32 { max_vel * val.abs() };
+
+            max_movement_velocity_opt.as_mut().map(|maxvel| {
+                maxvel.set_opt(
+                    &axis,
+                    movement_data.max_velocity.by_axis(&axis).map(limit_max),
+                )
+            });
+
+            let acceleration_opt = movement_data.acceleration.by_axis(&axis);
 
             if let Some(acceleration) = acceleration_opt {
                 let speed = acceleration * val * dt;
-                if let Some(max_velocity) = max_velocity_opt {
-                    velocity.increase_with_max(&axis, speed, max_velocity);
-                } else {
-                    velocity.increase(&axis, speed);
-                }
-
-                friction_enabled =
-                    velocity.get(&axis).signum() != speed.signum();
-
-                // TODO
-                // match speed {
-                //     s if s > 0.0 => decr_velocity.dont_decrease_x_when_pos(),
-                //     s if s < 0.0 => decr_velocity.dont_decrease_x_when_neg(),
-                //     _ => (),
-                // }
+                movable.add_action(MoveAction::Walk(axis, speed));
             }
         }
-    }
-
-    if let Some(base_friction) = base_friction_opt {
-        base_friction.set_enabled(&axis, friction_enabled);
     }
 }
