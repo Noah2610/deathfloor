@@ -21,6 +21,31 @@ pub(super) fn build(
         builder.build().unwrap()
     };
 
+    let frames_iter = {
+        let iter = vec![
+            (1_usize, 100_u64).into(),
+            (2_usize, 100_u64).into(),
+            (3_usize, 100_u64).into(),
+            (4_usize, 100_u64).into(),
+            (5_usize, 100_u64).into(),
+            (6_usize, 100_u64).into(),
+            (7_usize, 100_u64).into(),
+            (8_usize, 100_u64).into(),
+            (9_usize, 100_u64).into(),
+            (10_usize, 100_u64).into(),
+            (12_usize, 100_u64).into(),
+        ]
+        .into_iter();
+        let rev = iter.clone().rev();
+        iter.chain(rev).cycle()
+    };
+
+    let animation = Animation::builder()
+        // sprite_ids: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12],
+        .frames(Box::new(frames_iter))
+        .build()
+        .unwrap();
+
     let mut entity_builder = base_object_entity(world, object)?
         .with(Player::default())
         .with(Velocity::default())
@@ -28,7 +53,8 @@ pub(super) fn build(
         .with(max_movement_velocity)
         .with(sprite_render)
         .with(movement_data)
-        .with(base_friction);
+        .with(base_friction)
+        .with(animation);
 
     if let Some(hitbox_config) = &player_settings.hitbox {
         let hitbox = match hitbox_config {

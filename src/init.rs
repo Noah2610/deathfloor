@@ -41,7 +41,7 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
     use amethyst::core::transform::TransformBundle;
     use amethyst::renderer::types::DefaultBackend;
     use amethyst::renderer::{RenderFlat2D, RenderToWindow, RenderingBundle};
-    use deathframe::bundles::PhysicsBundle;
+    use deathframe::bundles::*;
 
     let transform_bundle = TransformBundle::new();
     let rendering_bundle = RenderingBundle::<DefaultBackend>::new()
@@ -56,6 +56,7 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
         collision_tag::SolidTag,
     >::new()
     .with_deps(&["control_player_system"]);
+    let animation_bundle = AnimationBundle::new();
 
     let custom_game_data = GameDataBuilder::default()
         .custom(CustomData::default())
@@ -66,6 +67,7 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
         .with_core(CameraOrthoSystem::default(), "camera_ortho_system", &[])?
         .with_bundle(DispatcherId::Ingame, ingame_input_bundle)?
         .with_bundle(DispatcherId::Ingame, physics_bundle)?
+        .with_bundle(DispatcherId::Ingame, animation_bundle)?
         .with(
             DispatcherId::Ingame,
             InputManagerSystem::<input::IngameBindings>::default(),
