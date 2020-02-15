@@ -14,7 +14,7 @@
         /// The normal gravity.
         gravity:            (None, -800.0),
         /// The gravity applied only when jumping (holding down the jump button).
-        jump_gravity:       (None, -400.0),
+        jump_gravity:       (None, -100.0),
         /// The velocity boost when jumping.
         jump_strength:      500.0,
         /// The velocity boost, when releasing the jump button after jumping.

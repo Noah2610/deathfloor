@@ -8,11 +8,9 @@ pub enum MoveAction {
     },
     Jump {
         strength: f32,
-        gravity:  (Option<f32>, Option<f32>),
     },
     KillJump {
         strength:     f32,
-        gravity:      (Option<f32>, Option<f32>),
         min_velocity: f32,
     },
 }

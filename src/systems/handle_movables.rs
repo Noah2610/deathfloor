@@ -9,7 +9,6 @@ impl<'a> System<'a> for HandleMovablesSystem {
         WriteStorage<'a, Movable>,
         WriteStorage<'a, Velocity>,
         WriteStorage<'a, BaseFriction>,
-        WriteStorage<'a, Gravity>,
         ReadStorage<'a, MaxMovementVelocity>,
         ReadStorage<'a, Loadable>,
         ReadStorage<'a, Loaded>,
@@ -22,46 +21,24 @@ impl<'a> System<'a> for HandleMovablesSystem {
             mut movables,
             mut velocities,
             mut base_frictions,
-            mut gravities,
             max_movement_velocities,
             loadables,
             loadeds,
         ): Self::SystemData,
     ) {
-        for (
-            _,
-            movable,
-            velocity,
-            max_velocity_opt,
-            mut base_friction_opt,
-            mut gravity_opt,
-        ) in (
+        for (_, movable, velocity, max_velocity_opt, mut base_friction_opt) in (
             &entities,
             &mut movables,
             &mut velocities,
             max_movement_velocities.maybe(),
             (&mut base_frictions).maybe(),
-            (&mut gravities).maybe(),
         )
             .join()
-            .filter(|(entity, _, _, _, _, _)| {
+            .filter(|(entity, _, _, _, _)| {
                 is_entity_loaded(*entity, &loadables, &loadeds)
             })
         {
             let mut friction_enabled = (true, true);
-            let maybe_set_gravity = |gravity_opt: &mut Option<&mut Gravity>,
-                                     gravity_strength: &(
-                Option<f32>,
-                Option<f32>,
-            )| {
-                if let Some(gravity_comp) = gravity_opt {
-                    for axis in Axis::iter() {
-                        if let Some(grav) = gravity_strength.by_axis(&axis) {
-                            gravity_comp.set(&axis, *grav);
-                        }
-                    }
-                }
-            };
 
             for action in movable.drain_actions() {
                 match action {
@@ -80,14 +57,12 @@ impl<'a> System<'a> for HandleMovablesSystem {
                         }
                     }
 
-                    MoveAction::Jump { strength, gravity } => {
+                    MoveAction::Jump { strength } => {
                         velocity.increase(&Axis::Y, strength);
-                        maybe_set_gravity(&mut gravity_opt, dbg!(&gravity));
                     }
 
                     MoveAction::KillJump {
                         strength,
-                        gravity,
                         min_velocity,
                     } => {
                         let vel = velocity.y;
@@ -95,7 +70,6 @@ impl<'a> System<'a> for HandleMovablesSystem {
                             let decreased = (vel + strength).max(min_velocity);
                             velocity.set(&Axis::Y, decreased);
                         }
-                        maybe_set_gravity(&mut gravity_opt, dbg!(&gravity));
                     }
                 }
             }
