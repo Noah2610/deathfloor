@@ -14,12 +14,12 @@
         /// The normal gravity.
         gravity:            (None, -800.0),
         /// The gravity applied only when jumping (holding down the jump button).
-        jump_gravity:       (None, -100.0),
+        jump_gravity:       (None, -400.0),
         /// The velocity boost when jumping.
-        jump_strength:      500.0,
+        jump_strength:      300.0,
         /// The velocity boost, when releasing the jump button after jumping.
         /// Should be negative.
-        jump_kill_strength: -300.0,
+        jump_kill_strength: -100.0,
         /// The minimum amount of upwards velocity the player should
         /// at least still have, after killing their jump.
         min_jump_velocity:  50.0,
