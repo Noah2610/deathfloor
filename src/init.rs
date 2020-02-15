@@ -56,7 +56,7 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
         collision_tag::CollisionTag,
         collision_tag::SolidTag,
     >::new()
-    .with_deps(&["control_player_system"]);
+    .with_deps(&["control_player_system", "control_player_jump_system"]);
     let animation_bundle = AnimationBundle::<AnimationKey>::new()
         .with_deps(&["handle_animations_system"]);
 
@@ -92,6 +92,12 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
             DispatcherId::Ingame,
             ControlPlayerSystem::default(),
             "control_player_system",
+            &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            ControlPlayerJumpSystem::default(),
+            "control_player_jump_system",
             &[],
         )?
         .with(

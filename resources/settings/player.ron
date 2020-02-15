@@ -12,6 +12,7 @@
         max_velocity:  (500.0, 500.0),
         base_friction: (30.0, None),
         gravity:       (None, -800.0),
+        jump_strength: 500.0,
     ),
     /// The player's hitbox.
     // hitbox: Size,

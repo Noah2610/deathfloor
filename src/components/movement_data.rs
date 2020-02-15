@@ -7,4 +7,5 @@ pub struct MovementData {
     pub max_velocity:  (Option<f32>, Option<f32>),
     pub base_friction: (Option<f32>, Option<f32>),
     pub gravity:       (Option<f32>, Option<f32>),
+    pub jump_strength: f32,
 }
