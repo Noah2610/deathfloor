@@ -7,6 +7,7 @@ extern crate serde;
 extern crate serde_json;
 extern crate specs_derive;
 
+mod animation_key;
 mod collision_tag;
 mod components;
 mod helpers;

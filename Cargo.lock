@@ -925,7 +925,7 @@ dependencies = [
 [[package]]
 name = "deathframe"
 version = "0.5.1"
-source = "git+https://github.com/Noah2610/deathframe?branch=feature/animation#6a7dae842467d35c9fb0284793a30509f5561b44"
+source = "git+https://github.com/Noah2610/deathframe?branch=feature/animation#98f58df97ea5cd993bdea540de81f96d34e94643"
 dependencies = [
  "deathframe_animation 0.0.0 (git+https://github.com/Noah2610/deathframe?branch=feature/animation)",
  "deathframe_core 0.5.1 (git+https://github.com/Noah2610/deathframe?branch=feature/animation)",
@@ -935,7 +935,7 @@ dependencies = [
 [[package]]
 name = "deathframe_animation"
 version = "0.0.0"
-source = "git+https://github.com/Noah2610/deathframe?branch=feature/animation#6a7dae842467d35c9fb0284793a30509f5561b44"
+source = "git+https://github.com/Noah2610/deathframe?branch=feature/animation#98f58df97ea5cd993bdea540de81f96d34e94643"
 dependencies = [
  "climer 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "deathframe_core 0.5.1 (git+https://github.com/Noah2610/deathframe?branch=feature/animation)",
@@ -947,7 +947,7 @@ dependencies = [
 [[package]]
 name = "deathframe_core"
 version = "0.5.1"
-source = "git+https://github.com/Noah2610/deathframe?branch=feature/animation#6a7dae842467d35c9fb0284793a30509f5561b44"
+source = "git+https://github.com/Noah2610/deathframe?branch=feature/animation#98f58df97ea5cd993bdea540de81f96d34e94643"
 dependencies = [
  "amethyst 0.14.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "derive_builder 0.9.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -957,7 +957,7 @@ dependencies = [
 [[package]]
 name = "deathframe_physics"
 version = "0.0.0"
-source = "git+https://github.com/Noah2610/deathframe?branch=feature/animation#6a7dae842467d35c9fb0284793a30509f5561b44"
+source = "git+https://github.com/Noah2610/deathframe?branch=feature/animation#98f58df97ea5cd993bdea540de81f96d34e94643"
 dependencies = [
  "deathframe_core 0.5.1 (git+https://github.com/Noah2610/deathframe?branch=feature/animation)",
  "derive_builder 0.9.0 (registry+https://github.com/rust-lang/crates.io-index)",

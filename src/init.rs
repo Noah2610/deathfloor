@@ -1,6 +1,7 @@
 use amethyst::core::frame_limiter::FrameRateLimitConfig;
 use deathframe::amethyst;
 
+use crate::animation_key::AnimationKey;
 use crate::collision_tag;
 use crate::helpers::resource;
 use crate::input;
@@ -56,7 +57,7 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
         collision_tag::SolidTag,
     >::new()
     .with_deps(&["control_player_system"]);
-    let animation_bundle = AnimationBundle::new();
+    let animation_bundle = AnimationBundle::<AnimationKey>::new();
 
     let custom_game_data = GameDataBuilder::default()
         .custom(CustomData::default())
