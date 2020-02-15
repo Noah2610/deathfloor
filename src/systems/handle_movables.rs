@@ -56,8 +56,17 @@ impl<'a> System<'a> for HandleMovablesSystem {
                                 velocity.get(&axis).signum() != spd.signum();
                         }
                     }
+
                     MoveAction::Jump(strength) => {
                         velocity.increase(&Axis::Y, strength);
+                    }
+
+                    MoveAction::KillJump(decr, min) => {
+                        let vel = velocity.y;
+                        if vel > min {
+                            let decreased = (vel + decr).max(min);
+                            velocity.set(&Axis::Y, decreased);
+                        }
                     }
                 }
             }
