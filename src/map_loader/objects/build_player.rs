@@ -21,8 +21,14 @@ pub(super) fn build(
         builder.build().unwrap()
     };
 
-    let frames_iter = {
-        let iter = vec![
+    let idle_iter = {
+        let iter = vec![(13_usize, 500_u64).into(), (14_usize, 500_u64).into()]
+            .into_iter();
+        let rev = iter.clone().rev();
+        iter.chain(rev).cycle()
+    };
+    let walk_iter = {
+        vec![
             (1_usize, 100_u64).into(),
             (2_usize, 100_u64).into(),
             (3_usize, 100_u64).into(),
@@ -35,14 +41,15 @@ pub(super) fn build(
             (10_usize, 100_u64).into(),
             (12_usize, 100_u64).into(),
         ]
-        .into_iter();
-        let rev = iter.clone().rev();
-        iter.chain(rev).cycle()
+        .into_iter()
+        .cycle()
     };
 
-    let animation = Animation::builder()
-        // sprite_ids: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12],
-        .frames(Box::new(frames_iter))
+    let animations_container = AnimationsContainer::builder()
+        .with(AnimationKey::Idle, move || Box::new(idle_iter.clone()))
+        .with(AnimationKey::Walk, move || Box::new(walk_iter.clone()))
+        .current(AnimationKey::Idle)
+        .unwrap()
         .build()
         .unwrap();
 
@@ -54,7 +61,7 @@ pub(super) fn build(
         .with(sprite_render)
         .with(movement_data)
         .with(base_friction)
-        .with(animation);
+        .with(animations_container);
 
     if let Some(hitbox_config) = &player_settings.hitbox {
         let hitbox = match hitbox_config {

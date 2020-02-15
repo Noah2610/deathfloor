@@ -1,5 +1,6 @@
 pub(super) mod prelude {
     pub(in super::super) use super::get_sprite_render;
+    pub use crate::animation_key::AnimationKey;
     pub use crate::components::prelude::*;
     pub use crate::helpers::resource;
     pub use crate::map_loader::map_data::prelude::*;
