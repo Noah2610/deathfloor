@@ -77,7 +77,7 @@ fn handle_move_on_axis(
 
             if let Some(acceleration) = acceleration_opt {
                 let speed = acceleration * val * dt;
-                movable.add_action(MoveAction::Walk(axis, speed));
+                movable.add_action(MoveAction::Walk { axis, speed });
             }
         }
     }

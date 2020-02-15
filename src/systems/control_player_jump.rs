@@ -43,19 +43,18 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
                     }
                 });
 
-            if standing_on_solid {
-                if input_manager.is_down(PlayerJump) {
-                    movable.add_action(MoveAction::Jump(
-                        movement_data.jump_strength,
-                    ));
-                }
-            } else {
-                if input_manager.is_up(PlayerJump) {
-                    movable.add_action(MoveAction::KillJump(
-                        movement_data.jump_kill_strength,
-                        movement_data.min_jump_velocity,
-                    ));
-                }
+            if standing_on_solid && input_manager.is_down(PlayerJump) {
+                movable.add_action(MoveAction::Jump {
+                    strength: movement_data.jump_strength,
+                    gravity:  movement_data.jump_gravity,
+                });
+            }
+            if input_manager.is_up(PlayerJump) {
+                movable.add_action(MoveAction::KillJump {
+                    strength:     movement_data.jump_kill_strength,
+                    min_velocity: movement_data.min_jump_velocity,
+                    gravity:      movement_data.gravity,
+                });
             }
         }
     }
