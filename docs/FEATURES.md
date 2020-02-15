@@ -54,3 +54,15 @@ Death Floor V3 early feature list (roughly descending in priority / expected eff
 - State / switch system for environmental entities: Define two or more states for an object and be able to set an interval in tiled, based on which the object cycles through its states.  
   Example: Spike platform - state 1 has spikes attached to the platform on its horizontal sides, state 2 on the vertical ones. An interval of 2 sec is being set, thus every 2 sec a short  
   transitional animation is played and the hitboxes are being adjusted.
+
+- Side to side traversal: Exit the screen on one (horizontal) side to reappear on the other side, on the same vertical height. 
+
+- Basic deathfloor: Hitbox of adjustable size that moves upwards at a constant speed. 
+
+- Advanced deathfloor features: Be able to assign an image to the hitbox and be able to animate said image. 
+
+- Minimap: Dynamic image ( / animation?) that shows the deathfloors current position in relation to the players position / the distance between player and deathfloor. The image is being 
+  dynamically adjusted. 
+  
+  Minimap details: It would probably consist of 3 pieces / individual images: The player indicator which is static and sits at the top of the distance indicator (a simple vertical line, 
+  also static) and the floor indicator, a horizontal line that is being moved up and down along the distance indicator in relation to the distance between player and floor. 
