@@ -20,15 +20,16 @@ These properties apply to all of: _layers_, _tiles_, _objects_.
 - `z` : `float`  
   The `z`-position of this tile. Prefer giving its parent _layer_ this property.
 
-### Tile Properties
-These properties only apply to _tiles_.
+## Tile Types
+Tiles can have a `Type` value set in their tileset.  
+Without the type they're only rendered.  
+Valid types (see [`tiles.ron`](../resources/settings/tiles.ron)):
 
-- `solid` : `boolean`  
-  Tiles with `solid = true` will have collision and be solid to the player.
+- `Ground`, solid tile
 
 ## Object Types
 Every _object_ has to have a type value set.  
-Types are always a `string`; these are all valid types:
+Valid types:
 
 - `Player`  
   Makes this object the _Player_.  
