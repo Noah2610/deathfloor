@@ -47,9 +47,8 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
                     {
                         let collisions_match =
                             collider.tag.collides_with(&state_data.tag);
-                        // if let (CollisionSide::Bottom, true) =
-                        //     (&state_data.side, collisions_match)
-                        if let (_, true) = (&state_data.side, collisions_match)
+                        if let (CollisionSide::Bottom, true) =
+                            (&state_data.side, collisions_match)
                         {
                             true
                         } else {
