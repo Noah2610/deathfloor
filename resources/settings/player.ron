@@ -8,9 +8,9 @@
     ),
     /// The player's movement data; anything involving velocity.
     movement: (
-        acceleration:       (500.0, 1600.0),
-        max_velocity:       (500.0, 500.0),
-        base_friction:      (30.0, None),
+        acceleration:       (400.0, 1600.0),
+        max_velocity:       (200.0, 500.0),
+        base_friction:      (50.0, None),
         /// The normal gravity.
         gravity:            (None, -800.0),
         /// The gravity applied only when jumping (holding down the jump button).
@@ -28,10 +28,10 @@
     // hitbox: Size,
     hitbox: Custom([
         (
-           top:    15.9,
-           bottom: -15.9,
-           left:   -7.9,
-           right:  7.9,
+           top:    12.0,
+           bottom: -16.0,
+           left:   -8.0,
+           right:  8.0,
         ),
     ]),
 )

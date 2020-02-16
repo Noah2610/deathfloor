@@ -45,8 +45,10 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
                     if let CollisionState::Enter(state_data)
                     | CollisionState::Steady(state_data) = &collision.state
                     {
-                        if let (CollisionSide::Bottom, CollisionTag::Tile) =
-                            (&state_data.side, &state_data.tag)
+                        let collisions_match =
+                            collider.tag.collides_with(&state_data.tag);
+                        if let (CollisionSide::Bottom, true) =
+                            (&state_data.side, collisions_match)
                         {
                             true
                         } else {
