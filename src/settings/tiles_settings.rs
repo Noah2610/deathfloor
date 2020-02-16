@@ -13,6 +13,8 @@ pub enum TileType {
     Ground,
     None,
     // TODO
+    SGround,
+    WeirdGround,
     Weird,
     Passable,
 }

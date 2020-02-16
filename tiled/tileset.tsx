@@ -8,10 +8,15 @@
  <tile id="6" type="Ground"/>
  <tile id="7" type="Ground"/>
  <tile id="16" type="Ground"/>
+ <tile id="17" type="Ground"/>
  <tile id="18" type="Ground"/>
  <tile id="19" type="Ground"/>
  <tile id="22" type="Ground"/>
  <tile id="23" type="Ground"/>
+ <tile id="32" type="Ground"/>
+ <tile id="33" type="Ground"/>
+ <tile id="34" type="Ground"/>
+ <tile id="35" type="Ground"/>
  <tile id="36" type="Ground"/>
  <tile id="37" type="Ground"/>
  <tile id="38" type="Ground"/>
@@ -31,6 +36,10 @@
    <object id="3" x="2.63792" y="7.8123" width="5.83386" height="6.84845"/>
   </objectgroup>
  </tile>
+ <tile id="80" type="Ground"/>
+ <tile id="81" type="Ground"/>
+ <tile id="82" type="Ground"/>
+ <tile id="83" type="Ground"/>
  <tile id="84" type="Ground"/>
  <tile id="85" type="Ground"/>
  <tile id="86" type="Ground"/>

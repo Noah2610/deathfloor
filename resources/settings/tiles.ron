@@ -2,9 +2,36 @@
 /// Tile settings.
 (
     types: {
+        /// Solid ground.
         Ground: (
             hitbox: Size,
         ),
+
+        /// Small solid ground.
+        /// For themes/DFCA1.png concept art image.
+        SGround: (
+            hitbox: Custom([
+                (
+                   top:    14.0,
+                   bottom: -8.0,
+                   left:   -17.0,
+                   right:  13.0,
+                ),
+            ]),
+        ),
+
+        /// For themes/DFCA1.png concept art image.
+        WeirdGround: (
+            hitbox: Custom([
+                (
+                   top:    19.0,
+                   bottom: -12.0,
+                   left:   -19.0,
+                   right:  16.0,
+                ),
+            ]),
+        ),
+
         /// Tile with weird hitbox, just playing around here.
         Weird: (
             hitbox: Custom([
@@ -22,6 +49,7 @@
                 ),
             ]),
         ),
+
         /// Non-solid tile. Just testing stuff.
         Passable: (
             hitbox: None,
