@@ -8,9 +8,9 @@
     ),
     /// The player's movement data; anything involving velocity.
     movement: (
-        acceleration:       (400.0, 1600.0),
+        acceleration:       (500.0, 1600.0),
         max_velocity:       (200.0, 500.0),
-        base_friction:      (50.0, None),
+        base_friction:      (200.0, None),
         /// The normal gravity.
         gravity:            (None, -800.0),
         /// The gravity applied only when jumping (holding down the jump button).

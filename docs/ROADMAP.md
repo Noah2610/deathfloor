@@ -1,9 +1,10 @@
 # Rough roadmap
 ## v0.0.1
-- __Map loading__  
+- [x] __Map loading__  
   Create maps in _tiled_ which can be loaded in-game  
-- __Player__ with basic movement (left/right/jump)
-- __Camera__ that follows the player
+- [x] __Player__ with basic movement (left/right/jump)
+- [x] __Camera__ that follows the player
 
 ## v0.0.2
-- __Deathfloor__
+- __PIVOT__  
+  we're making a metroidvania now
