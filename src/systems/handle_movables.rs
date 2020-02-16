@@ -58,6 +58,7 @@ impl<'a> System<'a> for HandleMovablesSystem {
                     }
 
                     MoveAction::Jump { strength } => {
+                        dbg!(&velocity);
                         velocity.increase(&Axis::Y, strength);
                     }
 

@@ -4,7 +4,7 @@ use deathframe::physics::CollisionTag as CTag;
 // in case we ever want to add a proper SolidTag.
 pub type SolidTag = CollisionTag;
 
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub enum CollisionTag {
     Player,
     Tile,
