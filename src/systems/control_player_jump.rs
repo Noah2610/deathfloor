@@ -40,24 +40,19 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
         )
             .join()
         {
-            let is_standing_on_solid =
-                collider.collisions.values().any(|collision| {
-                    if let CollisionState::Enter(state_data)
-                    | CollisionState::Steady(state_data) = &collision.state
-                    {
-                        let collisions_match =
-                            collider.tag.collides_with(&state_data.tag);
-                        if let (CollisionSide::Bottom, true) =
-                            (&state_data.side, collisions_match)
-                        {
-                            true
-                        } else {
-                            false
-                        }
-                    } else {
-                        false
-                    }
-                });
+            let is_standing_on_solid = collider
+                .query()
+                .state(CollisionState::Enter(CollisionStateData {
+                    side: CollisionSide::Bottom,
+                    tag:  collider.tag.clone(),
+                }))
+                .state(CollisionState::Steady(CollisionStateData {
+                    side: CollisionSide::Bottom,
+                    tag:  collider.tag.clone(),
+                }))
+                .any_state()
+                .any()
+                .run();
 
             if is_standing_on_solid && input_manager.is_down(PlayerJump) {
                 movable.add_action(MoveAction::Jump {
