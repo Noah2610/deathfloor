@@ -7,6 +7,8 @@
             hitbox: Size,
         ),
 
+        /// All types below were just for playing around.
+
         /// Small solid ground.
         /// For themes/DFCA1.png concept art image.
         SGround: (

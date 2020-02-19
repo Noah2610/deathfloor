@@ -40,7 +40,7 @@ Valid types:
 ## Tilesets
 Tileset spritesheet images must be PNGs.  
 They must be placed under `resources/spritesheets/tiles/`.  
-Filenames don't matter, but they should be short but informative.  
+Filenames don't matter, but they should be short and informative.  
 (for example: `ground_tiles.png`, `decorations.png`, `grass.png`).
 
 ## Exporting the map
