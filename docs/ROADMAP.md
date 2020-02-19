@@ -7,4 +7,4 @@
 
 ## v0.0.2
 - __PIVOT__  
-  we're making a metroidvania now
+  we're making a _megaman-like_ now
