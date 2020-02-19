@@ -1,9 +1,5 @@
 use deathframe::physics::CollisionTag as CTag;
 
-// NOTE: Use type alias for SolidTag for now,
-// in case we ever want to add a proper SolidTag.
-// pub type SolidTag = CollisionTag;
-
 #[derive(Clone, PartialEq)]
 pub enum SolidTag {
     Player,
@@ -15,7 +11,7 @@ impl CTag for SolidTag {
         match (self, other) {
             (SolidTag::Player, SolidTag::Tile)
             | (SolidTag::Tile, SolidTag::Player) => true,
-            (SolidTag::Player, SolidTag::Player) => false,
+            (SolidTag::Player, SolidTag::Player) => true,
             (SolidTag::Tile, SolidTag::Tile) => true,
         }
     }

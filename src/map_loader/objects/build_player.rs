@@ -72,6 +72,7 @@ pub(super) fn build(
         };
         entity_builder = entity_builder
             .with(Collider::new(CollisionTag::Player))
+            .with(Collidable::new(CollisionTag::Player))
             .with(Solid::new(SolidTag::Player))
             .with(hitbox);
     }

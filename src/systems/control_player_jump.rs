@@ -42,16 +42,20 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
         {
             let is_standing_on_solid = collider
                 .query()
-                .state(CollisionState::Enter(CollisionStateData {
-                    side: CollisionSide::Bottom,
-                    tag:  collider.tag.clone(),
-                }))
-                .state(CollisionState::Steady(CollisionStateData {
-                    side: CollisionSide::Bottom,
-                    tag:  collider.tag.clone(),
-                }))
-                .any_state()
-                .any()
+                .any({
+                    use deathframe::physics::query::exp::prelude::*;
+                    Or(vec![
+                        And(vec![
+                            IsTag(CollisionTag::Tile),
+                            Or(vec![IsState(Enter), IsState(Steady)]),
+                            IsSide(Bottom),
+                        ]),
+                        And(vec![
+                            IsTag(CollisionTag::Player),
+                            Or(vec![IsState(Enter), IsState(Steady)]),
+                        ]),
+                    ])
+                })
                 .run();
 
             if is_standing_on_solid && input_manager.is_down(PlayerJump) {
