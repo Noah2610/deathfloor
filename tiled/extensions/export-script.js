@@ -1,6 +1,5 @@
 (() => {
     function readMap(fileName) {
-        console.log("READ MAP: " + fileName);
         return new TileMap();
     };
 
@@ -46,6 +45,14 @@
         return errors.join(", ");
     };
 
+    function getPos(pos, layer) {
+        // (0, 0) at bottom-left
+        return {
+            x: pos.x,
+            y: (layer.map.height * layer.map.tileHeight) - pos.y,
+        };
+    }
+
     function getTilesFromLayer(layer) {
         const output = [];
         const layerSize = {
@@ -74,15 +81,16 @@
                         || "MISSING-TILESET.png";
                     tilesetsToAdd[tilesetName] = tileset;
 
+                    const pos = getPos({
+                        x: x * tile.size.width,
+                        y: y * tile.size.height,
+                    }, layer);
                     const tileProps = tile.properties();
                     const tileOutput = {
                         id: tile.id,
                         type: tile.type,
                         ts: tilesetName,
-                        pos: {
-                            x: x * tile.size.width,
-                            y: (layerSize.h * tile.height) - (y * tile.size.height), // TODO
-                        },
+                        pos: pos,
                         props: Object.assign({}, layerProps, tileProps), // { ...layerProps, ...tileProps }
                     };
                     output.push(tileOutput);
@@ -110,12 +118,10 @@
 
         for (let object of layer.objects) {
             const objectProps = object.properties();
+            const pos = getPos(object.pos, layer);
             const objectOutput = {
                 type: object.type,
-                pos: {
-                    x: object.x,
-                    y: (layer.map.height * layer.map.tileHeight) - object.y, // TODO
-                },
+                pos: pos,
                 size: {
                     w: object.width,
                     h: object.height,
