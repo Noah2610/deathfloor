@@ -45,12 +45,60 @@
         return errors.join(", ");
     };
 
-    function getPos(pos, layer) {
-        // (0, 0) at bottom-left
-        return {
-            x: pos.x,
-            y: (layer.map.height * layer.map.tileHeight) - pos.y,
+    // Get the centered position with its origin (0, 0) at bottom-left.
+    // Assuming that the given pos' origin is at top-left,
+    // and that the pos is the top-right corner of the object.
+    function getPos(pos, map, sizeMaybe) {
+        const size = sizeMaybe || {
+            width: map.tileWidth,
+            height: map.tileHeight
         };
+        const centered = centerPos(pos, size);
+        return {
+            x: centered.x,
+            y: (map.height * size.height) - centered.y,
+        };
+    }
+
+    // Centers the given position, whose origin (0, 0) should be at top-left
+    function centerPos(pos, size) {
+        return {
+            x: pos.x + (size.width * 0.5),
+            y: pos.y + (size.height * 0.5),
+        };
+    }
+
+    function getHitboxFrom(objectGroup, layer) {
+        const hitboxRects = [];
+        for (let object of objectGroup.objects) {
+            if (object.shape === MapObject.Rectangle) {
+                console.log("TODO: Export tile collision objects!"); // TODO
+                const tileSize = {
+                    width: layer.map.tileWidth,
+                    height: layer.map.tileHeight,
+                };
+                const halfTileSize = {
+                    w: tileSize.width * 0.5,
+                    h: tileSize.height * 0.5,
+                };
+                // let pos = centerPos(object.pos, tileSize);
+                // pos.y = tileSize.height - pos.y;
+                const pos = object.pos;
+                const halfSize = {
+                    w: object.size.width * 0.5,
+                    h: object.size.height * 0.5,
+                };
+                hitboxRects.push({
+                    top:    pos.y - halfSize.h,
+                    bottom: pos.y + halfSize.h,
+                    left:   pos.x - halfSize.w,
+                    right:  pos.x + halfSize.w,
+                });
+            } else {
+                console.warn("Tile collision objects can only be rectangle shapes, ignoring.");
+            }
+        }
+        return hitboxRects;
     }
 
     function getTilesFromLayer(layer) {
@@ -66,14 +114,9 @@
             for (let x = 0; x < layerSize.w; x++) {
                 const tile = layer.tileAt(x, y);
                 if (tile) {
+                    const tileOutput = {};
                     if (tile.objectGroup) {
-                        for (let object of tile.objectGroup.objects) {
-                            if (object.shape === MapObject.Rectangle) {
-                                console.log("TODO: Export tile collision objects!"); // TODO
-                            } else {
-                                console.warn("Tile collision objects can only be rectangle shapes, ignoring.");
-                            }
-                        }
+                        tileOutput.hitbox = getHitboxFrom(tile.objectGroup, layer);
                     }
 
                     const tileset = tile.tileset;
@@ -81,18 +124,15 @@
                         || "MISSING-TILESET.png";
                     tilesetsToAdd[tilesetName] = tileset;
 
-                    const pos = getPos({
+                    const tileProps = tile.properties();
+                    tileOutput.id = tile.id;
+                    tileOutput.type = tile.type;
+                    tileOutput.ts = tilesetName;
+                    tileOutput.pos = getPos({
                         x: x * tile.size.width,
                         y: y * tile.size.height,
-                    }, layer);
-                    const tileProps = tile.properties();
-                    const tileOutput = {
-                        id: tile.id,
-                        type: tile.type,
-                        ts: tilesetName,
-                        pos: pos,
-                        props: Object.assign({}, layerProps, tileProps), // { ...layerProps, ...tileProps }
-                    };
+                    }, layer.map);
+                    tileOutput.props = Object.assign({}, layerProps, tileProps);
                     output.push(tileOutput);
                 }
             }
@@ -118,7 +158,7 @@
 
         for (let object of layer.objects) {
             const objectProps = object.properties();
-            const pos = getPos(object.pos, layer);
+            const pos = getPos(object.pos, layer.map);
             const objectOutput = {
                 type: object.type,
                 pos: pos,
