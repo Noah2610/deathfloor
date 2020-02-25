@@ -1,7 +1,7 @@
 (() => {
     function readMap(fileName) {
         return new TileMap();
-    };
+    }
 
     function writeMap(map, fileName) {
         const errors = [];
@@ -43,7 +43,7 @@
         file.close();
 
         return errors.join(", ");
-    };
+    }
 
     // Get the centered position with its origin (0, 0) at bottom-left.
     // Assuming that the given pos' origin is at top-left,
@@ -176,7 +176,7 @@
 
     function outputFiles(_map, fileName) {
         return [fileName];
-    };
+    }
 
     function registerMapFormat() {
         const NAME = {
