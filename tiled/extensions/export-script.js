@@ -63,27 +63,28 @@
 
     function getHitboxFrom(objectGroup, layer) {
         const hitboxRects = [];
+        const tileSize = {
+            width:  layer.map.tileWidth,
+            height: layer.map.tileHeight,
+        };
+
         for (let object of objectGroup.objects) {
             if (object.shape === MapObject.Rectangle) {
                 console.log("TODO: Export tile collision objects!"); // TODO
-                const tileSize = {
-                    width: layer.map.tileWidth,
-                    height: layer.map.tileHeight,
-                };
-                const halfTileSize = {
-                    w: tileSize.width * 0.5,
-                    h: tileSize.height * 0.5,
-                };
-                // let pos = centerPos(object.pos, tileSize);
-                // pos.y = tileSize.height - pos.y;
-                const pos = object.pos;
+                const pos = invertPosY(
+                    centerPos(object.pos, object.size),
+                    tileSize,
+                );
+                pos.x -= tileSize.width * 0.5;
+                pos.y -= tileSize.height * 0.5;
+                // const pos = centerPos(object.pos, object.size);
                 const halfSize = {
                     w: object.size.width * 0.5,
                     h: object.size.height * 0.5,
                 };
                 hitboxRects.push({
-                    top:    pos.y - halfSize.h,
-                    bottom: pos.y + halfSize.h,
+                    top:    pos.y + halfSize.h,
+                    bottom: pos.y - halfSize.h,
                     left:   pos.x - halfSize.w,
                     right:  pos.x + halfSize.w,
                 });
