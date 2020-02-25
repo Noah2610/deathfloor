@@ -15,7 +15,7 @@
                 tile_size: {
                     w: map.tileWidth,
                     h: map.tileHeight,
-                }
+                },
             },
             tiles: [],
             objects: [],
@@ -45,26 +45,19 @@
         return errors.join(", ");
     }
 
-    // Get the centered position with its origin (0, 0) at bottom-left.
-    // Assuming that the given pos' origin is at top-left,
-    // and that the pos is the top-right corner of the object.
-    function getPos(pos, map, sizeMaybe) {
-        const size = sizeMaybe || {
-            width: map.tileWidth,
-            height: map.tileHeight
-        };
-        const centered = centerPos(pos, size);
-        return {
-            x: centered.x,
-            y: (map.height * size.height) - centered.y,
-        };
-    }
-
     // Centers the given position, whose origin (0, 0) should be at top-left
     function centerPos(pos, size) {
         return {
             x: pos.x + (size.width * 0.5),
             y: pos.y + (size.height * 0.5),
+        };
+    }
+
+    // Inverts the position's y axis, so that the origin point would be bottom-left.
+    function invertPosY(pos, mapSize) {
+        return {
+            x: pos.x,
+            y: mapSize.height - pos.y,
         };
     }
 
@@ -104,35 +97,49 @@
     function getTilesFromLayer(layer) {
         const output = [];
         const layerSize = {
-            w: layer.size.width,
-            h: layer.size.height
+            width:  layer.size.width,
+            height: layer.size.height
+        };
+        const tileSize = {
+            width:  layer.map.tileWidth,
+            height: layer.map.tileHeight,
+        };
+        const mapSize = {
+            width:  layerSize.width  * layer.map.tileWidth,
+            height: layerSize.height * layer.map.tileHeight,
         };
         const layerProps = layer.properties();
         const tilesetsToAdd = {};
 
-        for (let y = 0; y < layerSize.h; y++) {
-            for (let x = 0; x < layerSize.w; x++) {
+        for (let y = 0; y < layerSize.height; y++) {
+            for (let x = 0; x < layerSize.width; x++) {
                 const tile = layer.tileAt(x, y);
                 if (tile) {
                     const tileOutput = {};
-                    if (tile.objectGroup) {
-                        tileOutput.hitbox = getHitboxFrom(tile.objectGroup, layer);
-                    }
-
                     const tileset = tile.tileset;
                     const tilesetName = tileset.image.split("/").pop()
                         || "MISSING-TILESET.png";
                     tilesetsToAdd[tilesetName] = tileset;
 
                     const tileProps = tile.properties();
+                    const pos = invertPosY(
+                        centerPos({
+                            x: x * tileSize.width,
+                            y: y * tileSize.height,
+                        }, tileSize),
+                        mapSize,
+                    );
+
                     tileOutput.id = tile.id;
                     tileOutput.type = tile.type;
                     tileOutput.ts = tilesetName;
-                    tileOutput.pos = getPos({
-                        x: x * tile.size.width,
-                        y: y * tile.size.height,
-                    }, layer.map);
+                    tileOutput.pos = pos;
                     tileOutput.props = Object.assign({}, layerProps, tileProps);
+
+                    if (tile.objectGroup) {
+                        tileOutput.hitbox = getHitboxFrom(tile.objectGroup, layer);
+                    }
+
                     output.push(tileOutput);
                 }
             }
@@ -154,11 +161,18 @@
     function getObjectsFromLayer(layer) {
         const output = [];
 
+        const mapSize = {
+            width:  layer.map.width  * layer.map.tileWidth,
+            height: layer.map.height * layer.map.tileHeight,
+        };
         const layerProps = layer.properties();
 
         for (let object of layer.objects) {
             const objectProps = object.properties();
-            const pos = getPos(object.pos, layer.map);
+            const pos = invertPosY(
+                centerPos(object.pos, object.size),
+                mapSize,
+            );
             const objectOutput = {
                 type: object.type,
                 pos: pos,
