@@ -30,4 +30,5 @@ features = ["derive"]
 
 [features]
 default = []
+debug = []
 nightly = ["deathframe/nightly"]
