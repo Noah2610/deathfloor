@@ -1,3 +1,4 @@
+mod can_jump;
 mod max_movement_velocity;
 mod movable;
 mod movement_data;
@@ -8,6 +9,7 @@ pub mod prelude {
     pub use deathframe::amethyst;
     pub use deathframe::components::prelude::*;
 
+    pub use super::can_jump::CanJump;
     pub use super::max_movement_velocity::MaxMovementVelocity;
     pub use super::movable::{Movable, MoveAction};
     pub use super::movement_data::MovementData;
