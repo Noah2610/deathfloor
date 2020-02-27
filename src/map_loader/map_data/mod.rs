@@ -1,5 +1,4 @@
-use crate::components::prelude::Size as SizeComp;
-use crate::components::prelude::Transform;
+use crate::components::prelude::{Hitbox, Size as SizeComp, Transform};
 use std::collections::HashMap;
 
 mod propful;
@@ -65,17 +64,18 @@ pub struct Level {
 pub struct Tile {
     #[serde(rename = "type")]
     pub tile_type: String,
-    pub id: usize,
-    pub ts: String,
-    pub pos: Pos,
-    pub props: Props,
+    pub id:        usize,
+    pub ts:        String,
+    pub pos:       Pos,
+    pub hitbox:    Option<Hitbox>,
+    pub props:     Props,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct Object {
     #[serde(rename = "type")]
     pub object_type: String,
-    pub pos: Pos,
-    pub size: Size,
-    pub props: Props,
+    pub pos:         Pos,
+    pub size:        Size,
+    pub props:       Props,
 }

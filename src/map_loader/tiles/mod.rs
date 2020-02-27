@@ -5,7 +5,7 @@ use std::convert::TryFrom;
 
 pub(super) fn load_tiles(
     world: &mut World,
-    tiles: &TilesData,
+    tiles: TilesData,
     tile_size: SizeData,
 ) -> amethyst::Result<()> {
     let size: Size = tile_size.into();
@@ -22,9 +22,15 @@ pub(super) fn load_tiles(
         )?;
 
         let mut entity =
-            base_tile_entity(world, tile, tile_size)?.with(sprite_render);
+            base_tile_entity(world, &tile, tile_size)?.with(sprite_render);
 
-        if let Some(tile_settings) = tiles_settings.types.get(&tile_type) {
+        if let Some(hitbox) = tile.hitbox {
+            entity = entity
+                .with(hitbox)
+                .with(Collidable::new(CollisionTag::Tile))
+                .with(Solid::new(SolidTag::Tile));
+        } else if let Some(tile_settings) = tiles_settings.types.get(&tile_type)
+        {
             if let Some(hitbox_type) = &tile_settings.hitbox {
                 let hitbox = match hitbox_type {
                     HitboxConfig::Size => {
