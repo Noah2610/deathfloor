@@ -79,15 +79,21 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
         )?
         .with(
             DispatcherId::Ingame,
-            HandleMovablesSystem::default(),
-            "decrease_velocities_system",
-            &["ingame_input_manager_system"],
-        )?
-        .with(
-            DispatcherId::Ingame,
             FollowSystem::default(),
             "follow_system",
             &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            EntityLoaderSystem::default(),
+            "entity_loader_system",
+            &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            HandleMovablesSystem::default(),
+            "decrease_velocities_system",
+            &["ingame_input_manager_system"],
         )?
         .with(
             DispatcherId::Ingame,
