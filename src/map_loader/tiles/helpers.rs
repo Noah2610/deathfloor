@@ -12,6 +12,10 @@ use prelude::*;
 ///     - `Size`
 ///     - `ScaleOnce`
 ///     - `Transparent`
+///     - `Loadable`
+///     - `Hidden`
+///       Hidden, because the `EntityLoaderSystem` will add/remove
+///       the Hidden component, depending on when it is loaded.
 pub(super) fn base_tile_entity<'a>(
     world: &'a mut World,
     tile: &TileData,
@@ -30,7 +34,9 @@ pub(super) fn base_tile_entity<'a>(
         .with(transform)
         .with(size)
         .with(ScaleOnce::default())
-        .with(Transparent);
+        .with(Transparent)
+        .with(Loadable)
+        .with(Hidden);
 
     Ok(entity)
 }

@@ -26,7 +26,6 @@ pub(super) fn load_tiles(
 
         if let Some(hitbox) = tile.hitbox {
             entity = entity
-                .with(Loadable)
                 .with(hitbox)
                 .with(Collidable::new(CollisionTag::Tile))
                 .with(Solid::new(SolidTag::Tile));
@@ -42,7 +41,6 @@ pub(super) fn load_tiles(
                     }
                 };
                 entity = entity
-                    .with(Loadable)
                     .with(hitbox)
                     .with(Collidable::new(CollisionTag::Tile))
                     .with(Solid::new(SolidTag::Tile));

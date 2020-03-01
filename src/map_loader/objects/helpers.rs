@@ -11,6 +11,8 @@ use prelude::*;
 ///     - `Size`
 ///     - `ScaleOnce`
 ///     - `Transparent`
+///     - `Loadable`
+///     - `Hidden`
 pub(super) fn base_object_entity<'a>(
     world: &'a mut World,
     object: &ObjectData,
@@ -27,7 +29,9 @@ pub(super) fn base_object_entity<'a>(
         .with(transform)
         .with(size.clone())
         .with(ScaleOnce::default())
-        .with(Transparent);
+        .with(Transparent)
+        .with(Loadable)
+        .with(Hidden);
 
     Ok(entity)
 }
