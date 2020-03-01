@@ -8,3 +8,9 @@
 ## v0.0.2
 - __PIVOT__  
   we're making a _megaman-like_ now
+- player shooting
+- enemies
+- health system
+
+## v0.0.3
+- enemy types, composable entity features
