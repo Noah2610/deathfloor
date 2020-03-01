@@ -24,3 +24,5 @@
   - lives
   - checkpoints
 - Levels
+- Controls
+  twin stick?
