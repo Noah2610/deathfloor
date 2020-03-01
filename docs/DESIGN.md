@@ -1,5 +1,7 @@
 # Design notes
 ## General
+- Simple Cutscenes
+  
 
 ## Combat
 
@@ -43,6 +45,10 @@ Their hitbox is removed, a short animation plays. Optionally an item is dropped 
   "Split" into multiple smaller enemies (play animation, spawn new enemies, destroy current enemy), for example on death. 
 - On impact  
   When hitting a wall, do something.
+- Basic chasing
+  When player enters LOS enemy moves towards player (flying), when player leaves LOS they freeze (until Player reenters LOS)
+- Jumpable: 
+  Player can jump off of them
 
 ## Environmental Mechanics
 - Jumppad  
@@ -54,8 +60,14 @@ Their hitbox is removed, a short animation plays. Optionally an item is dropped 
   Disappear on set event, for example on contact with player (after short delay). 
 - Basic moving platforms  
   Move along manually set path until reaching end of it, then pivot. 
+- Advanced moving platforms
+  On contact with player start moving along manually set path until reaching end of it, then freeze. Repeat.
 - Pressure plates  
+  Do something while Player is standing on them, for example move platform. 
 - Knockbackers  
+
+- Gravity Walls
+  Placed as tiles in editor. When players jump on walls, their sprite + hitbox rotates. Also: room gravity changes, controls change, texture of the tiles gets swapped ("animated"?). Controls get remapped to make movement more intuitive.
 
 ## Weapons
 - Weapon switch: Have different weapon types between which you can switch ingame. 
