@@ -58,3 +58,13 @@ Their hitbox is removed, a short animation plays. Optionally an item is dropped 
 - Knockbackers  
 
 ## Weapons
+- Weapon switch: Have different weapon types between which you can switch ingame. 
+- Weapon types:
+- Pistol 
+  (single shot, spammable up to three shots, then cooldown)
+- Strong pistol 
+  (single shot, not spammable, high damage)
+- Shotgun 
+  (single shot, not spammable, 3 low damage projectiles (the outer two being slightly angled))
+- Strong shotgun 
+  (same as shotgun, but: applies knockback to player, so player can use it as means to move around)
