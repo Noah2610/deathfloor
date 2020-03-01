@@ -1,22 +1,22 @@
 # Design notes
 ## General
-- Simple Cutscenes
+- Room traversal
+  After a short transition teleport player to new room. new room is seperate tmx / json, so different rooms can have different room sizes / camera settings / zoom level?
   
 
 ## Combat
 
 ### Health
-Number that can be be added to or subtracted from on certain events. Visually corresponding texture in UI. 
+Number that can be be added to or subtracted from on certain events. Visually corresponding texture in UI. Set max health. 
 
 ### I-frames
-When the player takes any sort of damage.
+When the player takes any sort of damage, an animation plays (or maybe shader?) during which the player is invincible to incoming damage. 
 
 ### Player death
 A short animation plays and the player is prompted with a screen asking them to either retry the level or to return to the menu.
 If player still has lives left, they respawn at the last checkpoint and lose 1 life.
 
 ### Enemy death
-Their hitbox is removed, a short animation plays. Optionally an item is dropped (for example a health pack).
 
 ## Enemies
 ### Components:
@@ -49,6 +49,7 @@ Their hitbox is removed, a short animation plays. Optionally an item is dropped 
   When player enters LOS enemy moves towards player (flying), when player leaves LOS they freeze (until Player reenters LOS)
 - Jumpable: 
   Player can jump off of them
+- Drop: Drop something, for example on death drop health pack. 
 
 ## Environmental Mechanics
 - Jumppad  
@@ -65,7 +66,6 @@ Their hitbox is removed, a short animation plays. Optionally an item is dropped 
 - Pressure plates  
   Do something while Player is standing on them, for example move platform. 
 - Knockbackers  
-
 - Gravity Walls
   Placed as tiles in editor. When players jump on walls, their sprite + hitbox rotates. Also: room gravity changes, controls change, texture of the tiles gets swapped ("animated"?). Controls get remapped to make movement more intuitive.
 
@@ -80,3 +80,5 @@ Their hitbox is removed, a short animation plays. Optionally an item is dropped 
   (single shot, not spammable, 3 low damage projectiles (the outer two being slightly angled))
 - Strong shotgun 
   (same as shotgun, but: applies knockback to player, so player can use it as means to move around)
+- Grenade launcher
+  shoots projectile that explodes when it hits wall. is gravity affected. can be charged up to manipulate how fast the projectile gets shot. -> explosive jumping. explosives deal aoe damage in small radius or rectangle and knockback player in larger radius or rectangle around the explosion. can be used either as environmental hazard or movement mechanic. 
