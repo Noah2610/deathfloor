@@ -9,7 +9,7 @@ source "${_dir}/util.sh"
 unset _dir
 
 SPRITESHEETS_DIR="${ROOT}/resources/spritesheets/tiles"
-TILE_SIZE="16x16"
+TILE_SIZE="8x8"
 MIN_SPRONGEN_VERSION="0.0.2"
 
 check "cargo"

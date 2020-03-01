@@ -42,6 +42,7 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
     use amethyst::core::transform::TransformBundle;
     use amethyst::renderer::types::DefaultBackend;
     use amethyst::renderer::{RenderFlat2D, RenderToWindow, RenderingBundle};
+    use amethyst::utils::fps_counter::FpsCounterBundle;
     use deathframe::bundles::*;
 
     let transform_bundle = TransformBundle::new();
@@ -60,7 +61,7 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
     let animation_bundle = AnimationBundle::<AnimationKey>::new()
         .with_deps(&["handle_animations_system"]);
 
-    let custom_game_data = GameDataBuilder::default()
+    let mut custom_game_data = GameDataBuilder::default()
         .custom(CustomData::default())
         .dispatcher(DispatcherId::Ingame)?
         .with_core_bundle(transform_bundle)?
@@ -78,15 +79,21 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
         )?
         .with(
             DispatcherId::Ingame,
-            HandleMovablesSystem::default(),
-            "decrease_velocities_system",
-            &["ingame_input_manager_system"],
-        )?
-        .with(
-            DispatcherId::Ingame,
             FollowSystem::default(),
             "follow_system",
             &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            EntityLoaderSystem::default(),
+            "entity_loader_system",
+            &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            HandleMovablesSystem::default(),
+            "decrease_velocities_system",
+            &["ingame_input_manager_system"],
         )?
         .with(
             DispatcherId::Ingame,
@@ -106,6 +113,17 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
             "handle_animations_system",
             &[],
         )?;
+
+    #[cfg(feature = "debug")]
+    {
+        const PRINT_EVERY_MS: u64 = 1000;
+        let fps_bundle = FpsCounterBundle;
+        let debug_system = DebugSystem::new(PRINT_EVERY_MS);
+
+        custom_game_data = custom_game_data
+            .with_core_bundle(fps_bundle)?
+            .with_core(debug_system, "debug_system", &[])?;
+    }
 
     Ok(custom_game_data)
 }

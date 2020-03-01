@@ -7,7 +7,6 @@ impl<'a> System<'a> for ControlPlayerSystem {
     type SystemData = (
         Read<'a, Time>,
         ReadExpect<'a, InputManager<IngameBindings>>,
-        ReadStorage<'a, Player>,
         ReadStorage<'a, MovementData>,
         WriteStorage<'a, Movable>,
         WriteStorage<'a, MaxMovementVelocity>,
@@ -18,7 +17,6 @@ impl<'a> System<'a> for ControlPlayerSystem {
         (
             time,
             input_manager,
-            players,
             movement_data_store,
             mut movables,
             mut max_movement_velocities,
@@ -26,13 +24,7 @@ impl<'a> System<'a> for ControlPlayerSystem {
     ) {
         let dt = time.delta_seconds() as f32;
 
-        for (
-            _,
-            player_movement_data,
-            player_movable,
-            mut player_max_velocity_opt,
-        ) in (
-            &players,
+        for (movement_data, movable, mut max_velocity_opt) in (
             &movement_data_store,
             &mut movables,
             (&mut max_movement_velocities).maybe(),
@@ -44,9 +36,9 @@ impl<'a> System<'a> for ControlPlayerSystem {
                     axis,
                     dt,
                     &input_manager,
-                    player_movement_data,
-                    player_movable,
-                    &mut player_max_velocity_opt,
+                    movement_data,
+                    movable,
+                    &mut max_velocity_opt,
                 );
             });
         }

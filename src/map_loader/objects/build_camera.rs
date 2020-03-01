@@ -53,22 +53,22 @@ pub(super) fn build(
     let camera = Camera::standard_2d(size.w, size.h);
     let mut camera_ortho =
         CameraOrtho::normalized(CameraNormalizeMode::Contain);
-    camera_ortho.world_coordinates = {
-        let half_size = (size.w * 0.5, size.h * 0.5);
-        CameraOrthoWorldCoordinates {
-            top:    half_size.1,
-            bottom: -half_size.1,
-            left:   -half_size.0,
-            right:  half_size.0,
-        }
+    let half_size = (size.w * 0.5, size.h * 0.5);
+    camera_ortho.world_coordinates = CameraOrthoWorldCoordinates {
+        top:    half_size.1,
+        bottom: -half_size.1,
+        left:   -half_size.0,
+        right:  half_size.0,
     };
+    let loader = Loader::new(half_size.0, half_size.1);
 
     let mut entity = world
         .create_entity()
         .with(transform)
         .with(size)
         .with(camera)
-        .with(camera_ortho);
+        .with(camera_ortho)
+        .with(loader);
 
     if let Some(player_entity) = player_entity_opt {
         entity = entity.with(Follow::new(player_entity));

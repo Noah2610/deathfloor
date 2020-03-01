@@ -1,17 +1,16 @@
 use super::system_prelude::*;
-use deathframe::physics::collision::prelude::*;
 use std::collections::HashSet;
 
 #[derive(Default)]
 pub struct ControlPlayerJumpSystem {
-    players_jumping: HashSet<Entity>,
+    entities_jumping: HashSet<Entity>,
 }
 
 impl<'a> System<'a> for ControlPlayerJumpSystem {
     type SystemData = (
         Entities<'a>,
         Read<'a, InputManager<IngameBindings>>,
-        ReadStorage<'a, Player>,
+        ReadStorage<'a, CanJump>,
         ReadStorage<'a, Collider<CollisionTag>>,
         ReadStorage<'a, MovementData>,
         WriteStorage<'a, Movable>,
@@ -23,7 +22,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
         (
             entities,
             input_manager,
-            players,
+            jumpables,
             colliders,
             movement_data_store,
             mut movables,
@@ -32,7 +31,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
     ) {
         for (entity, _, collider, movement_data, movable, mut gravity_opt) in (
             &entities,
-            &players,
+            &jumpables,
             &colliders,
             &movement_data_store,
             &mut movables,
@@ -87,14 +86,14 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
 impl ControlPlayerJumpSystem {
     fn set_jumping(&mut self, entity: Entity, jumping: bool) {
         if jumping {
-            self.players_jumping.insert(entity);
+            self.entities_jumping.insert(entity);
         } else {
-            self.players_jumping.remove(&entity);
+            self.entities_jumping.remove(&entity);
         }
     }
 
     fn is_jumping(&self, entity: &Entity) -> bool {
-        self.players_jumping.contains(&entity)
+        self.entities_jumping.contains(&entity)
     }
 }
 

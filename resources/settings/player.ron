@@ -3,8 +3,8 @@
 (
     /// The player's in-game size.
     size: (
-        width:  16.0,
-        height: 32.0,
+        width:  8.0,
+        height: 16.0,
     ),
     /// The player's movement data; anything involving velocity.
     movement: (
@@ -25,13 +25,5 @@
         min_jump_velocity:  50.0,
     ),
     /// The player's hitbox.
-    // hitbox: Size,
-    hitbox: Custom([
-        (
-           top:    12.0,
-           bottom: -16.0,
-           left:   -8.0,
-           right:  8.0,
-        ),
-    ]),
+    hitbox: Size,
 )
