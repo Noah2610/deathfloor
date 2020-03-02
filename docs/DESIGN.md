@@ -1,5 +1,5 @@
 # Design notes
-### General
+## General
 - Room traversal
   After a short transition teleport player to new room. new room is seperate tmx / json, so different rooms can have different room sizes / camera settings / zoom level?
 
@@ -16,24 +16,24 @@
   Small animated textures with white space are being spawned at location where trigger happens, despawn after going through animation cycle once. Can be for example action lines when jumping or static on the floor when walking over it in some electricity themed level.
   
 
-### Combat
+## Combat
 
-## Health
+### Health
 Number that can be be added to or subtracted from on certain events. Visually corresponding texture in UI. Set max health. 
 
-## I-frames
+### I-frames
 When the player takes any sort of damage, an animation plays (or maybe shader?) during which the player is invincible to incoming damage. 
 
-## Player death
+### Player death
 A short animation plays and the player is prompted with a screen asking them to either retry the level or to return to the menu.
 If player still has lives left, they respawn at the most recent checkpoint and lose 1 life.
 
-### Enemies 
+## Enemies 
 - Enemy Death
   Entity gets destroyed, a short animation and maybe sound is played, optionally they drop something (for example a health pack)
 - Spawning enemies
   
-## Components
+### Components
 - Damage on collision:  
   Deals damage to the player on collision.
 - Basic roaming:  
@@ -72,7 +72,7 @@ If player still has lives left, they respawn at the most recent checkpoint and l
 - Drop: Stop exectuing movement component when player enters LOS that is projected from enemy in "gravity direction" (shouldnt be hardcoded downwards but actually take current gravity direction in case gravity walls will be a thing) and drop downwards. Can for example be combined with 360 roaming, on impact and explode for dropping bomb traps. 
 - Spawner: Spawn seperate enemies at their location in set interval. how long the interval is and which enemies are being spawned is manually set. 
 
-### Environmental Mechanics
+## Environmental Mechanics
 - Jumppad:  
   Applies set amount of velocity to player. 
 - One way platforms  
@@ -99,7 +99,7 @@ If player still has lives left, they respawn at the most recent checkpoint and l
 - Cycling:
   Can cycle through states either in set interval or tied to other event happening.
 
-### Weapons
+## Weapons
 - Weapon switch: Have different weapon types between which you can switch ingame. 
 - Weapon types:
 - Pistol: 
@@ -117,7 +117,7 @@ If player still has lives left, they respawn at the most recent checkpoint and l
 - Basic Melee:
   deals damage within rectangular hitbox that is projected in front of player in walking direction. short cooldown inbetween swings. can deflect enemy projectiles.
 
-### SFX
+## SFX
 - Possible events / actions that have SFX
 - Shooting
 - Jumping
