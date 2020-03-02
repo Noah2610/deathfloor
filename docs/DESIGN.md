@@ -6,13 +6,13 @@
 ### Player Movement
 - Jump 
 - Walljump
-- Slide
+- Slide:
   Change hitbox and gain static velocity for duration of slide. spammable?
 
 ### Environmental Animations
 - Animated Tiles (basic loop, ping pong, animation triggered by specific event)
 - Animated Backgrounds
-- "Particle Effects"
+- "Particle Effects":
   Small animated textures with white space are being spawned at location where trigger happens, despawn after going through animation cycle once. Can be for example action lines when jumping or static on the floor when walking over it in some electricity themed level.
   
 
@@ -29,11 +29,14 @@ A short animation plays and the player is prompted with a screen asking them to 
 If player still has lives left, they respawn at the most recent checkpoint and lose 1 life.
 
 ## Enemies 
-- Enemy Death
+- Enemy Death:
   Entity gets destroyed, a short animation and maybe sound is played, optionally they drop something (for example a health pack)
 - Spawning enemies
   
 ### Components
+
+- Enemies consist of various components that can be combined to craft simple behavior. 
+
 - Damage on collision:  
   Deals damage to the player on collision.
 - Basic roaming:  
@@ -101,7 +104,8 @@ If player still has lives left, they respawn at the most recent checkpoint and l
 
 ## Weapons
 - Weapon switch: Have different weapon types between which you can switch ingame. 
-- Weapon types:
+
+### Weapon types
 - Pistol: 
   single shot, spammable up to three shots, then cooldown
 - Strong pistol: 
