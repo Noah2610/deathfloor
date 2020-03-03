@@ -48,7 +48,7 @@ If player still has lives left, they respawn at the most recent checkpoint and l
 - Basic shooting:  
   Spawns projectiles in walking direction in a set interval.
 - Basic LOS react:  
-  When player enters their LOS (LOS as in 1 rectangular hitbox that is being projected in front of them in walking direction) do something else / switch state. For example Basic Shooting. 
+  When player enters their LOS (LOS as in 1 rectangular hitbox that is being projected in front of them in walking direction) do something / change state. For example Basic Shooting. 
 - Basic charging:  
 - Delay:  
   A manually set time that makes the enemy loops what its currently doing before continuing on with next behavior. Can be set "between" 2 behavioral states / at the transition between them. For example: Basic react shooting enemy spots player. Instead of instantly entering shooting state, the delay is run first. Then enter next state, in this case shooting.
@@ -73,6 +73,7 @@ If player still has lives left, they respawn at the most recent checkpoint and l
 - Random Jump: "Jump" in set interval in semi random directions (either randomly select from a pool of manually set x and y values or generate new ones)
 - Stick: When hitting a solid, freeze in place and ignore gravity. Can for example be combined with random jump. 
 - Drop: Stop exectuing movement component when player enters LOS that is projected from enemy in "gravity direction" (shouldnt be hardcoded downwards but actually take current gravity direction in case gravity walls will be a thing) and drop downwards. Can for example be combined with 360 roaming, on impact and explode for dropping bomb traps. 
+- Chaser: When player enters their LOS, chase "charge" at player (like ghosts in stabman) with slight delay in movement. Can for example be combined with explode for kamikaze enemies. 
 - Spawner: Spawn seperate enemies at their location in set interval. how long the interval is and which enemies are being spawned is manually set. 
 
 ## Environmental Mechanics
@@ -101,6 +102,8 @@ If player still has lives left, they respawn at the most recent checkpoint and l
   Some environmental mechanics can have multiple states. For example: Platform has one state in which it is solid and one in which it isn't and has a different texture. 
 - Cycling:
   Can cycle through states either in set interval or tied to other event happening.
+- Water:
+  "Field" that has texture and different gravity settings.
 
 ## Weapons
 - Weapon switch: Have different weapon types between which you can switch ingame. 
