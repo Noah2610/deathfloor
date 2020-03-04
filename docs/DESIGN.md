@@ -104,6 +104,7 @@ If player still has lives left, they respawn at the most recent checkpoint and l
   Can cycle through states either in set interval or tied to other event happening.
 - Water:
   "Field" that has texture and different gravity settings.
+- Ice:
 
 ## Weapons
 - Weapon switch: Have different weapon types between which you can switch ingame. 
