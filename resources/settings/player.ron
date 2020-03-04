@@ -3,26 +3,26 @@
 (
     /// The player's in-game size.
     size: (
-        width:  8.0,
+        width:  12.0,
         height: 16.0,
     ),
     /// The player's movement data; anything involving velocity.
     movement: (
-        acceleration:       (500.0, 1600.0),
-        max_velocity:       (200.0, 500.0),
-        base_friction:      (200.0, None),
+        acceleration:       (1000.0, 1400.0),
+        max_velocity:       (160.0, 420.0),
+        base_friction:      (1000.0, None),
         /// The normal gravity.
-        gravity:            (None, -800.0),
+        gravity:            (None, -900.0),
         /// The gravity applied only when jumping (holding down the jump button).
-        jump_gravity:       (None, -400.0),
+        jump_gravity:       (None, -450.0),
         /// The velocity boost when jumping.
-        jump_strength:      300.0,
+        jump_strength:      200.0,
         /// The velocity boost, when releasing the jump button after jumping.
         /// Should be negative.
-        jump_kill_strength: -100.0,
+        jump_kill_strength: -120.0,
         /// The minimum amount of upwards velocity the player should
         /// at least still have, after killing their jump.
-        min_jump_velocity:  50.0,
+        min_jump_velocity:  45.0,
     ),
     /// The player's hitbox.
     hitbox: Size,
