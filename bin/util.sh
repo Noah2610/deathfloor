@@ -1,5 +1,5 @@
 ## # util.sh
-## Version: `2.2.2`
+## Version: `2.2.3`
 ## https://github.com/Noah2610/util.sh
 
 set -o pipefail
@@ -219,11 +219,14 @@ function try_run {
     [ ${#cmd} -lt 1 ] && err "No command given to function \`try_run\`"
     local out
     local cmd_display
+    # TODO: This doesn't 100% correctly display the executed command,
+    #       because the command is an array, and each element is its own
+    #       argument, but this string doesn't reflect that.
     cmd_display="$( clr "${CLR_CODE[@]}")${cmd[*]}$(clrrs )"
 
     # shellcheck disable=SC2154
     msg "${spacing}Running: ${cmd_display}"
-    if ! ${cmd[*]} | tee -a "$LOGFILE"; then
+    if ! "${cmd[@]}" | tee -a "$LOGFILE"; then
         err "Command failed: ${cmd_display}"
     fi
 }
@@ -236,14 +239,15 @@ function try_run {
 ## Writes the command's output to the `$LOGFILE`.
 function try_run_hidden {
     local cmd=( "$@" )
-    [ ${#cmd} -gt 0 ] || err "No command given to function \`try_run_hidden\`"
+    [ ${#cmd} -lt 1 ] && err "No command given to function \`try_run_hidden\`"
     local out
     local cmd_display
+    # TODO: See TODO note in `try_run`
     cmd_display="$( clr "${CLR_CODE[@]}")${cmd[*]}$(clrrs )"
 
     # shellcheck disable=SC2154
     msg "${spacing}Running: ${cmd_display}"
-    if ! out="$( ${cmd[*]} 2>&1 | tee -a "$LOGFILE" )"; then
+    if ! out="$( "${cmd[@]}" 2>&1 | tee -a "$LOGFILE" )"; then
         err "\
 Command failed: ${cmd_display}
 Returned:
