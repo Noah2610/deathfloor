@@ -1,5 +1,6 @@
 mod control_player;
 mod control_player_jump;
+mod control_player_shoot;
 #[cfg(feature = "debug")]
 mod debug;
 mod handle_animations;
@@ -11,6 +12,7 @@ pub mod prelude {
 
     pub use super::control_player::ControlPlayerSystem;
     pub use super::control_player_jump::ControlPlayerJumpSystem;
+    pub use super::control_player_shoot::ControlPlayerShootSystem;
     #[cfg(feature = "debug")]
     pub use super::debug::DebugSystem;
     pub use super::handle_animations::HandleAnimationsSystem;

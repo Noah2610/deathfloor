@@ -4,6 +4,7 @@
         PlayerY: Emulated(pos: Key(W), neg: Key(S)),
     },
     actions: {
-        PlayerJump: [ [Key(Space)], [Key(K)], ],
+        PlayerJump:  [ [Key(Space)], [Key(K)], ],
+        PlayerShoot: [ [Key(J)], ],
     },
 )
