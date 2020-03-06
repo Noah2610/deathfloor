@@ -1,9 +1,11 @@
 # Design notes
+
 ## General
+
 - Level reload key
 - Level reset at death / falling out of level
-
-- Room traversal
+- Basic level manager
+- Room to room traversal:
   After a short transition teleport player to new room. new room is seperate tmx / json, so different rooms can have different room sizes / camera settings / zoom level?
 
 - Camera
