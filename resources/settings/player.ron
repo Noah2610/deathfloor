@@ -8,8 +8,8 @@
     ),
     /// The player's movement data; anything involving velocity.
     movement: (
-        acceleration:       (1000.0, 1400.0),
-        max_velocity:       (160.0, 420.0),
+        acceleration:       (900.0, 1400.0),
+        max_velocity:       (140.0, 420.0),
         base_friction:      (1000.0, None),
         /// The normal gravity.
         gravity:            (None, -900.0),
@@ -19,7 +19,7 @@
         jump_strength:      200.0,
         /// The velocity boost, when releasing the jump button after jumping.
         /// Should be negative.
-        jump_kill_strength: -120.0,
+        jump_kill_strength: -60.0,
         /// The minimum amount of upwards velocity the player should
         /// at least still have, after killing their jump.
         min_jump_velocity:  45.0,
