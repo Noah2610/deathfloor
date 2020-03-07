@@ -5,6 +5,7 @@
 - Level reload key
 - Level reset at death / falling out of level
 - Basic level manager
+- Next-room-object to be placed in tiled
 - Room to room traversal:
   After a short transition teleport player to new room. new room is seperate tmx / json, so different rooms can have different room sizes / camera settings / zoom level?
 
@@ -117,7 +118,8 @@ If player still has lives left, they respawn at the most recent checkpoint and l
 - Water:
   "Field" that has texture and different gravity settings.
 - Ice:
-
+- Explosive boxes:
+  Explode when afflicted with any kind of damage (from any source)  
 ## Weapons
 - Weapon switch: Have different weapon types between which you can switch ingame. 
 
@@ -150,3 +152,5 @@ If player still has lives left, they respawn at the most recent checkpoint and l
 - Death sound / jingle
 - Explosions
 - Charging weapons
+
+## Level setting / theme ideas
