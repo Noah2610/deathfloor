@@ -1,16 +1,5 @@
 # Megaman-Clone Features List
 
-- Mini Roadmap:
-  - way to reload level when ingame
-  - basic walljump
-  - basic jumppad
-  - restrain camera within level borders
-
-
-  - basic shooting
-  - health system
-  - basic enemy
-
 - Player
   - movement
   - shooting (horizontally)
