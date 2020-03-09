@@ -16,7 +16,7 @@ where
     let map = get_map_data(map_filepath)?;
 
     tiles::load_tiles(world, map.tiles, map.level.tile_size)?;
-    objects::load_objects(world, map.objects)?;
+    objects::load_objects(world, map.objects, &map.level)?;
 
     Ok(())
 }
