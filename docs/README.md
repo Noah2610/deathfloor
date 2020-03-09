@@ -7,7 +7,21 @@
 # Concept Art
 [`concept-art/`](./concept-art)
 
-# Generating RON files for spritesheets
+# Development
+## Level selection
+When running the game from the command-line with `bin/run` (or `cargo run`, but always prefer `bin/run`),  
+add the level filename as the first argument to load that level.
+
+__Examples__:
+```
+bin/run level.json
+bin/run testlevel5.json
+```
+
+Only filename, not path to file.  
+Extension necessary.
+
+## Generating RON files for spritesheets
 Run the `gen-rons` script to generate RON config files for  
 all tile spritesheets under `resources/spritesheets/tiles/` ...
 ```
