@@ -7,7 +7,8 @@
 
 ## v0.0.2
 - __PIVOT__
-- [ ] way to reload level when ingame
+- [x] way to reload level when ingame  
+  with `debug` feature (use `bin/run` script), press `R` to reload current level
 - [ ] basic walljump
 - [ ] basic jumppad
 - [x] restrain camera within level borders
