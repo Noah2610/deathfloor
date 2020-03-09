@@ -21,6 +21,12 @@ bin/run testlevel5.json
 Only filename, not path to file.  
 Extension necessary.
 
+## Reload level ingame
+Press `R` to reload the current level ingame.  
+(see `ingame_bindings.ron` config file to set other binding).
+
+Requires `debug` feature (use `bin/run`)
+
 ## Generating RON files for spritesheets
 Run the `gen-rons` script to generate RON config files for  
 all tile spritesheets under `resources/spritesheets/tiles/` ...
