@@ -6,9 +6,18 @@ pub struct LoadIngame;
 
 impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for LoadIngame {
     fn on_start(&mut self, data: StateData<GameData<'a, 'b>>) {
+        // TODO
+        use std::env::args;
+        let level_name =
+            args().skip(1).next().unwrap_or("level.json".to_string());
+        println!("Loading level: {}", &level_name);
+
         data.world.delete_all();
-        crate::map_loader::load_map(data.world, resource("levels/level.json"))
-            .unwrap();
+        crate::map_loader::load_map(
+            data.world,
+            resource(format!("levels/{}", level_name)),
+        )
+        .unwrap();
     }
 
     fn update(
