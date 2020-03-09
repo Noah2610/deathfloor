@@ -14,6 +14,8 @@ pub enum IngameAxisBinding {
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub enum IngameActionBinding {
     PlayerJump,
+    // DEBUG
+    ReloadLevel,
 }
 
 impl BindingTypes for IngameBindings {
