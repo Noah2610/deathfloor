@@ -10,7 +10,7 @@
 - [ ] way to reload level when ingame
 - [ ] basic walljump
 - [ ] basic jumppad
-- [ ] restrain camera within level borders
+- [x] restrain camera within level borders
 
 ## v0.0.3
 - [ ] enemy types, composable entity features
