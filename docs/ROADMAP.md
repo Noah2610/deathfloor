@@ -6,11 +6,14 @@
 - [x] __Camera__ that follows the player
 
 ## v0.0.2
-- __PIVOT__  
-  we're making a _megaman-like_ now
-- player shooting
-- enemies
-- health system
+- __PIVOT__
+- [ ] way to reload level when ingame
+- [ ] basic walljump
+- [ ] basic jumppad
+- [ ] restrain camera within level borders
 
 ## v0.0.3
-- enemy types, composable entity features
+- [ ] enemy types, composable entity features
+- [ ] player shooting
+- [ ] enemies
+- [ ] health system
