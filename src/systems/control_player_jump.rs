@@ -88,6 +88,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
         {
             let query_matches = get_query_matches_from(collider);
 
+            // TODO: Refactor this mess into an enum.
             let is_touching_bottom =
                 query_matches.find.contains_key(&QueryFindName::SolidBottom);
             let is_touching_left =

@@ -10,5 +10,6 @@ pub struct MovementData {
     pub jump_gravity:       (Option<f32>, Option<f32>),
     pub jump_strength:      f32,
     pub jump_kill_strength: f32,
+    pub wall_jump_strength: (f32, f32),
     pub min_jump_velocity:  f32,
 }
