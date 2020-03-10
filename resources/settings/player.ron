@@ -26,4 +26,11 @@
     ),
     /// The player's hitbox.
     hitbox: Size,
+
+    /// Data for the player shooting.
+    shooting: (
+        /// Shooting cooldown delay in milliseconds.
+        /// Delay after shooting, before the player can shoot again.
+        cooldown_ms: 500,
+    ),
 )

@@ -53,17 +53,19 @@ pub(super) fn build(
         .build()
         .unwrap();
 
+    let shooter = Shooter::from(&player_settings.shooting);
+
     let mut entity_builder = base_object_entity(world, object)?
         .with(Player::default())
         .with(Velocity::default())
         .with(Movable::default())
         .with(CanJump::default())
-        .with(Shooter::default())
         .with(max_movement_velocity)
         .with(sprite_render)
         .with(movement_data)
         .with(base_friction)
-        .with(animations_container);
+        .with(animations_container)
+        .with(shooter);
 
     if let Some(hitbox_config) = &player_settings.hitbox {
         let hitbox = match hitbox_config {
