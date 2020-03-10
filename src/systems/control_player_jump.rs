@@ -7,6 +7,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
     type SystemData = (
         Read<'a, InputManager<IngameBindings>>,
         WriteStorage<'a, Jumper>,
+        ReadStorage<'a, WallJumper>,
         ReadStorage<'a, Collider<CollisionTag>>,
         ReadStorage<'a, MovementData>,
         WriteStorage<'a, Movable>,
@@ -18,14 +19,23 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
         (
             input_manager,
             mut jumpers,
+            wall_jumpers,
             colliders,
             movement_data_store,
             mut movables,
             mut gravities,
         ): Self::SystemData,
     ) {
-        for (jumper, collider, movement_data, movable, mut gravity_opt) in (
+        for (
+            jumper,
+            wall_jumper_opt,
+            collider,
+            movement_data,
+            movable,
+            mut gravity_opt,
+        ) in (
             &mut jumpers,
+            wall_jumpers.maybe(),
             &colliders,
             &movement_data_store,
             &mut movables,

@@ -58,6 +58,7 @@ pub(super) fn build(
         .with(Velocity::default())
         .with(Movable::default())
         .with(Jumper::default())
+        .with(WallJumper::default())
         .with(max_movement_velocity)
         .with(sprite_render)
         .with(movement_data)
