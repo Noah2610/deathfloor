@@ -43,23 +43,51 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
         )
             .join()
         {
-            let is_standing_on_solid = collider
-                .query()
-                .any({
-                    use deathframe::physics::query::exp::prelude::*;
-                    Or(vec![
+            use std::hash::Hash;
+
+            #[derive(PartialEq, Eq, Hash)]
+            enum QueryMatchName {
+                SolidBottom,
+                SolidLeft,
+                SolidRight,
+            };
+
+            let query_matches = {
+                use deathframe::physics::query::exp::prelude_variants::*;
+                use QueryMatchName::*;
+
+                collider
+                    .query::<QueryMatchName, ()>()
+                    .find(
+                        SolidBottom,
                         And(vec![
                             IsTag(CollisionTag::Tile),
                             Or(vec![IsState(Enter), IsState(Steady)]),
                             IsSide(Bottom),
                         ]),
+                    )
+                    .find(
+                        SolidLeft,
                         And(vec![
-                            IsTag(CollisionTag::Player),
+                            IsTag(CollisionTag::Tile),
                             Or(vec![IsState(Enter), IsState(Steady)]),
+                            IsSide(Left),
                         ]),
-                    ])
-                })
-                .run();
+                    )
+                    .find(
+                        SolidRight,
+                        And(vec![
+                            IsTag(CollisionTag::Tile),
+                            Or(vec![IsState(Enter), IsState(Steady)]),
+                            IsSide(Right),
+                        ]),
+                    )
+                    .run()
+            };
+
+            let is_standing_on_solid = query_matches
+                .find
+                .contains_key(&QueryMatchName::SolidBottom);
 
             if is_standing_on_solid && input_manager.is_down(PlayerJump) {
                 movable.add_action(MoveAction::Jump {
