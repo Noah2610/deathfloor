@@ -77,6 +77,12 @@ impl<'a> System<'a> for HandleMovablesSystem {
                             velocity.set(&axis, strength.by_axis(&axis));
                         }
                     }
+
+                    MoveAction::WallSlide { strength } => {
+                        if velocity.get(&Axis::Y) < strength {
+                            velocity.set(&Axis::Y, strength);
+                        }
+                    }
                 }
             }
 

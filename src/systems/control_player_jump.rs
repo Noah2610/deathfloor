@@ -95,9 +95,11 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
                 query_matches.find.contains_key(&QueryFindName::SolidLeft);
             let is_touching_right =
                 query_matches.find.contains_key(&QueryFindName::SolidRight);
-            let is_touching_any =
-                is_touching_bottom || is_touching_left || is_touching_right;
+            let is_touching_horz = is_touching_left || is_touching_right;
+            let is_touching_any = is_touching_bottom || is_touching_horz;
 
+            // JUMP
+            // normal or wall jump
             if is_touching_any && input_manager.is_down(PlayerJump) {
                 if is_touching_bottom {
                     movable.add_action(MoveAction::Jump {
@@ -120,7 +122,14 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
                     });
                 }
                 jumper.is_jumping = true;
+            } else if is_touching_horz {
+                // SLIDE on wall
+                movable.add_action(MoveAction::WallSlide {
+                    strength: movement_data.wall_slide_strength,
+                });
             }
+
+            // KILL JUMP
             if jumper.is_jumping && input_manager.is_up(PlayerJump) {
                 movable.add_action(MoveAction::KillJump {
                     strength:     movement_data.jump_kill_strength,
@@ -129,6 +138,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
                 jumper.is_jumping = false;
             }
 
+            // set appropriate GRAVITY
             if jumper.is_jumping {
                 maybe_set_gravity(
                     &mut gravity_opt,

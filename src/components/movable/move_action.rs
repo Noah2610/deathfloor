@@ -16,6 +16,9 @@ pub enum MoveAction {
     WallJump {
         strength: (f32, f32),
     },
+    WallSlide {
+        strength: f32,
+    },
 }
 
 impl MoveAction {
@@ -27,6 +30,7 @@ impl MoveAction {
             MoveAction::Jump { .. } => 6,
             MoveAction::KillJump { .. } => 7,
             MoveAction::WallJump { .. } => 8,
+            MoveAction::WallSlide { .. } => 9,
         }
     }
 }
