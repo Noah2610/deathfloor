@@ -6,15 +6,12 @@ pub struct ControlPlayerShootSystem;
 impl<'a> System<'a> for ControlPlayerShootSystem {
     type SystemData = (
         ReadExpect<'a, InputManager<IngameBindings>>,
-        ReadStorage<'a, CanShoot>,
+        ReadStorage<'a, Shooter>,
         ReadStorage<'a, Transform>,
     );
 
-    fn run(
-        &mut self,
-        (input_manager, can_shoot_store, transforms): Self::SystemData,
-    ) {
-        for (_, transform) in (&can_shoot_store, &transforms).join() {
+    fn run(&mut self, (input_manager, shooters, transforms): Self::SystemData) {
+        for (_, transform) in (&shooters, &transforms).join() {
             let should_shoot = input_manager.is_down(PlayerShoot);
             let facing = Facing::from(transform);
 

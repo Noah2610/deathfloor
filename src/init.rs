@@ -111,13 +111,19 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
             DispatcherId::Ingame,
             ControlPlayerSystem::default(),
             "control_player_system",
-            &[],
+            &["ingame_input_manager_system"],
         )?
         .with(
             DispatcherId::Ingame,
             ControlPlayerJumpSystem::default(),
             "control_player_jump_system",
-            &[],
+            &["ingame_input_manager_system"],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            ControlPlayerShootSystem::default(),
+            "control_player_shoot_system",
+            &["ingame_input_manager_system"],
         )?;
 
     #[cfg(feature = "debug")]
