@@ -2,13 +2,12 @@ use super::helpers::prelude::*;
 use amethyst::ecs::{Entities, Join, ReadStorage};
 use amethyst::renderer::Camera;
 use amethyst::utils::ortho_camera::{
-    CameraNormalizeMode,
-    CameraOrtho,
-    CameraOrthoWorldCoordinates,
+    CameraNormalizeMode, CameraOrtho, CameraOrthoWorldCoordinates,
 };
 
 pub(super) fn build(
     world: &mut World,
+    level_data: &LevelData,
     player_entity_opt: Option<Entity>,
 ) -> amethyst::Result<()> {
     let camera_settings = world.read_resource::<SettingsRes>().0.camera.clone();
@@ -55,12 +54,22 @@ pub(super) fn build(
         CameraOrtho::normalized(CameraNormalizeMode::Contain);
     let half_size = (size.w * 0.5, size.h * 0.5);
     camera_ortho.world_coordinates = CameraOrthoWorldCoordinates {
-        top:    half_size.1,
+        top: half_size.1,
         bottom: -half_size.1,
-        left:   -half_size.0,
-        right:  half_size.0,
+        left: -half_size.0,
+        right: half_size.0,
     };
     let loader = Loader::new(half_size.0, half_size.1);
+    let confined = {
+        let confined_rect = Rect::builder()
+            .top(level_data.size.h)
+            .bottom(0.0)
+            .left(0.0)
+            .right(level_data.size.w)
+            .build()
+            .unwrap();
+        Confined::from(confined_rect)
+    };
 
     let mut entity = world
         .create_entity()
@@ -68,7 +77,8 @@ pub(super) fn build(
         .with(size)
         .with(camera)
         .with(camera_ortho)
-        .with(loader);
+        .with(loader)
+        .with(confined);
 
     if let Some(player_entity) = player_entity_opt {
         entity = entity.with(Follow::new(player_entity));

@@ -12,6 +12,7 @@ use std::convert::TryFrom;
 pub(super) fn load_objects(
     world: &mut World,
     objects: ObjectsData,
+    level_data: &LevelData,
 ) -> amethyst::Result<()> {
     for object in objects {
         let object_type = ObjectType::try_from(object.object_type.as_str())?;
@@ -19,7 +20,7 @@ pub(super) fn load_objects(
         match object_type {
             ObjectType::Player => {
                 let entity = build_player::build(world, &object)?;
-                build_camera::build(world, Some(entity))?;
+                build_camera::build(world, level_data, Some(entity))?;
             }
         }
     }

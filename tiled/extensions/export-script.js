@@ -6,16 +6,17 @@
     function writeMap(map, fileName) {
         const errors = [];
 
+        const tile_size = {
+            w: map.tileWidth,
+            h: map.tileHeight,
+        };
         const outputMap = {
             level: {
                 size: {
-                    w: map.width,
-                    h: map.height,
+                    w: map.width * tile_size.w,
+                    h: map.height * tile_size.h,
                 },
-                tile_size: {
-                    w: map.tileWidth,
-                    h: map.tileHeight,
-                },
+                tile_size,
             },
             tiles: [],
             objects: [],

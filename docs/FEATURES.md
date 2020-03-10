@@ -1,4 +1,5 @@
 # Megaman-Clone Features List
+
 - Player
   - movement
   - shooting (horizontally)

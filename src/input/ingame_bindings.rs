@@ -15,6 +15,9 @@ pub enum IngameAxisBinding {
 pub enum IngameActionBinding {
     PlayerJump,
     PlayerShoot,
+
+    // DEBUG
+    ReloadLevel,
 }
 
 impl BindingTypes for IngameBindings {

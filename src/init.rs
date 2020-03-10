@@ -57,7 +57,7 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
         collision_tag::CollisionTag,
         collision_tag::SolidTag,
     >::new()
-    .with_deps(&["control_player_system", "control_player_jump_system"]);
+    .with_deps(&[]);
     let animation_bundle = AnimationBundle::<AnimationKey>::new()
         .with_deps(&["handle_animations_system"]);
 
@@ -70,6 +70,12 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
         .with_core(CameraOrthoSystem::default(), "camera_ortho_system", &[])?
         .with_bundle(DispatcherId::Ingame, ingame_input_bundle)?
         .with_bundle(DispatcherId::Ingame, physics_bundle)?
+        .with(
+            DispatcherId::Ingame,
+            HandleAnimationsSystem::default(),
+            "handle_animations_system",
+            &[],
+        )?
         .with_bundle(DispatcherId::Ingame, animation_bundle)?
         .with(
             DispatcherId::Ingame,
@@ -91,6 +97,12 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
         )?
         .with(
             DispatcherId::Ingame,
+            ConfineEntitiesSystem::default(),
+            "confine_entities_system",
+            &["move_entities_system"],
+        )?
+        .with(
+            DispatcherId::Ingame,
             HandleMovablesSystem::default(),
             "decrease_velocities_system",
             &["ingame_input_manager_system"],
@@ -105,12 +117,6 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
             DispatcherId::Ingame,
             ControlPlayerJumpSystem::default(),
             "control_player_jump_system",
-            &[],
-        )?
-        .with(
-            DispatcherId::Ingame,
-            HandleAnimationsSystem::default(),
-            "handle_animations_system",
             &[],
         )?;
 

@@ -1,13 +1,26 @@
 # Design notes
+
 ## General
-- Room traversal
+
+- Level reload key
+- Level reset at death / falling out of level
+- Basic level manager
+- Next-room-object to be placed in tiled
+- Room to room traversal:
   After a short transition teleport player to new room. new room is seperate tmx / json, so different rooms can have different room sizes / camera settings / zoom level?
+
+- Camera
+  Limited by level borders
+
+- Player hitboxes:
+  Seperate hitboxes für solids and damage 
 
 ### Player Movement
 - Jump 
 - Walljump
 - Slide:
   Change hitbox and gain static velocity for duration of slide. spammable?
+- Be able to limit "jump_gravity" active duration to set amount of time after using jump or to when player has positive y velocity (so when he's falling it doesnt feel like everything is underwater).
 
 ### Environmental Animations
 - Animated Tiles (basic loop, ping pong, animation triggered by specific event)
@@ -105,7 +118,8 @@ If player still has lives left, they respawn at the most recent checkpoint and l
 - Water:
   "Field" that has texture and different gravity settings.
 - Ice:
-
+- Explosive boxes:
+  Explode when afflicted with any kind of damage (from any source)  
 ## Weapons
 - Weapon switch: Have different weapon types between which you can switch ingame. 
 
@@ -138,3 +152,5 @@ If player still has lives left, they respawn at the most recent checkpoint and l
 - Death sound / jingle
 - Explosions
 - Charging weapons
+
+## Level setting / theme ideas

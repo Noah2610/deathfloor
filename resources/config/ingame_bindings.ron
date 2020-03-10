@@ -6,5 +6,8 @@
     actions: {
         PlayerJump:  [ [Key(Space)], [Key(K)], ],
         PlayerShoot: [ [Key(J)], ],
+
+        // DEBUG
+        ReloadLevel: [ [Key(R)], ],
     },
 )

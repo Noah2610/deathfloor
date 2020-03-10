@@ -1,9 +1,11 @@
 mod ingame;
+mod load_ingame;
 mod startup;
 
 pub mod prelude {
     pub use super::aliases::*;
     pub use super::ingame::Ingame;
+    pub use super::load_ingame::LoadIngame;
     pub use super::startup::Startup;
     pub use super::CustomData;
     pub use super::DispatcherId;
