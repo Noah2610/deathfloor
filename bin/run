@@ -8,19 +8,15 @@ function _dl_util_sh {
     source "${dir}/util.sh"
 }; _dl_util_sh "$0"
 
-RUST_TOOLCHAIN="nightly-2020-02-06"
 [ -z "$CARGO_CMD" ] && CARGO_CMD="run"
 
-check "rustup"
+check "cargo"
 
 function main {
-    check_installed_toolchain
-
     local args
     local cmd
     args=( --features "nightly,debug" "$@" )
     cmd=( \
-        rustup run "$RUST_TOOLCHAIN" \
         cargo "$CARGO_CMD" \
         "${args[@]}" \
     )
@@ -29,26 +25,8 @@ function main {
     if should_run_in_terminal; then
         run_terminal "${cmd[@]}"
     else
-        ${cmd[*]}
+        "${cmd[@]}"
     fi
-}
-
-function check_installed_toolchain {
-    (rustup toolchain list \
-        | grep -Ex "${RUST_TOOLCHAIN}-.+" \
-        &> /dev/null) \
-        || err_toolchain_not_installed
-}
-
-function err_toolchain_not_installed {
-    local errmsg="\
-$(clr "${CLR_WARN[@]}")Warning:$(clrrs) Rust toolchain $(clr "${CLR_CODE[@]}")${RUST_TOOLCHAIN}$(clrrs) is not installed.
-Install automatically with $(clr "${CLR_CODE[@]}")rustup$(clrrs)?"
-
-    prompt_question "$errmsg" || exit 0
-
-    try_run \
-        "rustup install $RUST_TOOLCHAIN"
 }
 
 main "$@"
