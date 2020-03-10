@@ -57,7 +57,7 @@ pub(super) fn build(
         .with(Player::default())
         .with(Velocity::default())
         .with(Movable::default())
-        .with(CanJump::default())
+        .with(Jumper::default())
         .with(max_movement_velocity)
         .with(sprite_render)
         .with(movement_data)

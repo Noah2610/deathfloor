@@ -1,16 +1,13 @@
 use super::system_prelude::*;
-use std::collections::HashSet;
 
 #[derive(Default)]
-pub struct ControlPlayerJumpSystem {
-    entities_jumping: HashSet<Entity>,
-}
+pub struct ControlPlayerJumpSystem;
 
 impl<'a> System<'a> for ControlPlayerJumpSystem {
     type SystemData = (
         Entities<'a>,
         Read<'a, InputManager<IngameBindings>>,
-        ReadStorage<'a, CanJump>,
+        WriteStorage<'a, Jumper>,
         ReadStorage<'a, Collider<CollisionTag>>,
         ReadStorage<'a, MovementData>,
         WriteStorage<'a, Movable>,
@@ -22,16 +19,23 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
         (
             entities,
             input_manager,
-            jumpables,
+            mut jumpers,
             colliders,
             movement_data_store,
             mut movables,
             mut gravities,
         ): Self::SystemData,
     ) {
-        for (entity, _, collider, movement_data, movable, mut gravity_opt) in (
+        for (
+            entity,
+            jumper,
+            collider,
+            movement_data,
+            movable,
+            mut gravity_opt,
+        ) in (
             &entities,
-            &jumpables,
+            &mut jumpers,
             &colliders,
             &movement_data_store,
             &mut movables,
@@ -61,17 +65,17 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
                 movable.add_action(MoveAction::Jump {
                     strength: movement_data.jump_strength,
                 });
-                self.set_jumping(entity, true);
+                jumper.is_jumping = true;
             }
-            if self.is_jumping(&entity) && input_manager.is_up(PlayerJump) {
+            if jumper.is_jumping && input_manager.is_up(PlayerJump) {
                 movable.add_action(MoveAction::KillJump {
                     strength:     movement_data.jump_kill_strength,
                     min_velocity: movement_data.min_jump_velocity,
                 });
-                self.set_jumping(entity, false);
+                jumper.is_jumping = false;
             }
 
-            if self.is_jumping(&entity) {
+            if jumper.is_jumping {
                 maybe_set_gravity(
                     &mut gravity_opt,
                     &movement_data.jump_gravity,
@@ -80,20 +84,6 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
                 maybe_set_gravity(&mut gravity_opt, &movement_data.gravity);
             }
         }
-    }
-}
-
-impl ControlPlayerJumpSystem {
-    fn set_jumping(&mut self, entity: Entity, jumping: bool) {
-        if jumping {
-            self.entities_jumping.insert(entity);
-        } else {
-            self.entities_jumping.remove(&entity);
-        }
-    }
-
-    fn is_jumping(&self, entity: &Entity) -> bool {
-        self.entities_jumping.contains(&entity)
     }
 }
 
