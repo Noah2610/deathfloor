@@ -71,6 +71,12 @@ impl<'a> System<'a> for HandleMovablesSystem {
                             velocity.set(&Axis::Y, decreased);
                         }
                     }
+
+                    MoveAction::WallJump { strength } => {
+                        for axis in Axis::iter() {
+                            velocity.increase(&axis, strength.by_axis(&axis));
+                        }
+                    }
                 }
             }
 

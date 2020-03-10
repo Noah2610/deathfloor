@@ -104,17 +104,19 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
                         strength: movement_data.jump_strength,
                     });
                 } else {
-                    // TODO
                     let x_mult = if is_touching_left {
-                        -1.0
-                    } else if is_touching_right {
                         1.0
+                    } else if is_touching_right {
+                        -1.0
                     } else {
                         unreachable!()
                     };
 
-                    movable.add_action(MoveAction::Jump {
-                        strength: movement_data.jump_strength * 2.0,
+                    movable.add_action(MoveAction::WallJump {
+                        strength: (
+                            movement_data.wall_jump_strength.0 * x_mult,
+                            movement_data.wall_jump_strength.1,
+                        ),
                     });
                 }
                 jumper.is_jumping = true;
