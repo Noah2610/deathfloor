@@ -5,7 +5,6 @@ pub struct ControlPlayerJumpSystem;
 
 impl<'a> System<'a> for ControlPlayerJumpSystem {
     type SystemData = (
-        Entities<'a>,
         Read<'a, InputManager<IngameBindings>>,
         WriteStorage<'a, Jumper>,
         ReadStorage<'a, Collider<CollisionTag>>,
@@ -17,7 +16,6 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
     fn run(
         &mut self,
         (
-            entities,
             input_manager,
             mut jumpers,
             colliders,
@@ -26,15 +24,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             mut gravities,
         ): Self::SystemData,
     ) {
-        for (
-            entity,
-            jumper,
-            collider,
-            movement_data,
-            movable,
-            mut gravity_opt,
-        ) in (
-            &entities,
+        for (jumper, collider, movement_data, movable, mut gravity_opt) in (
             &mut jumpers,
             &colliders,
             &movement_data_store,
