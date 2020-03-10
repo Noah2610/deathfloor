@@ -1,7 +1,8 @@
+pub mod tile_type;
+
 mod helpers;
 
 use helpers::prelude::*;
-use std::convert::TryFrom;
 
 pub(super) fn load_tiles(
     world: &mut World,
@@ -13,7 +14,6 @@ pub(super) fn load_tiles(
     for tile in tiles {
         let tiles_settings =
             world.read_resource::<SettingsRes>().0.tiles.clone();
-        let tile_type = TileType::try_from(tile.tile_type.as_str())?;
 
         let sprite_render = get_sprite_render(
             world,
@@ -29,7 +29,8 @@ pub(super) fn load_tiles(
                 .with(hitbox)
                 .with(Collidable::new(CollisionTag::Tile))
                 .with(Solid::new(SolidTag::Tile));
-        } else if let Some(tile_settings) = tiles_settings.types.get(&tile_type)
+        } else if let Some(tile_settings) =
+            tiles_settings.types.get(&tile.tile_type)
         {
             if let Some(hitbox_type) = &tile_settings.hitbox {
                 let hitbox = match hitbox_type {
