@@ -19,6 +19,7 @@ pub mod prelude {
 
 mod system_prelude {
     pub use deathframe::amethyst;
+    pub use deathframe::physics::query::prelude::*;
     pub use deathframe::systems::system_prelude::*;
 
     pub use crate::animation_key::AnimationKey;
