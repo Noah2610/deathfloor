@@ -3,6 +3,7 @@ mod control_player_jump;
 #[cfg(feature = "debug")]
 mod debug;
 mod handle_animations;
+mod handle_jumppad_affected;
 mod handle_movables;
 
 pub mod prelude {
@@ -14,6 +15,7 @@ pub mod prelude {
     #[cfg(feature = "debug")]
     pub use super::debug::DebugSystem;
     pub use super::handle_animations::HandleAnimationsSystem;
+    pub use super::handle_jumppad_affected::HandleJumppadAffectedSystem;
     pub use super::handle_movables::HandleMovablesSystem;
 }
 

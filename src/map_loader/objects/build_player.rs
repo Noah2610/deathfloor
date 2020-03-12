@@ -63,7 +63,8 @@ pub(super) fn build(
         .with(sprite_render)
         .with(movement_data)
         .with(base_friction)
-        .with(animations_container);
+        .with(animations_container)
+        .with(JumppadAffected::default());
 
     if let Some(hitbox_config) = &player_settings.hitbox {
         let hitbox = match hitbox_config {
