@@ -89,10 +89,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             .join()
         {
             let query_matches = get_query_matches_from(collider);
-
-            // TODO: Refactor this mess.
             let is_touching_horz = query_matches.left || query_matches.right;
-            let is_touching_any = query_matches.bottom || is_touching_horz;
 
             let is_jump_key_down = input_manager.is_down(PlayerJump);
 
@@ -109,23 +106,25 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             }
 
             // WALL JUMP
-            if !jumped && is_jump_key_down && is_touching_horz {
-                #[rustfmt::skip]
-                let x_mult = match (query_matches.left, query_matches.right) {
-                    (true,  true)  => 0.0,            // touching both sides, so no x boost
-                    (true,  false) => 1.0,            // touching left, so jump to the right
-                    (false, true)  => -1.0,           // touching right, so jump to the left
-                    (false, false) => unreachable!(), // `is_touching_horz` is `true`, so this is unreachable
-                };
+            if let Some(_wall_jumper) = wall_jumper_opt {
+                if !jumped && is_jump_key_down && is_touching_horz {
+                    #[rustfmt::skip]
+                    let x_mult = match (query_matches.left, query_matches.right) {
+                        (true,  true)  => 0.0,            // touching both sides, so no x boost
+                        (true,  false) => 1.0,            // touching left, so jump to the right
+                        (false, true)  => -1.0,           // touching right, so jump to the left
+                        (false, false) => unreachable!(), // `is_touching_horz` is `true`, so this is unreachable
+                    };
 
-                movable.add_action(MoveAction::WallJump {
-                    strength: (
-                        movement_data.wall_jump_strength.0 * x_mult,
-                        movement_data.wall_jump_strength.1,
-                    ),
-                });
-                jumper.is_jumping = true;
-                jumped = true;
+                    movable.add_action(MoveAction::WallJump {
+                        strength: (
+                            movement_data.wall_jump_strength.0 * x_mult,
+                            movement_data.wall_jump_strength.1,
+                        ),
+                    });
+                    jumper.is_jumping = true;
+                    jumped = true;
+                }
             }
 
             if !jumped && is_touching_horz && !query_matches.bottom {
