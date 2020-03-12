@@ -5,6 +5,7 @@ pub struct HandleJumppadAffectedSystem;
 
 impl<'a> System<'a> for HandleJumppadAffectedSystem {
     type SystemData = (
+        Entities<'a>,
         ReadStorage<'a, JumppadAffected>,
         ReadStorage<'a, Jumppad>,
         ReadStorage<'a, Collider<CollisionTag>>,
@@ -14,6 +15,7 @@ impl<'a> System<'a> for HandleJumppadAffectedSystem {
     fn run(
         &mut self,
         (
+            entities,
             jumppad_affected_store,
             jumppads,
             colliders,
@@ -23,13 +25,33 @@ impl<'a> System<'a> for HandleJumppadAffectedSystem {
         for (_, collider, movable) in
             (&jumppad_affected_store, &colliders, &mut movables).join()
         {
-            let is_in_jumppad_collision = {
-                // use deathframe::physics::query::exp::variant_prelude::*;
+            let mut jumppad_strength_opt = None;
 
-                // let matches =
-                //     collider.query::<(), ()>().find((), IsState(Enter)).run();
-                false
-            };
+            for (jumppad_entity, jumppad) in (&entities, &jumppads).join() {
+                use deathframe::physics::query::exp::prelude_variants::*;
+
+                if collider
+                    .query::<FindQuery<CollisionTag>>()
+                    .filter_ids(vec![jumppad_entity.id()])
+                    .exp(And(vec![
+                        IsTag(CollisionTag::Jumppad),
+                        IsState(Enter),
+                        IsSide(Inner),
+                    ]))
+                    .run()
+                    .is_some()
+                {
+                    jumppad_strength_opt = Some(jumppad.strength);
+                    break;
+                }
+            }
+
+            if let Some(jumppad_strength) = jumppad_strength_opt {
+                // TODO: Maybe add new MoveAction instead of using MoveAction::WallJump?
+                movable.add_action(MoveAction::WallJump {
+                    strength: jumppad_strength,
+                });
+            }
         }
     }
 }
