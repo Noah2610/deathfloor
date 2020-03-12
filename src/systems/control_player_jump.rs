@@ -1,46 +1,48 @@
 use super::system_prelude::*;
-use std::hash::Hash;
 
-#[derive(PartialEq, Eq, Hash)]
-enum QueryFindName {
-    SolidBottom,
-    SolidLeft,
-    SolidRight,
+#[derive(Default)]
+struct QueryMatches {
+    bottom: bool,
+    left:   bool,
+    right:  bool,
 }
 
 fn get_query_matches_from<'a>(
     collider: &'a Collider<CollisionTag>,
-) -> QueryMatches<'a, CollisionTag, QueryFindName, ()> {
+) -> QueryMatches {
     use deathframe::physics::query::exp::prelude_variants::*;
-    use QueryFindName::*;
 
-    collider
-        .query()
-        .find(
-            SolidBottom,
-            And(vec![
-                IsTag(CollisionTag::Tile),
-                Or(vec![IsState(Enter), IsState(Steady)]),
-                IsSide(Bottom),
-            ]),
-        )
-        .find(
-            SolidLeft,
-            And(vec![
-                IsTag(CollisionTag::Tile),
-                Or(vec![IsState(Enter), IsState(Steady)]),
-                IsSide(Left),
-            ]),
-        )
-        .find(
-            SolidRight,
-            And(vec![
-                IsTag(CollisionTag::Tile),
-                Or(vec![IsState(Enter), IsState(Steady)]),
-                IsSide(Right),
-            ]),
-        )
+    let mut matches = QueryMatches::default();
+
+    matches.bottom = collider
+        .query::<FindQuery<CollisionTag>>()
+        .exp(And(vec![
+            IsTag(CollisionTag::Tile),
+            Or(vec![IsState(Enter), IsState(Steady)]),
+            IsSide(Bottom),
+        ]))
         .run()
+        .is_some();
+    matches.left = collider
+        .query::<FindQuery<CollisionTag>>()
+        .exp(And(vec![
+            IsTag(CollisionTag::Tile),
+            Or(vec![IsState(Enter), IsState(Steady)]),
+            IsSide(Left),
+        ]))
+        .run()
+        .is_some();
+    matches.right = collider
+        .query::<FindQuery<CollisionTag>>()
+        .exp(And(vec![
+            IsTag(CollisionTag::Tile),
+            Or(vec![IsState(Enter), IsState(Steady)]),
+            IsSide(Right),
+        ]))
+        .run()
+        .is_some();
+
+    matches
 }
 
 #[derive(Default)]
@@ -88,30 +90,30 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
         {
             let query_matches = get_query_matches_from(collider);
 
-            // TODO: Refactor this mess into an enum.
-            let is_touching_bottom =
-                query_matches.find.contains_key(&QueryFindName::SolidBottom);
-            let is_touching_left =
-                query_matches.find.contains_key(&QueryFindName::SolidLeft);
-            let is_touching_right =
-                query_matches.find.contains_key(&QueryFindName::SolidRight);
-            let is_touching_horz = is_touching_left || is_touching_right;
-            let is_touching_any = is_touching_bottom || is_touching_horz;
+            // TODO: Refactor this mess.
+            let is_touching_horz = query_matches.left || query_matches.right;
+            let is_touching_any = query_matches.bottom || is_touching_horz;
 
             // JUMP
             // normal or wall jump
             if is_touching_any && input_manager.is_down(PlayerJump) {
-                if is_touching_bottom {
+                if query_matches.bottom {
                     movable.add_action(MoveAction::Jump {
                         strength: movement_data.jump_strength,
                     });
                 } else {
-                    let x_mult = if is_touching_left {
-                        1.0
-                    } else if is_touching_right {
-                        -1.0
-                    } else {
-                        unreachable!()
+                    let x_mult = match (query_matches.left, query_matches.right)
+                    {
+                        // touching both sides, so no x boost
+                        (true, true) => 0.0,
+                        // touching left, so jump to the right
+                        (true, false) => 1.0,
+                        // touching right, so jump to the left
+                        (false, true) => -1.0,
+                        // at this point, `is_touching_any` is true,
+                        // but `query_matches.bottom` is false,
+                        // so player has to be touching a side
+                        (false, false) => unreachable!(),
                     };
 
                     movable.add_action(MoveAction::WallJump {
