@@ -94,37 +94,41 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             let is_touching_horz = query_matches.left || query_matches.right;
             let is_touching_any = query_matches.bottom || is_touching_horz;
 
-            // JUMP
-            // normal or wall jump
-            if is_touching_any && input_manager.is_down(PlayerJump) {
-                if query_matches.bottom {
-                    movable.add_action(MoveAction::Jump {
-                        strength: movement_data.jump_strength,
-                    });
-                } else {
-                    let x_mult = match (query_matches.left, query_matches.right)
-                    {
-                        // touching both sides, so no x boost
-                        (true, true) => 0.0,
-                        // touching left, so jump to the right
-                        (true, false) => 1.0,
-                        // touching right, so jump to the left
-                        (false, true) => -1.0,
-                        // at this point, `is_touching_any` is true,
-                        // but `query_matches.bottom` is false,
-                        // so player has to be touching a side
-                        (false, false) => unreachable!(),
-                    };
+            let is_jump_key_down = input_manager.is_down(PlayerJump);
 
-                    movable.add_action(MoveAction::WallJump {
-                        strength: (
-                            movement_data.wall_jump_strength.0 * x_mult,
-                            movement_data.wall_jump_strength.1,
-                        ),
-                    });
-                }
+            let mut jumped = false;
+            let mut killed_jump = false;
+
+            // JUMP
+            if is_jump_key_down && query_matches.bottom {
+                movable.add_action(MoveAction::Jump {
+                    strength: movement_data.jump_strength,
+                });
                 jumper.is_jumping = true;
-            } else if is_touching_horz {
+                jumped = true;
+            }
+
+            // WALL JUMP
+            if !jumped && is_jump_key_down && is_touching_horz {
+                #[rustfmt::skip]
+                let x_mult = match (query_matches.left, query_matches.right) {
+                    (true,  true)  => 0.0,            // touching both sides, so no x boost
+                    (true,  false) => 1.0,            // touching left, so jump to the right
+                    (false, true)  => -1.0,           // touching right, so jump to the left
+                    (false, false) => unreachable!(), // `is_touching_horz` is `true`, so this is unreachable
+                };
+
+                movable.add_action(MoveAction::WallJump {
+                    strength: (
+                        movement_data.wall_jump_strength.0 * x_mult,
+                        movement_data.wall_jump_strength.1,
+                    ),
+                });
+                jumper.is_jumping = true;
+                jumped = true;
+            }
+
+            if !jumped && is_touching_horz && !query_matches.bottom {
                 // SLIDE on wall
                 movable.add_action(MoveAction::WallSlide {
                     strength: movement_data.wall_slide_strength,
@@ -138,15 +142,16 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
                     min_velocity: movement_data.min_jump_velocity,
                 });
                 jumper.is_jumping = false;
+                killed_jump = true;
             }
 
             // set appropriate GRAVITY
-            if jumper.is_jumping {
+            if jumped {
                 maybe_set_gravity(
                     &mut gravity_opt,
                     &movement_data.jump_gravity,
                 );
-            } else {
+            } else if killed_jump {
                 maybe_set_gravity(&mut gravity_opt, &movement_data.gravity);
             }
         }
