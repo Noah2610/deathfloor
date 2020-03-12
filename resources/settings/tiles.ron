@@ -10,6 +10,7 @@
 
         Jumppad: (
             is_solid: false,
+            hitbox: Size,
             jumppad: (
                 /// Jumppad strength (x, y)
                 strength: (0.0, 400.0),

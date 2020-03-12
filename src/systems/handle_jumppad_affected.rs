@@ -27,7 +27,9 @@ impl<'a> System<'a> for HandleJumppadAffectedSystem {
         {
             let mut jumppad_strength_opt = None;
 
-            for (jumppad_entity, jumppad) in (&entities, &jumppads).join() {
+            'jumppads_loop: for (jumppad_entity, jumppad) in
+                (&entities, &jumppads).join()
+            {
                 use deathframe::physics::query::exp::prelude_variants::*;
 
                 if collider
@@ -42,7 +44,7 @@ impl<'a> System<'a> for HandleJumppadAffectedSystem {
                     .is_some()
                 {
                     jumppad_strength_opt = Some(jumppad.strength);
-                    break;
+                    break 'jumppads_loop;
                 }
             }
 
