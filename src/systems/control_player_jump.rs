@@ -53,6 +53,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
         Read<'a, InputManager<IngameBindings>>,
         WriteStorage<'a, Jumper>,
         ReadStorage<'a, WallJumper>,
+        ReadStorage<'a, WallSlider>,
         ReadStorage<'a, Collider<CollisionTag>>,
         ReadStorage<'a, MovementData>,
         WriteStorage<'a, Movable>,
@@ -65,6 +66,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             input_manager,
             mut jumpers,
             wall_jumpers,
+            wall_sliders,
             colliders,
             movement_data_store,
             mut movables,
@@ -74,6 +76,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
         for (
             jumper,
             wall_jumper_opt,
+            wall_slider_opt,
             collider,
             movement_data,
             movable,
@@ -81,6 +84,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
         ) in (
             &mut jumpers,
             wall_jumpers.maybe(),
+            wall_sliders.maybe(),
             &colliders,
             &movement_data_store,
             &mut movables,
@@ -116,7 +120,6 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
                         (false, false) => unreachable!(), // `is_touching_horz` is `true`, so this is unreachable
                     };
 
-                    // TODO: Use WallJumper's jump strength
                     movable.add_action(MoveAction::WallJump {
                         strength: (
                             wall_jumper.strength.0 * x_mult,
@@ -128,11 +131,13 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
                 }
             }
 
-            if !jumped && is_touching_horz && !query_matches.bottom {
-                // SLIDE on wall
-                movable.add_action(MoveAction::WallSlide {
-                    strength: movement_data.wall_slide_strength,
-                });
+            // WALL SLIDE
+            if let Some(wall_slider) = wall_slider_opt {
+                if !jumped && is_touching_horz && !query_matches.bottom {
+                    movable.add_action(MoveAction::WallSlide {
+                        velocity: wall_slider.slide_velocity,
+                    });
+                }
             }
 
             // KILL JUMP

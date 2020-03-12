@@ -69,6 +69,10 @@ pub(super) fn build(
         entity_builder = entity_builder.with(wall_jumper);
     }
 
+    if let Some(wall_slider) = player_settings.wall_slider {
+        entity_builder = entity_builder.with(wall_slider);
+    }
+
     if let Some(hitbox_config) = &player_settings.hitbox {
         let hitbox = match hitbox_config {
             HitboxConfig::Size => Hitbox::new().with_rect(Rect::from(&size)),

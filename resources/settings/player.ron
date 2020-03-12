@@ -14,8 +14,6 @@
         base_friction:       (1000.0, None),
         /// The normal gravity.
         gravity:             (None, -900.0),
-        /// Fixed y velocity when sliding on wall.
-        wall_slide_strength: -20.0,
     ),
 
     /// The player's hitbox.
@@ -42,5 +40,12 @@
         /// The velocity boost (x, y) when wall-jumping.
         /// Both values should be positive.
         strength:  (200.0, 200.0),
+    ),
+
+    /// Player wall sliding settings.
+    /// Optional.
+    wall_slider: (
+        /// Fixed y velocity when sliding on wall.
+        slide_velocity: -20.0,
     ),
 )
