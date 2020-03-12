@@ -2,14 +2,16 @@ use super::helpers::prelude::*;
 use amethyst::ecs::{Entities, Join, ReadStorage};
 use amethyst::renderer::Camera;
 use amethyst::utils::ortho_camera::{
-    CameraNormalizeMode, CameraOrtho, CameraOrthoWorldCoordinates,
+    CameraNormalizeMode,
+    CameraOrtho,
+    CameraOrthoWorldCoordinates,
 };
 
 pub(super) fn build(
     world: &mut World,
     level_data: &LevelData,
     player_entity_opt: Option<Entity>,
-) -> amethyst::Result<()> {
+) -> amethyst::Result<Entity> {
     let camera_settings = world.read_resource::<SettingsRes>().0.camera.clone();
 
     let pos = {
@@ -54,10 +56,10 @@ pub(super) fn build(
         CameraOrtho::normalized(CameraNormalizeMode::Contain);
     let half_size = (size.w * 0.5, size.h * 0.5);
     camera_ortho.world_coordinates = CameraOrthoWorldCoordinates {
-        top: half_size.1,
+        top:    half_size.1,
         bottom: -half_size.1,
-        left: -half_size.0,
-        right: half_size.0,
+        left:   -half_size.0,
+        right:  half_size.0,
     };
     let loader = Loader::new(half_size.0, half_size.1);
     let confined = {
@@ -84,7 +86,5 @@ pub(super) fn build(
         entity = entity.with(Follow::new(player_entity));
     }
 
-    entity.build();
-
-    Ok(())
+    Ok(entity.build())
 }

@@ -1,46 +1,48 @@
 use super::system_prelude::*;
-use std::hash::Hash;
 
-#[derive(PartialEq, Eq, Hash)]
-enum QueryFindName {
-    SolidBottom,
-    SolidLeft,
-    SolidRight,
+#[derive(Default)]
+struct QueryMatches {
+    bottom: bool,
+    left:   bool,
+    right:  bool,
 }
 
 fn get_query_matches_from<'a>(
     collider: &'a Collider<CollisionTag>,
-) -> QueryMatches<'a, CollisionTag, QueryFindName, ()> {
+) -> QueryMatches {
     use deathframe::physics::query::exp::prelude_variants::*;
-    use QueryFindName::*;
 
-    collider
-        .query()
-        .find(
-            SolidBottom,
-            And(vec![
-                IsTag(CollisionTag::Tile),
-                Or(vec![IsState(Enter), IsState(Steady)]),
-                IsSide(Bottom),
-            ]),
-        )
-        .find(
-            SolidLeft,
-            And(vec![
-                IsTag(CollisionTag::Tile),
-                Or(vec![IsState(Enter), IsState(Steady)]),
-                IsSide(Left),
-            ]),
-        )
-        .find(
-            SolidRight,
-            And(vec![
-                IsTag(CollisionTag::Tile),
-                Or(vec![IsState(Enter), IsState(Steady)]),
-                IsSide(Right),
-            ]),
-        )
+    let mut matches = QueryMatches::default();
+
+    matches.bottom = collider
+        .query::<FindQuery<CollisionTag>>()
+        .exp(And(vec![
+            IsTag(CollisionTag::Tile),
+            Or(vec![IsState(Enter), IsState(Steady)]),
+            IsSide(Bottom),
+        ]))
         .run()
+        .is_some();
+    matches.left = collider
+        .query::<FindQuery<CollisionTag>>()
+        .exp(And(vec![
+            IsTag(CollisionTag::Tile),
+            Or(vec![IsState(Enter), IsState(Steady)]),
+            IsSide(Left),
+        ]))
+        .run()
+        .is_some();
+    matches.right = collider
+        .query::<FindQuery<CollisionTag>>()
+        .exp(And(vec![
+            IsTag(CollisionTag::Tile),
+            Or(vec![IsState(Enter), IsState(Steady)]),
+            IsSide(Right),
+        ]))
+        .run()
+        .is_some();
+
+    matches
 }
 
 #[derive(Default)]
@@ -51,8 +53,9 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
         Read<'a, InputManager<IngameBindings>>,
         WriteStorage<'a, Jumper>,
         ReadStorage<'a, WallJumper>,
+        ReadStorage<'a, WallSlider>,
         ReadStorage<'a, Collider<CollisionTag>>,
-        ReadStorage<'a, MovementData>,
+        ReadStorage<'a, PhysicsData>,
         WriteStorage<'a, Movable>,
         WriteStorage<'a, Gravity>,
     );
@@ -63,8 +66,9 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             input_manager,
             mut jumpers,
             wall_jumpers,
+            wall_sliders,
             colliders,
-            movement_data_store,
+            physics_data_store,
             mut movables,
             mut gravities,
         ): Self::SystemData,
@@ -72,80 +76,85 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
         for (
             jumper,
             wall_jumper_opt,
+            wall_slider_opt,
             collider,
-            movement_data,
+            physics_data,
             movable,
             mut gravity_opt,
         ) in (
             &mut jumpers,
             wall_jumpers.maybe(),
+            wall_sliders.maybe(),
             &colliders,
-            &movement_data_store,
+            &physics_data_store,
             &mut movables,
             (&mut gravities).maybe(),
         )
             .join()
         {
             let query_matches = get_query_matches_from(collider);
+            let is_touching_horz = query_matches.left || query_matches.right;
 
-            // TODO: Refactor this mess into an enum.
-            let is_touching_bottom =
-                query_matches.find.contains_key(&QueryFindName::SolidBottom);
-            let is_touching_left =
-                query_matches.find.contains_key(&QueryFindName::SolidLeft);
-            let is_touching_right =
-                query_matches.find.contains_key(&QueryFindName::SolidRight);
-            let is_touching_horz = is_touching_left || is_touching_right;
-            let is_touching_any = is_touching_bottom || is_touching_horz;
+            let is_jump_key_down = input_manager.is_down(PlayerJump);
+
+            let mut jumped = false;
+            let mut killed_jump = false;
 
             // JUMP
-            // normal or wall jump
-            if is_touching_any && input_manager.is_down(PlayerJump) {
-                if is_touching_bottom {
-                    movable.add_action(MoveAction::Jump {
-                        strength: movement_data.jump_strength,
-                    });
-                } else {
-                    let x_mult = if is_touching_left {
-                        1.0
-                    } else if is_touching_right {
-                        -1.0
-                    } else {
-                        unreachable!()
+            if is_jump_key_down && query_matches.bottom {
+                movable.add_action(MoveAction::Jump {
+                    strength: jumper.strength,
+                });
+                jumper.is_jumping = true;
+                jumped = true;
+            }
+
+            // WALL JUMP
+            if let Some(wall_jumper) = wall_jumper_opt {
+                if !jumped && is_jump_key_down && is_touching_horz {
+                    #[rustfmt::skip]
+                    let x_mult = match (query_matches.left, query_matches.right) {
+                        (true,  true)  => 0.0,            // touching both sides, so no x boost
+                        (true,  false) => 1.0,            // touching left, so jump to the right
+                        (false, true)  => -1.0,           // touching right, so jump to the left
+                        (false, false) => unreachable!(), // `is_touching_horz` is `true`, so this is unreachable
                     };
 
                     movable.add_action(MoveAction::WallJump {
                         strength: (
-                            movement_data.wall_jump_strength.0 * x_mult,
-                            movement_data.wall_jump_strength.1,
+                            wall_jumper.strength.0 * x_mult,
+                            wall_jumper.strength.1,
                         ),
                     });
+                    jumper.is_jumping = true;
+                    jumped = true;
                 }
-                jumper.is_jumping = true;
-            } else if is_touching_horz {
-                // SLIDE on wall
-                movable.add_action(MoveAction::WallSlide {
-                    strength: movement_data.wall_slide_strength,
-                });
+            }
+
+            // WALL SLIDE
+            if let Some(wall_slider) = wall_slider_opt {
+                if !jumped && is_touching_horz && !query_matches.bottom {
+                    movable.add_action(MoveAction::WallSlide {
+                        velocity: wall_slider.slide_velocity,
+                    });
+                }
             }
 
             // KILL JUMP
             if jumper.is_jumping && input_manager.is_up(PlayerJump) {
                 movable.add_action(MoveAction::KillJump {
-                    strength:     movement_data.jump_kill_strength,
-                    min_velocity: movement_data.min_jump_velocity,
+                    strength:     jumper.kill_strength,
+                    min_velocity: jumper.min_velocity,
                 });
                 jumper.is_jumping = false;
+                killed_jump = true;
             }
 
             // set appropriate GRAVITY
-            if jumper.is_jumping {
-                maybe_set_gravity(
-                    &mut gravity_opt,
-                    &movement_data.jump_gravity,
-                );
-            } else {
-                maybe_set_gravity(&mut gravity_opt, &movement_data.gravity);
+            if jumped {
+                maybe_set_gravity(&mut gravity_opt, &jumper.gravity);
+            } else if killed_jump {
+                maybe_set_gravity(&mut gravity_opt, &physics_data.gravity);
             }
         }
     }

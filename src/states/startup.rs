@@ -21,4 +21,6 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Startup {
 fn register_components(world: &mut World) {
     world.register::<Player>();
     world.register::<Camera>();
+    world.register::<Jumppad>();
+    world.register::<JumppadAffected>();
 }

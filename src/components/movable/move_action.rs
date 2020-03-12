@@ -17,7 +17,7 @@ pub enum MoveAction {
         strength: (f32, f32),
     },
     WallSlide {
-        strength: f32,
+        velocity: f32,
     },
 }
 

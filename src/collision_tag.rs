@@ -12,7 +12,7 @@ impl CTag for SolidTag {
             (SolidTag::Player, SolidTag::Tile)
             | (SolidTag::Tile, SolidTag::Player) => true,
             (SolidTag::Player, SolidTag::Player) => true,
-            (SolidTag::Tile, SolidTag::Tile) => true,
+            (SolidTag::Tile, SolidTag::Tile) => false,
         }
     }
 }
@@ -21,6 +21,7 @@ impl CTag for SolidTag {
 pub enum CollisionTag {
     Player,
     Tile,
+    Jumppad,
 }
 
 impl CTag for CollisionTag {
@@ -28,8 +29,10 @@ impl CTag for CollisionTag {
         match (self, other) {
             (CollisionTag::Player, CollisionTag::Tile)
             | (CollisionTag::Tile, CollisionTag::Player) => true,
+            (CollisionTag::Player, CollisionTag::Jumppad)
+            | (CollisionTag::Jumppad, CollisionTag::Player) => true,
             (CollisionTag::Player, CollisionTag::Player) => true,
-            (CollisionTag::Tile, CollisionTag::Tile) => true,
+            _ => false,
         }
     }
 }
