@@ -19,7 +19,7 @@
         jump_strength:       200.0,
         /// The velocity boost (x, y) when wall-jumping.
         /// Both values should be positive.
-        wall_jump_strength:  (200.0, 200.0),
+        wall_jump_strength:  (250.0, 150.0),
         /// The velocity boost, when releasing the jump button after jumping.
         /// Should be negative.
         jump_kill_strength:  -60.0,
