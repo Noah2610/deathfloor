@@ -6,6 +6,7 @@
         width:  12.0,
         height: 16.0,
     ),
+
     /// The player's movement data; anything involving velocity.
     movement: (
         acceleration:        (900.0, 1400.0),
@@ -13,22 +14,27 @@
         base_friction:       (1000.0, None),
         /// The normal gravity.
         gravity:             (None, -900.0),
-        /// The gravity applied only when jumping (holding down the jump button).
-        jump_gravity:        (None, -450.0),
-        /// The velocity boost when jumping.
-        jump_strength:       200.0,
         /// The velocity boost (x, y) when wall-jumping.
         /// Both values should be positive.
         wall_jump_strength:  (200.0, 200.0),
-        /// The velocity boost, when releasing the jump button after jumping.
-        /// Should be negative.
-        jump_kill_strength:  -60.0,
-        /// The minimum amount of upwards velocity the player should
-        /// at least still have, after killing their jump.
-        min_jump_velocity:   45.0,
         /// Fixed y velocity when sliding on wall.
         wall_slide_strength: -20.0,
     ),
+
     /// The player's hitbox.
     hitbox: Size,
+
+    /// Player jump settings.
+    jumper: (
+        /// The gravity applied only when jumping (holding down the jump button).
+        gravity:        (None, -450.0),
+        /// The velocity boost when jumping.
+        strength:       200.0,
+        /// The velocity boost, when releasing the jump button after jumping.
+        /// Should be negative.
+        kill_strength:  -60.0,
+        /// The minimum amount of upwards velocity the player should
+        /// at least still have, after killing their jump.
+        min_velocity:   45.0,
+    ),
 )

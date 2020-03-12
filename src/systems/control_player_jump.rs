@@ -99,7 +99,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             // JUMP
             if is_jump_key_down && query_matches.bottom {
                 movable.add_action(MoveAction::Jump {
-                    strength: movement_data.jump_strength,
+                    strength: jumper.strength,
                 });
                 jumper.is_jumping = true;
                 jumped = true;
@@ -116,6 +116,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
                         (false, false) => unreachable!(), // `is_touching_horz` is `true`, so this is unreachable
                     };
 
+                    // TODO: Use WallJumper's jump strength
                     movable.add_action(MoveAction::WallJump {
                         strength: (
                             movement_data.wall_jump_strength.0 * x_mult,
@@ -137,8 +138,8 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             // KILL JUMP
             if jumper.is_jumping && input_manager.is_up(PlayerJump) {
                 movable.add_action(MoveAction::KillJump {
-                    strength:     movement_data.jump_kill_strength,
-                    min_velocity: movement_data.min_jump_velocity,
+                    strength:     jumper.kill_strength,
+                    min_velocity: jumper.min_velocity,
                 });
                 jumper.is_jumping = false;
                 killed_jump = true;
@@ -146,10 +147,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
 
             // set appropriate GRAVITY
             if jumped {
-                maybe_set_gravity(
-                    &mut gravity_opt,
-                    &movement_data.jump_gravity,
-                );
+                maybe_set_gravity(&mut gravity_opt, &jumper.gravity);
             } else if killed_jump {
                 maybe_set_gravity(&mut gravity_opt, &movement_data.gravity);
             }
