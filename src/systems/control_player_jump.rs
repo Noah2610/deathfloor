@@ -106,7 +106,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             }
 
             // WALL JUMP
-            if let Some(_wall_jumper) = wall_jumper_opt {
+            if let Some(wall_jumper) = wall_jumper_opt {
                 if !jumped && is_jump_key_down && is_touching_horz {
                     #[rustfmt::skip]
                     let x_mult = match (query_matches.left, query_matches.right) {
@@ -119,8 +119,8 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
                     // TODO: Use WallJumper's jump strength
                     movable.add_action(MoveAction::WallJump {
                         strength: (
-                            movement_data.wall_jump_strength.0 * x_mult,
-                            movement_data.wall_jump_strength.1,
+                            wall_jumper.strength.0 * x_mult,
+                            wall_jumper.strength.1,
                         ),
                     });
                     jumper.is_jumping = true;

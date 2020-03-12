@@ -58,13 +58,16 @@ pub(super) fn build(
         .with(Velocity::default())
         .with(Movable::default())
         .with(player_settings.jumper)
-        .with(WallJumper::default())
         .with(max_movement_velocity)
         .with(sprite_render)
         .with(movement_data)
         .with(base_friction)
         .with(animations_container)
         .with(JumppadAffected::default());
+
+    if let Some(wall_jumper) = player_settings.wall_jumper {
+        entity_builder = entity_builder.with(wall_jumper);
+    }
 
     if let Some(hitbox_config) = &player_settings.hitbox {
         let hitbox = match hitbox_config {
