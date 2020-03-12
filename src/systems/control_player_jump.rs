@@ -55,7 +55,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
         ReadStorage<'a, WallJumper>,
         ReadStorage<'a, WallSlider>,
         ReadStorage<'a, Collider<CollisionTag>>,
-        ReadStorage<'a, MovementData>,
+        ReadStorage<'a, PhysicsData>,
         WriteStorage<'a, Movable>,
         WriteStorage<'a, Gravity>,
     );
@@ -68,7 +68,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             wall_jumpers,
             wall_sliders,
             colliders,
-            movement_data_store,
+            physics_data_store,
             mut movables,
             mut gravities,
         ): Self::SystemData,
@@ -78,7 +78,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             wall_jumper_opt,
             wall_slider_opt,
             collider,
-            movement_data,
+            physics_data,
             movable,
             mut gravity_opt,
         ) in (
@@ -86,7 +86,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             wall_jumpers.maybe(),
             wall_sliders.maybe(),
             &colliders,
-            &movement_data_store,
+            &physics_data_store,
             &mut movables,
             (&mut gravities).maybe(),
         )
@@ -154,7 +154,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             if jumped {
                 maybe_set_gravity(&mut gravity_opt, &jumper.gravity);
             } else if killed_jump {
-                maybe_set_gravity(&mut gravity_opt, &movement_data.gravity);
+                maybe_set_gravity(&mut gravity_opt, &physics_data.gravity);
             }
         }
     }

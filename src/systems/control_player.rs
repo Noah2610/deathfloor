@@ -7,7 +7,7 @@ impl<'a> System<'a> for ControlPlayerSystem {
     type SystemData = (
         Read<'a, Time>,
         ReadExpect<'a, InputManager<IngameBindings>>,
-        ReadStorage<'a, MovementData>,
+        ReadStorage<'a, PhysicsData>,
         WriteStorage<'a, Movable>,
         WriteStorage<'a, MaxMovementVelocity>,
     );
@@ -17,15 +17,15 @@ impl<'a> System<'a> for ControlPlayerSystem {
         (
             time,
             input_manager,
-            movement_data_store,
+            physics_data_store,
             mut movables,
             mut max_movement_velocities,
         ): Self::SystemData,
     ) {
         let dt = time.delta_seconds() as f32;
 
-        for (movement_data, movable, mut max_velocity_opt) in (
-            &movement_data_store,
+        for (physics_data, movable, mut max_velocity_opt) in (
+            &physics_data_store,
             &mut movables,
             (&mut max_movement_velocities).maybe(),
         )
@@ -36,7 +36,7 @@ impl<'a> System<'a> for ControlPlayerSystem {
                     axis,
                     dt,
                     &input_manager,
-                    movement_data,
+                    physics_data,
                     movable,
                     &mut max_velocity_opt,
                 );
@@ -49,7 +49,7 @@ fn handle_move_on_axis(
     axis: Axis,
     dt: f32,
     input_manager: &InputManager<IngameBindings>,
-    movement_data: &MovementData,
+    physics_data: &PhysicsData,
     movable: &mut Movable,
     max_movement_velocity_opt: &mut Option<&mut MaxMovementVelocity>,
 ) {
@@ -61,11 +61,11 @@ fn handle_move_on_axis(
             max_movement_velocity_opt.as_mut().map(|maxvel| {
                 maxvel.set_opt(
                     &axis,
-                    movement_data.max_velocity.by_axis(&axis).map(limit_max),
+                    physics_data.max_velocity.by_axis(&axis).map(limit_max),
                 )
             });
 
-            let acceleration_opt = movement_data.acceleration.by_axis(&axis);
+            let acceleration_opt = physics_data.acceleration.by_axis(&axis);
 
             if let Some(acceleration) = acceleration_opt {
                 let speed = acceleration * val * dt;

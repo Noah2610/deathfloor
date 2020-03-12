@@ -7,10 +7,13 @@
         height: 16.0,
     ),
 
-    /// The player's movement data; anything involving velocity.
-    movement: (
+    /// The player's physics data; stuff involving velocity.
+    physics: (
+        /// Movement acceleration.
         acceleration:        (900.0, 1400.0),
+        /// Soft-max for movement velocity.
         max_velocity:        (140.0, 420.0),
+        /// Friction factor applied to velocity every frame.
         base_friction:       (1000.0, None),
         /// The normal gravity.
         gravity:             (None, -900.0),
