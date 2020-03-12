@@ -3,6 +3,7 @@ pub enum TileType {
     #[serde(rename = "")]
     None,
     Ground,
+    Jumppad,
 }
 
 impl Default for TileType {

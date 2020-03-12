@@ -1,4 +1,5 @@
 use super::hitbox_config::HitboxConfig;
+use crate::components::prelude::Jumppad;
 use crate::map_loader::types::TileType;
 use std::collections::HashMap;
 
@@ -9,5 +10,7 @@ pub struct TilesSettings {
 
 #[derive(Clone, Deserialize)]
 pub struct TileSettings {
-    pub hitbox: Option<HitboxConfig>,
+    pub is_solid: bool,
+    pub hitbox:   Option<HitboxConfig>,
+    pub jumppad:  Option<Jumppad>,
 }

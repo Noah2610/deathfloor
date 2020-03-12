@@ -4,7 +4,16 @@
     types: {
         /// Solid ground.
         Ground: (
+            is_solid: true,
             hitbox: Size,
+        ),
+
+        Jumppad: (
+            is_solid: false,
+            jumppad: (
+                /// Jumppad strength (x, y)
+                strength: (0.0, 400.0),
+            ),
         ),
     },
 )

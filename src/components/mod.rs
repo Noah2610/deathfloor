@@ -1,4 +1,5 @@
 mod jumper;
+mod jumppad;
 mod max_movement_velocity;
 mod movable;
 mod movement_data;
@@ -11,6 +12,7 @@ pub mod prelude {
     pub use deathframe::components::prelude::*;
 
     pub use super::jumper::Jumper;
+    pub use super::jumppad::Jumppad;
     pub use super::max_movement_velocity::MaxMovementVelocity;
     pub use super::movable::{Movable, MoveAction};
     pub use super::movement_data::MovementData;
