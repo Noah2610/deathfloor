@@ -13,7 +13,7 @@
             hitbox: Size,
             jumppad: (
                 /// Jumppad strength (x, y)
-                strength: (0.0, 400.0),
+                strength: (None, 400.0),
             ),
         ),
     },

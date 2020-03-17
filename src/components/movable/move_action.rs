@@ -19,6 +19,12 @@ pub enum MoveAction {
     WallSlide {
         velocity: f32,
     },
+    AddVelocity {
+        velocity: (Option<f32>, Option<f32>),
+    },
+    SetVelocity {
+        velocity: (Option<f32>, Option<f32>),
+    },
 }
 
 impl MoveAction {
@@ -31,6 +37,8 @@ impl MoveAction {
             MoveAction::KillJump { .. } => 7,
             MoveAction::WallJump { .. } => 8,
             MoveAction::WallSlide { .. } => 9,
+            MoveAction::AddVelocity { .. } => 10,
+            MoveAction::SetVelocity { .. } => 11,
         }
     }
 }

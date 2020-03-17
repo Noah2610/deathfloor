@@ -49,9 +49,8 @@ impl<'a> System<'a> for HandleJumppadAffectedSystem {
             }
 
             if let Some(jumppad_strength) = jumppad_strength_opt {
-                // TODO: Maybe add new MoveAction instead of using MoveAction::WallJump?
-                movable.add_action(MoveAction::WallJump {
-                    strength: jumppad_strength,
+                movable.add_action(MoveAction::SetVelocity {
+                    velocity: jumppad_strength,
                 });
             }
         }
