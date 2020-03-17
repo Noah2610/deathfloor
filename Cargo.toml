@@ -16,7 +16,7 @@ derive_builder = "0.9.0"
 version = "*"
 # path = "../deathframe"
 git = "https://github.com/Noah2610/deathframe"
-branch = "feature/#6-collision-query-trait"
+branch = "develop"
 features = [
     "vulkan",
     "serde",
