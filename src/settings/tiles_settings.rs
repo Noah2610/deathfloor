@@ -25,6 +25,24 @@ pub struct TileSettings {
     pub jumppad_strength_y: Option<f32>,
 }
 
+impl TileSettings {
+    // TODO: This could be extracted into a trait
+    /// Merges the field values from `other` into `self`.
+    /// `self` takes precedence.
+    /// Takes ownership of `self`, and returns a new `Self`.
+    pub fn merge(mut self, other: Self) -> Self {
+        self.is_solid = self.is_solid; // Just here for completeness sake.
+        self.hitbox = self.hitbox.or(other.hitbox);
+        self.jumppad = self.jumppad.or(other.jumppad);
+        self.jumppad_strength_x =
+            self.jumppad_strength_x.or(other.jumppad_strength_x);
+        self.jumppad_strength_y =
+            self.jumppad_strength_y.or(other.jumppad_strength_y);
+
+        self
+    }
+}
+
 impl<'a> TryFrom<&'a Props> for TileSettings {
     type Error = Error;
     fn try_from(props: &'a Props) -> Result<Self> {
