@@ -1,4 +1,8 @@
 use super::system_prelude::*;
+use std::collections::HashMap;
+
+// TODO: Move into settings
+const NORMAL_GRAVITY_BELOW_Y_VEL: f32 = 0.0;
 
 #[derive(Default)]
 struct QueryMatches {
@@ -45,11 +49,20 @@ fn get_query_matches_from<'a>(
     matches
 }
 
+#[derive(PartialEq, Debug)]
+enum TargetGravity {
+    Normal,
+    Jump,
+}
+
 #[derive(Default)]
-pub struct ControlPlayerJumpSystem;
+pub struct ControlPlayerJumpSystem {
+    player_gravities: HashMap<Entity, TargetGravity>,
+}
 
 impl<'a> System<'a> for ControlPlayerJumpSystem {
     type SystemData = (
+        Entities<'a>,
         Read<'a, InputManager<IngameBindings>>,
         WriteStorage<'a, Jumper>,
         ReadStorage<'a, WallJumper>,
@@ -58,11 +71,13 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
         ReadStorage<'a, PhysicsData>,
         WriteStorage<'a, Movable>,
         WriteStorage<'a, Gravity>,
+        ReadStorage<'a, Velocity>,
     );
 
     fn run(
         &mut self,
         (
+            entities,
             input_manager,
             mut jumpers,
             wall_jumpers,
@@ -71,9 +86,11 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             physics_data_store,
             mut movables,
             mut gravities,
+            velocities,
         ): Self::SystemData,
     ) {
         for (
+            entity,
             jumper,
             wall_jumper_opt,
             wall_slider_opt,
@@ -81,7 +98,9 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             physics_data,
             movable,
             mut gravity_opt,
+            velocity,
         ) in (
+            &entities,
             &mut jumpers,
             wall_jumpers.maybe(),
             wall_sliders.maybe(),
@@ -89,6 +108,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             &physics_data_store,
             &mut movables,
             (&mut gravities).maybe(),
+            &velocities,
         )
             .join()
         {
@@ -96,9 +116,9 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             let is_touching_horz = query_matches.left || query_matches.right;
 
             let is_jump_key_down = input_manager.is_down(PlayerJump);
+            let is_jump_key_pressed = input_manager.is_pressed(PlayerJump);
 
             let mut jumped = false;
-            let mut killed_jump = false;
 
             // JUMP
             if is_jump_key_down && query_matches.bottom {
@@ -147,14 +167,38 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
                     min_velocity: jumper.min_velocity,
                 });
                 jumper.is_jumping = false;
-                killed_jump = true;
             }
 
             // set appropriate GRAVITY
-            if jumped {
-                maybe_set_gravity(&mut gravity_opt, &jumper.gravity);
-            } else if killed_jump {
-                maybe_set_gravity(&mut gravity_opt, &physics_data.gravity);
+            let mut target_gravity_opt = None;
+
+            let vel_y = velocity.get(&Axis::Y);
+            if is_jump_key_pressed && vel_y >= NORMAL_GRAVITY_BELOW_Y_VEL {
+                target_gravity_opt = Some(TargetGravity::Jump);
+            } else if !is_jump_key_pressed {
+                target_gravity_opt = Some(TargetGravity::Normal);
+            } else if vel_y < NORMAL_GRAVITY_BELOW_Y_VEL {
+                target_gravity_opt = Some(TargetGravity::Normal);
+            }
+
+            if let Some(target_gravity) = target_gravity_opt {
+                if self
+                    .player_gravities
+                    .get(&entity)
+                    .map(|prev_gravity| prev_gravity != &target_gravity)
+                    .unwrap_or(true)
+                {
+                    match &target_gravity {
+                        TargetGravity::Normal => maybe_set_gravity(
+                            &mut gravity_opt,
+                            &physics_data.gravity,
+                        ),
+                        TargetGravity::Jump => {
+                            maybe_set_gravity(&mut gravity_opt, &jumper.gravity)
+                        }
+                    }
+                    self.player_gravities.insert(entity, target_gravity);
+                }
             }
         }
     }
