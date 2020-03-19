@@ -1,9 +1,44 @@
 pub(super) mod prelude {
     pub(in super::super) use super::base_tile_entity;
+    pub(in super::super) use super::edit_entity_with_tile_settings;
     pub use crate::map_loader::helpers::prelude::*;
 }
 
 use prelude::*;
+
+/// Adds components depending on given `TileSettings` to `EntityBuilder`.
+pub(super) fn edit_entity_with_tile_settings<'a>(
+    mut entity: EntityBuilder<'a>,
+    tile_settings: &TileSettings,
+    size: &Size,
+) -> EntityBuilder<'a> {
+    // HITBOX
+    if let Some(hitbox_type) = &tile_settings.hitbox {
+        let hitbox = match hitbox_type {
+            HitboxConfig::Size => Hitbox::new().with_rect(size.into()),
+            HitboxConfig::Custom(rects) => {
+                Hitbox::new().with_rects(rects.clone())
+            }
+        };
+        entity = entity.with(hitbox);
+    }
+
+    // SOLID
+    if tile_settings.is_solid {
+        entity = entity
+            .with(Collidable::new(CollisionTag::Tile))
+            .with(Solid::new(SolidTag::Tile));
+    }
+
+    // JUMPPAD
+    if let Some(jumppad) = tile_settings.jumppad.as_ref().cloned() {
+        entity = entity
+            .with(Collidable::new(CollisionTag::Jumppad))
+            .with(jumppad);
+    }
+
+    entity
+}
 
 /// Adds base components to tile entity.
 /// Components include:

@@ -3,6 +3,7 @@ pub mod tile_type;
 mod helpers;
 
 use helpers::prelude::*;
+use std::convert::TryFrom;
 
 pub(super) fn load_tiles(
     world: &mut World,
@@ -22,49 +23,33 @@ pub(super) fn load_tiles(
         let mut entity =
             base_tile_entity(world, &tile, tile_size)?.with(sprite_render);
 
+        // Config file settings
         if let Some(tile_settings) = tiles_settings.types.get(&tile.tile_type) {
-            // HITBOX
-            if let Some(hitbox_type) = &tile_settings.hitbox {
-                let hitbox = match hitbox_type {
-                    HitboxConfig::Size => {
-                        Hitbox::new().with_rect((&size).into())
-                    }
-                    HitboxConfig::Custom(rects) => {
-                        Hitbox::new().with_rects(rects.clone())
-                    }
-                };
-                entity = entity.with(hitbox);
-            }
+            entity =
+                edit_entity_with_tile_settings(entity, tile_settings, &size);
+        }
 
-            // SOLID
-            if tile_settings.is_solid {
-                entity = entity
-                    .with(Collidable::new(CollisionTag::Tile))
-                    .with(Solid::new(SolidTag::Tile));
-            }
-
-            // JUMPPAD
-            if let Some(jumppad) = tile_settings.jumppad.as_ref().cloned() {
-                entity = entity
-                    .with(Collidable::new(CollisionTag::Jumppad))
-                    .with(jumppad);
-            }
+        // Prop settings
+        if let Ok(mut tile_settings) = TileSettings::try_from(tile.props()) {
+            tile_settings.hitbox = tile.hitbox.map(HitboxConfig::from);
+            entity =
+                edit_entity_with_tile_settings(entity, &tile_settings, &size);
         }
 
         // SOLID and HITBOX
-        if tile
-            .props()
-            .get("is_solid")
-            .and_then(|p| p.as_bool())
-            .unwrap_or(false)
-        {
-            if let Some(hitbox) = tile.hitbox {
-                entity = entity
-                    .with(hitbox)
-                    .with(Collidable::new(CollisionTag::Tile))
-                    .with(Solid::new(SolidTag::Tile));
-            }
-        }
+        // if tile
+        //     .props()
+        //     .get("is_solid")
+        //     .and_then(|p| p.as_bool())
+        //     .unwrap_or(false)
+        // {
+        //     if let Some(hitbox) = tile.hitbox {
+        //         entity = entity
+        //             .with(hitbox)
+        //             .with(Collidable::new(CollisionTag::Tile))
+        //             .with(Solid::new(SolidTag::Tile));
+        //     }
+        // }
 
         entity.build();
     }

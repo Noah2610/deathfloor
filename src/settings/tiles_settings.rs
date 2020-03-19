@@ -1,16 +1,28 @@
 use super::hitbox_config::HitboxConfig;
 use crate::components::prelude::Jumppad;
+use crate::map_loader::map_data::Props;
 use crate::map_loader::types::TileType;
+use deathframe::amethyst::{Error, Result};
 use std::collections::HashMap;
+use std::convert::TryFrom;
 
 #[derive(Clone, Deserialize)]
 pub struct TilesSettings {
     pub types: HashMap<TileType, TileSettings>,
 }
 
-#[derive(Clone, Deserialize)]
+#[derive(Clone, Default, Deserialize)]
+#[serde(default)]
 pub struct TileSettings {
     pub is_solid: bool,
     pub hitbox:   Option<HitboxConfig>,
     pub jumppad:  Option<Jumppad>,
+}
+
+impl<'a> TryFrom<&'a Props> for TileSettings {
+    type Error = Error;
+    fn try_from(props: &'a Props) -> Result<Self> {
+        let props_json = serde_json::ser::to_string(props)?;
+        serde_json::de::from_str(&props_json).map_err(Into::into)
+    }
 }

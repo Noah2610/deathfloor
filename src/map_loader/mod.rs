@@ -1,12 +1,12 @@
-mod helpers;
-mod map_data;
-mod objects;
-mod tiles;
-
+pub mod map_data;
 pub mod types {
     pub use super::objects::object_type::ObjectType;
     pub use super::tiles::tile_type::TileType;
 }
+
+mod helpers;
+mod objects;
+mod tiles;
 
 use amethyst::ecs::World;
 use deathframe::amethyst;
