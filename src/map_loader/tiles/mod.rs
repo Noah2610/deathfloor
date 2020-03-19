@@ -36,21 +36,6 @@ pub(super) fn load_tiles(
                 edit_entity_with_tile_settings(entity, &tile_settings, &size);
         }
 
-        // SOLID and HITBOX
-        // if tile
-        //     .props()
-        //     .get("is_solid")
-        //     .and_then(|p| p.as_bool())
-        //     .unwrap_or(false)
-        // {
-        //     if let Some(hitbox) = tile.hitbox {
-        //         entity = entity
-        //             .with(hitbox)
-        //             .with(Collidable::new(CollisionTag::Tile))
-        //             .with(Solid::new(SolidTag::Tile));
-        //     }
-        // }
-
         entity.build();
     }
 
