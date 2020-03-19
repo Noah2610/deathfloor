@@ -31,6 +31,13 @@ Applied to tiles in tileset.
 - `is_solid` : `boolean`  
   Makes this tile have solid collision, if it also has a hitbox.  
   See the section on [Hitboxes](#hitboxes) for information on how to set hitboxes.
+- `jumppad_strength_x` : `float`  
+  If this property is given, then this tile will be made into a _Jumppad_.  
+  The value of this prop is the jumppad's `x` strength.  
+  Use with `jumppad_strength_y` to set both strength values.  
+  Prefer making a tile a jumppad via a _type_ (such as `Jumppad`).
+- `jumppad_strength_y` : `float`  
+  Same as `jumppad_strength_x`, but sets the `y` strength.
 
 ## Tile Types
 Tiles can have a `Type` value set in their tileset.  
