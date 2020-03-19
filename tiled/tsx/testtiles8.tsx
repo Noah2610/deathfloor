@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.3.2" name="testtiles8" tilewidth="8" tileheight="8" tilecount="1024" columns="32">
  <image source="../../resources/spritesheets/tiles/testtiles8.png" width="256" height="256"/>
+ <tile id="0" type="Jumppad">
+  <properties>
+   <property name="jumppad_x" type="float" value="100"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="8" height="8"/>
+  </objectgroup>
+ </tile>
  <tile id="26">
   <properties>
    <property name="is_solid" type="bool" value="true"/>

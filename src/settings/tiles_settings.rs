@@ -17,6 +17,12 @@ pub struct TileSettings {
     pub is_solid: bool,
     pub hitbox:   Option<HitboxConfig>,
     pub jumppad:  Option<Jumppad>,
+
+    // For tiled properties
+    #[serde(alias = "jumppad_x")]
+    pub jumppad_strength_x: Option<f32>,
+    #[serde(alias = "jumppad_y")]
+    pub jumppad_strength_y: Option<f32>,
 }
 
 impl<'a> TryFrom<&'a Props> for TileSettings {

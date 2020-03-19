@@ -31,7 +31,27 @@ pub(super) fn edit_entity_with_tile_settings<'a>(
     }
 
     // JUMPPAD
-    if let Some(jumppad) = tile_settings.jumppad.as_ref().cloned() {
+    if tile_settings.jumppad.is_some()
+        || tile_settings.jumppad_strength_x.is_some()
+        || tile_settings.jumppad_strength_y.is_some()
+    {
+        // if let Some(mut jumppad) = tile_settings.jumppad.as_ref().cloned() {
+        let mut jumppad = tile_settings
+            .jumppad
+            .as_ref()
+            .cloned()
+            .unwrap_or_else(Default::default);
+
+        let strength: (Option<f32>, Option<f32>) = (
+            tile_settings.jumppad_strength_x,
+            tile_settings.jumppad_strength_y,
+        );
+        for axis in Axis::iter() {
+            if let Some(axis_strength) = strength.by_axis(&axis) {
+                *(&mut jumppad.strength).by_axis(&axis) = Some(axis_strength);
+            }
+        }
+
         entity = entity
             .with(Collidable::new(CollisionTag::Jumppad))
             .with(jumppad);
