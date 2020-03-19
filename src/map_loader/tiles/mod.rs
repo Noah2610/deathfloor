@@ -23,19 +23,23 @@ pub(super) fn load_tiles(
         let mut entity =
             base_tile_entity(world, &tile, tile_size)?.with(sprite_render);
 
+        let mut tile_settings = TileSettings::default();
+
         // Config file settings
-        if let Some(tile_settings) = tiles_settings.types.get(&tile.tile_type) {
-            entity =
-                edit_entity_with_tile_settings(entity, tile_settings, &size);
+        if let Some(config_tile_settings) =
+            tiles_settings.types.get(&tile.tile_type)
+        {
+            tile_settings = config_tile_settings.clone().merge(tile_settings);
         }
 
         // Prop settings
-        if let Ok(mut tile_settings) = TileSettings::try_from(tile.props()) {
-            tile_settings.hitbox = tile.hitbox.map(HitboxConfig::from);
-            entity =
-                edit_entity_with_tile_settings(entity, &tile_settings, &size);
+        if let Ok(mut prop_tile_settings) = TileSettings::try_from(tile.props())
+        {
+            prop_tile_settings.hitbox = tile.hitbox.map(HitboxConfig::from);
+            tile_settings = prop_tile_settings.merge(tile_settings);
         }
 
+        entity = edit_entity_with_tile_settings(entity, &tile_settings, &size);
         entity.build();
     }
 
