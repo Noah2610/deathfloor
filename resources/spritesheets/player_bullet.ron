@@ -1,0 +1,26 @@
+List(
+    SpriteList(
+        texture_width:  48,
+        texture_height: 16,
+        sprites: [
+            ( // 0
+                x:      0,
+                y:      0,
+                width:  16,
+                height: 8,
+            ),
+            ( // 1
+                x:      16,
+                y:      0,
+                width:  16,
+                height: 8,
+            ),
+            ( // 2
+                x:      32,
+                y:      0,
+                width:  16,
+                height: 8,
+            ),
+        ],
+    )
+)

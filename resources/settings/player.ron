@@ -57,5 +57,13 @@
         /// Shooting cooldown delay in milliseconds.
         /// Delay after shooting, before the player can shoot again.
         cooldown_ms: 500,
+        /// Data for the spawned bullets.
+        bullet: (
+            /// The bullet's size.
+            size: (16.0, 8.0),
+            /// Bullet velocity (x, y).
+            /// Both axes should be positive, are inverted in-game, if necessary.
+            velocity: (100.0, 0.0),
+        ),
     ),
 )
