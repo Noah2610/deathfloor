@@ -8,6 +8,7 @@ mod delete_bullets;
 mod handle_animations;
 mod handle_jumppad_affected;
 mod handle_movables;
+mod handle_scales;
 
 pub mod prelude {
     pub use deathframe::amethyst::utils::ortho_camera::CameraOrthoSystem;
@@ -23,6 +24,7 @@ pub mod prelude {
     pub use super::handle_animations::HandleAnimationsSystem;
     pub use super::handle_jumppad_affected::HandleJumppadAffectedSystem;
     pub use super::handle_movables::HandleMovablesSystem;
+    pub use super::handle_scales::HandleScalesSystem;
 }
 
 mod system_prelude {

@@ -76,6 +76,12 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
             "handle_animations_system",
             &[],
         )?
+        .with(
+            DispatcherId::Ingame,
+            HandleScalesSystem::default(),
+            "handle_scales_system",
+            &[],
+        )?
         .with_bundle(DispatcherId::Ingame, animation_bundle)?
         .with(
             DispatcherId::Ingame,
