@@ -134,6 +134,12 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
                 "control_player_jump_system",
                 "handle_jumppad_affected_system",
             ],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            CreateBulletsSystem::default(),
+            "create_bullets_system",
+            &["control_player_shoot_system"],
         )?;
 
     #[cfg(feature = "debug")]
