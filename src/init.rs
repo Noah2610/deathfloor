@@ -140,6 +140,12 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
             CreateBulletsSystem::default(),
             "create_bullets_system",
             &["control_player_shoot_system"],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            DeleteBulletsSystem::default(),
+            "delete_bullets_system",
+            &[],
         )?;
 
     #[cfg(feature = "debug")]

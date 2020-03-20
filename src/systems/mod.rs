@@ -4,6 +4,7 @@ mod control_player_shoot;
 mod create_bullets;
 #[cfg(feature = "debug")]
 mod debug;
+mod delete_bullets;
 mod handle_animations;
 mod handle_jumppad_affected;
 mod handle_movables;
@@ -18,6 +19,7 @@ pub mod prelude {
     pub use super::create_bullets::CreateBulletsSystem;
     #[cfg(feature = "debug")]
     pub use super::debug::DebugSystem;
+    pub use super::delete_bullets::DeleteBulletsSystem;
     pub use super::handle_animations::HandleAnimationsSystem;
     pub use super::handle_jumppad_affected::HandleJumppadAffectedSystem;
     pub use super::handle_movables::HandleMovablesSystem;
