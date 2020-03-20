@@ -1,16 +1,14 @@
 pub mod prelude {
+    pub use super::animation_config::prelude::*;
     pub use super::camera_settings::CameraSettings;
     pub use super::hitbox_config::HitboxConfig;
-    pub use super::player_settings::{
-        PlayerSettings,
-        ShooterBulletData,
-        ShooterData,
-    };
-    pub use super::tiles_settings::{TileSettings, TilesSettings};
+    pub use super::player_settings::prelude::*;
+    pub use super::tiles_settings::prelude::*;
     pub use super::Settings;
     pub use super::SizeSettings;
 }
 
+mod animation_config;
 mod camera_settings;
 mod hitbox_config;
 mod player_settings;

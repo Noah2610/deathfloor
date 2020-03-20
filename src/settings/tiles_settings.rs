@@ -6,6 +6,11 @@ use deathframe::amethyst::{Error, Result};
 use std::collections::HashMap;
 use std::convert::TryFrom;
 
+pub mod prelude {
+    pub use super::TileSettings;
+    pub use super::TilesSettings;
+}
+
 #[derive(Clone, Deserialize)]
 pub struct TilesSettings {
     pub types: HashMap<TileType, TileSettings>,

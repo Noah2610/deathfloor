@@ -21,33 +21,44 @@ pub(super) fn build(
         builder.build().unwrap()
     };
 
-    let idle_iter = {
-        let iter = vec![(13_usize, 500_u64).into(), (14_usize, 500_u64).into()]
-            .into_iter();
-        let rev = iter.clone().rev();
-        iter.chain(rev).cycle()
-    };
-    let walk_iter = {
-        vec![
-            (1_usize, 100_u64).into(),
-            (2_usize, 100_u64).into(),
-            (3_usize, 100_u64).into(),
-            (4_usize, 100_u64).into(),
-            (5_usize, 100_u64).into(),
-            (6_usize, 100_u64).into(),
-            (7_usize, 100_u64).into(),
-            (8_usize, 100_u64).into(),
-            (9_usize, 100_u64).into(),
-            (10_usize, 100_u64).into(),
-            (12_usize, 100_u64).into(),
-        ]
-        .into_iter()
-        .cycle()
-    };
+    // let idle_iter = {
+    //     let iter = vec![(13_usize, 500_u64).into(), (14_usize, 500_u64).into()]
+    //         .into_iter();
+    //     let rev = iter.clone().rev();
+    //     iter.chain(rev).cycle()
+    // };
+    // let walk_iter = {
+    //     vec![
+    //         (1_usize, 100_u64).into(),
+    //         (2_usize, 100_u64).into(),
+    //         (3_usize, 100_u64).into(),
+    //         (4_usize, 100_u64).into(),
+    //         (5_usize, 100_u64).into(),
+    //         (6_usize, 100_u64).into(),
+    //         (7_usize, 100_u64).into(),
+    //         (8_usize, 100_u64).into(),
+    //         (9_usize, 100_u64).into(),
+    //         (10_usize, 100_u64).into(),
+    //         (12_usize, 100_u64).into(),
+    //     ]
+    //     .into_iter()
+    //     .cycle()
+    // };
 
-    let animations_container = AnimationsContainer::builder()
-        .with(AnimationKey::Idle, move || Box::new(idle_iter.clone()))
-        .with(AnimationKey::Walk, move || Box::new(walk_iter.clone()))
+    // let animations_container = AnimationsContainer::builder()
+    //     .with(AnimationKey::Idle, move || Box::new(idle_iter.clone()))
+    //     .with(AnimationKey::Walk, move || Box::new(walk_iter.clone()))
+    //     .current(AnimationKey::Idle)
+    //     .unwrap()
+    //     .build()
+    //     .unwrap();
+
+    let mut animations_container_builder = AnimationsContainer::builder();
+    for (animation_key, animation) in player_settings.animations.into_iter() {
+        animations_container_builder = animations_container_builder
+            .with(animation_key, move || animation.clone().into_iter());
+    }
+    let animations_container = animations_container_builder
         .current(AnimationKey::Idle)
         .unwrap()
         .build()

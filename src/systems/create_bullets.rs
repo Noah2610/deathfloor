@@ -50,6 +50,7 @@ pub struct BulletCreatorStorages<'a> {
     transform_store:     WriteStorage<'a, Transform>,
     size_store:          WriteStorage<'a, Size>,
     velocity_store:      WriteStorage<'a, Velocity>,
-    sprite_render_store: WriteStorage<'a, SpriteRender>,
     scale_once_store:    WriteStorage<'a, ScaleOnce>,
+    sprite_render_store: WriteStorage<'a, SpriteRender>,
+    animation_store:     WriteStorage<'a, Animation>,
 }
