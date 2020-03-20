@@ -1,5 +1,9 @@
 use super::system_prelude::*;
 use crate::helpers::resource;
+use amethyst::core::math::Vector3;
+
+// TODO
+const BULLET_Z: f32 = 3.0;
 
 #[derive(Default)]
 pub struct ControlPlayerShootSystem;
@@ -34,10 +38,21 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
             let facing = Facing::from(transform);
 
             if should_shoot {
+                let bullet_transform = {
+                    let trans = transform.translation();
+                    Transform::from(Vector3::new(trans.x, trans.y, BULLET_Z))
+                };
+                let bullet_velocity = {
+                    let mut velocity: Velocity =
+                        shooter.bullet_data.velocity.into();
+                    velocity.x *= facing.mult();
+                    velocity
+                };
+
                 let _bullet = bullet_creator.add(BulletComponents {
-                    transform:     transform.clone(),
+                    transform:     bullet_transform,
                     size:          shooter.bullet_data.size.into(),
-                    velocity:      shooter.bullet_data.velocity.into(),
+                    velocity:      bullet_velocity,
                     sprite_render: SpriteRender {
                         sprite_sheet:  bullet_spritesheet_handle.clone(),
                         sprite_number: 0,
@@ -51,6 +66,15 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
 enum Facing {
     Left,
     Right,
+}
+
+impl Facing {
+    fn mult(&self) -> f32 {
+        match self {
+            Facing::Left => -1.0,
+            Facing::Right => 1.0,
+        }
+    }
 }
 
 impl<'a> From<&'a Transform> for Facing {

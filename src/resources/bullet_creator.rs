@@ -1,5 +1,4 @@
 use crate::components::prelude::*;
-// use crate::systems::system_prelude::*;
 
 #[derive(Default)]
 pub struct BulletCreator {

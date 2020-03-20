@@ -34,6 +34,10 @@ impl<'a> System<'a> for CreateBulletsSystem {
                     bullet_comps.sprite_render,
                     &mut bullet_creator_storages.sprite_render_store,
                 )
+                .with(
+                    ScaleOnce::default(),
+                    &mut bullet_creator_storages.scale_once_store,
+                )
                 .build();
         }
     }
@@ -47,4 +51,5 @@ pub struct BulletCreatorStorages<'a> {
     size_store:          WriteStorage<'a, Size>,
     velocity_store:      WriteStorage<'a, Velocity>,
     sprite_render_store: WriteStorage<'a, SpriteRender>,
+    scale_once_store:    WriteStorage<'a, ScaleOnce>,
 }
