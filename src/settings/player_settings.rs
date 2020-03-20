@@ -3,7 +3,7 @@ use super::SizeSettings;
 use crate::components::prelude::{Jumper, PhysicsData, WallJumper, WallSlider};
 
 #[derive(Clone, Deserialize)]
-pub struct ShootingData {
+pub struct ShooterData {
     pub cooldown_ms: u64,
 }
 
@@ -15,5 +15,5 @@ pub struct PlayerSettings {
     pub jumper:      Jumper,
     pub wall_jumper: Option<WallJumper>,
     pub wall_slider: Option<WallSlider>,
-    pub shooting:    ShootingData,
+    pub shooter:     ShooterData,
 }

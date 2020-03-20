@@ -53,7 +53,7 @@
     ),
 
     /// Data for the player shooting.
-    shooting: (
+    shooter: (
         /// Shooting cooldown delay in milliseconds.
         /// Delay after shooting, before the player can shoot again.
         cooldown_ms: 500,

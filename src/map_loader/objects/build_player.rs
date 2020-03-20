@@ -53,7 +53,7 @@ pub(super) fn build(
         .build()
         .unwrap();
 
-    let shooter = Shooter::from(&player_settings.shooting);
+    let shooter = Shooter::from(&player_settings.shooter);
 
     let mut entity_builder = base_object_entity(world, object)?
         .with(Player::default())
