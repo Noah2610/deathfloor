@@ -1,3 +1,5 @@
+pub mod tile_type;
+
 mod helpers;
 
 use helpers::prelude::*;
@@ -8,13 +10,10 @@ pub(super) fn load_tiles(
     tiles: TilesData,
     tile_size: SizeData,
 ) -> amethyst::Result<()> {
+    let tiles_settings = world.read_resource::<SettingsRes>().0.tiles.clone();
     let size: Size = tile_size.into();
 
     for tile in tiles {
-        let tiles_settings =
-            world.read_resource::<SettingsRes>().0.tiles.clone();
-        let tile_type = TileType::try_from(tile.tile_type.as_str())?;
-
         let sprite_render = get_sprite_render(
             world,
             format!("spritesheets/tiles/{}", tile.ts),
@@ -24,29 +23,23 @@ pub(super) fn load_tiles(
         let mut entity =
             base_tile_entity(world, &tile, tile_size)?.with(sprite_render);
 
-        if let Some(hitbox) = tile.hitbox {
-            entity = entity
-                .with(hitbox)
-                .with(Collidable::new(CollisionTag::Tile))
-                .with(Solid::new(SolidTag::Tile));
-        } else if let Some(tile_settings) = tiles_settings.types.get(&tile_type)
+        let mut tile_settings = TileSettings::default();
+
+        // Config file settings
+        if let Some(config_tile_settings) =
+            tiles_settings.types.get(&tile.tile_type)
         {
-            if let Some(hitbox_type) = &tile_settings.hitbox {
-                let hitbox = match hitbox_type {
-                    HitboxConfig::Size => {
-                        Hitbox::new().with_rect((&size).into())
-                    }
-                    HitboxConfig::Custom(rects) => {
-                        Hitbox::new().with_rects(rects.clone())
-                    }
-                };
-                entity = entity
-                    .with(hitbox)
-                    .with(Collidable::new(CollisionTag::Tile))
-                    .with(Solid::new(SolidTag::Tile));
-            }
+            tile_settings = config_tile_settings.clone().merge(tile_settings);
         }
 
+        // Prop settings
+        if let Ok(mut prop_tile_settings) = TileSettings::try_from(tile.props())
+        {
+            prop_tile_settings.hitbox = tile.hitbox.map(HitboxConfig::from);
+            tile_settings = prop_tile_settings.merge(tile_settings);
+        }
+
+        entity = edit_entity_with_tile_settings(entity, &tile_settings, &size);
         entity.build();
     }
 

@@ -58,7 +58,7 @@ impl<'a> System<'a> for HandleMovablesSystem {
                     }
 
                     MoveAction::Jump { strength } => {
-                        velocity.increase(&Axis::Y, strength);
+                        velocity.set(&Axis::Y, strength);
                     }
 
                     MoveAction::KillJump {
@@ -69,6 +69,52 @@ impl<'a> System<'a> for HandleMovablesSystem {
                         if vel > min_velocity {
                             let decreased = (vel + strength).max(min_velocity);
                             velocity.set(&Axis::Y, decreased);
+                        }
+                    }
+
+                    MoveAction::WallJump { strength } => {
+                        for axis in Axis::iter() {
+                            velocity.set(&axis, strength.by_axis(&axis));
+                        }
+                    }
+
+                    MoveAction::WallSlide {
+                        velocity: slide_vel,
+                    } => {
+                        if velocity.get(&Axis::Y) < slide_vel {
+                            velocity.set(&Axis::Y, slide_vel);
+                        }
+                    }
+
+                    MoveAction::AddVelocity {
+                        velocity: add_velocity,
+                    } => {
+                        for axis in Axis::iter() {
+                            if let Some(vel) = add_velocity.by_axis(&axis) {
+                                if let Some(max) = max_velocity_opt
+                                    .and_then(|max_vel| max_vel.get(&axis))
+                                {
+                                    velocity.increase_with_max(&axis, vel, max)
+                                } else {
+                                    velocity.increase(&axis, vel);
+                                }
+                            }
+                        }
+                    }
+
+                    MoveAction::SetVelocity {
+                        velocity: set_velocity,
+                    } => {
+                        for axis in Axis::iter() {
+                            if let Some(vel) = set_velocity.by_axis(&axis) {
+                                if let Some(max) = max_velocity_opt
+                                    .and_then(|max_vel| max_vel.get(&axis))
+                                {
+                                    velocity.set_with_max(&axis, vel, max)
+                                } else {
+                                    velocity.set(&axis, vel);
+                                }
+                            }
                         }
                     }
                 }

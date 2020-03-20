@@ -1,20 +1,77 @@
 use super::system_prelude::*;
-use std::collections::HashSet;
+use std::collections::HashMap;
+
+// TODO: Move into settings
+const NORMAL_GRAVITY_BELOW_Y_VEL: f32 = 0.0;
+
+#[derive(Default)]
+struct QueryMatches {
+    bottom: bool,
+    left:   bool,
+    right:  bool,
+}
+
+fn get_query_matches_from<'a>(
+    collider: &'a Collider<CollisionTag>,
+) -> QueryMatches {
+    use deathframe::physics::query::exp::prelude_variants::*;
+
+    let mut matches = QueryMatches::default();
+
+    matches.bottom = collider
+        .query::<FindQuery<CollisionTag>>()
+        .exp(And(vec![
+            IsTag(CollisionTag::Tile),
+            Or(vec![IsState(Enter), IsState(Steady)]),
+            IsSide(Bottom),
+        ]))
+        .run()
+        .is_some();
+    matches.left = collider
+        .query::<FindQuery<CollisionTag>>()
+        .exp(And(vec![
+            IsTag(CollisionTag::Tile),
+            Or(vec![IsState(Enter), IsState(Steady)]),
+            IsSide(Left),
+        ]))
+        .run()
+        .is_some();
+    matches.right = collider
+        .query::<FindQuery<CollisionTag>>()
+        .exp(And(vec![
+            IsTag(CollisionTag::Tile),
+            Or(vec![IsState(Enter), IsState(Steady)]),
+            IsSide(Right),
+        ]))
+        .run()
+        .is_some();
+
+    matches
+}
+
+#[derive(PartialEq, Debug)]
+enum TargetGravity {
+    Normal,
+    Jump,
+}
 
 #[derive(Default)]
 pub struct ControlPlayerJumpSystem {
-    entities_jumping: HashSet<Entity>,
+    player_gravities: HashMap<Entity, TargetGravity>,
 }
 
 impl<'a> System<'a> for ControlPlayerJumpSystem {
     type SystemData = (
         Entities<'a>,
         Read<'a, InputManager<IngameBindings>>,
-        ReadStorage<'a, CanJump>,
+        WriteStorage<'a, Jumper>,
+        ReadStorage<'a, WallJumper>,
+        ReadStorage<'a, WallSlider>,
         ReadStorage<'a, Collider<CollisionTag>>,
-        ReadStorage<'a, MovementData>,
+        ReadStorage<'a, PhysicsData>,
         WriteStorage<'a, Movable>,
         WriteStorage<'a, Gravity>,
+        ReadStorage<'a, Velocity>,
     );
 
     fn run(
@@ -22,78 +79,128 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
         (
             entities,
             input_manager,
-            jumpables,
+            mut jumpers,
+            wall_jumpers,
+            wall_sliders,
             colliders,
-            movement_data_store,
+            physics_data_store,
             mut movables,
             mut gravities,
+            velocities,
         ): Self::SystemData,
     ) {
-        for (entity, _, collider, movement_data, movable, mut gravity_opt) in (
+        for (
+            entity,
+            jumper,
+            wall_jumper_opt,
+            wall_slider_opt,
+            collider,
+            physics_data,
+            movable,
+            mut gravity_opt,
+            velocity,
+        ) in (
             &entities,
-            &jumpables,
+            &mut jumpers,
+            wall_jumpers.maybe(),
+            wall_sliders.maybe(),
             &colliders,
-            &movement_data_store,
+            &physics_data_store,
             &mut movables,
             (&mut gravities).maybe(),
+            &velocities,
         )
             .join()
         {
-            let is_standing_on_solid = collider
-                .query()
-                .any({
-                    use deathframe::physics::query::exp::prelude::*;
-                    Or(vec![
-                        And(vec![
-                            IsTag(CollisionTag::Tile),
-                            Or(vec![IsState(Enter), IsState(Steady)]),
-                            IsSide(Bottom),
-                        ]),
-                        And(vec![
-                            IsTag(CollisionTag::Player),
-                            Or(vec![IsState(Enter), IsState(Steady)]),
-                        ]),
-                    ])
-                })
-                .run();
+            let query_matches = get_query_matches_from(collider);
+            let is_touching_horz = query_matches.left || query_matches.right;
 
-            if is_standing_on_solid && input_manager.is_down(PlayerJump) {
+            let is_jump_key_down = input_manager.is_down(PlayerJump);
+            let is_jump_key_pressed = input_manager.is_pressed(PlayerJump);
+
+            let mut jumped = false;
+
+            // JUMP
+            if is_jump_key_down && query_matches.bottom {
                 movable.add_action(MoveAction::Jump {
-                    strength: movement_data.jump_strength,
+                    strength: jumper.strength,
                 });
-                self.set_jumping(entity, true);
+                jumper.is_jumping = true;
+                jumped = true;
             }
-            if self.is_jumping(&entity) && input_manager.is_up(PlayerJump) {
+
+            // WALL JUMP
+            if let Some(wall_jumper) = wall_jumper_opt {
+                if !jumped && is_jump_key_down && is_touching_horz {
+                    #[rustfmt::skip]
+                    let x_mult = match (query_matches.left, query_matches.right) {
+                        (true,  true)  => 0.0,            // touching both sides, so no x boost
+                        (true,  false) => 1.0,            // touching left, so jump to the right
+                        (false, true)  => -1.0,           // touching right, so jump to the left
+                        (false, false) => unreachable!(), // `is_touching_horz` is `true`, so this is unreachable
+                    };
+
+                    movable.add_action(MoveAction::WallJump {
+                        strength: (
+                            wall_jumper.strength.0 * x_mult,
+                            wall_jumper.strength.1,
+                        ),
+                    });
+                    jumper.is_jumping = true;
+                    jumped = true;
+                }
+            }
+
+            // WALL SLIDE
+            if let Some(wall_slider) = wall_slider_opt {
+                if !jumped && is_touching_horz && !query_matches.bottom {
+                    movable.add_action(MoveAction::WallSlide {
+                        velocity: wall_slider.slide_velocity,
+                    });
+                }
+            }
+
+            // KILL JUMP
+            if jumper.is_jumping && input_manager.is_up(PlayerJump) {
                 movable.add_action(MoveAction::KillJump {
-                    strength:     movement_data.jump_kill_strength,
-                    min_velocity: movement_data.min_jump_velocity,
+                    strength:     jumper.kill_strength,
+                    min_velocity: jumper.min_velocity,
                 });
-                self.set_jumping(entity, false);
+                jumper.is_jumping = false;
             }
 
-            if self.is_jumping(&entity) {
-                maybe_set_gravity(
-                    &mut gravity_opt,
-                    &movement_data.jump_gravity,
-                );
-            } else {
-                maybe_set_gravity(&mut gravity_opt, &movement_data.gravity);
+            // set appropriate GRAVITY
+            let mut target_gravity_opt = None;
+
+            let vel_y = velocity.get(&Axis::Y);
+            if is_jump_key_pressed && vel_y >= NORMAL_GRAVITY_BELOW_Y_VEL {
+                target_gravity_opt = Some(TargetGravity::Jump);
+            } else if !is_jump_key_pressed {
+                target_gravity_opt = Some(TargetGravity::Normal);
+            } else if vel_y < NORMAL_GRAVITY_BELOW_Y_VEL {
+                target_gravity_opt = Some(TargetGravity::Normal);
+            }
+
+            if let Some(target_gravity) = target_gravity_opt {
+                if self
+                    .player_gravities
+                    .get(&entity)
+                    .map(|prev_gravity| prev_gravity != &target_gravity)
+                    .unwrap_or(true)
+                {
+                    match &target_gravity {
+                        TargetGravity::Normal => maybe_set_gravity(
+                            &mut gravity_opt,
+                            &physics_data.gravity,
+                        ),
+                        TargetGravity::Jump => {
+                            maybe_set_gravity(&mut gravity_opt, &jumper.gravity)
+                        }
+                    }
+                    self.player_gravities.insert(entity, target_gravity);
+                }
             }
         }
-    }
-}
-
-impl ControlPlayerJumpSystem {
-    fn set_jumping(&mut self, entity: Entity, jumping: bool) {
-        if jumping {
-            self.entities_jumping.insert(entity);
-        } else {
-            self.entities_jumping.remove(&entity);
-        }
-    }
-
-    fn is_jumping(&self, entity: &Entity) -> bool {
-        self.entities_jumping.contains(&entity)
     }
 }
 

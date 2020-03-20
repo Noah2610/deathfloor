@@ -103,12 +103,6 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
         )?
         .with(
             DispatcherId::Ingame,
-            HandleMovablesSystem::default(),
-            "decrease_velocities_system",
-            &["ingame_input_manager_system"],
-        )?
-        .with(
-            DispatcherId::Ingame,
             ControlPlayerSystem::default(),
             "control_player_system",
             &["ingame_input_manager_system"],
@@ -123,7 +117,23 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
             DispatcherId::Ingame,
             ControlPlayerShootSystem::default(),
             "control_player_shoot_system",
-            &["ingame_input_manager_system"],
+            &["ingame_input_manager_system", "update_collisions_system"],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            HandleJumppadAffectedSystem::default(),
+            "handle_jumppad_affected_system",
+            &["update_collisions_system"],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            HandleMovablesSystem::default(),
+            "handle_movables_system",
+            &[
+                "control_player_system",
+                "control_player_jump_system",
+                "handle_jumppad_affected_system",
+            ],
         )?;
 
     #[cfg(feature = "debug")]

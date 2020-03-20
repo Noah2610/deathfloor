@@ -22,4 +22,6 @@ fn register_components(world: &mut World) {
     world.register::<Player>();
     world.register::<Camera>();
     world.register::<Shooter>();
+    world.register::<Jumppad>();
+    world.register::<JumppadAffected>();
 }

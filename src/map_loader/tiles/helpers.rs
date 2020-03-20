@@ -1,9 +1,64 @@
 pub(super) mod prelude {
     pub(in super::super) use super::base_tile_entity;
+    pub(in super::super) use super::edit_entity_with_tile_settings;
     pub use crate::map_loader::helpers::prelude::*;
 }
 
 use prelude::*;
+
+/// Adds components depending on given `TileSettings` to `EntityBuilder`.
+pub(super) fn edit_entity_with_tile_settings<'a>(
+    mut entity: EntityBuilder<'a>,
+    tile_settings: &TileSettings,
+    size: &Size,
+) -> EntityBuilder<'a> {
+    // HITBOX
+    if let Some(hitbox_type) = &tile_settings.hitbox {
+        let hitbox = match hitbox_type {
+            HitboxConfig::Size => Hitbox::new().with_rect(size.into()),
+            HitboxConfig::Custom(rects) => {
+                Hitbox::new().with_rects(rects.clone())
+            }
+        };
+        entity = entity.with(hitbox);
+    }
+
+    // SOLID
+    if tile_settings.is_solid {
+        entity = entity
+            .with(Collidable::new(CollisionTag::Tile))
+            .with(Solid::new(SolidTag::Tile));
+    }
+
+    // JUMPPAD
+    if tile_settings.jumppad.is_some()
+        || tile_settings.jumppad_strength_x.is_some()
+        || tile_settings.jumppad_strength_y.is_some()
+    {
+        // if let Some(mut jumppad) = tile_settings.jumppad.as_ref().cloned() {
+        let mut jumppad = tile_settings
+            .jumppad
+            .as_ref()
+            .cloned()
+            .unwrap_or_else(Default::default);
+
+        let strength: (Option<f32>, Option<f32>) = (
+            tile_settings.jumppad_strength_x,
+            tile_settings.jumppad_strength_y,
+        );
+        for axis in Axis::iter() {
+            if let Some(axis_strength) = strength.by_axis(&axis) {
+                *(&mut jumppad.strength).by_axis(&axis) = Some(axis_strength);
+            }
+        }
+
+        entity = entity
+            .with(Collidable::new(CollisionTag::Jumppad))
+            .with(jumppad);
+    }
+
+    entity
+}
 
 /// Adds base components to tile entity.
 /// Components include:

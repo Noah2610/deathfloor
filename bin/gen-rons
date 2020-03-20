@@ -2,11 +2,13 @@
 # Generate spritesheet RON config files using `sprongen`.
 # Any arguments are passed to the underlying `sprongen` command.
 
-# shellcheck source=./util.sh
-_dir="$( dirname "$0" )"
-[ -f "${_dir}/util.sh" ] || bash "${_dir}/download-util.sh" || exit 1
-source "${_dir}/util.sh"
-unset _dir
+# shellcheck source=./util.sh disable=SC2155
+function _dl_util_sh {
+    local UTIL_VERSION="v2.2.4"
+    local dir="$( dirname "$( realpath "$1" )" )"
+    [ -f "${dir}/util.sh" ] || bash "${dir}/download-util.sh" "$UTIL_VERSION" || exit 1
+    source "${dir}/util.sh"
+}; _dl_util_sh "$0"
 
 SPRITESHEETS_DIR="${ROOT}/resources/spritesheets/tiles"
 TILE_SIZE="8x8"
@@ -31,9 +33,11 @@ function main {
     )
 
     msg "Generating RON config files for PNG spritesheets in
-    $( colored "$COLOR_CODE" "$SPRITESHEETS_DIR" )"
-    also_to_stderr=1 try_run \
-        "sprongen ${SPRITESHEETS_DIR}/*.png ${args[*]}"
+    $(clr "${CLR_CODE[@]}")${SPRITESHEETS_DIR}$(clrrs)"
+    try_run \
+        sprongen \
+        "${SPRITESHEETS_DIR}"/*.png \
+        "${args[@]}"
 }
 
 function check_installed_sprongen {
@@ -45,28 +49,27 @@ function check_installed_sprongen {
 }
 
 function err_sprongen_not_installed {
-    local input
-    local errmsg
-    errmsg="\
-$( colored "$COLOR_ERR" "Error:" ) $( colored "$COLOR_CODE" "sprongen" ) CLI app is not installed or is out-dated.
-Install automatically with $( colored "$COLOR_CODE" "cargo" )? [y|N] "
+    local clrrs="$( clrrs )"
+    local clrcode="$( clr "${CLR_CODE[@]}" )"
+    local clrerr="$( clr "${CLR_ERROR[@]}" )"
+    local sprongen_display="${clrcode}sprongen${clrrs}"
 
-    while [ -z "$input" ]; do
-        echo -en "$errmsg"
-        read -r input
-        case "${input:0:1}" in
-            ""|"n"|"N")
-                exit 0
-                ;;
-            "y"|"Y")
-                also_to_stderr=1 try_run \
-                    "cargo --color always install sprongen --version ${MIN_SPRONGEN_VERSION} --force"
-                ;;
-            *)
-                input=
-                ;;
-        esac
-    done
+    local input=
+    local prompt_message=
+    prompt_message="\
+${clrerr}Error: ${sprongen_display} CLI app is not installed or is out-dated.
+Install automatically with ${clrcode}cargo${clrrs}? [y|N] "
+
+    if prompt_input "$prompt_message"; then
+        try_run \
+            cargo \
+            --color always \
+            install sprongen \
+            --version "$MIN_SPRONGEN_VERSION" \
+            --force
+    else
+        err "Cannot continue without ${sprongen_display}."
+    fi
 }
 
 main "$@"

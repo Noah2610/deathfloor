@@ -9,13 +9,13 @@ pub(super) fn build(
 
     let size: Size = player_settings.size.into();
     let sprite_render = get_sprite_render(world, "spritesheets/player.png", 1)?;
-    let movement_data = player_settings.movement;
-    let base_friction = BaseFriction::from(movement_data.base_friction);
-    let gravity = Gravity::from(movement_data.gravity);
+    let physics_data = player_settings.physics;
+    let base_friction = BaseFriction::from(physics_data.base_friction);
+    let gravity = Gravity::from(physics_data.gravity);
     let max_movement_velocity = {
         let mut builder = MaxMovementVelocity::builder();
         for axis in Axis::iter() {
-            let max_opt = movement_data.max_velocity.by_axis(&axis);
+            let max_opt = physics_data.max_velocity.by_axis(&axis);
             builder = builder.with_opt(&axis, max_opt);
         }
         builder.build().unwrap()
@@ -59,13 +59,22 @@ pub(super) fn build(
         .with(Player::default())
         .with(Velocity::default())
         .with(Movable::default())
-        .with(CanJump::default())
+        .with(player_settings.jumper)
         .with(max_movement_velocity)
         .with(sprite_render)
-        .with(movement_data)
+        .with(physics_data)
         .with(base_friction)
         .with(animations_container)
-        .with(shooter);
+        .with(shooter)
+        .with(JumppadAffected::default());
+
+    if let Some(wall_jumper) = player_settings.wall_jumper {
+        entity_builder = entity_builder.with(wall_jumper);
+    }
+
+    if let Some(wall_slider) = player_settings.wall_slider {
+        entity_builder = entity_builder.with(wall_slider);
+    }
 
     if let Some(hitbox_config) = &player_settings.hitbox {
         let hitbox = match hitbox_config {

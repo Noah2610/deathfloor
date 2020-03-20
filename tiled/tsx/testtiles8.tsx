@@ -1,137 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.3.2" name="testtiles7" tilewidth="8" tileheight="8" tilecount="1024" columns="32">
- <image source="../../resources/spritesheets/tiles/testtiles7.png" width="256" height="256"/>
- <tile id="0">
+<tileset version="1.2" tiledversion="1.3.2" name="testtiles8" tilewidth="8" tileheight="8" tilecount="1024" columns="32">
+ <image source="../../resources/spritesheets/tiles/testtiles8.png" width="256" height="256"/>
+ <tile id="0" type="Jumppad">
+  <properties>
+   <property name="jumppad_x" type="float" value="100"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="1">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="2">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="3">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="4">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="5">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="6">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="7">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="8">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="9">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="10">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="11">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="32">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="43">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="64">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="65">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="66">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="67">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="68">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="69">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="70">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="71">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="72">
+ <tile id="26">
+  <properties>
+   <property name="is_solid" type="bool" value="true"/>
+  </properties>
   <objectgroup draworder="index" id="3">
    <object id="2" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="73">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="74">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="75">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="920">
+ <tile id="27">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
@@ -139,7 +25,7 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="921">
+ <tile id="28">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
@@ -147,7 +33,7 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="922">
+ <tile id="29">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
@@ -155,7 +41,7 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="923">
+ <tile id="30">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
@@ -163,7 +49,7 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="924">
+ <tile id="31">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
@@ -171,7 +57,7 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="925">
+ <tile id="61">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
@@ -179,7 +65,7 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="926">
+ <tile id="62">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
@@ -187,7 +73,28 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="927">
+ <tile id="81" type="Jumppad">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="4" y="0" width="4" height="8"/>
+  </objectgroup>
+ </tile>
+ <tile id="82" type="Jumppad">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="8"/>
+   <object id="2" x="0" y="0" width="8" height="8"/>
+  </objectgroup>
+ </tile>
+ <tile id="83" type="Jumppad">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="8" height="8"/>
+  </objectgroup>
+ </tile>
+ <tile id="84" type="Jumppad">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="4" height="8"/>
+  </objectgroup>
+ </tile>
+ <tile id="113">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
@@ -195,7 +102,15 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="928">
+ <tile id="114">
+  <properties>
+   <property name="is_solid" type="bool" value="true"/>
+  </properties>
+  <objectgroup draworder="index" id="3">
+   <object id="2" x="0" y="0" width="8" height="8"/>
+  </objectgroup>
+ </tile>
+ <tile id="115">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
@@ -203,7 +118,7 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="929">
+ <tile id="116">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
@@ -211,7 +126,37 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="930">
+ <tile id="156">
+  <properties>
+   <property name="is_solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="157">
+  <properties>
+   <property name="is_solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="158">
+  <properties>
+   <property name="is_solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="159">
+  <properties>
+   <property name="is_solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="189">
+  <properties>
+   <property name="is_solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="190">
+  <properties>
+   <property name="is_solid" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="284">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
@@ -219,7 +164,7 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="931">
+ <tile id="285">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
@@ -227,7 +172,7 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="932">
+ <tile id="286">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
@@ -235,7 +180,7 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="933">
+ <tile id="287">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
@@ -243,7 +188,7 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="934">
+ <tile id="317">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
@@ -251,7 +196,7 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="935">
+ <tile id="318">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
@@ -259,7 +204,7 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="936">
+ <tile id="349">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
@@ -267,7 +212,7 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="937">
+ <tile id="350">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
@@ -275,7 +220,7 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="938">
+ <tile id="377">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
@@ -283,7 +228,7 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="939">
+ <tile id="382">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
@@ -291,7 +236,7 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="940">
+ <tile id="410">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
@@ -299,7 +244,7 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="941">
+ <tile id="411">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
@@ -307,7 +252,7 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="942">
+ <tile id="412">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
@@ -315,87 +260,7 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="943">
-  <properties>
-   <property name="is_solid" type="bool" value="true"/>
-  </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="944">
-  <properties>
-   <property name="is_solid" type="bool" value="true"/>
-  </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="945">
-  <properties>
-   <property name="is_solid" type="bool" value="true"/>
-  </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="946">
-  <properties>
-   <property name="is_solid" type="bool" value="true"/>
-  </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="947">
-  <properties>
-   <property name="is_solid" type="bool" value="true"/>
-  </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="952">
-  <properties>
-   <property name="is_solid" type="bool" value="true"/>
-  </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="959">
-  <properties>
-   <property name="is_solid" type="bool" value="true"/>
-  </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="984">
-  <properties>
-   <property name="is_solid" type="bool" value="true"/>
-  </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="991">
-  <properties>
-   <property name="is_solid" type="bool" value="true"/>
-  </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="1016">
-  <properties>
-   <property name="is_solid" type="bool" value="true"/>
-  </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="8" height="8"/>
-  </objectgroup>
- </tile>
- <tile id="1023">
+ <tile id="413">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>

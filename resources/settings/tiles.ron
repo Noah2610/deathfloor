@@ -4,57 +4,17 @@
     types: {
         /// Solid ground.
         Ground: (
+            is_solid: true,
             hitbox: Size,
         ),
 
-        /// All types below were just for playing around.
-
-        /// Small solid ground.
-        /// For themes/DFCA1.png concept art image.
-        SGround: (
-            hitbox: Custom([
-                (
-                   top:    6.0,
-                   bottom: -5.0,
-                   left:   -8.0,
-                   right:  8.0,
-                ),
-            ]),
-        ),
-
-        /// For themes/DFCA1.png concept art image.
-        WeirdGround: (
-            hitbox: Custom([
-                (
-                   top:    11.0,
-                   bottom: -4.0,
-                   left:   -12.0,
-                   right:  7.0,
-                ),
-            ]),
-        ),
-
-        /// Tile with weird hitbox, just playing around here.
-        Weird: (
-            hitbox: Custom([
-                (
-                   top:    16.0,
-                   bottom: -8.0,
-                   left:   -32.0,
-                   right:  0.0,
-                ),
-                (
-                   top:    8.0,
-                   bottom: -32.0,
-                   left:   0.0,
-                   right:  32.0,
-                ),
-            ]),
-        ),
-
-        /// Non-solid tile. Just testing stuff.
-        Passable: (
-            hitbox: None,
+        Jumppad: (
+            is_solid: false,
+            hitbox: Size,
+            jumppad: (
+                /// Jumppad strength (x, y)
+                strength: (None, 400.0),
+            ),
         ),
     },
 )

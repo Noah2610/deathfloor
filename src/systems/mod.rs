@@ -4,6 +4,7 @@ mod control_player_shoot;
 #[cfg(feature = "debug")]
 mod debug;
 mod handle_animations;
+mod handle_jumppad_affected;
 mod handle_movables;
 
 pub mod prelude {
@@ -16,11 +17,13 @@ pub mod prelude {
     #[cfg(feature = "debug")]
     pub use super::debug::DebugSystem;
     pub use super::handle_animations::HandleAnimationsSystem;
+    pub use super::handle_jumppad_affected::HandleJumppadAffectedSystem;
     pub use super::handle_movables::HandleMovablesSystem;
 }
 
 mod system_prelude {
     pub use deathframe::amethyst;
+    pub use deathframe::physics::query::prelude::*;
     pub use deathframe::systems::system_prelude::*;
 
     pub use crate::animation_key::AnimationKey;

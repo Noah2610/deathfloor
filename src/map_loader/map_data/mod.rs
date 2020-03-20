@@ -1,3 +1,4 @@
+use super::types::{ObjectType, TileType};
 use crate::components::prelude::{Hitbox, Size as SizeComp, Transform};
 use std::collections::HashMap;
 
@@ -62,8 +63,8 @@ pub struct Level {
 
 #[derive(Debug, Deserialize)]
 pub struct Tile {
-    #[serde(rename = "type")]
-    pub tile_type: String,
+    #[serde(rename = "type", default)]
+    pub tile_type: TileType,
     pub id:        usize,
     pub ts:        String,
     pub pos:       Pos,
@@ -74,7 +75,7 @@ pub struct Tile {
 #[derive(Debug, Deserialize)]
 pub struct Object {
     #[serde(rename = "type")]
-    pub object_type: String,
+    pub object_type: ObjectType,
     pub pos:         Pos,
     pub size:        Size,
     pub props:       Props,
