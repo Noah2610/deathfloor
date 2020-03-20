@@ -12,7 +12,7 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
     type SystemData = (
         Write<'a, BulletCreator>,
         ReadExpect<'a, InputManager<IngameBindings>>,
-        ReadStorage<'a, Shooter>,
+        WriteStorage<'a, Shooter>,
         ReadStorage<'a, Transform>,
         WriteExpect<'a, SpriteSheetHandles>,
     );
@@ -22,7 +22,7 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
         (
             mut bullet_creator,
             input_manager,
-            shooters,
+            mut shooters,
             transforms,
             sprite_sheet_handles,
         ): Self::SystemData,
@@ -33,8 +33,11 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
                 "player_bullet.png spritesheet should be loaded at this point",
             );
 
-        for (shooter, transform) in (&shooters, &transforms).join() {
-            let should_shoot = input_manager.is_down(PlayerShoot);
+        for (shooter, transform) in (&mut shooters, &transforms).join() {
+            shooter.cooldown_timer.update().unwrap();
+            let should_shoot = input_manager.is_down(PlayerShoot)
+                && (shooter.cooldown_timer.state.is_finished()
+                    || shooter.cooldown_timer.state.is_stopped());
             let facing = Facing::from(transform);
 
             if should_shoot {
@@ -58,6 +61,8 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
                         sprite_number: 0,
                     },
                 });
+
+                shooter.cooldown_timer.start().unwrap();
             }
         }
     }
