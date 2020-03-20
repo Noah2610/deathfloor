@@ -1,8 +1,10 @@
 pub mod prelude {
+    pub use super::bullet_creator::{BulletComponents, BulletCreator};
     pub use super::settings::SettingsRes;
     pub use deathframe::resources::prelude::*;
 }
 
+mod bullet_creator;
 mod settings;
 
 use amethyst::ecs::World;

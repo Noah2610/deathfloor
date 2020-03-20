@@ -5,7 +5,12 @@ use crate::input::prelude::{IngameActionBinding, IngameBindings};
 pub struct Ingame;
 
 impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Ingame {
-    fn on_start(&mut self, _data: StateData<GameData<'a, 'b>>) {
+    fn on_start(&mut self, data: StateData<GameData<'a, 'b>>) {
+        data.world.insert(BulletCreator::default());
+    }
+
+    fn on_stop(&mut self, data: StateData<GameData<'a, 'b>>) {
+        data.world.remove::<BulletCreator>();
     }
 
     fn update(
