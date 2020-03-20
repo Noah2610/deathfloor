@@ -15,7 +15,7 @@ impl<'a> System<'a> for CreateBulletsSystem {
                 .entities
                 .build_entity()
                 .with(
-                    Bullet::default(),
+                    bullet_comps.bullet,
                     &mut bullet_creator_storages.bullet_store,
                 )
                 .with(

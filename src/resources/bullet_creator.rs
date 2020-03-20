@@ -16,6 +16,7 @@ impl BulletCreator {
 }
 
 pub struct BulletComponents {
+    pub bullet:        Bullet,
     pub transform:     Transform,
     pub size:          Size,
     pub velocity:      Velocity,

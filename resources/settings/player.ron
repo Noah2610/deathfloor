@@ -64,6 +64,8 @@
             /// Bullet velocity (x, y).
             /// Both axes should be positive, are inverted in-game, if necessary.
             velocity: (100.0, 0.0),
+            /// Despawn the bullet after this amount of milliseconds.
+            despawn_after_ms: 5_000,
         ),
     ),
 )

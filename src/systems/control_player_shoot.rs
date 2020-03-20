@@ -53,6 +53,7 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
                 };
 
                 let _bullet = bullet_creator.add(BulletComponents {
+                    bullet:        (&shooter.bullet_data).into(),
                     transform:     bullet_transform,
                     size:          shooter.bullet_data.size.into(),
                     velocity:      bullet_velocity,

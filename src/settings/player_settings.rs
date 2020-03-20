@@ -21,6 +21,7 @@ pub struct ShooterData {
 
 #[derive(Clone, Deserialize)]
 pub struct ShooterBulletData {
-    pub size:     (f32, f32),
-    pub velocity: (f32, f32),
+    pub size:             (f32, f32),
+    pub velocity:         (f32, f32),
+    pub despawn_after_ms: u64,
 }
