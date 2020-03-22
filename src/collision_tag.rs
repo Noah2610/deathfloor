@@ -22,6 +22,7 @@ pub enum CollisionTag {
     Player,
     Tile,
     Jumppad,
+    Bullet,
 }
 
 impl CTag for CollisionTag {
@@ -32,6 +33,8 @@ impl CTag for CollisionTag {
             (CollisionTag::Player, CollisionTag::Jumppad)
             | (CollisionTag::Jumppad, CollisionTag::Player) => true,
             (CollisionTag::Player, CollisionTag::Player) => true,
+            (CollisionTag::Bullet, CollisionTag::Tile)
+            | (CollisionTag::Tile, CollisionTag::Bullet) => true,
             _ => false,
         }
     }

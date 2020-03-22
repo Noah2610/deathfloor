@@ -1,3 +1,4 @@
+mod bullet_hit;
 mod control_player;
 mod control_player_jump;
 mod control_player_shoot;
@@ -14,6 +15,7 @@ pub mod prelude {
     pub use deathframe::amethyst::utils::ortho_camera::CameraOrthoSystem;
     pub use deathframe::systems::prelude::*;
 
+    pub use super::bullet_hit::BulletHitSystem;
     pub use super::control_player::ControlPlayerSystem;
     pub use super::control_player_jump::ControlPlayerJumpSystem;
     pub use super::control_player_shoot::ControlPlayerShootSystem;

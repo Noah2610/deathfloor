@@ -152,6 +152,16 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
             DeleteBulletsSystem::default(),
             "delete_bullets_system",
             &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            BulletHitSystem::default(),
+            "bullet_hit_system",
+            &[
+                "create_bullets_system",
+                "delete_bullets_system",
+                "update_collisions_system",
+            ],
         )?;
 
     #[cfg(feature = "debug")]
