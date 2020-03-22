@@ -608,6 +608,7 @@ version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "climer_derive 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde 1.0.104 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -939,6 +940,7 @@ dependencies = [
  "climer 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "deathframe_core 0.5.1",
  "derive_builder 0.9.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde 1.0.104 (registry+https://github.com/rust-lang/crates.io-index)",
  "specs 0.15.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "specs-derive 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)",
 ]

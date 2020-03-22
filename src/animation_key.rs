@@ -3,3 +3,12 @@ pub enum AnimationKey {
     Idle,
     Walk,
 }
+
+// TODO
+// `Default` implementation required by `Deserialize` for `AnimationsContainer`.
+// This doesn't seem right...
+impl Default for AnimationKey {
+    fn default() -> Self {
+        AnimationKey::Idle
+    }
+}

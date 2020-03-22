@@ -1,7 +1,8 @@
 use super::hitbox_config::HitboxConfig;
-use super::prelude::AnimationsConfig;
 use super::SizeSettings;
+use crate::animation_key::AnimationKey;
 use crate::components::prelude::{Jumper, PhysicsData, WallJumper, WallSlider};
+use deathframe::animation::components::prelude::AnimationsContainer;
 
 pub mod prelude {
     pub use super::PlayerSettings;
@@ -18,7 +19,7 @@ pub struct PlayerSettings {
     pub wall_jumper: Option<WallJumper>,
     pub wall_slider: Option<WallSlider>,
     pub shooter:     ShooterData,
-    pub animations:  AnimationsConfig,
+    pub animations:  AnimationsContainer<AnimationKey>,
 }
 
 #[derive(Clone, Deserialize)]

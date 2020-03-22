@@ -19,7 +19,7 @@ path = "../deathframe"
 # branch = "develop"
 features = [
     "vulkan",
-    "serde",
+    "serialize",
     "physics",
     "animation",
 ]
