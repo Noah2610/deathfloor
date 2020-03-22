@@ -35,7 +35,7 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
 
         for (shooter, transform) in (&mut shooters, &transforms).join() {
             shooter.cooldown_timer.update().unwrap();
-            let should_shoot = input_manager.is_down(PlayerShoot)
+            let should_shoot = input_manager.is_pressed(PlayerShoot)
                 && (shooter.cooldown_timer.state.is_finished()
                     || shooter.cooldown_timer.state.is_stopped());
             let facing = Facing::from(transform);
