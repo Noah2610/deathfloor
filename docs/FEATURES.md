@@ -18,6 +18,7 @@
   - traversing rooms
 - Camera
   - how does the camera follow the player?
+  - megaman-like level section transitions
 - Health
   - GUI representation
 - Death
