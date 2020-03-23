@@ -140,62 +140,123 @@ or are low-priority. These still need to be planned out.
 - Basic LOS react:  
   When player enters their LOS (LOS as in 1 rectangular hitbox that is being projected in front of them in walking direction) do something / change state. For example Basic Shooting. 
 - Basic charging:  
-- Delay:  
-  A manually set time that makes the enemy loops what its currently doing before continuing on with next behavior. Can be set "between" 2 behavioral states / at the transition between them. For example: Basic react shooting enemy spots player. Instead of instantly entering shooting state, the delay is run first. Then enter next state, in this case shooting.
-- Explode:  
-  Self destroy and deal AOE damage.
 - Splitting:  
   Enemy is split into multiple, individual parts and only share some of their components. -> enemy has multiple hitboxes and respective hp pools, but same movement component - so they "move as one".
 - The other kind of splitting:  
   "Split" into multiple smaller enemies (play animation, spawn new enemies, destroy current enemy), for example on death. 
-- Drop: Drop something, for example on death drop health pack. 
-- Random Jump: "Jump" in set interval in semi random directions (either randomly select from a pool of manually set x and y values or generate new ones)
 - Stick: When hitting a solid, freeze in place and ignore gravity. Can for example be combined with random jump. 
 - Drop: Stop exectuing movement component when player enters LOS that is projected from enemy in "gravity direction" (shouldnt be hardcoded downwards but actually take current gravity direction in case gravity walls will be a thing) and drop downwards. Can for example be combined with 360 roaming, on impact and explode for dropping bomb traps. 
 - Chaser: When player enters their LOS, chase "charge" at player (like ghosts in stabman) with slight delay in movement. Can for example be combined with explode for kamikaze enemies. 
 - Spawner: Spawn seperate enemies at their location in set interval. how long the interval is and which enemies are being spawned is manually set. 
+- Jump: "Jump" in set interval in semi random directions (either randomly select from a pool of manually set x and y values or generate new ones)  
 </details>
 
 ### Events
 Add enemy events to enemy configs in their `events` field.  
-Each event can trigger multiple _actions_.  
+Each event can trigger multiple _action_.  
 An _action_ can do arbitrary stuff to an enemy's components.  
-See the section about actions for details.
+See the section about [actions](#actions) for details.
 
 #### `OnSpawn`
 ```
-on_spawn: [ action0, action1, ... ],
+on_spawn: <action>,
 ```
-Triggers _actions_ when the enemy spawns / is first loaded.
+Triggers _action_ when the enemy spawns / is first loaded.
 
 #### `OnDeath`
 ```
-on_death: [ ... ],
+on_death: <action>,
 ```
-Triggers _actions_ when the enemy dies.
+Triggers _action_ when the enemy dies.
 
 #### `OnCollision`
 ```
 on_collision: (
     // Optional collision query.
-    // If given, will only trigger actions if query matches.
+    // If given, will only trigger action if query matches.
     query: /* TODO */,
-    actions: [ ... ],
+    action: <action>,
 ),
 ```
-Triggers _actions_ on collision with any _collidable_, that this  
+Triggers _action_ on collision with any _collidable_, that this  
 _collider_ can collide with.  
 Optionally, pass a _query_ ([`FindQuery`](https://github.com/Noah2610/deathframe/blob/develop/deathframe_physics/src/query/find_query.rs));  
-if given, will only trigger actions if query succeeds.
+if given, will only trigger action if query succeeds.
 
 #### `Interval`
 ```
 interval: (
     delay_ms: 500, // interval delay in milliseconds
-    actions: [ ... ],
+    action: <action>,
 ),
 ```
-Triggers _actions_ in regular intervals.
+Triggers _action_ in regular intervals.
+
+### Actions
+Actions are triggered by [_events_](#events).
+
+#### `Delay`
+```
+<event>: Delay(
+    delay_ms: 2000, // time in milliseconds to wait before triggering action
+    action: ...,
+),
+```
+When this action triggers, waits for `delay_ms` milliseconds,  
+before triggering its `action`.
+
+#### `Group`
+```
+<event>: Group([
+    <action0>,
+    <action1>,
+    <action2>,
+    ...
+]),
+```
+Groups multiple actions into one.  
+An event can trigger multiple actions at once  
+using this `Group` action.
+
+#### `Explode`
+```
+<event>: Explode(
+    damage: 420,
+    radius: 69,
+),
+```
+Self destroy and deals of AOE `damage` in the given `radius`.
+
+#### `Drop`
+```
+<event>: Drop( ??? ),
+```
+__TODO: items__  
+Drop something, for example on death drop health pack.
+
+#### `Random`
+```
+<event>: Random(
+    chance: 0.5,
+    action: <action>,
+),
+```
+When triggered, will randomly _succeed_ or _fail_, depending on the given `chance`  
+value, which is a number between `0.0` and `1.0` (both inclusive).  
+If successful, triggers its `action`.  
+
+<small>__NOTE:__ Maybe introduce another layer: `Expression`... `:)`</small>
+
+#### `Jump`
+```
+<event>: Jump(
+    x: None,
+    y: 400.0,
+),
+```
+Jumps with the given `x`, `y` strength.  
+Basically just sets the velocity.  
+Both velocities are optional; use `None` to omit.
 
 ## Environmental Mechanics
 - Jumppad:  
