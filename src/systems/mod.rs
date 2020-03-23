@@ -10,6 +10,7 @@ mod handle_animations;
 mod handle_jumppad_affected;
 mod handle_movables;
 mod handle_scales;
+mod handle_walkers;
 
 pub mod prelude {
     pub use deathframe::amethyst::utils::ortho_camera::CameraOrthoSystem;
@@ -27,6 +28,7 @@ pub mod prelude {
     pub use super::handle_jumppad_affected::HandleJumppadAffectedSystem;
     pub use super::handle_movables::HandleMovablesSystem;
     pub use super::handle_scales::HandleScalesSystem;
+    pub use super::handle_walkers::HandleWalkersSystem;
 }
 
 mod system_prelude {
