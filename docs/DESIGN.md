@@ -1,5 +1,45 @@
 # Design notes
 
+<details>
+<summary>Table of Contents</summary>
+
+- [General](#general)
+  - [Player Movement](#player-movement)
+  - [Environmental Animations](#environmental-animations)
+- [Combat](#combat)
+  - [Health](#health)
+  - [I-frames](#i-frames)
+  - [Player death](#player-death)
+- [Enemies ](#enemies)
+  - [Components](#components)
+    - [Planned](#planned)
+      - [`Spikey`](#spikey)
+      - [`Walker`](#walker)
+      - [`ForwardShooter`](#forwardshooter)
+      - [`Chaser`](#chaser)
+      - [`Jumppad`](#jumppad)
+      - [`AnimationsContainer`](#animationscontainer)
+    - [To plan (TODO)](#to-plan-todo)
+  - [Events](#events)
+    - [`OnSpawn`](#onspawn)
+    - [`OnDeath`](#ondeath)
+    - [`OnCollision`](#oncollision)
+    - [`Interval`](#interval)
+  - [Actions](#actions)
+    - [`Delay`](#delay)
+    - [`Group`](#group)
+    - [`Explode`](#explode)
+    - [`Drop`](#drop)
+    - [`Random`](#random)
+    - [`Jump`](#jump)
+- [Environmental Mechanics](#environmental-mechanics)
+- [Weapons](#weapons)
+  - [Weapon types](#weapon-types)
+- [SFX](#sfx)
+- [Level setting / theme ideas](#level-setting--theme-ideas)
+
+</details>
+
 ## General
 
 - Level reload key
@@ -13,7 +53,7 @@
   Limited by level borders
 
 - Player hitboxes:
-  Seperate hitboxes für solids and damage 
+  Seperate hitboxes for solids and damage 
 
 ### Player Movement
 - Jump 
@@ -45,14 +85,14 @@ If player still has lives left, they respawn at the most recent checkpoint and l
 - Enemy Death:
   Entity gets destroyed, a short animation and maybe sound is played, optionally they drop something (for example a health pack)
 - Spawning enemies
-  
+
 ### Components
 Enemies consist of various components that can be combined to craft simple behavior.
 
 #### Planned
 Components, whose details have been thought about, and which can be worked on.
 
-##### `Spikey { damage }`
+##### `Spikey`
 ```
 spikey: Spikey(
     damage: 123, // amount of damage to deal
@@ -61,7 +101,7 @@ spikey: Spikey(
 Damage on collision:  
 Deals damage to the player on collision.
 
-##### `Walker { x, y }`
+##### `Walker`
 ```
 walker: Walker(
     // Velocity to _set_ OR _increment_ each frame (TODO)
@@ -130,6 +170,9 @@ animations: {
 These components are more complicated and require more thought,  
 or are low-priority. These still need to be planned out.
 
+<details>
+<summary>Components</summary>
+
 - 360 roaming:
   Move in one direction (can be set in tiled), when encountering a ledge or wall move upwards / downwards along it and ignore gravity.
 - Basic air roaming:  
@@ -137,26 +180,123 @@ or are low-priority. These still need to be planned out.
 - Basic LOS react:  
   When player enters their LOS (LOS as in 1 rectangular hitbox that is being projected in front of them in walking direction) do something / change state. For example Basic Shooting. 
 - Basic charging:  
-- Delay:  
-  A manually set time that makes the enemy loops what its currently doing before continuing on with next behavior. Can be set "between" 2 behavioral states / at the transition between them. For example: Basic react shooting enemy spots player. Instead of instantly entering shooting state, the delay is run first. Then enter next state, in this case shooting.
-- Explode:  
-  Self destroy and deal AOE damage.
-- On death:  
-  Define if and if yes, which component is activated when enemy dies, for example explode.
-- On spawn:  
-  Define component(s) / state(s) that are active when enemy spawns / the starting states.
 - Splitting:  
   Enemy is split into multiple, individual parts and only share some of their components. -> enemy has multiple hitboxes and respective hp pools, but same movement component - so they "move as one".
 - The other kind of splitting:  
   "Split" into multiple smaller enemies (play animation, spawn new enemies, destroy current enemy), for example on death. 
-- On impact:  
-  When hitting a wall, do something.
-- Drop: Drop something, for example on death drop health pack. 
-- Random Jump: "Jump" in set interval in semi random directions (either randomly select from a pool of manually set x and y values or generate new ones)
 - Stick: When hitting a solid, freeze in place and ignore gravity. Can for example be combined with random jump. 
 - Drop: Stop exectuing movement component when player enters LOS that is projected from enemy in "gravity direction" (shouldnt be hardcoded downwards but actually take current gravity direction in case gravity walls will be a thing) and drop downwards. Can for example be combined with 360 roaming, on impact and explode for dropping bomb traps. 
 - Chaser: When player enters their LOS, chase "charge" at player (like ghosts in stabman) with slight delay in movement. Can for example be combined with explode for kamikaze enemies. 
 - Spawner: Spawn seperate enemies at their location in set interval. how long the interval is and which enemies are being spawned is manually set. 
+- Jump: "Jump" in set interval in semi random directions (either randomly select from a pool of manually set x and y values or generate new ones)  
+</details>
+
+### Events
+Add enemy events to enemy configs in their `events` field.  
+Each event can trigger multiple _action_.  
+An _action_ can do arbitrary stuff to an enemy's components.  
+See the section about [actions](#actions) for details.
+
+#### `OnSpawn`
+```
+on_spawn: <action>,
+```
+Triggers _action_ when the enemy spawns / is first loaded.
+
+#### `OnDeath`
+```
+on_death: <action>,
+```
+Triggers _action_ when the enemy dies.
+
+#### `OnCollision`
+```
+on_collision: (
+    // Optional collision query.
+    // If given, will only trigger action if query matches.
+    query: /* TODO */,
+    action: <action>,
+),
+```
+Triggers _action_ on collision with any _collidable_, that this  
+_collider_ can collide with.  
+Optionally, pass a _query_ ([`FindQuery`](https://github.com/Noah2610/deathframe/blob/develop/deathframe_physics/src/query/find_query.rs));  
+if given, will only trigger action if query succeeds.
+
+#### `Interval`
+```
+interval: (
+    delay_ms: 500, // interval delay in milliseconds
+    action: <action>,
+),
+```
+Triggers _action_ in regular intervals.
+
+### Actions
+Actions are triggered by [_events_](#events).
+
+#### `Delay`
+```
+<event>: Delay(
+    delay_ms: 2000, // time in milliseconds to wait before triggering action
+    action: ...,
+),
+```
+When this action triggers, waits for `delay_ms` milliseconds,  
+before triggering its `action`.
+
+#### `Group`
+```
+<event>: Group([
+    <action0>,
+    <action1>,
+    <action2>,
+    ...
+]),
+```
+Groups multiple actions into one.  
+An event can trigger multiple actions at once  
+using this `Group` action.
+
+#### `Explode`
+```
+<event>: Explode(
+    damage: 420,
+    radius: 69,
+),
+```
+Self destroy and deals of AOE `damage` in the given `radius`.
+
+#### `Drop`
+```
+<event>: Drop( ??? ),
+```
+__TODO: items__  
+Drop something, for example on death drop health pack.
+
+#### `Random`
+```
+<event>: Random(
+    chance: 0.5,
+    action: <action>,
+),
+```
+When triggered, will randomly _succeed_ or _fail_, depending on the given `chance`  
+value, which is a number between `0.0` and `1.0` (both inclusive).  
+If successful, triggers its `action`.  
+
+<small>__NOTE:__ Maybe introduce another layer: `Expression`... `:)`</small>
+
+#### `Jump`
+```
+<event>: Jump(
+    x: None,
+    y: 400.0,
+),
+```
+Jumps with the given `x`, `y` strength.  
+Basically just sets the velocity.  
+Both velocities are optional; use `None` to omit.
 
 ## Environmental Mechanics
 - Jumppad:  
