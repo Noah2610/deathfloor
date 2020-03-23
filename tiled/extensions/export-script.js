@@ -71,14 +71,12 @@
 
         for (let object of objectGroup.objects) {
             if (object.shape === MapObject.Rectangle) {
-                console.log("TODO: Export tile collision objects!"); // TODO
                 const pos = invertPosY(
                     centerPos(object.pos, object.size),
                     tileSize,
                 );
                 pos.x -= tileSize.width * 0.5;
                 pos.y -= tileSize.height * 0.5;
-                // const pos = centerPos(object.pos, object.size);
                 const halfSize = {
                     w: object.size.width * 0.5,
                     h: object.size.height * 0.5,
@@ -147,17 +145,7 @@
             }
         }
 
-        createTilesetRonsFor(Object.values(tilesetsToAdd));
-
         return output;
-    }
-
-    function createTilesetRonsFor(tilesets) {
-        console.log("TODO create RONs");
-        // for (let key in tilesets[0]) {
-        //     const val = tilesets[0][key];
-        //     console.log(`${key} : ${val}`);
-        // }
     }
 
     function getObjectsFromLayer(layer) {
