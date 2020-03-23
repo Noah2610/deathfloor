@@ -1,0 +1,18 @@
+#![enable(implicit_some)]
+/// Enemies settings.
+(
+    types: {
+        Normal: (
+            /// Filename of this enemy's spritesheet,
+            /// under `resources/spritesheets`.
+            spritesheet_filename: "player.png",
+            /// List of components for this enemy.
+            components: (
+                gravity: (
+                    x: 0.0,
+                    y: -100.0,
+                ),
+            ),
+        ),
+    }
+)

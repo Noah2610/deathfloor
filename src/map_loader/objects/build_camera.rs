@@ -12,7 +12,7 @@ pub(super) fn build(
     level_data: &LevelData,
     player_entity_opt: Option<Entity>,
 ) -> amethyst::Result<Entity> {
-    let camera_settings = world.read_resource::<SettingsRes>().0.camera.clone();
+    let camera_settings = world.read_resource::<Settings>().camera.clone();
 
     let pos = {
         let default_camera_pos = (0.0, 0.0, camera_settings.z);

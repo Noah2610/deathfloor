@@ -22,8 +22,8 @@ pub(super) fn load_objects(
                 let _ = build_camera::build(world, level_data, Some(entity))?;
             }
 
-            ObjectType::Enemy => {
-                let _ = build_enemy::build(world, &object)?;
+            ObjectType::Enemy(enemy_type) => {
+                let _ = build_enemy::build(world, &object, enemy_type)?;
             }
 
             ObjectType::None => eprintln!(

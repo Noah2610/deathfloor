@@ -5,7 +5,7 @@ pub(super) fn build(
     world: &mut World,
     object: &ObjectData,
 ) -> amethyst::Result<Entity> {
-    let player_settings = world.read_resource::<SettingsRes>().0.player.clone();
+    let player_settings = world.read_resource::<Settings>().player.clone();
 
     let size: Size = player_settings.size.into();
     let sprite_render = get_sprite_render(world, "spritesheets/player.png", 1)?;

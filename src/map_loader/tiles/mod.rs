@@ -10,7 +10,7 @@ pub(super) fn load_tiles(
     tiles: TilesData,
     tile_size: SizeData,
 ) -> amethyst::Result<()> {
-    let tiles_settings = world.read_resource::<SettingsRes>().0.tiles.clone();
+    let tiles_settings = world.read_resource::<Settings>().tiles.clone();
     let size: Size = tile_size.into();
 
     for tile in tiles {
