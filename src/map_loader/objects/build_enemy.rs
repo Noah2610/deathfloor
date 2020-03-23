@@ -60,8 +60,10 @@ pub(super) fn build(
             }
         };
         entity_builder = entity_builder
+            .with(Collider::new(CollisionTag::Enemy(enemy_type)))
             .with(Collidable::new(CollisionTag::Enemy(enemy_type)))
             .with(Solid::new(SolidTag::Enemy(enemy_type)))
+            .with(JumppadAffected::default())
             .with(hitbox);
     }
     if let Some(walker) = enemy_settings.components.walker {

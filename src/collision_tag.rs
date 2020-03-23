@@ -47,6 +47,8 @@ impl CTag for CollisionTag {
             | (CollisionTag::Enemy(_), CollisionTag::Player) => true,
             (CollisionTag::Enemy(_), CollisionTag::Bullet)
             | (CollisionTag::Bullet, CollisionTag::Enemy(_)) => true,
+            (CollisionTag::Enemy(_), CollisionTag::Jumppad)
+            | (CollisionTag::Jumppad, CollisionTag::Enemy(_)) => true,
             _ => false,
         }
     }
