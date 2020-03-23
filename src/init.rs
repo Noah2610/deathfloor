@@ -53,6 +53,7 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
         )
         .with_plugin(RenderFlat2D::default());
     let ingame_input_bundle = input::ingame_input_bundle()?;
+    let paused_input_bundle = input::paused_input_bundle()?;
     let physics_bundle = PhysicsBundle::<
         collision_tag::CollisionTag,
         collision_tag::SolidTag,
@@ -64,11 +65,13 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
     let mut custom_game_data = GameDataBuilder::default()
         .custom(CustomData::default())
         .dispatcher(DispatcherId::Ingame)?
+        .dispatcher(DispatcherId::Paused)?
         .with_core_bundle(transform_bundle)?
         .with_core_bundle(rendering_bundle)?
         .with_core(ScaleSpritesSystem::default(), "scale_sprites_system", &[])?
         .with_core(CameraOrthoSystem::default(), "camera_ortho_system", &[])?
         .with_bundle(DispatcherId::Ingame, ingame_input_bundle)?
+        .with_bundle(DispatcherId::Paused, paused_input_bundle)?
         .with_bundle(DispatcherId::Ingame, physics_bundle)?
         .with(
             DispatcherId::Ingame,
@@ -87,6 +90,12 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
             DispatcherId::Ingame,
             InputManagerSystem::<input::IngameBindings>::default(),
             "ingame_input_manager_system",
+            &[],
+        )?
+        .with(
+            DispatcherId::Paused,
+            InputManagerSystem::<input::PausedBindings>::default(),
+            "paused_input_manager_system",
             &[],
         )?
         .with(

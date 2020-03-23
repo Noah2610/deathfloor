@@ -1,0 +1,6 @@
+(
+    axes: {},
+    actions: {
+        TogglePause: [ [Key(P)], [Key(Escape)] ],
+    },
+)

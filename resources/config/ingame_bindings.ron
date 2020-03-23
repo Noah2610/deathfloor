@@ -7,6 +7,8 @@
         PlayerJump:  [ [Key(Space)], [Key(K)], ],
         PlayerShoot: [ [Key(J)], ],
 
+        TogglePause: [ [Key(P)], [Key(Escape)] ],
+
         // DEBUG
         ReloadLevel: [ [Key(R)], ],
     },

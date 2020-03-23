@@ -16,6 +16,8 @@ pub enum IngameActionBinding {
     PlayerJump,
     PlayerShoot,
 
+    TogglePause,
+
     // DEBUG
     ReloadLevel,
 }

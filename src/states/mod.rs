@@ -1,14 +1,16 @@
 mod ingame;
 mod load_ingame;
+mod paused;
 mod startup;
 
 pub mod prelude {
     pub use super::aliases::*;
     pub use super::ingame::Ingame;
     pub use super::load_ingame::LoadIngame;
+    pub use super::paused::Paused;
     pub use super::startup::Startup;
     pub use super::CustomData;
-    pub use super::DispatcherId;
+    pub use crate::dispatcher_id::DispatcherId;
 }
 
 pub mod state_prelude {
@@ -25,7 +27,8 @@ pub mod state_prelude {
 }
 
 mod aliases {
-    use super::{CustomData, DispatcherId};
+    use super::CustomData;
+    use crate::dispatcher_id::DispatcherId;
     use deathframe::core::custom_game_data::prelude::*;
 
     pub type GameData<'a, 'b> =
@@ -33,11 +36,6 @@ mod aliases {
 
     pub type GameDataBuilder<'a, 'b> =
         CustomGameDataBuilder<'a, 'b, DispatcherId, CustomData>;
-}
-
-#[derive(Hash, PartialEq, Eq, Debug)]
-pub enum DispatcherId {
-    Ingame,
 }
 
 #[derive(Default)]

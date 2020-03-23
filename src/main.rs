@@ -11,6 +11,7 @@ extern crate specs_derive;
 mod animation_key;
 mod collision_tag;
 mod components;
+mod dispatcher_id;
 mod helpers;
 mod init;
 mod input;
