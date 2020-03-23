@@ -3,4 +3,5 @@ pub enum ObjectType {
     #[serde(rename = "")]
     None,
     Player,
+    Enemy,
 }

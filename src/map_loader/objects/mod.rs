@@ -1,6 +1,7 @@
 pub mod object_type;
 
 mod build_camera;
+mod build_enemy;
 mod build_player;
 mod helpers;
 
@@ -19,6 +20,10 @@ pub(super) fn load_objects(
             ObjectType::Player => {
                 let entity = build_player::build(world, &object)?;
                 let _ = build_camera::build(world, level_data, Some(entity))?;
+            }
+
+            ObjectType::Enemy => {
+                let _ = build_enemy::build(world, &object)?;
             }
 
             ObjectType::None => eprintln!(

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="128" height="32" tilewidth="8" tileheight="8" infinite="0" nextlayerid="3" nextobjectid="2">
+<map version="1.2" tiledversion="2020.03.18" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="128" height="32" tilewidth="8" tileheight="8" infinite="0" nextlayerid="3" nextobjectid="3">
  <editorsettings>
   <export target="../../resources/levels/level.json" format="deathfloor-export"/>
  </editorsettings>
@@ -48,5 +48,10 @@
    <property name="z" type="float" value="1.1"/>
   </properties>
   <object id="1" name="Player" type="Player" x="48" y="56" width="8" height="8"/>
+  <object id="2" name="Normal Enemy" type="Enemy" x="136" y="72" width="8" height="8">
+   <properties>
+    <property name="enemy_type" value="Normal"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
