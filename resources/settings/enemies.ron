@@ -18,6 +18,14 @@
                     x: 0.0,
                     y: -100.0,
                 ),
+                max_movement_velocity: (
+                    x: 100.0,
+                    y: 200.0,
+                ),
+                base_friction: (
+                    friction_x: 1000.0,
+                    friction_y: None,
+                ),
                 animations: {
                     Idle: Cycle([
                         (13, 500),

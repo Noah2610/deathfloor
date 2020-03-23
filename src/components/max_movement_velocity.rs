@@ -1,7 +1,7 @@
 use super::component_prelude::*;
 
 /// The maximum velocity a `Movable` entity can have, when being moved.
-#[derive(Default, Component, Builder)]
+#[derive(Default, Component, Builder, Deserialize, Clone)]
 #[storage(VecStorage)]
 #[builder(pattern = "owned", default, setter(strip_option))]
 pub struct MaxMovementVelocity {

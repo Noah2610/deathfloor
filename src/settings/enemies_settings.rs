@@ -24,8 +24,10 @@ pub struct EnemySettings {
 /// All can optionally be added to an enemy's config.
 #[derive(Clone, Deserialize)]
 pub struct EnemyComponentsData {
-    pub size:       Option<Size>,
-    pub gravity:    Option<Gravity>,
-    pub animations: Option<AnimationsContainer<AnimationKey>>,
-    pub hitbox:     Option<HitboxConfig>,
+    pub size:                  Option<Size>,
+    pub gravity:               Option<Gravity>,
+    pub max_movement_velocity: Option<MaxMovementVelocity>,
+    pub base_friction:         Option<BaseFriction>,
+    pub animations:            Option<AnimationsContainer<AnimationKey>>,
+    pub hitbox:                Option<HitboxConfig>,
 }

@@ -41,6 +41,14 @@ pub(super) fn build(
     if let Some(gravity) = enemy_settings.components.gravity {
         entity_builder = entity_builder.with(gravity);
     }
+    if let Some(max_movement_velocity) =
+        enemy_settings.components.max_movement_velocity
+    {
+        entity_builder = entity_builder.with(max_movement_velocity);
+    }
+    if let Some(base_friction) = enemy_settings.components.base_friction {
+        entity_builder = entity_builder.with(base_friction);
+    }
     if let Some(animations) = enemy_settings.components.animations {
         entity_builder = entity_builder.with(animations);
     }
