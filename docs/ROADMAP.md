@@ -15,7 +15,7 @@
 
 ## v0.0.3
 - [ ] enemy types, composable entity features
-- [ ] player shooting ([#9])
+- [x] player shooting ([#9])
 - [ ] enemies ([#10])
 - [ ] health system ([#11])
 
