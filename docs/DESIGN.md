@@ -1,5 +1,45 @@
 # Design notes
 
+<details>
+<summary>Table of Contents</summary>
+
+- [General](#general)
+  - [Player Movement](#player-movement)
+  - [Environmental Animations](#environmental-animations)
+- [Combat](#combat)
+  - [Health](#health)
+  - [I-frames](#i-frames)
+  - [Player death](#player-death)
+- [Enemies ](#enemies)
+  - [Components](#components)
+    - [Planned](#planned)
+      - [`Spikey`](#spikey)
+      - [`Walker`](#walker)
+      - [`ForwardShooter`](#forwardshooter)
+      - [`Chaser`](#chaser)
+      - [`Jumppad`](#jumppad)
+      - [`AnimationsContainer`](#animationscontainer)
+    - [To plan (TODO)](#to-plan-todo)
+  - [Events](#events)
+    - [`OnSpawn`](#onspawn)
+    - [`OnDeath`](#ondeath)
+    - [`OnCollision`](#oncollision)
+    - [`Interval`](#interval)
+  - [Actions](#actions)
+    - [`Delay`](#delay)
+    - [`Group`](#group)
+    - [`Explode`](#explode)
+    - [`Drop`](#drop)
+    - [`Random`](#random)
+    - [`Jump`](#jump)
+- [Environmental Mechanics](#environmental-mechanics)
+- [Weapons](#weapons)
+  - [Weapon types](#weapon-types)
+- [SFX](#sfx)
+- [Level setting / theme ideas](#level-setting--theme-ideas)
+
+</details>
+
 ## General
 
 - Level reload key
@@ -13,7 +53,7 @@
   Limited by level borders
 
 - Player hitboxes:
-  Seperate hitboxes für solids and damage 
+  Seperate hitboxes for solids and damage 
 
 ### Player Movement
 - Jump 
@@ -52,7 +92,7 @@ Enemies consist of various components that can be combined to craft simple behav
 #### Planned
 Components, whose details have been thought about, and which can be worked on.
 
-##### `Spikey { damage }`
+##### `Spikey`
 ```
 spikey: Spikey(
     damage: 123, // amount of damage to deal
@@ -61,7 +101,7 @@ spikey: Spikey(
 Damage on collision:  
 Deals damage to the player on collision.
 
-##### `Walker { x, y }`
+##### `Walker`
 ```
 walker: Walker(
     // Velocity to _set_ OR _increment_ each frame (TODO)
