@@ -45,7 +45,7 @@ If player still has lives left, they respawn at the most recent checkpoint and l
 - Enemy Death:
   Entity gets destroyed, a short animation and maybe sound is played, optionally they drop something (for example a health pack)
 - Spawning enemies
-  
+
 ### Components
 Enemies consist of various components that can be combined to craft simple behavior.
 
@@ -130,6 +130,9 @@ animations: {
 These components are more complicated and require more thought,  
 or are low-priority. These still need to be planned out.
 
+<details>
+<summary>Components</summary>
+
 - 360 roaming:
   Move in one direction (can be set in tiled), when encountering a ledge or wall move upwards / downwards along it and ignore gravity.
 - Basic air roaming:  
@@ -141,22 +144,58 @@ or are low-priority. These still need to be planned out.
   A manually set time that makes the enemy loops what its currently doing before continuing on with next behavior. Can be set "between" 2 behavioral states / at the transition between them. For example: Basic react shooting enemy spots player. Instead of instantly entering shooting state, the delay is run first. Then enter next state, in this case shooting.
 - Explode:  
   Self destroy and deal AOE damage.
-- On death:  
-  Define if and if yes, which component is activated when enemy dies, for example explode.
-- On spawn:  
-  Define component(s) / state(s) that are active when enemy spawns / the starting states.
 - Splitting:  
   Enemy is split into multiple, individual parts and only share some of their components. -> enemy has multiple hitboxes and respective hp pools, but same movement component - so they "move as one".
 - The other kind of splitting:  
   "Split" into multiple smaller enemies (play animation, spawn new enemies, destroy current enemy), for example on death. 
-- On impact:  
-  When hitting a wall, do something.
 - Drop: Drop something, for example on death drop health pack. 
 - Random Jump: "Jump" in set interval in semi random directions (either randomly select from a pool of manually set x and y values or generate new ones)
 - Stick: When hitting a solid, freeze in place and ignore gravity. Can for example be combined with random jump. 
 - Drop: Stop exectuing movement component when player enters LOS that is projected from enemy in "gravity direction" (shouldnt be hardcoded downwards but actually take current gravity direction in case gravity walls will be a thing) and drop downwards. Can for example be combined with 360 roaming, on impact and explode for dropping bomb traps. 
 - Chaser: When player enters their LOS, chase "charge" at player (like ghosts in stabman) with slight delay in movement. Can for example be combined with explode for kamikaze enemies. 
 - Spawner: Spawn seperate enemies at their location in set interval. how long the interval is and which enemies are being spawned is manually set. 
+</details>
+
+### Events
+Add enemy events to enemy configs in their `events` field.  
+Each event can trigger multiple _actions_.  
+An _action_ can do arbitrary stuff to an enemy's components.  
+See the section about actions for details.
+
+#### `OnSpawn`
+```
+on_spawn: [ action0, action1, ... ],
+```
+Triggers _actions_ when the enemy spawns / is first loaded.
+
+#### `OnDeath`
+```
+on_death: [ ... ],
+```
+Triggers _actions_ when the enemy dies.
+
+#### `OnCollision`
+```
+on_collision: (
+    // Optional collision query.
+    // If given, will only trigger actions if query matches.
+    query: /* TODO */,
+    actions: [ ... ],
+),
+```
+Triggers _actions_ on collision with any _collidable_, that this  
+_collider_ can collide with.  
+Optionally, pass a _query_ ([`FindQuery`](https://github.com/Noah2610/deathframe/blob/develop/deathframe_physics/src/query/find_query.rs));  
+if given, will only trigger actions if query succeeds.
+
+#### `Interval`
+```
+interval: (
+    delay_ms: 500, // interval delay in milliseconds
+    actions: [ ... ],
+),
+```
+Triggers _actions_ in regular intervals.
 
 ## Environmental Mechanics
 - Jumppad:  
