@@ -171,6 +171,12 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
                 "delete_bullets_system",
                 "update_collisions_system",
             ],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            HandleWalkersSystem::default(),
+            "handle_walkers_system",
+            &[],
         )?;
 
     #[cfg(feature = "debug")]

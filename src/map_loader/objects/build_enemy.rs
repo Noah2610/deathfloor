@@ -64,6 +64,9 @@ pub(super) fn build(
             .with(Solid::new(SolidTag::Enemy(enemy_type)))
             .with(hitbox);
     }
+    if let Some(walker) = enemy_settings.components.walker {
+        entity_builder = entity_builder.with(Movable::default()).with(walker);
+    }
 
     Ok(entity_builder.build())
 }

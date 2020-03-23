@@ -38,6 +38,10 @@
                     ]),
                 },
                 hitbox: Size,
+                walker: (
+                    x: 100.0,
+                    y: None,
+                ),
             ),
         ),
     }

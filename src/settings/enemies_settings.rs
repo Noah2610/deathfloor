@@ -3,7 +3,6 @@ pub mod prelude {
     pub use super::EnemyComponentsData;
     pub use super::EnemySettings;
 }
-
 use super::hitbox_config::HitboxConfig;
 use crate::animation_key::AnimationKey;
 use crate::components::prelude::*;
@@ -30,4 +29,5 @@ pub struct EnemyComponentsData {
     pub base_friction:         Option<BaseFriction>,
     pub animations:            Option<AnimationsContainer<AnimationKey>>,
     pub hitbox:                Option<HitboxConfig>,
+    pub walker:                Option<Walker>,
 }
