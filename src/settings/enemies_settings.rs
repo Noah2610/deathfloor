@@ -22,5 +22,6 @@ pub struct EnemySettings {
 /// All can optionally be added to an enemy's config.
 #[derive(Clone, Deserialize)]
 pub struct EnemyComponentsData {
+    pub size:    Option<Size>,
     pub gravity: Option<Gravity>,
 }

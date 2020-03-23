@@ -7,7 +7,13 @@
             /// under `resources/spritesheets`.
             spritesheet_filename: "player.png",
             /// List of components for this enemy.
+            /// All components are optional.
             components: (
+                /// If this is not set, uses tiled object size.
+                size: (
+                    w: 16.0,
+                    h: 32.0,
+                ),
                 gravity: (
                     x: 0.0,
                     y: -100.0,

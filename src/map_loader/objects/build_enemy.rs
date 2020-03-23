@@ -34,7 +34,9 @@ pub(super) fn build(
 
     // CONFIGURABLE COMPONENTS
 
-    // GRAVITY
+    if let Some(size) = enemy_settings.components.size {
+        entity_builder = entity_builder.with(size);
+    }
     if let Some(gravity) = enemy_settings.components.gravity {
         entity_builder = entity_builder.with(gravity);
     }
