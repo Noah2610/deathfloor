@@ -39,9 +39,9 @@
         }
 
         const file = new TextFile(fileName, TextFile.WriteOnly);
+        file.truncate();
         file.write(JSON.stringify(outputMap));
         file.commit();
-        file.close();
 
         return errors.join(", ");
     }
