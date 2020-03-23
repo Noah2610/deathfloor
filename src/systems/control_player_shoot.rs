@@ -2,9 +2,6 @@ use super::system_prelude::*;
 use crate::helpers::resource;
 use amethyst::core::math::Vector3;
 
-// TODO
-const BULLET_Z: f32 = 3.0;
-
 #[derive(Default)]
 pub struct ControlPlayerShootSystem;
 
@@ -43,7 +40,11 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
             if should_shoot {
                 let bullet_transform = {
                     let trans = transform.translation();
-                    Transform::from(Vector3::new(trans.x, trans.y, BULLET_Z))
+                    Transform::from(Vector3::new(
+                        trans.x,
+                        trans.y,
+                        trans.z + 0.1,
+                    ))
                 };
                 let bullet_velocity = {
                     let mut velocity: Velocity =
@@ -61,6 +62,7 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
                         sprite_sheet:  bullet_spritesheet_handle.clone(),
                         sprite_number: 0,
                     },
+                    animation:     shooter.bullet_data.animation.clone().into(),
                 });
 
                 shooter.cooldown_timer.start().unwrap();

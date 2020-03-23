@@ -10,13 +10,6 @@ impl<'a> System<'a> for CreateBulletsSystem {
     fn run(&mut self, (mut bullet_creator, mut storages): Self::SystemData) {
         for bullet_comps in bullet_creator.drain() {
             let hitbox = Hitbox::from(vec![Rect::from(&bullet_comps.size)]);
-            let animation = AnimationTypeWrapper::Cycle(Animation::from(vec![
-                (0_usize, 100_u64),
-                (1_usize, 100_u64),
-                (2_usize, 100_u64),
-                (1_usize, 100_u64),
-            ]))
-            .into();
 
             let _entity = storages
                 .entities
@@ -35,7 +28,7 @@ impl<'a> System<'a> for CreateBulletsSystem {
                     &mut storages.collider_store,
                 )
                 .with(hitbox, &mut storages.hitbox_store)
-                .with(animation, &mut storages.animation_store)
+                .with(bullet_comps.animation, &mut storages.animation_store)
                 .build();
         }
     }

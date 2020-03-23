@@ -66,6 +66,13 @@
             velocity: (300.0, 0.0),
             /// Despawn the bullet after this amount of milliseconds.
             despawn_after_ms: 5_000,
+            /// Bullet animation frames. Uses `spritesheets/player_bullet.png` spritesheet.
+            animation: Cycle([
+                (0, 100),
+                (1, 100),
+                (2, 100),
+                (1, 100),
+            ]),
         ),
     ),
 

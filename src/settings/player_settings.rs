@@ -2,7 +2,11 @@ use super::hitbox_config::HitboxConfig;
 use super::SizeSettings;
 use crate::animation_key::AnimationKey;
 use crate::components::prelude::{Jumper, PhysicsData, WallJumper, WallSlider};
-use deathframe::animation::components::prelude::AnimationsContainer;
+use deathframe::animation::components::prelude::{
+    Animation,
+    AnimationsContainer,
+};
+use deathframe::animation::data::prelude::AnimationTypeWrapper;
 
 pub mod prelude {
     pub use super::PlayerSettings;
@@ -33,4 +37,5 @@ pub struct ShooterBulletData {
     pub size:             (f32, f32),
     pub velocity:         (f32, f32),
     pub despawn_after_ms: u64,
+    pub animation:        AnimationTypeWrapper<Animation>,
 }
