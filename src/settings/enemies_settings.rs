@@ -4,6 +4,8 @@ pub mod prelude {
     pub use super::EnemySettings;
 }
 
+use super::hitbox_config::HitboxConfig;
+use crate::animation_key::AnimationKey;
 use crate::components::prelude::*;
 use std::collections::HashMap;
 
@@ -22,6 +24,8 @@ pub struct EnemySettings {
 /// All can optionally be added to an enemy's config.
 #[derive(Clone, Deserialize)]
 pub struct EnemyComponentsData {
-    pub size:    Option<Size>,
-    pub gravity: Option<Gravity>,
+    pub size:       Option<Size>,
+    pub gravity:    Option<Gravity>,
+    pub animations: Option<AnimationsContainer<AnimationKey>>,
+    pub hitbox:     Option<HitboxConfig>,
 }
