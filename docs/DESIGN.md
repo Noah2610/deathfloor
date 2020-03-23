@@ -47,19 +47,93 @@ If player still has lives left, they respawn at the most recent checkpoint and l
 - Spawning enemies
   
 ### Components
+Enemies consist of various components that can be combined to craft simple behavior.
 
-- Enemies consist of various components that can be combined to craft simple behavior. 
+#### Planned
+Components, whose details have been thought about, and which can be worked on.
 
-- Damage on collision:  
-  Deals damage to the player on collision.
-- Basic roaming:  
-  Move left and right (initial direction can be set in tiled) until hitting either a ledge or a wall, then pivot. 
+##### `Spikey { damage }`
+```
+spikey: Spikey(
+    damage: 123, // amount of damage to deal
+),
+```
+Damage on collision:  
+Deals damage to the player on collision.
+
+##### `Walker { x, y }`
+```
+walker: Walker(
+    // Velocity to _set_ OR _increment_ each frame (TODO)
+    x: 10.0,
+    y: 0.0,
+),
+```
+Basic roaming:  
+Move left and right (initial direction can be set in tiled)  
+~~until hitting either a ledge or a wall, then pivot~~  
+(pivot on solid collision should be done by an _event/action_ (_TODO_)).
+
+##### `ForwardShooter`
+__TODO:__ _Figure out proper name_
+```
+turret: ForwardShooter(
+    interval_ms: 5000, // shoot interval in milliseconds
+),
+```
+Basic shooting:  
+Spawns projectiles in walking direction in a set interval.
+
+##### `Chaser`
+```
+chaser: Chaser(
+    // Distance to player, before it starts chasing (x, y)
+    distance: (300.0, 150.0),
+),
+```
+__NOTE__  
+Let's ignore LOS for now, and just work with _distance to player_.  
+I still need to figure out how to do LOS properly.
+
+Basic chasing:  
+When player enters LOS enemy moves towards player (flying),  
+when player leaves LOS they freeze (until Player reenters LOS)
+
+##### `Jumppad`
+```
+jumppad: Jumppad(
+    // Jumppad strength (x, y)
+    // Both values are optional (use `None` to omit)
+    strength: (None, 400.0),
+),
+```
+Player can jump off of them
+
+##### `AnimationsContainer`
+```
+animations: {
+    // TODO: Proper `AnimationsContainer` documentation
+    Idle: Cycle([
+        (0, 100),
+        (1, 100),
+        (2, 100),
+    ]),
+    Walk: Cycle([
+        (3, 100),
+        (4, 100),
+        (5, 100),
+    ]),
+},
+```
+
+#### To plan (TODO)
+These components are more complicated and require more thought,  
+or are low-priority. These still need to be planned out.
+
 - 360 roaming:
   Move in one direction (can be set in tiled), when encountering a ledge or wall move upwards / downwards along it and ignore gravity.
 - Basic air roaming:  
   Move along a set path. When reaching end of path, pivot. (Path is set manually in tiled)
-- Basic shooting:  
-  Spawns projectiles in walking direction in a set interval.
 - Basic LOS react:  
   When player enters their LOS (LOS as in 1 rectangular hitbox that is being projected in front of them in walking direction) do something / change state. For example Basic Shooting. 
 - Basic charging:  
@@ -77,12 +151,7 @@ If player still has lives left, they respawn at the most recent checkpoint and l
   "Split" into multiple smaller enemies (play animation, spawn new enemies, destroy current enemy), for example on death. 
 - On impact:  
   When hitting a wall, do something.
-- Basic chasing:
-  When player enters LOS enemy moves towards player (flying), when player leaves LOS they freeze (until Player reenters LOS)
-- Jumpable: 
-  Player can jump off of them
 - Drop: Drop something, for example on death drop health pack. 
-- Animation: Play an animation
 - Random Jump: "Jump" in set interval in semi random directions (either randomly select from a pool of manually set x and y values or generate new ones)
 - Stick: When hitting a solid, freeze in place and ignore gravity. Can for example be combined with random jump. 
 - Drop: Stop exectuing movement component when player enters LOS that is projected from enemy in "gravity direction" (shouldnt be hardcoded downwards but actually take current gravity direction in case gravity walls will be a thing) and drop downwards. Can for example be combined with 360 roaming, on impact and explode for dropping bomb traps. 
