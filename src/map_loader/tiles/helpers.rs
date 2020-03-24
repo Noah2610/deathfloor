@@ -82,8 +82,8 @@ pub(super) fn base_tile_entity<'a>(
     transform.set_translation_z(tile.z_or(DEFAULT_Z));
 
     let size: Size = tile_size.into();
-    let loadable = Loadable::default()
-        .with_padding((Some(size.w * 2.0), Some(size.h * 2.0)));
+    let loadable =
+        Loadable::default().with_padding((Some(size.w), Some(size.h)));
 
     let entity = world
         .create_entity()
