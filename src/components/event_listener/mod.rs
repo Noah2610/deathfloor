@@ -1,5 +1,6 @@
 pub mod prelude {
     pub use super::Action as EventAction;
+    pub use super::ActionType as EventActionType;
     pub use super::EventListener;
     pub use super::EventType;
 }
@@ -8,6 +9,7 @@ mod action;
 mod event_type;
 
 pub use action::Action;
+pub use action::ActionType;
 pub use event_type::EventType;
 
 use super::component_prelude::*;
@@ -17,15 +19,25 @@ use std::collections::HashMap;
 #[storage(DenseVecStorage)]
 #[serde(from = "HashMap<EventType, Action>")]
 pub struct EventListener {
-    pub events:  HashMap<EventType, Action>,
-    pub actions: Vec<Action>,
+    events:  HashMap<EventType, Action>,
+    actions: HashMap<ActionType, Vec<Action>>,
 }
 
 impl EventListener {
     pub fn trigger(&mut self, event: &EventType) {
         if let Some(action) = self.events.get(event).cloned() {
-            self.actions.push(action);
+            self.actions
+                .entry((&action).into())
+                .or_insert_with(Default::default)
+                .push(action);
         }
+    }
+
+    pub fn take_actions(
+        &mut self,
+        action_type: &ActionType,
+    ) -> Option<Vec<Action>> {
+        self.actions.remove(action_type)
     }
 }
 

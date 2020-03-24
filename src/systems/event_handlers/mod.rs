@@ -1,8 +1,11 @@
 pub use bundle::EventHandlersBundle;
 
-mod on_spawn;
+mod actions;
+mod events;
 
 mod bundle {
+    use super::actions;
+    use super::events;
     use amethyst::core::bundle::SystemBundle;
     use amethyst::ecs::{DispatcherBuilder, World};
     use deathframe::core::amethyst;
@@ -24,9 +27,17 @@ mod bundle {
             _world: &mut World,
             builder: &mut DispatcherBuilder<'a, 'b>,
         ) -> Result<(), amethyst::Error> {
+            // EVENTS
             builder.add(
-                super::on_spawn::HandleEventOnSpawn::default(),
+                events::on_spawn::HandleEventOnSpawn::default(),
                 "handle_event_on_spawn_system",
+                self.deps,
+            );
+
+            // ACTIONS
+            builder.add(
+                actions::echo::HandleActionEcho::default(),
+                "handle_action_echo_system",
                 self.deps,
             );
             Ok(())
