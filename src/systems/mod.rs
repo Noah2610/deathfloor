@@ -6,13 +6,13 @@ mod create_bullets;
 #[cfg(feature = "debug")]
 mod debug;
 mod delete_bullets;
+mod event_handlers;
 mod handle_animations;
 mod handle_enemy_actions;
 mod handle_jumppad_affected;
 mod handle_movables;
 mod handle_scales;
 mod handle_walkers;
-mod trigger_enemy_events;
 
 pub mod prelude {
     pub use deathframe::amethyst::utils::ortho_camera::CameraOrthoSystem;
@@ -26,13 +26,13 @@ pub mod prelude {
     #[cfg(feature = "debug")]
     pub use super::debug::DebugSystem;
     pub use super::delete_bullets::DeleteBulletsSystem;
+    pub use super::event_handlers::EventHandlersBundle;
     pub use super::handle_animations::HandleAnimationsSystem;
     pub use super::handle_enemy_actions::HandleEnemyActionsSystem;
     pub use super::handle_jumppad_affected::HandleJumppadAffectedSystem;
     pub use super::handle_movables::HandleMovablesSystem;
     pub use super::handle_scales::HandleScalesSystem;
     pub use super::handle_walkers::HandleWalkersSystem;
-    pub use super::trigger_enemy_events::TriggerEnemyEventsBundle;
 }
 
 mod system_prelude {

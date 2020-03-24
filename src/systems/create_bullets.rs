@@ -1,5 +1,4 @@
 use super::system_prelude::*;
-use deathframe::animation::data::prelude::*;
 
 #[derive(Default)]
 pub struct CreateBulletsSystem;

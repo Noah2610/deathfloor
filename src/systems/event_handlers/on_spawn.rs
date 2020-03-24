@@ -2,11 +2,11 @@ use super::super::system_prelude::*;
 use std::collections::HashSet;
 
 #[derive(Default)]
-pub struct TriggerEnemyEventOnSpawn {
+pub struct HandleEventOnSpawn {
     triggered_entities: HashSet<Entity>,
 }
 
-impl<'a> System<'a> for TriggerEnemyEventOnSpawn {
+impl<'a> System<'a> for HandleEventOnSpawn {
     type SystemData = (Entities<'a>, WriteStorage<'a, EventListener>);
 
     fn run(&mut self, (entities, mut event_listener_store): Self::SystemData) {
