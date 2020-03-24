@@ -33,6 +33,11 @@ mod bundle {
                 "handle_event_on_spawn_system",
                 self.deps,
             );
+            builder.add(
+                events::on_collision::HandleEventOnCollision::default(),
+                "handle_event_on_collision_system",
+                self.deps,
+            );
 
             // ACTIONS
             builder.add(
