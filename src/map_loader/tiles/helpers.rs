@@ -24,10 +24,12 @@ pub(super) fn edit_entity_with_tile_settings<'a>(
     }
 
     // SOLID
-    if tile_settings.is_solid {
-        entity = entity
-            .with(Collidable::new(CollisionTag::Tile))
-            .with(Solid::new(SolidTag::Tile));
+    if let Some(is_solid) = tile_settings.is_solid {
+        if is_solid {
+            entity = entity
+                .with(Collidable::new(CollisionTag::Tile))
+                .with(Solid::new(SolidTag::Tile));
+        }
     }
 
     // JUMPPAD
