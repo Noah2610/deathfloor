@@ -7,6 +7,7 @@ mod create_bullets;
 mod debug;
 mod delete_bullets;
 mod handle_animations;
+mod handle_enemy_actions;
 mod handle_jumppad_affected;
 mod handle_movables;
 mod handle_scales;
@@ -25,6 +26,7 @@ pub mod prelude {
     pub use super::debug::DebugSystem;
     pub use super::delete_bullets::DeleteBulletsSystem;
     pub use super::handle_animations::HandleAnimationsSystem;
+    pub use super::handle_enemy_actions::HandleEnemyActionsSystem;
     pub use super::handle_jumppad_affected::HandleJumppadAffectedSystem;
     pub use super::handle_movables::HandleMovablesSystem;
     pub use super::handle_scales::HandleScalesSystem;

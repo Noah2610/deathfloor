@@ -177,6 +177,12 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
             HandleWalkersSystem::default(),
             "handle_walkers_system",
             &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            HandleEnemyActionsSystem::default(),
+            "handle_enemy_actions_system",
+            &[],
         )?;
 
     #[cfg(feature = "debug")]
