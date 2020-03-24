@@ -17,7 +17,7 @@ pub struct EnemiesSettings {
 #[derive(Clone, Deserialize)]
 pub struct EnemySettings {
     pub spritesheet_filename: String, // TODO
-    pub components:           EnemyComponentsData,
+    pub components:           Option<EnemyComponentsData>,
     pub events:               Option<EventListener>,
 }
 

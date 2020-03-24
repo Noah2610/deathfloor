@@ -19,8 +19,6 @@ pub(super) fn build(
             ))
         })?;
 
-    let size = enemy_settings.components.size.unwrap_or(object.size.into());
-
     let sprite_render = get_sprite_render(
         world,
         format!("spritesheets/{}", enemy_settings.spritesheet_filename),
@@ -33,42 +31,46 @@ pub(super) fn build(
         .with(Enemy::new(enemy_type.clone()))
         .with(Loadable::default())
         .with(Hidden)
-        .with(size.clone())
         .with(sprite_render)
         .with(Velocity::default());
 
     // COMPONENTS
 
-    if let Some(gravity) = enemy_settings.components.gravity {
-        entity_builder = entity_builder.with(gravity);
-    }
-    if let Some(max_movement_velocity) =
-        enemy_settings.components.max_movement_velocity
-    {
-        entity_builder = entity_builder.with(max_movement_velocity);
-    }
-    if let Some(base_friction) = enemy_settings.components.base_friction {
-        entity_builder = entity_builder.with(base_friction);
-    }
-    if let Some(animations) = enemy_settings.components.animations {
-        entity_builder = entity_builder.with(animations);
-    }
-    if let Some(hitbox_config) = enemy_settings.components.hitbox {
-        let hitbox = match hitbox_config {
-            HitboxConfig::Size => Hitbox::new().with_rect(Rect::from(&size)),
-            HitboxConfig::Custom(rects) => {
-                Hitbox::new().with_rects(rects.clone())
-            }
-        };
-        entity_builder = entity_builder
-            .with(Collider::new(CollisionTag::Enemy(enemy_type.clone())))
-            .with(Collidable::new(CollisionTag::Enemy(enemy_type.clone())))
-            .with(Solid::new(SolidTag::Enemy(enemy_type)))
-            .with(JumppadAffected::default())
-            .with(hitbox);
-    }
-    if let Some(walker) = enemy_settings.components.walker {
-        entity_builder = entity_builder.with(Movable::default()).with(walker);
+    if let Some(components) = enemy_settings.components {
+        let size = components.size.unwrap_or(object.size.into());
+        entity_builder = entity_builder.with(size.clone());
+        if let Some(gravity) = components.gravity {
+            entity_builder = entity_builder.with(gravity);
+        }
+        if let Some(max_movement_velocity) = components.max_movement_velocity {
+            entity_builder = entity_builder.with(max_movement_velocity);
+        }
+        if let Some(base_friction) = components.base_friction {
+            entity_builder = entity_builder.with(base_friction);
+        }
+        if let Some(animations) = components.animations {
+            entity_builder = entity_builder.with(animations);
+        }
+        if let Some(hitbox_config) = components.hitbox {
+            let hitbox = match hitbox_config {
+                HitboxConfig::Size => {
+                    Hitbox::new().with_rect(Rect::from(&size))
+                }
+                HitboxConfig::Custom(rects) => {
+                    Hitbox::new().with_rects(rects.clone())
+                }
+            };
+            entity_builder = entity_builder
+                .with(Collider::new(CollisionTag::Enemy(enemy_type.clone())))
+                .with(Collidable::new(CollisionTag::Enemy(enemy_type.clone())))
+                .with(Solid::new(SolidTag::Enemy(enemy_type)))
+                .with(JumppadAffected::default())
+                .with(hitbox);
+        }
+        if let Some(walker) = components.walker {
+            entity_builder =
+                entity_builder.with(Movable::default()).with(walker);
+        }
     }
 
     // EVENTS
