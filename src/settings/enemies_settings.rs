@@ -32,4 +32,5 @@ pub struct EnemyComponentsData {
     pub animations:            Option<AnimationsContainer<AnimationKey>>,
     pub hitbox:                Option<HitboxConfig>,
     pub walker:                Option<Walker>,
+    pub jumppad:               Option<Jumppad>,
 }

@@ -36,7 +36,8 @@ impl<'a> System<'a> for HandleJumppadAffectedSystem {
                     .query::<FindQuery<CollisionTag>>()
                     .filter_ids(vec![jumppad_entity.id()])
                     .exp(And(vec![
-                        IsTag(CollisionTag::Jumppad),
+                        // TODO: This is unnecessary, and less flexible
+                        // IsTag(CollisionTag::Jumppad),
                         IsState(Enter),
                         IsSide(Inner),
                     ]))

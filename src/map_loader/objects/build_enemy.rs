@@ -71,6 +71,9 @@ pub(super) fn build(
             entity_builder =
                 entity_builder.with(Movable::default()).with(walker);
         }
+        if let Some(jumppad) = components.jumppad {
+            entity_builder = entity_builder.with(jumppad);
+        }
     }
 
     // EVENTS
