@@ -3,18 +3,11 @@ use crate::settings::prelude::{ShooterBulletData, ShooterData};
 use climer::Timer;
 use std::time::Duration;
 
-#[derive(Component, Builder)]
+#[derive(Component)]
 #[storage(VecStorage)]
-#[builder(pattern = "owned")]
 pub struct Shooter {
     pub cooldown_timer: Timer,
     pub bullet_data:    ShooterBulletData,
-}
-
-impl Shooter {
-    pub fn builder() -> ShooterBuilder {
-        ShooterBuilder::default()
-    }
 }
 
 impl From<ShooterData> for Shooter {
