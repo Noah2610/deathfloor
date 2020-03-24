@@ -30,7 +30,7 @@ pub(super) fn build(
     // CREATE ENTITY_BUILDER
 
     let mut entity_builder = base_object_entity(world, object)?
-        .with(Enemy::new(enemy_type))
+        .with(Enemy::new(enemy_type.clone()))
         .with(Loadable::default())
         .with(Hidden)
         .with(size.clone())
@@ -61,8 +61,8 @@ pub(super) fn build(
             }
         };
         entity_builder = entity_builder
-            .with(Collider::new(CollisionTag::Enemy(enemy_type)))
-            .with(Collidable::new(CollisionTag::Enemy(enemy_type)))
+            .with(Collider::new(CollisionTag::Enemy(enemy_type.clone())))
+            .with(Collidable::new(CollisionTag::Enemy(enemy_type.clone())))
             .with(Solid::new(SolidTag::Enemy(enemy_type)))
             .with(JumppadAffected::default())
             .with(hitbox);

@@ -16,14 +16,14 @@ pub(super) fn load_objects(
     level_data: &LevelData,
 ) -> amethyst::Result<()> {
     for object in objects {
-        match object.object_type {
+        match &object.object_type {
             ObjectType::Player => {
                 let entity = build_player::build(world, &object)?;
                 let _ = build_camera::build(world, level_data, Some(entity))?;
             }
 
             ObjectType::Enemy(enemy_type) => {
-                let _ = build_enemy::build(world, &object, enemy_type)?;
+                let _ = build_enemy::build(world, &object, enemy_type.clone())?;
             }
 
             ObjectType::None => eprintln!(

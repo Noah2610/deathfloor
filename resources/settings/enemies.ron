@@ -2,7 +2,7 @@
 /// Enemies settings.
 (
     types: {
-        Normal: (
+        "Normal": (
             /// Filename of this enemy's spritesheet,
             /// under `resources/spritesheets`.
             spritesheet_filename: "player.png",
