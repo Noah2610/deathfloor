@@ -73,6 +73,7 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
         .with_bundle(DispatcherId::Ingame, ingame_input_bundle)?
         .with_bundle(DispatcherId::Paused, paused_input_bundle)?
         .with_bundle(DispatcherId::Ingame, physics_bundle)?
+        .with_bundle(DispatcherId::Ingame, TriggerEnemyEventsBundle::default())?
         .with(
             DispatcherId::Ingame,
             HandleAnimationsSystem::default(),

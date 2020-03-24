@@ -30,13 +30,14 @@ pub(super) fn build(
     // CREATE ENTITY_BUILDER
 
     let mut entity_builder = base_object_entity(world, object)?
+        .with(Enemy::new(enemy_type))
         .with(Loadable::default())
         .with(Hidden)
         .with(size.clone())
         .with(sprite_render)
         .with(Velocity::default());
 
-    // CONFIGURABLE COMPONENTS
+    // COMPONENTS
 
     if let Some(gravity) = enemy_settings.components.gravity {
         entity_builder = entity_builder.with(gravity);
@@ -68,6 +69,12 @@ pub(super) fn build(
     }
     if let Some(walker) = enemy_settings.components.walker {
         entity_builder = entity_builder.with(Movable::default()).with(walker);
+    }
+
+    // EVENTS
+
+    if let Some(event_listener) = enemy_settings.events {
+        entity_builder = entity_builder.with(event_listener);
     }
 
     Ok(entity_builder.build())
