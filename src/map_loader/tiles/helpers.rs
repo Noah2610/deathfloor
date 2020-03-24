@@ -67,7 +67,7 @@ pub(super) fn edit_entity_with_tile_settings<'a>(
 ///     - `Size`
 ///     - `ScaleOnce`
 ///     - `Transparent`
-///     - `Loadable`
+///     - `Loadable` (with padding)
 ///     - `Hidden`
 ///       Hidden, because the `EntityLoaderSystem` will add/remove
 ///       the Hidden component, depending on when it is loaded.
@@ -82,6 +82,8 @@ pub(super) fn base_tile_entity<'a>(
     transform.set_translation_z(tile.z_or(DEFAULT_Z));
 
     let size: Size = tile_size.into();
+    let loadable = Loadable::default()
+        .with_padding((Some(size.w * 2.0), Some(size.h * 2.0)));
 
     let entity = world
         .create_entity()
@@ -90,7 +92,7 @@ pub(super) fn base_tile_entity<'a>(
         .with(size)
         .with(ScaleOnce::default())
         .with(Transparent)
-        .with(Loadable)
+        .with(loadable)
         .with(Hidden);
 
     Ok(entity)
