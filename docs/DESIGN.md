@@ -94,7 +94,7 @@ Components, whose details have been thought about, and which can be worked on.
 
 ##### `Spikey`
 ```
-spikey: Spikey(
+spikey: (
     damage: 123, // amount of damage to deal
 ),
 ```
@@ -103,7 +103,7 @@ Deals damage to the player on collision.
 
 ##### `Walker`
 ```
-walker: Walker(
+walker: (
     // Velocity to _set_ OR _increment_ each frame (TODO)
     x: 10.0,
     y: 0.0,
@@ -117,7 +117,7 @@ Move left and right (initial direction can be set in tiled)
 ##### `ForwardShooter`
 __TODO:__ _Figure out proper name_
 ```
-turret: ForwardShooter(
+forward_shooter: (
     interval_ms: 5000, // shoot interval in milliseconds
 ),
 ```
@@ -126,7 +126,7 @@ Spawns projectiles in walking direction in a set interval.
 
 ##### `Chaser`
 ```
-chaser: Chaser(
+chaser: (
     // Distance to player, before it starts chasing (x, y)
     distance: (300.0, 150.0),
 ),
@@ -141,7 +141,7 @@ when player leaves LOS they freeze (until Player reenters LOS)
 
 ##### `Jumppad`
 ```
-jumppad: Jumppad(
+jumppad: (
     // Jumppad strength (x, y)
     // Both values are optional (use `None` to omit)
     strength: (None, 400.0),
@@ -199,19 +199,19 @@ See the section about [actions](#actions) for details.
 
 #### `OnSpawn`
 ```
-on_spawn: <action>,
+OnSpawn: <action>,
 ```
 Triggers _action_ when the enemy spawns / is first loaded.
 
 #### `OnDeath`
 ```
-on_death: <action>,
+OnDeath: <action>,
 ```
 Triggers _action_ when the enemy dies.
 
 #### `OnCollision`
 ```
-on_collision: (
+OnCollision: (
     // Optional collision query.
     // If given, will only trigger action if query matches.
     query: /* TODO */,
@@ -225,7 +225,7 @@ if given, will only trigger action if query succeeds.
 
 #### `Interval`
 ```
-interval: (
+Interval: (
     delay_ms: 500, // interval delay in milliseconds
     action: <action>,
 ),
