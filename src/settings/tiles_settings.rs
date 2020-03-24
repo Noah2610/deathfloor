@@ -19,7 +19,7 @@ pub struct TilesSettings {
 #[derive(Clone, Default, Deserialize)]
 #[serde(default)]
 pub struct TileSettings {
-    pub is_solid: bool,
+    pub is_solid: Option<bool>,
     pub hitbox:   Option<HitboxConfig>,
     pub jumppad:  Option<Jumppad>,
 
@@ -36,7 +36,7 @@ impl TileSettings {
     /// `self` takes precedence.
     /// Takes ownership of `self`, and returns a new `Self`.
     pub fn merge(mut self, other: Self) -> Self {
-        self.is_solid = self.is_solid; // Just here for completeness sake.
+        self.is_solid = self.is_solid.or(other.is_solid);
         self.hitbox = self.hitbox.or(other.hitbox);
         self.jumppad = self.jumppad.or(other.jumppad);
         self.jumppad_strength_x =
