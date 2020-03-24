@@ -1,3 +1,8 @@
+pub mod prelude {
+    pub use super::Enemy;
+    pub use super::EnemyType;
+}
+
 mod enemy_type;
 
 pub use enemy_type::EnemyType;

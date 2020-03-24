@@ -3,6 +3,7 @@ pub mod prelude {
     pub use super::EnemyComponentsData;
     pub use super::EnemySettings;
 }
+
 use super::hitbox_config::HitboxConfig;
 use crate::animation_key::AnimationKey;
 use crate::components::prelude::*;
@@ -17,6 +18,7 @@ pub struct EnemiesSettings {
 pub struct EnemySettings {
     pub spritesheet_filename: String, // TODO
     pub components:           EnemyComponentsData,
+    pub events:               Option<EventListener>,
 }
 
 /// List of posible components for an Enemy.

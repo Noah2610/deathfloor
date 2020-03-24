@@ -6,6 +6,7 @@
             /// Filename of this enemy's spritesheet,
             /// under `resources/spritesheets`.
             spritesheet_filename: "player.png",
+
             /// List of components for this enemy.
             /// All components are optional.
             components: (
@@ -43,6 +44,11 @@
                     y: None,
                 ),
             ),
+
+            /// Events and the actions they trigger.
+            events: {
+                OnSpawn: Echo("Hello OnSpawn event!"),
+            },
         ),
     }
 )

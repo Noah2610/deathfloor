@@ -1,3 +1,8 @@
+pub mod prelude {
+    pub use super::Movable;
+    pub use super::MoveAction;
+}
+
 mod move_action;
 
 pub use move_action::MoveAction;

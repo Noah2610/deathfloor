@@ -1,6 +1,11 @@
 use crate::components::prelude::EnemyType;
 use deathframe::physics::CollisionTag as CTag;
 
+pub mod prelude {
+    pub use super::CollisionTag;
+    pub use super::SolidTag;
+}
+
 #[derive(Clone, PartialEq)]
 pub enum SolidTag {
     Player,
