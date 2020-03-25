@@ -1,3 +1,4 @@
+use super::build_camera::CAMERA_LOADER_PADDING;
 use super::helpers::prelude::*;
 
 /// Builds the enemy entity.
@@ -35,10 +36,10 @@ pub(super) fn build(
 
     let mut entity_builder = base_object_entity(world, object)?
         .with(Enemy::new(enemy_type))
-        .with(
-            Loadable::default()
-                .with_padding((Some(-size.w * 2.0), Some(-size.h * 2.0))),
-        )
+        .with(Loadable::default().with_padding((
+            CAMERA_LOADER_PADDING.0.map(|x| -x),
+            CAMERA_LOADER_PADDING.1.map(|y| -y),
+        )))
         .with(Hidden)
         .with(sprite_render)
         .with(Velocity::default())
