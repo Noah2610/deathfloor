@@ -45,6 +45,11 @@ mod bundle {
                 "handle_action_echo_system",
                 self.deps,
             );
+            builder.add(
+                actions::group::HandleActionGroup::default(),
+                "handle_action_group_system",
+                self.deps,
+            );
             Ok(())
         }
     }

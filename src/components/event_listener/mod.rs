@@ -28,13 +28,19 @@ impl EventListener {
         self.events.keys()
     }
 
+    /// Triggers actions from the given event.
     pub fn trigger(&mut self, event: &EventType) {
         if let Some(action) = self.events.get(event).cloned() {
-            self.actions
-                .entry((&action).into())
-                .or_insert_with(Default::default)
-                .push(action);
+            self.trigger_action(action);
         }
+    }
+
+    /// Triggers an action directly.
+    pub fn trigger_action(&mut self, action: Action) {
+        self.actions
+            .entry((&action).into())
+            .or_insert_with(Default::default)
+            .push(action);
     }
 
     pub fn take_actions(

@@ -98,6 +98,12 @@
             ),
 
             events: {
+                OnSpawn: Group([
+                    Echo("Nobody dare touch me..."),
+                    Echo("Nobody dare touch me..."),
+                    Echo("Nobody dare touch me..."),
+                ]),
+
                 // OnCollision(None): Echo("..."),
 
                 OnCollision(

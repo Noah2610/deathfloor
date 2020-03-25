@@ -254,7 +254,7 @@ When this action triggers, waits for `delay_ms` milliseconds,
 before triggering its `action`.
 
 #### `Group`
-- [ ] implemented
+- [x] implemented
 ```
 <event>: Group([
     <action0>,
