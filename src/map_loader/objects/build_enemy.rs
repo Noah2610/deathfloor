@@ -32,7 +32,8 @@ pub(super) fn build(
         .with(Loadable::default())
         .with(Hidden)
         .with(sprite_render)
-        .with(Velocity::default());
+        .with(Velocity::default())
+        .with(Movable::default());
 
     // COMPONENTS
 
@@ -74,8 +75,7 @@ pub(super) fn build(
                 .with(hitbox);
         }
         if let Some(walker) = components.walker {
-            entity_builder =
-                entity_builder.with(Movable::default()).with(walker);
+            entity_builder = entity_builder.with(walker);
         }
         if let Some(jumppad) = components.jumppad {
             entity_builder = entity_builder.with(jumppad);

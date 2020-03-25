@@ -299,17 +299,17 @@ If successful, triggers its `action`.
 
 <small>__NOTE:__ Maybe introduce another layer: `Expression`... `:)`</small>
 
-#### `Jump`
-- [ ] implemented
+#### `SetVelocity`
+- [x] implemented
 ```
-<event>: Jump(
+<event>: SetVelocity(
     x: None,
     y: 400.0,
 ),
 ```
-Jumps with the given `x`, `y` strength.  
-Basically just sets the velocity.  
-Both velocities are optional; use `None` to omit.
+Sets velocity to the given `x`, `y` values.  
+Can be used to make the enemy jump, for example.
+Both velocities are optional.
 
 #### `Echo`
 - [x] implemented

@@ -126,9 +126,18 @@
                         IsTag(Player),
                     ])
                 ): Echo("Get off of my head!"),
+
+                OnCollision(
+                    And([
+                        IsSide(Bottom),
+                        IsTag(Tile),
+                    ])
+                ): SetVelocity(
+                    y: 400.0,
+                ),
             },
 
-            collision_with: [Player],
+            collision_with: [Player, Tile],
         ),
     }
 )

@@ -50,6 +50,11 @@ mod bundle {
                 "handle_action_group_system",
                 self.deps,
             );
+            builder.add(
+                actions::set_velocity::HandleActionSetVelocity::default(),
+                "handle_action_set_velocity_system",
+                self.deps,
+            );
             Ok(())
         }
     }
