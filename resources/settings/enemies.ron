@@ -49,6 +49,19 @@
             events: {
                 OnSpawn: Echo("Hello OnSpawn event!"),
             },
+
+            /// Specifies with which `SolidTag`s this enemy has
+            /// _solid_ collision (separate from _general_ collision (`CollisionTag`)).
+            ///
+            /// This makes the player have solid collision with the player.
+            /// (They can get stuck in each other, not recommended;
+            /// this is just to showcase the `solid_collision_with` field.)
+            ///
+            /// Enemies always have solid collision with _tiles_ (`CollisionTag::Tiles`).
+            /// TODO: Maybe they should not collide with tiles by default?
+            ///       Then we can have _even more control_ via configs!
+            ///       We could make enemies that pass through tiles!
+            solid_collision_with: [Player],
         ),
 
         "SpringyBoy": (
@@ -65,6 +78,12 @@
                     strength: (None, 200.0,),
                 ),
             ),
+
+            /// Specifies with which `CollisionTag`s this enemy has
+            /// _general_ collision (separate from _solid_ collision).
+            /// If this is not set, the player will not be able to jump
+            /// off of this enemy (because this enemy is `Jumppad`).
+            collision_with: [Player],
         ),
 
         "DontTouchMe": (
@@ -102,6 +121,8 @@
                     ])
                 ): Echo("Get off of my head!"),
             },
+
+            collision_with: [Player],
         ),
     }
 )

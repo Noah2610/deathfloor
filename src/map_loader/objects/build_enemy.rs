@@ -28,7 +28,7 @@ pub(super) fn build(
     // CREATE ENTITY_BUILDER
 
     let mut entity_builder = base_object_entity(world, object)?
-        .with(Enemy::new(enemy_type.clone()))
+        .with(Enemy::new(enemy_type))
         .with(Loadable::default())
         .with(Hidden)
         .with(sprite_render)
@@ -61,9 +61,15 @@ pub(super) fn build(
                 }
             };
             entity_builder = entity_builder
-                .with(Collider::new(CollisionTag::Enemy(enemy_type.clone())))
-                .with(Collidable::new(CollisionTag::Enemy(enemy_type.clone())))
-                .with(Solid::new(SolidTag::Enemy(enemy_type)))
+                .with(Collider::new(CollisionTag::Enemy(
+                    enemy_settings.collision_with.clone(),
+                )))
+                .with(Collidable::new(CollisionTag::Enemy(
+                    enemy_settings.collision_with,
+                )))
+                .with(Solid::new(SolidTag::Enemy(
+                    enemy_settings.solid_collision_with,
+                )))
                 .with(JumppadAffected::default())
                 .with(hitbox);
         }
