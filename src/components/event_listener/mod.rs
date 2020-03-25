@@ -13,7 +13,7 @@ pub use action::ActionType;
 pub use event_type::EventType;
 
 use super::component_prelude::*;
-use std::collections::HashMap;
+use std::collections::hash_map::{HashMap, Keys};
 
 #[derive(Component, Deserialize, Clone, Default)]
 #[storage(DenseVecStorage)]
@@ -24,6 +24,10 @@ pub struct EventListener {
 }
 
 impl EventListener {
+    pub fn events(&self) -> Keys<EventType, Action> {
+        self.events.keys()
+    }
+
     pub fn trigger(&mut self, event: &EventType) {
         if let Some(action) = self.events.get(event).cloned() {
             self.actions

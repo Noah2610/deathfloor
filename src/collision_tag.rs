@@ -29,7 +29,7 @@ impl CTag for SolidTag {
     }
 }
 
-#[derive(Clone, PartialEq)]
+#[derive(Clone, PartialEq, Eq, Hash, Deserialize)]
 pub enum CollisionTag {
     Player,
     Tile,

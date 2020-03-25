@@ -20,7 +20,7 @@ fn get_query_matches_from<'a>(
 
     matches.bottom = collider
         .query::<FindQuery<CollisionTag>>()
-        .exp(And(vec![
+        .exp(&And(vec![
             IsTag(CollisionTag::Tile),
             Or(vec![IsState(Enter), IsState(Steady)]),
             IsSide(Bottom),
@@ -29,7 +29,7 @@ fn get_query_matches_from<'a>(
         .is_some();
     matches.left = collider
         .query::<FindQuery<CollisionTag>>()
-        .exp(And(vec![
+        .exp(&And(vec![
             IsTag(CollisionTag::Tile),
             Or(vec![IsState(Enter), IsState(Steady)]),
             IsSide(Left),
@@ -38,7 +38,7 @@ fn get_query_matches_from<'a>(
         .is_some();
     matches.right = collider
         .query::<FindQuery<CollisionTag>>()
-        .exp(And(vec![
+        .exp(&And(vec![
             IsTag(CollisionTag::Tile),
             Or(vec![IsState(Enter), IsState(Steady)]),
             IsSide(Right),

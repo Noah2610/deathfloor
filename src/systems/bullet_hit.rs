@@ -17,7 +17,7 @@ impl<'a> System<'a> for BulletHitSystem {
 
                 collider
                     .query::<FindQuery<CollisionTag>>()
-                    .exp(And(vec![
+                    .exp(&And(vec![
                         IsTag(CollisionTag::Tile),
                         IsState(Enter),
                         IsSide(Inner),
