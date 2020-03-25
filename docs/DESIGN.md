@@ -93,6 +93,7 @@ Enemies consist of various components that can be combined to craft simple behav
 Components, whose details have been thought about, and which can be worked on.
 
 ##### `Spikey`
+- [ ] implemented
 ```
 spikey: (
     damage: 123, // amount of damage to deal
@@ -102,11 +103,12 @@ Damage on collision:
 Deals damage to the player on collision.
 
 ##### `Walker`
+- [x] implemented
 ```
 walker: (
-    // Velocity to _set_ OR _increment_ each frame (TODO)
+    // Velocity to _set_ each frame
     x: 10.0,
-    y: 0.0,
+    y: None,
 ),
 ```
 Basic roaming:  
@@ -116,6 +118,7 @@ Move left and right (initial direction can be set in tiled)
 
 ##### `ForwardShooter`
 __TODO:__ _Figure out proper name_
+- [ ] implemented
 ```
 forward_shooter: (
     interval_ms: 5000, // shoot interval in milliseconds
@@ -125,6 +128,7 @@ Basic shooting:
 Spawns projectiles in walking direction in a set interval.
 
 ##### `Chaser`
+- [ ] implemented
 ```
 chaser: (
     // Distance to player, before it starts chasing (x, y)
@@ -140,6 +144,7 @@ When player enters LOS enemy moves towards player (flying),
 when player leaves LOS they freeze (until Player reenters LOS)
 
 ##### `Jumppad`
+- [x] implemented
 ```
 jumppad: (
     // Jumppad strength (x, y)
@@ -150,6 +155,7 @@ jumppad: (
 Player can jump off of them
 
 ##### `AnimationsContainer`
+- [x] implemented
 ```
 animations: {
     // TODO: Proper `AnimationsContainer` documentation
@@ -198,37 +204,38 @@ An _action_ can do arbitrary stuff to an enemy's components.
 See the section about [actions](#actions) for details.
 
 #### `OnSpawn`
+- [x] implemented
 ```
 OnSpawn: <action>,
 ```
 Triggers _action_ when the enemy spawns / is first loaded.
 
 #### `OnDeath`
+- [ ] implemented
 ```
 OnDeath: <action>,
 ```
 Triggers _action_ when the enemy dies.
 
 #### `OnCollision`
+- [x] implemented
 ```
-OnCollision: (
-    // Optional collision query.
-    // If given, will only trigger action if query matches.
-    query: /* TODO */,
-    action: <action>,
-),
+// Takes optional collision QueryExpression.
+// If given, will only trigger action if
+// FindQuery with given QueryExpression matches.
+// TODO: QueryExpresion documentation.
+OnCollision(<query>): <action>,
 ```
 Triggers _action_ on collision with any _collidable_, that this  
 _collider_ can collide with.  
-Optionally, pass a _query_ ([`FindQuery`](https://github.com/Noah2610/deathframe/blob/develop/deathframe_physics/src/query/find_query.rs));  
-if given, will only trigger action if query succeeds.
+Optionally, pass a [`QueryExpression`](https://github.com/Noah2610/deathframe/blob/develop/deathframe_physics/src/query/exp.rs#L20) (used with [`FindQuery`](https://github.com/Noah2610/deathframe/blob/develop/deathframe_physics/src/query/find_query.rs));  
+if given, will only trigger action if query matches.
 
 #### `Interval`
+- [ ] implemented
 ```
-Interval: (
-    delay_ms: 500, // interval delay in milliseconds
-    action: <action>,
-),
+// Takes interval delay in milliseconds.
+Interval(<delay_ms>): <action>,
 ```
 Triggers _action_ in regular intervals.
 
@@ -236,6 +243,7 @@ Triggers _action_ in regular intervals.
 Actions are triggered by [_events_](#events).
 
 #### `Delay`
+- [ ] implemented
 ```
 <event>: Delay(
     delay_ms: 2000, // time in milliseconds to wait before triggering action
@@ -246,6 +254,7 @@ When this action triggers, waits for `delay_ms` milliseconds,
 before triggering its `action`.
 
 #### `Group`
+- [ ] implemented
 ```
 <event>: Group([
     <action0>,
@@ -259,6 +268,7 @@ An event can trigger multiple actions at once
 using this `Group` action.
 
 #### `Explode`
+- [ ] implemented
 ```
 <event>: Explode(
     damage: 420,
@@ -268,6 +278,7 @@ using this `Group` action.
 Self destroy and deals of AOE `damage` in the given `radius`.
 
 #### `Drop`
+- [ ] implemented
 ```
 <event>: Drop( ??? ),
 ```
@@ -275,6 +286,7 @@ __TODO: items__
 Drop something, for example on death drop health pack.
 
 #### `Random`
+- [ ] implemented
 ```
 <event>: Random(
     chance: 0.5,
@@ -288,6 +300,7 @@ If successful, triggers its `action`.
 <small>__NOTE:__ Maybe introduce another layer: `Expression`... `:)`</small>
 
 #### `Jump`
+- [ ] implemented
 ```
 <event>: Jump(
     x: None,
@@ -297,6 +310,14 @@ If successful, triggers its `action`.
 Jumps with the given `x`, `y` strength.  
 Basically just sets the velocity.  
 Both velocities are optional; use `None` to omit.
+
+#### `Echo`
+- [x] implemented
+```
+<event>: Echo(<message_to_print>),
+```
+Prints the given message string to the console.  
+(For debugging / development).
 
 ## Environmental Mechanics
 - Jumppad:  
