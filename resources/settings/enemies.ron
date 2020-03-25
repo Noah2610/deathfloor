@@ -40,7 +40,7 @@
                 },
                 hitbox: Size,
                 walker: (
-                    x: 100.0,
+                    x: 250.0,
                     y: None,
                 ),
             ),
@@ -48,7 +48,36 @@
             /// Events and the actions they trigger.
             events: {
                 OnSpawn: Echo("Hello OnSpawn event!"),
+
+                OnCollision(
+                    And([
+                        IsSide(Left),
+                        IsTag(Player),
+                    ]),
+                ): SetVelocity(
+                    x: 400.0,
+                ),
+
+                OnCollision(
+                    And([
+                        IsSide(Right),
+                        IsTag(Player),
+                    ]),
+                ): SetVelocity(
+                    x: -400.0,
+                ),
+
+                OnCollision(
+                    And([
+                        IsTag(Bullet),
+                        IsState(Enter),
+                    ]),
+                ): SetVelocity(
+                    y: 400.0,
+                ),
             },
+
+            collision_with: [Player, Jumppad, Bullet],
 
             /// Specifies with which `SolidTag`s this enemy has
             /// _solid_ collision (separate from _general_ collision (`CollisionTag`)).

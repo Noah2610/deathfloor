@@ -25,11 +25,20 @@ pub(super) fn build(
         1,
     )?;
 
+    let size = enemy_settings
+        .components
+        .as_ref()
+        .and_then(|comps| comps.size.clone())
+        .unwrap_or(object.size.into());
+
     // CREATE ENTITY_BUILDER
 
     let mut entity_builder = base_object_entity(world, object)?
         .with(Enemy::new(enemy_type))
-        .with(Loadable::default())
+        .with(
+            Loadable::default()
+                .with_padding((Some(-size.w * 2.0), Some(-size.h * 2.0))),
+        )
         .with(Hidden)
         .with(sprite_render)
         .with(Velocity::default())
@@ -38,7 +47,6 @@ pub(super) fn build(
     // COMPONENTS
 
     if let Some(components) = enemy_settings.components {
-        let size = components.size.unwrap_or(object.size.into());
         entity_builder = entity_builder.with(size.clone());
         if let Some(gravity) = components.gravity {
             entity_builder = entity_builder.with(gravity);

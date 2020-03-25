@@ -7,6 +7,9 @@ use amethyst::utils::ortho_camera::{
     CameraOrthoWorldCoordinates,
 };
 
+pub(super) static CAMERA_LOADER_PADDING: (Option<f32>, Option<f32>) =
+    (Some(16.0), Some(16.0));
+
 pub(super) fn build(
     world: &mut World,
     level_data: &LevelData,
@@ -61,7 +64,10 @@ pub(super) fn build(
         left:   -half_size.0,
         right:  half_size.0,
     };
-    let loader = Loader::new(half_size.0, half_size.1);
+    let loader = Loader::new(
+        half_size.0 + CAMERA_LOADER_PADDING.0.unwrap_or(0.0),
+        half_size.1 + CAMERA_LOADER_PADDING.1.unwrap_or(0.0),
+    );
     let confined = {
         let confined_rect = Rect::builder()
             .top(level_data.size.h)

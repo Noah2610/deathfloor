@@ -26,6 +26,10 @@ impl<'a> System<'a> for CreateBulletsSystem {
                     Collider::new(CollisionTag::Bullet),
                     &mut storages.collider_store,
                 )
+                .with(
+                    Collidable::new(CollisionTag::Bullet),
+                    &mut storages.collidable_store,
+                )
                 .with(hitbox, &mut storages.hitbox_store)
                 .with(bullet_comps.animation, &mut storages.animation_store)
                 .build();
@@ -44,5 +48,6 @@ pub struct BulletCreatorStorages<'a> {
     sprite_render_store: WriteStorage<'a, SpriteRender>,
     animation_store:     WriteStorage<'a, Animation>,
     collider_store:      WriteStorage<'a, Collider<CollisionTag>>,
+    collidable_store:    WriteStorage<'a, Collidable<CollisionTag>>,
     hitbox_store:        WriteStorage<'a, Hitbox>,
 }
