@@ -7,7 +7,6 @@ pub struct Startup;
 impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Startup {
     fn on_start(&mut self, data: StateData<GameData<'a, 'b>>) {
         register_components(data.world);
-        insert_resources(data.world).expect("failed to load resources");
 
         let mut sprite_sheet_handles =
             data.world.write_resource::<SpriteSheetHandles>();

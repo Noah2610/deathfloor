@@ -8,7 +8,7 @@ pub struct ControlPlayerShootSystem;
 impl<'a> System<'a> for ControlPlayerShootSystem {
     type SystemData = (
         Write<'a, BulletCreator>,
-        ReadExpect<'a, InputManager<IngameBindings>>,
+        Read<'a, InputManager<IngameBindings>>,
         WriteStorage<'a, Shooter>,
         ReadStorage<'a, Transform>,
         WriteExpect<'a, SpriteSheetHandles>,

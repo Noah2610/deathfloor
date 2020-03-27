@@ -5,18 +5,26 @@ use crate::animation_key::AnimationKey;
 use crate::collision_tag;
 use crate::helpers::resource;
 use crate::input;
+use crate::settings::Settings;
 use crate::states::prelude::*;
 
 pub fn init_game() -> amethyst::Result<()> {
+    use crate::resources::prelude::*;
     use amethyst::utils::app_root_dir::application_root_dir;
     use amethyst::ApplicationBuilder;
 
     start_logger();
 
+    let settings = Settings::load()?;
+    let game_data = build_game_data(&settings)?;
+
     let mut game: amethyst::CoreApplication<GameData> =
         ApplicationBuilder::new(application_root_dir()?, Startup::default())?
             .with_frame_limit_config(frame_rate_limit_config()?)
-            .build(build_game_data()?)?;
+            .with_resource(SpriteSheetHandles::default())
+            .with_resource(settings)
+            .build(game_data)?;
+
     game.run();
 
     Ok(())
@@ -37,7 +45,9 @@ fn frame_rate_limit_config() -> amethyst::Result<FrameRateLimitConfig> {
     ))?)?)
 }
 
-fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
+fn build_game_data<'a, 'b>(
+    settings: &Settings,
+) -> amethyst::Result<GameDataBuilder<'a, 'b>> {
     use crate::systems::prelude::*;
     use amethyst::core::transform::TransformBundle;
     use amethyst::renderer::types::DefaultBackend;
@@ -113,7 +123,8 @@ fn build_game_data<'a, 'b>() -> amethyst::Result<GameDataBuilder<'a, 'b>> {
         )?
         .with(
             DispatcherId::Ingame,
-            EntityLoaderSystem::default(),
+            EntityLoaderSystem::default()
+                .with_cache(settings.general.loader_system.use_cache),
             "entity_loader_system",
             &[
                 "move_entities_system",

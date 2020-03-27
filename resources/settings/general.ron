@@ -1,0 +1,7 @@
+#![enable(implicit_some)]
+/// General game and initialization settings.
+(
+    loader_system: (
+        use_cache: true,
+    ),
+)

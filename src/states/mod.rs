@@ -23,7 +23,7 @@ pub mod state_prelude {
 
     pub use super::prelude::*;
     pub use crate::components::prelude::*;
-    pub use crate::resources::{insert_resources, prelude::*};
+    pub use crate::resources::prelude::*;
 }
 
 mod aliases {

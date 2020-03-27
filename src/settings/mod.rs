@@ -1,6 +1,7 @@
 pub mod prelude {
     pub use super::camera_settings::CameraSettings;
     pub use super::enemies_settings::prelude::*;
+    pub use super::general_settings::GeneralSettings;
     pub use super::hitbox_config::HitboxConfig;
     pub use super::player_settings::prelude::*;
     pub use super::tiles_settings::prelude::*;
@@ -10,6 +11,7 @@ pub mod prelude {
 
 mod camera_settings;
 mod enemies_settings;
+mod general_settings;
 mod hitbox_config;
 mod player_settings;
 mod tiles_settings;
@@ -19,6 +21,7 @@ use prelude::*;
 
 #[derive(Clone, Deserialize)]
 pub struct Settings {
+    pub general: GeneralSettings,
     pub camera:  CameraSettings,
     pub player:  PlayerSettings,
     pub tiles:   TilesSettings,
@@ -28,6 +31,7 @@ pub struct Settings {
 impl Settings {
     pub fn load() -> amethyst::Result<Self> {
         Ok(Settings {
+            general: Self::load_file::<GeneralSettings, _>("general.ron")?,
             camera:  Self::load_file::<CameraSettings, _>("camera.ron")?,
             player:  Self::load_file::<PlayerSettings, _>("player.ron")?,
             tiles:   Self::load_file::<TilesSettings, _>("tiles.ron")?,
