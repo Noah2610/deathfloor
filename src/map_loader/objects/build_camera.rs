@@ -8,7 +8,7 @@ use amethyst::utils::ortho_camera::{
 };
 
 pub(super) static CAMERA_LOADER_PADDING: (Option<f32>, Option<f32>) =
-    (Some(16.0), Some(16.0));
+    (Some(-16.0), Some(-16.0));
 
 pub(super) fn build(
     world: &mut World,

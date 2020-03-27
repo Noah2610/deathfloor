@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="128" height="32" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="3">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="128" height="32" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="3">
  <editorsettings>
   <export target="../../resources/levels/level.json" format="deathfloor-export"/>
  </editorsettings>
@@ -91,7 +91,7 @@
   <properties>
    <property name="z" type="float" value="1"/>
   </properties>
-  <object id="1" name="Player" type="Player" x="40" y="110" width="16" height="16"/>
+  <object id="1" name="Player" type="Player" x="40" y="88" width="16" height="16"/>
   <object id="2" name="Enemy that screames when stuff touches it" type="Enemy(DontTouchMe)" x="96" y="48" width="8" height="8"/>
   <object id="3" name="Enemy that likes it when you jump on it" type="Enemy(SpringyBoy)" x="152" y="88" width="8" height="8"/>
   <object id="4" name="Just an enemy that walks right" type="Enemy(Normal)" x="160" y="48" width="8" height="8"/>

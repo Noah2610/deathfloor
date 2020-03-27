@@ -37,8 +37,10 @@ pub(super) fn build(
     let mut entity_builder = base_object_entity(world, object)?
         .with(Enemy::new(enemy_type))
         .with(Loadable::default().with_padding((
-            CAMERA_LOADER_PADDING.0.map(|x| -x),
-            CAMERA_LOADER_PADDING.1.map(|y| -y),
+            // CAMERA_LOADER_PADDING.0.map(|x| -x),
+            // CAMERA_LOADER_PADDING.1.map(|y| -y),
+            Some(-size.w),
+            Some(-size.h),
         )))
         .with(Hidden)
         .with(sprite_render)
