@@ -28,7 +28,7 @@ impl DebugSystem {
     pub fn new(print_delay_ms: u64) -> Self {
         Self {
             print_delay: Duration::from_millis(print_delay_ms),
-            to_print:    Vec::new(),
+            to_print:    Default::default(),
             last_print:  Instant::now(),
         }
     }
@@ -43,6 +43,7 @@ impl DebugSystem {
     fn print_fps(&mut self, fps_counter: &FpsCounter) {
         let fps_frame = fps_counter.frame_fps();
         let fps_avg = fps_counter.sampled_fps();
+
         self.push_text(format!(
             "fps: {:.02} (avg: {:.02})",
             fps_frame, fps_avg
@@ -61,7 +62,7 @@ impl Default for DebugSystem {
     fn default() -> Self {
         Self {
             print_delay: Duration::from_secs(1),
-            to_print:    Vec::new(),
+            to_print:    Default::default(),
             last_print:  Instant::now(),
         }
     }

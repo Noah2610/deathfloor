@@ -4,4 +4,8 @@
     loader_system: (
         use_cache: true,
     ),
+
+    debug: (
+        fps_sample_size: 20,
+    ),
 )

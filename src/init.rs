@@ -18,12 +18,21 @@ pub fn init_game() -> amethyst::Result<()> {
     let settings = Settings::load()?;
     let game_data = build_game_data(&settings)?;
 
-    let mut game: amethyst::CoreApplication<GameData> =
+    let mut game_builder =
         ApplicationBuilder::new(application_root_dir()?, Startup::default())?
             .with_frame_limit_config(frame_rate_limit_config()?)
-            .with_resource(SpriteSheetHandles::default())
-            .with_resource(settings)
-            .build(game_data)?;
+            .with_resource(SpriteSheetHandles::default());
+
+    #[cfg(feature = "debug")]
+    {
+        use amethyst::utils::fps_counter::FpsCounter;
+        game_builder = game_builder.with_resource(FpsCounter::new(
+            settings.general.debug.fps_sample_size,
+        ));
+    }
+
+    let mut game: amethyst::CoreApplication<GameData> =
+        game_builder.with_resource(settings).build(game_data)?;
 
     game.run();
 
@@ -52,7 +61,6 @@ fn build_game_data<'a, 'b>(
     use amethyst::core::transform::TransformBundle;
     use amethyst::renderer::types::DefaultBackend;
     use amethyst::renderer::{RenderFlat2D, RenderToWindow, RenderingBundle};
-    use amethyst::utils::fps_counter::FpsCounterBundle;
     use deathframe::bundles::*;
 
     let transform_bundle = TransformBundle::new();
@@ -197,6 +205,8 @@ fn build_game_data<'a, 'b>(
 
     #[cfg(feature = "debug")]
     {
+        use amethyst::utils::fps_counter::FpsCounterBundle;
+
         const PRINT_EVERY_MS: u64 = 1000;
         let fps_bundle = FpsCounterBundle;
         let debug_system = DebugSystem::new(PRINT_EVERY_MS);
