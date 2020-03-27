@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="2020.03.18" name="testtiles12" tilewidth="8" tileheight="8" tilecount="256" columns="16">
+<tileset version="1.2" tiledversion="1.3.2" name="testtiles12" tilewidth="8" tileheight="8" tilecount="256" columns="16">
  <image source="../../resources/spritesheets/tiles/testtiles12.png" width="128" height="128"/>
  <tile id="6" type="Ground"/>
  <tile id="9" type="Ground"/>
@@ -7,20 +7,28 @@
  <tile id="25" type="Ground"/>
  <tile id="38" type="Ground"/>
  <tile id="41" type="Ground"/>
+ <tile id="44" type="Ground"/>
+ <tile id="45" type="Ground"/>
  <tile id="54" type="Ground"/>
  <tile id="57" type="Ground"/>
+ <tile id="61" type="Ground"/>
+ <tile id="70" type="Jumppad"/>
+ <tile id="71" type="Jumppad"/>
+ <tile id="72" type="Ground"/>
+ <tile id="73" type="Ground"/>
  <tile id="76" type="Jumppad"/>
- <tile id="77" type="Jumppad">
+ <tile id="77" type="Ground">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="5" height="8"/>
   </objectgroup>
  </tile>
  <tile id="78" type="Ground"/>
  <tile id="79" type="Ground"/>
+ <tile id="93" type="Ground"/>
  <tile id="102" type="Ground"/>
  <tile id="103" type="Ground"/>
  <tile id="104" type="Ground"/>
- <tile id="105" type="Ground"/>
+ <tile id="105" type="Jumppad"/>
  <tile id="108" type="Ground"/>
  <tile id="109" type="Ground"/>
  <tile id="110" type="Ground"/>
