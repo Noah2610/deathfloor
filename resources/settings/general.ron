@@ -2,7 +2,8 @@
 /// General game and initialization settings.
 (
     loader_system: (
-        use_cache: true,
+        /// I think the cache causes more lag than it prevents.
+        use_cache: false,
     ),
 
     debug: (
