@@ -62,6 +62,9 @@ pub(super) fn edit_entity_with_tile_settings<'a>(
     entity
 }
 
+pub(in super::super) static TILE_LOADABLE_PADDING: (Option<f32>, Option<f32>) =
+    (Some(32.0), Some(32.0));
+
 /// Adds base components to tile entity.
 /// Components include:
 ///     - `Tile` // TODO
@@ -84,7 +87,7 @@ pub(super) fn base_tile_entity<'a>(
     transform.set_translation_z(tile.z_or(DEFAULT_Z));
 
     let size: Size = tile_size.into();
-    let loadable = Loadable::default();
+    let loadable = Loadable::default().with_padding(TILE_LOADABLE_PADDING);
 
     let entity = world
         .create_entity()

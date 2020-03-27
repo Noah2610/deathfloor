@@ -1,6 +1,6 @@
 pub mod tile_type;
 
-mod helpers;
+pub(super) mod helpers;
 
 use helpers::prelude::*;
 use std::convert::TryFrom;
