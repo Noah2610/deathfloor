@@ -2,9 +2,7 @@
 # Bundles (already) built executable in `target/release`
 # together with the `resources/` directory into a ZIP file.
 
-warn "START"
-
-set -e
+echo "START"
 
 _dir="$( dirname "$( realpath "$0" )" )"
 # shellcheck source=./share.sh
