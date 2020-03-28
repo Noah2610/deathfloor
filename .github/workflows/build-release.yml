@@ -5,7 +5,7 @@ on:
     tags:
       - "v[0-9]+.[0-9]+.[0-9]+*"
 
-name: Build and bundle release binary
+name: Build-Release
 
 jobs:
   build-linux-release:
@@ -68,7 +68,7 @@ jobs:
           args: --release
 
       - name: Bundle Release
-        run: bin/bundle-release linux
+        run: ${GITHUB_WORKSPACE}/bin/bundle-release linux
         shell: bash
 
       - name: Upload Bundled Release
@@ -119,7 +119,7 @@ jobs:
           args: --release
 
       - name: Bundle Release
-        run: bin/bundle-release windows
+        run: ${GITHUB_WORKSPACE}/bin/bundle-release windows
         shell: bash
 
       - name: Upload Bundled Release
