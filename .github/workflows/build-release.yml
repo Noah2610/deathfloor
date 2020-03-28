@@ -39,6 +39,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y \
+            coreutils \
             gcc \
             pkg-config \
             openssl \
