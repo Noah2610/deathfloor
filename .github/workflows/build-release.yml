@@ -51,6 +51,7 @@ jobs:
 
       - name: Bundle Release
         run: bin/bundle-release linux
+        shell: bash
 
       - name: Upload Bundled Release
         uses: actions/upload-artifact@v1
@@ -101,6 +102,7 @@ jobs:
 
       - name: Bundle Release
         run: bin/bundle-release windows
+        shell: bash
 
       - name: Upload Bundled Release
         uses: actions/upload-artifact@v1
