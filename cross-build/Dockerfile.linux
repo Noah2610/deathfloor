@@ -1,0 +1,16 @@
+FROM rustembedded/cross:x86_64-unknown-linux-gnu
+
+RUN apt update
+RUN apt install -y \
+    gcc \
+    pkg-config \
+    openssl \
+    libasound2-dev \
+    cmake \
+    build-essential \
+    python3 \
+    libfreetype6-dev \
+    libexpat1-dev \
+    libxcb-composite0-dev \
+    libssl-dev \
+    libx11-dev

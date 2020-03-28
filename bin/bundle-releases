@@ -4,7 +4,7 @@
 
 set -e
 
-# shellcheck source=./util.sh disable=SC2155
+# shellcheck source=./share.sh disable=SC2155
 _dir="$( dirname "$( realpath "$0" )" )"
 source "${_dir}/share.sh"
 unset _dir
