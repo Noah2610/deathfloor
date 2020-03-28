@@ -18,7 +18,7 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/.rustup/toolchains
-          key: ${{ runner.os }}-rustup-toolchains-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ runner.os }}-rustup-toolchains-1.42.0
       - name: Cache cargo registry
         uses: actions/cache@v1
         with:
@@ -39,7 +39,6 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y \
-            coreutils \
             gcc \
             pkg-config \
             openssl \
@@ -75,7 +74,7 @@ jobs:
       - name: Upload Bundled Release
         uses: actions/upload-artifact@v1
         with:
-          name: release-linux-${{ github.sha }}
+          name: release-linux
           path: releases
 
   build-windows-release:
@@ -88,7 +87,7 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/.rustup/toolchains
-          key: ${{ runner.os }}-rustup-toolchains-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ runner.os }}-rustup-toolchains-1.42.0
       - name: Cache cargo registry
         uses: actions/cache@v1
         with:
@@ -133,5 +132,5 @@ jobs:
       - name: Upload Bundled Release
         uses: actions/upload-artifact@v1
         with:
-          name: release-windows-${{ github.sha }}
+          name: release-windows
           path: releases
