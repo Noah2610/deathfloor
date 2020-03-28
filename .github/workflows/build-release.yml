@@ -54,3 +54,9 @@ jobs:
 
       - name: Bundle Releases
         run: bin/bundle-releases
+
+      - name: Upload Releases
+        uses: actions/upload-artifact@v1
+        with:
+          name: releases-${{ github.ref || github.sha }}
+          path: releases/
