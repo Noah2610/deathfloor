@@ -35,6 +35,24 @@ jobs:
           path: target
           key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
 
+      - name: Install Dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y \
+            gcc \
+            pkg-config \
+            openssl \
+            libasound2-dev \
+            cmake \
+            build-essential \
+            python3 \
+            libfreetype6-dev \
+            libexpat1-dev \
+            libxcb-composite0-dev \
+            libssl-dev \
+            libx11-dev
+        shell: bash
+
       - name: Install Rust Toolchain
         uses: actions-rs/toolchain@v1
         with:
