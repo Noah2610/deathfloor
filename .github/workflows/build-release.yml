@@ -48,6 +48,7 @@ jobs:
 
       - name: Build Project (Linux)
         uses: actions-rs/cargo@v1
+        continue-on-error: true
         with:
           command: build
           args: --release --target x86_64-unknown-linux-gnu
@@ -55,6 +56,7 @@ jobs:
 
       - name: Build Project (Windows)
         uses: actions-rs/cargo@v1
+        continue-on-error: true
         with:
           command: build
           args: --release --target x86_64-pc-windows-gnu
