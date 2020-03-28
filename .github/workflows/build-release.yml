@@ -43,6 +43,9 @@ jobs:
           default: true
           override: true
 
+      - name: Build Cross Docker Images
+        run: bin/build-cross-images
+
       - name: Build Project (Linux)
         uses: actions-rs/cargo@v1
         with:
