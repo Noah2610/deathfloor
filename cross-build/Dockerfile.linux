@@ -14,3 +14,9 @@ RUN apt install -y \
     libxcb-composite0-dev \
     libssl-dev \
     libx11-dev
+
+# Workaround for amethyst's build script.
+# Amethyst's build script requires write access to `$HOME/.config`,
+# but with `cross` it doesn't have permission.
+# This seems to work.
+env HOME="."
