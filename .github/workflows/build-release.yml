@@ -54,19 +54,19 @@ jobs:
             libx11-dev
         shell: bash
 
-      # - name: Install Rust Toolchain
-      #   uses: actions-rs/toolchain@v1
-      #   with:
-      #     toolchain: 1.42.0
-      #     profile: minimal
-      #     default: true
-      #     override: true
+      - name: Install Rust Toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: 1.42.0
+          profile: minimal
+          default: true
+          override: true
 
-      # - name: Build Binary
-      #   uses: actions-rs/cargo@v1
-      #   with:
-      #     command: build
-      #     args: --release
+      - name: Build Binary
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release
 
       - name: Bundle Release
         run: ${GITHUB_WORKSPACE}/bin/bundle-release linux
@@ -112,19 +112,19 @@ jobs:
             zip
         shell: bash
 
-      # - name: Install Rust Toolchain
-      #   uses: actions-rs/toolchain@v1
-      #   with:
-      #     toolchain: 1.42.0
-      #     profile: minimal
-      #     default: true
-      #     override: true
+      - name: Install Rust Toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: 1.42.0
+          profile: minimal
+          default: true
+          override: true
 
-      # - name: Build Binary
-      #   uses: actions-rs/cargo@v1
-      #   with:
-      #     command: build
-      #     args: --release
+      - name: Build Binary
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release
 
       - name: Bundle Release
         run: ${GITHUB_WORKSPACE}/bin/bundle-release windows

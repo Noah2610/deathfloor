@@ -61,6 +61,7 @@ function set_version {
 function bundle_release {
     # TODO
     warn "FUNCTION bundle_release"
+    ls
     ls "${TARGET_DIR}"
 
     local file=
