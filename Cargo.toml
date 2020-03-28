@@ -36,3 +36,19 @@ default-features = false
 default = []
 debug = ["deathframe/debug"]
 nightly = ["deathframe/nightly"]
+
+[profile.dev]
+opt-level        = 2
+debug            = true
+debug-assertions = true
+codegen-units    = 8
+incremental      = true
+overflow-checks  = true
+
+[profile.release]
+opt-level        = 3
+debug            = false
+debug-assertions = false
+codegen-units    = 1
+incremental      = true
+overflow-checks  = false
