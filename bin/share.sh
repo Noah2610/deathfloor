@@ -1,3 +1,5 @@
+echo "SHARE.SH"
+
 # shellcheck source=./util.sh disable=SC2155
 function _dl_util_sh {
     local UTIL_VERSION="v2.2.4"

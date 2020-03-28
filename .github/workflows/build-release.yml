@@ -62,11 +62,11 @@ jobs:
           default: true
           override: true
 
-      - name: Build Binary
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --release
+      # - name: Build Binary
+      #   uses: actions-rs/cargo@v1
+      #   with:
+      #     command: build
+      #     args: --release
 
       - name: Bundle Release
         run: ${GITHUB_WORKSPACE}/bin/bundle-release linux
@@ -113,11 +113,11 @@ jobs:
           default: true
           override: true
 
-      - name: Build Binary
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --release
+      # - name: Build Binary
+      #   uses: actions-rs/cargo@v1
+      #   with:
+      #     command: build
+      #     args: --release
 
       - name: Bundle Release
         run: ${GITHUB_WORKSPACE}/bin/bundle-release windows
