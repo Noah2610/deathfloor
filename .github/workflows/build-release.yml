@@ -1,5 +1,7 @@
 on:
   push:
+    branches:
+      - "meta/github-workflow"
     tags:
       - "v[0-9]+.[0-9]+.[0-9]+*"
 
