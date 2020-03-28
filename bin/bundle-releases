@@ -75,13 +75,8 @@ function bundle_target_dir {
 
     [ -d "${target_dir}/release" ] || err "No release build found for target ${target_display}"
 
-    local binary_file=
-
-    for file in "${target_dir}/release/${BINARY_FILENAME}"*; do
-        binary_file="$file"
-        break
-    done
-
+    local binary_file="${target_dir}/release/${BINARY_FILENAME}"
+    [ "$semantic_name" == "windows" ] binary_file="${binary_file}.exe"
     [ -f "${binary_file}" ] || err "No binary found for target ${target_display}"
 
     # shellcheck disable=SC2155
