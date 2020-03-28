@@ -105,6 +105,13 @@ jobs:
           path: ${GITHUB_WORKSPACE}/target
           key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
 
+      - name: Install Dependencies
+        run: |
+          choco install \
+            curl \
+            zip
+        shell: bash
+
       # - name: Install Rust Toolchain
       #   uses: actions-rs/toolchain@v1
       #   with:
