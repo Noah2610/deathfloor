@@ -133,5 +133,5 @@ jobs:
       - name: Upload Bundled Release
         uses: actions/upload-artifact@v1
         with:
-          name: release-windows-${{ github.ref || github.sha }}
-          path: releases/
+          name: release-windows-${{ github.sha }}
+          path: releases
