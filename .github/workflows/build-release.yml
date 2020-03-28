@@ -28,6 +28,11 @@ jobs:
           path: target
           key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
 
+      - name: Install dependencies
+        run: |
+          apt update
+          apt install -y x11-utils
+
       - name: Install Rust Toolchain
         uses: actions-rs/toolchain@v1
         with:
