@@ -2,14 +2,10 @@
 # Bundles (already) built executable in `target/release`
 # together with the `resources/` directory into a ZIP file.
 
-echo "START"
-
 _dir="$( dirname "$( realpath "$0" )" )"
 # shellcheck source=./share.sh
 source "${_dir}/share.sh"
 unset _dir
-
-warn "POST SOURCE"
 
 check "zip"
 check "basename"
@@ -37,9 +33,6 @@ INCLUDE_FILES=( \
 VERSION=
 
 function main {
-    # TODO
-    warn "FUNCTION main"
-
     set_version
 
     [ -d "$RELEASE_DIR" ] || mkdir -p "$RELEASE_DIR"
@@ -59,9 +52,6 @@ function set_version {
 }
 
 function bundle_release {
-    # TODO
-    warn "FUNCTION bundle_release"
-    ls
     ls "${TARGET_DIR}"
 
     local file=
