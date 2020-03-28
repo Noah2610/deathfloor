@@ -1,0 +1,119 @@
+#!/bin/bash
+# Bundles (already) built executables in `target/`
+# together with the `resources/` directory into ZIP files.
+
+set -e
+
+# shellcheck source=./util.sh disable=SC2155
+_dir="$( dirname "$( realpath "$0" )" )"
+source "${_dir}/share.sh"
+unset _dir
+
+check "zip"
+check "basename"
+check "dirname"
+check "git"
+
+GAME_NAME="deathfloor"
+BINARY_FILENAME="$GAME_NAME"
+# Path to the resources/ directory
+RESOURCES_DIR="${ROOT}/resources"
+# Path to the root target/ directory
+TARGET_DIR="${ROOT}/target"
+# Paths to target directories for all targets for which to bundle releases
+TARGET_DIRS=( \
+    "${TARGET_DIR}/x86_64-unknown-linux-gnu" \
+    "${TARGET_DIR}/x86_64-pc-windows-gnu" \
+)
+# Directory where bundled release ZIPs are placed
+RELEASE_DIR="${ROOT}/releases"
+# Files to include in bundle
+INCLUDE_FILES=( \
+    "${ROOT}/README.md"
+    "${ROOT}/LICENSE"
+)
+VERSION=
+
+function main {
+    set_version
+
+    [ -d "$RELEASE_DIR" ] || mkdir -p "$RELEASE_DIR"
+
+    local target_dir=
+
+    for target_dir in "${TARGET_DIRS[@]}"; do
+        [ -d "$target_dir" ] \
+            && bundle_target_dir "$target_dir"
+    done
+}
+
+function set_version {
+    if [ -z "$GITHUB_ACTIONS" ]; then
+        # LOCAL
+        VERSION="$( git rev-parse HEAD )"
+    else
+        # GITHUB ACTION
+        VERSION="${GITHUB_REF//\//_}"
+        [ -z "$VERSION" ] && VERSION="${GITHUB_SHA}"
+    fi
+}
+
+function bundle_target_dir {
+    local file=
+    local CLRCODE="$( clr "${CLR_CODE[@]}" )"
+    local CLRRS="$( clrrs )"
+
+    local target_dir="$1"
+    local target_name="$( basename "$target_dir" )"
+    local target_display="${CLRCODE}${target_name}${CLRRS}"
+
+    local semantic_name="$target_name"
+    [[ "$target_name" =~ "linux" ]]   && semantic_name="linux"
+    [[ "$target_name" =~ "windows" ]] && semantic_name="windows"
+
+    msg "Bundling target ${target_display}"
+
+    [ -d "${target_dir}/release" ] || err "No release build found for target ${target_display}"
+
+    local binary_file=
+
+    for file in "${target_dir}/release/${BINARY_FILENAME}"*; do
+        binary_file="$file"
+        break
+    done
+
+    [ -f "${binary_file}" ] || err "No binary found for target ${target_display}"
+
+    # shellcheck disable=SC2155
+    local bundle_dirname="$( get_bundle_base_path )-${semantic_name}"
+    local bundle_path="${RELEASE_DIR}/${bundle_dirname}"
+
+    [ -d "$bundle_path" ] && err "Bundle directory shouldn't exist yet ${CLRCODE}${bundle_path}${CLRRS}"
+
+    mkdir -p "$bundle_path"
+    pushd "$bundle_path" &> /dev/null
+
+    try_run_hidden cp "$binary_file" .
+    try_run_hidden cp -r "$RESOURCES_DIR" ./resources
+    for file in "${INCLUDE_FILES[@]}"; do
+        if [ -f "$file" ]; then
+            try_run_hidden cp "$file" .
+        else
+            warn "File to include doesn't exist ${CLRCODE}${file}${CLRRS}"
+        fi
+    done
+
+    cd ..
+    try_run_hidden \
+        zip -r "${bundle_dirname}.zip" "${bundle_dirname}"
+
+    popd &> /dev/null
+
+    msg "Created release bundle ${CLRCODE}${bundle_dirname}${CLRRS}"
+}
+
+function get_bundle_base_path {
+    echo "${GAME_NAME}-${VERSION}"
+}
+
+main "$@"
