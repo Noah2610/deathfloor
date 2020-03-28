@@ -14,6 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Cache rustup toolchains
+        uses: actions/cache@v1
+        with:
+          path: ~/.rustup/toolchains
+          key: ${{ runner.os }}-rustup-toolchains-${{ hashFiles('**/Cargo.lock') }}
       - name: Cache cargo registry
         uses: actions/cache@v1
         with:
