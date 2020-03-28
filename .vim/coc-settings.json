@@ -1,3 +1,6 @@
 {
-  "rust.features": ["nightly", "debug"]
+  "rust.features": ["nightly", "debug"],
+  "rust-client.channel": "nightly-2020-02-06",
+  "rust.rustflags": "-C opt-level=0 -C codegen-units=16",
+  "rust-client.logToFile": false
 }
