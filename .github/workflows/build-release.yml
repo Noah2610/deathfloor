@@ -12,11 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache rustup toolchains
-        uses: actions/cache@v1
-        with:
-          path: ~/.rustup/toolchains
-          key: ${{ runner.os }}-rustup-toolchains-1.42.0
       - name: Cache cargo registry
         uses: actions/cache@v1
         with:
@@ -81,11 +76,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache rustup toolchains
-        uses: actions/cache@v1
-        with:
-          path: ~/.rustup/toolchains
-          key: ${{ runner.os }}-rustup-toolchains-1.42.0
       - name: Cache cargo registry
         uses: actions/cache@v1
         with:
