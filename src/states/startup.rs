@@ -1,5 +1,6 @@
 use super::state_prelude::*;
 use crate::helpers::resource;
+use std::path::PathBuf;
 
 #[derive(Default)]
 pub struct Startup;
@@ -9,8 +10,7 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Startup {
         register_components(data.world);
 
         let mut sprite_sheet_handles =
-            data.world.write_resource::<SpriteSheetHandles>();
-        // load player_bullet spritesheet
+            data.world.write_resource::<SpriteSheetHandles<PathBuf>>();
         sprite_sheet_handles
             .load(resource("spritesheets/player_bullet.png"), &data.world);
     }

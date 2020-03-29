@@ -1,14 +1,11 @@
-pub fn resource<S>(path: S) -> String
+use deathframe::amethyst::utils::app_root_dir::application_dir;
+use std::path::{Path, PathBuf};
+
+pub fn resource<P>(path: P) -> PathBuf
 where
-    S: Into<String>,
+    P: AsRef<Path>,
 {
-    use deathframe::amethyst::utils::app_root_dir::application_dir;
-
-    let path: String = path.into();
-
-    let res_dir =
-        application_dir("resources").expect("Should have resources directory");
-
-    let path = res_dir.join(path);
-    path.to_str().unwrap().to_string()
+    application_dir("resources")
+        .expect("Should have resources directory")
+        .join(path)
 }

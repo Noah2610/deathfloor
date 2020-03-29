@@ -1,12 +1,12 @@
-use amethyst::core::frame_limiter::FrameRateLimitConfig;
-use deathframe::amethyst;
-
 use crate::animation_key::AnimationKey;
 use crate::collision_tag;
 use crate::helpers::resource;
 use crate::input;
 use crate::settings::Settings;
 use crate::states::prelude::*;
+use amethyst::core::frame_limiter::FrameRateLimitConfig;
+use deathframe::amethyst;
+use std::path::PathBuf;
 
 pub fn init_game() -> amethyst::Result<()> {
     use crate::resources::prelude::*;
@@ -21,7 +21,7 @@ pub fn init_game() -> amethyst::Result<()> {
     let mut game_builder =
         ApplicationBuilder::new(application_root_dir()?, Startup::default())?
             .with_frame_limit_config(frame_rate_limit_config()?)
-            .with_resource(SpriteSheetHandles::default());
+            .with_resource(SpriteSheetHandles::<PathBuf>::default());
 
     #[cfg(feature = "debug")]
     {

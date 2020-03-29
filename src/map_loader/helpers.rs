@@ -15,17 +15,18 @@ pub(super) mod prelude {
 
 use deathframe::resources::SpriteSheetHandles;
 use prelude::*;
+use std::path::{Path, PathBuf};
 
-pub(super) fn get_sprite_render<S>(
+pub(super) fn get_sprite_render<P>(
     world: &mut World,
-    spritesheet_path: S,
+    spritesheet_path: P,
     sprite_number: usize,
 ) -> amethyst::Result<SpriteRender>
 where
-    S: Into<String>,
+    P: AsRef<Path>,
 {
     let handle = world
-        .write_resource::<SpriteSheetHandles>()
+        .write_resource::<SpriteSheetHandles<PathBuf>>()
         .get_or_load(resource(spritesheet_path), world);
     Ok(SpriteRender {
         sprite_sheet:  handle,

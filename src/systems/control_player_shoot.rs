@@ -1,6 +1,7 @@
 use super::system_prelude::*;
 use crate::helpers::resource;
 use amethyst::core::math::Vector3;
+use std::path::PathBuf;
 
 #[derive(Default)]
 pub struct ControlPlayerShootSystem;
@@ -11,7 +12,7 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
         Read<'a, InputManager<IngameBindings>>,
         WriteStorage<'a, Shooter>,
         ReadStorage<'a, Transform>,
-        WriteExpect<'a, SpriteSheetHandles>,
+        WriteExpect<'a, SpriteSheetHandles<PathBuf>>,
     );
 
     fn run(
@@ -25,7 +26,7 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
         ): Self::SystemData,
     ) {
         let bullet_spritesheet_handle = sprite_sheet_handles
-            .get(resource("spritesheets/player_bullet.png"))
+            .get(&resource("spritesheets/player_bullet.png"))
             .expect(
                 "player_bullet.png spritesheet should be loaded at this point",
             );
