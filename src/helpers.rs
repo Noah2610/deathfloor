@@ -5,6 +5,8 @@ pub fn resource<P>(path: P) -> PathBuf
 where
     P: AsRef<Path>,
 {
+    dbg!(path.as_ref());
+
     application_dir("resources")
         .expect("Should have resources directory")
         .join(path)
