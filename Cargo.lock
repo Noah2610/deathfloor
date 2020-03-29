@@ -913,7 +913,7 @@ dependencies = [
 
 [[package]]
 name = "deathfloor"
-version = "0.0.0"
+version = "0.0.2"
 dependencies = [
  "climer 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "deathframe 0.5.1 (git+https://github.com/Noah2610/deathframe?branch=refactor/physics-collision-grid)",
