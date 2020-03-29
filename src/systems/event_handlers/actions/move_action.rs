@@ -1,9 +1,9 @@
 use super::system_prelude::*;
 
 #[derive(Default)]
-pub struct HandleActionSetVelocity;
+pub struct HandleActionMoveAction;
 
-impl<'a> System<'a> for HandleActionSetVelocity {
+impl<'a> System<'a> for HandleActionMoveAction {
     type SystemData =
         (WriteStorage<'a, EventListener>, WriteStorage<'a, Movable>);
 
@@ -15,11 +15,11 @@ impl<'a> System<'a> for HandleActionSetVelocity {
             (&mut event_listener_store, &mut movables).join()
         {
             if let Some(actions) =
-                event_listener.take_actions(&EventActionType::SetVelocity)
+                event_listener.take_actions(&EventActionType::MoveAction)
             {
                 for action in actions {
-                    if let EventAction::SetVelocity { x, y } = action {
-                        movable.add_action(MoveAction::SetVelocity { x, y });
+                    if let EventAction::MoveAction(move_action) = action {
+                        movable.add_action(move_action);
                     }
                 }
             }

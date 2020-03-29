@@ -54,27 +54,27 @@
                         IsSide(Left),
                         IsTag(Player),
                     ]),
-                ): SetVelocity(
-                    x: 400.0,
-                ),
+                ): MoveAction(AddVelocity(
+                    x: 200.0,
+                )),
 
                 OnCollision(
                     And([
                         IsSide(Right),
                         IsTag(Player),
                     ]),
-                ): SetVelocity(
-                    x: -400.0,
-                ),
+                ): MoveAction(AddVelocity(
+                    x: -200.0,
+                )),
 
                 OnCollision(
                     And([
                         IsTag(Bullet),
                         IsState(Enter),
                     ]),
-                ): SetVelocity(
-                    y: 400.0,
-                ),
+                ): MoveAction(AddVelocity(
+                    y: 100.0,
+                )),
             },
 
             collision_with: [Player, Jumppad, Bullet],
@@ -161,9 +161,9 @@
                         IsSide(Bottom),
                         IsTag(Tile),
                     ])
-                ): SetVelocity(
+                ): MoveAction(SetVelocity(
                     y: 400.0,
-                ),
+                )),
             },
 
             collision_with: [Player, Tile],

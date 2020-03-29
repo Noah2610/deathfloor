@@ -55,6 +55,11 @@ mod bundle {
                 "handle_action_set_velocity_system",
                 self.deps,
             );
+            builder.add(
+                actions::move_action::HandleActionMoveAction::default(),
+                "handle_action_move_action_system",
+                self.deps,
+            );
             Ok(())
         }
     }

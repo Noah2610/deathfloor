@@ -1,6 +1,6 @@
-use deathframe::core::geo::prelude::{Axis, ByAxis};
-use std::hash::{Hash, Hasher};
+use deathframe::core::geo::prelude::Axis;
 
+#[derive(Clone, Deserialize)]
 pub enum MoveAction {
     Walk {
         axis:  Axis,
@@ -20,43 +20,11 @@ pub enum MoveAction {
         velocity: f32,
     },
     AddVelocity {
-        velocity: (Option<f32>, Option<f32>),
+        x: Option<f32>,
+        y: Option<f32>,
     },
     SetVelocity {
-        velocity: (Option<f32>, Option<f32>),
+        x: Option<f32>,
+        y: Option<f32>,
     },
-}
-
-impl MoveAction {
-    fn value(&self) -> i8 {
-        match self {
-            MoveAction::Walk { axis, speed } => {
-                speed.signum() as i8 + (1, 4).by_axis(&axis)
-            }
-            MoveAction::Jump { .. } => 6,
-            MoveAction::KillJump { .. } => 7,
-            MoveAction::WallJump { .. } => 8,
-            MoveAction::WallSlide { .. } => 9,
-            MoveAction::AddVelocity { .. } => 10,
-            MoveAction::SetVelocity { .. } => 11,
-        }
-    }
-}
-
-impl PartialEq for MoveAction {
-    fn eq(&self, other: &Self) -> bool {
-        self.value() == other.value()
-    }
-}
-
-impl Eq for MoveAction {
-}
-
-impl Hash for MoveAction {
-    fn hash<H>(&self, state: &mut H)
-    where
-        H: Hasher,
-    {
-        self.value().hash(state);
-    }
 }

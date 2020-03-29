@@ -1,15 +1,19 @@
+use crate::components::prelude::MoveAction;
+
 #[derive(Clone, Deserialize)]
 pub enum Action {
     Echo(String),
     Group(Vec<Action>),
-    SetVelocity { x: Option<f32>, y: Option<f32> },
+    SetVelocity { x: Option<f32>, y: Option<f32> }, // TODO remove
+    MoveAction(MoveAction),
 }
 
 #[derive(PartialEq, Eq, Hash, Clone)]
 pub enum ActionType {
     Echo,
     Group,
-    SetVelocity,
+    SetVelocity, // TODO remove
+    MoveAction,
 }
 
 impl From<&Action> for ActionType {
@@ -18,6 +22,7 @@ impl From<&Action> for ActionType {
             Action::Echo(_) => ActionType::Echo,
             Action::Group(_) => ActionType::Group,
             Action::SetVelocity { .. } => ActionType::SetVelocity,
+            Action::MoveAction(_) => ActionType::MoveAction,
         }
     }
 }

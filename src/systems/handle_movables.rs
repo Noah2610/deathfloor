@@ -86,9 +86,8 @@ impl<'a> System<'a> for HandleMovablesSystem {
                         }
                     }
 
-                    MoveAction::AddVelocity {
-                        velocity: add_velocity,
-                    } => {
+                    MoveAction::AddVelocity { x, y } => {
+                        let add_velocity = (x, y);
                         for axis in Axis::iter() {
                             if let Some(vel) = add_velocity.by_axis(&axis) {
                                 if let Some(max) = max_velocity_opt
@@ -102,9 +101,8 @@ impl<'a> System<'a> for HandleMovablesSystem {
                         }
                     }
 
-                    MoveAction::SetVelocity {
-                        velocity: set_velocity,
-                    } => {
+                    MoveAction::SetVelocity { x, y } => {
+                        let set_velocity = (x, y);
                         for axis in Axis::iter() {
                             if let Some(vel) = set_velocity.by_axis(&axis) {
                                 if let Some(max) = max_velocity_opt

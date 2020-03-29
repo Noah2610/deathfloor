@@ -33,7 +33,8 @@ impl<'a> System<'a> for HandleWalkersSystem {
             })
         {
             movable.add_action(MoveAction::AddVelocity {
-                velocity: (walker.x.map(|x| x * dt), walker.y.map(|y| y * dt)),
+                x: walker.x.map(|x| x * dt),
+                y: walker.y.map(|y| y * dt),
             })
         }
     }
