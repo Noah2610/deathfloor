@@ -46,7 +46,9 @@ function set_version {
         VERSION="$( git rev-parse HEAD )"
     else
         # GITHUB ACTION
-        VERSION="${GITHUB_REF//refs\/heads\//}"
+        VERSION="$GITHUB_REF"
+        VERSION="${VERSION//refs\/heads\//}"
+        VERSION="${VERSION//refs\/tags\//}"
         [ -z "$VERSION" ] && VERSION="${GITHUB_SHA}"
         VERSION="${VERSION//\//_}"
     fi
