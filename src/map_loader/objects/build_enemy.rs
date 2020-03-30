@@ -1,4 +1,3 @@
-use super::super::tiles::helpers::TILE_LOADABLE_PADDING;
 use super::helpers::prelude::*;
 
 /// Builds the enemy entity.

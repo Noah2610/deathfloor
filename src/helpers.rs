@@ -1,5 +1,5 @@
 use deathframe::amethyst::utils::app_root_dir::application_dir;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
 pub fn resource<P>(path: P) -> PathBuf
 where
@@ -7,11 +7,11 @@ where
 {
     application_dir("resources")
         .expect("Should have resources directory")
-        .join(dbg!({
+        .join(
             if cfg!(target_os = "windows") {
                 path.into().to_str().unwrap().replace("/", "\\").into()
             } else {
                 path.into()
-            }
-        }))
+            },
+        )
 }

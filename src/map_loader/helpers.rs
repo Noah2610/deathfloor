@@ -15,7 +15,7 @@ pub(super) mod prelude {
 
 use deathframe::resources::SpriteSheetHandles;
 use prelude::*;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
 pub(super) fn get_sprite_render<P>(
     world: &mut World,
