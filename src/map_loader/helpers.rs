@@ -23,7 +23,7 @@ pub(super) fn get_sprite_render<P>(
     sprite_number: usize,
 ) -> amethyst::Result<SpriteRender>
 where
-    P: AsRef<Path>,
+    P: Into<PathBuf>,
 {
     let handle = world
         .write_resource::<SpriteSheetHandles<PathBuf>>()
