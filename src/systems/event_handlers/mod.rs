@@ -38,6 +38,11 @@ mod bundle {
                 "handle_event_on_collision_system",
                 self.deps,
             );
+            builder.add(
+                events::interval::HandleEventInterval::default(),
+                "handle_event_interval_system",
+                self.deps,
+            );
 
             // ACTIONS
             builder.add(

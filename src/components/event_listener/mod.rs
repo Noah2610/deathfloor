@@ -13,19 +13,21 @@ pub use action::ActionType;
 pub use event_type::EventType;
 
 use super::component_prelude::*;
-use std::collections::hash_map::{HashMap, Keys};
+use std::collections::{HashMap, HashSet};
 
 #[derive(Component, Deserialize, Clone, Default)]
 #[storage(DenseVecStorage)]
 #[serde(from = "HashMap<EventType, Action>")]
 pub struct EventListener {
-    events:  HashMap<EventType, Action>,
-    actions: HashMap<ActionType, Vec<Action>>,
+    events:            HashMap<EventType, Action>,
+    event_types:       HashSet<EventType>,
+    triggered_actions: HashMap<ActionType, Vec<Action>>,
 }
 
 impl EventListener {
-    pub fn events(&self) -> Keys<EventType, Action> {
-        self.events.keys()
+    /// Returns all registered `EventType`s.
+    pub fn events(&self) -> &HashSet<EventType> {
+        &self.event_types
     }
 
     /// Triggers actions from the given event.
@@ -37,7 +39,7 @@ impl EventListener {
 
     /// Triggers an action directly.
     pub fn trigger_action(&mut self, action: Action) {
-        self.actions
+        self.triggered_actions
             .entry((&action).into())
             .or_insert_with(Default::default)
             .push(action);
@@ -47,15 +49,17 @@ impl EventListener {
         &mut self,
         action_type: &ActionType,
     ) -> Option<Vec<Action>> {
-        self.actions.remove(action_type)
+        self.triggered_actions.remove(action_type)
     }
 }
 
 impl From<HashMap<EventType, Action>> for EventListener {
     fn from(events: HashMap<EventType, Action>) -> Self {
+        let event_types = events.keys().cloned().collect();
         Self {
             events,
-            actions: Default::default(),
+            event_types,
+            triggered_actions: Default::default(),
         }
     }
 }

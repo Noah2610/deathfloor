@@ -16,4 +16,8 @@ pub enum EventType {
     /// Optionally, pass a `QueryExpression`, which when given will be used with
     /// a `FindQuery`, and will only trigger the action if the query matches.
     OnCollision(Option<QueryExpression<CollisionTag>>),
+
+    /// Triggers an action in regular intervals.
+    /// Pass an interval delay integer (milliseconds).
+    Interval(u64),
 }
