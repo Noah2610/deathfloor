@@ -2,6 +2,7 @@ extern crate climer;
 extern crate deathframe;
 #[macro_use]
 extern crate derive_builder;
+extern crate rand;
 extern crate ron;
 #[macro_use]
 extern crate serde;

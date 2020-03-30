@@ -49,6 +49,14 @@ impl<'a> System<'a> for TriggerActionsFromActionTypesSystem {
                             action_trigger.trigger(move_action);
                         }
                     }
+                    ActionType::Random(random) => {
+                        if let Some(action_trigger) =
+                            (&mut action_trigger_components.random)
+                                .get_mut_or_default(entity)
+                        {
+                            action_trigger.trigger(random);
+                        }
+                    }
                 }
             }
         }

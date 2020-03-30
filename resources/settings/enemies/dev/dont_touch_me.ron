@@ -52,8 +52,14 @@
                     y: 400.0,
                 )),
 
-                Interval(500): MoveAction(AddVelocity(
-                    x: 600.0,
+                Interval(500): Random((
+                    chance: 0.5,
+                    on_success: MoveAction(AddVelocity(
+                        x: 500.0,
+                    )),
+                    on_failure: MoveAction(AddVelocity(
+                        x: -500.0,
+                    )),
                 )),
             },
 

@@ -71,6 +71,11 @@ impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventHandlersBundle<'c> {
             "handle_action_move_action_system",
             actions_deps,
         );
+        builder.add(
+            actions::random::HandleActionRandom::default(),
+            "handle_action_random_system",
+            actions_deps,
+        );
         Ok(())
     }
 }
