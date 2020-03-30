@@ -1,0 +1,63 @@
+#![enable(implicit_some)]
+/// Enemies settings.
+(
+    types: {
+        "DontTouchMe": (
+            spritesheet_filename: "player.png",
+
+            components: (
+                size: (w: 8.0, h: 16.0),
+                gravity: (x: None, y: -200.0),
+                max_movement_velocity: (x: 200.0, y: 200.0),
+                base_friction: (friction_x: 1000.0, friction_y: None),
+                hitbox: Size,
+            ),
+
+            events: {
+                OnSpawn: Group([
+                    Echo("Nobody dare touch me..."),
+                    Echo("Nobody dare touch me..."),
+                    Echo("Nobody dare touch me..."),
+                ]),
+
+                // OnCollision(None): Echo("..."),
+
+                OnCollision(
+                    And([
+                        IsState(Enter),
+                        IsTag(Player),
+                    ])
+                ): Echo("Don't touch me!"),
+
+                OnCollision(
+                    And([
+                        Or([IsSide(Left), IsSide(Right)]),
+                        IsTag(Player),
+                    ])
+                ): Echo("Leave my sides alone!"),
+
+                OnCollision(
+                    And([
+                        IsSide(Top),
+                        IsTag(Player),
+                    ])
+                ): Echo("Get off of my head!"),
+
+                OnCollision(
+                    And([
+                        IsSide(Bottom),
+                        IsTag(Tile),
+                    ])
+                ): MoveAction(SetVelocity(
+                    y: 400.0,
+                )),
+
+                Interval(500): MoveAction(AddVelocity(
+                    x: 600.0,
+                )),
+            },
+
+            collision_with: [Player, Tile],
+        ),
+    }
+)

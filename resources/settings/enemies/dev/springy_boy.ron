@@ -1,0 +1,27 @@
+#![enable(implicit_some)]
+/// Enemies settings.
+(
+    types: {
+        "SpringyBoy": (
+            spritesheet_filename: "player.png",
+
+            components: (
+                size: (w: 32.0, h: 16.0),
+                gravity: (x: None, y: -400.0),
+                max_movement_velocity: (x: 200.0, y: 200.0),
+                base_friction: (friction_x: 1000.0, friction_y: None),
+                hitbox: Size,
+
+                jumppad: (
+                    strength: (None, 200.0,),
+                ),
+            ),
+
+            /// Specifies with which `CollisionTag`s this enemy has
+            /// _general_ collision (separate from _solid_ collision).
+            /// If this is not set, the player will not be able to jump
+            /// off of this enemy (because this enemy is `Jumppad`).
+            collision_with: [Player],
+        ),
+    }
+)
