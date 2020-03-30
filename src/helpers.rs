@@ -7,5 +7,11 @@ where
 {
     application_dir("resources")
         .expect("Should have resources directory")
-        .join(dbg!(path.into()))
+        .join(dbg!({
+            if cfg!(target_os = "windows") {
+                path.into().to_str().unwrap().replace("/", "\\").into()
+            } else {
+                path.into()
+            }
+        }))
 }
