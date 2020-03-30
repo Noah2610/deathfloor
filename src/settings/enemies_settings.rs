@@ -19,7 +19,7 @@ pub struct EnemiesSettings {
 pub struct EnemySettings {
     pub spritesheet_filename: String, // TODO
     pub components:           Option<EnemyComponentsData>,
-    pub events:               Option<EventListener>,
+    pub events:               Option<EventsRegister>,
     pub collision_with:       EnemyCollidesWith<CollisionTag>, // TODO documentation
     pub solid_collision_with: EnemyCollidesWith<SolidTag>, // TODO documentation
 }

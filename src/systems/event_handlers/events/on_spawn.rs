@@ -7,16 +7,35 @@ pub struct HandleEventOnSpawn {
 }
 
 impl<'a> System<'a> for HandleEventOnSpawn {
-    type SystemData = (Entities<'a>, WriteStorage<'a, EventListener>);
+    type SystemData = (
+        Entities<'a>,
+        ReadStorage<'a, EventsRegister>,
+        WriteStorage<'a, ActionTypeTrigger>,
+    );
 
-    fn run(&mut self, (entities, mut event_listener_store): Self::SystemData) {
+    fn run(
+        &mut self,
+        (
+            entities,
+            events_register_store,
+            mut action_type_trigger_store,
+        ): Self::SystemData,
+    ) {
         let mut triggered_entities = HashSet::new();
 
-        for (entity, event_listener_store) in
-            (&entities, &mut event_listener_store).join()
+        for (entity, events_register, action_type_trigger) in (
+            &entities,
+            &events_register_store,
+            &mut action_type_trigger_store,
+        )
+            .join()
         {
             if !self.triggered_entities.contains(&entity) {
-                event_listener_store.trigger(&EventType::OnSpawn);
+                if let Some(action) =
+                    events_register.get_action(&EventType::OnSpawn).cloned()
+                {
+                    action_type_trigger.trigger(action);
+                }
             }
             triggered_entities.insert(entity);
         }

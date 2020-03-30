@@ -4,18 +4,12 @@ use super::system_prelude::*;
 pub struct HandleActionEcho;
 
 impl<'a> System<'a> for HandleActionEcho {
-    type SystemData = WriteStorage<'a, EventListener>;
+    type SystemData = WriteStorage<'a, ActionTrigger<action::Echo>>;
 
-    fn run(&mut self, mut event_listener_store: Self::SystemData) {
-        for event_listener in (&mut event_listener_store).join() {
-            if let Some(actions) =
-                event_listener.take_actions(&EventActionType::Echo)
-            {
-                for action in actions {
-                    if let EventAction::Echo(msg) = action {
-                        println!("> {}", msg);
-                    }
-                }
+    fn run(&mut self, mut action_trigger_store: Self::SystemData) {
+        for action_trigger in (&mut action_trigger_store).join() {
+            for action in action_trigger.drain() {
+                println!("{}", action);
             }
         }
     }

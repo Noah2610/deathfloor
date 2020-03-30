@@ -4,19 +4,24 @@ use super::system_prelude::*;
 pub struct HandleActionGroup;
 
 impl<'a> System<'a> for HandleActionGroup {
-    type SystemData = WriteStorage<'a, EventListener>;
+    type SystemData = (
+        WriteStorage<'a, ActionTrigger<action::Group>>,
+        WriteStorage<'a, ActionTypeTrigger>,
+    );
 
-    fn run(&mut self, mut event_listener_store: Self::SystemData) {
-        for event_listener in (&mut event_listener_store).join() {
-            if let Some(actions) =
-                event_listener.take_actions(&EventActionType::Group)
-            {
-                for action in actions {
-                    if let EventAction::Group(grouped_actions) = action {
-                        for grouped_action in grouped_actions {
-                            event_listener.trigger_action(grouped_action);
-                        }
-                    }
+    fn run(
+        &mut self,
+        (
+            mut action_trigger_store,
+            mut action_type_trigger_store,
+        ): Self::SystemData,
+    ) {
+        for (action_trigger, action_type_trigger) in
+            (&mut action_trigger_store, &mut action_type_trigger_store).join()
+        {
+            for action in action_trigger.drain() {
+                for grouped_action in action.0 {
+                    action_type_trigger.trigger(grouped_action);
                 }
             }
         }

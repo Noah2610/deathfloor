@@ -96,8 +96,10 @@ pub(super) fn build(
 
     // EVENTS
 
-    if let Some(event_listener) = enemy_settings.events {
-        entity_builder = entity_builder.with(event_listener);
+    if let Some(events_register) = enemy_settings.events {
+        entity_builder = entity_builder
+            .with(events_register)
+            .with(ActionTypeTrigger::default());
     }
 
     Ok(entity_builder.build())
