@@ -20,8 +20,8 @@ pub struct EnemySettings {
     pub spritesheet_filename: String, // TODO
     pub components:           Option<EnemyComponentsData>,
     pub events:               Option<EventsRegister>,
-    pub collision_with:       EnemyCollidesWith<CollisionTag>, // TODO documentation
-    pub solid_collision_with: EnemyCollidesWith<SolidTag>, // TODO documentation
+    pub collision_with:       EnemyCollidesWith, // TODO documentation
+    pub solid_collision_with: EnemyCollidesWith, // TODO documentation
 }
 
 /// List of posible components for an Enemy.

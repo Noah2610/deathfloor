@@ -86,11 +86,8 @@
             /// (They can get stuck in each other, not recommended;
             /// this is just to showcase the `solid_collision_with` field.)
             ///
-            /// Enemies always have solid collision with _tiles_ (`CollisionTag::Tiles`).
-            /// TODO: Maybe they should not collide with tiles by default?
-            ///       Then we can have _even more control_ via configs!
-            ///       We could make enemies that pass through tiles!
-            solid_collision_with: [Player],
+            /// Enemies will usually also have solid collision with `Tile` tags.
+            solid_collision_with: [Tile, Player],
         ),
     }
 )

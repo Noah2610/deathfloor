@@ -27,8 +27,8 @@ pub(super) fn edit_entity_with_tile_settings<'a>(
     if let Some(is_solid) = tile_settings.is_solid {
         if is_solid {
             entity = entity
-                .with(Collidable::new(CollisionTag::Tile))
-                .with(Solid::new(SolidTag::Tile));
+                .with(Collidable::new(CollisionTag::from(CollisionLabel::Tile)))
+                .with(Solid::new(SolidTag::from(CollisionLabel::Tile)));
         }
     }
 
@@ -55,7 +55,7 @@ pub(super) fn edit_entity_with_tile_settings<'a>(
         }
 
         entity = entity
-            .with(Collidable::new(CollisionTag::Jumppad))
+            .with(Collidable::new(CollisionTag::from(CollisionLabel::Jumppad)))
             .with(jumppad);
     }
 

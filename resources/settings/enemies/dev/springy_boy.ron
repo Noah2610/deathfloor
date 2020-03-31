@@ -22,6 +22,8 @@
             /// If this is not set, the player will not be able to jump
             /// off of this enemy (because this enemy is `Jumppad`).
             collision_with: [Player],
+
+            solid_collision_with: [Tile],
         ),
     }
 )

@@ -73,16 +73,22 @@ pub(super) fn build(
                     Hitbox::new().with_rects(rects.clone())
                 }
             };
+
+            let collision_tag = CollisionTag::builder()
+                .label(CollisionLabel::Enemy)
+                .collides_with(enemy_settings.collision_with.0)
+                .build()
+                .unwrap();
+            let solid_tag = SolidTag::builder()
+                .label(CollisionLabel::Enemy)
+                .collides_with(enemy_settings.solid_collision_with.0)
+                .build()
+                .unwrap();
+
             entity_builder = entity_builder
-                .with(Collider::new(CollisionTag::Enemy(
-                    enemy_settings.collision_with.clone(),
-                )))
-                .with(Collidable::new(CollisionTag::Enemy(
-                    enemy_settings.collision_with,
-                )))
-                .with(Solid::new(SolidTag::Enemy(
-                    enemy_settings.solid_collision_with,
-                )))
+                .with(Collider::new(collision_tag.clone()))
+                .with(Collidable::new(collision_tag))
+                .with(Solid::new(solid_tag))
                 .with(JumppadAffected::default())
                 .with(hitbox);
         }

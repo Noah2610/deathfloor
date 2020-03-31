@@ -53,10 +53,28 @@ pub(super) fn build(
                 Hitbox::new().with_rects(rects.clone())
             }
         };
+
+        let collision_tag = CollisionTag::builder()
+            .label(CollisionLabel::Player)
+            .collides_with({
+                use CollisionLabel::*;
+                vec![Tile, Jumppad, Enemy, Bullet]
+            }) // TODO: extract into player settings RON
+            .build()
+            .unwrap();
+        let solid_tag = SolidTag::builder()
+            .label(CollisionLabel::Player)
+            .collides_with({
+                use CollisionLabel::*;
+                vec![Tile, Enemy]
+            }) // TODO: extract into player settings RON
+            .build()
+            .unwrap();
+
         entity_builder = entity_builder
-            .with(Collider::new(CollisionTag::Player))
-            .with(Collidable::new(CollisionTag::Player))
-            .with(Solid::new(SolidTag::Player))
+            .with(Collider::new(collision_tag.clone()))
+            .with(Collidable::new(collision_tag))
+            .with(Solid::new(solid_tag))
             .with(hitbox);
     }
 

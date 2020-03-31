@@ -10,6 +10,12 @@ impl<'a> System<'a> for CreateBulletsSystem {
         for bullet_comps in bullet_creator.drain() {
             let hitbox = Hitbox::from(vec![Rect::from(&bullet_comps.size)]);
 
+            let collision_tag = CollisionTag::builder()
+                .label(CollisionLabel::Bullet)
+                .collides_with(vec![CollisionLabel::Tile])
+                .build()
+                .unwrap();
+
             let _entity = storages
                 .entities
                 .build_entity()
@@ -23,11 +29,11 @@ impl<'a> System<'a> for CreateBulletsSystem {
                 )
                 .with(ScaleOnce::default(), &mut storages.scale_once_store)
                 .with(
-                    Collider::new(CollisionTag::Bullet),
+                    Collider::new(collision_tag.clone()),
                     &mut storages.collider_store,
                 )
                 .with(
-                    Collidable::new(CollisionTag::Bullet),
+                    Collidable::new(collision_tag),
                     &mut storages.collidable_store,
                 )
                 .with(hitbox, &mut storages.hitbox_store)

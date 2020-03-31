@@ -1,48 +1,53 @@
 use super::CTag;
-use super::EnemyCollidesWith;
+use super::CollisionLabel;
 
-/// Collision tags, used for general collision checking.
-/// See the `CollisionTag` implementation to see what collides with what.
-#[derive(Clone, PartialEq, Eq, Hash, Deserialize)]
-pub enum CollisionTag {
-    Player,
-    Tile,
-    Jumppad,
-    Bullet,
-    Enemy(EnemyCollidesWith<CollisionTag>),
+#[derive(Clone, Hash, Deserialize, Builder)]
+#[serde(from = "CollisionLabel")]
+#[builder(pattern = "owned")]
+pub struct CollisionTag {
+    pub label:         CollisionLabel,
+    #[builder(default)]
+    pub collides_with: Vec<CollisionLabel>,
+}
+
+impl CollisionTag {
+    pub fn builder() -> CollisionTagBuilder {
+        CollisionTagBuilder::default()
+    }
 }
 
 impl CTag for CollisionTag {
     fn collides_with(&self, other: &Self) -> bool {
-        match (self, other) {
-            (CollisionTag::Player, CollisionTag::Tile)
-            | (CollisionTag::Tile, CollisionTag::Player) => true,
-            (CollisionTag::Player, CollisionTag::Jumppad)
-            | (CollisionTag::Jumppad, CollisionTag::Player) => true,
-            (CollisionTag::Player, CollisionTag::Player) => true,
-            (CollisionTag::Bullet, CollisionTag::Tile)
-            | (CollisionTag::Tile, CollisionTag::Bullet) => true,
-            (CollisionTag::Enemy(enemy_collides_with), other_tag)
-            | (other_tag, CollisionTag::Enemy(enemy_collides_with)) => {
-                enemy_collides_with
-                    .0
-                    .as_ref()
-                    .map(|collides_with| collides_with.contains(other_tag))
-                    .unwrap_or(false)
-            }
-            // (CollisionTag::Player, CollisionTag::Enemy(_))
-            // | (CollisionTag::Enemy(_), CollisionTag::Player) => true,
-            // (CollisionTag::Enemy(_), CollisionTag::Bullet)
-            // | (CollisionTag::Bullet, CollisionTag::Enemy(_)) => true,
-            // (CollisionTag::Enemy(_), CollisionTag::Jumppad)
-            // | (CollisionTag::Jumppad, CollisionTag::Enemy(_)) => true,
-            _ => false,
+        self.collides_with
+            .iter()
+            .any(|collides_with_label| collides_with_label == &other.label)
+    }
+}
+
+impl From<CollisionLabel> for CollisionTag {
+    fn from(label: CollisionLabel) -> Self {
+        Self {
+            label,
+            collides_with: Default::default(),
         }
     }
 }
 
-impl Default for CollisionTag {
-    fn default() -> Self {
-        CollisionTag::Tile
+impl From<CollisionLabel> for CollisionTagBuilder {
+    fn from(label: CollisionLabel) -> Self {
+        Self {
+            label:         Some(label),
+            collides_with: None,
+        }
     }
+}
+
+/// `PartialEq` simply compares the two `CollisionTag`s labels.
+impl PartialEq for CollisionTag {
+    fn eq(&self, other: &Self) -> bool {
+        self.label == other.label
+    }
+}
+
+impl Eq for CollisionTag {
 }

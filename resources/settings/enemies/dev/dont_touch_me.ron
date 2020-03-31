@@ -82,6 +82,7 @@
             },
 
             collision_with: [Player, Tile, Jumppad],
+            solid_collision_with: [Tile],
         ),
     }
 )

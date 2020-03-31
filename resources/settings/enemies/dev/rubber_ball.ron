@@ -18,8 +18,8 @@
                 OnCollision(IsSide(Bottom)): MoveAction(AddVelocity( y: 100.0, )),
             },
 
-            collision_with: [Player, Tile, Jumppad, Enemy([])],
-            solid_collision_with: [Player],
+            collision_with: [Player, Tile, Jumppad, Enemy],
+            solid_collision_with: [Tile, Player],
         ),
     }
 )
