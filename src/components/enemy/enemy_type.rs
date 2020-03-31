@@ -15,3 +15,9 @@ impl From<String> for EnemyType {
         Self(s)
     }
 }
+
+impl From<&str> for EnemyType {
+    fn from(s: &str) -> Self {
+        Self(s.to_string())
+    }
+}

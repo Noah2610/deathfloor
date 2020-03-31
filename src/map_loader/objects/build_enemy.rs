@@ -75,12 +75,12 @@ pub(super) fn build(
             };
 
             let collision_tag = CollisionTag::builder()
-                .label(CollisionLabel::Enemy)
+                .labels(vec![CollisionLabel::Enemy]) // TODO: add more labels via config
                 .collides_with(enemy_settings.collision_with.0)
                 .build()
                 .unwrap();
             let solid_tag = SolidTag::builder()
-                .label(CollisionLabel::Enemy)
+                .labels(vec![CollisionLabel::Enemy])
                 .collides_with(enemy_settings.solid_collision_with.0)
                 .build()
                 .unwrap();

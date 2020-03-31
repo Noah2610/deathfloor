@@ -55,19 +55,16 @@ pub(super) fn build(
         };
 
         let collision_tag = CollisionTag::builder()
-            .label(CollisionLabel::Player)
+            .labels(vec![CollisionLabel::Player]) // TODO: add more labels via config
             .collides_with({
                 use CollisionLabel::*;
-                vec![Tile, Jumppad, Enemy, Bullet]
+                vec![Tile, Jumppad, Bullet]
             }) // TODO: extract into player settings RON
             .build()
             .unwrap();
         let solid_tag = SolidTag::builder()
-            .label(CollisionLabel::Player)
-            .collides_with({
-                use CollisionLabel::*;
-                vec![Tile, Enemy]
-            }) // TODO: extract into player settings RON
+            .labels(vec![CollisionLabel::Player]) // TODO: add more labels via config
+            .collides_with(vec![CollisionLabel::Tile]) // TODO: extract into player settings RON
             .build()
             .unwrap();
 
