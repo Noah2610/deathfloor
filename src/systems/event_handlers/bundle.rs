@@ -76,6 +76,11 @@ impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventHandlersBundle<'c> {
             "handle_action_random_system",
             actions_deps,
         );
+        builder.add(
+            actions::delay::HandleActionDelay::default(),
+            "handle_action_delay_system",
+            actions_deps,
+        );
         Ok(())
     }
 }

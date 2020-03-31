@@ -57,6 +57,14 @@ impl<'a> System<'a> for TriggerActionsFromActionTypesSystem {
                             action_trigger.trigger(random);
                         }
                     }
+                    ActionType::Delay(delay) => {
+                        if let Some(action_trigger) =
+                            (&mut action_trigger_components.delay)
+                                .get_mut_or_default(entity)
+                        {
+                            action_trigger.trigger(delay);
+                        }
+                    }
                 }
             }
         }

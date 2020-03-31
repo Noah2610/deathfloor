@@ -18,6 +18,10 @@
                     Echo("Nobody dare touch me..."),
                     Echo("Nobody dare touch me..."),
                     Echo("Nobody dare touch me..."),
+                    Delay((
+                        delay_ms: 500,
+                        action: Echo("NOBODY"),
+                    )),
                 ]),
 
                 // OnCollision(None): Echo("..."),
@@ -52,18 +56,32 @@
                     y: 400.0,
                 )),
 
-                Interval(500): Random((
-                    chance: 0.5,
-                    on_success: MoveAction(AddVelocity(
-                        x: 500.0,
+                Interval(200): Group([
+                    Random((
+                        chance: 0.5,
+                        on_success: MoveAction(AddVelocity(
+                            x: 500.0,
+                        )),
+                        on_failure: MoveAction(AddVelocity(
+                            x: -500.0,
+                        )),
                     )),
-                    on_failure: MoveAction(AddVelocity(
-                        x: -500.0,
+                    Delay((
+                        delay_ms: 100,
+                        action: Random((
+                            chance: 0.5,
+                            on_success: MoveAction(AddVelocity(
+                                y: 100.0,
+                            )),
+                            on_failure: MoveAction(AddVelocity(
+                                y: -100.0,
+                            )),
+                        )),
                     )),
-                )),
+                ]),
             },
 
-            collision_with: [Player, Tile],
+            collision_with: [Player, Tile, Jumppad],
         ),
     }
 )
