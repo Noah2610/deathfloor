@@ -6,32 +6,20 @@
             spritesheet_filename: "player.png",
 
             components: (
-                size: (w: 16.0, h: 16.0),
+                size: (w: 8.0, h: 8.0),
                 gravity: (x: None, y: -100.0),
                 hitbox: Size,
             ),
 
             events: {
-                OnCollision(And([
-                    IsSide(Left),
-                    IsState(Enter),
-                ])): MoveAction(AddVelocity( x: 100.0, )),
-                OnCollision(And([
-                    IsSide(Right),
-                    IsState(Enter),
-                ])): MoveAction(AddVelocity( x: -100.0, )),
-                OnCollision(And([
-                    IsSide(Top),
-                    IsState(Enter),
-                ])): MoveAction(AddVelocity( y: -100.0, )),
-                OnCollision(And([
-                    IsSide(Bottom),
-                    IsState(Enter),
-                ])): MoveAction(AddVelocity( y: 100.0, )),
+                OnCollision(IsSide(Left)):   MoveAction(AddVelocity( x: 100.0, )),
+                OnCollision(IsSide(Right)):  MoveAction(AddVelocity( x: -100.0, )),
+                OnCollision(IsSide(Top)):    MoveAction(AddVelocity( y: -100.0, )),
+                OnCollision(IsSide(Bottom)): MoveAction(AddVelocity( y: 100.0, )),
             },
 
             collision_with: [Player, Tile, Jumppad, Enemy([])],
-            solid_collision_with: [Player, Enemy([])],
+            solid_collision_with: [Player],
         ),
     }
 )
