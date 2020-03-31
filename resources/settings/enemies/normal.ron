@@ -77,7 +77,21 @@
                 )),
             },
 
-            collision_with: [Player, Jumppad, Bullet],
+            collision_tag: (
+                labels: [Enemy],
+                collides_with: [Player, Jumppad, Bullet],
+            ),
+
+            solid_tag: (
+                labels: [Enemy],
+                collides_with: [Tile, Player],
+            ),
+
+            /// Specifies with which `CollisionTag`s this enemy has
+            /// _general_ collision (separate from _solid_ collision).
+            /// If this is not set, the player will not be able to jump
+            /// off of this enemy (because this enemy is `Jumppad`).
+            // collision_with: [Player, Jumppad, Bullet],
 
             /// Specifies with which `SolidTag`s this enemy has
             /// _solid_ collision (separate from _general_ collision (`CollisionTag`)).
@@ -87,7 +101,7 @@
             /// this is just to showcase the `solid_collision_with` field.)
             ///
             /// Enemies will usually also have solid collision with `Tile` tags.
-            solid_collision_with: [Tile, Player],
+            // solid_collision_with: [Tile, Player],
         ),
     }
 )

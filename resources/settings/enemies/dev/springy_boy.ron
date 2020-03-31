@@ -17,13 +17,15 @@
                 ),
             ),
 
-            /// Specifies with which `CollisionTag`s this enemy has
-            /// _general_ collision (separate from _solid_ collision).
-            /// If this is not set, the player will not be able to jump
-            /// off of this enemy (because this enemy is `Jumppad`).
-            collision_with: [Player],
+            collision_tag: (
+                labels: [Enemy],
+                collides_with: [Player],
+            ),
 
-            solid_collision_with: [Tile],
+            solid_tag: (
+                labels: [Enemy],
+                collides_with: [Tile],
+            ),
         ),
     }
 )

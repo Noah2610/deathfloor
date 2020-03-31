@@ -1,5 +1,6 @@
 use super::CTag;
 use super::CollisionLabel;
+use crate::settings::prelude::CollisionTagData;
 
 #[derive(Clone, Hash, Deserialize, Builder)]
 #[serde(from = "CollisionLabel")]
@@ -58,4 +59,13 @@ impl PartialEq for CollisionTag {
 }
 
 impl Eq for CollisionTag {
+}
+
+impl From<CollisionTagData> for CollisionTag {
+    fn from(data: CollisionTagData) -> Self {
+        Self {
+            labels:        data.labels,
+            collides_with: data.collides_with.unwrap_or_default(),
+        }
+    }
 }

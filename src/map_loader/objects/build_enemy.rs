@@ -48,6 +48,18 @@ pub(super) fn build(
         .with(Velocity::default())
         .with(Movable::default());
 
+    // COLLISION / SOLID TAGS
+
+    if let Some(collision_tag) = enemy_settings.collision_tag {
+        entity_builder = entity_builder
+            .with(Collider::new(CollisionTag::from(collision_tag.clone())))
+            .with(Collidable::new(CollisionTag::from(collision_tag)));
+    }
+    if let Some(solid_tag) = enemy_settings.solid_tag {
+        entity_builder =
+            entity_builder.with(Solid::new(CollisionTag::from(solid_tag)));
+    }
+
     // COMPONENTS
 
     if let Some(components) = enemy_settings.components {
@@ -74,23 +86,8 @@ pub(super) fn build(
                 }
             };
 
-            let collision_tag = CollisionTag::builder()
-                .labels(vec![CollisionLabel::Enemy]) // TODO: add more labels via config
-                .collides_with(enemy_settings.collision_with.0)
-                .build()
-                .unwrap();
-            let solid_tag = SolidTag::builder()
-                .labels(vec![CollisionLabel::Enemy])
-                .collides_with(enemy_settings.solid_collision_with.0)
-                .build()
-                .unwrap();
-
-            entity_builder = entity_builder
-                .with(Collider::new(collision_tag.clone()))
-                .with(Collidable::new(collision_tag))
-                .with(Solid::new(solid_tag))
-                .with(JumppadAffected::default())
-                .with(hitbox);
+            entity_builder =
+                entity_builder.with(JumppadAffected::default()).with(hitbox);
         }
         if let Some(walker) = components.walker {
             entity_builder = entity_builder.with(walker);

@@ -81,8 +81,15 @@
                 ]),
             },
 
-            collision_with: [Player, Tile, Jumppad],
-            solid_collision_with: [Tile],
+            collision_tag: (
+                labels: [Enemy],
+                collides_with: [Player, Tile, Jumppad],
+            ),
+
+            solid_tag: (
+                labels: [Enemy],
+                collides_with: [Tile],
+            ),
         ),
     }
 )
