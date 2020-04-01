@@ -19,7 +19,7 @@
             },
 
             collision_tag: (
-                labels: [Enemy],
+                labels: [Enemy, Solid],
                 collides_with: [Player, Solid, Jumppad, Enemy],
             ),
 

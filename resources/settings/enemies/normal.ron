@@ -78,7 +78,7 @@
             },
 
             collision_tag: (
-                labels: [Enemy],
+                labels: [Enemy, Solid],
                 collides_with: [Player, Jumppad, Bullet],
             ),
 
