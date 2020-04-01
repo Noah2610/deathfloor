@@ -1,5 +1,4 @@
 pub mod prelude {
-    pub use super::CollisionTagData;
     pub use super::EnemiesSettings;
     pub use super::EnemyComponentsData;
     pub use super::EnemySettings;
@@ -7,7 +6,7 @@ pub mod prelude {
 
 use super::hitbox_config::HitboxConfig;
 use crate::animation_key::AnimationKey;
-use crate::collision_tag::EnemyCollidesWith;
+use crate::collision_tag::CollisionTagWrapper;
 use crate::components::prelude::*;
 use std::collections::HashMap;
 
@@ -21,8 +20,8 @@ pub struct EnemySettings {
     pub spritesheet_filename: String, // TODO
     pub components:           Option<EnemyComponentsData>,
     pub events:               Option<EventsRegister>,
-    pub collision_tag:        Option<CollisionTagData>,
-    pub solid_tag:            Option<CollisionTagData>,
+    pub collision_tag:        Option<CollisionTagWrapper>,
+    pub solid_tag:            Option<CollisionTagWrapper>,
 }
 
 /// List of posible components for an Enemy.
@@ -37,10 +36,4 @@ pub struct EnemyComponentsData {
     pub hitbox:                Option<HitboxConfig>,
     pub walker:                Option<Walker>,
     pub jumppad:               Option<Jumppad>,
-}
-
-#[derive(Clone, Deserialize)]
-pub struct CollisionTagData {
-    pub labels:        Vec<CollisionLabel>,
-    pub collides_with: Option<Vec<CollisionLabel>>,
 }

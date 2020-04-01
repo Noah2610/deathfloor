@@ -10,8 +10,6 @@ pub(super) fn build(
     let size: Size = player_settings.size.into();
     let sprite_render = get_sprite_render(world, "spritesheets/player.png", 1)?;
     let physics_data = player_settings.physics;
-    let base_friction = BaseFriction::from(physics_data.base_friction);
-    let gravity = Gravity::from(physics_data.gravity);
     let max_movement_velocity = {
         let mut builder = MaxMovementVelocity::builder();
         for axis in Axis::iter() {
@@ -21,22 +19,32 @@ pub(super) fn build(
         builder.build().unwrap()
     };
 
-    let animations_container = player_settings.animations;
+    let hitbox = match player_settings.hitbox {
+        HitboxConfig::Size => Hitbox::new().with_rect(Rect::from(&size)),
+        HitboxConfig::Custom(rects) => Hitbox::new().with_rects(rects),
+    };
 
-    let shooter = Shooter::from(player_settings.shooter);
+    let collision_tag = CollisionTag::from(player_settings.collision_tag);
+    let solid_tag = SolidTag::from(player_settings.solid_tag);
 
     let mut entity_builder = base_object_entity(world, object)?
         .with(Player::default())
         .with(Velocity::default())
         .with(Movable::default())
+        .with(JumppadAffected::default())
+        .with(Collider::new(collision_tag.clone()))
+        .with(Collidable::new(collision_tag))
+        .with(Solid::new(solid_tag))
+        .with(Shooter::from(player_settings.shooter))
+        .with(Gravity::from(physics_data.gravity))
+        .with(BaseFriction::from(physics_data.base_friction))
         .with(player_settings.jumper)
+        .with(player_settings.animations)
+        .with(hitbox)
+        .with(size)
         .with(max_movement_velocity)
         .with(sprite_render)
-        .with(physics_data)
-        .with(base_friction)
-        .with(animations_container)
-        .with(shooter)
-        .with(JumppadAffected::default());
+        .with(physics_data);
 
     if let Some(wall_jumper) = player_settings.wall_jumper {
         entity_builder = entity_builder.with(wall_jumper);
@@ -46,36 +54,5 @@ pub(super) fn build(
         entity_builder = entity_builder.with(wall_slider);
     }
 
-    if let Some(hitbox_config) = &player_settings.hitbox {
-        let hitbox = match hitbox_config {
-            HitboxConfig::Size => Hitbox::new().with_rect(Rect::from(&size)),
-            HitboxConfig::Custom(rects) => {
-                Hitbox::new().with_rects(rects.clone())
-            }
-        };
-
-        let collision_tag = CollisionTag::builder()
-            .labels(vec![CollisionLabel::Player]) // TODO: add more labels via config
-            .collides_with({
-                use CollisionLabel::*;
-                vec![Tile, Jumppad, Bullet]
-            }) // TODO: extract into player settings RON
-            .build()
-            .unwrap();
-        let solid_tag = SolidTag::builder()
-            .labels(vec![CollisionLabel::Player]) // TODO: add more labels via config
-            .collides_with(vec![CollisionLabel::Tile]) // TODO: extract into player settings RON
-            .build()
-            .unwrap();
-
-        entity_builder = entity_builder
-            .with(Collider::new(collision_tag.clone()))
-            .with(Collidable::new(collision_tag))
-            .with(Solid::new(solid_tag))
-            .with(hitbox);
-    }
-
-    let entity = entity_builder.with(size).with(gravity).build();
-
-    Ok(entity)
+    Ok(entity_builder.build())
 }

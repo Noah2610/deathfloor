@@ -20,11 +20,11 @@
 
             collision_tag: (
                 labels: [Enemy],
-                collides_with: [Player, Tile, Jumppad, Enemy],
+                collides_with: [Player, Solid, Jumppad, Enemy],
             ),
 
             solid_tag: (
-                labels: [Enemy],
+                labels: [Enemy, Solid],
                 collides_with: [Tile, Player],
             ),
         ),

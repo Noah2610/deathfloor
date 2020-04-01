@@ -20,8 +20,22 @@
     ),
 
     /// The player's hitbox.
-    /// Optional.
     hitbox: Size,
+
+    /// For _general_ collision checking.
+    collision_tag: (
+        /// `CollisionLabel`s for the player.
+        /// Used with other collider entities, to check if they collide with this entity.
+        labels: [Player],
+        /// `CollisionLabel`s that the player collides with.
+        collides_with: [Tile, Solid, Jumppad, Bullet, Enemy],
+    ),
+
+    /// For _solid_ collision checking.
+    solid_tag: (
+        labels: [Player],
+        collides_with: [Solid],
+    ),
 
     /// Player jump settings.
     jumper: (

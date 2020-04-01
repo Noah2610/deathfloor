@@ -1,6 +1,5 @@
 use super::CTag;
 use super::CollisionLabel;
-use crate::settings::prelude::CollisionTagData;
 
 #[derive(Clone, Hash, Deserialize, Builder)]
 #[serde(from = "CollisionLabel")]
@@ -26,10 +25,9 @@ impl CollisionTagBuilder {
 
 impl CTag for CollisionTag {
     fn collides_with(&self, other: &Self) -> bool {
-        other
-            .labels
-            .iter()
-            .any(|other_label| self.collides_with.contains(other_label))
+        self.collides_with.iter().any(|collides_with_label| {
+            other.labels.contains(collides_with_label)
+        })
     }
 }
 
@@ -42,11 +40,11 @@ impl From<CollisionLabel> for CollisionTag {
     }
 }
 
-impl From<CollisionLabel> for CollisionTagBuilder {
-    fn from(label: CollisionLabel) -> Self {
+impl From<Vec<CollisionLabel>> for CollisionTag {
+    fn from(labels: Vec<CollisionLabel>) -> Self {
         Self {
-            labels:        Some(vec![label]),
-            collides_with: None,
+            labels:        labels,
+            collides_with: Default::default(),
         }
     }
 }
@@ -61,8 +59,14 @@ impl PartialEq for CollisionTag {
 impl Eq for CollisionTag {
 }
 
-impl From<CollisionTagData> for CollisionTag {
-    fn from(data: CollisionTagData) -> Self {
+#[derive(Clone, Deserialize)]
+pub struct CollisionTagWrapper {
+    pub labels:        Vec<CollisionLabel>,
+    pub collides_with: Option<Vec<CollisionLabel>>,
+}
+
+impl From<CollisionTagWrapper> for CollisionTag {
+    fn from(data: CollisionTagWrapper) -> Self {
         Self {
             labels:        data.labels,
             collides_with: data.collides_with.unwrap_or_default(),

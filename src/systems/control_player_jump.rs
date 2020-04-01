@@ -17,13 +17,12 @@ fn get_query_matches_from<'a>(
     use deathframe::physics::query::exp::prelude_variants::*;
 
     let mut matches = QueryMatches::default();
-    let tile_tag = CollisionTag::from(CollisionLabel::Tile);
-    let enemy_tag = CollisionTag::from(CollisionLabel::Enemy);
+    let solid_tag = CollisionTag::from(CollisionLabel::Solid);
 
     matches.bottom = collider
         .query::<FindQuery<CollisionTag>>()
         .exp(&And(vec![
-            Or(vec![IsTag(tile_tag.clone()), IsTag(enemy_tag.clone())]),
+            IsTag(solid_tag.clone()),
             Or(vec![IsState(Enter), IsState(Steady)]),
             IsSide(Bottom),
         ]))
@@ -32,7 +31,7 @@ fn get_query_matches_from<'a>(
     matches.left = collider
         .query::<FindQuery<CollisionTag>>()
         .exp(&And(vec![
-            Or(vec![IsTag(tile_tag.clone()), IsTag(enemy_tag.clone())]),
+            IsTag(solid_tag.clone()),
             Or(vec![IsState(Enter), IsState(Steady)]),
             IsSide(Left),
         ]))
@@ -41,7 +40,7 @@ fn get_query_matches_from<'a>(
     matches.right = collider
         .query::<FindQuery<CollisionTag>>()
         .exp(&And(vec![
-            Or(vec![IsTag(tile_tag), IsTag(enemy_tag)]),
+            IsTag(solid_tag),
             Or(vec![IsState(Enter), IsState(Steady)]),
             IsSide(Right),
         ]))

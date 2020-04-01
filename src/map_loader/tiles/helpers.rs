@@ -26,9 +26,16 @@ pub(super) fn edit_entity_with_tile_settings<'a>(
     // SOLID
     if let Some(is_solid) = tile_settings.is_solid {
         if is_solid {
+            // TODO: Extract into config.
             entity = entity
-                .with(Collidable::new(CollisionTag::from(CollisionLabel::Tile)))
-                .with(Solid::new(SolidTag::from(CollisionLabel::Tile)));
+                .with(Collidable::new(CollisionTag::from(vec![
+                    CollisionLabel::Tile,
+                    CollisionLabel::Solid,
+                ])))
+                .with(Solid::new(SolidTag::from(vec![
+                    CollisionLabel::Tile,
+                    CollisionLabel::Solid,
+                ])));
         }
     }
 
