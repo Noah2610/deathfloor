@@ -5,3 +5,4 @@ pub mod echo;
 pub mod group;
 pub mod move_action;
 pub mod random;
+pub mod repeat_delay;

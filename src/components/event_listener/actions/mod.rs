@@ -3,6 +3,7 @@ mod echo;
 mod group;
 mod move_action;
 mod random;
+mod repeat_delay;
 
 pub mod prelude {
     pub use super::delay::Delay;
@@ -10,6 +11,7 @@ pub mod prelude {
     pub use super::group::Group;
     pub use super::move_action::MoveAction;
     pub use super::random::Random;
+    pub use super::repeat_delay::RepeatDelay;
     pub use super::ActionTriggerStorages;
     pub use super::ActionType;
 }
@@ -26,13 +28,15 @@ pub enum ActionType {
     MoveAction(MoveAction),
     Random(Random),
     Delay(Delay),
+    RepeatDelay(RepeatDelay),
 }
 
 #[derive(SystemData)]
 pub struct ActionTriggerStorages<'a> {
-    pub echo:        WriteStorage<'a, ActionTrigger<Echo>>,
-    pub group:       WriteStorage<'a, ActionTrigger<Group>>,
-    pub move_action: WriteStorage<'a, ActionTrigger<MoveAction>>,
-    pub random:      WriteStorage<'a, ActionTrigger<Random>>,
-    pub delay:       WriteStorage<'a, ActionTrigger<Delay>>,
+    pub echo:         WriteStorage<'a, ActionTrigger<Echo>>,
+    pub group:        WriteStorage<'a, ActionTrigger<Group>>,
+    pub move_action:  WriteStorage<'a, ActionTrigger<MoveAction>>,
+    pub random:       WriteStorage<'a, ActionTrigger<Random>>,
+    pub delay:        WriteStorage<'a, ActionTrigger<Delay>>,
+    pub repeat_delay: WriteStorage<'a, ActionTrigger<RepeatDelay>>,
 }

@@ -65,6 +65,14 @@ impl<'a> System<'a> for TriggerActionsFromActionTypesSystem {
                             action_trigger.trigger(delay);
                         }
                     }
+                    ActionType::RepeatDelay(repeat_delay) => {
+                        if let Some(action_trigger) =
+                            (&mut action_trigger_components.repeat_delay)
+                                .get_mut_or_default(entity)
+                        {
+                            action_trigger.trigger(repeat_delay);
+                        }
+                    }
                 }
             }
         }

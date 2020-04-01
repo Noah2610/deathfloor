@@ -16,6 +16,12 @@
                 OnCollision(IsSide(Right)):  MoveAction(AddVelocity( x: -100.0, )),
                 OnCollision(IsSide(Top)):    MoveAction(AddVelocity( y: -100.0, )),
                 OnCollision(IsSide(Bottom)): MoveAction(AddVelocity( y: 100.0, )),
+
+                OnCollision(And([
+                    Or([IsSide(Top), IsSide(Bottom)]),
+                    IsState(Enter),
+                    IsTag(Player),
+                ])): Echo("COMPLEX COLLISION BORTHER!"),
             },
 
             collision_tag: (

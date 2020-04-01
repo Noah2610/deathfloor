@@ -81,6 +81,11 @@ impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventHandlersBundle<'c> {
             "handle_action_delay_system",
             actions_deps,
         );
+        builder.add(
+            actions::repeat_delay::HandleActionRepeatDelay::default(),
+            "handle_action_repeat_delay_system",
+            actions_deps,
+        );
         Ok(())
     }
 }
