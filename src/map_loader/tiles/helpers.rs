@@ -66,6 +66,19 @@ pub(super) fn edit_entity_with_tile_settings<'a>(
             .with(jumppad);
     }
 
+    // COLLISION TAG
+    if let Some(collision_tag_wrapper) = &tile_settings.collision_tag {
+        entity = entity.with(Collidable::new(CollisionTag::from(
+            collision_tag_wrapper.clone(),
+        )));
+    }
+
+    // SOLID TAG
+    if let Some(solid_tag_wrapper) = &tile_settings.solid_tag {
+        entity =
+            entity.with(Solid::new(SolidTag::from(solid_tag_wrapper.clone())));
+    }
+
     entity
 }
 

@@ -1,4 +1,5 @@
 use super::hitbox_config::HitboxConfig;
+use crate::collision_tag::CollisionTagWrapper;
 use crate::components::prelude::Jumppad;
 use crate::map_loader::map_data::Props;
 use crate::map_loader::types::TileType;
@@ -19,9 +20,11 @@ pub struct TilesSettings {
 #[derive(Clone, Default, Deserialize)]
 #[serde(default)]
 pub struct TileSettings {
-    pub is_solid: Option<bool>,
-    pub hitbox:   Option<HitboxConfig>,
-    pub jumppad:  Option<Jumppad>,
+    pub is_solid:      Option<bool>,
+    pub hitbox:        Option<HitboxConfig>,
+    pub jumppad:       Option<Jumppad>,
+    pub collision_tag: Option<CollisionTagWrapper>,
+    pub solid_tag:     Option<CollisionTagWrapper>,
 
     // For tiled properties
     #[serde(alias = "jumppad_x")]
