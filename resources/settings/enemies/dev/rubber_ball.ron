@@ -17,11 +17,21 @@
                 OnCollision(IsSide(Top)):    MoveAction(AddVelocity( y: -100.0, )),
                 OnCollision(IsSide(Bottom)): MoveAction(AddVelocity( y: 100.0, )),
 
-                OnCollision(And([
-                    Or([IsSide(Top), IsSide(Bottom)]),
-                    IsState(Enter),
-                    IsTag(Player),
-                ])): Echo("COMPLEX COLLISION BORTHER!"),
+                OnCollision(IsState(Enter)): Group([
+                    InsertComponents((
+                        size: (w: 16.0, h: 16.0),
+                        scale_once: (),
+                        // hitbox: Size,
+                    )),
+                    Delay((
+                        delay_ms: 250,
+                        action: InsertComponents((
+                            size: (w: 8.0, h: 8.0),
+                            scale_once: (),
+                            // hitbox: Size,
+                        )),
+                    )),
+                ]),
             },
 
             collision_tag: (
