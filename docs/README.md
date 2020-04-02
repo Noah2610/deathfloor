@@ -1,0 +1,45 @@
+# Documentation
+- [DESIGN](./DESIGN.md)
+- [ROADMAP](./ROADMAP.md)
+- [FEATURES](./FEATURES.md)
+- [LEVEL-CREATION](./LEVEL-CREATION.md)
+
+# Concept Art
+[`concept-art/`](./concept-art)
+
+# Development
+## Level selection
+When running the game from the command-line with `bin/run` (or `cargo run`, but always prefer `bin/run`),  
+add the level filename as the first argument to load that level.
+
+__Examples__:
+```
+bin/run level.json
+bin/run testlevel5.json
+```
+
+Only filename, not path to file.  
+Extension necessary.
+
+## Reload level ingame
+Press `R` to reload the current level ingame.  
+(see `ingame_bindings.ron` config file to set other binding).
+
+Requires `debug` feature (use `bin/run`)
+
+## Generating RON files for spritesheets
+Run the `gen-rons` script to generate RON config files for  
+all tile spritesheets under `resources/spritesheets/tiles/` ...
+```
+bin/gen-rons
+```
+
+Any arguments are passed to the underlying `sprongen` command.  
+(Run `bin/gen-rons --help` for more info)
+
+Uses and depends on the [`sprongen`][sprongen] command-line app.  
+The script will prompt the user to automatically install `sprongen`,  
+if it is not installed.  
+`cargo` is required to install `sprongen`.
+
+[sprongen]: https://github.com/Noah2610/sprongen
