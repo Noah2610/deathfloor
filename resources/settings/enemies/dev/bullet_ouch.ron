@@ -7,8 +7,8 @@
 
             components: (
                 size: (
-                    w: 16.0,
-                    h: 24.0
+                    w: 8.0,
+                    h: 16.0
                 ),
                 gravity: (
                     y: -400.0

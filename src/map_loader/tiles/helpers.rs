@@ -25,6 +25,12 @@ pub(super) fn edit_entity_with_tile_settings<'a>(
 
     // SOLID
     if let Some(is_solid) = tile_settings.is_solid {
+        eprintln!(
+            r#"[WARNING]
+    Use of deprecated feature: `TileSettings.is_solid`
+    Prefer explicitly settings `collision_tag` and `solid_tag` fields."#
+        );
+
         if is_solid {
             // TODO: Extract into config.
             entity = entity

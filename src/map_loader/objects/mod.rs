@@ -27,7 +27,7 @@ pub(super) fn load_objects(
             }
 
             ObjectType::None => eprintln!(
-                "WARNING:
+                "[WARNING]
     Object without a 'type' does nothing!
     Skipping loading of type-less object..."
             ),

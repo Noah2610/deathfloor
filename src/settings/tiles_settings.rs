@@ -20,11 +20,13 @@ pub struct TilesSettings {
 #[derive(Clone, Default, Deserialize)]
 #[serde(default)]
 pub struct TileSettings {
-    pub is_solid:      Option<bool>,
     pub hitbox:        Option<HitboxConfig>,
     pub jumppad:       Option<Jumppad>,
     pub collision_tag: Option<CollisionTagWrapper>,
     pub solid_tag:     Option<CollisionTagWrapper>,
+
+    #[deprecated]
+    pub is_solid: Option<bool>,
 
     // For tiled properties
     #[serde(alias = "jumppad_x")]
@@ -38,16 +40,22 @@ impl TileSettings {
     /// Merges the field values from `other` into `self`.
     /// `self` takes precedence.
     /// Takes ownership of `self`, and returns a new `Self`.
-    pub fn merge(mut self, other: Self) -> Self {
-        self.is_solid = self.is_solid.or(other.is_solid);
-        self.hitbox = self.hitbox.or(other.hitbox);
-        self.jumppad = self.jumppad.or(other.jumppad);
-        self.jumppad_strength_x =
-            self.jumppad_strength_x.or(other.jumppad_strength_x);
-        self.jumppad_strength_y =
-            self.jumppad_strength_y.or(other.jumppad_strength_y);
+    pub fn merge(self, other: Self) -> Self {
+        Self {
+            hitbox:        self.hitbox.or(other.hitbox),
+            jumppad:       self.jumppad.or(other.jumppad),
+            collision_tag: self.collision_tag.or(other.collision_tag),
+            solid_tag:     self.solid_tag.or(other.solid_tag),
 
-        self
+            is_solid: self.is_solid.or(other.is_solid),
+
+            jumppad_strength_x: self
+                .jumppad_strength_x
+                .or(other.jumppad_strength_x),
+            jumppad_strength_y: self
+                .jumppad_strength_y
+                .or(other.jumppad_strength_y),
+        }
     }
 }
 

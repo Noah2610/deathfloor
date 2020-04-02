@@ -4,13 +4,29 @@
     types: {
         /// Solid ground.
         Ground: (
-            is_solid: true,
+            /// Entities check for general collision against this tile,
+            /// with the given collision labels.
+            collision_tag: (
+                labels: [Tile, Solid],
+            ),
+
+            /// If this tag is given, this tile is marked _solid_.
+            /// But it is only solid with for entities which collide
+            /// with one of these collision labels.
+            solid_tag: (
+                labels: [Tile, Solid],
+            ),
+
             hitbox: Size,
         ),
 
         Jumppad: (
-            is_solid: false,
+            collision_tag: (
+                labels: [Jumppad],
+            ),
+
             hitbox: Size,
+
             jumppad: (
                 /// Jumppad strength (x, y)
                 strength: (None, 400.0),
