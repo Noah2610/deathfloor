@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["build","Builds the enemy entity."]]});

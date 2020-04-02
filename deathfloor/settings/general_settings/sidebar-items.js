@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_DebugSettings",""],["_IMPL_DESERIALIZE_FOR_GeneralSettings",""],["_IMPL_DESERIALIZE_FOR_LoaderSystemSettings",""]],"struct":[["DebugSettings",""],["GeneralSettings",""],["LoaderSystemSettings",""]]});

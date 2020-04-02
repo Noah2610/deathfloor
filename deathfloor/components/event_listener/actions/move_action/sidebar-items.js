@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_MoveAction",""]],"struct":[["MoveAction","When triggers, queueus the given `MoveAction`."]]});

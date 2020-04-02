@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["NORMAL_GRAVITY_BELOW_Y_VEL",""]],"enum":[["TargetGravity",""]],"fn":[["get_query_matches_from",""],["maybe_set_gravity",""]],"struct":[["ControlPlayerJumpSystem",""],["QueryMatches",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["move_action",""],["prelude",""]],"struct":[["Movable","A `Movable` entity is moved by the `MovementSystem`."]]});

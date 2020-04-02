@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["base_object_entity","Adds base components to object entity. Components include:     - `Transform`     - `Size`     - `ScaleOnce`     - `Transparent`"]],"mod":[["prelude",""]]});

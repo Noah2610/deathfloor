@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_Group",""]],"struct":[["Group","Groups a list of `ActionType`s together. When this action is triggered, it triggers all of its actions."]]});

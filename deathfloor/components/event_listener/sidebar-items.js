@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["action_trigger",""],["action_type_trigger",""],["actions",""],["event_type",""],["events_register",""],["prelude",""]]});

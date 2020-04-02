@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["enemy_type",""],["prelude",""]],"struct":[["Enemy",""]]});

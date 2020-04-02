@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["bullet_hit",""],["control_player",""],["control_player_jump",""],["control_player_shoot",""],["create_bullets",""],["delete_bullets",""],["event_handlers",""],["handle_animations",""],["handle_jumppad_affected",""],["handle_movables",""],["handle_scales",""],["handle_walkers",""],["prelude",""],["system_helpers",""],["system_prelude",""]]});
