@@ -74,4 +74,4 @@ jobs:
           publish_branch: docs
           commit_message: |
             Deploy docs
-            $GITHUB_REF $GITHUB_SHA
+            ${{ github.ref }} ${{ github.sha }}
