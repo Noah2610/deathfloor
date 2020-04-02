@@ -66,6 +66,10 @@ jobs:
           command: doc
           args: --no-deps -p deathframe -p deathfloor
 
+      - name: Add docs/ Directory
+        run: cp -r ./docs ./target/doc/docs
+        shell: bash
+
       - name: Deploy Docs to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
