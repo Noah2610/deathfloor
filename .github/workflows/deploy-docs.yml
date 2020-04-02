@@ -64,7 +64,7 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: doc
-          args: --no-deps -p deathframe -p deathfloor
+          args: -p deathframe -p deathfloor
 
       - name: Add docs/ Directory
         run: cp -r ./docs ./target/doc/docs
