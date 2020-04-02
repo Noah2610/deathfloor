@@ -49,6 +49,16 @@
 - Room to room traversal:
   After a short transition teleport player to new room. new room is seperate tmx / json, so different rooms can have different room sizes / camera settings / zoom level?
 
+### Player mechanics (movement and weaponary) per level
+- Pitch:
+When a new level is unlocked, the player is restricted to certain movement and weapon mechanics to enable "precise and concrete" level design. However, when the player has beaten the level,
+it can be replayed with the movement and weapon mechanics of other, already beaten levels. - beating levels globally unlocks their respective mechanics for other, already beaten levels. 
+I would imagine this system to be built upon "slots" - each level gives the player a set (?) amount of available weapon and movement slots that are filled with certain mechanics and can, after
+initially beating the level, be filled by the player with mechanics of their choice.
+Such a system would enable high replayability and gameplay diversity by pretty much only utilizing already existent mechanics -> ressource efficent. The only completely new system would be the
+interactable slot UI. 
+
+
 - Camera
   Limited by level borders
 
