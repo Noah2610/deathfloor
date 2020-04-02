@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["TimerState",""]],"struct":[["TimerBuilder","The builder struct for `Timer`."]]});

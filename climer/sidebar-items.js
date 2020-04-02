@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["duration_from",""]],"mod":[["error","Error and Result types. Trying to be an idiomatic Rustacean."],["helpers",""],["macros",""],["prelude",""],["time",""],["timer",""]]});

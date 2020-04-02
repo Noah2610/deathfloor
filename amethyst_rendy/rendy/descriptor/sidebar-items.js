@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DescriptorAllocator","Descriptor allocator. Can be used to allocate descriptor sets for any layout."],["DescriptorRanges","Number of descriptors per type."],["DescriptorRangesIter","Iterator over descriptor ranges."],["DescriptorSet","Descriptor set from allocator."]]});

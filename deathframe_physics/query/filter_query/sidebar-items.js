@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["prelude",""]],"struct":[["FilterQuery","The `FilterQuery` runs a given `QueryExpression` on all collisions, and returns all that match. Filters collisions matching an expression."]]});

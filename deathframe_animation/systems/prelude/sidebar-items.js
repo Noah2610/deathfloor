@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["PlayAnimationsSystem","Handles the playing of animations for entities with `Animation`."],["SwitchAnimationsSystem","The `SwitchAnimationsSystem` handles entities' `Animation`s with their `AnimationsContainer`s."]]});

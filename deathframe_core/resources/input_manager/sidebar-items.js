@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["InputManager","Manages input actions. Stores data about which actions are down, up, or being pressed."]]});

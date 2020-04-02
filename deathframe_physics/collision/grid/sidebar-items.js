@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CollisionGrid","A collection of `CollisionRect`, can perform collision detection."]]});

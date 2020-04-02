@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["CollisionSide",""],["CollisionState","The state of a collision between a Collider and a Collidable."]],"mod":[["prelude",""]],"struct":[["CollisionData",""]]});

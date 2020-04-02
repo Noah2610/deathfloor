@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["CollisionTag","This tag is used for collision checking and when moving with solids. Implement this trait for your own type to use with `Collider` and `Collidable`."]]});

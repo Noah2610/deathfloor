@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CustomGameData",""],["CustomGameDataBuilder","Builder struct for `CustomGameData`."]]});

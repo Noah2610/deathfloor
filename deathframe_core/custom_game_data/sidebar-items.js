@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["prelude",""]],"struct":[["CustomGameData",""],["CustomGameDataBuilder","Builder struct for `CustomGameData`."]]});

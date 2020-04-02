@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Axis","Just a plain `Axis` enum with `X` and `Y` variants."]],"mod":[["prelude",""]],"type":[["Point",""],["Vector",""]]});
