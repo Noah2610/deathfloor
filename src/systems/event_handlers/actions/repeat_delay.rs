@@ -35,37 +35,47 @@ impl<'a> System<'a> for HandleActionRepeatDelay {
         )
             .join()
         {
-            let entry = self.registered.entry(entity).or_default();
+            let mut should_remove_entry = false;
 
-            // REGISTER TIMERS AND ACTIONS
-            for repeat_delay in action_trigger.drain() {
-                for i in 0 .. repeat_delay.loops {
-                    let delay_ms = i as u64 * repeat_delay.delay_ms;
-                    let mut timer = Timer::new(
-                        Some(Duration::from_millis(delay_ms).into()),
-                        None,
-                    );
-                    timer.start().unwrap();
-                    entry.push(TimedAction {
-                        timer:  timer,
-                        action: *repeat_delay.action.clone(),
-                    });
+            {
+                let timed_actions = self.registered.entry(entity).or_default();
+
+                // REGISTER TIMERS AND ACTIONS
+                for repeat_delay in action_trigger.drain() {
+                    for i in 0 .. repeat_delay.loops {
+                        let delay_ms = i as u64 * repeat_delay.delay_ms;
+                        let mut timer = Timer::new(
+                            Some(Duration::from_millis(delay_ms).into()),
+                            None,
+                        );
+                        timer.start().unwrap();
+                        timed_actions.push(TimedAction {
+                            timer:  timer,
+                            action: *repeat_delay.action.clone(),
+                        });
+                    }
                 }
+
+                // UPDATE TIMERS
+                let mut to_trigger = Vec::new();
+                for (idx, timed_action) in timed_actions.iter_mut().enumerate()
+                {
+                    timed_action.timer.update().unwrap();
+                    if timed_action.timer.state.is_finished() {
+                        to_trigger.push(idx);
+                    }
+                }
+
+                for idx in to_trigger.into_iter().rev() {
+                    let timed_action = timed_actions.remove(idx);
+                    action_type_trigger.trigger(timed_action.action.clone());
+                }
+
+                should_remove_entry = timed_actions.is_empty();
             }
 
-            // UPDATE TIMERS
-            let mut to_trigger = Vec::new();
-            for (idx, timed_action) in entry.iter_mut().enumerate() {
-                timed_action.timer.update().unwrap();
-                if timed_action.timer.state.is_finished() {
-                    to_trigger.push(idx);
-                }
-            }
-
-            to_trigger.sort_unstable();
-            for idx in to_trigger.into_iter().rev() {
-                let timed_action = entry.remove(idx);
-                action_type_trigger.trigger(timed_action.action.clone());
+            if should_remove_entry {
+                let _ = self.registered.remove(&entity);
             }
         }
     }
