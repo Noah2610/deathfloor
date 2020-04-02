@@ -75,6 +75,30 @@
                 ): MoveAction(AddVelocity(
                     y: 100.0,
                 )),
+
+                OnCollision(And([
+                    IsSide(Right),
+                    IsState(Enter),
+                ])): Group([
+                    Echo("touch RIGHT, move LEFT"),
+                    InsertComponents((
+                        walker: (
+                            x: -250.0,
+                        ),
+                    )),
+                ]),
+
+                OnCollision(And([
+                    IsSide(Left),
+                    IsState(Enter),
+                ])): Group([
+                    Echo("touch LEFT, move RIGHT"),
+                    InsertComponents((
+                        walker: (
+                            x: 250.0,
+                        ),
+                    )),
+                ]),
             },
 
             /// Specifies with which `CollisionTag`s this enemy has
@@ -83,7 +107,7 @@
             /// off of this enemy (because this enemy is `Jumppad`).
             collision_tag: (
                 labels: [Enemy, Solid],
-                collides_with: [Player, Jumppad, Bullet],
+                collides_with: [Player, Jumppad, Bullet, Tile],
             ),
 
             /// Specifies with which `SolidTag`s this enemy has

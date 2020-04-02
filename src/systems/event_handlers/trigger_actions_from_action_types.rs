@@ -73,6 +73,14 @@ impl<'a> System<'a> for TriggerActionsFromActionTypesSystem {
                             action_trigger.trigger(repeat_delay);
                         }
                     }
+                    ActionType::InsertComponents(insert_components) => {
+                        if let Some(action_trigger) =
+                            (&mut action_trigger_components.insert_components)
+                                .get_mut_or_default(entity)
+                        {
+                            action_trigger.trigger(insert_components);
+                        }
+                    }
                 }
             }
         }

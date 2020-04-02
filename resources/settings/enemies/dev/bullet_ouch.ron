@@ -49,7 +49,6 @@
                         action:   Delay((
                             delay_ms: 500,
                             action: Group([
-                                Echo("LOOP!!!!"),
                                 Random((
                                       chance: 0.5,
                                       on_success: MoveAction(AddVelocity( x: 300.0, )),

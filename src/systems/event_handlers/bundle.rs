@@ -86,6 +86,11 @@ impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventHandlersBundle<'c> {
             "handle_action_repeat_delay_system",
             actions_deps,
         );
+        builder.add(
+            actions::insert_components::HandleActionInsertComponents::default(),
+            "handle_action_insert_components_system",
+            actions_deps,
+        );
         Ok(())
     }
 }

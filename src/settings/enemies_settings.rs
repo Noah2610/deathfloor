@@ -1,6 +1,7 @@
 pub mod prelude {
     pub use super::EnemiesSettings;
     pub use super::EnemyComponentsData;
+    pub use super::EnemyComponentsStorages;
     pub use super::EnemySettings;
 }
 
@@ -8,6 +9,8 @@ use super::hitbox_config::HitboxConfig;
 use crate::animation_key::AnimationKey;
 use crate::collision_tag::CollisionTagWrapper;
 use crate::components::prelude::*;
+use deathframe::amethyst::ecs::shred::ResourceId;
+use deathframe::amethyst::ecs::{SystemData, World, WriteStorage};
 use std::collections::HashMap;
 
 #[derive(Clone, Deserialize)]
@@ -36,4 +39,17 @@ pub struct EnemyComponentsData {
     pub hitbox:                Option<HitboxConfig>,
     pub walker:                Option<Walker>,
     pub jumppad:               Option<Jumppad>,
+}
+
+#[derive(SystemData)]
+pub struct EnemyComponentsStorages<'a> {
+    pub size:                  WriteStorage<'a, Size>,
+    pub gravity:               WriteStorage<'a, Gravity>,
+    pub max_movement_velocity: WriteStorage<'a, MaxMovementVelocity>,
+    pub base_friction:         WriteStorage<'a, BaseFriction>,
+    pub animations: WriteStorage<'a, AnimationsContainer<AnimationKey>>,
+    pub hitbox:                WriteStorage<'a, Hitbox>,
+    pub walker:                WriteStorage<'a, Walker>,
+    pub jumppad:               WriteStorage<'a, Jumppad>,
+    pub jumppad_affected:      WriteStorage<'a, JumppadAffected>,
 }

@@ -1,4 +1,5 @@
 use super::helpers::prelude::*;
+use crate::systems::system_helpers::insert_components;
 
 /// Builds the enemy entity.
 pub(super) fn build(
@@ -34,6 +35,7 @@ pub(super) fn build(
     // CREATE ENTITY_BUILDER
 
     let mut entity_builder = base_object_entity(world, object)?
+        .with(size)
         .with(Enemy::new(enemy_type))
         .with(
             Loadable::default(), /*.with_padding((
@@ -60,43 +62,6 @@ pub(super) fn build(
             entity_builder.with(Solid::new(CollisionTag::from(solid_tag)));
     }
 
-    // COMPONENTS
-
-    if let Some(components) = enemy_settings.components {
-        entity_builder = entity_builder.with(size.clone());
-        if let Some(gravity) = components.gravity {
-            entity_builder = entity_builder.with(gravity);
-        }
-        if let Some(max_movement_velocity) = components.max_movement_velocity {
-            entity_builder = entity_builder.with(max_movement_velocity);
-        }
-        if let Some(base_friction) = components.base_friction {
-            entity_builder = entity_builder.with(base_friction);
-        }
-        if let Some(animations) = components.animations {
-            entity_builder = entity_builder.with(animations);
-        }
-        if let Some(hitbox_config) = components.hitbox {
-            let hitbox = match hitbox_config {
-                HitboxConfig::Size => {
-                    Hitbox::new().with_rect(Rect::from(&size))
-                }
-                HitboxConfig::Custom(rects) => {
-                    Hitbox::new().with_rects(rects.clone())
-                }
-            };
-
-            entity_builder =
-                entity_builder.with(JumppadAffected::default()).with(hitbox);
-        }
-        if let Some(walker) = components.walker {
-            entity_builder = entity_builder.with(walker);
-        }
-        if let Some(jumppad) = components.jumppad {
-            entity_builder = entity_builder.with(jumppad);
-        }
-    }
-
     // EVENTS
 
     if let Some(events_register) = enemy_settings.events {
@@ -105,5 +70,17 @@ pub(super) fn build(
             .with(ActionTypeTrigger::default());
     }
 
-    Ok(entity_builder.build())
+    let entity = entity_builder.build();
+
+    // COMPONENTS
+
+    if let Some(components) = enemy_settings.components {
+        world.exec(|mut storages: EnemyComponentsStorages| {
+            insert_components(entity, components, &mut storages).expect(
+                "Couldn't insert some components while building enemy.",
+            );
+        });
+    }
+
+    Ok(entity)
 }

@@ -1,6 +1,7 @@
 mod delay;
 mod echo;
 mod group;
+mod insert_components;
 mod move_action;
 mod random;
 mod repeat_delay;
@@ -9,6 +10,7 @@ pub mod prelude {
     pub use super::delay::Delay;
     pub use super::echo::Echo;
     pub use super::group::Group;
+    pub use super::insert_components::InsertComponents;
     pub use super::move_action::MoveAction;
     pub use super::random::Random;
     pub use super::repeat_delay::RepeatDelay;
@@ -29,14 +31,16 @@ pub enum ActionType {
     Random(Random),
     Delay(Delay),
     RepeatDelay(RepeatDelay),
+    InsertComponents(InsertComponents),
 }
 
 #[derive(SystemData)]
 pub struct ActionTriggerStorages<'a> {
-    pub echo:         WriteStorage<'a, ActionTrigger<Echo>>,
-    pub group:        WriteStorage<'a, ActionTrigger<Group>>,
-    pub move_action:  WriteStorage<'a, ActionTrigger<MoveAction>>,
-    pub random:       WriteStorage<'a, ActionTrigger<Random>>,
-    pub delay:        WriteStorage<'a, ActionTrigger<Delay>>,
-    pub repeat_delay: WriteStorage<'a, ActionTrigger<RepeatDelay>>,
+    pub echo:              WriteStorage<'a, ActionTrigger<Echo>>,
+    pub group:             WriteStorage<'a, ActionTrigger<Group>>,
+    pub move_action:       WriteStorage<'a, ActionTrigger<MoveAction>>,
+    pub random:            WriteStorage<'a, ActionTrigger<Random>>,
+    pub delay:             WriteStorage<'a, ActionTrigger<Delay>>,
+    pub repeat_delay:      WriteStorage<'a, ActionTrigger<RepeatDelay>>,
+    pub insert_components: WriteStorage<'a, ActionTrigger<InsertComponents>>,
 }
