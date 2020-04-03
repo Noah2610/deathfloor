@@ -202,6 +202,15 @@ impl<'a> System<'a> for DisplayHealthSystem {
             }
         }
 
+        // Remove old entities
+        for (prev_parent_entity, (prev_display_entity, _data)) in
+            self.display_entities.iter()
+        {
+            if !registered_display_entities.contains_key(prev_parent_entity) {
+                entities.delete(*prev_display_entity).unwrap();
+            }
+        }
+
         self.display_entities = registered_display_entities;
     }
 }
