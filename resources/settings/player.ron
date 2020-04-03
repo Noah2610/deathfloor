@@ -113,14 +113,14 @@
 
     /// Starting health.
     health: (
-        health: 10,
+        health: 20,
         max_health: 20,
     ),
 
     /// Component for rendering health.
     health_display: (
         position: Top,
-        size:     (32.0, 4.0),
+        size:     (16.0, 4.0),
         padding:  4.0,
     ),
 )

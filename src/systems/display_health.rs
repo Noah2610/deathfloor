@@ -112,9 +112,17 @@ impl<'a> System<'a> for DisplayHealthSystem {
                 })
                 .unwrap_or_else(|| entities.create());
 
-            let transform =
-                Transform::from(Vector3::from(display_entity_data.pos));
             let size = Size::from(display_entity_data.size);
+            let transform = {
+                let mut transform =
+                    Transform::from(Vector3::from(display_entity_data.pos));
+                let scale = transform.scale_mut();
+                scale.x = size.w
+                    * (display_entity_data.health as f32
+                        / display_entity_data.max_health as f32);
+                scale.y = size.h;
+                transform
+            };
             let sprite_render = SpriteRender {
                 sprite_number: SPRITE_NUMBER_RED,
                 sprite_sheet:  colors_spritesheet_handle.clone(),
