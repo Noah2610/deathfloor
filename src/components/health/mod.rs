@@ -1,14 +1,12 @@
 pub mod prelude {
-    pub use super::health_display::{
-        HealthDisplay,
-        HealthDisplayMarker,
-        HealthDisplayPosition,
-    };
-    pub use super::health_editor::{HealthAction, HealthEditor};
+    pub use super::health_action::HealthAction;
+    pub use super::health_display::{HealthDisplay, HealthDisplayPosition};
+    pub use super::health_editor::HealthEditor;
     pub use super::Health;
     pub use super::HitPoints;
 }
 
+mod health_action;
 mod health_display;
 mod health_editor;
 

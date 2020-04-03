@@ -251,8 +251,8 @@ impl<'a> System<'a> for DisplayHealthSystem {
             self.display_entities.iter()
         {
             if !registered_display_entities.contains_key(prev_parent_entity) {
-                entities.delete(prev_display_entities.background).unwrap();
-                entities.delete(prev_display_entities.health_bar).unwrap();
+                // entities.delete(prev_display_entities.background).unwrap();
+                // entities.delete(prev_display_entities.health_bar).unwrap();
                 entities.delete(prev_display_entities.wrapper).unwrap();
             }
         }

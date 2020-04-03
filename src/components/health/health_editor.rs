@@ -1,12 +1,5 @@
 use super::component_prelude::*;
-
-#[derive(Clone, Deserialize)]
-pub enum HealthAction {
-    /// _Gain_ health.
-    Gain(HitPoints),
-    /// _Lose_ health.
-    Lose(HitPoints),
-}
+use super::health_action::HealthAction;
 
 /// Can manipulate the entity's `Health` component via `HealthAction`s.
 /// Through this component, the entity can _lose_ and _gain_ health.

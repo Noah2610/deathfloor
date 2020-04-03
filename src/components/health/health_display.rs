@@ -14,7 +14,3 @@ pub struct HealthDisplay {
     pub padding:        f32,
     pub border_padding: f32,
 }
-
-#[derive(Component, Default)]
-#[storage(NullStorage)]
-pub struct HealthDisplayMarker;
