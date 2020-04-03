@@ -40,6 +40,7 @@ pub(super) fn build(
         .with(BaseFriction::from(physics_data.base_friction))
         .with(player_settings.jumper)
         .with(player_settings.animations)
+        .with(player_settings.health)
         .with(hitbox)
         .with(size)
         .with(max_movement_velocity)

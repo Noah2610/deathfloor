@@ -1,6 +1,7 @@
 mod bullet;
 mod enemy;
 mod event_listener;
+mod health;
 mod jumper;
 mod jumppad;
 mod jumppad_affected;
@@ -21,6 +22,7 @@ pub mod prelude {
     pub use super::bullet::Bullet;
     pub use super::enemy::prelude::*;
     pub use super::event_listener::prelude::*;
+    pub use super::health::prelude::*;
     pub use super::jumper::Jumper;
     pub use super::jumppad::Jumppad;
     pub use super::jumppad_affected::JumppadAffected;

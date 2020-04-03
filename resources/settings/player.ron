@@ -110,4 +110,10 @@
             (12, 100),
         ]),
     },
+
+    /// Starting health.
+    health: (
+        health: 10,
+        max_health: 20,
+    ),
 )

@@ -43,6 +43,10 @@
                     x: 250.0,
                     y: None,
                 ),
+                health: (
+                    health: 5,
+                    max_health: 5,
+                ),
             ),
 
             /// Events and the actions they trigger.

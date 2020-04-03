@@ -66,6 +66,7 @@ pub mod system_helpers {
             walker,
             jumppad,
             scale_once,
+            health,
         } = components;
         let &mut EnemyComponentsStorages {
             size: size_store,
@@ -78,6 +79,7 @@ pub mod system_helpers {
             jumppad: jumppad_store,
             jumppad_affected: jumppad_affected_store,
             scale_once: scale_once_store,
+            health: health_store,
         } = &mut storages;
 
         let size_opt = size.or_else(|| size_store.get(entity).cloned());
@@ -124,6 +126,9 @@ pub mod system_helpers {
         }
         if let Some(scale_once) = scale_once {
             scale_once_store.insert(entity, scale_once)?;
+        }
+        if let Some(health) = health {
+            health_store.insert(entity, health)?;
         }
         if let Some(size) = size_opt {
             size_store.insert(entity, size)?;
