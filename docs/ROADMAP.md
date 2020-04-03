@@ -14,10 +14,10 @@
 - [x] restrain camera within level borders
 
 ## v0.0.3
-- [ ] enemy types, composable entity features
+- [x] enemy types, composable entity features
 - [x] player shooting ([#9])
-- [ ] enemies ([#10])
-- [ ] health system ([#11])
+- [x] enemies ([#10])
+- [x] health system ([#11])
 
 [#7]: https://github.com/Noah2610/deathfloor/issues/7
 [#8]: https://github.com/Noah2610/deathfloor/issues/8
