@@ -29,4 +29,8 @@ impl Health {
     pub fn lose(&mut self, hp: HitPoints) {
         self.health = self.health.checked_sub(hp).unwrap_or(0);
     }
+
+    pub fn is_alive(&self) -> bool {
+        self.health > 0
+    }
 }
