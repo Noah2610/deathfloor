@@ -1,7 +1,7 @@
 use super::system_prelude::*;
 use crate::helpers::resource;
 use amethyst::core::math::Vector3;
-use amethyst::core::transform::Parent;
+// use amethyst::core::transform::Parent;
 use std::collections::HashMap;
 use std::path::PathBuf;
 
@@ -173,8 +173,6 @@ impl<'a> System<'a> for DisplayHealthSystem {
             };
 
             if let Some(display_entity) = display_entity_opt {
-                dbg!("INSERT HEALTH DISPLAY ENTITY");
-
                 let size = Size::from(display_entity_data.size);
                 let transform = {
                     let mut transform =
