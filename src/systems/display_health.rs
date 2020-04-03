@@ -7,9 +7,25 @@ use std::path::PathBuf;
 
 const SPRITE_NUMBER_RED: usize = 2;
 
+#[derive(Clone, PartialEq)]
+struct DisplayEntityData {
+    parent_entity: Entity,
+    health:        HitPoints,
+    max_health:    HitPoints,
+    pos:           [f32; 3],
+    size:          (f32, f32),
+}
+
+#[derive(Debug)]
+enum DisplayEntityUpdateAction {
+    CreateNew,
+    UpdateExisting(Entity),
+    Ignore(Entity),
+}
+
 #[derive(Default)]
 pub struct DisplayHealthSystem {
-    display_entities: HashMap<Entity, Entity>,
+    display_entities: HashMap<Entity, (Entity, DisplayEntityData)>,
 }
 
 impl<'a> System<'a> for DisplayHealthSystem {
@@ -24,6 +40,7 @@ impl<'a> System<'a> for DisplayHealthSystem {
         WriteStorage<'a, Parent>,
     );
 
+    // TODO: REFACTOR
     fn run(
         &mut self,
         (
@@ -37,14 +54,6 @@ impl<'a> System<'a> for DisplayHealthSystem {
             mut parent_store,
         ): Self::SystemData,
     ) {
-        struct DisplayEntityData {
-            parent_entity: Entity,
-            health:        HitPoints,
-            max_health:    HitPoints,
-            pos:           [f32; 3],
-            size:          (f32, f32),
-        }
-
         let colors_spritesheet_handle = spritesheets
             .get(&resource("spritesheets/colors.png"))
             .expect("colors.png spritesheet should be loaded at this point");
@@ -99,47 +108,82 @@ impl<'a> System<'a> for DisplayHealthSystem {
         for display_entity_data in display_entities_to_create {
             let parent_entity = display_entity_data.parent_entity;
 
-            let display_entity = self
-                .display_entities
-                .get(&parent_entity)
-                .cloned()
-                .and_then(|entity| {
-                    if entities.is_alive(entity) {
-                        Some(entity)
-                    } else {
+            let display_entity_opt = {
+                use DisplayEntityUpdateAction as Action;
+
+                let display_entity_update_action: DisplayEntityUpdateAction =
+                    self.display_entities
+                        .get(&parent_entity)
+                        .map(|(entity, previous_entity_data)| {
+                            let entity = *entity;
+                            if previous_entity_data != &display_entity_data {
+                                if entities.is_alive(entity) {
+                                    Action::UpdateExisting(entity)
+                                } else {
+                                    Action::CreateNew
+                                }
+                            } else {
+                                Action::Ignore(entity)
+                            }
+                        })
+                        .unwrap_or(Action::CreateNew);
+
+                match display_entity_update_action {
+                    Action::CreateNew => {
+                        let display_entity = entities.create();
+                        registered_display_entities.insert(
+                            parent_entity,
+                            (display_entity, display_entity_data.clone()),
+                        );
+                        Some(display_entity)
+                    }
+                    Action::UpdateExisting(display_entity) => {
+                        registered_display_entities.insert(
+                            parent_entity,
+                            (display_entity, display_entity_data.clone()),
+                        );
+                        Some(display_entity)
+                    }
+                    Action::Ignore(display_entity) => {
+                        registered_display_entities.insert(
+                            parent_entity,
+                            (display_entity, display_entity_data.clone()),
+                        );
                         None
                     }
-                })
-                .unwrap_or_else(|| entities.create());
-
-            let size = Size::from(display_entity_data.size);
-            let transform = {
-                let mut transform =
-                    Transform::from(Vector3::from(display_entity_data.pos));
-                let scale = transform.scale_mut();
-                scale.x = size.w
-                    * (display_entity_data.health as f32
-                        / display_entity_data.max_health as f32);
-                scale.y = size.h;
-                transform
-            };
-            let sprite_render = SpriteRender {
-                sprite_number: SPRITE_NUMBER_RED,
-                sprite_sheet:  colors_spritesheet_handle.clone(),
+                }
             };
 
-            parent_store
-                .insert(display_entity, Parent {
-                    entity: parent_entity,
-                })
-                .unwrap();
-            transform_store.insert(display_entity, transform).unwrap();
-            size_store.insert(display_entity, size).unwrap();
-            sprite_render_store
-                .insert(display_entity, sprite_render)
-                .unwrap();
+            if let Some(display_entity) = display_entity_opt {
+                dbg!("INSERT HEALTH DISPLAY ENTITY");
 
-            registered_display_entities.insert(parent_entity, display_entity);
+                let size = Size::from(display_entity_data.size);
+                let transform = {
+                    let mut transform =
+                        Transform::from(Vector3::from(display_entity_data.pos));
+                    let scale = transform.scale_mut();
+                    scale.x = size.w
+                        * (display_entity_data.health as f32
+                            / display_entity_data.max_health as f32);
+                    scale.y = size.h;
+                    transform
+                };
+                let sprite_render = SpriteRender {
+                    sprite_number: SPRITE_NUMBER_RED,
+                    sprite_sheet:  colors_spritesheet_handle.clone(),
+                };
+
+                parent_store
+                    .insert(display_entity, Parent {
+                        entity: parent_entity,
+                    })
+                    .unwrap();
+                transform_store.insert(display_entity, transform).unwrap();
+                size_store.insert(display_entity, size).unwrap();
+                sprite_render_store
+                    .insert(display_entity, sprite_render)
+                    .unwrap();
+            }
         }
 
         self.display_entities = registered_display_entities;
