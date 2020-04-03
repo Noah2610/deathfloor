@@ -119,9 +119,9 @@
 
     /// Component for rendering health.
     health_display: (
-        position: Top,
-        size:     (32.0, 2.0),
-        padding:  4.0,
-        border_padding: 2.0,
+        position:       Top,
+        size:           (32.0, 2.0),
+        padding:        4.0,
+        border_padding: 0.5,
     ),
 )

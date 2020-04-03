@@ -9,9 +9,10 @@ pub enum HealthDisplayPosition {
 #[derive(Component, Clone, Deserialize)]
 #[storage(VecStorage)]
 pub struct HealthDisplay {
-    pub position: HealthDisplayPosition,
-    pub size:     (f32, f32),
-    pub padding:  f32,
+    pub position:       HealthDisplayPosition,
+    pub size:           (f32, f32),
+    pub padding:        f32,
+    pub border_padding: f32,
 }
 
 #[derive(Component, Default)]
