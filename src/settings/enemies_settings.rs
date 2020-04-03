@@ -42,6 +42,8 @@ pub struct EnemyComponentsData {
     pub scale_once:            Option<ScaleOnce>,
     pub health:                Option<Health>,
     pub health_display:        Option<HealthDisplay>,
+    pub deals_damage:          Option<DealsDamage>,
+    pub takes_damage:          Option<TakesDamage>,
 }
 
 #[derive(SystemData)]
@@ -58,4 +60,6 @@ pub struct EnemyComponentsStorages<'a> {
     pub scale_once:            WriteStorage<'a, ScaleOnce>,
     pub health:                WriteStorage<'a, Health>,
     pub health_display:        WriteStorage<'a, HealthDisplay>,
+    pub deals_damage:          WriteStorage<'a, DealsDamage>,
+    pub takes_damage:          WriteStorage<'a, TakesDamage>,
 }

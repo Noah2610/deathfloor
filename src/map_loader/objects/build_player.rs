@@ -42,6 +42,7 @@ pub(super) fn build(
         .with(player_settings.animations)
         .with(player_settings.health)
         .with(player_settings.health_display)
+        .with(player_settings.takes_damage)
         .with(hitbox)
         .with(size)
         .with(max_movement_velocity)

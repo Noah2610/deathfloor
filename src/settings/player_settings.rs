@@ -29,6 +29,7 @@ pub struct PlayerSettings {
     pub animations:     AnimationsContainer<AnimationKey>,
     pub health:         Health,
     pub health_display: HealthDisplay,
+    pub takes_damage:   TakesDamage,
 }
 
 #[derive(Clone, Deserialize)]
