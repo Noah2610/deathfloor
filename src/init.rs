@@ -207,6 +207,12 @@ fn build_game_data<'a, 'b>(
             DisplayHealthSystem::default(),
             "display_health_system",
             &["move_entities_system"],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            HandleHealthEditorsSystem::default(),
+            "handle_health_editors_system",
+            &[],
         )?;
 
     #[cfg(feature = "debug")]

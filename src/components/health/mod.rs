@@ -22,3 +22,13 @@ pub struct Health {
     pub health:     HitPoints,
     pub max_health: HitPoints,
 }
+
+impl Health {
+    pub fn gain(&mut self, hp: HitPoints) {
+        self.health = (self.health + hp).min(self.max_health);
+    }
+
+    pub fn lose(&mut self, hp: HitPoints) {
+        self.health = self.health.checked_sub(hp).unwrap_or(0);
+    }
+}
