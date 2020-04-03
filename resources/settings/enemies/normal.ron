@@ -53,6 +53,9 @@
                     padding: 4.0,
                     border_padding: 0.5,
                 ),
+                deals_damage: (
+                    damage: 2,
+                ),
             ),
 
             /// Events and the actions they trigger.

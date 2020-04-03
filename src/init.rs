@@ -213,6 +213,12 @@ fn build_game_data<'a, 'b>(
             HandleHealthEditorsSystem::default(),
             "handle_health_editors_system",
             &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            HandleDealingAndTakingDamageSystem::default(),
+            "handle_dealing_and_taking_damage_system",
+            &[],
         )?;
 
     #[cfg(feature = "debug")]
