@@ -9,6 +9,16 @@
                 size: (w: 8.0, h: 8.0),
                 gravity: (x: None, y: -100.0),
                 hitbox: Size,
+                health: (
+                    health: 2,
+                    max_health: 2,
+                ),
+                health_display: (
+                    position: Top,
+                    size: (6.0, 1.0),
+                    padding: 2.0,
+                    border_padding: 0.5,
+                ),
             ),
 
             events: {
@@ -32,11 +42,16 @@
                         )),
                     )),
                 ]),
+
+                // Damage on bullet collision
+                OnCollision(And([IsState(Enter), IsTag(Bullet)])): HealthAction(Lose(1)),
+                // Damage when stuck inside solid tile
+                OnCollision(And([IsState(Steady), IsTag(Tile), IsSide(Inner)])): HealthAction(Lose(2)),
             },
 
             collision_tag: (
                 labels: [Enemy, Solid],
-                collides_with: [Player, Solid, Jumppad, Enemy],
+                collides_with: [Player, Solid, Jumppad, Enemy, Bullet],
             ),
 
             solid_tag: (

@@ -18,6 +18,16 @@
                     friction_x: 1000.0,
                     friction_y: 1000.0,
                 ),
+                health: (
+                    health: 10,
+                    max_health: 10,
+                ),
+                health_display: (
+                    position: Top,
+                    size: (16.0, 2.0),
+                    padding: 4.0,
+                    border_padding: 0.5,
+                ),
             ),
 
             vars: {
@@ -32,6 +42,7 @@
                     IsTag(Bullet),
                     IsState(Enter),
                 ])): Group([
+                    HealthAction(Lose(1)),
                     Random((
                         chance: 0.5,
                         on_success: MoveAction(AddVelocity( x: 300.0, )),
