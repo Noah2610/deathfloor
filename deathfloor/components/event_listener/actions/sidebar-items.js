@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_ActionType",""]],"enum":[["ActionType",""]],"mod":[["delay",""],["echo",""],["group",""],["insert_components",""],["move_action",""],["prelude",""],["random",""],["repeat_delay",""]],"struct":[["ActionTriggerStorages",""]]});
+initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_ActionType",""]],"enum":[["ActionType",""]],"mod":[["delay",""],["echo",""],["group",""],["health_action",""],["insert_components",""],["move_action",""],["prelude",""],["random",""],["repeat_delay",""]],"struct":[["ActionTriggerStorages",""]]});

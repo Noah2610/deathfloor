@@ -132,6 +132,36 @@
 <span id="132">132</span>
 <span id="133">133</span>
 <span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">bullet_hit</span>;
 <span class="kw">mod</span> <span class="ident">control_player</span>;
@@ -141,8 +171,12 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;debug&quot;</span>)]</span>
 <span class="kw">mod</span> <span class="ident">debug</span>;
 <span class="kw">mod</span> <span class="ident">delete_bullets</span>;
+<span class="kw">mod</span> <span class="ident">display_health</span>;
 <span class="kw">mod</span> <span class="ident">event_handlers</span>;
 <span class="kw">mod</span> <span class="ident">handle_animations</span>;
+<span class="kw">mod</span> <span class="ident">handle_dealing_and_taking_damage</span>;
+<span class="kw">mod</span> <span class="ident">handle_death</span>;
+<span class="kw">mod</span> <span class="ident">handle_health_editors</span>;
 <span class="kw">mod</span> <span class="ident">handle_jumppad_affected</span>;
 <span class="kw">mod</span> <span class="ident">handle_movables</span>;
 <span class="kw">mod</span> <span class="ident">handle_scales</span>;
@@ -160,8 +194,12 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;debug&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">debug</span>::<span class="ident">DebugSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">delete_bullets</span>::<span class="ident">DeleteBulletsSystem</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">display_health</span>::<span class="ident">DisplayHealthSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">event_handlers</span>::<span class="ident">EventHandlersBundle</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_animations</span>::<span class="ident">HandleAnimationsSystem</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_dealing_and_taking_damage</span>::<span class="ident">HandleDealingAndTakingDamageSystem</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_death</span>::<span class="ident">HandleDeathSystem</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_health_editors</span>::<span class="ident">HandleHealthEditorsSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_jumppad_affected</span>::<span class="ident">HandleJumppadAffectedSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_movables</span>::<span class="ident">HandleMovablesSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_scales</span>::<span class="ident">HandleScalesSystem</span>;
@@ -201,6 +239,10 @@
             <span class="ident">walker</span>,
             <span class="ident">jumppad</span>,
             <span class="ident">scale_once</span>,
+            <span class="ident">health</span>,
+            <span class="ident">health_display</span>,
+            <span class="ident">deals_damage</span>,
+            <span class="ident">takes_damage</span>,
         } <span class="op">=</span> <span class="ident">components</span>;
         <span class="kw">let</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">EnemyComponentsStorages</span> {
             <span class="ident">size</span>: <span class="ident">size_store</span>,
@@ -213,6 +255,11 @@
             <span class="ident">jumppad</span>: <span class="ident">jumppad_store</span>,
             <span class="ident">jumppad_affected</span>: <span class="ident">jumppad_affected_store</span>,
             <span class="ident">scale_once</span>: <span class="ident">scale_once_store</span>,
+            <span class="ident">health</span>: <span class="ident">health_store</span>,
+            <span class="ident">health_editor</span>: <span class="ident">health_editor_store</span>,
+            <span class="ident">health_display</span>: <span class="ident">health_display_store</span>,
+            <span class="ident">deals_damage</span>: <span class="ident">deals_damage_store</span>,
+            <span class="ident">takes_damage</span>: <span class="ident">takes_damage_store</span>,
         } <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">storages</span>;
 
         <span class="kw">let</span> <span class="ident">size_opt</span> <span class="op">=</span> <span class="ident">size</span>.<span class="ident">or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">size_store</span>.<span class="ident">get</span>(<span class="ident">entity</span>).<span class="ident">cloned</span>());
@@ -259,6 +306,19 @@
         }
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">scale_once</span>) <span class="op">=</span> <span class="ident">scale_once</span> {
             <span class="ident">scale_once_store</span>.<span class="ident">insert</span>(<span class="ident">entity</span>, <span class="ident">scale_once</span>)<span class="question-mark">?</span>;
+        }
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">health</span>) <span class="op">=</span> <span class="ident">health</span> {
+            <span class="ident">health_store</span>.<span class="ident">insert</span>(<span class="ident">entity</span>, <span class="ident">health</span>)<span class="question-mark">?</span>;
+            <span class="ident">health_editor_store</span>.<span class="ident">insert</span>(<span class="ident">entity</span>, <span class="ident">HealthEditor</span>::<span class="ident">default</span>())<span class="question-mark">?</span>;
+        }
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">health_display</span>) <span class="op">=</span> <span class="ident">health_display</span> {
+            <span class="ident">health_display_store</span>.<span class="ident">insert</span>(<span class="ident">entity</span>, <span class="ident">health_display</span>)<span class="question-mark">?</span>;
+        }
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">deals_damage</span>) <span class="op">=</span> <span class="ident">deals_damage</span> {
+            <span class="ident">deals_damage_store</span>.<span class="ident">insert</span>(<span class="ident">entity</span>, <span class="ident">deals_damage</span>)<span class="question-mark">?</span>;
+        }
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">takes_damage</span>) <span class="op">=</span> <span class="ident">takes_damage</span> {
+            <span class="ident">takes_damage_store</span>.<span class="ident">insert</span>(<span class="ident">entity</span>, <span class="ident">takes_damage</span>)<span class="question-mark">?</span>;
         }
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">size</span>) <span class="op">=</span> <span class="ident">size_opt</span> {
             <span class="ident">size_store</span>.<span class="ident">insert</span>(<span class="ident">entity</span>, <span class="ident">size</span>)<span class="question-mark">?</span>;

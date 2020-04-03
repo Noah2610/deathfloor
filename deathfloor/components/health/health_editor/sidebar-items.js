@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["HealthEditor","Can manipulate the entity's `Health` component via `HealthAction`s. Through this component, the entity can lose and gain health."]]});

@@ -42,12 +42,15 @@
 <span id="42">42</span>
 <span id="43">43</span>
 <span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">hitbox_config</span>::<span class="ident">HitboxConfig</span>;
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">SizeSettings</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">animation_key</span>::<span class="ident">AnimationKey</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">collision_tag</span>::<span class="ident">CollisionTagWrapper</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">components</span>::<span class="ident">prelude</span>::{<span class="ident">Jumper</span>, <span class="ident">PhysicsData</span>, <span class="ident">WallJumper</span>, <span class="ident">WallSlider</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">components</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">deathframe</span>::<span class="ident">animation</span>::<span class="ident">components</span>::<span class="ident">prelude</span>::{
     <span class="ident">Animation</span>,
     <span class="ident">AnimationsContainer</span>,
@@ -62,16 +65,19 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PlayerSettings</span> {
-    <span class="kw">pub</span> <span class="ident">size</span>:          <span class="ident">SizeSettings</span>,
-    <span class="kw">pub</span> <span class="ident">physics</span>:       <span class="ident">PhysicsData</span>,
-    <span class="kw">pub</span> <span class="ident">hitbox</span>:        <span class="ident">HitboxConfig</span>,
-    <span class="kw">pub</span> <span class="ident">collision_tag</span>: <span class="ident">CollisionTagWrapper</span>,
-    <span class="kw">pub</span> <span class="ident">solid_tag</span>:     <span class="ident">CollisionTagWrapper</span>,
-    <span class="kw">pub</span> <span class="ident">jumper</span>:        <span class="ident">Jumper</span>,
-    <span class="kw">pub</span> <span class="ident">wall_jumper</span>:   <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">WallJumper</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span> <span class="ident">wall_slider</span>:   <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">WallSlider</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span> <span class="ident">shooter</span>:       <span class="ident">ShooterData</span>,
-    <span class="kw">pub</span> <span class="ident">animations</span>:    <span class="ident">AnimationsContainer</span><span class="op">&lt;</span><span class="ident">AnimationKey</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">size</span>:           <span class="ident">SizeSettings</span>,
+    <span class="kw">pub</span> <span class="ident">physics</span>:        <span class="ident">PhysicsData</span>,
+    <span class="kw">pub</span> <span class="ident">hitbox</span>:         <span class="ident">HitboxConfig</span>,
+    <span class="kw">pub</span> <span class="ident">collision_tag</span>:  <span class="ident">CollisionTagWrapper</span>,
+    <span class="kw">pub</span> <span class="ident">solid_tag</span>:      <span class="ident">CollisionTagWrapper</span>,
+    <span class="kw">pub</span> <span class="ident">jumper</span>:         <span class="ident">Jumper</span>,
+    <span class="kw">pub</span> <span class="ident">wall_jumper</span>:    <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">WallJumper</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">wall_slider</span>:    <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">WallSlider</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">shooter</span>:        <span class="ident">ShooterData</span>,
+    <span class="kw">pub</span> <span class="ident">animations</span>:     <span class="ident">AnimationsContainer</span><span class="op">&lt;</span><span class="ident">AnimationKey</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">health</span>:         <span class="ident">Health</span>,
+    <span class="kw">pub</span> <span class="ident">health_display</span>: <span class="ident">HealthDisplay</span>,
+    <span class="kw">pub</span> <span class="ident">takes_damage</span>:   <span class="ident">TakesDamage</span>,
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>

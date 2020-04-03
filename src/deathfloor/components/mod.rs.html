@@ -40,10 +40,16 @@
 <span id="40">40</span>
 <span id="41">41</span>
 <span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">bullet</span>;
+<span class="kw">mod</span> <span class="ident">damage</span>;
 <span class="kw">mod</span> <span class="ident">enemy</span>;
 <span class="kw">mod</span> <span class="ident">event_listener</span>;
+<span class="kw">mod</span> <span class="ident">health</span>;
 <span class="kw">mod</span> <span class="ident">jumper</span>;
 <span class="kw">mod</span> <span class="ident">jumppad</span>;
 <span class="kw">mod</span> <span class="ident">jumppad_affected</span>;
@@ -62,8 +68,10 @@
     <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">deathframe</span>::<span class="ident">components</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">bullet</span>::<span class="ident">Bullet</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">damage</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">enemy</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">event_listener</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">health</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">jumper</span>::<span class="ident">Jumper</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">jumppad</span>::<span class="ident">Jumppad</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">jumppad_affected</span>::<span class="ident">JumppadAffected</span>;
