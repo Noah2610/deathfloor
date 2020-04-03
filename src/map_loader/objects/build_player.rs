@@ -38,6 +38,7 @@ pub(super) fn build(
         .with(Shooter::from(player_settings.shooter))
         .with(Gravity::from(physics_data.gravity))
         .with(BaseFriction::from(physics_data.base_friction))
+        .with(HealthEditor::default())
         .with(player_settings.jumper)
         .with(player_settings.animations)
         .with(player_settings.health)

@@ -4,11 +4,13 @@ pub mod prelude {
         HealthDisplayMarker,
         HealthDisplayPosition,
     };
+    pub use super::health_editor::{HealthAction, HealthEditor};
     pub use super::Health;
     pub use super::HitPoints;
 }
 
 mod health_display;
+mod health_editor;
 
 use super::component_prelude::{self, *};
 

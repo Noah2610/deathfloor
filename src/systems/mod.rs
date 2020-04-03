@@ -85,6 +85,7 @@ pub mod system_helpers {
             jumppad_affected: jumppad_affected_store,
             scale_once: scale_once_store,
             health: health_store,
+            health_editor: health_editor_store,
             health_display: health_display_store,
             deals_damage: deals_damage_store,
             takes_damage: takes_damage_store,
@@ -137,6 +138,7 @@ pub mod system_helpers {
         }
         if let Some(health) = health {
             health_store.insert(entity, health)?;
+            health_editor_store.insert(entity, HealthEditor::default())?;
         }
         if let Some(health_display) = health_display {
             health_display_store.insert(entity, health_display)?;
