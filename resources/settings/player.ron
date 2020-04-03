@@ -116,4 +116,11 @@
         health: 10,
         max_health: 20,
     ),
+
+    /// Component for rendering health.
+    health_display: (
+        position: Top,
+        size:     (32.0, 4.0),
+        padding:  4.0,
+    ),
 )

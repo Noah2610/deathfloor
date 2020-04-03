@@ -6,6 +6,7 @@ mod create_bullets;
 #[cfg(feature = "debug")]
 mod debug;
 mod delete_bullets;
+mod display_health;
 mod event_handlers;
 mod handle_animations;
 mod handle_jumppad_affected;
@@ -25,6 +26,7 @@ pub mod prelude {
     #[cfg(feature = "debug")]
     pub use super::debug::DebugSystem;
     pub use super::delete_bullets::DeleteBulletsSystem;
+    pub use super::display_health::DisplayHealthSystem;
     pub use super::event_handlers::EventHandlersBundle;
     pub use super::handle_animations::HandleAnimationsSystem;
     pub use super::handle_jumppad_affected::HandleJumppadAffectedSystem;

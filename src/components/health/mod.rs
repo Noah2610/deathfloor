@@ -1,9 +1,16 @@
 pub mod prelude {
+    pub use super::health_display::{
+        HealthDisplay,
+        HealthDisplayMarker,
+        HealthDisplayPosition,
+    };
     pub use super::Health;
     pub use super::HitPoints;
 }
 
-use super::component_prelude::*;
+mod health_display;
+
+use super::component_prelude::{self, *};
 
 pub type HitPoints = u32;
 

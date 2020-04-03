@@ -17,17 +17,18 @@ pub mod prelude {
 
 #[derive(Clone, Deserialize)]
 pub struct PlayerSettings {
-    pub size:          SizeSettings,
-    pub physics:       PhysicsData,
-    pub hitbox:        HitboxConfig,
-    pub collision_tag: CollisionTagWrapper,
-    pub solid_tag:     CollisionTagWrapper,
-    pub jumper:        Jumper,
-    pub wall_jumper:   Option<WallJumper>,
-    pub wall_slider:   Option<WallSlider>,
-    pub shooter:       ShooterData,
-    pub animations:    AnimationsContainer<AnimationKey>,
-    pub health:        Health,
+    pub size:           SizeSettings,
+    pub physics:        PhysicsData,
+    pub hitbox:         HitboxConfig,
+    pub collision_tag:  CollisionTagWrapper,
+    pub solid_tag:      CollisionTagWrapper,
+    pub jumper:         Jumper,
+    pub wall_jumper:    Option<WallJumper>,
+    pub wall_slider:    Option<WallSlider>,
+    pub shooter:        ShooterData,
+    pub animations:     AnimationsContainer<AnimationKey>,
+    pub health:         Health,
+    pub health_display: HealthDisplay,
 }
 
 #[derive(Clone, Deserialize)]

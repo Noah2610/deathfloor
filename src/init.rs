@@ -201,6 +201,12 @@ fn build_game_data<'a, 'b>(
             HandleWalkersSystem::default(),
             "handle_walkers_system",
             &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            DisplayHealthSystem::default(),
+            "display_health_system",
+            &["move_entities_system"],
         )?;
 
     #[cfg(feature = "debug")]

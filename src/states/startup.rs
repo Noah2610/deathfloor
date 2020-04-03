@@ -13,6 +13,8 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Startup {
             data.world.write_resource::<SpriteSheetHandles<PathBuf>>();
         sprite_sheet_handles
             .load(resource("spritesheets/player_bullet.png"), &data.world);
+        sprite_sheet_handles
+            .load(resource("spritesheets/colors.png"), &data.world);
     }
 
     fn update(
