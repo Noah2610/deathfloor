@@ -35,7 +35,7 @@ impl<'a> System<'a> for HandleActionRepeatDelay {
         )
             .join()
         {
-            let mut should_remove_entry = false;
+            let should_remove_entry;
 
             {
                 let timed_actions = self.registered.entry(entity).or_default();

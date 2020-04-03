@@ -37,7 +37,7 @@ impl<'a> System<'a> for DisplayHealthSystem {
         WriteStorage<'a, Transform>,
         WriteStorage<'a, Size>,
         WriteStorage<'a, SpriteRender>,
-        WriteStorage<'a, Parent>,
+        // WriteStorage<'a, Parent>,
     );
 
     // TODO: REFACTOR
@@ -51,7 +51,7 @@ impl<'a> System<'a> for DisplayHealthSystem {
             mut transform_store,
             mut size_store,
             mut sprite_render_store,
-            mut parent_store,
+            // mut parent_store,
         ): Self::SystemData,
     ) {
         let colors_spritesheet_handle = spritesheets
@@ -60,33 +60,51 @@ impl<'a> System<'a> for DisplayHealthSystem {
 
         let mut display_entities_to_create: Vec<DisplayEntityData> = Vec::new();
 
-        for (entity, health, health_display, size_opt) in (
+        for (entity, health, health_display, transform, size_opt) in (
             &entities,
             &health_store,
             &health_display_store,
+            &transform_store,
             size_store.maybe(),
         )
             .join()
         {
             let pos: [f32; 3] = {
+                let trans = transform.translation();
                 let half_size: (f32, f32) =
                     size_opt.map(|s| (&s.half()).into()).unwrap_or((1.0, 1.0));
 
                 let pos = match health_display.position {
                     HealthDisplayPosition::Top => [
-                        0.0,
-                        0.0 + half_size.1
+                        trans.x,
+                        trans.y
+                            + half_size.1
                             + health_display.padding
                             + health_display.size.1 * 0.5,
-                        0.01,
+                        trans.z + 0.01,
                     ],
                     HealthDisplayPosition::Bottom => [
-                        0.0,
-                        0.0 - half_size.1
+                        trans.x,
+                        trans.y
+                            - half_size.1
                             - health_display.padding
                             - health_display.size.1 * 0.5,
-                        0.01,
+                        trans.z + 0.01,
                     ],
+                    // HealthDisplayPosition::Top => [
+                    //     0.0,
+                    //     0.0 + half_size.1
+                    //         + health_display.padding
+                    //         + health_display.size.1 * 0.5,
+                    //     0.01,
+                    // ],
+                    // HealthDisplayPosition::Bottom => [
+                    //     0.0,
+                    //     0.0 - half_size.1
+                    //         - health_display.padding
+                    //         - health_display.size.1 * 0.5,
+                    //     0.01,
+                    // ],
                 };
 
                 pos
@@ -173,11 +191,11 @@ impl<'a> System<'a> for DisplayHealthSystem {
                     sprite_sheet:  colors_spritesheet_handle.clone(),
                 };
 
-                parent_store
-                    .insert(display_entity, Parent {
-                        entity: parent_entity,
-                    })
-                    .unwrap();
+                // parent_store
+                //     .insert(display_entity, Parent {
+                //         entity: parent_entity,
+                //     })
+                //     .unwrap();
                 transform_store.insert(display_entity, transform).unwrap();
                 size_store.insert(display_entity, size).unwrap();
                 sprite_render_store

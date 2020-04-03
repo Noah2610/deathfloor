@@ -47,6 +47,11 @@
                     health: 5,
                     max_health: 5,
                 ),
+                health_display: (
+                    position: Top,
+                    size: (16.0, 4.0),
+                    padding: 4.0,
+                ),
             ),
 
             /// Events and the actions they trigger.

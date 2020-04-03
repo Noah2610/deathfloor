@@ -41,6 +41,7 @@ pub struct EnemyComponentsData {
     pub jumppad:               Option<Jumppad>,
     pub scale_once:            Option<ScaleOnce>,
     pub health:                Option<Health>,
+    pub health_display:        Option<HealthDisplay>,
 }
 
 #[derive(SystemData)]
@@ -56,4 +57,5 @@ pub struct EnemyComponentsStorages<'a> {
     pub jumppad_affected:      WriteStorage<'a, JumppadAffected>,
     pub scale_once:            WriteStorage<'a, ScaleOnce>,
     pub health:                WriteStorage<'a, Health>,
+    pub health_display:        WriteStorage<'a, HealthDisplay>,
 }
