@@ -1,3 +1,4 @@
+mod animation_editor;
 mod bullet;
 mod damage;
 mod enemy;
@@ -20,6 +21,7 @@ pub mod prelude {
     pub use deathframe::amethyst;
     pub use deathframe::components::prelude::*;
 
+    pub use super::animation_editor::prelude::*;
     pub use super::bullet::Bullet;
     pub use super::damage::prelude::*;
     pub use super::enemy::prelude::*;
