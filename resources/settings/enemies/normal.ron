@@ -37,6 +37,12 @@
                         (5, 100),
                         (6, 100),
                     ]),
+                    Custom("Lmao"): Once([
+                        (23, 150),
+                        (24, 150),
+                        (25, 150),
+                        (26, 150),
+                    ]),
                 },
                 hitbox: Size,
                 walker: (
@@ -114,6 +120,7 @@
                             x: 250.0,
                         ),
                     )),
+                    AnimationAction(Push(Custom("Lmao"))),
                 ]),
             },
 

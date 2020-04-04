@@ -87,6 +87,7 @@ pub mod system_helpers {
             max_movement_velocity: max_movement_velocity_store,
             base_friction: base_friction_store,
             animations: animations_store,
+            animation_editor: animation_editor_store,
             hitbox: hitbox_store,
             walker: walker_store,
             jumppad: jumppad_store,
@@ -113,6 +114,8 @@ pub mod system_helpers {
         }
         if let Some(animations) = animations {
             animations_store.insert(entity, animations)?;
+            animation_editor_store
+                .insert(entity, AnimationEditor::default())?;
         }
         if let Some(hitbox_config) = hitbox {
             let hitbox = match hitbox_config {

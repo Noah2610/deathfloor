@@ -53,6 +53,7 @@ pub struct EnemyComponentsStorages<'a> {
     pub max_movement_velocity: WriteStorage<'a, MaxMovementVelocity>,
     pub base_friction:         WriteStorage<'a, BaseFriction>,
     pub animations: WriteStorage<'a, AnimationsContainer<AnimationKey>>,
+    pub animation_editor:      WriteStorage<'a, AnimationEditor>,
     pub hitbox:                WriteStorage<'a, Hitbox>,
     pub walker:                WriteStorage<'a, Walker>,
     pub jumppad:               WriteStorage<'a, Jumppad>,
