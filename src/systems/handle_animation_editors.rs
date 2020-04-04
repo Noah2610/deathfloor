@@ -26,18 +26,39 @@ impl<'a> System<'a> for HandleAnimationEditorsSystem {
             .join()
         {
             for action in animation_editor.drain_actions() {
-                let _ = match action {
+                match action {
                     AnimationAction::Play(key) => {
-                        animations_container.play(key)
+                        let errmsg = format!(
+                            "[WARNING]\n    Couldn't play animation with key: \
+                             {:?}",
+                            &key
+                        );
+                        if let Err(e) = animations_container.play(key) {
+                            eprintln!("{}\n    {}", errmsg, e);
+                        }
                     }
                     AnimationAction::Push(key) => {
-                        animations_container.push(key)
+                        if animations_container
+                            .current()
+                            .map(|current_key| current_key != &key)
+                            .unwrap_or(true)
+                        {
+                            let errmsg = format!(
+                                "[WARNING]\n    Couldn't push animation with \
+                                 key: {:?}",
+                                &key
+                            );
+                            if let Err(e) = animations_container.push(key) {
+                                eprintln!("{}\n    {}", errmsg, e);
+                            }
+                        }
                     }
                     AnimationAction::Pop => {
-                        animations_container.pop().map(|_| ())
+                        if let Err(e) = animations_container.pop() {
+                            eprintln!("[WARNING]\n    Couldn't pop off animation\n    {}", e);
+                        };
                     }
                 }
-                .map_err(|e| eprintln!("[WARNING]\n    {}", e));
             }
         }
     }

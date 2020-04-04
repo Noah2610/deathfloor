@@ -13,7 +13,7 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
         Read<'a, InputManager<IngameBindings>>,
         WriteStorage<'a, Shooter>,
         ReadStorage<'a, Transform>,
-        WriteStorage<'a, AnimationsContainer<AnimationKey>>,
+        WriteStorage<'a, AnimationEditor>,
     );
 
     fn run(
@@ -24,7 +24,7 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
             input_manager,
             mut shooters,
             transforms,
-            mut animations_containers,
+            mut animation_editor_store,
         ): Self::SystemData,
     ) {
         let bullet_spritesheet_handle = sprite_sheet_handles
@@ -33,10 +33,10 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
                 "player_bullet.png spritesheet should be loaded at this point",
             );
 
-        for (shooter, transform, animations_container_opt) in (
+        for (shooter, transform, animation_editor_opt) in (
             &mut shooters,
             &transforms,
-            (&mut animations_containers).maybe(),
+            (&mut animation_editor_store).maybe(),
         )
             .join()
         {
@@ -76,22 +76,10 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
 
                 shooter.cooldown_timer.start().unwrap();
 
-                if let Some(animations_container) = animations_container_opt {
-                    let anim_key = AnimationKey::Custom("Shoot".into());
-
-                    if animations_container
-                        .current()
-                        .map(|current_key| current_key != &anim_key)
-                        .unwrap_or(true)
-                    {
-                        if let Err(e) = animations_container.push(anim_key) {
-                            eprintln!(
-                                "[WARNING]\n    Can't play \"Shoot\" \
-                                 animation for Shooter:\n    {}",
-                                e
-                            );
-                        }
-                    }
+                if let Some(animation_editor) = animation_editor_opt {
+                    animation_editor.add_action(AnimationAction::Push(
+                        AnimationKey::Custom("Shoot".into()),
+                    ));
                 }
             }
         }

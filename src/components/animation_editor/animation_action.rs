@@ -7,6 +7,8 @@ pub enum AnimationAction {
     /// _pushed_ animations are played first.
     /// Animations to _play_ should always cycle endlessly
     /// (`AnimationTypeWrapper::Cycle`).
+    /// If an animation push is attempted, but the last animation on the
+    /// stack has the same key, then the new animation is _not_ pushed.
     Play(AnimationKey),
     /// Push the animation with the given `AnimationKey`
     /// on top off the animation stack.
