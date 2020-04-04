@@ -21,11 +21,11 @@
 
 ## v0.0.4
 - [ ] menus
-    - [ ] main menu
-    - [ ] paused menu
+  - [ ] main menu
+  - [ ] paused menu
 - [ ] audio
-    - [ ] SFX
-    - [ ] BGM
+  - [ ] SFX
+  - [ ] BGM
 
 [#7]: https://github.com/Noah2610/deathfloor/issues/7
 [#8]: https://github.com/Noah2610/deathfloor/issues/8
