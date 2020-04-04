@@ -245,6 +245,12 @@
 <span id="245">245</span>
 <span id="246">246</span>
 <span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">animation_key</span>::<span class="ident">AnimationKey</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">collision_tag</span>;
@@ -460,6 +466,12 @@
             <span class="ident">DispatcherId</span>::<span class="ident">Ingame</span>,
             <span class="ident">HandleHealthEditorsSystem</span>::<span class="ident">default</span>(),
             <span class="string">&quot;handle_health_editors_system&quot;</span>,
+            <span class="kw-2">&amp;</span>[],
+        )<span class="question-mark">?</span>
+        .<span class="ident">with</span>(
+            <span class="ident">DispatcherId</span>::<span class="ident">Ingame</span>,
+            <span class="ident">HandleAnimationEditorsSystem</span>::<span class="ident">default</span>(),
+            <span class="string">&quot;handle_animation_editors_system&quot;</span>,
             <span class="kw-2">&amp;</span>[],
         )<span class="question-mark">?</span>
         .<span class="ident">with</span>(

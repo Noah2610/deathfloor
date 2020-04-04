@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_AnimationAction",""]],"struct":[["AnimationAction","Play, push, or pop an animation. See the `AnimationAction`'s documentation for details."]]});

@@ -107,6 +107,11 @@
 <span id="107">107</span>
 <span id="108">108</span>
 <span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">actions</span>;
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">events</span>;
@@ -204,6 +209,11 @@
         <span class="ident">builder</span>.<span class="ident">add</span>(
             <span class="ident">actions</span>::<span class="ident">health_action</span>::<span class="ident">HandleActionHealthAction</span>::<span class="ident">default</span>(),
             <span class="string">&quot;handle_action_health_action_system&quot;</span>,
+            <span class="ident">actions_deps</span>,
+        );
+        <span class="ident">builder</span>.<span class="ident">add</span>(
+            <span class="ident">actions</span>::<span class="ident">animation_action</span>::<span class="ident">HandleActionAnimationAction</span>::<span class="ident">default</span>(),
+            <span class="string">&quot;handle_action_animation_action_system&quot;</span>,
             <span class="ident">actions_deps</span>,
         );
         <span class="prelude-val">Ok</span>(())

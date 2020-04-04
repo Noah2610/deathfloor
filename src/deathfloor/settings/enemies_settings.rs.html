@@ -64,6 +64,7 @@
 <span id="64">64</span>
 <span id="65">65</span>
 <span id="66">66</span>
+<span id="67">67</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">prelude</span> {
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">EnemiesSettings</span>;
@@ -120,6 +121,7 @@
     <span class="kw">pub</span> <span class="ident">max_movement_velocity</span>: <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">MaxMovementVelocity</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">base_friction</span>:         <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">BaseFriction</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">animations</span>: <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">AnimationsContainer</span><span class="op">&lt;</span><span class="ident">AnimationKey</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">animation_editor</span>:      <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">AnimationEditor</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">hitbox</span>:                <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Hitbox</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">walker</span>:                <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Walker</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">jumppad</span>:               <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Jumppad</span><span class="op">&gt;</span>,
