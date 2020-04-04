@@ -928,7 +928,7 @@ dependencies = [
 [[package]]
 name = "deathframe"
 version = "0.5.1"
-source = "git+https://github.com/Noah2610/deathframe?branch=develop#25504dc3acc86770340cfa74cdf8c2e052582c08"
+source = "git+https://github.com/Noah2610/deathframe?branch=develop#7c25ba6b455764f48f493662de37208d574faec7"
 dependencies = [
  "deathframe_animation 0.0.0 (git+https://github.com/Noah2610/deathframe?branch=develop)",
  "deathframe_core 0.5.1 (git+https://github.com/Noah2610/deathframe?branch=develop)",
@@ -938,7 +938,7 @@ dependencies = [
 [[package]]
 name = "deathframe_animation"
 version = "0.0.0"
-source = "git+https://github.com/Noah2610/deathframe?branch=develop#25504dc3acc86770340cfa74cdf8c2e052582c08"
+source = "git+https://github.com/Noah2610/deathframe?branch=develop#7c25ba6b455764f48f493662de37208d574faec7"
 dependencies = [
  "climer 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "deathframe_core 0.5.1 (git+https://github.com/Noah2610/deathframe?branch=develop)",
@@ -951,7 +951,7 @@ dependencies = [
 [[package]]
 name = "deathframe_core"
 version = "0.5.1"
-source = "git+https://github.com/Noah2610/deathframe?branch=develop#25504dc3acc86770340cfa74cdf8c2e052582c08"
+source = "git+https://github.com/Noah2610/deathframe?branch=develop#7c25ba6b455764f48f493662de37208d574faec7"
 dependencies = [
  "amethyst 0.14.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "derive_builder 0.9.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -961,7 +961,7 @@ dependencies = [
 [[package]]
 name = "deathframe_physics"
 version = "0.0.0"
-source = "git+https://github.com/Noah2610/deathframe?branch=develop#25504dc3acc86770340cfa74cdf8c2e052582c08"
+source = "git+https://github.com/Noah2610/deathframe?branch=develop#7c25ba6b455764f48f493662de37208d574faec7"
 dependencies = [
  "deathframe_core 0.5.1 (git+https://github.com/Noah2610/deathframe?branch=develop)",
  "derive_builder 0.9.0 (registry+https://github.com/rust-lang/crates.io-index)",

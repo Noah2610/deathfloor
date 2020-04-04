@@ -9,20 +9,22 @@ pub struct ControlPlayerShootSystem;
 impl<'a> System<'a> for ControlPlayerShootSystem {
     type SystemData = (
         Write<'a, BulletCreator>,
+        WriteExpect<'a, SpriteSheetHandles<PathBuf>>,
         Read<'a, InputManager<IngameBindings>>,
         WriteStorage<'a, Shooter>,
         ReadStorage<'a, Transform>,
-        WriteExpect<'a, SpriteSheetHandles<PathBuf>>,
+        WriteStorage<'a, AnimationsContainer<AnimationKey>>,
     );
 
     fn run(
         &mut self,
         (
             mut bullet_creator,
+            sprite_sheet_handles,
             input_manager,
             mut shooters,
             transforms,
-            sprite_sheet_handles,
+            mut animations_containers,
         ): Self::SystemData,
     ) {
         let bullet_spritesheet_handle = sprite_sheet_handles
@@ -31,7 +33,13 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
                 "player_bullet.png spritesheet should be loaded at this point",
             );
 
-        for (shooter, transform) in (&mut shooters, &transforms).join() {
+        for (shooter, transform, animations_container_opt) in (
+            &mut shooters,
+            &transforms,
+            (&mut animations_containers).maybe(),
+        )
+            .join()
+        {
             shooter.cooldown_timer.update().unwrap();
             let should_shoot = input_manager.is_pressed(PlayerShoot)
                 && (shooter.cooldown_timer.state.is_finished()
@@ -67,6 +75,24 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
                 });
 
                 shooter.cooldown_timer.start().unwrap();
+
+                if let Some(animations_container) = animations_container_opt {
+                    let anim_key = AnimationKey::Custom("Shoot".into());
+
+                    if animations_container
+                        .current()
+                        .map(|current_key| current_key != &anim_key)
+                        .unwrap_or(true)
+                    {
+                        if let Err(e) = animations_container.push(anim_key) {
+                            eprintln!(
+                                "[WARNING]\n    Can't play \"Shoot\" \
+                                 animation for Shooter:\n    {}",
+                                e
+                            );
+                        }
+                    }
+                }
             }
         }
     }
