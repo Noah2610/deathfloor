@@ -1,6 +1,7 @@
 use super::AnimationKey;
 
 /// Actions for changing animation.
+#[derive(Clone, Deserialize)]
 pub enum AnimationAction {
     /// Play the animation with the given `AnimationKey`.
     /// This will be played last on the animation stack,

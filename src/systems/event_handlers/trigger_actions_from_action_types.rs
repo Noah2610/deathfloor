@@ -89,6 +89,14 @@ impl<'a> System<'a> for TriggerActionsFromActionTypesSystem {
                             action_trigger.trigger(health_action);
                         }
                     }
+                    ActionType::AnimationAction(animation_action) => {
+                        if let Some(action_trigger) =
+                            (&mut action_trigger_components.animation_action)
+                                .get_mut_or_default(entity)
+                        {
+                            action_trigger.trigger(animation_action);
+                        }
+                    }
                 }
             }
         }

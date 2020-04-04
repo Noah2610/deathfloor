@@ -1,3 +1,4 @@
+mod animation_action;
 mod delay;
 mod echo;
 mod group;
@@ -8,6 +9,7 @@ mod random;
 mod repeat_delay;
 
 pub mod prelude {
+    pub use super::animation_action::AnimationAction;
     pub use super::delay::Delay;
     pub use super::echo::Echo;
     pub use super::group::Group;
@@ -35,6 +37,7 @@ pub enum ActionType {
     RepeatDelay(RepeatDelay),
     InsertComponents(InsertComponents),
     HealthAction(HealthAction),
+    AnimationAction(AnimationAction),
 }
 
 #[derive(SystemData)]
@@ -47,4 +50,5 @@ pub struct ActionTriggerStorages<'a> {
     pub repeat_delay:      WriteStorage<'a, ActionTrigger<RepeatDelay>>,
     pub insert_components: WriteStorage<'a, ActionTrigger<InsertComponents>>,
     pub health_action:     WriteStorage<'a, ActionTrigger<HealthAction>>,
+    pub animation_action:  WriteStorage<'a, ActionTrigger<AnimationAction>>,
 }
