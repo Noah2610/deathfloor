@@ -23,6 +23,9 @@ impl<'a> System<'a> for DisplayHealthSystem {
         WriteStorage<'a, Size>,
         WriteStorage<'a, SpriteRender>,
         WriteStorage<'a, Parent>,
+        ReadStorage<'a, Loadable>,
+        ReadStorage<'a, Loaded>,
+        WriteStorage<'a, Hidden>,
     );
 
     fn run(
@@ -36,6 +39,9 @@ impl<'a> System<'a> for DisplayHealthSystem {
             mut size_store,
             mut sprite_render_store,
             mut parent_store,
+            loadable_store,
+            loaded_store,
+            mut hidden_store,
         ): Self::SystemData,
     ) {
         let display_entities_to_create = generate_display_entity_data(
@@ -44,6 +50,9 @@ impl<'a> System<'a> for DisplayHealthSystem {
             &health_display_store,
             &transform_store,
             &size_store,
+            &loadable_store,
+            &loaded_store,
+            &hidden_store,
         );
 
         let registered_display_entities =
@@ -56,6 +65,7 @@ impl<'a> System<'a> for DisplayHealthSystem {
                 &mut size_store,
                 &mut parent_store,
                 &mut sprite_render_store,
+                &mut hidden_store,
             );
 
         // Remove old entities
@@ -86,6 +96,7 @@ struct DisplayEntityData {
     pos:            [f32; 3],
     size:           (f32, f32),
     border_padding: f32,
+    is_hidden:      bool,
 }
 
 #[derive(Clone, Copy)]
@@ -107,6 +118,9 @@ fn generate_display_entity_data(
     health_display_store: &ReadStorage<HealthDisplay>,
     transform_store: &WriteStorage<Transform>,
     size_store: &WriteStorage<Size>,
+    loadable_store: &ReadStorage<Loadable>,
+    loaded_store: &ReadStorage<Loaded>,
+    hidden_store: &WriteStorage<Hidden>,
 ) -> Vec<DisplayEntityData> {
     let mut display_entities_to_create: Vec<DisplayEntityData> = Vec::new();
 
@@ -118,6 +132,9 @@ fn generate_display_entity_data(
         size_store.maybe(),
     )
         .join()
+        .filter(|(entity, _, _, _, _)| {
+            is_entity_loaded(*entity, loadable_store, loaded_store)
+        })
     {
         let pos: [f32; 3] = {
             let trans = transform.translation();
@@ -167,6 +184,7 @@ fn generate_display_entity_data(
             pos:            pos,
             size:           health_display.size,
             border_padding: health_display.border_padding,
+            is_hidden:      hidden_store.contains(entity),
         };
 
         display_entities_to_create.push(display_entity_data);
@@ -184,6 +202,7 @@ fn update_display_entities_and_get_registered(
     size_store: &mut WriteStorage<Size>,
     parent_store: &mut WriteStorage<Parent>,
     sprite_render_store: &mut WriteStorage<SpriteRender>,
+    hidden_store: &mut WriteStorage<Hidden>,
 ) -> RegisteredDisplayEntitiesMap {
     let colors_spritesheet_handle = spritesheets
         .get(&resource("spritesheets/colors.png"))
@@ -302,6 +321,15 @@ fn update_display_entities_and_get_registered(
             sprite_render_store
                 .insert(display_entities.health_bar, bar_sprite_render)
                 .unwrap();
+
+            if display_entity_data.is_hidden {
+                hidden_store
+                    .insert(display_entities.background, Hidden)
+                    .unwrap();
+                hidden_store
+                    .insert(display_entities.health_bar, Hidden)
+                    .unwrap();
+            }
         }
     }
 
