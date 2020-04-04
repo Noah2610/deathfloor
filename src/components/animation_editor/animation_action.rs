@@ -14,4 +14,8 @@ pub enum AnimationAction {
     /// These animations should _not_ cycle endlessly
     /// (`AnimationTypeWrapper::Once`).
     Push(AnimationKey),
+    /// Pop off an animation from the top of the animation stack.
+    /// Use with caution: when the final animation is popped off,
+    /// unexpected behaviour might occur.
+    Pop,
 }

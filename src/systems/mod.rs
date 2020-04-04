@@ -8,6 +8,7 @@ mod debug;
 mod delete_bullets;
 mod display_health;
 mod event_handlers;
+mod handle_animation_editors;
 mod handle_animations;
 mod handle_dealing_and_taking_damage;
 mod handle_death;
@@ -31,6 +32,7 @@ pub mod prelude {
     pub use super::delete_bullets::DeleteBulletsSystem;
     pub use super::display_health::DisplayHealthSystem;
     pub use super::event_handlers::EventHandlersBundle;
+    pub use super::handle_animation_editors::HandleAnimationEditorsSystem;
     pub use super::handle_animations::HandleAnimationsSystem;
     pub use super::handle_dealing_and_taking_damage::HandleDealingAndTakingDamageSystem;
     pub use super::handle_death::HandleDeathSystem;

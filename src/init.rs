@@ -216,6 +216,12 @@ fn build_game_data<'a, 'b>(
         )?
         .with(
             DispatcherId::Ingame,
+            HandleAnimationEditorsSystem::default(),
+            "handle_animation_editors_system",
+            &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
             HandleDealingAndTakingDamageSystem::default(),
             "handle_dealing_and_taking_damage_system",
             &[],
