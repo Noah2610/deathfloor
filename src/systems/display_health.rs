@@ -49,7 +49,7 @@ impl<'a> System<'a> for DisplayHealthSystem {
         let registered_display_entities =
             update_display_entities_and_get_registered(
                 display_entities_to_create,
-                self.display_entities.drain().collect(),
+                &self.display_entities,
                 &spritesheets,
                 &entities,
                 &mut transform_store,
@@ -177,7 +177,7 @@ fn generate_display_entity_data(
 
 fn update_display_entities_and_get_registered(
     display_entities_data: Vec<DisplayEntityData>,
-    prev_registered_display_entities: RegisteredDisplayEntitiesMap,
+    prev_registered_display_entities: &RegisteredDisplayEntitiesMap,
     spritesheets: &SpriteSheetHandles<PathBuf>,
     entities: &Entities,
     transform_store: &mut WriteStorage<Transform>,
