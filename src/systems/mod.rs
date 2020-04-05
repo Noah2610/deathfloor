@@ -16,6 +16,7 @@ mod handle_health_editors;
 mod handle_jumppad_affected;
 mod handle_movables;
 mod handle_scales;
+mod handle_sound_players;
 mod handle_walkers;
 
 pub mod prelude {
@@ -40,6 +41,7 @@ pub mod prelude {
     pub use super::handle_jumppad_affected::HandleJumppadAffectedSystem;
     pub use super::handle_movables::HandleMovablesSystem;
     pub use super::handle_scales::HandleScalesSystem;
+    pub use super::handle_sound_players::HandleSoundPlayersSystem;
     pub use super::handle_walkers::HandleWalkersSystem;
 }
 

@@ -10,6 +10,11 @@ pub struct Sounds {
 }
 
 impl Sounds {
+    /// Get the `SourceHandle` for the given `SoundType`
+    pub fn get_handle(&self, sound_type: &SoundType) -> Option<&SourceHandle> {
+        self.sounds.get(sound_type)
+    }
+
     /// Load all sounds from sfx directory.
     pub fn load_sounds(
         &mut self,

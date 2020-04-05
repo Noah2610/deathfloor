@@ -14,6 +14,7 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
         WriteStorage<'a, Shooter>,
         ReadStorage<'a, Transform>,
         WriteStorage<'a, AnimationEditor>,
+        WriteStorage<'a, SoundPlayer>,
     );
 
     fn run(
@@ -25,6 +26,7 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
             mut shooters,
             transforms,
             mut animation_editor_store,
+            mut sound_player_store,
         ): Self::SystemData,
     ) {
         let bullet_spritesheet_handle = sprite_sheet_handles
@@ -33,10 +35,11 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
                 "player_bullet.png spritesheet should be loaded at this point",
             );
 
-        for (shooter, transform, animation_editor_opt) in (
+        for (shooter, transform, animation_editor_opt, sound_player_opt) in (
             &mut shooters,
             &transforms,
             (&mut animation_editor_store).maybe(),
+            (&mut sound_player_store).maybe(),
         )
             .join()
         {
@@ -80,6 +83,11 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
                     animation_editor.add_action(AnimationAction::Push(
                         AnimationKey::Custom("Shoot".into()),
                     ));
+                }
+
+                if let Some(sound_player) = sound_player_opt {
+                    sound_player
+                        .add_action(SoundAction::Play(SoundType::Shoot));
                 }
             }
         }
