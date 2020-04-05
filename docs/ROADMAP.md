@@ -24,7 +24,7 @@
   - [ ] main menu
   - [ ] paused menu
 - [ ] audio ([#23])
-  - [ ] SFX
+  - [x] SFX
   - [ ] BGM
 - [ ] extended tile configs  
   tile animations ([#20]), tile events/actions
