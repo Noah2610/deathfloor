@@ -14,7 +14,7 @@ impl<'a> System<'a> for HandleHealthEditorsSystem {
         &mut self,
         (entities, mut health_store, mut health_editor_store): Self::SystemData,
     ) {
-        for (entity, health, health_editor) in
+        for (_entity, health, health_editor) in
             (&entities, &mut health_store, &mut health_editor_store).join()
         {
             for action in health_editor.drain_actions() {

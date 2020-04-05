@@ -20,7 +20,7 @@ impl<'a> System<'a> for HandleEventLifecycle {
             lifecyle_store,
         ): Self::SystemData,
     ) {
-        for (entity, events_register, action_type_trigger, lifecycle) in (
+        for (_entity, events_register, action_type_trigger, lifecycle) in (
             &entities,
             &events_register_store,
             &mut action_type_trigger_store,
