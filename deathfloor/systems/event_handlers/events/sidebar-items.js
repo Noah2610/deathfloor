@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["interval",""],["on_collision",""],["on_spawn",""]]});
+initSidebarItems({"mod":[["interval",""],["lifecycle",""],["on_collision",""]]});

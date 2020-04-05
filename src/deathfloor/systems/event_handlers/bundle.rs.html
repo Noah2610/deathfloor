@@ -139,8 +139,8 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">amethyst</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="comment">// EVENTS</span>
         <span class="ident">builder</span>.<span class="ident">add</span>(
-            <span class="ident">events</span>::<span class="ident">on_spawn</span>::<span class="ident">HandleEventOnSpawn</span>::<span class="ident">default</span>(),
-            <span class="string">&quot;handle_event_on_spawn_system&quot;</span>,
+            <span class="ident">events</span>::<span class="ident">lifecycle</span>::<span class="ident">HandleEventLifecycle</span>::<span class="ident">default</span>(),
+            <span class="string">&quot;handle_event_lifecycle_system&quot;</span>,
             <span class="self">self</span>.<span class="ident">deps</span>,
         );
         <span class="ident">builder</span>.<span class="ident">add</span>(
@@ -159,7 +159,7 @@
             <span class="ident">TriggerActions</span>::<span class="ident">default</span>(),
             <span class="string">&quot;trigger_actions_from_action_types_system&quot;</span>,
             <span class="kw-2">&amp;</span>[<span class="self">self</span>.<span class="ident">deps</span>, <span class="kw-2">&amp;</span>[
-                <span class="string">&quot;handle_event_on_spawn_system&quot;</span>,
+                <span class="string">&quot;handle_event_lifecycle_system&quot;</span>,
                 <span class="string">&quot;handle_event_on_collision_system&quot;</span>,
                 <span class="string">&quot;handle_event_interval_system&quot;</span>,
             ]]

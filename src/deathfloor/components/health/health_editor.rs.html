@@ -25,7 +25,6 @@
 <span id="25">25</span>
 <span id="26">26</span>
 <span id="27">27</span>
-<span id="28">28</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">component_prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">health_action</span>::<span class="ident">HealthAction</span>;
@@ -46,13 +45,12 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">lose</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">hitpoints</span>: <span class="ident">HitPoints</span>) {
         <span class="self">self</span>.<span class="ident">add_action</span>(<span class="ident">HealthAction</span>::<span class="ident">Lose</span>(<span class="ident">hitpoints</span>))
     }
+}
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_action</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">action</span>: <span class="ident">HealthAction</span>) {
-        <span class="self">self</span>.<span class="ident">actions</span>.<span class="ident">push</span>(<span class="ident">action</span>);
-    }
-
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">drain_actions</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">std</span>::<span class="ident">vec</span>::<span class="ident">Drain</span><span class="op">&lt;</span><span class="ident">HealthAction</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">actions</span>.<span class="ident">drain</span>(..)
+<span class="kw">impl</span> <span class="ident">ActionQueue</span> <span class="kw">for</span> <span class="ident">HealthEditor</span> {
+    <span class="kw">type</span> <span class="ident">Action</span> <span class="op">=</span> <span class="ident">HealthAction</span>;
+    <span class="kw">fn</span> <span class="ident">mut_actions</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Action</span><span class="op">&gt;</span> {
+        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">actions</span>
     }
 }
 </pre></div>
