@@ -15,12 +15,9 @@ pub struct AnimationEditor {
     actions: Vec<AnimationAction>,
 }
 
-impl AnimationEditor {
-    pub fn add_action(&mut self, action: AnimationAction) {
-        self.actions.push(action);
-    }
-
-    pub fn drain_actions(&mut self) -> std::vec::Drain<AnimationAction> {
-        self.actions.drain(..)
+impl ActionQueue for AnimationEditor {
+    type Action = AnimationAction;
+    fn mut_actions(&mut self) -> &mut Vec<Self::Action> {
+        &mut self.actions
     }
 }

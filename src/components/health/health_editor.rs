@@ -17,12 +17,11 @@ impl HealthEditor {
     pub fn lose(&mut self, hitpoints: HitPoints) {
         self.add_action(HealthAction::Lose(hitpoints))
     }
+}
 
-    pub fn add_action(&mut self, action: HealthAction) {
-        self.actions.push(action);
-    }
-
-    pub fn drain_actions(&mut self) -> std::vec::Drain<HealthAction> {
-        self.actions.drain(..)
+impl ActionQueue for HealthEditor {
+    type Action = HealthAction;
+    fn mut_actions(&mut self) -> &mut Vec<Self::Action> {
+        &mut self.actions
     }
 }

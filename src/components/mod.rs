@@ -23,6 +23,7 @@ pub mod prelude {
 
     pub use super::animation_editor::prelude::*;
     pub use super::bullet::Bullet;
+    pub use super::component_helpers::prelude::*;
     pub use super::damage::prelude::*;
     pub use super::enemy::prelude::*;
     pub use super::event_listener::prelude::*;
@@ -46,3 +47,5 @@ mod component_prelude {
 
     pub use super::prelude::*;
 }
+
+pub mod component_helpers;

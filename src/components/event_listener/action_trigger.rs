@@ -16,12 +16,22 @@ where
 {
     /// Trigger an action.
     pub fn trigger(&mut self, action: A) {
-        self.actions.push(action);
+        self.add_action(action);
     }
 
     /// Drain all triggered actions.
     pub fn drain(&mut self) -> Drain<A> {
-        self.actions.drain(..)
+        self.drain_actions()
+    }
+}
+
+impl<A> ActionQueue for ActionTrigger<A>
+where
+    A: 'static + Clone + Send + Sync,
+{
+    type Action = A;
+    fn mut_actions(&mut self) -> &mut Vec<Self::Action> {
+        &mut self.actions
     }
 }
 

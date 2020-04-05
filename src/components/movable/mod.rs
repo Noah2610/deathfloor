@@ -16,14 +16,9 @@ pub struct Movable {
     actions: Vec<MoveAction>,
 }
 
-impl Movable {
-    pub fn add_action(&mut self, action: MoveAction) {
-        self.actions.push(action);
-    }
-
-    /// Iterates over all actions, removing them from the underlying `Vec`.
-    /// Wrapper for `Vec::drain`.
-    pub fn drain_actions(&mut self) -> std::vec::Drain<MoveAction> {
-        self.actions.drain(..)
+impl ActionQueue for Movable {
+    type Action = MoveAction;
+    fn mut_actions(&mut self) -> &mut Vec<Self::Action> {
+        &mut self.actions
     }
 }
