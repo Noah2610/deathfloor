@@ -124,7 +124,8 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             // JUMP
             if is_jump_key_down && query_matches.bottom {
                 movable.add_action(MoveAction::Jump {
-                    strength: jumper.strength,
+                    x: None,
+                    y: Some(jumper.strength),
                 });
                 jumper.is_jumping = true;
                 jumped = true;
@@ -141,11 +142,9 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
                         (false, false) => unreachable!(), // `is_touching_horz` is `true`, so this is unreachable
                     };
 
-                    movable.add_action(MoveAction::WallJump {
-                        strength: (
-                            wall_jumper.strength.0 * x_mult,
-                            wall_jumper.strength.1,
-                        ),
+                    movable.add_action(MoveAction::Jump {
+                        x: wall_jumper.strength.0.map(|x| x * x_mult),
+                        y: wall_jumper.strength.1,
                     });
                     jumper.is_jumping = true;
                     jumped = true;

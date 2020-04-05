@@ -7,14 +7,12 @@ pub enum MoveAction {
         speed: f32,
     },
     Jump {
-        strength: f32,
+        x: Option<f32>,
+        y: Option<f32>,
     },
     KillJump {
         strength:     f32,
         min_velocity: f32,
-    },
-    WallJump {
-        strength: (f32, f32),
     },
     WallSlide {
         velocity: f32,

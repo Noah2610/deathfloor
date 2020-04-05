@@ -67,8 +67,13 @@ impl<'a> System<'a> for HandleMovablesSystem {
                         }
                     }
 
-                    MoveAction::Jump { strength } => {
-                        velocity.set(&Axis::Y, strength);
+                    MoveAction::Jump { x, y } => {
+                        let strength = (x, y);
+                        for axis in Axis::iter() {
+                            if let Some(strength) = strength.by_axis(&axis) {
+                                velocity.set(&axis, strength);
+                            }
+                        }
                         if let Some(sound_player) = sound_player_opt.as_mut() {
                             sound_player.add_action(
                                 SoundAction::PlayWithVolume(
@@ -87,20 +92,6 @@ impl<'a> System<'a> for HandleMovablesSystem {
                         if vel > min_velocity {
                             let decreased = (vel + strength).max(min_velocity);
                             velocity.set(&Axis::Y, decreased);
-                        }
-                    }
-
-                    MoveAction::WallJump { strength } => {
-                        for axis in Axis::iter() {
-                            velocity.set(&axis, strength.by_axis(&axis));
-                        }
-                        if let Some(sound_player) = sound_player_opt.as_mut() {
-                            sound_player.add_action(
-                                SoundAction::PlayWithVolume(
-                                    SoundType::Jump,
-                                    0.5,
-                                ),
-                            );
                         }
                     }
 

@@ -5,5 +5,5 @@ use super::component_prelude::*;
 #[derive(Component, Clone, Deserialize)]
 #[storage(VecStorage)]
 pub struct WallJumper {
-    pub strength: (f32, f32),
+    pub strength: (Option<f32>, Option<f32>),
 }
