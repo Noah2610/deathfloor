@@ -24,8 +24,8 @@ impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventHandlersBundle<'c> {
     ) -> Result<(), amethyst::Error> {
         // EVENTS
         builder.add(
-            events::on_spawn::HandleEventOnSpawn::default(),
-            "handle_event_on_spawn_system",
+            events::lifecycle::HandleEventLifecycle::default(),
+            "handle_event_lifecycle_system",
             self.deps,
         );
         builder.add(
@@ -44,7 +44,7 @@ impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventHandlersBundle<'c> {
             TriggerActions::default(),
             "trigger_actions_from_action_types_system",
             &[self.deps, &[
-                "handle_event_on_spawn_system",
+                "handle_event_lifecycle_system",
                 "handle_event_on_collision_system",
                 "handle_event_interval_system",
             ]]

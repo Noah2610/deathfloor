@@ -1,7 +1,7 @@
 /// A lifecycle's state.
 /// Variants are in-order.
 /// So lifecycle state switches occur from top to bottom.
-#[derive(Clone, Deserialize)]
+#[derive(Clone, Deserialize, PartialEq, Eq, Hash)]
 pub enum LifecycleState {
     /// Default state, switches to `Spawn` ASAP.
     Initial,
