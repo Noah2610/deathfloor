@@ -94,6 +94,14 @@ impl<'a> System<'a> for HandleMovablesSystem {
                         for axis in Axis::iter() {
                             velocity.set(&axis, strength.by_axis(&axis));
                         }
+                        if let Some(sound_player) = sound_player_opt.as_mut() {
+                            sound_player.add_action(
+                                SoundAction::PlayWithVolume(
+                                    SoundType::Jump,
+                                    0.5,
+                                ),
+                            );
+                        }
                     }
 
                     MoveAction::WallSlide {
