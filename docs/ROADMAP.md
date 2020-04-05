@@ -20,15 +20,20 @@
 - [x] health system ([#11])
 
 ## v0.0.4
-- [ ] menus
+- [ ] menus ([#24])
   - [ ] main menu
   - [ ] paused menu
-- [ ] audio
+- [ ] audio ([#23])
   - [ ] SFX
   - [ ] BGM
+- [ ] extended tile configs  
+  tile animations ([#20]), tile events/actions
 
 [#7]: https://github.com/Noah2610/deathfloor/issues/7
 [#8]: https://github.com/Noah2610/deathfloor/issues/8
 [#9]: https://github.com/Noah2610/deathfloor/issues/9
 [#10]: https://github.com/Noah2610/deathfloor/issues/10
 [#11]: https://github.com/Noah2610/deathfloor/issues/11
+[#20]: https://github.com/Noah2610/deathfloor/issues/20
+[#23]: https://github.com/Noah2610/deathfloor/issues/23
+[#24]: https://github.com/Noah2610/deathfloor/issues/24
