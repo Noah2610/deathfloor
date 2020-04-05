@@ -86,8 +86,10 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
                 }
 
                 if let Some(sound_player) = sound_player_opt {
-                    sound_player
-                        .add_action(SoundAction::Play(SoundType::Shoot));
+                    sound_player.add_action(SoundAction::PlayWithVolume(
+                        SoundType::Shoot,
+                        0.5,
+                    ));
                 }
             }
         }
