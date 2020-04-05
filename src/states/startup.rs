@@ -6,15 +6,10 @@ use std::path::PathBuf;
 pub struct Startup;
 
 impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Startup {
-    fn on_start(&mut self, data: StateData<GameData<'a, 'b>>) {
+    fn on_start(&mut self, mut data: StateData<GameData<'a, 'b>>) {
         register_components(data.world);
-
-        let mut sprite_sheet_handles =
-            data.world.write_resource::<SpriteSheetHandles<PathBuf>>();
-        sprite_sheet_handles
-            .load(resource("spritesheets/player_bullet.png"), &data.world);
-        sprite_sheet_handles
-            .load(resource("spritesheets/colors.png"), &data.world);
+        load_spritesheets(&mut data.world);
+        load_audio(&mut data.world);
     }
 
     fn update(
@@ -34,4 +29,26 @@ fn register_components(world: &mut World) {
     world.register::<JumppadAffected>();
     world.register::<Enemy>();
     world.register::<Lifecycle>();
+}
+
+fn load_spritesheets(world: &mut World) {
+    let mut sprite_sheet_handles =
+        world.write_resource::<SpriteSheetHandles<PathBuf>>();
+    sprite_sheet_handles
+        .load(resource("spritesheets/player_bullet.png"), world);
+    sprite_sheet_handles.load(resource("spritesheets/colors.png"), world);
+}
+
+fn load_audio(world: &mut World) {
+    use amethyst::assets::{AssetStorage, Loader};
+    use amethyst::audio::Source;
+
+    world.insert(AssetStorage::<Source>::default());
+
+    let mut sounds = Sounds::default();
+    sounds.load_sounds(
+        &world.read_resource::<Loader>(),
+        &world.read_resource::<AssetStorage<Source>>(),
+    );
+    world.insert(sounds);
 }

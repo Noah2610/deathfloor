@@ -1,5 +1,10 @@
 use crate::components::prelude::*;
 
+pub mod prelude {
+    pub use super::BulletComponents;
+    pub use super::BulletCreator;
+}
+
 #[derive(Default)]
 pub struct BulletCreator {
     to_create: Vec<BulletComponents>,
