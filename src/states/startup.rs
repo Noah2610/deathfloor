@@ -33,4 +33,5 @@ fn register_components(world: &mut World) {
     world.register::<Jumppad>();
     world.register::<JumppadAffected>();
     world.register::<Enemy>();
+    world.register::<Lifecycle>();
 }

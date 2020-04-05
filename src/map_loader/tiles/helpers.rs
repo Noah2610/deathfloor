@@ -102,6 +102,7 @@ pub(in super::super) static TILE_LOADABLE_PADDING: (Option<f32>, Option<f32>) =
 ///     - `Hidden`
 ///       Hidden, because the `EntityLoaderSystem` will add/remove
 ///       the Hidden component, depending on when it is loaded.
+///     - `Lifecycle`
 pub(super) fn base_tile_entity<'a>(
     world: &'a mut World,
     tile: &TileData,
@@ -123,7 +124,8 @@ pub(super) fn base_tile_entity<'a>(
         .with(ScaleOnce::default())
         .with(Transparent)
         .with(loadable)
-        .with(Hidden);
+        .with(Hidden)
+        .with(Lifecycle::default());
 
     Ok(entity)
 }
