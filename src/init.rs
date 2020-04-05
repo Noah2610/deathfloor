@@ -58,6 +58,7 @@ fn build_game_data<'a, 'b>(
     settings: &Settings,
 ) -> amethyst::Result<GameDataBuilder<'a, 'b>> {
     use crate::systems::prelude::*;
+    use amethyst::audio::AudioBundle;
     use amethyst::core::transform::TransformBundle;
     use amethyst::renderer::types::DefaultBackend;
     use amethyst::renderer::{RenderFlat2D, RenderToWindow, RenderingBundle};
@@ -70,6 +71,7 @@ fn build_game_data<'a, 'b>(
                 .with_clear([0.0, 0.0, 0.0, 1.0]),
         )
         .with_plugin(RenderFlat2D::default());
+    let audio_bundle = AudioBundle::default();
     let ingame_input_bundle = input::ingame_input_bundle()?;
     let paused_input_bundle = input::paused_input_bundle()?;
     let physics_bundle = PhysicsBundle::<
@@ -86,6 +88,7 @@ fn build_game_data<'a, 'b>(
         .dispatcher(DispatcherId::Paused)?
         .with_core_bundle(transform_bundle)?
         .with_core_bundle(rendering_bundle)?
+        .with_core_bundle(audio_bundle)?
         .with_core(ScaleSpritesSystem::default(), "scale_sprites_system", &[])?
         .with_core(CameraOrthoSystem::default(), "camera_ortho_system", &[])?
         .with_bundle(DispatcherId::Ingame, ingame_input_bundle)?

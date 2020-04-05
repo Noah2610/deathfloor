@@ -40,15 +40,7 @@ fn load_spritesheets(world: &mut World) {
 }
 
 fn load_audio(world: &mut World) {
-    use amethyst::assets::{AssetStorage, Loader};
-    use amethyst::audio::Source;
-
-    world.insert(AssetStorage::<Source>::default());
-
     let mut sounds = Sounds::default();
-    sounds.load_sounds(
-        &world.read_resource::<Loader>(),
-        &world.read_resource::<AssetStorage<Source>>(),
-    );
+    sounds.load_sounds(&world.read_resource(), &world.read_resource());
     world.insert(sounds);
 }
