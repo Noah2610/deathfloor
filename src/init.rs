@@ -228,8 +228,8 @@ fn build_game_data<'a, 'b>(
         )?
         .with(
             DispatcherId::Ingame,
-            HandleDeathSystem::default(),
-            "handle_death_system",
+            HandleEntityLifecycleSystem::default(),
+            "handle_entity_lifecycle_system",
             &[
                 "handle_health_editors_system",
                 "handle_dealing_and_taking_damage_system",
