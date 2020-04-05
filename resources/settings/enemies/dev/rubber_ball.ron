@@ -44,7 +44,10 @@
                 ]),
 
                 // Damage on bullet collision
-                OnCollision(And([IsState(Enter), IsTag(Bullet)])): HealthAction(Lose(1)),
+                OnCollision(And([IsState(Enter), IsTag(Bullet)])): Group([
+                    SoundAction(PlayWithVolume(Jump, 0.2)),
+                    HealthAction(Lose(1)),
+                ]),
                 // Damage when stuck inside solid tile
                 OnCollision(And([IsState(Steady), IsTag(Tile), IsSide(Inner)])): HealthAction(Lose(2)),
 
