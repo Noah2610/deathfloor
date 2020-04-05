@@ -101,6 +101,11 @@ impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventHandlersBundle<'c> {
             "handle_action_animation_action_system",
             actions_deps,
         );
+        builder.add(
+            actions::sound_action::HandleActionSoundAction::default(),
+            "handle_action_sound_action_system",
+            actions_deps,
+        );
         Ok(())
     }
 }

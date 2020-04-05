@@ -15,11 +15,13 @@ where
     A: 'static + Clone + Send + Sync,
 {
     /// Trigger an action.
+    #[deprecated]
     pub fn trigger(&mut self, action: A) {
         self.add_action(action);
     }
 
     /// Drain all triggered actions.
+    #[deprecated]
     pub fn drain(&mut self) -> Drain<A> {
         self.drain_actions()
     }

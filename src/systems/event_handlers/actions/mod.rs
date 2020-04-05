@@ -9,3 +9,4 @@ pub mod insert_components;
 pub mod move_action;
 pub mod random;
 pub mod repeat_delay;
+pub mod sound_action;

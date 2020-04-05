@@ -97,6 +97,14 @@ impl<'a> System<'a> for TriggerActionsFromActionTypesSystem {
                             action_trigger.trigger(animation_action);
                         }
                     }
+                    ActionType::SoundAction(sound_action) => {
+                        if let Some(action_trigger) =
+                            (&mut action_trigger_components.sound_action)
+                                .get_mut_or_default(entity)
+                        {
+                            action_trigger.trigger(sound_action);
+                        }
+                    }
                 }
             }
         }

@@ -7,6 +7,7 @@ mod insert_components;
 mod move_action;
 mod random;
 mod repeat_delay;
+mod sound_action;
 
 pub mod prelude {
     pub use super::animation_action::AnimationAction;
@@ -18,6 +19,7 @@ pub mod prelude {
     pub use super::move_action::MoveAction;
     pub use super::random::Random;
     pub use super::repeat_delay::RepeatDelay;
+    pub use super::sound_action::SoundAction;
     pub use super::ActionTriggerStorages;
     pub use super::ActionType;
 }
@@ -38,6 +40,7 @@ pub enum ActionType {
     InsertComponents(InsertComponents),
     HealthAction(HealthAction),
     AnimationAction(AnimationAction),
+    SoundAction(SoundAction),
 }
 
 #[derive(SystemData)]
@@ -51,4 +54,5 @@ pub struct ActionTriggerStorages<'a> {
     pub insert_components: WriteStorage<'a, ActionTrigger<InsertComponents>>,
     pub health_action:     WriteStorage<'a, ActionTrigger<HealthAction>>,
     pub animation_action:  WriteStorage<'a, ActionTrigger<AnimationAction>>,
+    pub sound_action:      WriteStorage<'a, ActionTrigger<SoundAction>>,
 }
