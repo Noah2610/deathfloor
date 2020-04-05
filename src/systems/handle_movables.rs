@@ -10,6 +10,7 @@ impl<'a> System<'a> for HandleMovablesSystem {
         WriteStorage<'a, Velocity>,
         WriteStorage<'a, BaseFriction>,
         ReadStorage<'a, MaxMovementVelocity>,
+        WriteStorage<'a, SoundPlayer>,
         ReadStorage<'a, Loadable>,
         ReadStorage<'a, Loaded>,
     );
@@ -22,19 +23,28 @@ impl<'a> System<'a> for HandleMovablesSystem {
             mut velocities,
             mut base_frictions,
             max_movement_velocities,
+            mut sound_player_store,
             loadables,
             loadeds,
         ): Self::SystemData,
     ) {
-        for (_, movable, velocity, max_velocity_opt, mut base_friction_opt) in (
+        for (
+            _,
+            movable,
+            velocity,
+            max_velocity_opt,
+            mut base_friction_opt,
+            mut sound_player_opt,
+        ) in (
             &entities,
             &mut movables,
             &mut velocities,
             max_movement_velocities.maybe(),
             (&mut base_frictions).maybe(),
+            (&mut sound_player_store).maybe(),
         )
             .join()
-            .filter(|(entity, _, _, _, _)| {
+            .filter(|(entity, _, _, _, _, _)| {
                 is_entity_loaded(*entity, &loadables, &loadeds)
             })
         {
@@ -59,6 +69,14 @@ impl<'a> System<'a> for HandleMovablesSystem {
 
                     MoveAction::Jump { strength } => {
                         velocity.set(&Axis::Y, strength);
+                        if let Some(sound_player) = sound_player_opt.as_mut() {
+                            sound_player.add_action(
+                                SoundAction::PlayWithVolume(
+                                    SoundType::Jump,
+                                    0.5,
+                                ),
+                            );
+                        }
                     }
 
                     MoveAction::KillJump {

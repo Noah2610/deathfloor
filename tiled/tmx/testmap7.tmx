@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="128" height="32" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="1979">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="128" height="32" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="1980">
  <editorsettings>
   <export target="../../resources/levels/level.json" format="deathfloor-export"/>
  </editorsettings>
@@ -99,9 +99,9 @@
   <object id="1206" name="BULLET OUCH" type="Enemy(BulletOuch)" x="271.25" y="127" width="8" height="8"/>
   <object id="1207" name="BULLET OUCH" type="Enemy(BulletOuch)" x="275.75" y="97.75" width="8" height="8"/>
   <object id="1208" name="BULLET OUCH" type="Enemy(BulletOuch)" x="259.75" y="77.25" width="8" height="8"/>
-  <object id="1209" name="RUBBER BALL" type="Enemy(RubberBall)" x="300.0" y="42.3333" width="8" height="8"/>
-  <object id="1209" name="RUBBER BALL" type="Enemy(RubberBall)" x="320.0" y="42.3333" width="8" height="8"/>
-  <object id="1209" name="RUBBER BALL" type="Enemy(RubberBall)" x="340.0" y="42.3333" width="8" height="8"/>
-  <object id="1209" name="RUBBER BALL" type="Enemy(RubberBall)" x="360.0" y="42.3333" width="8" height="8"/>
+  <object id="1209" name="RUBBER BALL" type="Enemy(RubberBall)" x="300" y="42.3333" width="8" height="8"/>
+  <object id="1209" name="RUBBER BALL" type="Enemy(RubberBall)" x="320" y="42.3333" width="8" height="8"/>
+  <object id="1209" name="RUBBER BALL" type="Enemy(RubberBall)" x="340" y="42.3333" width="8" height="8"/>
+  <object id="1209" name="RUBBER BALL" type="Enemy(RubberBall)" x="360" y="42.3333" width="8" height="8"/>
  </objectgroup>
 </map>

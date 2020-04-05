@@ -124,6 +124,12 @@
                 ]),
 
                 OnCollision(IsState(Enter)): SoundAction(PlayWithVolume(Jump, 0.1)),
+
+                OnCollision(And([
+                    IsState(Enter),
+                    IsTag(Jumppad),
+                    IsSide(Inner),
+                ])): SoundAction(PlayWithVolume(Jump, 0.75)),
             },
 
             /// Specifies with which `CollisionTag`s this enemy has
