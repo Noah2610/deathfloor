@@ -1,30 +1,8 @@
-use crate::helpers::resource;
+use super::sound_type::SoundType;
 use amethyst::assets::{AssetStorage, Loader};
 use amethyst::audio::{Mp3Format, Source, SourceHandle};
 use deathframe::amethyst;
 use std::collections::HashMap;
-use std::path::PathBuf;
-
-pub mod prelude {
-    pub use super::SoundType;
-    pub use super::Sounds;
-}
-
-#[derive(Clone, PartialEq, Eq, Hash)]
-pub enum SoundType {
-    Jump,
-    Shoot,
-}
-
-impl SoundType {
-    fn path(&self) -> PathBuf {
-        let sfx_dir = resource("audio/sfx");
-        match self {
-            SoundType::Jump => sfx_dir.join("jump.mp3"),
-            SoundType::Shoot => sfx_dir.join("shoot.mp3"),
-        }
-    }
-}
 
 /// Sound effects manager.
 pub struct Sounds {
