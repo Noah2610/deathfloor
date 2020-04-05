@@ -32,7 +32,7 @@
 <span class="doccomment">/// Can manipulate the entity&#39;s `Health` component via `HealthAction`s.</span>
 <span class="doccomment">/// Through this component, the entity can _lose_ and _gain_ health.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Component</span>, <span class="ident">Default</span>)]</span>
-<span class="attribute">#[<span class="ident">storage</span>(<span class="ident">DenseVecStorage</span>)]</span>
+<span class="attribute">#[<span class="ident">storage</span>(<span class="ident">VecStorage</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">HealthEditor</span> {
     <span class="ident">actions</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">HealthAction</span><span class="op">&gt;</span>,
 }

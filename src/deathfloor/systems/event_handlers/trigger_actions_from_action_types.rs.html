@@ -102,6 +102,14 @@
 <span id="102">102</span>
 <span id="103">103</span>
 <span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">system_prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">action</span>::<span class="ident">ActionType</span>;
@@ -200,6 +208,14 @@
                                 .<span class="ident">get_mut_or_default</span>(<span class="ident">entity</span>)
                         {
                             <span class="ident">action_trigger</span>.<span class="ident">trigger</span>(<span class="ident">animation_action</span>);
+                        }
+                    }
+                    <span class="ident">ActionType</span>::<span class="ident">SoundAction</span>(<span class="ident">sound_action</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">action_trigger</span>) <span class="op">=</span>
+                            (<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">action_trigger_components</span>.<span class="ident">sound_action</span>)
+                                .<span class="ident">get_mut_or_default</span>(<span class="ident">entity</span>)
+                        {
+                            <span class="ident">action_trigger</span>.<span class="ident">trigger</span>(<span class="ident">sound_action</span>);
                         }
                     }
                 }

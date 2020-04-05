@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_SoundAction",""]],"struct":[["SoundAction","When triggered, queues the given `SoundAction`."]]});

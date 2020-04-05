@@ -45,6 +45,8 @@
 <span id="45">45</span>
 <span id="46">46</span>
 <span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">component_prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">vec</span>::<span class="ident">Drain</span>;
@@ -63,11 +65,13 @@
     <span class="ident">A</span>: <span class="lifetime">&#39;static</span> <span class="op">+</span> <span class="ident">Clone</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span>,
 {
     <span class="doccomment">/// Trigger an action.</span>
+    <span class="attribute">#[<span class="ident">deprecated</span>]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">trigger</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">action</span>: <span class="ident">A</span>) {
         <span class="self">self</span>.<span class="ident">add_action</span>(<span class="ident">action</span>);
     }
 
     <span class="doccomment">/// Drain all triggered actions.</span>
+    <span class="attribute">#[<span class="ident">deprecated</span>]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">drain</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Drain</span><span class="op">&lt;</span><span class="ident">A</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">drain_actions</span>()
     }

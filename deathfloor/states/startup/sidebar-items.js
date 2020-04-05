@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["register_components",""]],"struct":[["Startup",""]]});
+initSidebarItems({"fn":[["load_audio",""],["load_spritesheets",""],["register_components",""]],"struct":[["Startup",""]]});

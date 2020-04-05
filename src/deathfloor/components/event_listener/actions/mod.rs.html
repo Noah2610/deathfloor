@@ -52,6 +52,10 @@
 <span id="52">52</span>
 <span id="53">53</span>
 <span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">animation_action</span>;
 <span class="kw">mod</span> <span class="ident">delay</span>;
@@ -62,6 +66,7 @@
 <span class="kw">mod</span> <span class="ident">move_action</span>;
 <span class="kw">mod</span> <span class="ident">random</span>;
 <span class="kw">mod</span> <span class="ident">repeat_delay</span>;
+<span class="kw">mod</span> <span class="ident">sound_action</span>;
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">prelude</span> {
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">animation_action</span>::<span class="ident">AnimationAction</span>;
@@ -73,6 +78,7 @@
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">move_action</span>::<span class="ident">MoveAction</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">random</span>::<span class="ident">Random</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">repeat_delay</span>::<span class="ident">RepeatDelay</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">sound_action</span>::<span class="ident">SoundAction</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">ActionTriggerStorages</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">ActionType</span>;
 }
@@ -93,6 +99,7 @@
     <span class="ident">InsertComponents</span>(<span class="ident">InsertComponents</span>),
     <span class="ident">HealthAction</span>(<span class="ident">HealthAction</span>),
     <span class="ident">AnimationAction</span>(<span class="ident">AnimationAction</span>),
+    <span class="ident">SoundAction</span>(<span class="ident">SoundAction</span>),
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">SystemData</span>)]</span>
@@ -106,6 +113,7 @@
     <span class="kw">pub</span> <span class="ident">insert_components</span>: <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">ActionTrigger</span><span class="op">&lt;</span><span class="ident">InsertComponents</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">health_action</span>:     <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">ActionTrigger</span><span class="op">&lt;</span><span class="ident">HealthAction</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">animation_action</span>:  <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">ActionTrigger</span><span class="op">&lt;</span><span class="ident">AnimationAction</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">sound_action</span>:      <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">ActionTrigger</span><span class="op">&lt;</span><span class="ident">SoundAction</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../../../";window.currentCrate = "deathfloor";</script><script src="../../../../../aliases.js"></script><script src="../../../../../main.js"></script><script src="../../../../../source-script.js"></script><script src="../../../../../source-files.js"></script><script defer src="../../../../../search-index.js"></script></body></html>

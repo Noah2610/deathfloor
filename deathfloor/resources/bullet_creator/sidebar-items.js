@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["BulletComponents",""],["BulletCreator",""]]});
+initSidebarItems({"mod":[["prelude",""]],"struct":[["BulletComponents",""],["BulletCreator",""]]});

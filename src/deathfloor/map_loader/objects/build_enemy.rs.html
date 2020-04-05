@@ -84,6 +84,7 @@
 <span id="84">84</span>
 <span id="85">85</span>
 <span id="86">86</span>
+<span id="87">87</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">helpers</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">systems</span>::<span class="ident">system_helpers</span>::<span class="ident">insert_components</span>;
@@ -135,7 +136,8 @@
         .<span class="ident">with</span>(<span class="ident">Hidden</span>)
         .<span class="ident">with</span>(<span class="ident">sprite_render</span>)
         .<span class="ident">with</span>(<span class="ident">Velocity</span>::<span class="ident">default</span>())
-        .<span class="ident">with</span>(<span class="ident">Movable</span>::<span class="ident">default</span>());
+        .<span class="ident">with</span>(<span class="ident">Movable</span>::<span class="ident">default</span>())
+        .<span class="ident">with</span>(<span class="ident">SoundPlayer</span>::<span class="ident">default</span>());
 
     <span class="comment">// COLLISION / SOLID TAGS</span>
 
