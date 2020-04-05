@@ -48,7 +48,8 @@ pub(super) fn build(
         .with(Hidden)
         .with(sprite_render)
         .with(Velocity::default())
-        .with(Movable::default());
+        .with(Movable::default())
+        .with(SoundPlayer::default());
 
     // COLLISION / SOLID TAGS
 

@@ -4,7 +4,7 @@ use super::health_action::HealthAction;
 /// Can manipulate the entity's `Health` component via `HealthAction`s.
 /// Through this component, the entity can _lose_ and _gain_ health.
 #[derive(Component, Default)]
-#[storage(DenseVecStorage)]
+#[storage(VecStorage)]
 pub struct HealthEditor {
     actions: Vec<HealthAction>,
 }

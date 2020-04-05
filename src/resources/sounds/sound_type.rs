@@ -1,7 +1,7 @@
 use crate::helpers::resource;
 use std::path::PathBuf;
 
-#[derive(Clone, PartialEq, Eq, Hash, Debug)]
+#[derive(Clone, PartialEq, Eq, Hash, Deserialize, Debug)]
 pub enum SoundType {
     Jump,
     Shoot,
