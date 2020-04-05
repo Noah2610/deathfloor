@@ -91,6 +91,7 @@
                         IsState(Enter),
                     ]),
                 ): Group([
+                    SoundAction(PlayWithVolume(Jump, 0.3)),
                     MoveAction(AddVelocity(
                         y: 100.0,
                     )),
@@ -121,6 +122,8 @@
                     )),
                     AnimationAction(Push(Custom("Lmao"))),
                 ]),
+
+                OnCollision(IsState(Enter)): SoundAction(PlayWithVolume(Jump, 0.1)),
             },
 
             /// Specifies with which `CollisionTag`s this enemy has

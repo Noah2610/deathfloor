@@ -28,6 +28,7 @@
                 OnCollision(IsSide(Bottom)): MoveAction(AddVelocity( y: 100.0, )),
 
                 OnCollision(IsState(Enter)): Group([
+                    SoundAction(PlayWithVolume(Jump, 0.1)),
                     InsertComponents((
                         size: (w: 16.0, h: 16.0),
                         scale_once: (),
@@ -45,7 +46,7 @@
 
                 // Damage on bullet collision
                 OnCollision(And([IsState(Enter), IsTag(Bullet)])): Group([
-                    SoundAction(PlayWithVolume(Jump, 0.2)),
+                    SoundAction(PlayWithVolume(Jump, 0.3)),
                     HealthAction(Lose(1)),
                 ]),
                 // Damage when stuck inside solid tile
