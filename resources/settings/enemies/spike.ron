@@ -5,22 +5,24 @@
         "Spike": (
             spritesheet_filename: "empty.png",
 
-            components: (
-                hitbox: Size,
+            entity: (
+                components: (
+                    hitbox: Size,
 
-                deals_damage: (
-                    damage: 6,
+                    deals_damage: (
+                        damage: 6,
+                    ),
                 ),
-            ),
 
-            collision_tag: (
-                labels: [Solid],
-                collides_with: [],
-            ),
+                collision_tag: (
+                    labels: [Solid],
+                    collides_with: [],
+                ),
 
-            solid_tag: (
-                labels: [Solid],
-                collides_with: [],
+                solid_tag: (
+                    labels: [Solid],
+                    collides_with: [],
+                ),
             ),
         ),
     }
