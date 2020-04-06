@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["insert_components",""]]});
+initSidebarItems({"mod":[["insert_components",""],["prelude",""]]});

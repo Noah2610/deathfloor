@@ -58,7 +58,7 @@
     <span class="ident">tiles</span>: <span class="ident">TilesData</span>,
     <span class="ident">tile_size</span>: <span class="ident">SizeData</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">amethyst</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="ident">tiles_settings</span> <span class="op">=</span> <span class="ident">world</span>.<span class="ident">read_resource</span>::<span class="op">&lt;</span><span class="ident">Settings</span><span class="op">&gt;</span>().<span class="ident">tiles</span>.<span class="ident">clone</span>();
+    <span class="kw">let</span> <span class="ident">tiles_settings</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">world</span>.<span class="ident">read_resource</span>::<span class="op">&lt;</span><span class="ident">Settings</span><span class="op">&gt;</span>().<span class="ident">tiles</span>.<span class="ident">clone</span>();
     <span class="kw">let</span> <span class="ident">size</span>: <span class="ident">Size</span> <span class="op">=</span> <span class="ident">tile_size</span>.<span class="ident">into</span>();
 
     <span class="kw">for</span> <span class="ident">tile</span> <span class="kw">in</span> <span class="ident">tiles</span> {
@@ -75,16 +75,16 @@
 
         <span class="comment">// Config file settings</span>
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">config_tile_settings</span>) <span class="op">=</span>
-            <span class="ident">tiles_settings</span>.<span class="ident">types</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">tile</span>.<span class="ident">tile_type</span>)
+            <span class="ident">tiles_settings</span>.<span class="ident">types</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">tile</span>.<span class="ident">tile_type</span>).<span class="ident">cloned</span>()
         {
-            <span class="ident">tile_settings</span> <span class="op">=</span> <span class="ident">config_tile_settings</span>.<span class="ident">clone</span>().<span class="ident">merge</span>(<span class="ident">tile_settings</span>);
+            <span class="ident">tile_settings</span>.<span class="ident">merge</span>(<span class="ident">config_tile_settings</span>);
         }
 
         <span class="comment">// Prop settings</span>
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="kw-2">mut</span> <span class="ident">prop_tile_settings</span>) <span class="op">=</span> <span class="ident">TileSettings</span>::<span class="ident">try_from</span>(<span class="ident">tile</span>.<span class="ident">props</span>())
         {
             <span class="ident">prop_tile_settings</span>.<span class="ident">hitbox</span> <span class="op">=</span> <span class="ident">tile</span>.<span class="ident">hitbox</span>.<span class="ident">map</span>(<span class="ident">HitboxConfig</span>::<span class="ident">from</span>);
-            <span class="ident">tile_settings</span> <span class="op">=</span> <span class="ident">prop_tile_settings</span>.<span class="ident">merge</span>(<span class="ident">tile_settings</span>);
+            <span class="ident">tile_settings</span>.<span class="ident">merge</span>(<span class="ident">prop_tile_settings</span>);
         }
 
         <span class="ident">entity</span> <span class="op">=</span> <span class="ident">edit_entity_with_tile_settings</span>(<span class="ident">entity</span>, <span class="kw-2">&amp;</span><span class="ident">tile_settings</span>, <span class="kw-2">&amp;</span><span class="ident">size</span>);

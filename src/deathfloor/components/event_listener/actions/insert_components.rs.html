@@ -13,17 +13,17 @@
 <span id="13">13</span>
 <span id="14">14</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">settings</span>::<span class="ident">prelude</span>::<span class="ident">EnemyComponentsData</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">settings</span>::<span class="ident">prelude</span>::<span class="ident">EntityComponentsData</span>;
 
 <span class="doccomment">/// Insert (add or overwrite existing) components.</span>
 <span class="doccomment">/// Can be given the same components as</span>
 <span class="doccomment">/// in the enemy config&#39;s `components` field.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
-<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">from</span> <span class="op">=</span> <span class="string">&quot;EnemyComponentsData&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">InsertComponents</span>(<span class="kw">pub</span> <span class="ident">EnemyComponentsData</span>);
+<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">from</span> <span class="op">=</span> <span class="string">&quot;EntityComponentsData&quot;</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">InsertComponents</span>(<span class="kw">pub</span> <span class="ident">EntityComponentsData</span>);
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">EnemyComponentsData</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">InsertComponents</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">components</span>: <span class="ident">EnemyComponentsData</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">EntityComponentsData</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">InsertComponents</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">components</span>: <span class="ident">EntityComponentsData</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span>(<span class="ident">components</span>)
     }
 }

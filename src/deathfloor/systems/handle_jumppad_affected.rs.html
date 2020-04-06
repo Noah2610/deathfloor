@@ -101,7 +101,7 @@
             }
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">jumppad_strength</span>) <span class="op">=</span> <span class="ident">jumppad_strength_opt</span> {
-                <span class="ident">movable</span>.<span class="ident">add_action</span>(<span class="ident">MoveAction</span>::<span class="ident">SetVelocity</span> {
+                <span class="ident">movable</span>.<span class="ident">add_action</span>(<span class="ident">MoveAction</span>::<span class="ident">Jump</span> {
                     <span class="ident">x</span>: <span class="ident">jumppad_strength</span>.<span class="number">0</span>,
                     <span class="ident">y</span>: <span class="ident">jumppad_strength</span>.<span class="number">1</span>,
                 });
