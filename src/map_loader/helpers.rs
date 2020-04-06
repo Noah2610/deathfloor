@@ -4,6 +4,7 @@ pub(super) mod prelude {
     pub use crate::components::prelude::*;
     pub use crate::helpers::resource;
     pub use crate::map_loader::map_data::prelude::*;
+    pub use crate::merge::Merge;
     pub use crate::resources::prelude::*;
     pub use crate::settings::prelude::*;
     pub use amethyst::ecs::{Entity, EntityBuilder, World, WorldExt};
