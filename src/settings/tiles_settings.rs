@@ -3,6 +3,7 @@ use crate::collision_tag::CollisionTagWrapper;
 use crate::components::prelude::Jumppad;
 use crate::map_loader::map_data::Props;
 use crate::map_loader::types::TileType;
+use crate::merge::Merge;
 use deathframe::amethyst::{Error, Result};
 use std::collections::HashMap;
 use std::convert::TryFrom;
@@ -35,12 +36,11 @@ pub struct TileSettings {
     pub jumppad_strength_y: Option<f32>,
 }
 
-impl TileSettings {
-    // TODO: This could be extracted into a trait
+impl Merge for TileSettings {
     /// Merges the field values from `other` into `self`.
     /// `self` takes precedence.
     /// Takes ownership of `self`, and returns a new `Self`.
-    pub fn merge(self, other: Self) -> Self {
+    fn merge(self, other: Self) -> Self {
         Self {
             hitbox:        self.hitbox.or(other.hitbox),
             jumppad:       self.jumppad.or(other.jumppad),
