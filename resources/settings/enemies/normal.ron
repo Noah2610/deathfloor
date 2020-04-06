@@ -7,151 +7,154 @@
             /// under `resources/spritesheets`.
             spritesheet_filename: "player.png",
 
-            /// List of components for this enemy.
-            /// All components are optional.
-            components: (
-                /// If this is not set, uses tiled object size.
-                size: (
-                    w: 16.0,
-                    h: 32.0,
+            /// Entity data, such as _components_, _events/actions_, collision stuff.
+            entity: (
+                /// List of components for this enemy.
+                /// All components are optional.
+                components: (
+                    /// If this is not set, uses tiled object size.
+                    size: (
+                        w: 16.0,
+                        h: 32.0,
+                    ),
+                    gravity: (
+                        x: None,
+                        y: -400.0,
+                    ),
+                    max_movement_velocity: (
+                        x: 100.0,
+                        y: 200.0,
+                    ),
+                    base_friction: (
+                        friction_x: 1000.0,
+                        friction_y: None,
+                    ),
+                    animations: {
+                        Idle: Cycle([
+                            (13, 500),
+                            (14, 500),
+                        ]),
+                        Walk: Cycle([
+                            (4, 100),
+                            (5, 100),
+                            (6, 100),
+                        ]),
+                        Custom("Lmao"): Once([
+                            (23, 100),
+                            (24, 100),
+                            (25, 100),
+                        ]),
+                    },
+                    hitbox: Size,
+                    walker: (
+                        x: 250.0,
+                        y: None,
+                    ),
+                    health: (
+                        health: 10,
+                        max_health: 10,
+                    ),
+                    health_display: (
+                        position: Top,
+                        size: (32.0, 2.0),
+                        padding: 4.0,
+                        border_padding: 0.5,
+                    ),
+                    deals_damage: (
+                        damage: 2,
+                    ),
                 ),
-                gravity: (
-                    x: None,
-                    y: -400.0,
-                ),
-                max_movement_velocity: (
-                    x: 100.0,
-                    y: 200.0,
-                ),
-                base_friction: (
-                    friction_x: 1000.0,
-                    friction_y: None,
-                ),
-                animations: {
-                    Idle: Cycle([
-                        (13, 500),
-                        (14, 500),
-                    ]),
-                    Walk: Cycle([
-                        (4, 100),
-                        (5, 100),
-                        (6, 100),
-                    ]),
-                    Custom("Lmao"): Once([
-                        (23, 100),
-                        (24, 100),
-                        (25, 100),
-                    ]),
-                },
-                hitbox: Size,
-                walker: (
-                    x: 250.0,
-                    y: None,
-                ),
-                health: (
-                    health: 10,
-                    max_health: 10,
-                ),
-                health_display: (
-                    position: Top,
-                    size: (32.0, 2.0),
-                    padding: 4.0,
-                    border_padding: 0.5,
-                ),
-                deals_damage: (
-                    damage: 2,
-                ),
-            ),
 
-            /// Events and the actions they trigger.
-            events: {
-                OnSpawn: Echo("Hello OnSpawn event!"),
+                /// Events and the actions they trigger.
+                events: {
+                    OnSpawn: Echo("Hello OnSpawn event!"),
 
-                OnCollision(
-                    And([
-                        IsSide(Left),
-                        IsTag(Player),
+                    OnCollision(
+                        And([
+                            IsSide(Left),
+                            IsTag(Player),
+                        ]),
+                    ): MoveAction(AddVelocity(
+                        x: 200.0,
+                    )),
+
+                    OnCollision(
+                        And([
+                            IsSide(Right),
+                            IsTag(Player),
+                        ]),
+                    ): MoveAction(AddVelocity(
+                        x: -200.0,
+                    )),
+
+                    OnCollision(
+                        And([
+                            IsTag(Bullet),
+                            IsState(Enter),
+                        ]),
+                    ): Group([
+                        SoundAction(PlayWithVolume(Jump, 0.3)),
+                        MoveAction(AddVelocity(
+                            y: 100.0,
+                        )),
+                        HealthAction(Lose(1)),
                     ]),
-                ): MoveAction(AddVelocity(
-                    x: 200.0,
-                )),
 
-                OnCollision(
-                    And([
+                    OnCollision(And([
                         IsSide(Right),
-                        IsTag(Player),
-                    ]),
-                ): MoveAction(AddVelocity(
-                    x: -200.0,
-                )),
-
-                OnCollision(
-                    And([
-                        IsTag(Bullet),
                         IsState(Enter),
+                    ])): Group([
+                        Echo("touch RIGHT, move LEFT"),
+                        InsertComponents((
+                            walker: (
+                                x: -250.0,
+                            ),
+                        )),
                     ]),
-                ): Group([
-                    SoundAction(PlayWithVolume(Jump, 0.3)),
-                    MoveAction(AddVelocity(
-                        y: 100.0,
-                    )),
-                    HealthAction(Lose(1)),
-                ]),
 
-                OnCollision(And([
-                    IsSide(Right),
-                    IsState(Enter),
-                ])): Group([
-                    Echo("touch RIGHT, move LEFT"),
-                    InsertComponents((
-                        walker: (
-                            x: -250.0,
-                        ),
-                    )),
-                ]),
+                    OnCollision(And([
+                        IsSide(Left),
+                        IsState(Enter),
+                    ])): Group([
+                        Echo("touch LEFT, move RIGHT"),
+                        InsertComponents((
+                            walker: (
+                                x: 250.0,
+                            ),
+                        )),
+                        AnimationAction(Push(Custom("Lmao"))),
+                    ]),
 
-                OnCollision(And([
-                    IsSide(Left),
-                    IsState(Enter),
-                ])): Group([
-                    Echo("touch LEFT, move RIGHT"),
-                    InsertComponents((
-                        walker: (
-                            x: 250.0,
-                        ),
-                    )),
-                    AnimationAction(Push(Custom("Lmao"))),
-                ]),
+                    OnCollision(IsState(Enter)): SoundAction(PlayWithVolume(Jump, 0.1)),
 
-                OnCollision(IsState(Enter)): SoundAction(PlayWithVolume(Jump, 0.1)),
+                    OnCollision(And([
+                        IsState(Enter),
+                        IsTag(Jumppad),
+                        IsSide(Inner),
+                    ])): SoundAction(PlayWithVolume(Jump, 0.75)),
+                },
 
-                OnCollision(And([
-                    IsState(Enter),
-                    IsTag(Jumppad),
-                    IsSide(Inner),
-                ])): SoundAction(PlayWithVolume(Jump, 0.75)),
-            },
+                /// Specifies with which `CollisionTag`s this enemy has
+                /// _general_ collision (separate from _solid_ collision).
+                /// If this is not set, the player will not be able to jump
+                /// off of this enemy (because this enemy is `Jumppad`).
+                collision_tag: (
+                    labels: [Enemy, Solid],
+                    collides_with: [Player, Jumppad, Bullet, Tile],
+                ),
 
-            /// Specifies with which `CollisionTag`s this enemy has
-            /// _general_ collision (separate from _solid_ collision).
-            /// If this is not set, the player will not be able to jump
-            /// off of this enemy (because this enemy is `Jumppad`).
-            collision_tag: (
-                labels: [Enemy, Solid],
-                collides_with: [Player, Jumppad, Bullet, Tile],
-            ),
-
-            /// Specifies with which `SolidTag`s this enemy has
-            /// _solid_ collision (separate from _general_ collision (`CollisionTag`)).
-            ///
-            /// This makes the player have solid collision with the player.
-            /// (They can get stuck in each other, not recommended;
-            /// this is just to showcase the `solid_collision_with` field.)
-            ///
-            /// Enemies will usually also have solid collision with `Tile` tags.
-            solid_tag: (
-                labels: [Enemy, Solid],
-                collides_with: [Tile, Player],
+                /// Specifies with which `SolidTag`s this enemy has
+                /// _solid_ collision (separate from _general_ collision (`CollisionTag`)).
+                ///
+                /// This makes the player have solid collision with the player.
+                /// (They can get stuck in each other, not recommended;
+                /// this is just to showcase the `solid_collision_with` field.)
+                ///
+                /// Enemies will usually also have solid collision with `Tile` tags.
+                solid_tag: (
+                    labels: [Enemy, Solid],
+                    collides_with: [Tile, Player],
+                ),
             ),
         ),
     }

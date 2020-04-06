@@ -5,107 +5,109 @@
         "BulletOuch": (
             spritesheet_filename: "player.png",
 
-            components: (
-                size: (
-                    w: 8.0,
-                    h: 16.0
+            entity: (
+                components: (
+                    size: (
+                        w: 8.0,
+                        h: 16.0
+                    ),
+                    gravity: (
+                        y: -400.0
+                    ),
+                    hitbox: Size,
+                    base_friction: (
+                        friction_x: 1000.0,
+                        friction_y: 1000.0,
+                    ),
+                    health: (
+                        health: 10,
+                        max_health: 10,
+                    ),
+                    health_display: (
+                        position: Top,
+                        size: (16.0, 2.0),
+                        padding: 4.0,
+                        border_padding: 0.5,
+                    ),
                 ),
-                gravity: (
-                    y: -400.0
-                ),
-                hitbox: Size,
-                base_friction: (
-                    friction_x: 1000.0,
-                    friction_y: 1000.0,
-                ),
-                health: (
-                    health: 10,
-                    max_health: 10,
-                ),
-                health_display: (
-                    position: Top,
-                    size: (16.0, 2.0),
-                    padding: 4.0,
-                    border_padding: 0.5,
-                ),
-            ),
 
-            vars: {
-                /// Its my var lmao
-                "my_var": 100.0,
-                /// How often something is triggered
-                "count": 0,
-            },
+                vars: {
+                    /// Its my var lmao
+                    "my_var": 100.0,
+                    /// How often something is triggered
+                    "count": 0,
+                },
 
-            events: {
-                OnCollision(And([
-                    IsTag(Bullet),
-                    IsState(Enter),
-                ])): Group([
-                    HealthAction(Lose(1)),
-                    Random((
-                        chance: 0.5,
-                        on_success: MoveAction(AddVelocity( x: 300.0, )),
-                        on_failure: MoveAction(AddVelocity( x: -300.0, )),
-                    )),
-                    Random((
-                        chance: 0.5,
-                        on_success: MoveAction(AddVelocity( y: 100.0, )),
-                        on_failure: MoveAction(AddVelocity( y: -100.0, )),
-                    )),
-                    Echo("OUCH, BULLET"),
-                    RepeatDelay((
-                        loops:    10,
-                        delay_ms: 250,
-                        action:   Delay((
-                            delay_ms: 500,
-                            action: Group([
-                                Random((
-                                      chance: 0.5,
-                                      on_success: MoveAction(AddVelocity( x: 300.0, )),
-                                      on_failure: MoveAction(AddVelocity( x: -300.0, )),
-                                )),
-                                Random((
-                                      chance: 0.5,
-                                      on_success: MoveAction(AddVelocity( y: 100.0, )),
-                                      on_failure: MoveAction(AddVelocity( y: -100.0, )),
-                                )),
-                            ]),
+                events: {
+                    OnCollision(And([
+                        IsTag(Bullet),
+                        IsState(Enter),
+                    ])): Group([
+                        HealthAction(Lose(1)),
+                        Random((
+                            chance: 0.5,
+                            on_success: MoveAction(AddVelocity( x: 300.0, )),
+                            on_failure: MoveAction(AddVelocity( x: -300.0, )),
                         )),
-                    )),
-                ]),
-
-                // Interval(50): RepeatDelay((
-                //     loops:    10,
-                //     delay_ms: 50,
-                //     action:   Delay((
-                //         delay_ms: 500,
-                //         action: Group([
-                //             MoveAction(AddVelocity(x: 4.0,)),
-                //             MoveAction(AddVelocity(y: 2.0,)),
-                //         ]),
-                //     )),
-                // )),
-            },
-
-            functions: {
-                "MyLoop": Let("count", 0, If(
-                    LessThan(VarGet("count"), 10),
-                    Group([
-                          VarSet("count", Add(VarGet("count"), 1)),
-                          Call("MyLoop"),
+                        Random((
+                            chance: 0.5,
+                            on_success: MoveAction(AddVelocity( y: 100.0, )),
+                            on_failure: MoveAction(AddVelocity( y: -100.0, )),
+                        )),
+                        Echo("OUCH, BULLET"),
+                        RepeatDelay((
+                            loops:    10,
+                            delay_ms: 250,
+                            action:   Delay((
+                                delay_ms: 500,
+                                action: Group([
+                                    Random((
+                                          chance: 0.5,
+                                          on_success: MoveAction(AddVelocity( x: 300.0, )),
+                                          on_failure: MoveAction(AddVelocity( x: -300.0, )),
+                                    )),
+                                    Random((
+                                          chance: 0.5,
+                                          on_success: MoveAction(AddVelocity( y: 100.0, )),
+                                          on_failure: MoveAction(AddVelocity( y: -100.0, )),
+                                    )),
+                                ]),
+                            )),
+                        )),
                     ]),
-                )),
-            },
 
-            collision_tag: (
-                labels: [Enemy],
-                collides_with: [Bullet, Jumppad],
-            ),
+                    // Interval(50): RepeatDelay((
+                    //     loops:    10,
+                    //     delay_ms: 50,
+                    //     action:   Delay((
+                    //         delay_ms: 500,
+                    //         action: Group([
+                    //             MoveAction(AddVelocity(x: 4.0,)),
+                    //             MoveAction(AddVelocity(y: 2.0,)),
+                    //         ]),
+                    //     )),
+                    // )),
+                },
 
-            solid_tag: (
-                labels: [Enemy],
-                collides_with: [Tile],
+                functions: {
+                    "MyLoop": Let("count", 0, If(
+                        LessThan(VarGet("count"), 10),
+                        Group([
+                              VarSet("count", Add(VarGet("count"), 1)),
+                              Call("MyLoop"),
+                        ]),
+                    )),
+                },
+
+                collision_tag: (
+                    labels: [Enemy],
+                    collides_with: [Bullet, Jumppad],
+                ),
+
+                solid_tag: (
+                    labels: [Enemy],
+                    collides_with: [Tile],
+                ),
             ),
         ),
     }
