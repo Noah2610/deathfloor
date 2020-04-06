@@ -1,0 +1,61 @@
+#![enable(implicit_some)]
+/// Enemies settings.
+(
+    types: {
+        "Spike": (
+            /// Filename of this enemy's spritesheet,
+            /// under `resources/spritesheets`.
+            spritesheet_filename: "empty.png",
+
+            /// List of components for this enemy.
+            /// All components are optional.
+            components: (             
+                gravity: (
+                    x: None,
+                    y: None,
+                ),
+                max_movement_velocity: (
+                    x: None,
+                    y: None,
+                ),
+                base_friction: (
+                    friction_x: None,
+                    friction_y: None,
+                ),
+       
+                hitbox: Size,
+
+                deals_damage: (
+                    damage: 6,
+                ),
+            ),
+
+            /// Events and the actions they trigger.
+            events: {
+                OnSpawn: Echo("Hello Spike!"),
+            },
+
+            /// Specifies with which `CollisionTag`s this enemy has
+            /// _general_ collision (separate from _solid_ collision).
+            /// If this is not set, the player will not be able to jump
+            /// off of this enemy (because this enemy is `Jumppad`).
+            collision_tag: (
+                labels: [Enemy],
+                collides_with: [Player],
+            ),
+
+            /// Specifies with which `SolidTag`s this enemy has
+            /// _solid_ collision (separate from _general_ collision (`CollisionTag`)).
+            ///
+            /// This makes the player have solid collision with the player.
+            /// (They can get stuck in each other, not recommended;
+            /// this is just to showcase the `solid_collision_with` field.)
+            ///
+            /// Enemies will usually also have solid collision with `Tile` tags.
+            solid_tag: (
+                labels: [],
+                collides_with: [],
+            ),
+        ),
+    }
+)

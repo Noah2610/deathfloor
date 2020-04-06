@@ -98,6 +98,10 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
+ <tile id="60" type="Ground"/>
+ <tile id="61" type="Ground"/>
+ <tile id="64" type="Ground"/>
+ <tile id="65" type="Ground"/>
  <tile id="72" type="Ground">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="8" height="8"/>
