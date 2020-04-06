@@ -9,13 +9,21 @@ use super::hitbox_config::HitboxConfig;
 use crate::animation_key::AnimationKey;
 use crate::collision_tag::CollisionTagWrapper;
 use crate::components::prelude::*;
+use crate::merge::Merge;
 use deathframe::amethyst::ecs::shred::ResourceId;
 use deathframe::amethyst::ecs::{SystemData, World, WriteStorage};
 use std::collections::HashMap;
 
-#[derive(Clone, Deserialize)]
+#[derive(Clone, Deserialize, Default)]
 pub struct EnemiesSettings {
     pub types: HashMap<EnemyType, EnemySettings>,
+}
+
+impl Merge for EnemiesSettings {
+    fn merge(&mut self, other: Self) {
+        let types = &mut self.types;
+        types.extend(other.types);
+    }
 }
 
 #[derive(Clone, Deserialize)]

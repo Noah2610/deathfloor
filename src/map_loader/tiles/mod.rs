@@ -10,7 +10,7 @@ pub(super) fn load_tiles(
     tiles: TilesData,
     tile_size: SizeData,
 ) -> amethyst::Result<()> {
-    let tiles_settings = world.read_resource::<Settings>().tiles.clone();
+    let tiles_settings = &world.read_resource::<Settings>().tiles.clone();
     let size: Size = tile_size.into();
 
     for tile in tiles {
@@ -27,16 +27,16 @@ pub(super) fn load_tiles(
 
         // Config file settings
         if let Some(config_tile_settings) =
-            tiles_settings.types.get(&tile.tile_type)
+            tiles_settings.types.get(&tile.tile_type).cloned()
         {
-            tile_settings = config_tile_settings.clone().merge(tile_settings);
+            tile_settings.merge(config_tile_settings);
         }
 
         // Prop settings
         if let Ok(mut prop_tile_settings) = TileSettings::try_from(tile.props())
         {
             prop_tile_settings.hitbox = tile.hitbox.map(HitboxConfig::from);
-            tile_settings = prop_tile_settings.merge(tile_settings);
+            tile_settings.merge(prop_tile_settings);
         }
 
         entity = edit_entity_with_tile_settings(entity, &tile_settings, &size);

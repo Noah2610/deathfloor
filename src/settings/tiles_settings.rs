@@ -13,9 +13,22 @@ pub mod prelude {
     pub use super::TilesSettings;
 }
 
-#[derive(Clone, Deserialize)]
+#[derive(Clone, Deserialize, Default)]
 pub struct TilesSettings {
     pub types: HashMap<TileType, TileSettings>,
+}
+
+impl Merge for TilesSettings {
+    fn merge(&mut self, other: Self) {
+        let types = &mut self.types;
+        for (other_type, other_settings) in other.types {
+            if let Some(settings) = types.get_mut(&other_type) {
+                settings.merge(other_settings);
+            } else {
+                types.insert(other_type, other_settings);
+            }
+        }
+    }
 }
 
 #[derive(Clone, Default, Deserialize)]
@@ -38,24 +51,24 @@ pub struct TileSettings {
 
 impl Merge for TileSettings {
     /// Merges the field values from `other` into `self`.
-    /// `self` takes precedence.
+    /// `other` takes precedence.
     /// Takes ownership of `self`, and returns a new `Self`.
-    fn merge(self, other: Self) -> Self {
-        Self {
-            hitbox:        self.hitbox.or(other.hitbox),
-            jumppad:       self.jumppad.or(other.jumppad),
-            collision_tag: self.collision_tag.or(other.collision_tag),
-            solid_tag:     self.solid_tag.or(other.solid_tag),
+    fn merge(&mut self, other: Self) {
+        *self = Self {
+            hitbox:        other.hitbox.or(self.hitbox.take()),
+            jumppad:       other.jumppad.or(self.jumppad.take()),
+            collision_tag: other.collision_tag.or(self.collision_tag.take()),
+            solid_tag:     other.solid_tag.or(self.solid_tag.take()),
 
-            is_solid: self.is_solid.or(other.is_solid),
+            is_solid: other.is_solid.or(self.is_solid.take()),
 
-            jumppad_strength_x: self
+            jumppad_strength_x: other
                 .jumppad_strength_x
-                .or(other.jumppad_strength_x),
-            jumppad_strength_y: self
+                .or(self.jumppad_strength_x.take()),
+            jumppad_strength_y: other
                 .jumppad_strength_y
-                .or(other.jumppad_strength_y),
-        }
+                .or(self.jumppad_strength_y.take()),
+        };
     }
 }
 
