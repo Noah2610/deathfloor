@@ -78,12 +78,12 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="24">
+ <tile id="24" type="Ground">
   <objectgroup draworder="index" id="3">
    <object id="3" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="25">
+ <tile id="25" type="Ground">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
