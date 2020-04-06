@@ -133,6 +133,6 @@
     /// Player takes damage against damage-dealing entities (DealsDamage).
     takes_damage: (
         /// Takes damage against entities with these general collision tag labels.
-        takes_damage_from: [Enemy],
+        takes_damage_from: [Enemy, Solid],
     ),
 )
