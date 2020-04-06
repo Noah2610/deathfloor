@@ -51,7 +51,7 @@ function check_installed_sprongen {
 function err_sprongen_not_installed {
     local clrrs="$( clrrs )"
     local clrcode="$( clr "${CLR_CODE[@]}" )"
-    local clrerr="$( clr "${CLR_ERROR[@]}" )"
+    local clrerr="$( clr "${CLR_ERR[@]}" )"
     local sprongen_display="${clrcode}sprongen${clrrs}"
 
     local input=
@@ -60,7 +60,7 @@ function err_sprongen_not_installed {
 ${clrerr}Error: ${sprongen_display} CLI app is not installed or is out-dated.
 Install automatically with ${clrcode}cargo${clrrs}? [y|N] "
 
-    if prompt_input "$prompt_message"; then
+    if prompt_question "$prompt_message"; then
         try_run \
             cargo \
             --color always \
