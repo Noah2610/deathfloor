@@ -19,15 +19,12 @@
  </tile>
  <tile id="3" type="Ground">
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="2" width="8" height="5.875"/>
-   <object id="2" x="0" y="0" width="6" height="2"/>
-   <object id="3" x="0" y="0" width="8" height="8"/>
+   <object id="1" x="0" y="0" width="8" height="7.875"/>
   </objectgroup>
  </tile>
  <tile id="4" type="Ground">
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="2" width="8" height="6"/>
-   <object id="2" x="2" y="0" width="6" height="2"/>
+   <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
  <tile id="5" type="Ground">

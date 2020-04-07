@@ -95,7 +95,7 @@
                         ]),
                     ): Group([
                         SoundAction(PlayWithVolume(Jump, 0.3)),
-                        MoveAction(AddVelocity(
+                        MoveAction(SetVelocity(
                             y: 100.0,
                             x: 400.0,
                         )),
@@ -110,7 +110,7 @@
                         ]),
                     ): Group([
                         SoundAction(PlayWithVolume(Jump, 0.3)),
-                        MoveAction(AddVelocity(
+                        MoveAction(SetVelocity(
                             y: 100.0,
                             x: -400.0,
                         )),
