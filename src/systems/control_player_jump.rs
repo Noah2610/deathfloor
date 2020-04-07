@@ -17,7 +17,7 @@ fn get_query_matches_from<'a>(
     use deathframe::physics::query::exp::prelude_variants::*;
 
     let mut matches = QueryMatches::default();
-    let solid_tag = CollisionTag::from(CollisionLabel::Solid);
+    let solid_tag = CollisionTag::from(CollisionLabel::solid());
 
     matches.bottom = collider
         .query::<FindQuery<CollisionTag>>()

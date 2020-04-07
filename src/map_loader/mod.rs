@@ -35,20 +35,3 @@ where
     let map = serde_json::from_reader(map_file)?;
     Ok(map)
 }
-
-// TODO: Don't know about this function...
-//       Seems really cool, but takes away a lot of flexibility
-//       (see `Solid` component usage below).
-// fn manipulate_propful_entity<'a, P>(
-//     mut entity: EntityBuilder<'a>,
-//     propful: &P,
-// ) -> EntityBuilder<'a>
-// where
-//     P: Propful,
-// {
-//     if propful.is_solid() {
-//         entity = entity.with(Solid::<SolidTag>::default());
-//     }
-
-//     entity
-// }
