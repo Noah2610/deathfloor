@@ -2,7 +2,7 @@
 /// Enemies settings.
 (
     types: {
-        "Normal": (
+        "NormalLeft": (
             /// Filename of this enemy's spritesheet,
             /// under `resources/spritesheets`.
             spritesheet_filename: "player.png",
@@ -45,7 +45,7 @@
                 },
                 hitbox: Size,
                 walker: (
-                    x: 250.0,
+                    x: -200.0,
                     y: None,
                 ),
                 health: (
