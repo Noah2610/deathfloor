@@ -3,16 +3,10 @@
 (
     types: {
         "NormalRight": (
-            /// Filename of this enemy's spritesheet,
-            /// under `resources/spritesheets`.
             spritesheet_filename: "player.png",
 
-            /// Entity data, such as _components_, _events/actions_, collision stuff.
             entity: (
-                /// List of components for this enemy.
-                /// All components are optional.
                 components: (
-                    /// If this is not set, uses tiled object size.
                     size: (
                         w: 16.0,
                         h: 24.0,
@@ -39,11 +33,6 @@
                             (5, 100),
                             (6, 100),
                         ]),
-                        Custom("Lmao"): Once([
-                            (23, 100),
-                            (24, 100),
-                            (25, 100),
-                        ]),
                     },
                     hitbox: Size,
                     walker: (
@@ -65,10 +54,7 @@
                     ),
                 ),
 
-                /// Events and the actions they trigger.
                 events: {
-                    OnSpawn: Echo("Hello OnSpawn event!"),
-
                     OnCollision(
                         And([
                             IsSide(Left),
@@ -91,7 +77,7 @@
                         And([
                             IsTag(Bullet),
                             IsState(Enter),
-                            IsSide(Left)
+                            IsSide(Inner)
                         ]),
                     ): Group([
                         SoundAction(PlayWithVolume(Jump, 0.3)),
@@ -101,27 +87,11 @@
                         )),
                         HealthAction(Lose(2)),
                     ]),
-                    
-                    OnCollision(
-                        And([
-                            IsTag(Bullet),
-                            IsState(Enter),
-                            IsSide(Right)
-                        ]),
-                    ): Group([
-                        SoundAction(PlayWithVolume(Jump, 0.3)),
-                        MoveAction(AddVelocity(
-                            y: 100.0,
-                            x: -400.0,
-                        )),
-                        HealthAction(Lose(2)),
-                    ]),
 
                     OnCollision(And([
                         IsSide(Right),
                         IsState(Enter),
                     ])): Group([
-                        Echo("touch RIGHT, move LEFT"),
                         InsertComponents((
                             walker: (
                                 x: -250.0,
@@ -133,16 +103,12 @@
                         IsSide(Left),
                         IsState(Enter),
                     ])): Group([
-                        Echo("touch LEFT, move RIGHT"),
                         InsertComponents((
                             walker: (
                                 x: 250.0,
                             ),
                         )),
-                        AnimationAction(Push(Custom("Lmao"))),
                     ]),
-
-                    OnCollision(IsState(Enter)): SoundAction(PlayWithVolume(Jump, 0.1)),
 
                     OnCollision(And([
                         IsState(Enter),
