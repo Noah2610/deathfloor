@@ -17,13 +17,13 @@
                 ),
 
                 collision_tag: (
-                    labels: [Enemy],
-                    collides_with: [Player],
+                    labels: ["Enemy"],
+                    collides_with: ["Player"],
                 ),
 
                 solid_tag: (
-                    labels: [Enemy],
-                    collides_with: [Tile],
+                    labels: ["Enemy"],
+                    collides_with: ["Solid"],
                 ),
             ),
         ),

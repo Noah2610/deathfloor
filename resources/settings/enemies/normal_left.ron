@@ -65,7 +65,7 @@
                     OnCollision(
                         And([
                             IsSide(Left),
-                            IsTag(Player),
+                            IsTag("Player"),
                         ]),
                     ): MoveAction(AddVelocity(
                         x: 200.0,
@@ -74,7 +74,7 @@
                     OnCollision(
                         And([
                             IsSide(Right),
-                            IsTag(Player),
+                            IsTag("Player"),
                         ]),
                     ): MoveAction(AddVelocity(
                         x: -200.0,
@@ -82,7 +82,7 @@
 
                     OnCollision(
                         And([
-                            IsTag(Bullet),
+                            IsTag("Bullet"),
                             IsState(Enter),
                             IsSide(Inner),
                         ]),
@@ -118,7 +118,7 @@
 
                     OnCollision(And([
                         IsState(Enter),
-                        IsTag(Jumppad),
+                        IsTag("Jumppad"),
                         IsSide(Inner),
                     ])): SoundAction(PlayWithVolume(Jump, 0.75)),
                 },
@@ -128,8 +128,8 @@
                 /// If this is not set, the player will not be able to jump
                 /// off of this enemy (because this enemy is `Jumppad`).
                 collision_tag: (
-                    labels: [Enemy, Solid],
-                    collides_with: [Player, Jumppad, Bullet, Tile],
+                    labels: ["Enemy", "Solid"],
+                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
                 ),
 
                 /// Specifies with which `SolidTag`s this enemy has
@@ -141,8 +141,8 @@
                 ///
                 /// Enemies will usually also have solid collision with `Tile` tags.
                 solid_tag: (
-                    labels: [Enemy, Solid],
-                    collides_with: [Tile, Player],
+                    labels: ["Enemy", "Solid"],
+                    collides_with: ["Solid"],
                 ),
             ),
         ),

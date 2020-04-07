@@ -15,13 +15,13 @@
                 ),
 
                 collision_tag: (
-                    labels: [Solid, Tile],
-                    collides_with: [Enemy],
+                    labels: ["Solid", "Tile"],
+                    collides_with: [],
                 ),
 
                 solid_tag: (
-                    labels: [Solid, Tile],
-                    collides_with: [Enemy],
+                    labels: ["Solid", "Tile"],
+                    collides_with: [],
                 ),
             ),
         ),

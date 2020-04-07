@@ -26,15 +26,15 @@
     collision_tag: (
         /// `CollisionLabel`s for the player.
         /// Used with other collider entities, to check if they collide with this entity.
-        labels: [Player],
+        labels: ["Player"],
         /// `CollisionLabel`s that the player collides with.
-        collides_with: [Tile, Solid, Jumppad, Bullet, Enemy],
+        collides_with: ["Tile", "Solid", "Jumppad", "Bullet", "Enemy"],
     ),
 
     /// For _solid_ collision checking.
     solid_tag: (
-        labels: [Player],
-        collides_with: [Solid],
+        labels: ["Player", "Solid"],
+        collides_with: ["Solid"],
     ),
 
     /// Player jump settings.
@@ -133,6 +133,6 @@
     /// Player takes damage against damage-dealing entities (DealsDamage).
     takes_damage: (
         /// Takes damage against entities with these general collision tag labels.
-        takes_damage_from: [Enemy, Solid],
+        takes_damage_from: ["Enemy", "Solid"],
     ),
 )

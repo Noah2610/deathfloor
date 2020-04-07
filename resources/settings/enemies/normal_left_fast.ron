@@ -57,7 +57,7 @@
                     OnCollision(
                         And([
                             IsSide(Left),
-                            IsTag(Player),
+                            IsTag("Player"),
                         ]),
                     ): MoveAction(AddVelocity(
                         x: 500.0,
@@ -67,7 +67,7 @@
                     OnCollision(
                         And([
                             IsSide(Right),
-                            IsTag(Player),
+                            IsTag("Player"),
                         ]),
                     ): MoveAction(AddVelocity(
                         x: -500.0,
@@ -76,7 +76,7 @@
 
                     OnCollision(
                         And([
-                            IsTag(Bullet),
+                            IsTag("Bullet"),
                             IsState(Enter),
                             IsSide(Inner),
                         ]),
@@ -112,19 +112,19 @@
 
                     OnCollision(And([
                         IsState(Enter),
-                        IsTag(Jumppad),
+                        IsTag("Jumppad"),
                         IsSide(Inner),
                     ])): SoundAction(PlayWithVolume(Jump, 0.75)),
                 },
 
                 collision_tag: (
-                    labels: [Enemy, Solid],
-                    collides_with: [Player, Jumppad, Bullet, Tile],
+                    labels: ["Enemy", "Solid"],
+                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
                 ),
 
                 solid_tag: (
-                    labels: [Enemy, Solid],
-                    collides_with: [Tile, Player],
+                    labels: ["Enemy", "Solid"],
+                    collides_with: ["Solid"],
                 ),
             ),
         ),
