@@ -1,5 +1,6 @@
 use super::component_prelude::*;
 use super::{ActionType, EventType};
+use crate::merge::Merge;
 use std::collections::HashMap;
 
 #[derive(Component, Deserialize, Clone)]
@@ -24,5 +25,11 @@ impl EventsRegister {
 impl From<HashMap<EventType, ActionType>> for EventsRegister {
     fn from(events: HashMap<EventType, ActionType>) -> Self {
         Self { events }
+    }
+}
+
+impl Merge for EventsRegister {
+    fn merge(&mut self, other: Self) {
+        self.events.extend(other.events);
     }
 }
