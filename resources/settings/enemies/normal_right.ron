@@ -61,7 +61,7 @@
                         border_padding: 0.5,
                     ),
                     deals_damage: (
-                        damage: 2,
+                        damage: 4,
                     ),
                 ),
 
@@ -99,7 +99,7 @@
                             y: 100.0,
                             x: 400.0,
                         )),
-                        HealthAction(Lose(1)),
+                        HealthAction(Lose(2)),
                     ]),
                     
                     OnCollision(
@@ -114,7 +114,7 @@
                             y: 100.0,
                             x: -400.0,
                         )),
-                        HealthAction(Lose(1)),
+                        HealthAction(Lose(2)),
                     ]),
 
                     OnCollision(And([
