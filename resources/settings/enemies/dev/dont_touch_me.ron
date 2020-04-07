@@ -5,90 +5,92 @@
         "DontTouchMe": (
             spritesheet_filename: "player.png",
 
-            components: (
-                size: (w: 8.0, h: 16.0),
-                gravity: (x: None, y: -200.0),
-                max_movement_velocity: (x: 200.0, y: 200.0),
-                base_friction: (friction_x: 1000.0, friction_y: None),
-                hitbox: Size,
-            ),
+            entity: (
+                components: (
+                    size: (w: 8.0, h: 16.0),
+                    gravity: (x: None, y: -200.0),
+                    max_movement_velocity: (x: 200.0, y: 200.0),
+                    base_friction: (friction_x: 1000.0, friction_y: None),
+                    hitbox: Size,
+                ),
 
-            events: {
-                OnSpawn: Group([
-                    Echo("Nobody dare touch me..."),
-                    Echo("Nobody dare touch me..."),
-                    Echo("Nobody dare touch me..."),
-                    Delay((
-                        delay_ms: 500,
-                        action: Echo("NOBODY"),
-                    )),
-                ]),
-
-                // OnCollision(None): Echo("..."),
-
-                OnCollision(
-                    And([
-                        IsState(Enter),
-                        IsTag(Player),
-                    ])
-                ): Echo("Don't touch me!"),
-
-                OnCollision(
-                    And([
-                        Or([IsSide(Left), IsSide(Right)]),
-                        IsTag(Player),
-                    ])
-                ): Echo("Leave my sides alone!"),
-
-                OnCollision(
-                    And([
-                        IsSide(Top),
-                        IsTag(Player),
-                    ])
-                ): Echo("Get off of my head!"),
-
-                OnCollision(
-                    And([
-                        IsSide(Bottom),
-                        IsTag(Tile),
-                    ])
-                ): MoveAction(SetVelocity(
-                    y: 400.0,
-                )),
-
-                Interval(200): Group([
-                    Random((
-                        chance: 0.5,
-                        on_success: MoveAction(AddVelocity(
-                            x: 500.0,
+                events: {
+                    OnSpawn: Group([
+                        Echo("Nobody dare touch me..."),
+                        Echo("Nobody dare touch me..."),
+                        Echo("Nobody dare touch me..."),
+                        Delay((
+                            delay_ms: 500,
+                            action: Echo("NOBODY"),
                         )),
-                        on_failure: MoveAction(AddVelocity(
-                            x: -500.0,
-                        )),
+                    ]),
+
+                    // OnCollision(None): Echo("..."),
+
+                    OnCollision(
+                        And([
+                            IsState(Enter),
+                            IsTag(Player),
+                        ])
+                    ): Echo("Don't touch me!"),
+
+                    OnCollision(
+                        And([
+                            Or([IsSide(Left), IsSide(Right)]),
+                            IsTag(Player),
+                        ])
+                    ): Echo("Leave my sides alone!"),
+
+                    OnCollision(
+                        And([
+                            IsSide(Top),
+                            IsTag(Player),
+                        ])
+                    ): Echo("Get off of my head!"),
+
+                    OnCollision(
+                        And([
+                            IsSide(Bottom),
+                            IsTag(Tile),
+                        ])
+                    ): MoveAction(SetVelocity(
+                        y: 400.0,
                     )),
-                    Delay((
-                        delay_ms: 100,
-                        action: Random((
+
+                    Interval(200): Group([
+                        Random((
                             chance: 0.5,
                             on_success: MoveAction(AddVelocity(
-                                y: 100.0,
+                                x: 500.0,
                             )),
                             on_failure: MoveAction(AddVelocity(
-                                y: -100.0,
+                                x: -500.0,
                             )),
                         )),
-                    )),
-                ]),
-            },
+                        Delay((
+                            delay_ms: 100,
+                            action: Random((
+                                chance: 0.5,
+                                on_success: MoveAction(AddVelocity(
+                                    y: 100.0,
+                                )),
+                                on_failure: MoveAction(AddVelocity(
+                                    y: -100.0,
+                                )),
+                            )),
+                        )),
+                    ]),
+                },
 
-            collision_tag: (
-                labels: [Enemy],
-                collides_with: [Player, Tile, Jumppad],
-            ),
+                collision_tag: (
+                    labels: [Enemy],
+                    collides_with: [Player, Tile, Jumppad],
+                ),
 
-            solid_tag: (
-                labels: [Enemy],
-                collides_with: [Tile],
+                solid_tag: (
+                    labels: [Enemy],
+                    collides_with: [Tile],
+                ),
             ),
         ),
     }

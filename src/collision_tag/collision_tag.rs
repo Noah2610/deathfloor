@@ -59,6 +59,7 @@ impl PartialEq for CollisionTag {
 impl Eq for CollisionTag {
 }
 
+/// Wrapper for `CollisionTag`, used for deserialization.
 #[derive(Clone, Deserialize)]
 pub struct CollisionTagWrapper {
     pub labels:        Vec<CollisionLabel>,

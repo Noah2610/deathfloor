@@ -1,5 +1,4 @@
 use super::helpers::prelude::*;
-use crate::systems::system_helpers::insert_components;
 
 /// Builds the enemy entity.
 pub(super) fn build(
@@ -20,68 +19,31 @@ pub(super) fn build(
             ))
         })?;
 
-    let sprite_render = get_sprite_render(
-        world,
-        format!("spritesheets/{}", enemy_settings.spritesheet_filename),
-        1,
-    )?;
-
     let size = enemy_settings
+        .entity
         .components
         .as_ref()
         .and_then(|comps| comps.size.clone())
         .unwrap_or(object.size.into());
 
-    // CREATE ENTITY_BUILDER
+    let sprite_render = get_sprite_render(
+        world,
+        format!("spritesheets/{}", &enemy_settings.spritesheet_filename),
+        1, // TODO
+    )?;
 
-    let mut entity_builder = base_object_entity(world, object)?
+    let entity = base_object_entity(world, object)?
         .with(size)
         .with(Enemy::new(enemy_type))
-        .with(
-            Loadable::default(), /*.with_padding((
-                                     // TILE_LOADABLE_PADDING.0.map(|x| -x),
-                                     // TILE_LOADABLE_PADDING.1.map(|y| -y),
-                                     // Some(-size.w),
-                                     // Some(-size.h),
-                                 ))*/
-        )
-        .with(Hidden)
+        .with(Loadable::default())
         .with(sprite_render)
+        .with(Hidden)
         .with(Velocity::default())
         .with(Movable::default())
-        .with(SoundPlayer::default());
+        .with(SoundPlayer::default())
+        .build();
 
-    // COLLISION / SOLID TAGS
-
-    if let Some(collision_tag) = enemy_settings.collision_tag {
-        entity_builder = entity_builder
-            .with(Collider::new(CollisionTag::from(collision_tag.clone())))
-            .with(Collidable::new(CollisionTag::from(collision_tag)));
-    }
-    if let Some(solid_tag) = enemy_settings.solid_tag {
-        entity_builder =
-            entity_builder.with(Solid::new(CollisionTag::from(solid_tag)));
-    }
-
-    // EVENTS
-
-    if let Some(events_register) = enemy_settings.events {
-        entity_builder = entity_builder
-            .with(events_register)
-            .with(ActionTypeTrigger::default());
-    }
-
-    let entity = entity_builder.build();
-
-    // COMPONENTS
-
-    if let Some(components) = enemy_settings.components {
-        world.exec(|mut storages: EnemyComponentsStorages| {
-            insert_components(entity, components, &mut storages).expect(
-                "Couldn't insert some components while building enemy.",
-            );
-        });
-    }
+    edit_entity_with_entity_config(world, entity, enemy_settings.entity)?;
 
     Ok(entity)
 }

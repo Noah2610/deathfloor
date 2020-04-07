@@ -5,64 +5,66 @@
         "RubberBall": (
             spritesheet_filename: "player.png",
 
-            components: (
-                size: (w: 8.0, h: 8.0),
-                gravity: (x: None, y: -100.0),
-                hitbox: Size,
-                health: (
-                    health: 2,
-                    max_health: 2,
+            entity: (
+                components: (
+                    size: (w: 8.0, h: 8.0),
+                    gravity: (x: None, y: -100.0),
+                    hitbox: Size,
+                    health: (
+                        health: 2,
+                        max_health: 2,
+                    ),
+                    health_display: (
+                        position: Top,
+                        size: (6.0, 1.0),
+                        padding: 2.0,
+                        border_padding: 0.5,
+                    ),
                 ),
-                health_display: (
-                    position: Top,
-                    size: (6.0, 1.0),
-                    padding: 2.0,
-                    border_padding: 0.5,
-                ),
-            ),
 
-            events: {
-                OnCollision(IsSide(Left)):   MoveAction(AddVelocity( x: 100.0, )),
-                OnCollision(IsSide(Right)):  MoveAction(AddVelocity( x: -100.0, )),
-                OnCollision(IsSide(Top)):    MoveAction(AddVelocity( y: -100.0, )),
-                OnCollision(IsSide(Bottom)): MoveAction(AddVelocity( y: 100.0, )),
+                events: {
+                    OnCollision(IsSide(Left)):   MoveAction(AddVelocity( x: 100.0, )),
+                    OnCollision(IsSide(Right)):  MoveAction(AddVelocity( x: -100.0, )),
+                    OnCollision(IsSide(Top)):    MoveAction(AddVelocity( y: -100.0, )),
+                    OnCollision(IsSide(Bottom)): MoveAction(AddVelocity( y: 100.0, )),
 
-                OnCollision(IsState(Enter)): Group([
-                    SoundAction(PlayWithVolume(Jump, 0.1)),
-                    InsertComponents((
-                        size: (w: 16.0, h: 16.0),
-                        scale_once: (),
-                        // hitbox: Size,
-                    )),
-                    Delay((
-                        delay_ms: 250,
-                        action: InsertComponents((
-                            size: (w: 8.0, h: 8.0),
+                    OnCollision(IsState(Enter)): Group([
+                        SoundAction(PlayWithVolume(Jump, 0.1)),
+                        InsertComponents((
+                            size: (w: 16.0, h: 16.0),
                             scale_once: (),
                             // hitbox: Size,
                         )),
-                    )),
-                ]),
+                        Delay((
+                            delay_ms: 250,
+                            action: InsertComponents((
+                                size: (w: 8.0, h: 8.0),
+                                scale_once: (),
+                                // hitbox: Size,
+                            )),
+                        )),
+                    ]),
 
-                // Damage on bullet collision
-                OnCollision(And([IsState(Enter), IsTag(Bullet)])): Group([
-                    SoundAction(PlayWithVolume(Jump, 0.3)),
-                    HealthAction(Lose(1)),
-                ]),
-                // Damage when stuck inside solid tile
-                OnCollision(And([IsState(Steady), IsTag(Tile), IsSide(Inner)])): HealthAction(Lose(2)),
+                    // Damage on bullet collision
+                    OnCollision(And([IsState(Enter), IsTag(Bullet)])): Group([
+                        SoundAction(PlayWithVolume(Jump, 0.3)),
+                        HealthAction(Lose(1)),
+                    ]),
+                    // Damage when stuck inside solid tile
+                    OnCollision(And([IsState(Steady), IsTag(Tile), IsSide(Inner)])): HealthAction(Lose(2)),
 
-                Lifecycle(Death): Echo("ball dead :("),
-            },
+                    Lifecycle(Death): Echo("ball dead :("),
+                },
 
-            collision_tag: (
-                labels: [Enemy, Solid],
-                collides_with: [Player, Solid, Jumppad, Enemy, Bullet],
-            ),
+                collision_tag: (
+                    labels: [Enemy, Solid],
+                    collides_with: [Player, Solid, Jumppad, Enemy, Bullet],
+                ),
 
-            solid_tag: (
-                labels: [Enemy, Solid],
-                collides_with: [Tile, Player],
+                solid_tag: (
+                    labels: [Enemy, Solid],
+                    collides_with: [Tile, Player],
+                ),
             ),
         ),
     }

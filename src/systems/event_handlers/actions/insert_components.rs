@@ -8,7 +8,7 @@ impl<'a> System<'a> for HandleActionInsertComponents {
     type SystemData = (
         Entities<'a>,
         WriteStorage<'a, ActionTrigger<action::InsertComponents>>,
-        EnemyComponentsStorages<'a>,
+        EntityComponentsStorages<'a>,
     );
 
     fn run(

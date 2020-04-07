@@ -1,6 +1,7 @@
 pub mod prelude {
     pub use super::camera_settings::CameraSettings;
     pub use super::enemies_settings::prelude::*;
+    pub use super::entity_config::prelude::*;
     pub use super::general_settings::GeneralSettings;
     pub use super::hitbox_config::HitboxConfig;
     pub use super::player_settings::prelude::*;
@@ -11,15 +12,16 @@ pub mod prelude {
 
 mod camera_settings;
 mod enemies_settings;
+mod entity_config;
 mod general_settings;
 mod hitbox_config;
 mod player_settings;
 mod tiles_settings;
 
 use crate::helpers::resource;
+use crate::merge::Merge;
 use deathframe::amethyst;
 use prelude::*;
-use std::collections::HashMap;
 use std::fs::File;
 use std::path::PathBuf;
 
@@ -38,8 +40,8 @@ impl Settings {
             general: Self::load_file::<GeneralSettings, _>("general.ron")?,
             camera:  Self::load_file::<CameraSettings, _>("camera.ron")?,
             player:  Self::load_file::<PlayerSettings, _>("player.ron")?,
-            tiles:   Self::load_file::<TilesSettings, _>("tiles.ron")?,
-            enemies: Self::load_enemies_config()?,
+            tiles:   Self::load_dir::<TilesSettings, _>("tiles")?,
+            enemies: Self::load_dir::<EnemiesSettings, _>("enemies")?,
         })
     }
 
@@ -57,17 +59,32 @@ impl Settings {
         })?)
     }
 
-    fn load_enemies_config() -> amethyst::Result<EnemiesSettings> {
-        let path = resource("settings/enemies");
-        let all_enemies_settings = Self::load_enemies_configs_from(path)?;
-        let enemies_settings =
-            Self::merge_enemies_settings(all_enemies_settings);
-        Ok(enemies_settings)
+    fn load_dir<T, S>(dirname: S) -> amethyst::Result<T>
+    where
+        for<'de> T: serde::Deserialize<'de> + Merge + Default,
+        S: std::fmt::Display,
+    {
+        let path = resource(format!("settings/{}", dirname));
+        let errmsg = format!("No settings files found in {:?}", &path);
+        let all_settings = Self::load_configs_recursively_from(path)?;
+        let merged_settings = Self::merge_settings(all_settings)
+            .unwrap_or_else(|| {
+                eprintln!(
+                    "[WARNING]\n    {}\n    Using default (probably empty \
+                     settings)",
+                    errmsg
+                );
+                T::default()
+            });
+        Ok(merged_settings)
     }
 
-    fn load_enemies_configs_from(
+    fn load_configs_recursively_from<T>(
         path: PathBuf,
-    ) -> amethyst::Result<Vec<EnemiesSettings>> {
+    ) -> amethyst::Result<Vec<T>>
+    where
+        for<'de> T: serde::Deserialize<'de> + Merge,
+    {
         let mut settings = Vec::new();
 
         for entry in path.read_dir()? {
@@ -79,30 +96,36 @@ impl Settings {
                     let file = File::open(&entry_path)?;
                     settings.push(ron::de::from_reader(file).map_err(|e| {
                         amethyst::Error::from_string(format!(
-                            "Failed parsing ron settings file: {:?}\n{:#?}",
+                            "Failed parsing RON settings file: {:?}\n{:#?}",
                             entry_path, e
                         ))
                     })?);
                 }
             } else if entry_path.is_dir() {
-                settings
-                    .append(&mut Self::load_enemies_configs_from(entry_path)?);
+                settings.append(&mut Self::load_configs_recursively_from(
+                    entry_path,
+                )?);
             }
         }
 
         Ok(settings)
     }
 
-    fn merge_enemies_settings(
-        all_enemies_settings: Vec<EnemiesSettings>,
-    ) -> EnemiesSettings {
-        let mut enemies_types = HashMap::new();
-        for enemies_settings in all_enemies_settings {
-            enemies_types.extend(enemies_settings.types);
+    /// Merge `Vec` of settings `T` together.
+    /// Returns `None` if given `Vec` is empty.
+    fn merge_settings<T>(all_settings: Vec<T>) -> Option<T>
+    where
+        T: Merge,
+    {
+        let mut merged_settings: Option<T> = None;
+        for settings in all_settings {
+            if let Some(merged) = merged_settings.as_mut() {
+                merged.merge(settings);
+            } else {
+                merged_settings = Some(settings);
+            }
         }
-        EnemiesSettings {
-            types: enemies_types,
-        }
+        merged_settings
     }
 }
 
