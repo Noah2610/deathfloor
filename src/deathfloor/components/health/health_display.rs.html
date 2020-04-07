@@ -14,6 +14,7 @@
 <span id="14">14</span>
 <span id="15">15</span>
 <span id="16">16</span>
+<span id="17">17</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">component_prelude</span>::<span class="kw-2">*</span>;
 
@@ -25,6 +26,7 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Component</span>, <span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
 <span class="attribute">#[<span class="ident">storage</span>(<span class="ident">VecStorage</span>)]</span>
+<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">HealthDisplay</span> {
     <span class="kw">pub</span> <span class="ident">position</span>:       <span class="ident">HealthDisplayPosition</span>,
     <span class="kw">pub</span> <span class="ident">size</span>:           (<span class="ident">f32</span>, <span class="ident">f32</span>),

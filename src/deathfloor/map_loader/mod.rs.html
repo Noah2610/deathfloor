@@ -35,23 +35,6 @@
 <span id="35">35</span>
 <span id="36">36</span>
 <span id="37">37</span>
-<span id="38">38</span>
-<span id="39">39</span>
-<span id="40">40</span>
-<span id="41">41</span>
-<span id="42">42</span>
-<span id="43">43</span>
-<span id="44">44</span>
-<span id="45">45</span>
-<span id="46">46</span>
-<span id="47">47</span>
-<span id="48">48</span>
-<span id="49">49</span>
-<span id="50">50</span>
-<span id="51">51</span>
-<span id="52">52</span>
-<span id="53">53</span>
-<span id="54">54</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">map_data</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">types</span> {
@@ -90,22 +73,5 @@
     <span class="kw">let</span> <span class="ident">map</span> <span class="op">=</span> <span class="ident">serde_json</span>::<span class="ident">from_reader</span>(<span class="ident">map_file</span>)<span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(<span class="ident">map</span>)
 }
-
-<span class="comment">// TODO: Don&#39;t know about this function...</span>
-<span class="comment">//       Seems really cool, but takes away a lot of flexibility</span>
-<span class="comment">//       (see `Solid` component usage below).</span>
-<span class="comment">// fn manipulate_propful_entity&lt;&#39;a, P&gt;(</span>
-<span class="comment">//     mut entity: EntityBuilder&lt;&#39;a&gt;,</span>
-<span class="comment">//     propful: &amp;P,</span>
-<span class="comment">// ) -&gt; EntityBuilder&lt;&#39;a&gt;</span>
-<span class="comment">// where</span>
-<span class="comment">//     P: Propful,</span>
-<span class="comment">// {</span>
-<span class="comment">//     if propful.is_solid() {</span>
-<span class="comment">//         entity = entity.with(Solid::&lt;SolidTag&gt;::default());</span>
-<span class="comment">//     }</span>
-
-<span class="comment">//     entity</span>
-<span class="comment">// }</span>
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../";window.currentCrate = "deathfloor";</script><script src="../../../aliases.js"></script><script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script><script defer src="../../../search-index.js"></script></body></html>

@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_CollisionLabel",""]],"enum":[["CollisionLabel",""]]});
+initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_CollisionLabel",""]],"struct":[["CollisionLabel",""]]});

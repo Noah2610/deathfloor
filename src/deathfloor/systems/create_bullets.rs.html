@@ -71,8 +71,8 @@
             <span class="kw">let</span> <span class="ident">hitbox</span> <span class="op">=</span> <span class="ident">Hitbox</span>::<span class="ident">from</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="ident">Rect</span>::<span class="ident">from</span>(<span class="kw-2">&amp;</span><span class="ident">bullet_comps</span>.<span class="ident">size</span>)]);
 
             <span class="kw">let</span> <span class="ident">collision_tag</span> <span class="op">=</span> <span class="ident">CollisionTag</span>::<span class="ident">builder</span>()
-                .<span class="ident">label</span>(<span class="ident">CollisionLabel</span>::<span class="ident">Bullet</span>)
-                .<span class="ident">collides_with</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="ident">CollisionLabel</span>::<span class="ident">Tile</span>])
+                .<span class="ident">label</span>(<span class="ident">CollisionLabel</span>::<span class="ident">bullet</span>())
+                .<span class="ident">collides_with</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="ident">CollisionLabel</span>::<span class="ident">tile</span>()])
                 .<span class="ident">build</span>()
                 .<span class="ident">unwrap</span>();
 

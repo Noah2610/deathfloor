@@ -74,6 +74,7 @@
 <span id="74">74</span>
 <span id="75">75</span>
 <span id="76">76</span>
+<span id="77">77</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">CTag</span>;
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">CollisionLabel</span>;
@@ -138,6 +139,7 @@
 
 <span class="doccomment">/// Wrapper for `CollisionTag`, used for deserialization.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
+<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CollisionTagWrapper</span> {
     <span class="kw">pub</span> <span class="ident">labels</span>:        <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">CollisionLabel</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">collides_with</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">CollisionLabel</span><span class="op">&gt;</span><span class="op">&gt;</span>,
