@@ -15,6 +15,7 @@ use deathframe::amethyst::ecs::{SystemData, World, WriteStorage};
 /// Config for entities.
 /// All fields are optional and can be omitted.
 #[derive(Clone, Deserialize, Default)]
+#[serde(deny_unknown_fields)]
 pub struct EntityConfig {
     /// List of components to be added to the entity.
     pub components:    Option<EntityComponentsData>,
@@ -41,6 +42,7 @@ impl Merge for EntityConfig {
 /// List of posible components for an entity.
 /// All can optionally be added to an entity's config.
 #[derive(Clone, Deserialize, Default)]
+#[serde(deny_unknown_fields)]
 pub struct EntityComponentsData {
     pub size:                  Option<Size>,
     pub gravity:               Option<Gravity>,

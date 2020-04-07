@@ -6,6 +6,7 @@ use std::collections::HashMap;
 #[derive(Component, Deserialize, Clone)]
 #[storage(DenseVecStorage)]
 #[serde(from = "HashMap<EventType, ActionType>")]
+#[serde(deny_unknown_fields)]
 pub struct EventsRegister {
     events: HashMap<EventType, ActionType>,
 }

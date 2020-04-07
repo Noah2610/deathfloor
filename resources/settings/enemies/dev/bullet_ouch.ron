@@ -31,12 +31,12 @@
                     ),
                 ),
 
-                vars: {
-                    /// Its my var lmao
-                    "my_var": 100.0,
-                    /// How often something is triggered
-                    "count": 0,
-                },
+                // vars: {
+                //     /// Its my var lmao
+                //     "my_var": 100.0,
+                //     /// How often something is triggered
+                //     "count": 0,
+                // },
 
                 events: {
                     OnCollision(And([
@@ -89,15 +89,15 @@
                     // )),
                 },
 
-                functions: {
-                    "MyLoop": Let("count", 0, If(
-                        LessThan(VarGet("count"), 10),
-                        Group([
-                              VarSet("count", Add(VarGet("count"), 1)),
-                              Call("MyLoop"),
-                        ]),
-                    )),
-                },
+                // functions: {
+                //     "MyLoop": Let("count", 0, If(
+                //         LessThan(VarGet("count"), 10),
+                //         Group([
+                //               VarSet("count", Add(VarGet("count"), 1)),
+                //               Call("MyLoop"),
+                //         ]),
+                //     )),
+                // },
 
                 collision_tag: (
                     labels: [Enemy],
