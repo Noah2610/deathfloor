@@ -38,7 +38,7 @@ where
     })
 }
 
-/// Builds `Entity` from `EntityBuilder` with the given `EntityConfig`.
+/// Edits `Entity` with the given `EntityConfig`.
 pub(super) fn edit_entity_with_entity_config(
     world: &mut World,
     entity: Entity,
