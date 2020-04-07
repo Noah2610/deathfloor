@@ -15,7 +15,7 @@
                     /// If this is not set, uses tiled object size.
                     size: (
                         w: 16.0,
-                        h: 32.0,
+                        h: 24.0,
                     ),
                     gravity: (
                         x: None,
@@ -51,8 +51,8 @@
                         y: None,
                     ),
                     health: (
-                        health: 10,
-                        max_health: 10,
+                        health: 6,
+                        max_health: 6,
                     ),
                     health_display: (
                         position: Top,

@@ -20,6 +20,9 @@
                         padding: 2.0,
                         border_padding: 0.5,
                     ),
+                        deals_damage: (
+                        damage: 4,
+                    ),
                 ),
 
                 events: {

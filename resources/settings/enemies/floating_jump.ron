@@ -1,0 +1,33 @@
+#![enable(implicit_some)]
+/// Enemies settings.
+(
+    types: {
+        "SpringyBoy": (
+            spritesheet_filename: "player.png",
+
+            entity: (
+                components: (
+                    size: (w: 32.0, h: 16.0),
+                    gravity: (x: None, y: None),
+                    max_movement_velocity: (x: 200.0, y: 200.0),
+                    base_friction: (friction_x: 1000.0, friction_y: None),
+                    hitbox: Size,
+
+                    jumppad: (
+                        strength: (None, 600.0,),
+                    ),
+                ),
+
+                collision_tag: (
+                    labels: [Enemy],
+                    collides_with: [Player],
+                ),
+
+                solid_tag: (
+                    labels: [Enemy],
+                    collides_with: [Tile],
+                ),
+            ),
+        ),
+    }
+)

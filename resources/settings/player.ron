@@ -70,16 +70,16 @@
     shooter: (
         /// Shooting cooldown delay in milliseconds.
         /// Delay after shooting, before the player can shoot again.
-        cooldown_ms: 100,
+        cooldown_ms: 450,
         /// Data for the spawned bullets.
         bullet: (
             /// The bullet's size.
             size: (8.0, 4.0),
             /// Bullet velocity (x, y).
             /// Both axes should be positive, are inverted in-game, if necessary.
-            velocity: (300.0, 0.0),
+            velocity: (250.0, 0.0),
             /// Despawn the bullet after this amount of milliseconds.
-            despawn_after_ms: 5_000,
+            despawn_after_ms: 10_000,
             /// Bullet animation frames. Uses `spritesheets/player_bullet.png` spritesheet.
             animation: Cycle([
                 (0, 100),

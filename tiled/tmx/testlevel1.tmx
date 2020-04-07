@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="248" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="18">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="248" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="22">
  <editorsettings>
   <export target="../../resources/levels/level.json" format="deathfloor-export"/>
  </editorsettings>
@@ -57,6 +57,10 @@
   <object id="15" name="Normal Right" type="Enemy(NormalRight)" x="136" y="152" width="8" height="8"/>
   <object id="16" name="Normal Left" type="Enemy(NormalLeft)" x="304" y="128" width="8" height="8"/>
   <object id="17" name="Fast Right" type="Enemy(NormalRightFast)" x="248" y="32" width="8" height="8"/>
+  <object id="18" name="Normal Left" type="Enemy(NormalLeft)" x="864" y="144" width="8" height="8"/>
+  <object id="19" name="Normal Right" type="Enemy(NormalRight)" x="744" y="144" width="8" height="8"/>
+  <object id="20" name="Normal Right" type="Enemy(RubberBall)" x="808" y="96" width="8" height="8"/>
+  <object id="21" name="Normal Right" type="Enemy(RubberBall)" x="920" y="96" width="8" height="8"/>
  </objectgroup>
  <objectgroup id="2" name="Player">
   <properties>
