@@ -43,20 +43,6 @@ impl Merge for TileSettings {
         *self = Self {
             entity: self.entity.take().merged(other.entity),
         };
-
-        // *self = Self {
-        //     hitbox:        other.hitbox.or(self.hitbox.take()),
-        //     jumppad:       other.jumppad.or(self.jumppad.take()),
-        //     collision_tag: other.collision_tag.or(self.collision_tag.take()),
-        //     solid_tag:     other.solid_tag.or(self.solid_tag.take()),
-
-        //     jumppad_strength_x: other
-        //         .jumppad_strength_x
-        //         .or(self.jumppad_strength_x.take()),
-        //     jumppad_strength_y: other
-        //         .jumppad_strength_y
-        //         .or(self.jumppad_strength_y.take()),
-        // };
     }
 }
 

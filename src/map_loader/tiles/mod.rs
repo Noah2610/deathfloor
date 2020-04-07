@@ -11,7 +11,6 @@ pub(super) fn load_tiles(
     tile_size: SizeData,
 ) -> amethyst::Result<()> {
     let tiles_settings = &world.read_resource::<Settings>().tiles.clone();
-    let size: Size = tile_size.into();
 
     for tile in tiles {
         let sprite_render = get_sprite_render(
@@ -20,7 +19,7 @@ pub(super) fn load_tiles(
             tile.id,
         )?;
 
-        let mut entity_builder =
+        let entity_builder =
             base_tile_entity(world, &tile, tile_size)?.with(sprite_render);
 
         let mut tile_settings = TileSettings::default();

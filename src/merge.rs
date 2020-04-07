@@ -17,7 +17,7 @@ where
 {
     fn merge(&mut self, other: Self) {
         match self.as_mut() {
-            Some(mut s) => match other {
+            Some(s) => match other {
                 Some(o) => s.merge(o),
                 None => (),
             },
