@@ -86,16 +86,33 @@
                     ): MoveAction(AddVelocity(
                         x: -200.0,
                     )),
-
+                   
                     OnCollision(
                         And([
                             IsTag(Bullet),
                             IsState(Enter),
+                            IsSide(Left)
                         ]),
                     ): Group([
                         SoundAction(PlayWithVolume(Jump, 0.3)),
                         MoveAction(AddVelocity(
                             y: 100.0,
+                            x: 400.0,
+                        )),
+                        HealthAction(Lose(1)),
+                    ]),
+                    
+                    OnCollision(
+                        And([
+                            IsTag(Bullet),
+                            IsState(Enter),
+                            IsSide(Right)
+                        ]),
+                    ): Group([
+                        SoundAction(PlayWithVolume(Jump, 0.3)),
+                        MoveAction(AddVelocity(
+                            y: 100.0,
+                            x: -400.0,
                         )),
                         HealthAction(Lose(1)),
                     ]),
