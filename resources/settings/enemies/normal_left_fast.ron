@@ -2,7 +2,7 @@
 /// Enemies settings.
 (
     types: {
-        "NormalRightFast": (
+        "NormalLeftFast": (
             /// Filename of this enemy's spritesheet,
             /// under `resources/spritesheets`.
             spritesheet_filename: "player.png",
@@ -47,7 +47,7 @@
                     },
                     hitbox: Size,
                     walker: (
-                        x: 500.0,
+                        x: -500.0,
                         y: None,
                     ),
                     health: (
