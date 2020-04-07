@@ -8,6 +8,7 @@ pub enum HealthDisplayPosition {
 
 #[derive(Component, Clone, Deserialize)]
 #[storage(VecStorage)]
+#[serde(deny_unknown_fields)]
 pub struct HealthDisplay {
     pub position:       HealthDisplayPosition,
     pub size:           (f32, f32),

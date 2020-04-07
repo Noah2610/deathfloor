@@ -16,6 +16,7 @@ pub type HitPoints = u32;
 
 #[derive(Component, Clone, Deserialize)]
 #[storage(VecStorage)]
+#[serde(deny_unknown_fields)]
 pub struct Health {
     pub health:     HitPoints,
     pub max_health: HitPoints,

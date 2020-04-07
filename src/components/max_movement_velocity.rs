@@ -4,6 +4,7 @@ use super::component_prelude::*;
 #[derive(Default, Component, Builder, Deserialize, Clone)]
 #[storage(VecStorage)]
 #[builder(pattern = "owned", default, setter(strip_option))]
+#[serde(deny_unknown_fields)]
 pub struct MaxMovementVelocity {
     x: Option<f32>,
     y: Option<f32>,

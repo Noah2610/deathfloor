@@ -34,6 +34,7 @@ impl Merge for TilesSettings {
 
 #[derive(Clone, Default, Deserialize)]
 #[serde(default)]
+#[serde(deny_unknown_fields)]
 pub struct TileSettings {
     pub entity: Option<EntityConfig>,
 }
