@@ -6,23 +6,104 @@
 
             entity: (
                 components: (
-                    size: (w: 32.0, h: 16.0),
-                    max_movement_velocity: (x: 200.0, y: 200.0),
-                    base_friction: (friction_x: 1000.0, friction_y: None),
+                    size: (
+                        w: 32.0,
+                        h: 16.0,
+                    ),
+                    gravity: (
+                        x: None,
+                        y: None,
+                    ),
+                    max_movement_velocity: (
+                        x: 200.0,
+                        y: 200.0,
+                    ),
+                    base_friction: (
+                        friction_x: 1000.0,
+                        friction_y: None,
+                    ),
+                    animations: {
+                        Idle: Cycle([
+                            (13, 500),
+                            (14, 500),
+                        ]),
+                        Walk: Cycle([
+                            (4, 100),
+                            (5, 100),
+                            (6, 100),
+                        ]),
+                    },
                     hitbox: Size,
-
                     jumppad: (
                         strength: (None, 600.0,),
                     ),
+                    walker: (
+                        x: 250.0,
+                        y: None,
+                    ),
+                    health: (
+                        health: 6,
+                        max_health: 6,
+                    ),
+                    health_display: (
+                        position: Top,
+                        size: (32.0, 2.0),
+                        padding: 4.0,
+                        border_padding: 0.5,
+                    ),
+                    deals_damage: (
+                        damage: 0,
+                    ),
                 ),
 
+                events: {
+                     OnCollision(
+                        And([
+                            IsTag("Bullet"),
+                            IsState(Enter),
+                            IsSide(Inner)
+                        ]),
+                    ): Group([
+                        SoundAction(PlayWithVolume(Jump, 0.3)),
+                        MoveAction(AddVelocity(
+                            y: 0,
+                            x: 0,
+                        )),
+                        HealthAction(Lose(2)),
+                    ]),
+
+                    OnCollision(And([
+                        IsSide(Right),
+                        IsState(Enter),
+                    ])): Group([
+                        InsertComponents((
+                            walker: (
+                                x: -250.0,
+                            ),
+                        )),
+                    ]),
+
+                    OnCollision(And([
+                        IsSide(Left),
+                        IsState(Enter),
+                    ])): Group([
+                        InsertComponents((
+                            walker: (
+                                x: 250.0,
+                            ),
+                        )),
+                    ]),
+
+ 
+                },
+
                 collision_tag: (
-                    labels: ["Enemy"],
-                    collides_with: ["Player"],
+                    labels: ["Enemy", "Solid"],
+                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
                 ),
 
                 solid_tag: (
-                    labels: ["Enemy"],
+                    labels: ["Enemy", "Solid"],
                     collides_with: ["Solid"],
                 ),
             ),
