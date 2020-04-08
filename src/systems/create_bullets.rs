@@ -11,8 +11,8 @@ impl<'a> System<'a> for CreateBulletsSystem {
             let hitbox = Hitbox::from(vec![Rect::from(&bullet_comps.size)]);
 
             let collision_tag = CollisionTag::builder()
-                .label(CollisionLabel::Bullet)
-                .collides_with(vec![CollisionLabel::Tile])
+                .label(CollisionLabel::bullet())
+                .collides_with(vec![CollisionLabel::tile()])
                 .build()
                 .unwrap();
 

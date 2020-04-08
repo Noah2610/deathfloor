@@ -1,5 +1,4 @@
 #![enable(implicit_some)]
-/// Enemies settings.
 (
     types: {
         "RubberBall": (
@@ -32,7 +31,6 @@
                     OnCollision(IsSide(Bottom)): MoveAction(AddVelocity( y: 100.0, )),
 
                     OnCollision(IsState(Enter)): Group([
-                        SoundAction(PlayWithVolume(Jump, 0.1)),
                         InsertComponents((
                             size: (w: 16.0, h: 16.0),
                             scale_once: (),
@@ -49,24 +47,24 @@
                     ]),
 
                     // Damage on bullet collision
-                    OnCollision(And([IsState(Enter), IsTag(Bullet)])): Group([
+                    OnCollision(And([IsState(Enter), IsTag("Bullet")])): Group([
                         SoundAction(PlayWithVolume(Jump, 0.3)),
                         HealthAction(Lose(1)),
                     ]),
                     // Damage when stuck inside solid tile
-                    OnCollision(And([IsState(Steady), IsTag(Tile), IsSide(Inner)])): HealthAction(Lose(2)),
+                    OnCollision(And([IsState(Steady), IsTag("Tile"), IsSide(Inner)])): HealthAction(Lose(2)),
 
                     Lifecycle(Death): Echo("ball dead :("),
                 },
 
                 collision_tag: (
-                    labels: [Enemy, Solid],
-                    collides_with: [Player, Solid, Jumppad, Enemy, Bullet],
+                    labels: ["Enemy", "Solid"],
+                    collides_with: ["Player", "Solid", "Jumppad", "Enemy", "Bullet"],
                 ),
 
                 solid_tag: (
-                    labels: [Enemy, Solid],
-                    collides_with: [Tile, Player],
+                    labels: ["Enemy", "Solid"],
+                    collides_with: ["Solid"],
                 ),
             ),
         ),

@@ -61,6 +61,7 @@ impl Eq for CollisionTag {
 
 /// Wrapper for `CollisionTag`, used for deserialization.
 #[derive(Clone, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct CollisionTagWrapper {
     pub labels:        Vec<CollisionLabel>,
     pub collides_with: Option<Vec<CollisionLabel>>,

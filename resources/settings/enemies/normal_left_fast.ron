@@ -1,18 +1,11 @@
 #![enable(implicit_some)]
-/// Enemies settings.
 (
     types: {
         "NormalLeftFast": (
-            /// Filename of this enemy's spritesheet,
-            /// under `resources/spritesheets`.
             spritesheet_filename: "player.png",
 
-            /// Entity data, such as _components_, _events/actions_, collision stuff.
             entity: (
-                /// List of components for this enemy.
-                /// All components are optional.
                 components: (
-                    /// If this is not set, uses tiled object size.
                     size: (
                         w: 16.0,
                         h: 16.0,
@@ -39,11 +32,6 @@
                             (5, 100),
                             (6, 100),
                         ]),
-                        Custom("Lmao"): Once([
-                            (23, 100),
-                            (24, 100),
-                            (25, 100),
-                        ]),
                     },
                     hitbox: Size,
                     walker: (
@@ -65,14 +53,11 @@
                     ),
                 ),
 
-                /// Events and the actions they trigger.
                 events: {
-                    OnSpawn: Echo("Hello OnSpawn event!"),
-
                     OnCollision(
                         And([
                             IsSide(Left),
-                            IsTag(Player),
+                            IsTag("Player"),
                         ]),
                     ): MoveAction(AddVelocity(
                         x: 500.0,
@@ -82,7 +67,7 @@
                     OnCollision(
                         And([
                             IsSide(Right),
-                            IsTag(Player),
+                            IsTag("Player"),
                         ]),
                     ): MoveAction(AddVelocity(
                         x: -500.0,
@@ -91,8 +76,9 @@
 
                     OnCollision(
                         And([
-                            IsTag(Bullet),
+                            IsTag("Bullet"),
                             IsState(Enter),
+                            IsSide(Inner),
                         ]),
                     ): Group([
                         SoundAction(PlayWithVolume(Jump, 0.3)),
@@ -106,7 +92,6 @@
                         IsSide(Right),
                         IsState(Enter),
                     ])): Group([
-                        Echo("touch RIGHT, move LEFT"),
                         InsertComponents((
                             walker: (
                                 x: -500.0,
@@ -118,44 +103,28 @@
                         IsSide(Left),
                         IsState(Enter),
                     ])): Group([
-                        Echo("touch LEFT, move RIGHT"),
                         InsertComponents((
                             walker: (
                                 x: 500.0,
                             ),
                         )),
-                        AnimationAction(Push(Custom("Lmao"))),
                     ]),
-
-                    OnCollision(IsState(Enter)): SoundAction(PlayWithVolume(Jump, 0.1)),
 
                     OnCollision(And([
                         IsState(Enter),
-                        IsTag(Jumppad),
+                        IsTag("Jumppad"),
                         IsSide(Inner),
                     ])): SoundAction(PlayWithVolume(Jump, 0.75)),
                 },
 
-                /// Specifies with which `CollisionTag`s this enemy has
-                /// _general_ collision (separate from _solid_ collision).
-                /// If this is not set, the player will not be able to jump
-                /// off of this enemy (because this enemy is `Jumppad`).
                 collision_tag: (
-                    labels: [Enemy, Solid],
-                    collides_with: [Player, Jumppad, Bullet, Tile],
+                    labels: ["Enemy", "Solid"],
+                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
                 ),
 
-                /// Specifies with which `SolidTag`s this enemy has
-                /// _solid_ collision (separate from _general_ collision (`CollisionTag`)).
-                ///
-                /// This makes the player have solid collision with the player.
-                /// (They can get stuck in each other, not recommended;
-                /// this is just to showcase the `solid_collision_with` field.)
-                ///
-                /// Enemies will usually also have solid collision with `Tile` tags.
                 solid_tag: (
-                    labels: [Enemy, Solid],
-                    collides_with: [Tile, Player],
+                    labels: ["Enemy", "Solid"],
+                    collides_with: ["Solid"],
                 ),
             ),
         ),
