@@ -2,7 +2,7 @@
 (
     types: {
         "NormalRight": (
-            spritesheet_filename: "player.png",
+            spritesheet_filename: "enemy_normal.png",
 
             entity: (
                 components: (

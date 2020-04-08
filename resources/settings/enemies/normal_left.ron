@@ -5,7 +5,7 @@
         "NormalLeft": (
             /// Filename of this enemy's spritesheet,
             /// under `resources/spritesheets`.
-            spritesheet_filename: "player.png",
+            spritesheet_filename: "enemy_normal.png",
 
             /// Entity data, such as _components_, _events/actions_, collision stuff.
             entity: (

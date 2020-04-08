@@ -2,7 +2,7 @@
 (
     types: {
         "NormalLeftFast": (
-            spritesheet_filename: "player.png",
+            spritesheet_filename: "enemy_normal_fast.png",
 
             entity: (
                 components: (

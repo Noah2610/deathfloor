@@ -2,7 +2,7 @@
 (
     types: {
         "RubberBall": (
-            spritesheet_filename: "player.png",
+            spritesheet_filename: "enemy_rubber.png",
 
             entity: (
                 components: (
