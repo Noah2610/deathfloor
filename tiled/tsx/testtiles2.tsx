@@ -347,10 +347,6 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="206" type="Ground"/>
- <tile id="207" type="Ground"/>
- <tile id="208" type="Ground"/>
- <tile id="209" type="Ground"/>
  <tile id="210" type="Ground"/>
  <tile id="211" type="Ground"/>
  <tile id="212" type="Ground"/>
@@ -399,10 +395,6 @@
    <object id="1" x="0" y="0" width="8" height="8"/>
   </objectgroup>
  </tile>
- <tile id="238" type="Ground"/>
- <tile id="239" type="Ground"/>
- <tile id="240" type="Ground"/>
- <tile id="241" type="Ground"/>
  <tile id="242" type="Ground"/>
  <tile id="243" type="Ground"/>
  <tile id="244" type="Ground"/>
@@ -413,10 +405,6 @@
  <tile id="249" type="Ground"/>
  <tile id="250" type="Ground"/>
  <tile id="251" type="Ground"/>
- <tile id="252" type="Ground"/>
- <tile id="253" type="Ground"/>
- <tile id="254" type="Ground"/>
- <tile id="255" type="Ground"/>
  <tile id="256" type="Ground"/>
  <tile id="257" type="Ground"/>
  <tile id="258" type="Ground"/>
@@ -439,10 +427,6 @@
  <tile id="267" type="Ground"/>
  <tile id="268" type="Ground"/>
  <tile id="269" type="Ground"/>
- <tile id="270" type="Ground"/>
- <tile id="271" type="Ground"/>
- <tile id="272" type="Ground"/>
- <tile id="273" type="Ground"/>
  <tile id="274" type="Ground"/>
  <tile id="275" type="Ground"/>
  <tile id="276" type="Ground"/>
@@ -453,10 +437,6 @@
  <tile id="281" type="Ground"/>
  <tile id="282" type="Ground"/>
  <tile id="283" type="Ground"/>
- <tile id="284" type="Ground"/>
- <tile id="285" type="Ground"/>
- <tile id="286" type="Ground"/>
- <tile id="287" type="Ground"/>
  <tile id="288" type="Ground"/>
  <tile id="289" type="Ground"/>
  <tile id="290" type="Ground"/>
@@ -479,10 +459,6 @@
  <tile id="299" type="Ground"/>
  <tile id="300" type="Ground"/>
  <tile id="301" type="Ground"/>
- <tile id="302" type="Ground"/>
- <tile id="303" type="Ground"/>
- <tile id="304" type="Ground"/>
- <tile id="305" type="Ground"/>
  <tile id="306" type="Ground"/>
  <tile id="307" type="Ground"/>
  <tile id="308" type="Ground"/>
@@ -511,10 +487,6 @@
  <tile id="331" type="Jumppad"/>
  <tile id="332" type="Ground"/>
  <tile id="333" type="Ground"/>
- <tile id="334" type="Ground"/>
- <tile id="335" type="Ground"/>
- <tile id="336" type="Ground"/>
- <tile id="337" type="Ground"/>
  <tile id="352" type="Ground"/>
  <tile id="353" type="Ground"/>
  <tile id="354" type="Ground"/>
@@ -529,10 +501,6 @@
  <tile id="363" type="Ground"/>
  <tile id="364" type="Ground"/>
  <tile id="365" type="Ground"/>
- <tile id="366" type="Ground"/>
- <tile id="367" type="Ground"/>
- <tile id="368" type="Ground"/>
- <tile id="369" type="Ground"/>
  <tile id="384" type="Ground"/>
  <tile id="385" type="Ground"/>
  <tile id="386" type="Ground"/>
