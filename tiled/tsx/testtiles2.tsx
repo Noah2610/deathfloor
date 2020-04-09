@@ -61,10 +61,6 @@
  <tile id="25" type="Ground"/>
  <tile id="26" type="Ground"/>
  <tile id="27" type="Ground"/>
- <tile id="28" type="Ground"/>
- <tile id="29" type="Ground"/>
- <tile id="30" type="Ground"/>
- <tile id="31" type="Ground"/>
  <tile id="32" type="Ground"/>
  <tile id="33" type="Ground"/>
  <tile id="34" type="Ground">
@@ -109,10 +105,6 @@
  <tile id="57" type="Ground"/>
  <tile id="58" type="Ground"/>
  <tile id="59" type="Ground"/>
- <tile id="60" type="Ground"/>
- <tile id="61" type="Ground"/>
- <tile id="62" type="Ground"/>
- <tile id="63" type="Ground"/>
  <tile id="64" type="Ground"/>
  <tile id="65" type="Ground">
   <objectgroup draworder="index" id="2">
@@ -149,10 +141,6 @@
  <tile id="89" type="Ground"/>
  <tile id="90" type="Ground"/>
  <tile id="91" type="Ground"/>
- <tile id="92" type="Ground"/>
- <tile id="93" type="Ground"/>
- <tile id="94" type="Ground"/>
- <tile id="95" type="Ground"/>
  <tile id="96" type="Ground"/>
  <tile id="97" type="Ground">
   <objectgroup draworder="index" id="2">
@@ -189,10 +177,6 @@
  <tile id="121" type="Ground"/>
  <tile id="122" type="Ground"/>
  <tile id="123" type="Ground"/>
- <tile id="124" type="Ground"/>
- <tile id="125" type="Ground"/>
- <tile id="126" type="Ground"/>
- <tile id="127" type="Ground"/>
  <tile id="128" type="Ground"/>
  <tile id="129" type="Ground">
   <objectgroup draworder="index" id="2">
@@ -245,10 +229,6 @@
  <tile id="153" type="Ground"/>
  <tile id="154" type="Ground"/>
  <tile id="155" type="Ground"/>
- <tile id="156" type="Ground"/>
- <tile id="157" type="Ground"/>
- <tile id="158" type="Ground"/>
- <tile id="159" type="Ground"/>
  <tile id="160" type="Ground">
   <objectgroup draworder="index" id="2">
    <object id="1" x="8" y="0" width="8" height="8"/>
@@ -301,10 +281,6 @@
  <tile id="185" type="Ground"/>
  <tile id="186" type="Ground"/>
  <tile id="187" type="Ground"/>
- <tile id="188" type="Ground"/>
- <tile id="189" type="Ground"/>
- <tile id="190" type="Ground"/>
- <tile id="191" type="Ground"/>
  <tile id="192" type="Ground"/>
  <tile id="193" type="Ground">
   <objectgroup draworder="index" id="2">
@@ -385,10 +361,6 @@
  <tile id="217" type="Ground"/>
  <tile id="218" type="Ground"/>
  <tile id="219" type="Ground"/>
- <tile id="220" type="Ground"/>
- <tile id="221" type="Ground"/>
- <tile id="222" type="Ground"/>
- <tile id="223" type="Ground"/>
  <tile id="224" type="Ground"/>
  <tile id="225" type="Ground"/>
  <tile id="226" type="Ground"/>
