@@ -505,10 +505,10 @@
  <tile id="325" type="Ground"/>
  <tile id="326" type="Ground"/>
  <tile id="327" type="Ground"/>
- <tile id="328" type="Ground"/>
- <tile id="329" type="Ground"/>
- <tile id="330" type="Ground"/>
- <tile id="331" type="Ground"/>
+ <tile id="328" type="Jumppad"/>
+ <tile id="329" type="Jumppad"/>
+ <tile id="330" type="Jumppad"/>
+ <tile id="331" type="Jumppad"/>
  <tile id="332" type="Ground"/>
  <tile id="333" type="Ground"/>
  <tile id="334" type="Ground"/>
