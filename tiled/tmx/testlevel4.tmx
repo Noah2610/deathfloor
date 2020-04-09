@@ -62,7 +62,7 @@
   <properties>
    <property name="z" type="float" value="1.2"/>
   </properties>
-  <object id="1" name="Player" type="Player" x="1504" y="136"/>
+  <object id="1" name="Player" type="Player" x="48" y="168"/>
  </objectgroup>
  <layer id="4" name="Glass" width="320" height="27">
   <properties>
