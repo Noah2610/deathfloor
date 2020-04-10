@@ -39,8 +39,7 @@ impl<'a> System<'a> for HandleEntityLifecycleSystem {
                 }
                 LifecycleState::Despawn => {
                     entities.delete(entity).expect(
-                        "Couldn't delete entity because of \
-                         LifecycleState::Despawn",
+                        "Couldn't delete entity with LifecycleState::Despawn",
                     );
                 }
             }
