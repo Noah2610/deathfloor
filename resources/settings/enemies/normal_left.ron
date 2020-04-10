@@ -88,12 +88,12 @@
                         ]),
                     ): Group([
                         SoundAction(PlayWithVolume(Jump, 0.3)),
-                        MoveAction(SetVelocity(                            
+                        MoveAction(SetVelocity(
                             y: 100.0,
                         )),
                         HealthAction(Lose(2)),
                     ]),
-                    
+
                     OnCollision(And([
                         IsSide(Right),
                         IsState(Enter),
