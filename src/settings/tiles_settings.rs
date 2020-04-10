@@ -1,10 +1,7 @@
 use super::entity_config::prelude::*;
-use super::hitbox_config::HitboxConfig;
-use crate::collision_tag::CollisionTagWrapper;
-use crate::components::prelude::Jumppad;
+use crate::components::prelude::Merge;
 use crate::map_loader::map_data::Props;
 use crate::map_loader::types::TileType;
-use crate::merge::Merge;
 use deathframe::amethyst::{Error, Result};
 use std::collections::HashMap;
 use std::convert::TryFrom;

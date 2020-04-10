@@ -5,7 +5,6 @@ pub mod prelude {
 
 use super::entity_config::prelude::*;
 use crate::components::prelude::*;
-use crate::merge::Merge;
 use std::collections::HashMap;
 
 #[derive(Clone, Deserialize, Default)]

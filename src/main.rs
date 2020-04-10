@@ -17,7 +17,6 @@ mod helpers;
 mod init;
 mod input;
 mod map_loader;
-mod merge;
 mod resources;
 mod settings;
 mod states;

@@ -8,7 +8,6 @@ use super::hitbox_config::HitboxConfig;
 use crate::animation_key::AnimationKey;
 use crate::collision_tag::CollisionTagWrapper;
 use crate::components::prelude::*;
-use crate::merge::Merge;
 use deathframe::amethyst::ecs::shred::ResourceId;
 use deathframe::amethyst::ecs::{SystemData, World, WriteStorage};
 

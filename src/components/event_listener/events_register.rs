@@ -1,6 +1,5 @@
 use super::component_prelude::*;
 use super::{ActionType, EventType};
-use crate::merge::Merge;
 use std::collections::HashMap;
 
 #[derive(Component, Deserialize, Clone)]

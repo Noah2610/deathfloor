@@ -18,8 +18,8 @@ mod hitbox_config;
 mod player_settings;
 mod tiles_settings;
 
+use crate::components::prelude::Merge;
 use crate::helpers::resource;
-use crate::merge::Merge;
 use deathframe::amethyst;
 use prelude::*;
 use std::fs::File;
