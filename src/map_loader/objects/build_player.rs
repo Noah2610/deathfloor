@@ -40,7 +40,7 @@ pub(super) fn build(
         .with(BaseFriction::from(physics_data.base_friction))
         .with(HealthEditor::default())
         .with(AnimationEditor::default())
-        .with(SoundPlayer::default())
+        .with(SoundPlayer::<SoundType>::default())
         .with(player_settings.jumper)
         .with(player_settings.animations)
         .with(player_settings.health)

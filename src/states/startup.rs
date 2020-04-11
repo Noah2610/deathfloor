@@ -41,6 +41,21 @@ fn load_spritesheets(world: &mut World) {
 
 fn load_audio(world: &mut World) {
     let mut sounds = Sounds::default();
-    sounds.load_sounds(&world.read_resource(), &world.read_resource());
+    sounds
+        .load_sound(
+            SoundType::Jump,
+            SoundType::Jump.path(),
+            &world.read_resource(),
+            &world.read_resource(),
+        )
+        .unwrap();
+    sounds
+        .load_sound(
+            SoundType::Shoot,
+            SoundType::Shoot.path(),
+            &world.read_resource(),
+            &world.read_resource(),
+        )
+        .unwrap();
     world.insert(sounds);
 }

@@ -40,7 +40,7 @@ pub(super) fn build(
         .with(Hidden)
         .with(Velocity::default())
         .with(Movable::default())
-        .with(SoundPlayer::default())
+        .with(SoundPlayer::<SoundType>::default())
         .build();
 
     edit_entity_with_entity_config(world, entity, enemy_settings.entity)?;

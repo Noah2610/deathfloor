@@ -14,7 +14,7 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
         WriteStorage<'a, Shooter>,
         ReadStorage<'a, Transform>,
         WriteStorage<'a, AnimationEditor>,
-        WriteStorage<'a, SoundPlayer>,
+        WriteStorage<'a, SoundPlayer<SoundType>>,
     );
 
     fn run(

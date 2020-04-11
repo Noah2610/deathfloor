@@ -10,7 +10,7 @@ impl<'a> System<'a> for HandleMovablesSystem {
         WriteStorage<'a, Velocity>,
         WriteStorage<'a, BaseFriction>,
         ReadStorage<'a, MaxMovementVelocity>,
-        WriteStorage<'a, SoundPlayer>,
+        WriteStorage<'a, SoundPlayer<SoundType>>,
         ReadStorage<'a, Loadable>,
         ReadStorage<'a, Loaded>,
     );

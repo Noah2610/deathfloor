@@ -6,7 +6,7 @@ pub struct HandleActionSoundAction;
 impl<'a> System<'a> for HandleActionSoundAction {
     type SystemData = (
         WriteStorage<'a, ActionTrigger<action::SoundAction>>,
-        WriteStorage<'a, SoundPlayer>,
+        WriteStorage<'a, SoundPlayer<SoundType>>,
     );
 
     fn run(

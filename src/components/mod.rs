@@ -13,7 +13,6 @@ mod movable;
 mod physics_data;
 mod player;
 mod shooter;
-mod sound_player;
 mod walker;
 mod wall_jumper;
 mod wall_slider;
@@ -38,7 +37,6 @@ pub mod prelude {
     pub use super::physics_data::PhysicsData;
     pub use super::player::Player;
     pub use super::shooter::Shooter;
-    pub use super::sound_player::prelude::*;
     pub use super::walker::Walker;
     pub use super::wall_jumper::WallJumper;
     pub use super::wall_slider::WallSlider;
