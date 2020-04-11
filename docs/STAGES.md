@@ -100,3 +100,10 @@ A rough mockup of a simple and clear format i imagine would work well:
 - Stage themes:
   Plants, air, organics, green white and "transparent" / glass color scheme
 - Area that produces and supplies the facility with breathable air. Different kinds of vegetation in various types of glass containers. Some plants have broken out of their containers and started to grow wildly because the AI has neglected the area since she's taken over (for obvious reasons).
+
+
+### Factory
+
+- Stage themes: 
+  Construction, Metal
+- Environmental mechanics: Conveyer belts, lots of moving "parts" (platforms, horizontal and vertical), a lot of the mechanics being cycle based
