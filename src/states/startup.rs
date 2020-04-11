@@ -40,22 +40,38 @@ fn load_spritesheets(world: &mut World) {
 }
 
 fn load_audio(world: &mut World) {
-    let mut sounds = Sounds::default();
-    sounds
-        .load_sound(
-            SoundType::Jump,
-            SoundType::Jump.path(),
-            &world.read_resource(),
-            &world.read_resource(),
-        )
-        .unwrap();
-    sounds
-        .load_sound(
-            SoundType::Shoot,
-            SoundType::Shoot.path(),
-            &world.read_resource(),
-            &world.read_resource(),
-        )
-        .unwrap();
-    world.insert(sounds);
+    {
+        let mut sounds = Sounds::default();
+        let mut load_sound = |sound_type: SoundType| -> Result<(), String> {
+            let path = sound_type.path();
+            sounds.load_audio(
+                sound_type,
+                path,
+                &world.read_resource(),
+                &world.read_resource(),
+            )
+        };
+        load_sound(SoundType::Jump).unwrap();
+        load_sound(SoundType::Shoot).unwrap();
+        world.insert(sounds);
+    }
+
+    {
+        let mut songs = Songs::default()
+            .with_playback_order(vec![SongType::Cntrlgun, SongType::Floor1])
+            .with_playback_state(SongPlaybackState::Playing)
+            .with_playback_behavior(SongPlaybackBehavior::Autoplay);
+        let mut load_song = |song_type: SongType| -> Result<(), String> {
+            let path = song_type.path();
+            songs.load_audio(
+                song_type,
+                path,
+                &world.read_resource(),
+                &world.read_resource(),
+            )
+        };
+        load_song(SongType::Cntrlgun).unwrap();
+        load_song(SongType::Floor1).unwrap();
+        world.insert(songs);
+    }
 }
