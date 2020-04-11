@@ -71,7 +71,10 @@ fn build_game_data<'a, 'b>(
                 .with_clear([0.0, 0.0, 0.0, 1.0]),
         )
         .with_plugin(RenderFlat2D::default());
-    let audio_bundle = AudioBundle::<SoundType>::default();
+    let audio_bundle = AudioBundle::<SoundType>::default()
+        .with_sounds_default_volume(
+            settings.general.audio.sounds_default_volume,
+        );
     let ingame_input_bundle = input::ingame_input_bundle()?;
     let paused_input_bundle = input::paused_input_bundle()?;
     let physics_bundle = PhysicsBundle::<

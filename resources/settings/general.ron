@@ -1,6 +1,12 @@
 #![enable(implicit_some)]
 /// General game and initialization settings.
 (
+    audio: (
+        /// The default volume level to use for _sounds_.
+        /// Volume used for `SoundAction::Play`.
+        sounds_default_volume: 0.5,
+    ),
+
     loader_system: (
         /// I think the cache causes more lag than it prevents.
         use_cache: false,
