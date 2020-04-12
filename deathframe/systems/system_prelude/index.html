@@ -63,7 +63,9 @@ the contained resources.</p>
 <table><tr class='module-item'><td><a class="enum" href="enum.Axis.html" title='deathframe::systems::system_prelude::Axis enum'>Axis</a></td><td class='docblock-short'><p>Just a plain <code>Axis</code> enum with <code>X</code> and <code>Y</code> variants.</p>
 </td></tr><tr class='module-item'><td><a class="enum" href="enum.Texture.html" title='deathframe::systems::system_prelude::Texture enum'>Texture</a></td><td class='docblock-short'><p>Texture wrapper.</p>
 </td></tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
-<table><tr class='module-item'><td><a class="trait" href="trait.ByAxis.html" title='deathframe::systems::system_prelude::ByAxis trait'>ByAxis</a></td><td class='docblock-short'><p>Anything implementing the <code>ByAxis</code> trait,
+<table><tr class='module-item'><td><a class="trait" href="trait.ActionQueue.html" title='deathframe::systems::system_prelude::ActionQueue trait'>ActionQueue</a></td><td class='docblock-short'><p>The <code>ActionQueue</code> can receive and accumulate actions,
+which can then be consumed at some point.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.ByAxis.html" title='deathframe::systems::system_prelude::ByAxis trait'>ByAxis</a></td><td class='docblock-short'><p>Anything implementing the <code>ByAxis</code> trait,
 returns an item through the <code>by_axis</code> method, by passing an <code>&amp;Axis</code>.
 This is useful when you have a tuple or similar with two items,
 where each item represents an axis. You can get the specifc item
@@ -71,6 +73,7 @@ by indexing with an <code>Axis</code>. Here's an example, and what code this wou
 </td></tr><tr class='module-item'><td><a class="trait" href="trait.Join.html" title='deathframe::systems::system_prelude::Join trait'>Join</a></td><td class='docblock-short'><p>The purpose of the <code>Join</code> trait is to provide a way
 to access multiple storages at the same time with
 the merged bit set.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.Merge.html" title='deathframe::systems::system_prelude::Merge trait'>Merge</a></td><td class='docblock-short'><p>Merge types together.</p>
 </td></tr><tr class='module-item'><td><a class="trait" href="trait.System.html" title='deathframe::systems::system_prelude::System trait'>System</a></td><td class='docblock-short'><p>A <code>System</code>, executed with a set of required <a href="trait.Resource.html"><code>Resource</code></a>s.</p>
 </td></tr><tr class='module-item'><td><a class="trait" href="trait.SystemData.html" title='deathframe::systems::system_prelude::SystemData trait'>SystemData</a></td><td class='docblock-short'><p>A static system data that can specify its dependencies at statically (at
 compile-time). Most system data is a <code>SystemData</code>, the <code>DynamicSystemData</code>

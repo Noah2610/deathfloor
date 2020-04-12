@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["component_prelude",""],["prelude",""]]});
+initSidebarItems({"mod":[["component_helpers","Helper traits, primarily targeted for components / data structures. Doesn't have to be used on components though, can be used for whatever."],["component_prelude",""],["prelude",""]]});

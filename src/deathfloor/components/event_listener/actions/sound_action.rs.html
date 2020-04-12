@@ -10,16 +10,18 @@
 <span id="10">10</span>
 <span id="11">11</span>
 <span id="12">12</span>
+<span id="13">13</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">components</span>::<span class="ident">prelude</span>::<span class="ident">SoundAction</span> <span class="kw">as</span> <span class="ident">SoundActionComp</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">resources</span>::<span class="ident">prelude</span>::<span class="ident">SoundType</span>;
 
 <span class="doccomment">/// When triggered, queues the given `SoundAction`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
-<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">from</span> <span class="op">=</span> <span class="string">&quot;SoundActionComp&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SoundAction</span>(<span class="kw">pub</span> <span class="ident">SoundActionComp</span>);
+<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">from</span> <span class="op">=</span> <span class="string">&quot;SoundActionComp&lt;SoundType&gt;&quot;</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SoundAction</span>(<span class="kw">pub</span> <span class="ident">SoundActionComp</span><span class="op">&lt;</span><span class="ident">SoundType</span><span class="op">&gt;</span>);
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">SoundActionComp</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SoundAction</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">comp</span>: <span class="ident">SoundActionComp</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">SoundActionComp</span><span class="op">&lt;</span><span class="ident">SoundType</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SoundAction</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">comp</span>: <span class="ident">SoundActionComp</span><span class="op">&lt;</span><span class="ident">SoundType</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span>(<span class="ident">comp</span>)
     }
 }

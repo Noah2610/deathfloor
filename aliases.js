@@ -57,6 +57,7 @@ ALIASES["darling_macro"] = {};
 ALIASES["deathfloor"] = {};
 ALIASES["deathframe"] = {};
 ALIASES["deathframe_animation"] = {};
+ALIASES["deathframe_audio"] = {};
 ALIASES["deathframe_core"] = {};
 ALIASES["deathframe_physics"] = {};
 ALIASES["deflate"] = {};

@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["ActionQueue","The `ActionQueue` can receive and accumulate actions, which can then be consumed at some point."],["Merge","Merge types together."]]});

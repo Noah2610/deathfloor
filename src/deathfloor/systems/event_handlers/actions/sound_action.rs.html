@@ -31,7 +31,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">System</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">HandleActionSoundAction</span> {
     <span class="kw">type</span> <span class="ident">SystemData</span> <span class="op">=</span> (
         <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">ActionTrigger</span><span class="op">&lt;</span><span class="ident">action</span>::<span class="ident">SoundAction</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-        <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">SoundPlayer</span><span class="op">&gt;</span>,
+        <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">SoundPlayer</span><span class="op">&lt;</span><span class="ident">SoundType</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     );
 
     <span class="kw">fn</span> <span class="ident">run</span>(

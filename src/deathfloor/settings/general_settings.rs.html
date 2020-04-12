@@ -13,11 +13,29 @@
 <span id="13">13</span>
 <span id="14">14</span>
 <span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
+<span id="21">21</span>
+<span id="22">22</span>
+<span id="23">23</span>
+<span id="24">24</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GeneralSettings</span> {
+    <span class="kw">pub</span> <span class="ident">audio</span>:         <span class="ident">AudioSettings</span>,
     <span class="kw">pub</span> <span class="ident">loader_system</span>: <span class="ident">LoaderSystemSettings</span>,
     <span class="kw">pub</span> <span class="ident">debug</span>:         <span class="ident">DebugSettings</span>,
+}
+
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AudioSettings</span> {
+    <span class="doccomment">/// Default volume for sounds, when using `SoundAction::Play`.</span>
+    <span class="kw">pub</span> <span class="ident">sounds_default_volume</span>: <span class="ident">f32</span>,
+    <span class="doccomment">/// Volume for songs.</span>
+    <span class="kw">pub</span> <span class="ident">songs_volume</span>:          <span class="ident">f32</span>,
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>

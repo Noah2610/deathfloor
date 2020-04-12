@@ -1,1 +1,0 @@
-initSidebarItems({"trait":[["Merge","Merge types together."]]});
