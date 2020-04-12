@@ -40,6 +40,9 @@ fn load_spritesheets(world: &mut World) {
 }
 
 fn load_audio(world: &mut World) {
+    let audio_settings =
+        world.read_resource::<Settings>().general.audio.clone();
+
     {
         let mut sounds = Sounds::default();
         let mut load_sound = |sound_type: SoundType| -> Result<(), String> {
@@ -60,7 +63,8 @@ fn load_audio(world: &mut World) {
         let mut songs = Songs::default()
             .with_playback_order(vec![SongType::Cntrlgun, SongType::Floor1])
             .with_playback_state(SongPlaybackState::Playing)
-            .with_playback_behavior(SongPlaybackBehavior::Autoplay);
+            .with_playback_behavior(SongPlaybackBehavior::Autoplay)
+            .with_volume(audio_settings.songs_volume);
         let mut load_song = |song_type: SongType| -> Result<(), String> {
             let path = song_type.path();
             songs.load_audio(

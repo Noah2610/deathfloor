@@ -5,6 +5,8 @@
         /// The default volume level to use for _sounds_.
         /// Volume used for `SoundAction::Play`.
         sounds_default_volume: 0.5,
+        /// Volume for BGM.
+        songs_volume: 0.5,
     ),
 
     loader_system: (

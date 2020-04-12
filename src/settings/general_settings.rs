@@ -7,7 +7,10 @@ pub struct GeneralSettings {
 
 #[derive(Clone, Deserialize)]
 pub struct AudioSettings {
+    /// Default volume for sounds, when using `SoundAction::Play`.
     pub sounds_default_volume: f32,
+    /// Volume for songs.
+    pub songs_volume:          f32,
 }
 
 #[derive(Clone, Deserialize)]
