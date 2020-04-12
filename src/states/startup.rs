@@ -60,11 +60,13 @@ fn load_audio(world: &mut World) {
     }
 
     {
-        let mut songs = Songs::default()
-            .with_playback_order(vec![SongType::Cntrlgun, SongType::Floor1])
-            .with_playback_state(SongPlaybackState::Playing)
-            .with_playback_behavior(SongPlaybackBehavior::Autoplay)
-            .with_volume(audio_settings.songs_volume);
+        let mut songs = Songs::builder()
+            .volume(audio_settings.songs_volume)
+            .playback_order(vec![SongType::Cntrlgun, SongType::Floor1])
+            .playback_state(SongPlaybackState::Playing)
+            .playback_behavior(SongPlaybackBehavior::Autoplay)
+            .build()
+            .unwrap();
         let mut load_song = |song_type: SongType| -> Result<(), String> {
             let path = song_type.path();
             songs.load_audio(
