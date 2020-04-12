@@ -57,7 +57,7 @@ fn frame_rate_limit_config() -> amethyst::Result<FrameRateLimitConfig> {
 fn build_game_data<'a, 'b>(
     settings: &Settings,
 ) -> amethyst::Result<GameDataBuilder<'a, 'b>> {
-    use crate::resources::prelude::SoundType;
+    use crate::resources::prelude::{SongType, SoundType};
     use crate::systems::prelude::*;
     use amethyst::core::transform::TransformBundle;
     use amethyst::renderer::types::DefaultBackend;
@@ -71,7 +71,7 @@ fn build_game_data<'a, 'b>(
                 .with_clear([0.0, 0.0, 0.0, 1.0]),
         )
         .with_plugin(RenderFlat2D::default());
-    let audio_bundle = AudioBundle::<SoundType>::default()
+    let audio_bundle = AudioBundle::<SoundType, SongType>::default()
         .with_sounds_default_volume(
             settings.general.audio.sounds_default_volume,
         );
