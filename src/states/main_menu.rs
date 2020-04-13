@@ -1,11 +1,12 @@
 use super::state_prelude::*;
 use crate::helpers::resource;
-use amethyst::ui::UiEvent;
+use amethyst::ui::{UiEvent, UiEventType};
 use deathframe::core::menu::prelude::*;
 
 #[derive(Default)]
 pub struct MainMenu {
-    ui_data: UiData,
+    ui_data:        UiData,
+    loading_ingame: bool,
 }
 
 impl MainMenu {
@@ -21,11 +22,22 @@ impl MainMenu {
 impl<'a, 'b> Menu<GameData<'a, 'b>, StateEvent> for MainMenu {
     fn event_triggered(
         &mut self,
-        data: &mut StateData<GameData<'a, 'b>>,
+        _data: &mut StateData<GameData<'a, 'b>>,
         event_name: String,
         event: UiEvent,
     ) -> Option<Trans<GameData<'a, 'b>, StateEvent>> {
-        None
+        if let UiEventType::ClickStop = event.event_type {
+            match event_name.as_str() {
+                "btn_start" => {
+                    self.loading_ingame = true;
+                    Some(Trans::Push(Box::new(LoadIngame::default())))
+                }
+                "btn_quit" => Some(Trans::Quit),
+                _ => None,
+            }
+        } else {
+            None
+        }
     }
 
     fn ui_data(&self) -> &UiData {
@@ -58,9 +70,11 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for MainMenu {
         &mut self,
         data: StateData<GameData<'a, 'b>>,
     ) -> Trans<GameData<'a, 'b>, StateEvent> {
-        data.data
-            .update(data.world, DispatcherId::MainMenu)
-            .unwrap();
+        if !self.loading_ingame {
+            data.data
+                .update(data.world, DispatcherId::MainMenu)
+                .unwrap();
+        }
         Trans::None
     }
 

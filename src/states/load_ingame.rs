@@ -2,7 +2,9 @@ use super::state_prelude::*;
 use crate::helpers::resource;
 
 #[derive(Default)]
-pub struct LoadIngame;
+pub struct LoadIngame {
+    loaded_map: bool,
+}
 
 impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for LoadIngame {
     fn on_start(&mut self, data: StateData<GameData<'a, 'b>>) {
@@ -18,13 +20,19 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for LoadIngame {
             resource(format!("levels/{}", level_name)),
         )
         .unwrap();
+
+        self.loaded_map = true;
     }
 
     fn update(
         &mut self,
         data: StateData<GameData<'a, 'b>>,
     ) -> Trans<GameData<'a, 'b>, StateEvent> {
-        data.data.update_core(data.world);
-        Trans::Switch(Box::new(Ingame::default()))
+        // data.data.update_core(data.world);
+        if self.loaded_map {
+            Trans::Switch(Box::new(Ingame::default()))
+        } else {
+            Trans::None
+        }
     }
 }
