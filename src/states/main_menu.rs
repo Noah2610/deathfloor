@@ -5,8 +5,7 @@ use deathframe::core::menu::prelude::*;
 
 #[derive(Default)]
 pub struct MainMenu {
-    ui_data:        UiData,
-    loading_ingame: bool,
+    ui_data: UiData,
 }
 
 impl MainMenu {
@@ -29,7 +28,6 @@ impl<'a, 'b> Menu<GameData<'a, 'b>, StateEvent> for MainMenu {
         if let UiEventType::ClickStop = event.event_type {
             match event_name.as_str() {
                 "btn_start" => {
-                    self.loading_ingame = true;
                     Some(Trans::Push(Box::new(LoadIngame::default())))
                 }
                 "btn_quit" => Some(Trans::Quit),
@@ -70,11 +68,9 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for MainMenu {
         &mut self,
         data: StateData<GameData<'a, 'b>>,
     ) -> Trans<GameData<'a, 'b>, StateEvent> {
-        if !self.loading_ingame {
-            data.data
-                .update(data.world, DispatcherId::MainMenu)
-                .unwrap();
-        }
+        data.data
+            .update(data.world, DispatcherId::MainMenu)
+            .unwrap();
         Trans::None
     }
 

@@ -62,6 +62,7 @@ pub(super) fn base_tile_entity<'a>(
         .with(ScaleOnce::default())
         .with(Transparent)
         .with(loadable)
+        .with(Loaded::default()) // TODO
         .with(Hidden)
         .with(Lifecycle::default());
 
