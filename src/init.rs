@@ -62,6 +62,7 @@ fn build_game_data<'a, 'b>(
     use amethyst::core::transform::TransformBundle;
     use amethyst::renderer::types::DefaultBackend;
     use amethyst::renderer::{RenderFlat2D, RenderToWindow, RenderingBundle};
+    use amethyst::ui::{RenderUi, UiBundle};
     use deathframe::bundles::*;
 
     let transform_bundle = TransformBundle::new();
@@ -70,6 +71,7 @@ fn build_game_data<'a, 'b>(
             RenderToWindow::from_config_path(resource("config/display.ron"))?
                 .with_clear([0.0, 0.0, 0.0, 1.0]),
         )
+        .with_plugin(RenderUi::default())
         .with_plugin(RenderFlat2D::default());
     let audio_bundle = AudioBundle::<SoundType, SongType>::default()
         .with_sounds_default_volume(
@@ -77,6 +79,7 @@ fn build_game_data<'a, 'b>(
         );
     let ingame_input_bundle = input::ingame_input_bundle()?;
     let paused_input_bundle = input::paused_input_bundle()?;
+    let menu_input_bundle = input::menu_input_bundle()?;
     let physics_bundle = PhysicsBundle::<
         collision_tag::CollisionTag,
         collision_tag::SolidTag,
@@ -89,13 +92,16 @@ fn build_game_data<'a, 'b>(
         .custom(CustomData::default())
         .dispatcher(DispatcherId::Ingame)?
         .dispatcher(DispatcherId::Paused)?
+        .dispatcher(DispatcherId::MainMenu)?
         .with_core_bundle(transform_bundle)?
         .with_core_bundle(rendering_bundle)?
         .with_core_bundle(audio_bundle)?
+        .with_core_bundle(UiBundle::<input::MenuBindings>::new())?
         .with_core(ScaleSpritesSystem::default(), "scale_sprites_system", &[])?
         .with_core(CameraOrthoSystem::default(), "camera_ortho_system", &[])?
         .with_bundle(DispatcherId::Ingame, ingame_input_bundle)?
         .with_bundle(DispatcherId::Paused, paused_input_bundle)?
+        .with_bundle(DispatcherId::MainMenu, menu_input_bundle)?
         .with_bundle(DispatcherId::Ingame, physics_bundle)?
         .with_bundle(DispatcherId::Ingame, EventHandlersBundle::default())?
         .with(

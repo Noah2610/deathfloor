@@ -1,4 +1,5 @@
 mod ingame_bindings;
+mod menu_bindings;
 mod paused_bindings;
 
 pub mod prelude {
@@ -6,6 +7,11 @@ pub mod prelude {
         IngameActionBinding,
         IngameAxisBinding,
         IngameBindings,
+    };
+    pub use super::menu_bindings::{
+        MenuActionBinding,
+        MenuAxisBinding,
+        MenuBindings,
     };
     pub use super::paused_bindings::{
         PausedActionBinding,
@@ -17,6 +23,7 @@ pub mod prelude {
 }
 
 pub use ingame_bindings::IngameBindings;
+pub use menu_bindings::MenuBindings;
 pub use paused_bindings::PausedBindings;
 
 use crate::helpers::resource;
@@ -33,4 +40,10 @@ pub fn paused_input_bundle(
 ) -> amethyst::Result<InputBundle<paused_bindings::PausedBindings>> {
     Ok(InputBundle::<paused_bindings::PausedBindings>::new()
         .with_bindings_from_file(resource("config/paused_bindings.ron"))?)
+}
+
+pub fn menu_input_bundle(
+) -> amethyst::Result<InputBundle<menu_bindings::MenuBindings>> {
+    Ok(InputBundle::<menu_bindings::MenuBindings>::new()
+        .with_bindings_from_file(resource("config/menu_bindings.ron"))?)
 }

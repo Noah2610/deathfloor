@@ -17,7 +17,7 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Startup {
         data: StateData<GameData<'a, 'b>>,
     ) -> Trans<GameData<'a, 'b>, StateEvent> {
         data.data.update_core(data.world);
-        Trans::Switch(Box::new(LoadIngame::default()))
+        Trans::Switch(Box::new(MainMenu::default()))
     }
 }
 

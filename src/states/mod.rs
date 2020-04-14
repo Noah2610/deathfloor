@@ -1,5 +1,6 @@
 mod ingame;
 mod load_ingame;
+mod main_menu;
 mod paused;
 mod startup;
 
@@ -7,6 +8,7 @@ pub mod prelude {
     pub use super::aliases::*;
     pub use super::ingame::Ingame;
     pub use super::load_ingame::LoadIngame;
+    pub use super::main_menu::MainMenu;
     pub use super::paused::Paused;
     pub use super::startup::Startup;
     pub use super::CustomData;

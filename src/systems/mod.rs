@@ -43,7 +43,7 @@ pub mod prelude {
     pub use super::handle_walkers::HandleWalkersSystem;
 }
 
-mod system_prelude {
+pub mod system_prelude {
     pub use deathframe::amethyst;
     pub use deathframe::physics::query::prelude::*;
     pub use deathframe::systems::system_prelude::*;

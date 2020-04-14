@@ -22,9 +22,8 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for LoadIngame {
 
     fn update(
         &mut self,
-        data: StateData<GameData<'a, 'b>>,
+        _data: StateData<GameData<'a, 'b>>,
     ) -> Trans<GameData<'a, 'b>, StateEvent> {
-        data.data.update_core(data.world);
         Trans::Switch(Box::new(Ingame::default()))
     }
 }
