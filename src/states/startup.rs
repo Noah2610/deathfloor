@@ -62,7 +62,6 @@ fn load_audio(world: &mut World) {
     {
         let mut songs = Songs::default();
         songs.set_volume(audio_settings.songs_volume);
-        songs.autoplay(vec![SongType::Cntrlgun, SongType::Floor1]);
         let mut load_song = |song_type: SongType| -> Result<(), String> {
             let path = song_type.path();
             songs.load_audio(

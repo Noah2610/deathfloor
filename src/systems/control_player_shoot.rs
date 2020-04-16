@@ -4,10 +4,7 @@ use amethyst::core::math::Vector3;
 use std::path::PathBuf;
 
 #[derive(Default)]
-pub struct ControlPlayerShootSystem {
-    // TODO
-    tmp: bool,
-}
+pub struct ControlPlayerShootSystem;
 
 impl<'a> System<'a> for ControlPlayerShootSystem {
     type SystemData = (
@@ -18,8 +15,6 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
         ReadStorage<'a, Transform>,
         WriteStorage<'a, AnimationEditor>,
         WriteStorage<'a, SoundPlayer<SoundType>>,
-        // TODO
-        Write<'a, Songs<SongType>>,
     );
 
     fn run(
@@ -32,8 +27,6 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
             transforms,
             mut animation_editor_store,
             mut sound_player_store,
-            // TODO
-            mut songs,
         ): Self::SystemData,
     ) {
         let bullet_spritesheet_handle = sprite_sheet_handles
@@ -98,14 +91,6 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
                         0.5,
                     ));
                 }
-
-                // TODO just for testing
-                if self.tmp {
-                    songs.play(SongType::Floor1);
-                } else {
-                    songs.play(SongType::Cntrlgun);
-                }
-                self.tmp = !self.tmp;
             }
         }
     }
