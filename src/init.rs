@@ -257,14 +257,18 @@ fn build_game_data<'a, 'b>(
     #[cfg(feature = "debug")]
     {
         use amethyst::utils::fps_counter::FpsCounterBundle;
+        use std::time::Duration;
 
         const PRINT_EVERY_MS: u64 = 1000;
         let fps_bundle = FpsCounterBundle;
-        let debug_system = DebugSystem::new(PRINT_EVERY_MS);
 
-        custom_game_data = custom_game_data
-            .with_core_bundle(fps_bundle)?
-            .with_core(debug_system, "debug_system", &[])?;
+        custom_game_data =
+            custom_game_data.with_core_bundle(fps_bundle)?.with_core(
+                PrintFpsSystem::default()
+                    .with_print_delay(Duration::from_millis(PRINT_EVERY_MS)),
+                "print_fps_system",
+                &[],
+            )?;
     }
 
     Ok(custom_game_data)
