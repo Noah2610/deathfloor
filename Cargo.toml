@@ -20,7 +20,6 @@ git = "https://github.com/Noah2610/deathframe"
 branch = "develop"
 features = [
     "vulkan",
-    "deserialize",
     "physics",
     "animation",
     "audio",
@@ -37,7 +36,6 @@ default-features = false
 [features]
 default = []
 debug = ["deathframe/debug"]
-nightly = ["deathframe/nightly"]
 
 [profile.dev]
 opt-level        = 2

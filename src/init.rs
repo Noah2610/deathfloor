@@ -96,14 +96,14 @@ fn build_game_data<'a, 'b>(
         .with_core_bundle(transform_bundle)?
         .with_core_bundle(rendering_bundle)?
         .with_core_bundle(audio_bundle)?
+        .with_core_bundle(menu_input_bundle)?
         .with_core_bundle(UiBundle::<input::MenuBindings>::new())?
         .with_core(ScaleSpritesSystem::default(), "scale_sprites_system", &[])?
         .with_core(CameraOrthoSystem::default(), "camera_ortho_system", &[])?
         .with_bundle(DispatcherId::Ingame, ingame_input_bundle)?
-        .with_bundle(DispatcherId::Paused, paused_input_bundle)?
-        .with_bundle(DispatcherId::MainMenu, menu_input_bundle)?
         .with_bundle(DispatcherId::Ingame, physics_bundle)?
         .with_bundle(DispatcherId::Ingame, EventHandlersBundle::default())?
+        .with_bundle(DispatcherId::Paused, paused_input_bundle)?
         .with(
             DispatcherId::Ingame,
             HandleAnimationsSystem::default(),
@@ -127,6 +127,12 @@ fn build_game_data<'a, 'b>(
             DispatcherId::Paused,
             InputManagerSystem::<input::PausedBindings>::default(),
             "paused_input_manager_system",
+            &[],
+        )?
+        .with(
+            DispatcherId::MainMenu,
+            InputManagerSystem::<input::MenuBindings>::default(),
+            "main_menu_input_manager_system",
             &[],
         )?
         .with(
@@ -251,14 +257,18 @@ fn build_game_data<'a, 'b>(
     #[cfg(feature = "debug")]
     {
         use amethyst::utils::fps_counter::FpsCounterBundle;
+        use std::time::Duration;
 
         const PRINT_EVERY_MS: u64 = 1000;
         let fps_bundle = FpsCounterBundle;
-        let debug_system = DebugSystem::new(PRINT_EVERY_MS);
 
-        custom_game_data = custom_game_data
-            .with_core_bundle(fps_bundle)?
-            .with_core(debug_system, "debug_system", &[])?;
+        custom_game_data =
+            custom_game_data.with_core_bundle(fps_bundle)?.with_core(
+                PrintFpsSystem::default()
+                    .with_print_delay(Duration::from_millis(PRINT_EVERY_MS)),
+                "print_fps_system",
+                &[],
+            )?;
     }
 
     Ok(custom_game_data)

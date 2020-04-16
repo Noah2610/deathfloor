@@ -39,19 +39,6 @@ impl fmt::Display for IngameActionBinding {
     }
 }
 
-// NOTE: These default implementations don't seem right...
-impl Default for IngameAxisBinding {
-    fn default() -> Self {
-        IngameAxisBinding::PlayerX
-    }
-}
-
-impl Default for IngameActionBinding {
-    fn default() -> Self {
-        IngameActionBinding::PlayerJump
-    }
-}
-
 impl<A> From<A> for IngameAxisBinding
 where
     A: Into<Axis>,

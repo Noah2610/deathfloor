@@ -18,7 +18,6 @@ mod wall_jumper;
 mod wall_slider;
 
 pub mod prelude {
-    pub use amethyst::renderer::SpriteRender;
     pub use deathframe::amethyst;
     pub use deathframe::components::prelude::*;
 

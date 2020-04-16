@@ -7,10 +7,22 @@ pub struct Ingame;
 impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Ingame {
     fn on_start(&mut self, data: StateData<GameData<'a, 'b>>) {
         data.world.insert(BulletCreator::default());
+        data.world
+            .write_resource::<Songs<SongType>>()
+            .autoplay(vec![SongType::Floor1, SongType::Cntrlgun]);
     }
 
     fn on_stop(&mut self, data: StateData<GameData<'a, 'b>>) {
         data.world.remove::<BulletCreator>();
+        data.world.write_resource::<Songs<SongType>>().stop();
+    }
+
+    fn on_resume(&mut self, data: StateData<GameData<'a, 'b>>) {
+        let _ = data.world.write_resource::<Songs<SongType>>().resume();
+    }
+
+    fn on_pause(&mut self, data: StateData<GameData<'a, 'b>>) {
+        let _ = data.world.write_resource::<Songs<SongType>>().pause();
     }
 
     fn update(
