@@ -73,6 +73,8 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
         WriteStorage<'a, Movable>,
         WriteStorage<'a, Gravity>,
         ReadStorage<'a, Velocity>,
+        // TODO
+        Write<'a, Songs<SongType>>,
     );
 
     fn run(
@@ -88,6 +90,8 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             mut movables,
             mut gravities,
             velocities,
+            // TODO
+            mut songs,
         ): Self::SystemData,
     ) {
         for (
@@ -198,6 +202,15 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
                         }
                     }
                     self.player_gravities.insert(entity, target_gravity);
+                }
+            }
+
+            // TODO just for testing
+            if jumped {
+                if songs.is_playing() {
+                    let _ = songs.pause();
+                } else {
+                    let _ = songs.resume();
                 }
             }
         }
