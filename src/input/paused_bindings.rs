@@ -30,16 +30,3 @@ impl fmt::Display for PausedActionBinding {
         write!(f, "{:?}", self)
     }
 }
-
-// NOTE: These default implementations don't seem right...
-impl Default for PausedAxisBinding {
-    fn default() -> Self {
-        PausedAxisBinding::None
-    }
-}
-
-impl Default for PausedActionBinding {
-    fn default() -> Self {
-        PausedActionBinding::TogglePause
-    }
-}

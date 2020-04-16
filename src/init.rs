@@ -130,6 +130,12 @@ fn build_game_data<'a, 'b>(
             &[],
         )?
         .with(
+            DispatcherId::MainMenu,
+            InputManagerSystem::<input::MenuBindings>::default(),
+            "main_menu_input_manager_system",
+            &[],
+        )?
+        .with(
             DispatcherId::Ingame,
             FollowSystem::default(),
             "follow_system",
