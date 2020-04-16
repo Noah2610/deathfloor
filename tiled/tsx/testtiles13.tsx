@@ -714,10 +714,10 @@
  <tile id="710" type="Ground"/>
  <tile id="711" type="Ground"/>
  <tile id="712" type="Ground"/>
- <tile id="713" type="Ground"/>
- <tile id="714" type="Ground"/>
- <tile id="715" type="Ground"/>
- <tile id="716" type="Ground"/>
+ <tile id="713" type="Jumppad"/>
+ <tile id="714" type="Jumppad"/>
+ <tile id="715" type="Jumppad"/>
+ <tile id="716" type="Jumppad"/>
  <tile id="717" type="Ground"/>
  <tile id="718" type="Ground"/>
  <tile id="719" type="Ground"/>
