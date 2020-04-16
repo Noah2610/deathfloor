@@ -6,18 +6,18 @@ pub struct HandleActionHealthAction;
 impl<'a> System<'a> for HandleActionHealthAction {
     type SystemData = (
         WriteStorage<'a, ActionTrigger<action::HealthAction>>,
-        WriteStorage<'a, HealthEditor>,
+        WriteStorage<'a, HealthActionQueue>,
     );
 
     fn run(
         &mut self,
-        (mut action_trigger_store, mut health_editor_store): Self::SystemData,
+        (mut action_trigger_store, mut health_action_queue_store): Self::SystemData,
     ) {
-        for (action_trigger, health_editor) in
-            (&mut action_trigger_store, &mut health_editor_store).join()
+        for (action_trigger, health_action_queu) in
+            (&mut action_trigger_store, &mut health_action_queue_store).join()
         {
             for action in action_trigger.drain() {
-                health_editor.add_action(action.0);
+                health_action_queu.add_action(action.0);
             }
         }
     }

@@ -94,7 +94,7 @@ pub struct EntityComponentsStorages<'a> {
     pub jumppad_affected:      WriteStorage<'a, JumppadAffected>,
     pub scale_once:            WriteStorage<'a, ScaleOnce>,
     pub health:                WriteStorage<'a, Health>,
-    pub health_editor:         WriteStorage<'a, HealthEditor>,
+    pub health_action_queue:   WriteStorage<'a, HealthActionQueue>,
     pub health_display:        WriteStorage<'a, HealthDisplay>,
     pub deals_damage:          WriteStorage<'a, DealsDamage>,
     pub takes_damage:          WriteStorage<'a, TakesDamage>,

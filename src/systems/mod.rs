@@ -10,7 +10,6 @@ mod handle_animation_editors;
 mod handle_animations;
 mod handle_dealing_and_taking_damage;
 mod handle_entity_lifecycle;
-mod handle_health_editors;
 mod handle_jumppad_affected;
 mod handle_movables;
 mod handle_scales;
@@ -32,7 +31,6 @@ pub mod prelude {
     pub use super::handle_animations::HandleAnimationsSystem;
     pub use super::handle_dealing_and_taking_damage::HandleDealingAndTakingDamageSystem;
     pub use super::handle_entity_lifecycle::HandleEntityLifecycleSystem;
-    pub use super::handle_health_editors::HandleHealthEditorsSystem;
     pub use super::handle_jumppad_affected::HandleJumppadAffectedSystem;
     pub use super::handle_movables::HandleMovablesSystem;
     pub use super::handle_scales::HandleScalesSystem;

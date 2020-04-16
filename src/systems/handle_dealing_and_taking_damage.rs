@@ -10,7 +10,7 @@ impl<'a> System<'a> for HandleDealingAndTakingDamageSystem {
         ReadStorage<'a, DealsDamage>,
         ReadStorage<'a, TakesDamage>,
         ReadStorage<'a, Collider<CollisionTag>>,
-        WriteStorage<'a, HealthEditor>,
+        WriteStorage<'a, HealthActionQueue>,
     );
 
     fn run(
@@ -20,7 +20,7 @@ impl<'a> System<'a> for HandleDealingAndTakingDamageSystem {
             deals_damage_store,
             takes_damage_store,
             collider_store,
-            mut health_editor_store,
+            mut health_action_queue_store,
         ): Self::SystemData,
     ) {
         let mut damage_map = HashMap::new();
@@ -32,11 +32,11 @@ impl<'a> System<'a> for HandleDealingAndTakingDamageSystem {
         let damage_dealing_ids: Vec<Index> =
             damage_map.keys().cloned().collect();
 
-        for (_entity, takes_damage, collider, health_editor) in (
+        for (_entity, takes_damage, collider, health_action_queue) in (
             &entities,
             &takes_damage_store,
             &collider_store,
-            &mut health_editor_store,
+            &mut health_action_queue_store,
         )
             .join()
         {
@@ -55,7 +55,7 @@ impl<'a> System<'a> for HandleDealingAndTakingDamageSystem {
 
             for collision in collisions {
                 if let Some(damage) = damage_map.get(&collision.id) {
-                    health_editor.lose(*damage);
+                    health_action_queue.lose(*damage);
                 }
             }
         }
