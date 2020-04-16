@@ -34,7 +34,7 @@ pub fn insert_components(
         jumppad_affected: jumppad_affected_store,
         scale_once: scale_once_store,
         health: health_store,
-        health_editor: health_editor_store,
+        health_action_queue: health_action_queue_store,
         health_display: health_display_store,
         deals_damage: deals_damage_store,
         takes_damage: takes_damage_store,
@@ -86,7 +86,8 @@ pub fn insert_components(
     }
     if let Some(health) = health {
         health_store.insert(entity, health)?;
-        health_editor_store.insert(entity, HealthEditor::default())?;
+        health_action_queue_store
+            .insert(entity, HealthActionQueue::default())?;
     }
     if let Some(health_display) = health_display {
         health_display_store.insert(entity, health_display)?;

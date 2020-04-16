@@ -1,3 +1,8 @@
+pub mod prelude {
+    pub use super::HealthDisplay;
+    pub use super::HealthDisplayPosition;
+}
+
 use super::component_prelude::*;
 
 #[derive(Component, Clone, Deserialize)]
