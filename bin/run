@@ -12,7 +12,7 @@ check "cargo"
 function main {
     local args
     local cmd
-    args=( --features "nightly,debug" "$@" )
+    args=( --features "debug" "$@" )
     cmd=( \
         cargo "$CARGO_CMD" \
         "${args[@]}" \

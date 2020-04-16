@@ -96,14 +96,14 @@ fn build_game_data<'a, 'b>(
         .with_core_bundle(transform_bundle)?
         .with_core_bundle(rendering_bundle)?
         .with_core_bundle(audio_bundle)?
+        .with_core_bundle(menu_input_bundle)?
         .with_core_bundle(UiBundle::<input::MenuBindings>::new())?
         .with_core(ScaleSpritesSystem::default(), "scale_sprites_system", &[])?
         .with_core(CameraOrthoSystem::default(), "camera_ortho_system", &[])?
         .with_bundle(DispatcherId::Ingame, ingame_input_bundle)?
-        .with_bundle(DispatcherId::Paused, paused_input_bundle)?
-        .with_bundle(DispatcherId::MainMenu, menu_input_bundle)?
         .with_bundle(DispatcherId::Ingame, physics_bundle)?
         .with_bundle(DispatcherId::Ingame, EventHandlersBundle::default())?
+        .with_bundle(DispatcherId::Paused, paused_input_bundle)?
         .with(
             DispatcherId::Ingame,
             HandleAnimationsSystem::default(),

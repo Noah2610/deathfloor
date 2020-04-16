@@ -15,9 +15,9 @@ specs-derive = "0.4.0"
 
 [dependencies.deathframe]
 version = "*"
-# path = "../deathframe"
-git = "https://github.com/Noah2610/deathframe"
-branch = "develop"
+path = "../deathframe"
+# git = "https://github.com/Noah2610/deathframe"
+# branch = "develop"
 features = [
     "vulkan",
     "physics",
@@ -36,7 +36,6 @@ default-features = false
 [features]
 default = []
 debug = ["deathframe/debug"]
-nightly = ["deathframe/nightly"]
 
 [profile.dev]
 opt-level        = 2
