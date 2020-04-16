@@ -240,12 +240,6 @@ fn build_game_data<'a, 'b>(
         )?
         .with(
             DispatcherId::Ingame,
-            HandleDealingAndTakingDamageSystem::default(),
-            "handle_dealing_and_taking_damage_system",
-            &[],
-        )?
-        .with(
-            DispatcherId::Ingame,
             HandleEntityLifecycleSystem::default(),
             "handle_entity_lifecycle_system",
             &[

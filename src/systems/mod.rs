@@ -8,7 +8,6 @@ mod display_health;
 mod event_handlers;
 mod handle_animation_editors;
 mod handle_animations;
-mod handle_dealing_and_taking_damage;
 mod handle_entity_lifecycle;
 mod handle_jumppad_affected;
 mod handle_movables;
@@ -29,7 +28,6 @@ pub mod prelude {
     pub use super::event_handlers::EventHandlersBundle;
     pub use super::handle_animation_editors::HandleAnimationEditorsSystem;
     pub use super::handle_animations::HandleAnimationsSystem;
-    pub use super::handle_dealing_and_taking_damage::HandleDealingAndTakingDamageSystem;
     pub use super::handle_entity_lifecycle::HandleEntityLifecycleSystem;
     pub use super::handle_jumppad_affected::HandleJumppadAffectedSystem;
     pub use super::handle_movables::HandleMovablesSystem;
