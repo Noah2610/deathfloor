@@ -242,10 +242,7 @@ fn build_game_data<'a, 'b>(
             DispatcherId::Ingame,
             HandleEntityLifecycleSystem::default(),
             "handle_entity_lifecycle_system",
-            &[
-                "update_health_system",
-                "handle_dealing_and_taking_damage_system",
-            ],
+            &["update_health_system", "handle_taking_damage_system"],
         )?;
 
     #[cfg(feature = "debug")]
