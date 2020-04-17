@@ -61,7 +61,6 @@
                         And([
                             IsTag("Bullet"),
                             IsState(Enter),
-                            IsSide(Inner)
                         ]),
                     ): Group([
                         SoundAction(PlayWithVolume(Jump, 0.3)),

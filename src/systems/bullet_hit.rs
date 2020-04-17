@@ -20,7 +20,6 @@ impl<'a> System<'a> for BulletHitSystem {
                     .exp(&And(vec![
                         IsTag(CollisionTag::from(CollisionLabel::tile())),
                         IsState(Enter),
-                        IsSide(Inner),
                     ]))
                     .run()
                     .is_some()

@@ -76,7 +76,6 @@
                         And([
                             IsTag("Bullet"),
                             IsState(Enter),
-                            IsSide(Inner)
                         ]),
                     ): Group([
                         SoundAction(PlayWithVolume(Jump, 0.3)),
@@ -112,7 +111,6 @@
                     OnCollision(And([
                         IsState(Enter),
                         IsTag("Jumppad"),
-                        IsSide(Inner),
                     ])): SoundAction(PlayWithVolume(Jump, 0.75)),
                 },
 
