@@ -6,7 +6,6 @@ mod health_display;
 mod jumper;
 mod jumppad;
 mod jumppad_affected;
-mod lifecycle;
 mod max_movement_velocity;
 mod movable;
 mod physics_data;
@@ -28,7 +27,6 @@ pub mod prelude {
     pub use super::jumper::Jumper;
     pub use super::jumppad::Jumppad;
     pub use super::jumppad_affected::JumppadAffected;
-    pub use super::lifecycle::prelude::*;
     pub use super::max_movement_velocity::MaxMovementVelocity;
     pub use super::movable::prelude::*;
     pub use super::physics_data::PhysicsData;

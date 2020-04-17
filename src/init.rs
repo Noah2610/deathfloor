@@ -240,8 +240,8 @@ fn build_game_data<'a, 'b>(
         )?
         .with(
             DispatcherId::Ingame,
-            HandleEntityLifecycleSystem::default(),
-            "handle_entity_lifecycle_system",
+            UpdateLifecycleSystem::default(),
+            "update_lifecycle_system",
             &["update_health_system", "handle_taking_damage_system"],
         )?;
 
