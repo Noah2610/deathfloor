@@ -1,6 +1,6 @@
 use crate::collision_tag::CollisionTag;
 use crate::components::prelude::LifecycleState;
-use deathframe::physics::query::exp::QueryExpression;
+use deathframe::physics::query::exp::prelude::QueryExpression;
 
 /// Events, which trigger Actions.
 /// Deserialized from `EventTypeDeser`, which provides some aliases for `EventType`.
