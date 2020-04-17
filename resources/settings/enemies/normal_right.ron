@@ -86,8 +86,10 @@
                         HealthAction(Lose(2)),
                     ]),
 
+                    // PIVOT
+
                     OnCollision(And([
-                        IsSide(Right),
+                        Or([IsSide(Right), IsSide(InnerSide( x: Right ))]),
                         IsState(Enter),
                     ])): Group([
                         InsertComponents((
@@ -98,7 +100,7 @@
                     ]),
 
                     OnCollision(And([
-                        IsSide(Left),
+                        Or([IsSide(Left), IsSide(InnerSide( x: Left ))]),
                         IsState(Enter),
                     ])): Group([
                         InsertComponents((
@@ -107,11 +109,6 @@
                             ),
                         )),
                     ]),
-
-                    OnCollision(And([
-                        IsState(Enter),
-                        IsTag("Jumppad"),
-                    ])): SoundAction(PlayWithVolume(Jump, 0.75)),
                 },
 
                 collision_tag: (
