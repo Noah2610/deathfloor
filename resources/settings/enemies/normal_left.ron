@@ -93,8 +93,14 @@
                         HealthAction(Lose(2)),
                     ]),
 
+                    // PIVOT / TURN-AROUND WHEN TOUCHING ANYHING
+
+                    // When colliding with anything to the RIGHT, start walking LEFT.
                     OnCollision(And([
-                        IsSide(Right),
+                        // Check for both sides `Right` (just the edge of the hitbox),
+                        // _or_ `InnerSide(Right)` (inside the hitbox, but closer to the right edge).
+                        Or([IsSide(Right), IsSide(InnerSide(Right))]),
+                        // Check for an `Enter` state, meaning the collision just occured this frame.
                         IsState(Enter),
                     ])): Group([
                         InsertComponents((
@@ -104,8 +110,10 @@
                         )),
                     ]),
 
+                    // When colliding with anything to the LEFT, start walking RIGHT.
+                    // Same as above, just inverted.
                     OnCollision(And([
-                        IsSide(Left),
+                        Or([IsSide(Left), IsSide(InnerSide(Left))]),
                         IsState(Enter),
                     ])): Group([
                         InsertComponents((
