@@ -43,22 +43,15 @@
 <span id="43">43</span>
 <span id="44">44</span>
 <span id="45">45</span>
-<span id="46">46</span>
-<span id="47">47</span>
-<span id="48">48</span>
-<span id="49">49</span>
-<span id="50">50</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">animation_editor</span>;
 <span class="kw">mod</span> <span class="ident">bullet</span>;
-<span class="kw">mod</span> <span class="ident">damage</span>;
 <span class="kw">mod</span> <span class="ident">enemy</span>;
 <span class="kw">mod</span> <span class="ident">event_listener</span>;
-<span class="kw">mod</span> <span class="ident">health</span>;
+<span class="kw">mod</span> <span class="ident">health_display</span>;
 <span class="kw">mod</span> <span class="ident">jumper</span>;
 <span class="kw">mod</span> <span class="ident">jumppad</span>;
 <span class="kw">mod</span> <span class="ident">jumppad_affected</span>;
-<span class="kw">mod</span> <span class="ident">lifecycle</span>;
 <span class="kw">mod</span> <span class="ident">max_movement_velocity</span>;
 <span class="kw">mod</span> <span class="ident">movable</span>;
 <span class="kw">mod</span> <span class="ident">physics_data</span>;
@@ -69,20 +62,17 @@
 <span class="kw">mod</span> <span class="ident">wall_slider</span>;
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">prelude</span> {
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">amethyst</span>::<span class="ident">renderer</span>::<span class="ident">SpriteRender</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">deathframe</span>::<span class="ident">amethyst</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">deathframe</span>::<span class="ident">components</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">animation_editor</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">bullet</span>::<span class="ident">Bullet</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">damage</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">enemy</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">event_listener</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">health</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">health_display</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">jumper</span>::<span class="ident">Jumper</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">jumppad</span>::<span class="ident">Jumppad</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">jumppad_affected</span>::<span class="ident">JumppadAffected</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">lifecycle</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">max_movement_velocity</span>::<span class="ident">MaxMovementVelocity</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">movable</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">physics_data</span>::<span class="ident">PhysicsData</span>;

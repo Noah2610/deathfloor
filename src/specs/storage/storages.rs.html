@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/specs-0.15.1/src/storage/storages.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>storages.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../specs/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/specs-0.16.1/src/storage/storages.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>storages.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../specs/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -227,12 +227,170 @@
 <span id="227">227</span>
 <span id="228">228</span>
 <span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
+<span id="318">318</span>
+<span id="319">319</span>
+<span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
+<span id="324">324</span>
+<span id="325">325</span>
+<span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
+<span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
+<span id="358">358</span>
+<span id="359">359</span>
+<span id="360">360</span>
+<span id="361">361</span>
+<span id="362">362</span>
+<span id="363">363</span>
+<span id="364">364</span>
+<span id="365">365</span>
+<span id="366">366</span>
+<span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
+<span id="371">371</span>
+<span id="372">372</span>
+<span id="373">373</span>
+<span id="374">374</span>
+<span id="375">375</span>
+<span id="376">376</span>
+<span id="377">377</span>
+<span id="378">378</span>
+<span id="379">379</span>
+<span id="380">380</span>
+<span id="381">381</span>
+<span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
+<span id="385">385</span>
+<span id="386">386</span>
+<span id="387">387</span>
+<span id="388">388</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Different types of storages you can use for your components.</span>
 
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::<span class="ident">BTreeMap</span>;
+<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections</span>::<span class="ident">BTreeMap</span>, <span class="ident">mem</span>::<span class="ident">MaybeUninit</span>};
 
-<span class="kw">use</span> <span class="ident">derivative</span>::<span class="ident">Derivative</span>;
 <span class="kw">use</span> <span class="ident">hashbrown</span>::<span class="ident">HashMap</span>;
 <span class="kw">use</span> <span class="ident">hibitset</span>::<span class="ident">BitSetLike</span>;
 
@@ -241,10 +399,26 @@
     <span class="ident">world</span>::<span class="ident">Index</span>,
 };
 
+<span class="doccomment">/// Some storages can provide slices to access the underlying data.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// The underlying data may be of type `T`, or it may be of a type</span>
+<span class="doccomment">/// which wraps `T`. The associated type `Element` identifies what</span>
+<span class="doccomment">/// the slices will contain.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SliceAccess</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">type</span> <span class="ident">Element</span>;
+
+    <span class="kw">fn</span> <span class="ident">as_slice</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span>[<span class="self">Self</span>::<span class="ident">Element</span>];
+    <span class="kw">fn</span> <span class="ident">as_mut_slice</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="self">Self</span>::<span class="ident">Element</span>];
+}
+
 <span class="doccomment">/// BTreeMap-based storage.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Derivative</span>)]</span>
-<span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Default</span>(<span class="ident">bound</span> <span class="op">=</span> <span class="string">&quot;&quot;</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BTreeStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Index</span>, <span class="ident">T</span><span class="op">&gt;</span>);
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">BTreeStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span>(<span class="ident">Default</span>::<span class="ident">default</span>())
+    }
+}
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">UnprotectedStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">BTreeStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">clean</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">_has</span>: <span class="ident">B</span>)
@@ -276,9 +450,13 @@
 <span class="doccomment">/// `HashMap`-based storage. Best suited for rare components.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This uses the [hashbrown::HashMap] internally.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Derivative</span>)]</span>
-<span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Default</span>(<span class="ident">bound</span> <span class="op">=</span> <span class="string">&quot;&quot;</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">HashMapStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">Index</span>, <span class="ident">T</span><span class="op">&gt;</span>);
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">HashMapStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span>(<span class="ident">Default</span>::<span class="ident">default</span>())
+    }
+}
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">UnprotectedStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">HashMapStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">clean</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">_has</span>: <span class="ident">B</span>)
@@ -313,12 +491,48 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Note that this only stores the data (`T`) densely; indices</span>
 <span class="doccomment">/// to the data are stored in a sparse `Vec`.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Derivative</span>)]</span>
-<span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Default</span>(<span class="ident">bound</span> <span class="op">=</span> <span class="string">&quot;&quot;</span>))]</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// `as_slice()` and `as_mut_slice()` indices are local to this</span>
+<span class="doccomment">/// `DenseVecStorage` at this particular moment. These indices</span>
+<span class="doccomment">/// cannot be compared with indices from any other storage, and</span>
+<span class="doccomment">/// a particular entity&#39;s position within this slice may change</span>
+<span class="doccomment">/// over time.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DenseVecStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
     <span class="ident">entity_id</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Index</span><span class="op">&gt;</span>,
-    <span class="ident">data_id</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Index</span><span class="op">&gt;</span>,
+    <span class="ident">data_id</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">MaybeUninit</span><span class="op">&lt;</span><span class="ident">Index</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">DenseVecStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span> {
+            <span class="ident">data</span>: <span class="ident">Default</span>::<span class="ident">default</span>(),
+            <span class="ident">entity_id</span>: <span class="ident">Default</span>::<span class="ident">default</span>(),
+            <span class="ident">data_id</span>: <span class="ident">Default</span>::<span class="ident">default</span>(),
+        }
+    }
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">SliceAccess</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DenseVecStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">type</span> <span class="ident">Element</span> <span class="op">=</span> <span class="ident">T</span>;
+
+    <span class="doccomment">/// Returns a slice of all the components in this storage.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Indices inside the slice do not correspond to anything in particular,</span>
+    <span class="doccomment">/// and especially do not correspond with entity IDs.</span>
+    <span class="attribute">#[<span class="ident">inline</span>]</span>
+    <span class="kw">fn</span> <span class="ident">as_slice</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span>[<span class="self">Self</span>::<span class="ident">Element</span>] {
+        <span class="self">self</span>.<span class="ident">data</span>.<span class="ident">as_slice</span>()
+    }
+
+    <span class="doccomment">/// Returns a mutable slice of all the components in this storage.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Indices inside the slice do not correspond to anything in particular,</span>
+    <span class="doccomment">/// and especially do not correspond with entity IDs.</span>
+    <span class="attribute">#[<span class="ident">inline</span>]</span>
+    <span class="kw">fn</span> <span class="ident">as_mut_slice</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="self">Self</span>::<span class="ident">Element</span>] {
+        <span class="self">self</span>.<span class="ident">data</span>.<span class="ident">as_mut_slice</span>()
+    }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">UnprotectedStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DenseVecStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
@@ -330,12 +544,12 @@
     }
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">id</span>: <span class="ident">Index</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">T</span> {
-        <span class="kw">let</span> <span class="ident">did</span> <span class="op">=</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">data_id</span>.<span class="ident">get_unchecked</span>(<span class="ident">id</span> <span class="kw">as</span> <span class="ident">usize</span>);
+        <span class="kw">let</span> <span class="ident">did</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">data_id</span>.<span class="ident">get_unchecked</span>(<span class="ident">id</span> <span class="kw">as</span> <span class="ident">usize</span>).<span class="ident">assume_init</span>();
         <span class="self">self</span>.<span class="ident">data</span>.<span class="ident">get_unchecked</span>(<span class="ident">did</span> <span class="kw">as</span> <span class="ident">usize</span>)
     }
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">get_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">id</span>: <span class="ident">Index</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">T</span> {
-        <span class="kw">let</span> <span class="ident">did</span> <span class="op">=</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">data_id</span>.<span class="ident">get_unchecked</span>(<span class="ident">id</span> <span class="kw">as</span> <span class="ident">usize</span>);
+        <span class="kw">let</span> <span class="ident">did</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">data_id</span>.<span class="ident">get_unchecked</span>(<span class="ident">id</span> <span class="kw">as</span> <span class="ident">usize</span>).<span class="ident">assume_init</span>();
         <span class="self">self</span>.<span class="ident">data</span>.<span class="ident">get_unchecked_mut</span>(<span class="ident">did</span> <span class="kw">as</span> <span class="ident">usize</span>)
     }
 
@@ -346,15 +560,21 @@
             <span class="self">self</span>.<span class="ident">data_id</span>.<span class="ident">reserve</span>(<span class="ident">delta</span>);
             <span class="self">self</span>.<span class="ident">data_id</span>.<span class="ident">set_len</span>(<span class="ident">id</span> <span class="op">+</span> <span class="number">1</span>);
         }
-        <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">data_id</span>.<span class="ident">get_unchecked_mut</span>(<span class="ident">id</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">data</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">Index</span>;
+        <span class="self">self</span>.<span class="ident">data_id</span>
+            .<span class="ident">get_unchecked_mut</span>(<span class="ident">id</span>)
+            .<span class="ident">as_mut_ptr</span>()
+            .<span class="ident">write</span>(<span class="self">self</span>.<span class="ident">data</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">Index</span>);
         <span class="self">self</span>.<span class="ident">entity_id</span>.<span class="ident">push</span>(<span class="ident">id</span> <span class="kw">as</span> <span class="ident">Index</span>);
         <span class="self">self</span>.<span class="ident">data</span>.<span class="ident">push</span>(<span class="ident">v</span>);
     }
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">id</span>: <span class="ident">Index</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span> {
-        <span class="kw">let</span> <span class="ident">did</span> <span class="op">=</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">data_id</span>.<span class="ident">get_unchecked</span>(<span class="ident">id</span> <span class="kw">as</span> <span class="ident">usize</span>);
+        <span class="kw">let</span> <span class="ident">did</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">data_id</span>.<span class="ident">get_unchecked</span>(<span class="ident">id</span> <span class="kw">as</span> <span class="ident">usize</span>).<span class="ident">assume_init</span>();
         <span class="kw">let</span> <span class="ident">last</span> <span class="op">=</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">entity_id</span>.<span class="ident">last</span>().<span class="ident">unwrap</span>();
-        <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">data_id</span>.<span class="ident">get_unchecked_mut</span>(<span class="ident">last</span> <span class="kw">as</span> <span class="ident">usize</span>) <span class="op">=</span> <span class="ident">did</span>;
+        <span class="self">self</span>.<span class="ident">data_id</span>
+            .<span class="ident">get_unchecked_mut</span>(<span class="ident">last</span> <span class="kw">as</span> <span class="ident">usize</span>)
+            .<span class="ident">as_mut_ptr</span>()
+            .<span class="ident">write</span>(<span class="ident">did</span>);
         <span class="self">self</span>.<span class="ident">entity_id</span>.<span class="ident">swap_remove</span>(<span class="ident">did</span> <span class="kw">as</span> <span class="ident">usize</span>);
         <span class="self">self</span>.<span class="ident">data</span>.<span class="ident">swap_remove</span>(<span class="ident">did</span> <span class="kw">as</span> <span class="ident">usize</span>)
     }
@@ -409,9 +629,32 @@
 
 <span class="doccomment">/// Vector storage. Uses a simple `Vec`. Supposed to have maximum</span>
 <span class="doccomment">/// performance for the components mostly present in entities.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Derivative</span>)]</span>
-<span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Default</span>(<span class="ident">bound</span> <span class="op">=</span> <span class="string">&quot;&quot;</span>))]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">VecStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+<span class="doccomment">///</span>
+<span class="doccomment">/// `as_slice()` and `as_mut_slice()` indices correspond to</span>
+<span class="doccomment">/// entity IDs. These can be compared to other `VecStorage`s, to</span>
+<span class="doccomment">/// other `DefaultVecStorage`s, and to `Entity::id()`s for live</span>
+<span class="doccomment">/// entities.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">VecStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">MaybeUninit</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>);
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">VecStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span>(<span class="ident">Default</span>::<span class="ident">default</span>())
+    }
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">SliceAccess</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">VecStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">type</span> <span class="ident">Element</span> <span class="op">=</span> <span class="ident">MaybeUninit</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>;
+
+    <span class="attribute">#[<span class="ident">inline</span>]</span>
+    <span class="kw">fn</span> <span class="ident">as_slice</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span>[<span class="self">Self</span>::<span class="ident">Element</span>] {
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_slice</span>()
+    }
+
+    <span class="attribute">#[<span class="ident">inline</span>]</span>
+    <span class="kw">fn</span> <span class="ident">as_mut_slice</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="self">Self</span>::<span class="ident">Element</span>] {
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_mut_slice</span>()
+    }
+}
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">UnprotectedStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">VecStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">clean</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">has</span>: <span class="ident">B</span>)
@@ -421,10 +664,66 @@
         <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
         <span class="kw">for</span> (<span class="ident">i</span>, <span class="ident">v</span>) <span class="kw">in</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">iter_mut</span>().<span class="ident">enumerate</span>() {
             <span class="kw">if</span> <span class="ident">has</span>.<span class="ident">contains</span>(<span class="ident">i</span> <span class="kw">as</span> <span class="ident">u32</span>) {
-                <span class="ident">ptr</span>::<span class="ident">drop_in_place</span>(<span class="ident">v</span>);
+                <span class="comment">// drop in place</span>
+                <span class="ident">ptr</span>::<span class="ident">drop_in_place</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="ident">v</span>.<span class="ident">as_mut_ptr</span>());
             }
         }
         <span class="self">self</span>.<span class="number">0</span>.<span class="ident">set_len</span>(<span class="number">0</span>);
+    }
+
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">id</span>: <span class="ident">Index</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">T</span> {
+        <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">get_unchecked</span>(<span class="ident">id</span> <span class="kw">as</span> <span class="ident">usize</span>).<span class="ident">as_ptr</span>()
+    }
+
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">get_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">id</span>: <span class="ident">Index</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">T</span> {
+        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">get_unchecked_mut</span>(<span class="ident">id</span> <span class="kw">as</span> <span class="ident">usize</span>).<span class="ident">as_mut_ptr</span>()
+    }
+
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">insert</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">id</span>: <span class="ident">Index</span>, <span class="ident">v</span>: <span class="ident">T</span>) {
+        <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">id</span> <span class="kw">as</span> <span class="ident">usize</span>;
+        <span class="kw">if</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">len</span>() <span class="op">&lt;</span><span class="op">=</span> <span class="ident">id</span> {
+            <span class="kw">let</span> <span class="ident">delta</span> <span class="op">=</span> <span class="ident">id</span> <span class="op">+</span> <span class="number">1</span> <span class="op">-</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">len</span>();
+            <span class="self">self</span>.<span class="number">0</span>.<span class="ident">reserve</span>(<span class="ident">delta</span>);
+            <span class="self">self</span>.<span class="number">0</span>.<span class="ident">set_len</span>(<span class="ident">id</span> <span class="op">+</span> <span class="number">1</span>);
+        }
+        <span class="comment">// Write the value without reading or dropping</span>
+        <span class="comment">// the (currently uninitialized) memory.</span>
+        <span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">get_unchecked_mut</span>(<span class="ident">id</span> <span class="kw">as</span> <span class="ident">usize</span>) <span class="op">=</span> <span class="ident">MaybeUninit</span>::<span class="ident">new</span>(<span class="ident">v</span>);
+    }
+
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">id</span>: <span class="ident">Index</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span> {
+        <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
+        <span class="ident">ptr</span>::<span class="ident">read</span>(<span class="self">self</span>.<span class="ident">get</span>(<span class="ident">id</span>))
+    }
+}
+
+<span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">DistinctStorage</span> <span class="kw">for</span> <span class="ident">VecStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {}
+
+<span class="doccomment">/// Vector storage, like `VecStorage`, but allows safe access to the</span>
+<span class="doccomment">/// interior slices because unused slots are always initialized.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Requires the component to implement `Default`.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// `as_slice()` and `as_mut_slice()` indices correspond to entity IDs.</span>
+<span class="doccomment">/// These can be compared to other `DefaultVecStorage`s, to other</span>
+<span class="doccomment">/// `VecStorage`s, and to `Entity::id()`s for live entities.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DefaultVecStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">DefaultVecStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span>(<span class="ident">Default</span>::<span class="ident">default</span>())
+    }
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">UnprotectedStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DefaultVecStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
+<span class="kw">where</span>
+    <span class="ident">T</span>: <span class="ident">Default</span>,
+{
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">clean</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">_has</span>: <span class="ident">B</span>)
+    <span class="kw">where</span>
+        <span class="ident">B</span>: <span class="ident">BitSetLike</span>,
+    {
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">clear</span>();
     }
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">id</span>: <span class="ident">Index</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">T</span> {
@@ -436,26 +735,45 @@
     }
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">insert</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">id</span>: <span class="ident">Index</span>, <span class="ident">v</span>: <span class="ident">T</span>) {
-        <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
-
         <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">id</span> <span class="kw">as</span> <span class="ident">usize</span>;
+
         <span class="kw">if</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">len</span>() <span class="op">&lt;</span><span class="op">=</span> <span class="ident">id</span> {
-            <span class="kw">let</span> <span class="ident">delta</span> <span class="op">=</span> <span class="ident">id</span> <span class="op">+</span> <span class="number">1</span> <span class="op">-</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">len</span>();
-            <span class="self">self</span>.<span class="number">0</span>.<span class="ident">reserve</span>(<span class="ident">delta</span>);
-            <span class="self">self</span>.<span class="number">0</span>.<span class="ident">set_len</span>(<span class="ident">id</span> <span class="op">+</span> <span class="number">1</span>);
+            <span class="comment">// fill all the empty slots with default values</span>
+            <span class="self">self</span>.<span class="number">0</span>.<span class="ident">resize_with</span>(<span class="ident">id</span>, <span class="ident">Default</span>::<span class="ident">default</span>);
+            <span class="comment">// store the desired value</span>
+            <span class="self">self</span>.<span class="number">0</span>.<span class="ident">push</span>(<span class="ident">v</span>)
+        } <span class="kw">else</span> {
+            <span class="comment">// store the desired value directly</span>
+            <span class="self">self</span>.<span class="number">0</span>[<span class="ident">id</span>] <span class="op">=</span> <span class="ident">v</span>;
         }
-        <span class="comment">// Write the value without reading or dropping</span>
-        <span class="comment">// the (currently uninitialized) memory.</span>
-        <span class="ident">ptr</span>::<span class="ident">write</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">get_unchecked_mut</span>(<span class="ident">id</span>), <span class="ident">v</span>);
     }
 
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">id</span>: <span class="ident">Index</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span> {
-        <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
-
-        <span class="ident">ptr</span>::<span class="ident">read</span>(<span class="self">self</span>.<span class="ident">get</span>(<span class="ident">id</span>))
+        <span class="comment">// make a new default value</span>
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">T</span>::<span class="ident">default</span>();
+        <span class="comment">// swap it into the vec</span>
+        <span class="ident">std</span>::<span class="ident">ptr</span>::<span class="ident">swap</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">get_unchecked_mut</span>(<span class="ident">id</span> <span class="kw">as</span> <span class="ident">usize</span>), <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">v</span>);
+        <span class="comment">// return the old value</span>
+        <span class="ident">v</span>
     }
 }
 
-<span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">DistinctStorage</span> <span class="kw">for</span> <span class="ident">VecStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {}
+<span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">DistinctStorage</span> <span class="kw">for</span> <span class="ident">DefaultVecStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">SliceAccess</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DefaultVecStorage</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">type</span> <span class="ident">Element</span> <span class="op">=</span> <span class="ident">T</span>;
+
+    <span class="doccomment">/// Returns a slice of all the components in this storage.</span>
+    <span class="attribute">#[<span class="ident">inline</span>]</span>
+    <span class="kw">fn</span> <span class="ident">as_slice</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span>[<span class="self">Self</span>::<span class="ident">Element</span>] {
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_slice</span>()
+    }
+
+    <span class="doccomment">/// Returns a mutable slice of all the components in this storage.</span>
+    <span class="attribute">#[<span class="ident">inline</span>]</span>
+    <span class="kw">fn</span> <span class="ident">as_mut_slice</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="self">Self</span>::<span class="ident">Element</span>] {
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_mut_slice</span>()
+    }
+}
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../";window.currentCrate = "specs";</script><script src="../../../aliases.js"></script><script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script><script defer src="../../../search-index.js"></script></body></html>

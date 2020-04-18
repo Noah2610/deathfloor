@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["CollisionSide",""],["CollisionState","The state of a collision between a Collider and a Collidable."]]});
+initSidebarItems({"enum":[["CollisionInnerSideX",""],["CollisionInnerSideY",""],["CollisionSide",""],["CollisionState","The state of a collision between a Collider and a Collidable."]]});

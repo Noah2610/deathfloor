@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/shred-0.9.4/src/system.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>system.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../shred/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/shred-0.10.2/src/system.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>system.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../shred/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -433,6 +433,40 @@
 <span id="433">433</span>
 <span id="434">434</span>
 <span id="435">435</span>
+<span id="436">436</span>
+<span id="437">437</span>
+<span id="438">438</span>
+<span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
+<span id="463">463</span>
+<span id="464">464</span>
+<span id="465">465</span>
+<span id="466">466</span>
+<span id="467">467</span>
+<span id="468">468</span>
+<span id="469">469</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">marker</span>::<span class="ident">PhantomData</span>, <span class="ident">ops</span>::<span class="ident">Deref</span>};
 
@@ -654,19 +688,53 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Examples</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// ```</span>
+<span class="doccomment">/// ```rust</span>
 <span class="doccomment">/// use shred::{Read, ResourceId, SystemData, World, Write};</span>
 <span class="doccomment">///</span>
+<span class="doccomment">/// #[derive(Default)]</span>
 <span class="doccomment">/// pub struct Clock;</span>
+<span class="doccomment">/// #[derive(Default)]</span>
 <span class="doccomment">/// pub struct Timer;</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// // This will implement `SystemData` for `MySystemData`.</span>
 <span class="doccomment">/// // Please note that this will only work if `SystemData`, `World` and `ResourceId` are included.</span>
+<span class="doccomment">/// # #[cfg(feature = &quot;shred-derive&quot;)]</span>
 <span class="doccomment">/// #[derive(SystemData)]</span>
 <span class="doccomment">/// pub struct MySystemData&lt;&#39;a&gt; {</span>
 <span class="doccomment">///     pub clock: Read&lt;&#39;a, Clock&gt;,</span>
 <span class="doccomment">///     pub timer: Write&lt;&#39;a, Timer&gt;,</span>
 <span class="doccomment">/// }</span>
+<span class="doccomment">/// #</span>
+<span class="doccomment">/// # // The following is required for the snippet to compile without the `shred-derive` feature.</span>
+<span class="doccomment">/// #</span>
+<span class="doccomment">/// # #[cfg(not(feature = &quot;shred-derive&quot;))]</span>
+<span class="doccomment">/// # struct MySystemData&lt;&#39;a&gt; {</span>
+<span class="doccomment">/// #     pub clock: Read&lt;&#39;a, Clock&gt;,</span>
+<span class="doccomment">/// #     pub timer: Write&lt;&#39;a, Timer&gt;,</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// #</span>
+<span class="doccomment">/// # #[cfg(not(feature = &quot;shred-derive&quot;))]</span>
+<span class="doccomment">/// # impl&lt;&#39;a&gt; SystemData&lt;&#39;a&gt; for MySystemData&lt;&#39;a&gt; {</span>
+<span class="doccomment">/// #     fn setup(world: &amp;mut World) {</span>
+<span class="doccomment">/// #         Read::&lt;&#39;_, Clock&gt;::setup(world);</span>
+<span class="doccomment">/// #         Write::&lt;&#39;_, Timer&gt;::setup(world);</span>
+<span class="doccomment">/// #     }</span>
+<span class="doccomment">/// #</span>
+<span class="doccomment">/// #     fn fetch(world: &amp;&#39;a World) -&gt; Self {</span>
+<span class="doccomment">/// #         Self {</span>
+<span class="doccomment">/// #             clock: Read::&lt;&#39;_, Clock&gt;::fetch(world),</span>
+<span class="doccomment">/// #             timer: Write::&lt;&#39;_, Timer&gt;::fetch(world),</span>
+<span class="doccomment">/// #         }</span>
+<span class="doccomment">/// #     }</span>
+<span class="doccomment">/// #</span>
+<span class="doccomment">/// #     fn reads() -&gt; Vec&lt;ResourceId&gt; {</span>
+<span class="doccomment">/// #         Read::&lt;&#39;_, Clock&gt;::reads()</span>
+<span class="doccomment">/// #     }</span>
+<span class="doccomment">/// #</span>
+<span class="doccomment">/// #     fn writes() -&gt; Vec&lt;ResourceId&gt; {</span>
+<span class="doccomment">/// #         Write::&lt;&#39;_, Timer&gt;::writes()</span>
+<span class="doccomment">/// #     }</span>
+<span class="doccomment">/// # }</span>
 <span class="doccomment">/// ```</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SystemData</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Sets up the system data for fetching it from the `World`.</span>

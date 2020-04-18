@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["DeviceTrait","A device that is capable of audio input and/or output."],["EventLoopTrait","Collection of streams managed together."],["HostTrait","A Host provides access to the available audio devices on the system."],["StreamIdTrait","The set of required bounds for host `StreamId` types."]]});

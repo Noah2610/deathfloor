@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/specs-0.15.1/src/world/lazy.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lazy.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../specs/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/specs-0.16.1/src/world/lazy.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lazy.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../specs/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -329,18 +329,158 @@
 <span id="329">329</span>
 <span id="330">330</span>
 <span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
+<span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
+<span id="358">358</span>
+<span id="359">359</span>
+<span id="360">360</span>
+<span id="361">361</span>
+<span id="362">362</span>
+<span id="363">363</span>
+<span id="364">364</span>
+<span id="365">365</span>
+<span id="366">366</span>
+<span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
+<span id="371">371</span>
+<span id="372">372</span>
+<span id="373">373</span>
+<span id="374">374</span>
+<span id="375">375</span>
+<span id="376">376</span>
+<span id="377">377</span>
+<span id="378">378</span>
+<span id="379">379</span>
+<span id="380">380</span>
+<span id="381">381</span>
+<span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
+<span id="385">385</span>
+<span id="386">386</span>
+<span id="387">387</span>
+<span id="388">388</span>
+<span id="389">389</span>
+<span id="390">390</span>
+<span id="391">391</span>
+<span id="392">392</span>
+<span id="393">393</span>
+<span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
+<span id="397">397</span>
+<span id="398">398</span>
+<span id="399">399</span>
+<span id="400">400</span>
+<span id="401">401</span>
+<span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
+<span id="408">408</span>
+<span id="409">409</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">crossbeam_queue</span>::<span class="ident">SegQueue</span>;
-<span class="kw">use</span> <span class="ident">derivative</span>::<span class="ident">Derivative</span>;
 
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">prelude</span>::<span class="kw-2">*</span>, <span class="ident">world</span>::<span class="ident">EntitiesRes</span>};
 
 <span class="kw">struct</span> <span class="ident">Queue</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">SegQueue</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>);
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">Queue</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Queue</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
-        <span class="ident">Queue</span>(<span class="ident">SegQueue</span>::<span class="ident">new</span>())
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span>(<span class="ident">SegQueue</span>::<span class="ident">new</span>())
     }
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;parallel&quot;</span>)]</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">LazyUpdateInternal</span>: <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> {
+    <span class="kw">fn</span> <span class="ident">update</span>(<span class="self">self</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">world</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">World</span>);
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;parallel&quot;</span>))]</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">LazyUpdateInternal</span> {
+    <span class="kw">fn</span> <span class="ident">update</span>(<span class="self">self</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">world</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">World</span>);
+}
+
+<span class="doccomment">/// Generates two versions of functions within the macro call:</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// * One with `Send + Sync` bounds when the `&quot;parallel&quot;` feature is enabled.</span>
+<span class="doccomment">/// * One without `Send + Sync` bounds when the `&quot;parallel&quot;` feature is</span>
+<span class="doccomment">///   disabled.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// TODO: When trait aliases land on stable we can remove this macro.</span>
+<span class="doccomment">/// See &lt;https://github.com/rust-lang/rust/issues/41517&gt;.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```rust,ignore</span>
+<span class="doccomment">/// #![cfg(feature = &quot;parallel&quot;)]</span>
+<span class="doccomment">/// trait ComponentBound = Component + Send + Sync;</span>
+<span class="doccomment">/// #![cfg(not(feature = &quot;parallel&quot;))]</span>
+<span class="doccomment">/// trait ComponentBound = Component;</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Alternative solutions are listed in:</span>
+<span class="doccomment">/// &lt;https://github.com/amethyst/specs/pull/674#issuecomment-585013726&gt;</span>
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">parallel_feature</span> {
+    (
+        $(
+            $(<span class="attribute">#[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attrs</span>:<span class="ident">meta</span>]</span>)<span class="op">*</span> $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">words</span>:<span class="ident">ident</span>)<span class="op">+</span><span class="op">&lt;</span>$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty_params</span>:<span class="ident">ident</span>),<span class="op">+</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">args</span>:<span class="ident">tt</span> $(<span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">return_ty</span>:<span class="ident">ty</span>)<span class="question-mark">?</span>
+            <span class="kw">where</span>
+                $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty_param</span>:<span class="ident">ident</span>:
+                    <span class="macro-nonterminal">$</span><span class="macro-nonterminal">bound_first</span>:<span class="ident">ident</span> $(<span class="op">&lt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty_type</span>:<span class="ident">ident</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty_bound</span>:<span class="ident">tt</span> <span class="op">&gt;</span>)<span class="question-mark">?</span> $(($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_bound</span>:<span class="ident">tt</span>)<span class="kw-2">*</span>))<span class="question-mark">?</span>
+                    $(<span class="op">+</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">bound</span>:<span class="ident">tt</span> $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">bound_2</span>:<span class="ident">ident</span>)<span class="question-mark">?</span>)<span class="kw-2">*</span>,)<span class="op">+</span>
+            <span class="macro-nonterminal">$</span><span class="macro-nonterminal">body</span>:<span class="ident">block</span>
+        )<span class="op">+</span>
+    ) <span class="op">=</span><span class="op">&gt;</span>
+    {
+        $(
+            $(<span class="attribute">#[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attrs</span>]</span>)<span class="op">*</span>
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;parallel&quot;</span>)]</span>
+            $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">words</span>)<span class="op">+</span><span class="op">&lt;</span>$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty_params</span>),<span class="op">+</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">args</span> $(<span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">return_ty</span>)<span class="question-mark">?</span>
+            <span class="kw">where</span>
+                $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty_param</span>:
+                    <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span>
+                    <span class="macro-nonterminal">$</span><span class="macro-nonterminal">bound_first</span> $(<span class="op">&lt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty_type</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty_bound</span> <span class="op">&gt;</span>)<span class="question-mark">?</span> $(($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_bound</span>)<span class="kw-2">*</span>))<span class="question-mark">?</span>
+                    $(<span class="op">+</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">bound</span> $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">bound_2</span>)<span class="question-mark">?</span>)<span class="kw-2">*</span>,)<span class="op">+</span>
+            <span class="macro-nonterminal">$</span><span class="macro-nonterminal">body</span>
+
+            $(<span class="attribute">#[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">attrs</span>]</span>)<span class="op">*</span>
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;parallel&quot;</span>))]</span>
+            $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">words</span>)<span class="op">+</span><span class="op">&lt;</span>$(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty_params</span>),<span class="op">+</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">args</span> $(<span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">return_ty</span>)<span class="question-mark">?</span>
+            <span class="kw">where</span>
+                $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty_param</span>:
+                    <span class="macro-nonterminal">$</span><span class="macro-nonterminal">bound_first</span> $(<span class="op">&lt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty_type</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty_bound</span> <span class="op">&gt;</span>)<span class="question-mark">?</span> $(($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">fn_bound</span>)<span class="kw-2">*</span>))<span class="question-mark">?</span>
+                    $(<span class="op">+</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">bound</span> $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">bound_2</span>)<span class="question-mark">?</span>)<span class="kw-2">*</span>,)<span class="op">+</span>
+            <span class="macro-nonterminal">$</span><span class="macro-nonterminal">body</span>
+        )<span class="op">+</span>
+    };
 }
 
 <span class="doccomment">/// Like `EntityBuilder`, but inserts the component</span>
@@ -356,26 +496,28 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Builder</span> <span class="kw">for</span> <span class="ident">LazyBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// Inserts a component using [LazyUpdate].</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// If a component was already associated with the entity, it will</span>
-    <span class="doccomment">/// overwrite the previous component.</span>
-    <span class="kw">fn</span> <span class="ident">with</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">component</span>: <span class="ident">C</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>
-    <span class="kw">where</span>
-        <span class="ident">C</span>: <span class="ident">Component</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span>,
-    {
-        <span class="kw">let</span> <span class="ident">entity</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">entity</span>;
-        <span class="self">self</span>.<span class="ident">lazy</span>.<span class="ident">exec</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">world</span><span class="op">|</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">storage</span>: <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">SystemData</span>::<span class="ident">fetch</span>(<span class="ident">world</span>);
-            <span class="kw">if</span> <span class="ident">storage</span>.<span class="ident">insert</span>(<span class="ident">entity</span>, <span class="ident">component</span>).<span class="ident">is_err</span>() {
-                <span class="ident">log</span>::<span class="macro">warn</span><span class="macro">!</span>(
-                    <span class="string">&quot;Lazy insert of component failed because {:?} was dead.&quot;</span>,
-                    <span class="ident">entity</span>
-                );
-            }
-        });
+    <span class="macro">parallel_feature</span><span class="macro">!</span> {
+        <span class="doccomment">/// Inserts a component using [LazyUpdate].</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// If a component was already associated with the entity, it will</span>
+        <span class="doccomment">/// overwrite the previous component.</span>
+        <span class="kw">fn</span> <span class="ident">with</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">component</span>: <span class="ident">C</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>
+        <span class="kw">where</span>
+            <span class="ident">C</span>: <span class="ident">Component</span>,
+        {
+            <span class="kw">let</span> <span class="ident">entity</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">entity</span>;
+            <span class="self">self</span>.<span class="ident">lazy</span>.<span class="ident">exec</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">world</span><span class="op">|</span> {
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">storage</span>: <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">SystemData</span>::<span class="ident">fetch</span>(<span class="ident">world</span>);
+                <span class="kw">if</span> <span class="ident">storage</span>.<span class="ident">insert</span>(<span class="ident">entity</span>, <span class="ident">component</span>).<span class="ident">is_err</span>() {
+                    <span class="ident">log</span>::<span class="macro">warn</span><span class="macro">!</span>(
+                        <span class="string">&quot;Lazy insert of component failed because {:?} was dead.&quot;</span>,
+                        <span class="ident">entity</span>
+                    );
+                }
+            });
 
-        <span class="self">self</span>
+            <span class="self">self</span>
+        }
     }
 
     <span class="doccomment">/// Finishes the building and returns the built entity.</span>
@@ -386,13 +528,20 @@
     }
 }
 
-<span class="kw">trait</span> <span class="ident">LazyUpdateInternal</span>: <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> {
-    <span class="kw">fn</span> <span class="ident">update</span>(<span class="self">self</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">world</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">World</span>);
-}
-
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;parallel&quot;</span>)]</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="ident">LazyUpdateInternal</span> <span class="kw">for</span> <span class="ident">F</span>
 <span class="kw">where</span>
     <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">World</span>) <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+{
+    <span class="kw">fn</span> <span class="ident">update</span>(<span class="self">self</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">world</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">World</span>) {
+        <span class="self">self</span>(<span class="ident">world</span>);
+    }
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;parallel&quot;</span>))]</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="ident">LazyUpdateInternal</span> <span class="kw">for</span> <span class="ident">F</span>
+<span class="kw">where</span>
+    <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">World</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
     <span class="kw">fn</span> <span class="ident">update</span>(<span class="self">self</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">world</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">World</span>) {
         <span class="self">self</span>(<span class="ident">world</span>);
@@ -412,14 +561,205 @@
 <span class="doccomment">/// Please note that the provided methods take `&amp;self`</span>
 <span class="doccomment">/// so there&#39;s no need to get `LazyUpdate` mutably.</span>
 <span class="doccomment">/// This resource is added to the world by default.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Derivative</span>)]</span>
-<span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LazyUpdate</span> {
-    <span class="attribute">#[<span class="ident">derivative</span>(<span class="ident">Default</span>(<span class="ident">value</span> <span class="op">=</span> <span class="string">&quot;Some(Default::default())&quot;</span>))]</span>
     <span class="ident">queue</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Queue</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">LazyUpdateInternal</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
+<span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">LazyUpdate</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span> {
+            <span class="ident">queue</span>: <span class="prelude-val">Some</span>(<span class="ident">Default</span>::<span class="ident">default</span>()),
+        }
+    }
+}
+
 <span class="kw">impl</span> <span class="ident">LazyUpdate</span> {
+    <span class="macro">parallel_feature</span><span class="macro">!</span> {
+        <span class="doccomment">/// Lazily inserts a component for an entity.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// ## Examples</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// ```</span>
+        <span class="doccomment">/// # use specs::prelude::*;</span>
+        <span class="doccomment">/// #</span>
+        <span class="doccomment">/// struct Pos(f32, f32);</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// impl Component for Pos {</span>
+        <span class="doccomment">///     type Storage = VecStorage&lt;Self&gt;;</span>
+        <span class="doccomment">/// }</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// struct InsertPos;</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// impl&lt;&#39;a&gt; System&lt;&#39;a&gt; for InsertPos {</span>
+        <span class="doccomment">///     type SystemData = (Entities&lt;&#39;a&gt;, Read&lt;&#39;a, LazyUpdate&gt;);</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">///     fn run(&amp;mut self, (ent, lazy): Self::SystemData) {</span>
+        <span class="doccomment">///         let a = ent.create();</span>
+        <span class="doccomment">///         lazy.insert(a, Pos(1.0, 1.0));</span>
+        <span class="doccomment">///     }</span>
+        <span class="doccomment">/// }</span>
+        <span class="doccomment">/// ```</span>
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">insert</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">e</span>: <span class="ident">Entity</span>, <span class="ident">c</span>: <span class="ident">C</span>)
+        <span class="kw">where</span>
+            <span class="ident">C</span>: <span class="ident">Component</span>,
+        {
+            <span class="self">self</span>.<span class="ident">exec</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">world</span><span class="op">|</span> {
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">storage</span>: <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">SystemData</span>::<span class="ident">fetch</span>(<span class="ident">world</span>);
+                <span class="kw">if</span> <span class="ident">storage</span>.<span class="ident">insert</span>(<span class="ident">e</span>, <span class="ident">c</span>).<span class="ident">is_err</span>() {
+                    <span class="ident">log</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Lazy insert of component failed because {:?} was dead.&quot;</span>, <span class="ident">e</span>);
+                }
+            });
+        }
+
+        <span class="doccomment">/// Lazily inserts components for entities.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// ## Examples</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// ```</span>
+        <span class="doccomment">/// # use specs::prelude::*;</span>
+        <span class="doccomment">/// #</span>
+        <span class="doccomment">/// struct Pos(f32, f32);</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// impl Component for Pos {</span>
+        <span class="doccomment">///     type Storage = VecStorage&lt;Self&gt;;</span>
+        <span class="doccomment">/// }</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// struct InsertPos;</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// impl&lt;&#39;a&gt; System&lt;&#39;a&gt; for InsertPos {</span>
+        <span class="doccomment">///     type SystemData = (Entities&lt;&#39;a&gt;, Read&lt;&#39;a, LazyUpdate&gt;);</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">///     fn run(&amp;mut self, (ent, lazy): Self::SystemData) {</span>
+        <span class="doccomment">///         let a = ent.create();</span>
+        <span class="doccomment">///         let b = ent.create();</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">///         lazy.insert_all(vec![(a, Pos(3.0, 1.0)), (b, Pos(0.0, 4.0))]);</span>
+        <span class="doccomment">///     }</span>
+        <span class="doccomment">/// }</span>
+        <span class="doccomment">/// ```</span>
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">insert_all</span><span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">I</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">iter</span>: <span class="ident">I</span>)
+        <span class="kw">where</span>
+            <span class="ident">C</span>: <span class="ident">Component</span>,
+            <span class="ident">I</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> (<span class="ident">Entity</span>, <span class="ident">C</span>)<span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+        {
+            <span class="self">self</span>.<span class="ident">exec</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">world</span><span class="op">|</span> {
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">storage</span>: <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">SystemData</span>::<span class="ident">fetch</span>(<span class="ident">world</span>);
+                <span class="kw">for</span> (<span class="ident">e</span>, <span class="ident">c</span>) <span class="kw">in</span> <span class="ident">iter</span> {
+                    <span class="kw">if</span> <span class="ident">storage</span>.<span class="ident">insert</span>(<span class="ident">e</span>, <span class="ident">c</span>).<span class="ident">is_err</span>() {
+                        <span class="ident">log</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Lazy insert of component failed because {:?} was dead.&quot;</span>, <span class="ident">e</span>);
+                    }
+                }
+            });
+        }
+
+        <span class="doccomment">/// Lazily removes a component.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// ## Examples</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// ```</span>
+        <span class="doccomment">/// # use specs::prelude::*;</span>
+        <span class="doccomment">/// #</span>
+        <span class="doccomment">/// struct Pos;</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// impl Component for Pos {</span>
+        <span class="doccomment">///     type Storage = VecStorage&lt;Self&gt;;</span>
+        <span class="doccomment">/// }</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// struct RemovePos;</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// impl&lt;&#39;a&gt; System&lt;&#39;a&gt; for RemovePos {</span>
+        <span class="doccomment">///     type SystemData = (Entities&lt;&#39;a&gt;, Read&lt;&#39;a, LazyUpdate&gt;);</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">///     fn run(&amp;mut self, (ent, lazy): Self::SystemData) {</span>
+        <span class="doccomment">///         for entity in ent.join() {</span>
+        <span class="doccomment">///             lazy.remove::&lt;Pos&gt;(entity);</span>
+        <span class="doccomment">///         }</span>
+        <span class="doccomment">///     }</span>
+        <span class="doccomment">/// }</span>
+        <span class="doccomment">/// ```</span>
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">e</span>: <span class="ident">Entity</span>)
+        <span class="kw">where</span>
+            <span class="ident">C</span>: <span class="ident">Component</span>,
+        {
+            <span class="self">self</span>.<span class="ident">exec</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">world</span><span class="op">|</span> {
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">storage</span>: <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">SystemData</span>::<span class="ident">fetch</span>(<span class="ident">world</span>);
+                <span class="ident">storage</span>.<span class="ident">remove</span>(<span class="ident">e</span>);
+            });
+        }
+
+        <span class="doccomment">/// Lazily executes a closure with world access.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// ## Examples</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// ```</span>
+        <span class="doccomment">/// # use specs::prelude::*;</span>
+        <span class="doccomment">/// #</span>
+        <span class="doccomment">/// struct Pos;</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// impl Component for Pos {</span>
+        <span class="doccomment">///     type Storage = VecStorage&lt;Self&gt;;</span>
+        <span class="doccomment">/// }</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// struct Execution;</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// impl&lt;&#39;a&gt; System&lt;&#39;a&gt; for Execution {</span>
+        <span class="doccomment">///     type SystemData = (Entities&lt;&#39;a&gt;, Read&lt;&#39;a, LazyUpdate&gt;);</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">///     fn run(&amp;mut self, (ent, lazy): Self::SystemData) {</span>
+        <span class="doccomment">///         for entity in ent.join() {</span>
+        <span class="doccomment">///             lazy.exec(move |world| {</span>
+        <span class="doccomment">///                 if world.is_alive(entity) {</span>
+        <span class="doccomment">///                     println!(&quot;Entity {:?} is alive.&quot;, entity);</span>
+        <span class="doccomment">///                 }</span>
+        <span class="doccomment">///             });</span>
+        <span class="doccomment">///         }</span>
+        <span class="doccomment">///     }</span>
+        <span class="doccomment">/// }</span>
+        <span class="doccomment">/// ```</span>
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">exec</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>)
+        <span class="kw">where</span>
+            <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">World</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+        {
+            <span class="self">self</span>.<span class="ident">queue</span>
+                .<span class="ident">as_ref</span>()
+                .<span class="ident">unwrap</span>()
+                .<span class="number">0</span>
+                .<span class="ident">push</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="op">|</span><span class="ident">w</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">World</span><span class="op">|</span> <span class="ident">f</span>(<span class="ident">w</span>)));
+        }
+
+        <span class="doccomment">/// Lazily executes a closure with mutable world access.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// This can be used to add a resource to the `World` from a system.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// ## Examples</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// ```</span>
+        <span class="doccomment">/// # use specs::prelude::*;</span>
+        <span class="doccomment">/// #</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// struct Sys;</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// impl&lt;&#39;a&gt; System&lt;&#39;a&gt; for Sys {</span>
+        <span class="doccomment">///     type SystemData = (Entities&lt;&#39;a&gt;, Read&lt;&#39;a, LazyUpdate&gt;);</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">///     fn run(&amp;mut self, (ent, lazy): Self::SystemData) {</span>
+        <span class="doccomment">///         for entity in ent.join() {</span>
+        <span class="doccomment">///             lazy.exec_mut(move |world| {</span>
+        <span class="doccomment">///                 // complete extermination!</span>
+        <span class="doccomment">///                 world.delete_all();</span>
+        <span class="doccomment">///             });</span>
+        <span class="doccomment">///         }</span>
+        <span class="doccomment">///     }</span>
+        <span class="doccomment">/// }</span>
+        <span class="doccomment">/// ```</span>
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">exec_mut</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>)
+        <span class="kw">where</span>
+            <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">World</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+        {
+            <span class="self">self</span>.<span class="ident">queue</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>().<span class="number">0</span>.<span class="ident">push</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">f</span>));
+        }
+    }
+
     <span class="doccomment">/// Creates a new `LazyBuilder` which inserts components</span>
     <span class="doccomment">/// using `LazyUpdate`. This means that the components won&#39;t</span>
     <span class="doccomment">/// be available immediately, but only after a `maintain`</span>
@@ -446,193 +786,9 @@
         <span class="ident">LazyBuilder</span> { <span class="ident">entity</span>, <span class="ident">lazy</span>: <span class="self">self</span> }
     }
 
-    <span class="doccomment">/// Lazily inserts a component for an entity.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ## Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```</span>
-    <span class="doccomment">/// # use specs::prelude::*;</span>
-    <span class="doccomment">/// #</span>
-    <span class="doccomment">/// struct Pos(f32, f32);</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// impl Component for Pos {</span>
-    <span class="doccomment">///     type Storage = VecStorage&lt;Self&gt;;</span>
-    <span class="doccomment">/// }</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// struct InsertPos;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// impl&lt;&#39;a&gt; System&lt;&#39;a&gt; for InsertPos {</span>
-    <span class="doccomment">///     type SystemData = (Entities&lt;&#39;a&gt;, Read&lt;&#39;a, LazyUpdate&gt;);</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">///     fn run(&amp;mut self, (ent, lazy): Self::SystemData) {</span>
-    <span class="doccomment">///         let a = ent.create();</span>
-    <span class="doccomment">///         lazy.insert(a, Pos(1.0, 1.0));</span>
-    <span class="doccomment">///     }</span>
-    <span class="doccomment">/// }</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">insert</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">e</span>: <span class="ident">Entity</span>, <span class="ident">c</span>: <span class="ident">C</span>)
-    <span class="kw">where</span>
-        <span class="ident">C</span>: <span class="ident">Component</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span>,
-    {
-        <span class="self">self</span>.<span class="ident">exec</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">world</span><span class="op">|</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">storage</span>: <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">SystemData</span>::<span class="ident">fetch</span>(<span class="ident">world</span>);
-            <span class="kw">if</span> <span class="ident">storage</span>.<span class="ident">insert</span>(<span class="ident">e</span>, <span class="ident">c</span>).<span class="ident">is_err</span>() {
-                <span class="ident">log</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Lazy insert of component failed because {:?} was dead.&quot;</span>, <span class="ident">e</span>);
-            }
-        });
-    }
-
-    <span class="doccomment">/// Lazily inserts components for entities.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ## Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```</span>
-    <span class="doccomment">/// # use specs::prelude::*;</span>
-    <span class="doccomment">/// #</span>
-    <span class="doccomment">/// struct Pos(f32, f32);</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// impl Component for Pos {</span>
-    <span class="doccomment">///     type Storage = VecStorage&lt;Self&gt;;</span>
-    <span class="doccomment">/// }</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// struct InsertPos;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// impl&lt;&#39;a&gt; System&lt;&#39;a&gt; for InsertPos {</span>
-    <span class="doccomment">///     type SystemData = (Entities&lt;&#39;a&gt;, Read&lt;&#39;a, LazyUpdate&gt;);</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">///     fn run(&amp;mut self, (ent, lazy): Self::SystemData) {</span>
-    <span class="doccomment">///         let a = ent.create();</span>
-    <span class="doccomment">///         let b = ent.create();</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">///         lazy.insert_all(vec![(a, Pos(3.0, 1.0)), (b, Pos(0.0, 4.0))]);</span>
-    <span class="doccomment">///     }</span>
-    <span class="doccomment">/// }</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">insert_all</span><span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">I</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">iter</span>: <span class="ident">I</span>)
-    <span class="kw">where</span>
-        <span class="ident">C</span>: <span class="ident">Component</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span>,
-        <span class="ident">I</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> (<span class="ident">Entity</span>, <span class="ident">C</span>)<span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
-    {
-        <span class="self">self</span>.<span class="ident">exec</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">world</span><span class="op">|</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">storage</span>: <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">SystemData</span>::<span class="ident">fetch</span>(<span class="ident">world</span>);
-            <span class="kw">for</span> (<span class="ident">e</span>, <span class="ident">c</span>) <span class="kw">in</span> <span class="ident">iter</span> {
-                <span class="kw">if</span> <span class="ident">storage</span>.<span class="ident">insert</span>(<span class="ident">e</span>, <span class="ident">c</span>).<span class="ident">is_err</span>() {
-                    <span class="ident">log</span>::<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Lazy insert of component failed because {:?} was dead.&quot;</span>, <span class="ident">e</span>);
-                }
-            }
-        });
-    }
-
-    <span class="doccomment">/// Lazily removes a component.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ## Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```</span>
-    <span class="doccomment">/// # use specs::prelude::*;</span>
-    <span class="doccomment">/// #</span>
-    <span class="doccomment">/// struct Pos;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// impl Component for Pos {</span>
-    <span class="doccomment">///     type Storage = VecStorage&lt;Self&gt;;</span>
-    <span class="doccomment">/// }</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// struct RemovePos;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// impl&lt;&#39;a&gt; System&lt;&#39;a&gt; for RemovePos {</span>
-    <span class="doccomment">///     type SystemData = (Entities&lt;&#39;a&gt;, Read&lt;&#39;a, LazyUpdate&gt;);</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">///     fn run(&amp;mut self, (ent, lazy): Self::SystemData) {</span>
-    <span class="doccomment">///         for entity in ent.join() {</span>
-    <span class="doccomment">///             lazy.remove::&lt;Pos&gt;(entity);</span>
-    <span class="doccomment">///         }</span>
-    <span class="doccomment">///     }</span>
-    <span class="doccomment">/// }</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">e</span>: <span class="ident">Entity</span>)
-    <span class="kw">where</span>
-        <span class="ident">C</span>: <span class="ident">Component</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span>,
-    {
-        <span class="self">self</span>.<span class="ident">exec</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">world</span><span class="op">|</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">storage</span>: <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">SystemData</span>::<span class="ident">fetch</span>(<span class="ident">world</span>);
-            <span class="ident">storage</span>.<span class="ident">remove</span>(<span class="ident">e</span>);
-        });
-    }
-
-    <span class="doccomment">/// Lazily executes a closure with world access.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ## Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```</span>
-    <span class="doccomment">/// # use specs::prelude::*;</span>
-    <span class="doccomment">/// #</span>
-    <span class="doccomment">/// struct Pos;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// impl Component for Pos {</span>
-    <span class="doccomment">///     type Storage = VecStorage&lt;Self&gt;;</span>
-    <span class="doccomment">/// }</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// struct Execution;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// impl&lt;&#39;a&gt; System&lt;&#39;a&gt; for Execution {</span>
-    <span class="doccomment">///     type SystemData = (Entities&lt;&#39;a&gt;, Read&lt;&#39;a, LazyUpdate&gt;);</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">///     fn run(&amp;mut self, (ent, lazy): Self::SystemData) {</span>
-    <span class="doccomment">///         for entity in ent.join() {</span>
-    <span class="doccomment">///             lazy.exec(move |world| {</span>
-    <span class="doccomment">///                 if world.is_alive(entity) {</span>
-    <span class="doccomment">///                     println!(&quot;Entity {:?} is alive.&quot;, entity);</span>
-    <span class="doccomment">///                 }</span>
-    <span class="doccomment">///             });</span>
-    <span class="doccomment">///         }</span>
-    <span class="doccomment">///     }</span>
-    <span class="doccomment">/// }</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">exec</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>)
-    <span class="kw">where</span>
-        <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="ident">World</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span>,
-    {
-        <span class="self">self</span>.<span class="ident">queue</span>
-            .<span class="ident">as_ref</span>()
-            .<span class="ident">unwrap</span>()
-            .<span class="number">0</span>
-            .<span class="ident">push</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="op">|</span><span class="ident">w</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">World</span><span class="op">|</span> <span class="ident">f</span>(<span class="ident">w</span>)));
-    }
-
-    <span class="doccomment">/// Lazily executes a closure with mutable world access.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This can be used to add a resource to the `World` from a system.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ## Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```</span>
-    <span class="doccomment">/// # use specs::prelude::*;</span>
-    <span class="doccomment">/// #</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// struct Sys;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// impl&lt;&#39;a&gt; System&lt;&#39;a&gt; for Sys {</span>
-    <span class="doccomment">///     type SystemData = (Entities&lt;&#39;a&gt;, Read&lt;&#39;a, LazyUpdate&gt;);</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">///     fn run(&amp;mut self, (ent, lazy): Self::SystemData) {</span>
-    <span class="doccomment">///         for entity in ent.join() {</span>
-    <span class="doccomment">///             lazy.exec_mut(move |world| {</span>
-    <span class="doccomment">///                 // complete extermination!</span>
-    <span class="doccomment">///                 world.delete_all();</span>
-    <span class="doccomment">///             });</span>
-    <span class="doccomment">///         }</span>
-    <span class="doccomment">///     }</span>
-    <span class="doccomment">/// }</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">exec_mut</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>)
-    <span class="kw">where</span>
-        <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">World</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span>,
-    {
-        <span class="self">self</span>.<span class="ident">queue</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>().<span class="number">0</span>.<span class="ident">push</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">f</span>));
-    }
-
     <span class="doccomment">/// Allows to temporarily take the inner queue.</span>
     <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn</span> <span class="ident">take</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="ident">LazyUpdate</span> {
+        <span class="self">Self</span> {
             <span class="ident">queue</span>: <span class="self">self</span>.<span class="ident">queue</span>.<span class="ident">take</span>(),
         }
     }

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/getset-0.0.8/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../getset/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/getset-0.0.9/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../getset/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -285,22 +285,35 @@
 <span id="285">285</span>
 <span id="286">286</span>
 <span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">/*!
 Getset, we&#39;re ready to go!
 
 A procedural macro for generating the most basic getters and setters on fields.
 
-Getters are generated as `fn field(&amp;self) -&gt; &amp;type`, while setters are generated
-as `fn field(&amp;mut self, val: type)`.
+Getters are generated as `fn field(&amp;self) -&gt; &amp;type`, while setters are generated as `fn field(&amp;mut self, val: type)`.
 
-These macros are not intended to be used on fields which require custom logic
-inside of their setters and getters. Just write your own in that case!
+These macros are not intended to be used on fields which require custom logic inside of their setters and getters. Just write your own in that case!
 
 ```rust
-use getset::{Getters, MutGetters, Setters};
+use getset::{Getters, MutGetters, CopyGetters, Setters};
 
-#[derive(Getters, Setters, MutGetters, Default)]
+#[derive(Getters, Setters, MutGetters, CopyGetters, Default)]
 pub struct Foo&lt;T&gt;
 where
     T: Copy + Clone + Default,
@@ -314,12 +327,11 @@ where
 
     /// Doc comments are supported!
     /// Multiline, even.
-    #[get = &quot;pub&quot;]
+    #[get_copy = &quot;pub&quot;]
     #[set = &quot;pub&quot;]
     #[get_mut = &quot;pub&quot;]
     public: T,
 }
-
 
 fn main() {
     let mut foo = Foo::default();
@@ -338,7 +350,7 @@ The above structure definition generates the following output with `cargo expand
 use ::std::prelude::v1::*;
 #[macro_use]
 extern crate std as std;
-use getset::{Getters, MutGetters, Setters};
+use getset::{Getters, MutGetters, CopyGetters, Setters};
 pub struct Foo&lt;T&gt;
 where
     T: Copy + Clone + Default,
@@ -351,7 +363,7 @@ where
     private: T,
     /// Doc comments are supported!
     /// Multiline, even.
-    #[get = &quot;pub&quot;]
+    #[get_copy = &quot;pub&quot;]
     #[set = &quot;pub&quot;]
     #[get_mut = &quot;pub&quot;]
     public: T,
@@ -369,8 +381,8 @@ where
     /// Doc comments are supported!
     /// Multiline, even.
     #[inline(always)]
-    pub fn public(&amp;self) -&gt; &amp;T {
-        &amp;self.public
+    pub fn public(&amp;self) -&gt; T {
+        self.public
     }
 }
 impl&lt;T&gt; Foo&lt;T&gt;
@@ -433,11 +445,11 @@ precedence.
 extern crate getset;
 
 mod submodule {
-    #[derive(Getters, Default)]
-    #[get = &quot;pub&quot;] // By default add a pub getting for all fields.
+    #[derive(Getters, CopyGetters, Default)]
+    #[get_copy = &quot;pub&quot;] // By default add a pub getting for all fields.
     pub struct Foo {
         public: i32,
-        #[get] // Override as private
+        #[get_copy] // Override as private
         private: i32,
     }
     fn demo() {
@@ -497,6 +509,24 @@ fn main() {
 
     <span class="comment">// Build the impl</span>
     <span class="kw">let</span> <span class="ident">gen</span> <span class="op">=</span> <span class="ident">produce</span>(<span class="kw-2">&amp;</span><span class="ident">ast</span>, <span class="kw-2">&amp;</span><span class="ident">GenMode</span>::<span class="ident">Get</span>, <span class="kw-2">&amp;</span><span class="ident">params</span>);
+
+    <span class="comment">// Return the generated impl</span>
+    <span class="ident">gen</span>.<span class="ident">into</span>()
+}
+
+<span class="attribute">#[<span class="ident">proc_macro_derive</span>(<span class="ident">CopyGetters</span>, <span class="ident">attributes</span>(<span class="ident">get_copy</span>, <span class="ident">with_prefix</span>))]</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">copy_getters</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
+    <span class="comment">// Parse the string representation</span>
+    <span class="kw">let</span> <span class="ident">ast</span>: <span class="ident">DeriveInput</span> <span class="op">=</span> <span class="ident">syn</span>::<span class="ident">parse</span>(<span class="ident">input</span>).<span class="ident">expect</span>(<span class="string">&quot;Couldn&#39;t parse for getters&quot;</span>);
+    <span class="kw">let</span> <span class="ident">params</span> <span class="op">=</span> <span class="ident">GenParams</span> {
+        <span class="ident">attribute_name</span>: <span class="string">&quot;get_copy&quot;</span>,
+        <span class="ident">fn_name_prefix</span>: <span class="string">&quot;&quot;</span>,
+        <span class="ident">fn_name_suffix</span>: <span class="string">&quot;&quot;</span>,
+        <span class="ident">global_attr</span>: <span class="ident">parse_global_attr</span>(<span class="kw-2">&amp;</span><span class="ident">ast</span>.<span class="ident">attrs</span>, <span class="string">&quot;get_copy&quot;</span>),
+    };
+
+    <span class="comment">// Build the impl</span>
+    <span class="kw">let</span> <span class="ident">gen</span> <span class="op">=</span> <span class="ident">produce</span>(<span class="kw-2">&amp;</span><span class="ident">ast</span>, <span class="kw-2">&amp;</span><span class="ident">GenMode</span>::<span class="ident">GetCopy</span>, <span class="kw-2">&amp;</span><span class="ident">params</span>);
 
     <span class="comment">// Return the generated impl</span>
     <span class="ident">gen</span>.<span class="ident">into</span>()

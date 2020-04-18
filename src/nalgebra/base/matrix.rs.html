@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/nalgebra-0.18.1/src/base/matrix.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>matrix.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="https://nalgebra.org/img/favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../nalgebra/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/nalgebra-0.19.0/src/base/matrix.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>matrix.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="https://nalgebra.org/img/favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../nalgebra/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
 <span id="4">   4</span>
@@ -1737,6 +1737,30 @@
 <span id="1737">1737</span>
 <span id="1738">1738</span>
 <span id="1739">1739</span>
+<span id="1740">1740</span>
+<span id="1741">1741</span>
+<span id="1742">1742</span>
+<span id="1743">1743</span>
+<span id="1744">1744</span>
+<span id="1745">1745</span>
+<span id="1746">1746</span>
+<span id="1747">1747</span>
+<span id="1748">1748</span>
+<span id="1749">1749</span>
+<span id="1750">1750</span>
+<span id="1751">1751</span>
+<span id="1752">1752</span>
+<span id="1753">1753</span>
+<span id="1754">1754</span>
+<span id="1755">1755</span>
+<span id="1756">1756</span>
+<span id="1757">1757</span>
+<span id="1758">1758</span>
+<span id="1759">1759</span>
+<span id="1760">1760</span>
+<span id="1761">1761</span>
+<span id="1762">1762</span>
+<span id="1763">1763</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">num</span>::{<span class="ident">One</span>, <span class="ident">Zero</span>};
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;abomonation-serialize&quot;</span>)]</span>
@@ -3099,75 +3123,99 @@
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">N</span>, <span class="ident">R</span>: <span class="ident">Dim</span>, <span class="ident">C</span>: <span class="ident">Dim</span>, <span class="ident">S</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">Matrix</span><span class="op">&lt;</span><span class="ident">N</span>, <span class="ident">R</span>, <span class="ident">C</span>, <span class="ident">S</span><span class="op">&gt;</span>
-<span class="kw">where</span>
-    <span class="ident">N</span>: <span class="ident">Scalar</span> <span class="op">+</span> <span class="ident">fmt</span>::<span class="ident">Display</span>,
-    <span class="ident">S</span>: <span class="ident">Storage</span><span class="op">&lt;</span><span class="ident">N</span>, <span class="ident">R</span>, <span class="ident">C</span><span class="op">&gt;</span>,
-    <span class="ident">DefaultAllocator</span>: <span class="ident">Allocator</span><span class="op">&lt;</span><span class="ident">usize</span>, <span class="ident">R</span>, <span class="ident">C</span><span class="op">&gt;</span>,
-{
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>)]</span>
-        <span class="kw">fn</span> <span class="ident">val_width</span><span class="op">&lt;</span><span class="ident">N</span>: <span class="ident">Scalar</span> <span class="op">+</span> <span class="ident">fmt</span>::<span class="ident">Display</span><span class="op">&gt;</span>(<span class="ident">val</span>: <span class="ident">N</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
-            <span class="kw">match</span> <span class="ident">f</span>.<span class="ident">precision</span>() {
-                <span class="prelude-val">Some</span>(<span class="ident">precision</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{:.1$}&quot;</span>, <span class="ident">val</span>, <span class="ident">precision</span>).<span class="ident">chars</span>().<span class="ident">count</span>(),
-                <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">val</span>).<span class="ident">chars</span>().<span class="ident">count</span>(),
-            }
-        }
-
-        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>))]</span>
-        <span class="kw">fn</span> <span class="ident">val_width</span><span class="op">&lt;</span><span class="ident">N</span>: <span class="ident">Scalar</span> <span class="op">+</span> <span class="ident">fmt</span>::<span class="ident">Display</span><span class="op">&gt;</span>(<span class="kw">_</span>: <span class="ident">N</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
-            <span class="number">4</span>
-        }
-
-        <span class="kw">let</span> (<span class="ident">nrows</span>, <span class="ident">ncols</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">data</span>.<span class="ident">shape</span>();
-
-        <span class="kw">if</span> <span class="ident">nrows</span>.<span class="ident">value</span>() <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ncols</span>.<span class="ident">value</span>() <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
-            <span class="kw">return</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;[ ]&quot;</span>);
-        }
-
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">max_length</span> <span class="op">=</span> <span class="number">0</span>;
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">lengths</span>: <span class="ident">MatrixMN</span><span class="op">&lt;</span><span class="ident">usize</span>, <span class="ident">R</span>, <span class="ident">C</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">zeros_generic</span>(<span class="ident">nrows</span>, <span class="ident">ncols</span>);
-        <span class="kw">let</span> (<span class="ident">nrows</span>, <span class="ident">ncols</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">shape</span>();
-
-        <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">nrows</span> {
-            <span class="kw">for</span> <span class="ident">j</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">ncols</span> {
-                <span class="ident">lengths</span>[(<span class="ident">i</span>, <span class="ident">j</span>)] <span class="op">=</span> <span class="ident">val_width</span>(<span class="self">self</span>[(<span class="ident">i</span>, <span class="ident">j</span>)], <span class="ident">f</span>);
-                <span class="ident">max_length</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">max</span>(<span class="ident">max_length</span>, <span class="ident">lengths</span>[(<span class="ident">i</span>, <span class="ident">j</span>)]);
-            }
-        }
-
-        <span class="kw">let</span> <span class="ident">max_length_with_space</span> <span class="op">=</span> <span class="ident">max_length</span> <span class="op">+</span> <span class="number">1</span>;
-
-        <span class="macro">writeln</span><span class="macro">!</span>(<span class="ident">f</span>)<span class="question-mark">?</span>;
-        <span class="macro">writeln</span><span class="macro">!</span>(
-            <span class="ident">f</span>,
-            <span class="string">&quot;  ┌ {:&gt;width$} ┐&quot;</span>,
-            <span class="string">&quot;&quot;</span>,
-            <span class="ident">width</span> <span class="op">=</span> <span class="ident">max_length_with_space</span> <span class="op">*</span> <span class="ident">ncols</span> <span class="op">-</span> <span class="number">1</span>
-        )<span class="question-mark">?</span>;
-
-        <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">nrows</span> {
-            <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;  │&quot;</span>)<span class="question-mark">?</span>;
-            <span class="kw">for</span> <span class="ident">j</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">ncols</span> {
-                <span class="kw">let</span> <span class="ident">number_length</span> <span class="op">=</span> <span class="ident">lengths</span>[(<span class="ident">i</span>, <span class="ident">j</span>)] <span class="op">+</span> <span class="number">1</span>;
-                <span class="kw">let</span> <span class="ident">pad</span> <span class="op">=</span> <span class="ident">max_length_with_space</span> <span class="op">-</span> <span class="ident">number_length</span>;
-                <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot; {:&gt;thepad$}&quot;</span>, <span class="string">&quot;&quot;</span>, <span class="ident">thepad</span> <span class="op">=</span> <span class="ident">pad</span>)<span class="question-mark">?</span>;
-                <span class="kw">match</span> <span class="ident">f</span>.<span class="ident">precision</span>() {
-                    <span class="prelude-val">Some</span>(<span class="ident">precision</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;{:.1$}&quot;</span>, (<span class="kw-2">*</span><span class="self">self</span>)[(<span class="ident">i</span>, <span class="ident">j</span>)], <span class="ident">precision</span>)<span class="question-mark">?</span>,
-                    <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;{}&quot;</span>, (<span class="kw-2">*</span><span class="self">self</span>)[(<span class="ident">i</span>, <span class="ident">j</span>)])<span class="question-mark">?</span>,
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">impl_fmt</span> {
+    (<span class="macro-nonterminal">$</span><span class="kw">trait</span>: <span class="macro-nonterminal">path</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">fmt_str_without_precision</span>: <span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">fmt_str_with_precision</span>: <span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">N</span>, <span class="ident">R</span>: <span class="ident">Dim</span>, <span class="ident">C</span>: <span class="ident">Dim</span>, <span class="ident">S</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="kw">trait</span> <span class="kw">for</span> <span class="macro-nonterminal">Matrix</span><span class="op">&lt;</span><span class="ident">N</span>, <span class="ident">R</span>, <span class="ident">C</span>, <span class="ident">S</span><span class="op">&gt;</span>
+        <span class="kw">where</span>
+            <span class="ident">N</span>: <span class="ident">Scalar</span> <span class="op">+</span> <span class="macro-nonterminal">$</span><span class="kw">trait</span>,
+            <span class="macro-nonterminal">S</span>: <span class="ident">Storage</span><span class="op">&lt;</span><span class="ident">N</span>, <span class="ident">R</span>, <span class="ident">C</span><span class="op">&gt;</span>,
+            <span class="ident">DefaultAllocator</span>: <span class="ident">Allocator</span><span class="op">&lt;</span><span class="ident">usize</span>, <span class="ident">R</span>, <span class="ident">C</span><span class="op">&gt;</span>,
+        {
+            <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+                <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>)]</span>
+                <span class="kw">fn</span> <span class="ident">val_width</span><span class="op">&lt;</span><span class="ident">N</span>: <span class="ident">Scalar</span> <span class="op">+</span> <span class="macro-nonterminal">$</span><span class="kw">trait</span><span class="op">&gt;</span>(<span class="macro-nonterminal">val</span>: <span class="ident">N</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
+                    <span class="kw">match</span> <span class="ident">f</span>.<span class="ident">precision</span>() {
+                        <span class="prelude-val">Some</span>(<span class="ident">precision</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">fmt_str_with_precision</span>, <span class="ident">val</span>, <span class="ident">precision</span>).<span class="ident">chars</span>().<span class="ident">count</span>(),
+                        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">fmt_str_without_precision</span>, <span class="ident">val</span>).<span class="ident">chars</span>().<span class="ident">count</span>(),
+                    }
                 }
-            }
-            <span class="macro">writeln</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot; │&quot;</span>)<span class="question-mark">?</span>;
-        }
 
-        <span class="macro">writeln</span><span class="macro">!</span>(
-            <span class="ident">f</span>,
-            <span class="string">&quot;  └ {:&gt;width$} ┘&quot;</span>,
-            <span class="string">&quot;&quot;</span>,
-            <span class="ident">width</span> <span class="op">=</span> <span class="ident">max_length_with_space</span> <span class="op">*</span> <span class="ident">ncols</span> <span class="op">-</span> <span class="number">1</span>
-        )<span class="question-mark">?</span>;
-        <span class="macro">writeln</span><span class="macro">!</span>(<span class="ident">f</span>)
-    }
+                <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>))]</span>
+                <span class="kw">fn</span> <span class="ident">val_width</span><span class="op">&lt;</span><span class="ident">N</span>: <span class="ident">Scalar</span> <span class="op">+</span> <span class="macro-nonterminal">$</span><span class="kw">trait</span><span class="op">&gt;</span>(<span class="kw">_</span>: <span class="macro-nonterminal">N</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
+                    <span class="number">4</span>
+                }
+
+                <span class="kw">let</span> (<span class="ident">nrows</span>, <span class="ident">ncols</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">data</span>.<span class="ident">shape</span>();
+
+                <span class="kw">if</span> <span class="ident">nrows</span>.<span class="ident">value</span>() <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="op">|</span><span class="op">|</span> <span class="ident">ncols</span>.<span class="ident">value</span>() <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
+                    <span class="kw">return</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;[ ]&quot;</span>);
+                }
+
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">max_length</span> <span class="op">=</span> <span class="number">0</span>;
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">lengths</span>: <span class="ident">MatrixMN</span><span class="op">&lt;</span><span class="ident">usize</span>, <span class="ident">R</span>, <span class="ident">C</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Matrix</span>::<span class="ident">zeros_generic</span>(<span class="ident">nrows</span>, <span class="ident">ncols</span>);
+                <span class="kw">let</span> (<span class="ident">nrows</span>, <span class="ident">ncols</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">shape</span>();
+
+                <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">nrows</span> {
+                    <span class="kw">for</span> <span class="ident">j</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">ncols</span> {
+                        <span class="ident">lengths</span>[(<span class="ident">i</span>, <span class="ident">j</span>)] <span class="op">=</span> <span class="ident">val_width</span>(<span class="self">self</span>[(<span class="ident">i</span>, <span class="ident">j</span>)], <span class="ident">f</span>);
+                        <span class="ident">max_length</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">max</span>(<span class="ident">max_length</span>, <span class="ident">lengths</span>[(<span class="ident">i</span>, <span class="ident">j</span>)]);
+                    }
+                }
+
+                <span class="kw">let</span> <span class="ident">max_length_with_space</span> <span class="op">=</span> <span class="ident">max_length</span> <span class="op">+</span> <span class="number">1</span>;
+
+                <span class="macro">writeln</span><span class="macro">!</span>(<span class="ident">f</span>)<span class="question-mark">?</span>;
+                <span class="macro">writeln</span><span class="macro">!</span>(
+                    <span class="ident">f</span>,
+                    <span class="string">&quot;  ┌ {:&gt;width$} ┐&quot;</span>,
+                    <span class="string">&quot;&quot;</span>,
+                    <span class="ident">width</span> <span class="op">=</span> <span class="ident">max_length_with_space</span> <span class="op">*</span> <span class="ident">ncols</span> <span class="op">-</span> <span class="number">1</span>
+                )<span class="question-mark">?</span>;
+
+                <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">nrows</span> {
+                    <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;  │&quot;</span>)<span class="question-mark">?</span>;
+                    <span class="kw">for</span> <span class="ident">j</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">ncols</span> {
+                        <span class="kw">let</span> <span class="ident">number_length</span> <span class="op">=</span> <span class="ident">lengths</span>[(<span class="ident">i</span>, <span class="ident">j</span>)] <span class="op">+</span> <span class="number">1</span>;
+                        <span class="kw">let</span> <span class="ident">pad</span> <span class="op">=</span> <span class="ident">max_length_with_space</span> <span class="op">-</span> <span class="ident">number_length</span>;
+                        <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot; {:&gt;thepad$}&quot;</span>, <span class="string">&quot;&quot;</span>, <span class="ident">thepad</span> <span class="op">=</span> <span class="ident">pad</span>)<span class="question-mark">?</span>;
+                        <span class="kw">match</span> <span class="ident">f</span>.<span class="ident">precision</span>() {
+                            <span class="prelude-val">Some</span>(<span class="ident">precision</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">fmt_str_with_precision</span>, (<span class="kw-2">*</span><span class="self">self</span>)[(<span class="ident">i</span>, <span class="ident">j</span>)], <span class="ident">precision</span>)<span class="question-mark">?</span>,
+                            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">fmt_str_without_precision</span>, (<span class="kw-2">*</span><span class="self">self</span>)[(<span class="ident">i</span>, <span class="ident">j</span>)])<span class="question-mark">?</span>,
+                        }
+                    }
+                    <span class="macro">writeln</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot; │&quot;</span>)<span class="question-mark">?</span>;
+                }
+
+                <span class="macro">writeln</span><span class="macro">!</span>(
+                    <span class="ident">f</span>,
+                    <span class="string">&quot;  └ {:&gt;width$} ┘&quot;</span>,
+                    <span class="string">&quot;&quot;</span>,
+                    <span class="ident">width</span> <span class="op">=</span> <span class="ident">max_length_with_space</span> <span class="op">*</span> <span class="ident">ncols</span> <span class="op">-</span> <span class="number">1</span>
+                )<span class="question-mark">?</span>;
+                <span class="macro">writeln</span><span class="macro">!</span>(<span class="ident">f</span>)
+            }
+        }
+    };
+}
+<span class="macro">impl_fmt</span><span class="macro">!</span>(<span class="ident">fmt</span>::<span class="ident">Display</span>, <span class="string">&quot;{}&quot;</span>, <span class="string">&quot;{:.1$}&quot;</span>);
+<span class="macro">impl_fmt</span><span class="macro">!</span>(<span class="ident">fmt</span>::<span class="ident">LowerExp</span>, <span class="string">&quot;{:e}&quot;</span>, <span class="string">&quot;{:.1$e}&quot;</span>);
+<span class="macro">impl_fmt</span><span class="macro">!</span>(<span class="ident">fmt</span>::<span class="ident">UpperExp</span>, <span class="string">&quot;{:E}&quot;</span>, <span class="string">&quot;{:.1$E}&quot;</span>);
+<span class="macro">impl_fmt</span><span class="macro">!</span>(<span class="ident">fmt</span>::<span class="ident">Octal</span>, <span class="string">&quot;{:o}&quot;</span>, <span class="string">&quot;{:1$o}&quot;</span>);
+<span class="macro">impl_fmt</span><span class="macro">!</span>(<span class="ident">fmt</span>::<span class="ident">LowerHex</span>, <span class="string">&quot;{:x}&quot;</span>, <span class="string">&quot;{:1$x}&quot;</span>);
+<span class="macro">impl_fmt</span><span class="macro">!</span>(<span class="ident">fmt</span>::<span class="ident">UpperHex</span>, <span class="string">&quot;{:X}&quot;</span>, <span class="string">&quot;{:1$X}&quot;</span>);
+<span class="macro">impl_fmt</span><span class="macro">!</span>(<span class="ident">fmt</span>::<span class="ident">Binary</span>, <span class="string">&quot;{:b}&quot;</span>, <span class="string">&quot;{:.1$b}&quot;</span>);
+<span class="macro">impl_fmt</span><span class="macro">!</span>(<span class="ident">fmt</span>::<span class="ident">Pointer</span>, <span class="string">&quot;{:p}&quot;</span>, <span class="string">&quot;{:.1$p}&quot;</span>);
+
+<span class="attribute">#[<span class="ident">test</span>]</span>
+<span class="kw">fn</span> <span class="ident">lower_exp</span>() {
+    <span class="kw">let</span> <span class="ident">test</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">Matrix2</span>::<span class="ident">new</span>(<span class="number">1e6</span>, <span class="number">2e5</span>, <span class="number">2e-5</span>, <span class="number">1.</span>);
+    <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{:e}&quot;</span>, <span class="ident">test</span>), <span class="string">r&quot;
+  ┌           ┐
+  │  1e6  2e5 │
+  │ 2e-5  1e0 │
+  └           ┘
+
+&quot;</span>)
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">N</span>: <span class="ident">Scalar</span> <span class="op">+</span> <span class="ident">Ring</span>, <span class="ident">R</span>: <span class="ident">Dim</span>, <span class="ident">C</span>: <span class="ident">Dim</span>, <span class="ident">S</span>: <span class="ident">Storage</span><span class="op">&lt;</span><span class="ident">N</span>, <span class="ident">R</span>, <span class="ident">C</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">Matrix</span><span class="op">&lt;</span><span class="ident">N</span>, <span class="ident">R</span>, <span class="ident">C</span>, <span class="ident">S</span><span class="op">&gt;</span> {

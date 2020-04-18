@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["SpriteSheetHandles","This is a resource wrapper for amethyst's `SpriteSheet`s. It can load and get `SpriteSheetHandle`s; load them by passing a spritesheet's image file path to an appropriate method and get them by passing their spritesheet's image file name (without extension) to an appropriate method."]]});
+initSidebarItems({"struct":[["SpriteSheetHandles","This is a resource wrapper for amethyst's `SpriteSheet`s. It can load and get `SpriteSheetHandle`s;"]]});

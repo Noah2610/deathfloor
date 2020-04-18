@@ -48,32 +48,17 @@
 <span id="48">48</span>
 <span id="49">49</span>
 <span id="50">50</span>
-<span id="51">51</span>
-<span id="52">52</span>
-<span id="53">53</span>
-<span id="54">54</span>
-<span id="55">55</span>
-<span id="56">56</span>
-<span id="57">57</span>
-<span id="58">58</span>
-<span id="59">59</span>
-<span id="60">60</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">bullet_hit</span>;
 <span class="kw">mod</span> <span class="ident">control_player</span>;
 <span class="kw">mod</span> <span class="ident">control_player_jump</span>;
 <span class="kw">mod</span> <span class="ident">control_player_shoot</span>;
 <span class="kw">mod</span> <span class="ident">create_bullets</span>;
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;debug&quot;</span>)]</span>
-<span class="kw">mod</span> <span class="ident">debug</span>;
 <span class="kw">mod</span> <span class="ident">delete_bullets</span>;
 <span class="kw">mod</span> <span class="ident">display_health</span>;
 <span class="kw">mod</span> <span class="ident">event_handlers</span>;
 <span class="kw">mod</span> <span class="ident">handle_animation_editors</span>;
 <span class="kw">mod</span> <span class="ident">handle_animations</span>;
-<span class="kw">mod</span> <span class="ident">handle_dealing_and_taking_damage</span>;
-<span class="kw">mod</span> <span class="ident">handle_entity_lifecycle</span>;
-<span class="kw">mod</span> <span class="ident">handle_health_editors</span>;
 <span class="kw">mod</span> <span class="ident">handle_jumppad_affected</span>;
 <span class="kw">mod</span> <span class="ident">handle_movables</span>;
 <span class="kw">mod</span> <span class="ident">handle_scales</span>;
@@ -88,23 +73,18 @@
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">control_player_jump</span>::<span class="ident">ControlPlayerJumpSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">control_player_shoot</span>::<span class="ident">ControlPlayerShootSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">create_bullets</span>::<span class="ident">CreateBulletsSystem</span>;
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;debug&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">debug</span>::<span class="ident">DebugSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">delete_bullets</span>::<span class="ident">DeleteBulletsSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">display_health</span>::<span class="ident">DisplayHealthSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">event_handlers</span>::<span class="ident">EventHandlersBundle</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_animation_editors</span>::<span class="ident">HandleAnimationEditorsSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_animations</span>::<span class="ident">HandleAnimationsSystem</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_dealing_and_taking_damage</span>::<span class="ident">HandleDealingAndTakingDamageSystem</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_entity_lifecycle</span>::<span class="ident">HandleEntityLifecycleSystem</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_health_editors</span>::<span class="ident">HandleHealthEditorsSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_jumppad_affected</span>::<span class="ident">HandleJumppadAffectedSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_movables</span>::<span class="ident">HandleMovablesSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_scales</span>::<span class="ident">HandleScalesSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_walkers</span>::<span class="ident">HandleWalkersSystem</span>;
 }
 
-<span class="kw">mod</span> <span class="ident">system_prelude</span> {
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">system_prelude</span> {
     <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">deathframe</span>::<span class="ident">amethyst</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">deathframe</span>::<span class="ident">physics</span>::<span class="ident">query</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">deathframe</span>::<span class="ident">systems</span>::<span class="ident">system_prelude</span>::<span class="kw-2">*</span>;

@@ -1,1 +1,0 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_Health",""]],"mod":[["health_action",""],["health_display",""],["health_editor",""],["prelude",""]],"struct":[["Health",""]],"type":[["HitPoints",""]]});

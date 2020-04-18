@@ -76,11 +76,6 @@
 <span id="76">76</span>
 <span id="77">77</span>
 <span id="78">78</span>
-<span id="79">79</span>
-<span id="80">80</span>
-<span id="81">81</span>
-<span id="82">82</span>
-<span id="83">83</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">state_prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">helpers</span>::<span class="ident">resource</span>;
@@ -101,7 +96,7 @@
         <span class="ident">data</span>: <span class="ident">StateData</span><span class="op">&lt;</span><span class="ident">GameData</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Trans</span><span class="op">&lt;</span><span class="ident">GameData</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span><span class="op">&gt;</span>, <span class="ident">StateEvent</span><span class="op">&gt;</span> {
         <span class="ident">data</span>.<span class="ident">data</span>.<span class="ident">update_core</span>(<span class="ident">data</span>.<span class="ident">world</span>);
-        <span class="ident">Trans</span>::<span class="ident">Switch</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">LoadIngame</span>::<span class="ident">default</span>()))
+        <span class="ident">Trans</span>::<span class="ident">Switch</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">MainMenu</span>::<span class="ident">default</span>()))
     }
 }
 
@@ -144,13 +139,8 @@
     }
 
     {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">songs</span> <span class="op">=</span> <span class="ident">Songs</span>::<span class="ident">builder</span>()
-            .<span class="ident">volume</span>(<span class="ident">audio_settings</span>.<span class="ident">songs_volume</span>)
-            .<span class="ident">playback_order</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="ident">SongType</span>::<span class="ident">Cntrlgun</span>, <span class="ident">SongType</span>::<span class="ident">Floor1</span>])
-            .<span class="ident">playback_state</span>(<span class="ident">SongPlaybackState</span>::<span class="ident">Playing</span>)
-            .<span class="ident">playback_behavior</span>(<span class="ident">SongPlaybackBehavior</span>::<span class="ident">Autoplay</span>)
-            .<span class="ident">build</span>()
-            .<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">songs</span> <span class="op">=</span> <span class="ident">Songs</span>::<span class="ident">default</span>();
+        <span class="ident">songs</span>.<span class="ident">set_volume</span>(<span class="ident">audio_settings</span>.<span class="ident">songs_volume</span>);
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">load_song</span> <span class="op">=</span> <span class="op">|</span><span class="ident">song_type</span>: <span class="ident">SongType</span><span class="op">|</span> <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">String</span><span class="op">&gt;</span> {
             <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">song_type</span>.<span class="ident">path</span>();
             <span class="ident">songs</span>.<span class="ident">load_audio</span>(

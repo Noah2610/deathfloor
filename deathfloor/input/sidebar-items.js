@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["ingame_input_bundle",""],["paused_input_bundle",""]],"mod":[["ingame_bindings",""],["paused_bindings",""],["prelude",""]]});
+initSidebarItems({"fn":[["ingame_input_bundle",""],["menu_input_bundle",""],["paused_input_bundle",""]],"mod":[["ingame_bindings",""],["menu_bindings",""],["paused_bindings",""],["prelude",""]]});

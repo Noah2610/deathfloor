@@ -1,1 +1,0 @@
-initSidebarItems({"mod":[["deals_damage",""],["prelude",""],["takes_damage",""]]});

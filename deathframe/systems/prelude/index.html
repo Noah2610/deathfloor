@@ -8,7 +8,10 @@ of entities. Entities with the <code>Loader</code> component load
 entities when they are in range with <code>Loadable</code> entities,
 and <code>Loadable</code> entities are unloaded when <em>no</em> <code>Loader</code> entities
 are in range.</p>
-</td></tr><tr class='module-item'><td><a class="struct" href="struct.FollowSystem.html" title='deathframe::systems::prelude::FollowSystem struct'>FollowSystem</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="struct" href="struct.InputManagerSystem.html" title='deathframe::systems::prelude::InputManagerSystem struct'>InputManagerSystem</a></td><td class='docblock-short'><p>Handles all the logic for <code>InputManager</code>.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.FollowSystem.html" title='deathframe::systems::prelude::FollowSystem struct'>FollowSystem</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="struct" href="struct.HandleTakingDamageSystem.html" title='deathframe::systems::prelude::HandleTakingDamageSystem struct'>HandleTakingDamageSystem</a></td><td class='docblock-short'><p>This system makes <code>TakesDamage</code> entities take damage
+from <code>DealsDamage</code> entities, that it collides with.
+Dealing damage means <em>losing health</em>.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.InputManagerSystem.html" title='deathframe::systems::prelude::InputManagerSystem struct'>InputManagerSystem</a></td><td class='docblock-short'><p>Handles all the logic for <code>InputManager</code>.</p>
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.MoveEntitiesSystem.html" title='deathframe::systems::prelude::MoveEntitiesSystem struct'>MoveEntitiesSystem</a></td><td class='docblock-short'><p>This system is responsible for moving all entities with <code>Transform</code> and <code>Velocity</code>,
 by manipulating their <code>Transform</code> appropriately.
 It also handles collision with <code>Solid</code> entities; Solid entities may not move into each other.</p>
@@ -17,6 +20,7 @@ It also handles collision with <code>Solid</code> entities; Solid entities may n
 <code>SoundAction::Play</code> sounds are played with the <em>default volume</em>,
 which can be set with the <code>with_default_volume</code> builder function.
 See the <code>Default</code> implementation for the default.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.PrintFpsSystem.html" title='deathframe::systems::prelude::PrintFpsSystem struct'>PrintFpsSystem</a></td><td class='docblock-short'><p>Prints the current and average FPS to <code>stderr</code>.</p>
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.ScaleSpritesSystem.html" title='deathframe::systems::prelude::ScaleSpritesSystem struct'>ScaleSpritesSystem</a></td><td class='docblock-short'><p>This system gets all entities with <code>Transform</code>, <code>Size</code>, <code>SpriteRender</code>, and  <code>ScaleOnce</code>,
 and scales their sprite to their entity's size <em>once</em>; after scaling, the <code>ScaleOnce</code>
 component is removed from the entity.</p>
@@ -28,6 +32,9 @@ other entities with <code>Collision</code>.
 Only checks for entities with either NO <code>Loadable</code> and NO <code>Loaded</code> components
 or for entities with <code>Loadable</code> AND <code>Loaded</code> components;
 does not check for entities with <code>Loadable</code> but NOT <code>Loaded</code> components.</p>
-</td></tr><tr class='module-item'><td><a class="struct" href="struct.UpdateSongVolumeSystem.html" title='deathframe::systems::prelude::UpdateSongVolumeSystem struct'>UpdateSongVolumeSystem</a></td><td class='docblock-short'><p>Handles updating the default audio
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.UpdateHealthSystem.html" title='deathframe::systems::prelude::UpdateHealthSystem struct'>UpdateHealthSystem</a></td><td class='docblock-short'><p>Updates entities' <code>Health</code>, via <code>HealthAction</code>s from their <code>HealthActionQueue</code>.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.UpdateLifecycleSystem.html" title='deathframe::systems::prelude::UpdateLifecycleSystem struct'>UpdateLifecycleSystem</a></td><td class='docblock-short'><p>Handles updating of entity's <code>Lifecycle</code> component's <code>LifecycleState</code>.
+Will also delete entities when their state switches to <code>Despawn</code>.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.UpdateSongPlaybackSystem.html" title='deathframe::systems::prelude::UpdateSongPlaybackSystem struct'>UpdateSongPlaybackSystem</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="struct" href="struct.UpdateSongVolumeSystem.html" title='deathframe::systems::prelude::UpdateSongVolumeSystem struct'>UpdateSongVolumeSystem</a></td><td class='docblock-short'><p>Handles updating the default audio
 output sink's volume, used with <code>Songs</code>.</p>
 </td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../";window.currentCrate = "deathframe";</script><script src="../../../aliases.js"></script><script src="../../../main.js"></script><script defer src="../../../search-index.js"></script></body></html>

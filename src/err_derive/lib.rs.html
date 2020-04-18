@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/err-derive-0.1.6/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../err_derive/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/err-derive-0.2.4/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../err_derive/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -288,12 +288,144 @@
 <span id="288">288</span>
 <span id="289">289</span>
 <span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
+<span id="318">318</span>
+<span id="319">319</span>
+<span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
+<span id="324">324</span>
+<span id="325">325</span>
+<span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
+<span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
+<span id="358">358</span>
+<span id="359">359</span>
+<span id="360">360</span>
+<span id="361">361</span>
+<span id="362">362</span>
+<span id="363">363</span>
+<span id="364">364</span>
+<span id="365">365</span>
+<span id="366">366</span>
+<span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
+<span id="371">371</span>
+<span id="372">372</span>
+<span id="373">373</span>
+<span id="374">374</span>
+<span id="375">375</span>
+<span id="376">376</span>
+<span id="377">377</span>
+<span id="378">378</span>
+<span id="379">379</span>
+<span id="380">380</span>
+<span id="381">381</span>
+<span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
+<span id="385">385</span>
+<span id="386">386</span>
+<span id="387">387</span>
+<span id="388">388</span>
+<span id="389">389</span>
+<span id="390">390</span>
+<span id="391">391</span>
+<span id="392">392</span>
+<span id="393">393</span>
+<span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
+<span id="397">397</span>
+<span id="398">398</span>
+<span id="399">399</span>
+<span id="400">400</span>
+<span id="401">401</span>
+<span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
+<span id="408">408</span>
+<span id="409">409</span>
+<span id="410">410</span>
+<span id="411">411</span>
+<span id="412">412</span>
+<span id="413">413</span>
+<span id="414">414</span>
+<span id="415">415</span>
+<span id="416">416</span>
+<span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # `err-derive`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## Deriving error causes / sources</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! Add an `#[error(cause)]` attribute to the field:</span>
+<span class="doccomment">//! Add an `#[error(source)]` attribute to the field:</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//! use std::io;</span>
@@ -303,11 +435,66 @@
 <span class="doccomment">//! #[derive(Debug, Error)]</span>
 <span class="doccomment">//! #[error(display = &quot;An error occurred.&quot;)]</span>
 <span class="doccomment">//! struct MyError {</span>
-<span class="doccomment">//!     #[error(cause)]</span>
+<span class="doccomment">//!     #[error(source)]</span>
 <span class="doccomment">//!     io_error: io::Error,</span>
 <span class="doccomment">//! }</span>
 <span class="doccomment">//! #</span>
 <span class="doccomment">//! # fn main() {}</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ## Automatic From implementations</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! From&lt;Other&gt; will be automatically implemented when there is a single field</span>
+<span class="doccomment">//! in the enum variant or struct, and that field has the `#[source]` attribute.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! In cases where multiple enum variants have a `#[source]` field of the same type</span>
+<span class="doccomment">//! all but one of the variants need to be opted-out from the automatic From implementation (see</span>
+<span class="doccomment">//! below).</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//! use std::io;</span>
+<span class="doccomment">//! use err_derive::Error;</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! /// `From&lt;io::Error&gt;` will be implemented for `MyError`</span>
+<span class="doccomment">//! #[derive(Debug, Error)]</span>
+<span class="doccomment">//! #[error(display = &quot;An error occurred.&quot;)]</span>
+<span class="doccomment">//! struct MyError {</span>
+<span class="doccomment">//!     #[error(from)]</span>
+<span class="doccomment">//!     io_error: io::Error,</span>
+<span class="doccomment">//! }</span>
+<span class="doccomment">//! #</span>
+<span class="doccomment">//! # fn main() {}</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ### Opt out of From implementation</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! Use the `#[no_from]` attribute on either the enum or a single variant to opt-out of the</span>
+<span class="doccomment">//! automatic From implementation.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! When `#[no_from]` is set on the enum, you can opt-in individual variants by using `#[from]`</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ```rust</span>
+<span class="doccomment">//! use err_derive::Error;</span>
+<span class="doccomment">//! use std::{io, fmt};</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! #[derive(Debug, Error)]</span>
+<span class="doccomment">//! enum ClientError {</span>
+<span class="doccomment">//!     #[error(display = &quot;regular bad io error {}&quot;, _0)]</span>
+<span class="doccomment">//!     Io(#[source] io::Error),</span>
+<span class="doccomment">//!     #[error(display = &quot;extra bad io error {}&quot;, _0)]</span>
+<span class="doccomment">//!     // Without #[no_from], this From impl would conflict with the normal Io error</span>
+<span class="doccomment">//!     ReallyBadIo(#[error(source, no_from)] io::Error)</span>
+<span class="doccomment">//! }</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! #[derive(Debug, Error)]</span>
+<span class="doccomment">//! #[error(no_from)] // Don&#39;t impl From for any variants by default</span>
+<span class="doccomment">//! enum InnerError {</span>
+<span class="doccomment">//!     #[error(display = &quot;an error&quot;)]</span>
+<span class="doccomment">//!     Io(#[source] io::Error),</span>
+<span class="doccomment">//!     #[error(display = &quot;an error&quot;)]</span>
+<span class="doccomment">//!     // Opt-in impl From for a single variant</span>
+<span class="doccomment">//!     Formatting(#[error(source, from)] fmt::Error)</span>
+<span class="doccomment">//! }</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## Formatting fields</span>
@@ -332,7 +519,7 @@
 <span class="doccomment">//! #[derive(Debug, Error)]</span>
 <span class="doccomment">//! pub enum LoadingError {</span>
 <span class="doccomment">//!     #[error(display = &quot;could not decode file&quot;)]</span>
-<span class="doccomment">//!     FormatError(#[error(cause)] FormatError),</span>
+<span class="doccomment">//!     FormatError(#[error(source)] #[error(from)] FormatError),</span>
 <span class="doccomment">//!     #[error(display = &quot;could not find file: {:?}&quot;, path)]</span>
 <span class="doccomment">//!     NotFound { path: PathBuf },</span>
 <span class="doccomment">//! }</span>
@@ -362,91 +549,88 @@
 <span class="kw">use</span> <span class="ident">quote</span>::<span class="ident">quote</span>;
 <span class="kw">use</span> <span class="ident">synstructure</span>::<span class="ident">decl_derive</span>;
 
-<span class="kw">use</span> <span class="ident">syn</span>::<span class="ident">spanned</span>::<span class="ident">Spanned</span>;
 <span class="kw">use</span> <span class="ident">proc_macro</span>::<span class="ident">TokenStream</span>;
+<span class="kw">use</span> <span class="ident">proc_macro2</span>::<span class="ident">TokenStream</span> <span class="kw">as</span> <span class="ident">TokenStream2</span>;
+<span class="kw">use</span> <span class="ident">syn</span>::<span class="ident">spanned</span>::<span class="ident">Spanned</span>;
 
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">proc_macro_error</span>;
-<span class="kw">use</span> <span class="ident">proc_macro_error</span>::{
-    <span class="ident">filter_macro_errors</span>,
-    <span class="ident">span_error</span>,
-};
 
-<span class="macro">decl_derive</span><span class="macro">!</span>([<span class="ident">Error</span>, <span class="ident">attributes</span>(<span class="ident">error</span>, <span class="ident">cause</span>)] <span class="op">=</span><span class="op">&gt;</span> <span class="ident">error_derive</span>);
+<span class="kw">use</span> <span class="ident">proc_macro_error</span>::{<span class="ident">abort</span>, <span class="ident">proc_macro_error</span>};
+<span class="kw">use</span> <span class="ident">syn</span>::<span class="ident">Attribute</span>;
+
+<span class="macro">decl_derive</span><span class="macro">!</span>([<span class="ident">Error</span>, <span class="ident">attributes</span>(<span class="ident">error</span>, <span class="ident">source</span>, <span class="ident">cause</span>)] <span class="op">=</span><span class="op">&gt;</span> <span class="attribute">#[<span class="ident">proc_macro_error</span>]</span> <span class="ident">error_derive</span>);
 
 <span class="kw">fn</span> <span class="ident">error_derive</span>(<span class="ident">s</span>: <span class="ident">synstructure</span>::<span class="ident">Structure</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
-    <span class="macro">filter_macro_errors</span><span class="macro">!</span> {
-        <span class="kw">let</span> <span class="ident">cause_body</span> <span class="op">=</span> <span class="ident">s</span>.<span class="ident">each_variant</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> {
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">cause</span>) <span class="op">=</span> <span class="ident">v</span>.<span class="ident">bindings</span>().<span class="ident">iter</span>().<span class="ident">find</span>(<span class="op">|</span><span class="ident">binding</span><span class="op">|</span> <span class="ident">is_cause</span>(<span class="ident">binding</span>)) {
-                <span class="macro">quote</span><span class="macro">!</span>(<span class="kw">return</span> <span class="prelude-val">Some</span>(#<span class="ident">cause</span> <span class="kw">as</span> <span class="op">&amp;</span> ::<span class="ident">std</span>::<span class="ident">error</span>::<span class="ident">Error</span>))
-            } <span class="kw">else</span> {
-                <span class="macro">quote</span><span class="macro">!</span>(<span class="kw">return</span> <span class="prelude-val">None</span>)
-            }
-        });
+    <span class="kw">let</span> <span class="ident">source_body</span> <span class="op">=</span> <span class="ident">s</span>.<span class="ident">each_variant</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">source</span>) <span class="op">=</span> <span class="ident">v</span>.<span class="ident">bindings</span>().<span class="ident">iter</span>().<span class="ident">find</span>(<span class="op">|</span><span class="ident">binding</span><span class="op">|</span> {
+            <span class="ident">has_attr</span>(<span class="kw-2">&amp;</span><span class="ident">binding</span>.<span class="ident">ast</span>().<span class="ident">attrs</span>, <span class="string">&quot;source&quot;</span>) <span class="op">|</span><span class="op">|</span> <span class="ident">has_attr</span>(<span class="kw-2">&amp;</span><span class="ident">binding</span>.<span class="ident">ast</span>().<span class="ident">attrs</span>, <span class="string">&quot;cause&quot;</span>)
+        })
+        <span class="comment">// TODO https://github.com/rust-lang/rust/issues/54140 deprecate cause with warning</span>
+        {
+            <span class="macro">quote</span><span class="macro">!</span>(<span class="kw">return</span> <span class="prelude-val">Some</span>(#<span class="ident">source</span> <span class="kw">as</span> <span class="op">&amp;</span> ::<span class="ident">std</span>::<span class="ident">error</span>::<span class="ident">Error</span>))
+        } <span class="kw">else</span> {
+            <span class="macro">quote</span><span class="macro">!</span>(<span class="kw">return</span> <span class="prelude-val">None</span>)
+        }
+    });
 
-        <span class="kw">let</span> <span class="ident">source_method</span> <span class="op">=</span>
+    <span class="kw">let</span> <span class="ident">source_method</span> <span class="op">=</span> <span class="macro">quote</span><span class="macro">!</span> {
+        <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unreachable_code</span>)]</span>
+        <span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">option</span>::<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>(::<span class="ident">std</span>::<span class="ident">error</span>::<span class="ident">Error</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>)<span class="op">&gt;</span> {
+            <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> { #<span class="ident">source_body</span> }
+            <span class="prelude-val">None</span>
+        }
+    };
+
+    <span class="kw">let</span> <span class="ident">cause_method</span> <span class="op">=</span> <span class="macro">quote</span><span class="macro">!</span> {
+        <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unreachable_code</span>)]</span>
+        <span class="kw">fn</span> <span class="ident">cause</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">option</span>::<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="op">&amp;</span> ::<span class="ident">std</span>::<span class="ident">error</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+            <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> { #<span class="ident">source_body</span> }
+            <span class="prelude-val">None</span>
+        }
+    };
+
+    <span class="kw">let</span> <span class="ident">error</span> <span class="op">=</span> <span class="kw">if</span> <span class="macro">cfg</span><span class="macro">!</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>) {
+        <span class="ident">s</span>.<span class="ident">unbound_impl</span>(
+            <span class="macro">quote</span><span class="macro">!</span>(::<span class="ident">std</span>::<span class="ident">error</span>::<span class="ident">Error</span>),
             <span class="macro">quote</span><span class="macro">!</span> {
-                <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unreachable_code</span>)]</span>
-                <span class="kw">fn</span> <span class="ident">source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">option</span>::<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>(::<span class="ident">std</span>::<span class="ident">error</span>::<span class="ident">Error</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>)<span class="op">&gt;</span> {
-                    <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> { #<span class="ident">cause_body</span> }
-                    <span class="prelude-val">None</span>
+                <span class="kw">fn</span> <span class="ident">description</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+                    <span class="string">&quot;description() is deprecated; use Display&quot;</span>
                 }
-            }
-        ;
 
-        <span class="kw">let</span> <span class="ident">cause_method</span> <span class="op">=</span> <span class="macro">quote</span><span class="macro">!</span> {
-            <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unreachable_code</span>)]</span>
-            <span class="kw">fn</span> <span class="ident">cause</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">option</span>::<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="op">&amp;</span> ::<span class="ident">std</span>::<span class="ident">error</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
-                <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> { #<span class="ident">cause_body</span> }
-                <span class="prelude-val">None</span>
-            }
-        };
+                #<span class="ident">cause_method</span>
+                #<span class="ident">source_method</span>
+            },
+        )
+    } <span class="kw">else</span> {
+        <span class="macro">quote</span><span class="macro">!</span>()
+    };
 
-        <span class="kw">let</span> <span class="ident">error</span> <span class="op">=</span> <span class="ident">s</span>.<span class="ident">unbound_impl</span>(
-        <span class="macro">quote</span><span class="macro">!</span>(::<span class="ident">std</span>::<span class="ident">error</span>::<span class="ident">Error</span>),
+    <span class="kw">let</span> <span class="ident">display_body</span> <span class="op">=</span> <span class="ident">display_body</span>(<span class="kw-2">&amp;</span><span class="ident">s</span>);
+    <span class="kw">let</span> <span class="ident">display</span> <span class="op">=</span> <span class="ident">s</span>.<span class="ident">unbound_impl</span>(
+        <span class="macro">quote</span><span class="macro">!</span>(::<span class="ident">core</span>::<span class="ident">fmt</span>::<span class="ident">Display</span>),
         <span class="macro">quote</span><span class="macro">!</span> {
-            <span class="kw">fn</span> <span class="ident">description</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
-                <span class="string">&quot;description() is deprecated; use Display&quot;</span>
+            <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unreachable_code</span>)]</span>
+            <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">core</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">core</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+                <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> { #<span class="ident">display_body</span> }
+                <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;An error has occurred.&quot;</span>)
             }
-
-            #<span class="ident">cause_method</span>
-            #<span class="ident">source_method</span>
         },
     );
 
-        <span class="kw">let</span> <span class="ident">display</span> <span class="op">=</span> <span class="ident">display_body</span>(<span class="kw-2">&amp;</span><span class="ident">s</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">display_body</span><span class="op">|</span> {
-            <span class="ident">s</span>.<span class="ident">unbound_impl</span>(
-                <span class="macro">quote</span><span class="macro">!</span>(::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Display</span>),
-                <span class="macro">quote</span><span class="macro">!</span> {
-                    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unreachable_code</span>)]</span>
-                    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-                        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> { #<span class="ident">display_body</span> }
-                        <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;An error has occurred.&quot;</span>)
-                    }
-                },
-            )
-        });
+    <span class="kw">let</span> <span class="ident">from</span> <span class="op">=</span> <span class="ident">from_body</span>(<span class="kw-2">&amp;</span><span class="ident">s</span>);
 
-        (<span class="macro">quote</span><span class="macro">!</span> {
-            #<span class="ident">error</span>
-            #<span class="ident">display</span>
-        }).<span class="ident">into</span>()
-    }
+    <span class="macro">quote</span><span class="macro">!</span>(#<span class="ident">error</span> #<span class="ident">display</span> #<span class="ident">from</span>).<span class="ident">into</span>()
 }
 
-<span class="kw">fn</span> <span class="ident">display_body</span>(<span class="ident">s</span>: <span class="kw-2">&amp;</span><span class="ident">synstructure</span>::<span class="ident">Structure</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">quote</span>::<span class="ident">__rt</span>::<span class="ident">TokenStream</span><span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">msgs</span> <span class="op">=</span> <span class="ident">s</span>.<span class="ident">variants</span>().<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="ident">find_error_msg</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>.<span class="ident">ast</span>().<span class="ident">attrs</span>));
-    <span class="kw">if</span> <span class="ident">msgs</span>.<span class="ident">all</span>(<span class="op">|</span><span class="ident">msg</span><span class="op">|</span> <span class="ident">msg</span>.<span class="ident">is_none</span>()) {
-        <span class="kw">return</span> <span class="prelude-val">None</span>;
-    }
-
-    <span class="prelude-val">Some</span>(<span class="ident">s</span>.<span class="ident">each_variant</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> {
+<span class="kw">fn</span> <span class="ident">display_body</span>(<span class="ident">s</span>: <span class="kw-2">&amp;</span><span class="ident">synstructure</span>::<span class="ident">Structure</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream2</span> {
+    <span class="ident">s</span>.<span class="ident">each_variant</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> {
         <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <span class="ident">v</span>.<span class="ident">ast</span>().<span class="ident">ident</span>.<span class="ident">span</span>();
         <span class="kw">let</span> <span class="ident">msg</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">find_error_msg</span>(<span class="kw-2">&amp;</span><span class="ident">v</span>.<span class="ident">ast</span>().<span class="ident">attrs</span>) {
             <span class="prelude-val">Some</span>(<span class="ident">msg</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">msg</span>,
-            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">span_error</span><span class="macro">!</span>(<span class="ident">span</span>, <span class="string">&quot;All variants must have display attribute.&quot;</span>)
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">abort</span><span class="macro">!</span>(<span class="ident">span</span>, <span class="string">&quot;Variant is missing display attribute.&quot;</span>),
         };
         <span class="kw">if</span> <span class="ident">msg</span>.<span class="ident">nested</span>.<span class="ident">is_empty</span>() {
-            <span class="macro">span_error</span><span class="macro">!</span>(<span class="ident">span</span>, <span class="string">&quot;Expected at least one argument to error attribute&quot;</span>);
+            <span class="macro">abort</span><span class="macro">!</span>(<span class="ident">span</span>, <span class="string">&quot;Expected at least one argument to error attribute&quot;</span>);
         }
 
         <span class="kw">let</span> <span class="ident">format_string</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">msg</span>.<span class="ident">nested</span>[<span class="number">0</span>] {
@@ -458,7 +642,7 @@
             {
                 <span class="ident">nv</span>.<span class="ident">lit</span>.<span class="ident">clone</span>()
             }
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">span_error</span><span class="macro">!</span>(
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">abort</span><span class="macro">!</span>(
                 <span class="ident">msg</span>.<span class="ident">nested</span>.<span class="ident">span</span>(),
                 <span class="string">&quot;Error attribute must begin `display = \&quot;\&quot;` to control the Display message.&quot;</span>
             ),
@@ -467,20 +651,22 @@
             <span class="ident">syn</span>::<span class="ident">NestedMeta</span>::<span class="ident">Lit</span>(<span class="ident">syn</span>::<span class="ident">Lit</span>::<span class="ident">Int</span>(<span class="kw-2">ref</span> <span class="ident">i</span>)) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">let</span> <span class="ident">bi</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">v</span>.<span class="ident">bindings</span>()[<span class="ident">i</span>
                     .<span class="ident">base10_parse</span>::<span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>()
-                    .<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;integer literal overflows usize&quot;</span>))];
+                    .<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="macro">abort</span><span class="macro">!</span>(<span class="ident">i</span>.<span class="ident">span</span>(), <span class="string">&quot;integer literal overflows usize&quot;</span>))];
                 <span class="macro">quote</span><span class="macro">!</span>(#<span class="ident">bi</span>)
             }
             <span class="ident">syn</span>::<span class="ident">NestedMeta</span>::<span class="ident">Meta</span>(<span class="ident">syn</span>::<span class="ident">Meta</span>::<span class="ident">Path</span>(<span class="kw-2">ref</span> <span class="ident">path</span>)) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">path</span>
-                    .<span class="ident">get_ident</span>()
-                    .<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;found path in display where ident is expected&quot;</span>));
+                <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">path</span>.<span class="ident">get_ident</span>() {
+                    <span class="prelude-val">Some</span>(<span class="ident">id</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">id</span>,
+                    <span class="comment">// Allows std::u8::MAX (for example)</span>
+                    <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="macro">quote</span><span class="macro">!</span>(#<span class="ident">arg</span>),
+                };
                 <span class="kw">let</span> <span class="ident">id_s</span> <span class="op">=</span> <span class="ident">id</span>.<span class="ident">to_string</span>();
                 <span class="kw">if</span> <span class="ident">id_s</span>.<span class="ident">starts_with</span>(<span class="string">&#39;_&#39;</span>) {
                     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">idx</span>) <span class="op">=</span> <span class="ident">id_s</span>[<span class="number">1</span>..].<span class="ident">parse</span>::<span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>() {
                         <span class="kw">let</span> <span class="ident">bi</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">v</span>.<span class="ident">bindings</span>().<span class="ident">get</span>(<span class="ident">idx</span>) {
                             <span class="prelude-val">Some</span>(<span class="ident">bi</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">bi</span>,
                             <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
-                                <span class="macro">span_error</span><span class="macro">!</span>(
+                                <span class="macro">abort</span><span class="macro">!</span>(
                                     <span class="ident">id</span>.<span class="ident">span</span>(),
                                     <span class="string">&quot;display attempted to access field `{}` in `{}::{}` which \
                                      does not exist (there {} {} field{})&quot;</span>,
@@ -501,21 +687,18 @@
                         <span class="kw">return</span> <span class="macro">quote</span><span class="macro">!</span>(#<span class="ident">bi</span>);
                     }
                 }
-                <span class="macro">span_error</span><span class="macro">!</span>(
-                    <span class="ident">id</span>.<span class="ident">span</span>(),
-                    <span class="string">&quot;Couldn&#39;t find field `{}` in `{}::{}`&quot;</span>,
-                    <span class="ident">id</span>,
-                    <span class="ident">s</span>.<span class="ident">ast</span>().<span class="ident">ident</span>,
-                    <span class="ident">v</span>.<span class="ident">ast</span>().<span class="ident">ident</span>
-                );
+                <span class="comment">// Arg is not a field - might be in global scope</span>
+                <span class="kw">return</span> <span class="macro">quote</span><span class="macro">!</span>(#<span class="ident">id</span>);
             }
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">span_error</span><span class="macro">!</span>(<span class="ident">msg</span>.<span class="ident">nested</span>.<span class="ident">span</span>(), <span class="string">&quot;Invalid argument to error attribute!&quot;</span>),
+            <span class="comment">// Allows u8::max_value() (for example)</span>
+            <span class="ident">syn</span>::<span class="ident">NestedMeta</span>::<span class="ident">Meta</span>(<span class="ident">syn</span>::<span class="ident">Meta</span>::<span class="ident">List</span>(<span class="kw-2">ref</span> <span class="ident">list</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="macro">quote</span><span class="macro">!</span>(#<span class="ident">list</span>),
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">abort</span><span class="macro">!</span>(<span class="ident">msg</span>.<span class="ident">nested</span>.<span class="ident">span</span>(), <span class="string">&quot;Invalid argument to error attribute!&quot;</span>),
         });
 
         <span class="macro">quote</span><span class="macro">!</span> {
             <span class="kw">return</span> <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, #<span class="ident">format_string</span> #(, #<span class="ident">args</span>)<span class="kw-2">*</span>)
         }
-    }))
+    })
 }
 
 <span class="kw">fn</span> <span class="ident">find_error_msg</span>(<span class="ident">attrs</span>: <span class="kw-2">&amp;</span>[<span class="ident">syn</span>::<span class="ident">Attribute</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">syn</span>::<span class="ident">MetaList</span><span class="op">&gt;</span> {
@@ -529,12 +712,11 @@
             {
                 <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <span class="ident">attr</span>.<span class="ident">span</span>();
                 <span class="kw">if</span> <span class="ident">error_msg</span>.<span class="ident">is_some</span>() {
-                    <span class="macro">span_error</span><span class="macro">!</span>(<span class="ident">span</span>, <span class="string">&quot;Cannot have two display attributes&quot;</span>)
+                    <span class="macro">abort</span><span class="macro">!</span>(<span class="ident">span</span>, <span class="string">&quot;Cannot have two display attributes&quot;</span>)
                 } <span class="kw">else</span> <span class="kw">if</span> <span class="kw">let</span> <span class="ident">syn</span>::<span class="ident">Meta</span>::<span class="ident">List</span>(<span class="ident">list</span>) <span class="op">=</span> <span class="ident">meta</span> {
                     <span class="ident">error_msg</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">list</span>);
                 } <span class="kw">else</span> {
-                    <span class="macro">span_error</span><span class="macro">!</span>(<span class="ident">span</span>, <span class="string">&quot;error attribute must take a list in parentheses&quot;</span>)
-
+                    <span class="macro">abort</span><span class="macro">!</span>(<span class="ident">span</span>, <span class="string">&quot;error attribute must take a list in parentheses&quot;</span>)
                 }
             }
         }
@@ -542,19 +724,19 @@
     <span class="ident">error_msg</span>
 }
 
-<span class="kw">fn</span> <span class="ident">is_cause</span>(<span class="ident">bi</span>: <span class="kw-2">&amp;</span><span class="ident">synstructure</span>::<span class="ident">BindingInfo</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">found_cause</span> <span class="op">=</span> <span class="bool-val">false</span>;
-    <span class="kw">for</span> <span class="ident">attr</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">bi</span>.<span class="ident">ast</span>().<span class="ident">attrs</span> {
+<span class="kw">fn</span> <span class="ident">has_attr</span>(<span class="ident">attributes</span>: <span class="kw-2">&amp;</span>[<span class="ident">Attribute</span>], <span class="ident">attr_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">found_attr</span> <span class="op">=</span> <span class="bool-val">false</span>;
+    <span class="kw">for</span> <span class="ident">attr</span> <span class="kw">in</span> <span class="ident">attributes</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">meta</span>) <span class="op">=</span> <span class="ident">attr</span>.<span class="ident">parse_meta</span>() {
             <span class="kw">if</span> <span class="ident">meta</span>
                 .<span class="ident">path</span>()
                 .<span class="ident">get_ident</span>()
-                .<span class="ident">map_or</span>(<span class="bool-val">false</span>, <span class="op">|</span><span class="ident">ident</span><span class="op">|</span> <span class="ident">ident</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;cause&quot;</span>)
+                .<span class="ident">map_or</span>(<span class="bool-val">false</span>, <span class="op">|</span><span class="ident">ident</span><span class="op">|</span> <span class="ident">ident</span> <span class="op">=</span><span class="op">=</span> <span class="ident">attr_name</span>)
             {
-                <span class="kw">if</span> <span class="ident">found_cause</span> {
-                    <span class="macro">span_error</span><span class="macro">!</span>(<span class="ident">attr</span>.<span class="ident">span</span>(), <span class="string">&quot;Cannot have two `cause` attributes&quot;</span>);
+                <span class="kw">if</span> <span class="ident">found_attr</span> {
+                    <span class="macro">abort</span><span class="macro">!</span>(<span class="ident">attr</span>.<span class="ident">span</span>(), <span class="string">&quot;Cannot have two `{}` attributes&quot;</span>, <span class="ident">attr_name</span>);
                 }
-                <span class="ident">found_cause</span> <span class="op">=</span> <span class="bool-val">true</span>;
+                <span class="ident">found_attr</span> <span class="op">=</span> <span class="bool-val">true</span>;
             }
 
             <span class="kw">if</span> <span class="ident">meta</span>
@@ -563,13 +745,19 @@
                 .<span class="ident">map_or</span>(<span class="bool-val">false</span>, <span class="op">|</span><span class="ident">ident</span><span class="op">|</span> <span class="ident">ident</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;error&quot;</span>)
             {
                 <span class="kw">if</span> <span class="kw">let</span> <span class="ident">syn</span>::<span class="ident">Meta</span>::<span class="ident">List</span>(<span class="kw-2">ref</span> <span class="ident">list</span>) <span class="op">=</span> <span class="ident">meta</span> {
-                    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">pair</span>) <span class="op">=</span> <span class="ident">list</span>.<span class="ident">nested</span>.<span class="ident">first</span>() {
+                    <span class="kw">for</span> <span class="ident">pair</span> <span class="kw">in</span> <span class="ident">list</span>.<span class="ident">nested</span>.<span class="ident">iter</span>() {
                         <span class="kw">if</span> <span class="kw">let</span> <span class="ident">syn</span>::<span class="ident">NestedMeta</span>::<span class="ident">Meta</span>(<span class="ident">syn</span>::<span class="ident">Meta</span>::<span class="ident">Path</span>(<span class="ident">path</span>)) <span class="op">=</span> <span class="ident">pair</span> {
-                            <span class="kw">if</span> <span class="ident">path</span>.<span class="ident">get_ident</span>().<span class="ident">map_or</span>(<span class="bool-val">false</span>, <span class="op">|</span><span class="ident">ident</span><span class="op">|</span> <span class="ident">ident</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;cause&quot;</span>) {
-                                <span class="kw">if</span> <span class="ident">found_cause</span> {
-                                    <span class="macro">span_error</span><span class="macro">!</span>(<span class="ident">path</span>.<span class="ident">span</span>(), <span class="string">&quot;Cannot have two `cause` attributes&quot;</span>);
+                            <span class="kw">if</span> <span class="ident">path</span>.<span class="ident">get_ident</span>().<span class="ident">map_or</span>(<span class="bool-val">false</span>, <span class="op">|</span><span class="ident">ident</span><span class="op">|</span> {
+                                <span class="ident">ident</span>.<span class="ident">to_string</span>().<span class="ident">split</span>(<span class="string">&quot;, &quot;</span>).<span class="ident">any</span>(<span class="op">|</span><span class="ident">part</span><span class="op">|</span> <span class="ident">part</span> <span class="op">=</span><span class="op">=</span> <span class="ident">attr_name</span>)
+                            }) {
+                                <span class="kw">if</span> <span class="ident">found_attr</span> {
+                                    <span class="macro">abort</span><span class="macro">!</span>(
+                                        <span class="ident">path</span>.<span class="ident">span</span>(),
+                                        <span class="string">&quot;Cannot have two `{}` attributes&quot;</span>,
+                                        <span class="ident">attr_name</span>
+                                    );
                                 }
-                                <span class="ident">found_cause</span> <span class="op">=</span> <span class="bool-val">true</span>;
+                                <span class="ident">found_attr</span> <span class="op">=</span> <span class="bool-val">true</span>;
                             }
                         }
                     }
@@ -577,7 +765,83 @@
             }
         }
     }
-    <span class="ident">found_cause</span>
+    <span class="ident">found_attr</span>
+}
+
+<span class="kw">fn</span> <span class="ident">from_body</span>(<span class="ident">s</span>: <span class="kw-2">&amp;</span><span class="ident">synstructure</span>::<span class="ident">Structure</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream2</span> {
+    <span class="kw">let</span> <span class="ident">default_from</span> <span class="op">=</span> <span class="op">!</span><span class="ident">has_attr</span>(<span class="kw-2">&amp;</span><span class="ident">s</span>.<span class="ident">ast</span>().<span class="ident">attrs</span>, <span class="string">&quot;no_from&quot;</span>);
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">from_types</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
+    <span class="kw">let</span> <span class="ident">froms</span> <span class="op">=</span> <span class="ident">s</span>.<span class="ident">variants</span>().<span class="ident">iter</span>().<span class="ident">filter_map</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> {
+        <span class="kw">let</span> <span class="ident">span</span> <span class="op">=</span> <span class="ident">v</span>.<span class="ident">ast</span>().<span class="ident">ident</span>.<span class="ident">span</span>();
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">from</span>, <span class="ident">is_explicit</span>)) <span class="op">=</span> <span class="ident">v</span>.<span class="ident">bindings</span>().<span class="ident">iter</span>().<span class="ident">find_map</span>(<span class="op">|</span><span class="ident">binding</span><span class="op">|</span> {
+            <span class="kw">let</span> <span class="ident">is_explicit</span> <span class="op">=</span> <span class="ident">has_attr</span>(<span class="kw-2">&amp;</span><span class="ident">binding</span>.<span class="ident">ast</span>().<span class="ident">attrs</span>, <span class="string">&quot;from&quot;</span>);
+            <span class="kw">let</span> <span class="ident">is_source</span> <span class="op">=</span> <span class="ident">has_attr</span>(<span class="kw-2">&amp;</span><span class="ident">binding</span>.<span class="ident">ast</span>().<span class="ident">attrs</span>, <span class="string">&quot;source&quot;</span>);
+            <span class="comment">// TODO https://github.com/rust-lang/rust/issues/54140 deprecate cause with warning</span>
+            <span class="kw">let</span> <span class="ident">is_cause</span> <span class="op">=</span> <span class="ident">has_attr</span>(<span class="kw-2">&amp;</span><span class="ident">binding</span>.<span class="ident">ast</span>().<span class="ident">attrs</span>, <span class="string">&quot;cause&quot;</span>);
+            <span class="kw">let</span> <span class="ident">exclude</span> <span class="op">=</span> <span class="ident">has_attr</span>(<span class="kw-2">&amp;</span><span class="ident">binding</span>.<span class="ident">ast</span>().<span class="ident">attrs</span>, <span class="string">&quot;no_from&quot;</span>);
+
+            <span class="kw">if</span> <span class="ident">is_source</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">is_cause</span> {
+                <span class="macro">abort</span><span class="macro">!</span>(
+                    <span class="ident">span</span>,
+                    <span class="string">&quot;#[error(cause)] is deprecated, use #[error(source)] instead&quot;</span>
+                )
+            }
+
+            <span class="kw">let</span> <span class="ident">is_source</span> <span class="op">=</span> <span class="ident">is_source</span> <span class="op">|</span><span class="op">|</span> <span class="ident">is_cause</span>;
+
+            <span class="kw">if</span> ((<span class="ident">default_from</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">is_source</span>) <span class="op">|</span><span class="op">|</span> <span class="ident">is_explicit</span>) <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="op">!</span><span class="ident">exclude</span> {
+                <span class="prelude-val">Some</span>((<span class="ident">binding</span>, <span class="ident">is_explicit</span>))
+            } <span class="kw">else</span> {
+                <span class="prelude-val">None</span>
+            }
+        }) {
+            <span class="kw">if</span> <span class="ident">v</span>.<span class="ident">bindings</span>().<span class="ident">len</span>() <span class="op">&gt;</span> <span class="number">1</span> {
+                <span class="kw">if</span> <span class="ident">is_explicit</span> {
+                    <span class="macro">abort</span><span class="macro">!</span>(
+                        <span class="ident">span</span>,
+                        <span class="string">&quot;Variants containing `from` can only contain a single field&quot;</span>
+                    );
+                } <span class="kw">else</span> {
+                    <span class="kw">return</span> <span class="prelude-val">None</span>;
+                }
+            }
+
+            <span class="kw">let</span> <span class="ident">from_ident</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">from</span>.<span class="ident">ast</span>().<span class="ident">ty</span>;
+
+            <span class="kw">if</span> <span class="ident">from_types</span>
+                .<span class="ident">iter</span>()
+                .<span class="ident">any</span>(<span class="op">|</span><span class="ident">existing_from_type</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">existing_from_type</span> <span class="op">=</span><span class="op">=</span> <span class="ident">from_ident</span>)
+            {
+                <span class="macro">abort</span><span class="macro">!</span>(
+                    <span class="ident">from_ident</span>.<span class="ident">span</span>(),
+                    <span class="string">&quot;`from` can only be applied for a type once{}&quot;</span>,
+                    <span class="kw">if</span> <span class="ident">is_explicit</span> {
+                        <span class="string">&quot;&quot;</span>
+                    } <span class="kw">else</span> {
+                        <span class="string">&quot;, hint: use #[error(no_from)] to disable automatic From derive&quot;</span>
+                    }
+                );
+            }
+
+            <span class="ident">from_types</span>.<span class="ident">push</span>(<span class="ident">from_ident</span>);
+            <span class="kw">let</span> <span class="ident">construct</span> <span class="op">=</span> <span class="ident">v</span>.<span class="ident">construct</span>(<span class="op">|</span><span class="kw">_</span>, <span class="kw">_</span><span class="op">|</span> <span class="macro">quote</span><span class="macro">!</span> {<span class="ident">from</span>});
+
+            <span class="prelude-val">Some</span>(<span class="ident">s</span>.<span class="ident">unbound_impl</span>(
+                <span class="macro">quote</span><span class="macro">!</span> {::<span class="ident">core</span>::<span class="ident">convert</span>::<span class="ident">From</span><span class="op">&lt;</span>#<span class="ident">from_ident</span><span class="op">&gt;</span>},
+                <span class="macro">quote</span><span class="macro">!</span> {
+                    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">from</span>: #<span class="ident">from_ident</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+                        #<span class="ident">construct</span>
+                    }
+                },
+            ))
+        } <span class="kw">else</span> {
+            <span class="prelude-val">None</span>
+        }
+    });
+
+    <span class="macro">quote</span><span class="macro">!</span> {
+        #(#<span class="ident">froms</span>)<span class="op">*</span>
+    }
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "err_derive";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>

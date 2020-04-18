@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/cpal-0.8.2/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../cpal/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/cpal-0.11.0/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../cpal/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -433,373 +433,30 @@
 <span id="433">433</span>
 <span id="434">434</span>
 <span id="435">435</span>
-<span id="436">436</span>
-<span id="437">437</span>
-<span id="438">438</span>
-<span id="439">439</span>
-<span id="440">440</span>
-<span id="441">441</span>
-<span id="442">442</span>
-<span id="443">443</span>
-<span id="444">444</span>
-<span id="445">445</span>
-<span id="446">446</span>
-<span id="447">447</span>
-<span id="448">448</span>
-<span id="449">449</span>
-<span id="450">450</span>
-<span id="451">451</span>
-<span id="452">452</span>
-<span id="453">453</span>
-<span id="454">454</span>
-<span id="455">455</span>
-<span id="456">456</span>
-<span id="457">457</span>
-<span id="458">458</span>
-<span id="459">459</span>
-<span id="460">460</span>
-<span id="461">461</span>
-<span id="462">462</span>
-<span id="463">463</span>
-<span id="464">464</span>
-<span id="465">465</span>
-<span id="466">466</span>
-<span id="467">467</span>
-<span id="468">468</span>
-<span id="469">469</span>
-<span id="470">470</span>
-<span id="471">471</span>
-<span id="472">472</span>
-<span id="473">473</span>
-<span id="474">474</span>
-<span id="475">475</span>
-<span id="476">476</span>
-<span id="477">477</span>
-<span id="478">478</span>
-<span id="479">479</span>
-<span id="480">480</span>
-<span id="481">481</span>
-<span id="482">482</span>
-<span id="483">483</span>
-<span id="484">484</span>
-<span id="485">485</span>
-<span id="486">486</span>
-<span id="487">487</span>
-<span id="488">488</span>
-<span id="489">489</span>
-<span id="490">490</span>
-<span id="491">491</span>
-<span id="492">492</span>
-<span id="493">493</span>
-<span id="494">494</span>
-<span id="495">495</span>
-<span id="496">496</span>
-<span id="497">497</span>
-<span id="498">498</span>
-<span id="499">499</span>
-<span id="500">500</span>
-<span id="501">501</span>
-<span id="502">502</span>
-<span id="503">503</span>
-<span id="504">504</span>
-<span id="505">505</span>
-<span id="506">506</span>
-<span id="507">507</span>
-<span id="508">508</span>
-<span id="509">509</span>
-<span id="510">510</span>
-<span id="511">511</span>
-<span id="512">512</span>
-<span id="513">513</span>
-<span id="514">514</span>
-<span id="515">515</span>
-<span id="516">516</span>
-<span id="517">517</span>
-<span id="518">518</span>
-<span id="519">519</span>
-<span id="520">520</span>
-<span id="521">521</span>
-<span id="522">522</span>
-<span id="523">523</span>
-<span id="524">524</span>
-<span id="525">525</span>
-<span id="526">526</span>
-<span id="527">527</span>
-<span id="528">528</span>
-<span id="529">529</span>
-<span id="530">530</span>
-<span id="531">531</span>
-<span id="532">532</span>
-<span id="533">533</span>
-<span id="534">534</span>
-<span id="535">535</span>
-<span id="536">536</span>
-<span id="537">537</span>
-<span id="538">538</span>
-<span id="539">539</span>
-<span id="540">540</span>
-<span id="541">541</span>
-<span id="542">542</span>
-<span id="543">543</span>
-<span id="544">544</span>
-<span id="545">545</span>
-<span id="546">546</span>
-<span id="547">547</span>
-<span id="548">548</span>
-<span id="549">549</span>
-<span id="550">550</span>
-<span id="551">551</span>
-<span id="552">552</span>
-<span id="553">553</span>
-<span id="554">554</span>
-<span id="555">555</span>
-<span id="556">556</span>
-<span id="557">557</span>
-<span id="558">558</span>
-<span id="559">559</span>
-<span id="560">560</span>
-<span id="561">561</span>
-<span id="562">562</span>
-<span id="563">563</span>
-<span id="564">564</span>
-<span id="565">565</span>
-<span id="566">566</span>
-<span id="567">567</span>
-<span id="568">568</span>
-<span id="569">569</span>
-<span id="570">570</span>
-<span id="571">571</span>
-<span id="572">572</span>
-<span id="573">573</span>
-<span id="574">574</span>
-<span id="575">575</span>
-<span id="576">576</span>
-<span id="577">577</span>
-<span id="578">578</span>
-<span id="579">579</span>
-<span id="580">580</span>
-<span id="581">581</span>
-<span id="582">582</span>
-<span id="583">583</span>
-<span id="584">584</span>
-<span id="585">585</span>
-<span id="586">586</span>
-<span id="587">587</span>
-<span id="588">588</span>
-<span id="589">589</span>
-<span id="590">590</span>
-<span id="591">591</span>
-<span id="592">592</span>
-<span id="593">593</span>
-<span id="594">594</span>
-<span id="595">595</span>
-<span id="596">596</span>
-<span id="597">597</span>
-<span id="598">598</span>
-<span id="599">599</span>
-<span id="600">600</span>
-<span id="601">601</span>
-<span id="602">602</span>
-<span id="603">603</span>
-<span id="604">604</span>
-<span id="605">605</span>
-<span id="606">606</span>
-<span id="607">607</span>
-<span id="608">608</span>
-<span id="609">609</span>
-<span id="610">610</span>
-<span id="611">611</span>
-<span id="612">612</span>
-<span id="613">613</span>
-<span id="614">614</span>
-<span id="615">615</span>
-<span id="616">616</span>
-<span id="617">617</span>
-<span id="618">618</span>
-<span id="619">619</span>
-<span id="620">620</span>
-<span id="621">621</span>
-<span id="622">622</span>
-<span id="623">623</span>
-<span id="624">624</span>
-<span id="625">625</span>
-<span id="626">626</span>
-<span id="627">627</span>
-<span id="628">628</span>
-<span id="629">629</span>
-<span id="630">630</span>
-<span id="631">631</span>
-<span id="632">632</span>
-<span id="633">633</span>
-<span id="634">634</span>
-<span id="635">635</span>
-<span id="636">636</span>
-<span id="637">637</span>
-<span id="638">638</span>
-<span id="639">639</span>
-<span id="640">640</span>
-<span id="641">641</span>
-<span id="642">642</span>
-<span id="643">643</span>
-<span id="644">644</span>
-<span id="645">645</span>
-<span id="646">646</span>
-<span id="647">647</span>
-<span id="648">648</span>
-<span id="649">649</span>
-<span id="650">650</span>
-<span id="651">651</span>
-<span id="652">652</span>
-<span id="653">653</span>
-<span id="654">654</span>
-<span id="655">655</span>
-<span id="656">656</span>
-<span id="657">657</span>
-<span id="658">658</span>
-<span id="659">659</span>
-<span id="660">660</span>
-<span id="661">661</span>
-<span id="662">662</span>
-<span id="663">663</span>
-<span id="664">664</span>
-<span id="665">665</span>
-<span id="666">666</span>
-<span id="667">667</span>
-<span id="668">668</span>
-<span id="669">669</span>
-<span id="670">670</span>
-<span id="671">671</span>
-<span id="672">672</span>
-<span id="673">673</span>
-<span id="674">674</span>
-<span id="675">675</span>
-<span id="676">676</span>
-<span id="677">677</span>
-<span id="678">678</span>
-<span id="679">679</span>
-<span id="680">680</span>
-<span id="681">681</span>
-<span id="682">682</span>
-<span id="683">683</span>
-<span id="684">684</span>
-<span id="685">685</span>
-<span id="686">686</span>
-<span id="687">687</span>
-<span id="688">688</span>
-<span id="689">689</span>
-<span id="690">690</span>
-<span id="691">691</span>
-<span id="692">692</span>
-<span id="693">693</span>
-<span id="694">694</span>
-<span id="695">695</span>
-<span id="696">696</span>
-<span id="697">697</span>
-<span id="698">698</span>
-<span id="699">699</span>
-<span id="700">700</span>
-<span id="701">701</span>
-<span id="702">702</span>
-<span id="703">703</span>
-<span id="704">704</span>
-<span id="705">705</span>
-<span id="706">706</span>
-<span id="707">707</span>
-<span id="708">708</span>
-<span id="709">709</span>
-<span id="710">710</span>
-<span id="711">711</span>
-<span id="712">712</span>
-<span id="713">713</span>
-<span id="714">714</span>
-<span id="715">715</span>
-<span id="716">716</span>
-<span id="717">717</span>
-<span id="718">718</span>
-<span id="719">719</span>
-<span id="720">720</span>
-<span id="721">721</span>
-<span id="722">722</span>
-<span id="723">723</span>
-<span id="724">724</span>
-<span id="725">725</span>
-<span id="726">726</span>
-<span id="727">727</span>
-<span id="728">728</span>
-<span id="729">729</span>
-<span id="730">730</span>
-<span id="731">731</span>
-<span id="732">732</span>
-<span id="733">733</span>
-<span id="734">734</span>
-<span id="735">735</span>
-<span id="736">736</span>
-<span id="737">737</span>
-<span id="738">738</span>
-<span id="739">739</span>
-<span id="740">740</span>
-<span id="741">741</span>
-<span id="742">742</span>
-<span id="743">743</span>
-<span id="744">744</span>
-<span id="745">745</span>
-<span id="746">746</span>
-<span id="747">747</span>
-<span id="748">748</span>
-<span id="749">749</span>
-<span id="750">750</span>
-<span id="751">751</span>
-<span id="752">752</span>
-<span id="753">753</span>
-<span id="754">754</span>
-<span id="755">755</span>
-<span id="756">756</span>
-<span id="757">757</span>
-<span id="758">758</span>
-<span id="759">759</span>
-<span id="760">760</span>
-<span id="761">761</span>
-<span id="762">762</span>
-<span id="763">763</span>
-<span id="764">764</span>
-<span id="765">765</span>
-<span id="766">766</span>
-<span id="767">767</span>
-<span id="768">768</span>
-<span id="769">769</span>
-<span id="770">770</span>
-<span id="771">771</span>
-<span id="772">772</span>
-<span id="773">773</span>
-<span id="774">774</span>
-<span id="775">775</span>
-<span id="776">776</span>
-<span id="777">777</span>
-<span id="778">778</span>
-<span id="779">779</span>
-<span id="780">780</span>
-<span id="781">781</span>
-<span id="782">782</span>
-<span id="783">783</span>
-<span id="784">784</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # How to use cpal</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Here are some concepts cpal exposes:</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! - A `Device` is an audio device that may have any number of input and output streams.</span>
-<span class="doccomment">//! - A stream is an open audio channel. Input streams allow you to receive audio data, output</span>
-<span class="doccomment">//!   streams allow you to play audio data. You must choose which `Device` runs your stream before</span>
-<span class="doccomment">//!   you create one.</span>
-<span class="doccomment">//! - An `EventLoop` is a collection of streams being run by one or more `Device`. Each stream must</span>
-<span class="doccomment">//!   belong to an `EventLoop`, and all the streams that belong to an `EventLoop` are managed</span>
-<span class="doccomment">//!   together.</span>
+<span class="doccomment">//! - A [**Host**](./trait.Host.html) provides access to the available audio devices on the system.</span>
+<span class="doccomment">//!   Some platforms have more than one host available, but every platform supported by CPAL has at</span>
+<span class="doccomment">//!   least one [**DefaultHost**](./trait.Host.html) that is guaranteed to be available.</span>
+<span class="doccomment">//! - A [**Device**](./trait.Device.html) is an audio device that may have any number of input and</span>
+<span class="doccomment">//!   output streams.</span>
+<span class="doccomment">//! - A stream is an open flow of audio data. Input streams allow you to receive audio data, output</span>
+<span class="doccomment">//!   streams allow you to play audio data. You must choose which **Device** will run your stream</span>
+<span class="doccomment">//!   before you can create one. Often, a default device can be retrieved via the **Host**.</span>
+<span class="doccomment">//! - An [**EventLoop**](./trait.EventLoop.html) is a collection of streams being run by one or</span>
+<span class="doccomment">//!   more **Device**s under a single **Host**. Each stream must belong to an **EventLoop**, and</span>
+<span class="doccomment">//!   all the streams that belong to an **EventLoop** are managed together.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! The first step is to create an `EventLoop`:</span>
+<span class="doccomment">//! The first step is to initialise the `Host` (for accessing audio devices) and create an</span>
+<span class="doccomment">//! `EventLoop`:</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```</span>
-<span class="doccomment">//! use cpal::EventLoop;</span>
-<span class="doccomment">//! let event_loop = EventLoop::new();</span>
+<span class="doccomment">//! use cpal::traits::HostTrait;</span>
+<span class="doccomment">//! let host = cpal::default_host();</span>
+<span class="doccomment">//! let event_loop = host.event_loop();</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Then choose a `Device`. The easiest way is to use the default input or output `Device` via the</span>
@@ -808,8 +465,10 @@
 <span class="doccomment">//! `default_*_device()` functions return an `Option` in case no device is available for that</span>
 <span class="doccomment">//! stream type on the system.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! ```</span>
-<span class="doccomment">//! let device = cpal::default_output_device().expect(&quot;no output device available&quot;);</span>
+<span class="doccomment">//! ```no_run</span>
+<span class="doccomment">//! # use cpal::traits::HostTrait;</span>
+<span class="doccomment">//! # let host = cpal::default_host();</span>
+<span class="doccomment">//! let device = host.default_output_device().expect(&quot;no output device available&quot;);</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Before we can create a stream, we must decide what the format of the audio samples is going to</span>
@@ -823,7 +482,9 @@
 <span class="doccomment">//! &gt; has been disconnected.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```no_run</span>
-<span class="doccomment">//! # let device = cpal::default_output_device().unwrap();</span>
+<span class="doccomment">//! use cpal::traits::{DeviceTrait, HostTrait};</span>
+<span class="doccomment">//! # let host = cpal::default_host();</span>
+<span class="doccomment">//! # let device = host.default_output_device().unwrap();</span>
 <span class="doccomment">//! let mut supported_formats_range = device.supported_output_formats()</span>
 <span class="doccomment">//!     .expect(&quot;error while querying formats&quot;);</span>
 <span class="doccomment">//! let format = supported_formats_range.next()</span>
@@ -831,12 +492,14 @@
 <span class="doccomment">//!     .with_max_sample_rate();</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! Now that we have everything, we can create a stream from our event loop:</span>
+<span class="doccomment">//! Now that we have everything for the stream, we can create it from our event loop:</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```no_run</span>
-<span class="doccomment">//! # let device = cpal::default_output_device().unwrap();</span>
+<span class="doccomment">//! use cpal::traits::{DeviceTrait, EventLoopTrait, HostTrait};</span>
+<span class="doccomment">//! # let host = cpal::default_host();</span>
+<span class="doccomment">//! # let event_loop = host.event_loop();</span>
+<span class="doccomment">//! # let device = host.default_output_device().unwrap();</span>
 <span class="doccomment">//! # let format = device.supported_output_formats().unwrap().next().unwrap().with_max_sample_rate();</span>
-<span class="doccomment">//! # let event_loop = cpal::EventLoop::new();</span>
 <span class="doccomment">//! let stream_id = event_loop.build_output_stream(&amp;device, &amp;format).unwrap();</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
@@ -845,18 +508,22 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Now we must start the stream. This is done with the `play_stream()` method on the event loop.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! ```</span>
-<span class="doccomment">//! # let event_loop: cpal::EventLoop = return;</span>
-<span class="doccomment">//! # let stream_id: cpal::StreamId = return;</span>
-<span class="doccomment">//! event_loop.play_stream(stream_id);</span>
+<span class="doccomment">//! ```no_run</span>
+<span class="doccomment">//! # use cpal::traits::{EventLoopTrait, HostTrait};</span>
+<span class="doccomment">//! # let host = cpal::default_host();</span>
+<span class="doccomment">//! # let event_loop = host.event_loop();</span>
+<span class="doccomment">//! # let stream_id = unimplemented!();</span>
+<span class="doccomment">//! event_loop.play_stream(stream_id).expect(&quot;failed to play_stream&quot;);</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! Once everything is ready! Now we call `run()` on the `event_loop` to begin processing.</span>
+<span class="doccomment">//! Now everything is ready! We call `run()` on the `event_loop` to begin processing.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```no_run</span>
-<span class="doccomment">//! # let event_loop = cpal::EventLoop::new();</span>
-<span class="doccomment">//! event_loop.run(move |_stream_id, _stream_data| {</span>
-<span class="doccomment">//!     // read or write stream data here</span>
+<span class="doccomment">//! # use cpal::traits::{EventLoopTrait, HostTrait};</span>
+<span class="doccomment">//! # let host = cpal::default_host();</span>
+<span class="doccomment">//! # let event_loop = host.event_loop();</span>
+<span class="doccomment">//! event_loop.run(move |_stream_id, _stream_result| {</span>
+<span class="doccomment">//!     // react to stream events and read or write stream data here</span>
 <span class="doccomment">//! });</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
@@ -864,18 +531,28 @@
 <span class="doccomment">//! &gt; separate thread.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! While `run()` is running, the audio device of the user will from time to time call the callback</span>
-<span class="doccomment">//! that you passed to this function. The callback gets passed the stream ID an instance of type</span>
+<span class="doccomment">//! that you passed to this function. The callback gets passed the stream ID and an instance of type</span>
 <span class="doccomment">//! `StreamData` that represents the data that must be read from or written to. The inner</span>
 <span class="doccomment">//! `UnknownTypeOutputBuffer` can be one of `I16`, `U16` or `F32` depending on the format that was</span>
 <span class="doccomment">//! passed to `build_output_stream`.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! In this example, we simply simply fill the given output buffer with zeroes.</span>
+<span class="doccomment">//! In this example, we simply fill the given output buffer with zeroes.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```no_run</span>
 <span class="doccomment">//! use cpal::{StreamData, UnknownTypeOutputBuffer};</span>
+<span class="doccomment">//! use cpal::traits::{EventLoopTrait, HostTrait};</span>
+<span class="doccomment">//! # let host = cpal::default_host();</span>
+<span class="doccomment">//! # let event_loop = host.event_loop();</span>
+<span class="doccomment">//! event_loop.run(move |stream_id, stream_result| {</span>
+<span class="doccomment">//!     let stream_data = match stream_result {</span>
+<span class="doccomment">//!         Ok(data) =&gt; data,</span>
+<span class="doccomment">//!         Err(err) =&gt; {</span>
+<span class="doccomment">//!             eprintln!(&quot;an error occurred on stream {:?}: {}&quot;, stream_id, err);</span>
+<span class="doccomment">//!             return;</span>
+<span class="doccomment">//!         }</span>
+<span class="doccomment">//!         _ =&gt; return,</span>
+<span class="doccomment">//!     };</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! # let event_loop = cpal::EventLoop::new();</span>
-<span class="doccomment">//! event_loop.run(move |_stream_id, mut stream_data| {</span>
 <span class="doccomment">//!     match stream_data {</span>
 <span class="doccomment">//!         StreamData::Output { buffer: UnknownTypeOutputBuffer::U16(mut buffer) } =&gt; {</span>
 <span class="doccomment">//!             for elem in buffer.iter_mut() {</span>
@@ -902,57 +579,32 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;windows&quot;</span>)]</span>
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">lazy_static</span>;
-
 <span class="comment">// Extern crate declarations with `#[macro_use]` must unfortunately be at crate root.</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;emscripten&quot;</span>)]</span>
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">stdweb</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">thiserror</span>;
 
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">error</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">platform</span>::{
+    <span class="ident">ALL_HOSTS</span>, <span class="ident">Device</span>, <span class="ident">Devices</span>, <span class="ident">EventLoop</span>, <span class="ident">Host</span>, <span class="ident">HostId</span>, <span class="ident">SupportedInputFormats</span>,
+    <span class="ident">SupportedOutputFormats</span>, <span class="ident">StreamId</span>, <span class="ident">available_hosts</span>, <span class="ident">default_host</span>, <span class="ident">host_from_id</span>,
+};
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">samples_formats</span>::{<span class="ident">Sample</span>, <span class="ident">SampleFormat</span>};
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">any</span>(<span class="ident">windows</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;freebsd&quot;</span>,
-              <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;ios&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;emscripten&quot;</span>)))]</span>
-<span class="kw">use</span> <span class="ident">null</span> <span class="kw">as</span> <span class="ident">cpal_impl</span>;
-
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">error</span>::<span class="ident">Error</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">iter</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ops</span>::{<span class="ident">Deref</span>, <span class="ident">DerefMut</span>};
 
-<span class="kw">mod</span> <span class="ident">null</span>;
+<span class="kw">mod</span> <span class="ident">error</span>;
+<span class="kw">mod</span> <span class="ident">host</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">platform</span>;
 <span class="kw">mod</span> <span class="ident">samples_formats</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">traits</span>;
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;freebsd&quot;</span>))]</span>
-<span class="attribute">#[<span class="ident">path</span> <span class="op">=</span> <span class="string">&quot;alsa/mod.rs&quot;</span>]</span>
-<span class="kw">mod</span> <span class="ident">cpal_impl</span>;
+<span class="doccomment">/// A host&#39;s device iterator yielding only *input* devices.</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">InputDevices</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">std</span>::<span class="ident">iter</span>::<span class="ident">Filter</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="kw">fn</span>(<span class="kw-2">&amp;</span><span class="op">&lt;</span><span class="ident">I</span> <span class="kw">as</span> <span class="ident">Iterator</span><span class="op">&gt;</span>::<span class="ident">Item</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span><span class="op">&gt;</span>;
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">windows</span>)]</span>
-<span class="attribute">#[<span class="ident">path</span> <span class="op">=</span> <span class="string">&quot;wasapi/mod.rs&quot;</span>]</span>
-<span class="kw">mod</span> <span class="ident">cpal_impl</span>;
-
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;ios&quot;</span>))]</span>
-<span class="attribute">#[<span class="ident">path</span> <span class="op">=</span> <span class="string">&quot;coreaudio/mod.rs&quot;</span>]</span>
-<span class="kw">mod</span> <span class="ident">cpal_impl</span>;
-
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;emscripten&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">path</span> <span class="op">=</span> <span class="string">&quot;emscripten/mod.rs&quot;</span>]</span>
-<span class="kw">mod</span> <span class="ident">cpal_impl</span>;
-
-<span class="doccomment">/// An opaque type that identifies a device that is capable of either audio input or output.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Please note that `Device`s may become invalid if they get disconnected. Therefore all the</span>
-<span class="doccomment">/// methods that involve a device return a `Result`.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Device</span>(<span class="ident">cpal_impl</span>::<span class="ident">Device</span>);
-
-<span class="doccomment">/// Collection of voices managed together.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Created with the [`new`](struct.EventLoop.html#method.new) method.</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventLoop</span>(<span class="ident">cpal_impl</span>::<span class="ident">EventLoop</span>);
-
-<span class="doccomment">/// Identifier of a stream within the `EventLoop`.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StreamId</span>(<span class="ident">cpal_impl</span>::<span class="ident">StreamId</span>);
+<span class="doccomment">/// A host&#39;s device iterator yielding only *output* devices.</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">OutputDevices</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">std</span>::<span class="ident">iter</span>::<span class="ident">Filter</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="kw">fn</span>(<span class="kw-2">&amp;</span><span class="op">&lt;</span><span class="ident">I</span> <span class="kw">as</span> <span class="ident">Iterator</span><span class="op">&gt;</span>::<span class="ident">Item</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span><span class="op">&gt;</span>;
 
 <span class="doccomment">/// Number of channels.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">ChannelCount</span> <span class="op">=</span> <span class="ident">u16</span>;
@@ -991,36 +643,36 @@
     },
 }
 
+<span class="doccomment">/// Stream data passed to the `EventLoop::run` callback, or an error in the case that the device</span>
+<span class="doccomment">/// was invalidated or some backend-specific error occurred.</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">StreamDataResult</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">StreamData</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>, <span class="ident">StreamError</span><span class="op">&gt;</span>;
+
 <span class="doccomment">/// Represents a buffer containing audio data that may be read.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This struct implements the `Deref` trait targeting `[T]`. Therefore this buffer can be read the</span>
 <span class="doccomment">/// same way as reading from a `Vec` or any other kind of Rust array.</span>
 <span class="comment">// TODO: explain audio stuff in general</span>
+<span class="comment">// TODO: remove the wrapper and just use slices in next major version</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">InputBuffer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>: <span class="lifetime">&#39;a</span><span class="op">&gt;</span>
 <span class="kw">where</span>
     <span class="ident">T</span>: <span class="ident">Sample</span>,
 {
-    <span class="comment">// Always contains something, taken by `Drop`</span>
-    <span class="comment">// TODO: change that</span>
-    <span class="ident">buffer</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">cpal_impl</span>::<span class="ident">InputBuffer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">buffer</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">T</span>],
 }
 
-<span class="doccomment">/// Represents a buffer that must be filled with audio data.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// You should destroy this object as soon as possible. Data is only sent to the audio device when</span>
-<span class="doccomment">/// this object is destroyed.</span>
+<span class="doccomment">/// Represents a buffer that must be filled with audio data. The buffer in unfilled state may</span>
+<span class="doccomment">/// contain garbage values.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This struct implements the `Deref` and `DerefMut` traits to `[T]`. Therefore writing to this</span>
 <span class="doccomment">/// buffer is done in the same way as writing to a `Vec` or any other kind of Rust array.</span>
 <span class="comment">// TODO: explain audio stuff in general</span>
+<span class="comment">// TODO: remove the wrapper and just use slices</span>
 <span class="attribute">#[<span class="ident">must_use</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OutputBuffer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>: <span class="lifetime">&#39;a</span><span class="op">&gt;</span>
 <span class="kw">where</span>
     <span class="ident">T</span>: <span class="ident">Sample</span>,
 {
-    <span class="comment">// Always contains something, taken by `Drop`</span>
-    <span class="comment">// TODO: change that</span>
-    <span class="ident">target</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">cpal_impl</span>::<span class="ident">OutputBuffer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">buffer</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> [<span class="ident">T</span>],
 }
 
 <span class="doccomment">/// This is the struct that is provided to you by cpal when you want to read samples from a buffer.</span>
@@ -1045,234 +697,6 @@
     <span class="ident">I16</span>(<span class="ident">OutputBuffer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">i16</span><span class="op">&gt;</span>),
     <span class="doccomment">/// Samples whose format is `f32`.</span>
     <span class="ident">F32</span>(<span class="ident">OutputBuffer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">f32</span><span class="op">&gt;</span>),
-}
-
-<span class="doccomment">/// An iterator yielding all `Device`s currently available to the system.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// See [`devices()`](fn.devices.html).</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Devices</span>(<span class="ident">cpal_impl</span>::<span class="ident">Devices</span>);
-
-<span class="doccomment">/// A `Devices` yielding only *input* devices.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">InputDevices</span> <span class="op">=</span> <span class="ident">iter</span>::<span class="ident">Filter</span><span class="op">&lt;</span><span class="ident">Devices</span>, <span class="kw">fn</span>(<span class="kw-2">&amp;</span><span class="ident">Device</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span><span class="op">&gt;</span>;
-
-<span class="doccomment">/// A `Devices` yielding only *output* devices.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">OutputDevices</span> <span class="op">=</span> <span class="ident">iter</span>::<span class="ident">Filter</span><span class="op">&lt;</span><span class="ident">Devices</span>, <span class="kw">fn</span>(<span class="kw-2">&amp;</span><span class="ident">Device</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span><span class="op">&gt;</span>;
-
-<span class="doccomment">/// An iterator that produces a list of input stream formats supported by the device.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// See [`Device::supported_input_formats()`](struct.Device.html#method.supported_input_formats).</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SupportedInputFormats</span>(<span class="ident">cpal_impl</span>::<span class="ident">SupportedInputFormats</span>);
-
-<span class="doccomment">/// An iterator that produces a list of output stream formats supported by the device.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// See [`Device::supported_output_formats()`](struct.Device.html#method.supported_output_formats).</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SupportedOutputFormats</span>(<span class="ident">cpal_impl</span>::<span class="ident">SupportedOutputFormats</span>);
-
-<span class="doccomment">/// Error that can happen when enumerating the list of supported formats.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">FormatsEnumerationError</span> {
-    <span class="doccomment">/// The device no longer exists. This can happen if the device is disconnected while the</span>
-    <span class="doccomment">/// program is running.</span>
-    <span class="ident">DeviceNotAvailable</span>,
-}
-
-<span class="doccomment">/// May occur when attempting to request the default input or output stream format from a `Device`.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">DefaultFormatError</span> {
-    <span class="doccomment">/// The device no longer exists. This can happen if the device is disconnected while the</span>
-    <span class="doccomment">/// program is running.</span>
-    <span class="ident">DeviceNotAvailable</span>,
-    <span class="doccomment">/// Returned if e.g. the default input format was requested on an output-only audio device.</span>
-    <span class="ident">StreamTypeNotSupported</span>,
-}
-
-<span class="doccomment">/// Error that can happen when creating a `Voice`.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">CreationError</span> {
-    <span class="doccomment">/// The device no longer exists. This can happen if the device is disconnected while the</span>
-    <span class="doccomment">/// program is running.</span>
-    <span class="ident">DeviceNotAvailable</span>,
-    <span class="doccomment">/// The required format is not supported.</span>
-    <span class="ident">FormatNotSupported</span>,
-}
-
-<span class="doccomment">/// An iterator yielding all `Device`s currently available to the system.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Can be empty if the system does not support audio in general.</span>
-<span class="attribute">#[<span class="ident">inline</span>]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">devices</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Devices</span> {
-    <span class="ident">Devices</span>(<span class="ident">Default</span>::<span class="ident">default</span>())
-}
-
-<span class="doccomment">/// An iterator yielding all `Device`s currently available to the system that support one or more</span>
-<span class="doccomment">/// input stream formats.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Can be empty if the system does not support audio input.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">input_devices</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">InputDevices</span> {
-    <span class="kw">fn</span> <span class="ident">supports_input</span>(<span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="ident">Device</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="ident">device</span>.<span class="ident">supported_input_formats</span>()
-            .<span class="ident">map</span>(<span class="op">|</span><span class="kw-2">mut</span> <span class="ident">iter</span><span class="op">|</span> <span class="ident">iter</span>.<span class="ident">next</span>().<span class="ident">is_some</span>())
-            .<span class="ident">unwrap_or</span>(<span class="bool-val">false</span>)
-    }
-    <span class="ident">devices</span>().<span class="ident">filter</span>(<span class="ident">supports_input</span>)
-}
-
-<span class="doccomment">/// An iterator yielding all `Device`s currently available to the system that support one or more</span>
-<span class="doccomment">/// output stream formats.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Can be empty if the system does not support audio output.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">output_devices</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OutputDevices</span> {
-    <span class="kw">fn</span> <span class="ident">supports_output</span>(<span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="ident">Device</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="ident">device</span>.<span class="ident">supported_output_formats</span>()
-            .<span class="ident">map</span>(<span class="op">|</span><span class="kw-2">mut</span> <span class="ident">iter</span><span class="op">|</span> <span class="ident">iter</span>.<span class="ident">next</span>().<span class="ident">is_some</span>())
-            .<span class="ident">unwrap_or</span>(<span class="bool-val">false</span>)
-    }
-    <span class="ident">devices</span>().<span class="ident">filter</span>(<span class="ident">supports_output</span>)
-}
-
-<span class="doccomment">/// The default input audio device on the system.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Returns `None` if no input device is available.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">default_input_device</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Device</span><span class="op">&gt;</span> {
-    <span class="ident">cpal_impl</span>::<span class="ident">default_input_device</span>().<span class="ident">map</span>(<span class="ident">Device</span>)
-}
-
-<span class="doccomment">/// The default output audio device on the system.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Returns `None` if no output device is available.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">default_output_device</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Device</span><span class="op">&gt;</span> {
-    <span class="ident">cpal_impl</span>::<span class="ident">default_output_device</span>().<span class="ident">map</span>(<span class="ident">Device</span>)
-}
-
-<span class="kw">impl</span> <span class="ident">Device</span> {
-    <span class="doccomment">/// The human-readable name of the device.</span>
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
-        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">name</span>()
-    }
-
-    <span class="doccomment">/// An iterator yielding formats that are supported by the backend.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Can return an error if the device is no longer valid (eg. it has been disconnected).</span>
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">supported_input_formats</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SupportedInputFormats</span>, <span class="ident">FormatsEnumerationError</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="ident">SupportedInputFormats</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">supported_input_formats</span>()<span class="question-mark">?</span>))
-    }
-
-    <span class="doccomment">/// An iterator yielding output stream formats that are supported by the device.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Can return an error if the device is no longer valid (eg. it has been disconnected).</span>
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">supported_output_formats</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SupportedOutputFormats</span>, <span class="ident">FormatsEnumerationError</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="ident">SupportedOutputFormats</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">supported_output_formats</span>()<span class="question-mark">?</span>))
-    }
-
-    <span class="doccomment">/// The default input stream format for the device.</span>
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">default_input_format</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Format</span>, <span class="ident">DefaultFormatError</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">default_input_format</span>()
-    }
-
-    <span class="doccomment">/// The default output stream format for the device.</span>
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">default_output_format</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Format</span>, <span class="ident">DefaultFormatError</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">default_output_format</span>()
-    }
-}
-
-<span class="kw">impl</span> <span class="ident">EventLoop</span> {
-    <span class="doccomment">/// Initializes a new events loop.</span>
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EventLoop</span> {
-        <span class="ident">EventLoop</span>(<span class="ident">cpal_impl</span>::<span class="ident">EventLoop</span>::<span class="ident">new</span>())
-    }
-
-    <span class="doccomment">/// Creates a new input stream that will run from the given device and with the given format.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// On success, returns an identifier for the stream.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Can return an error if the device is no longer valid, or if the input stream format is not</span>
-    <span class="doccomment">/// supported by the device.</span>
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build_input_stream</span>(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="ident">Device</span>,
-        <span class="ident">format</span>: <span class="kw-2">&amp;</span><span class="ident">Format</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">StreamId</span>, <span class="ident">CreationError</span><span class="op">&gt;</span>
-    {
-        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">build_input_stream</span>(<span class="kw-2">&amp;</span><span class="ident">device</span>.<span class="number">0</span>, <span class="ident">format</span>).<span class="ident">map</span>(<span class="ident">StreamId</span>)
-    }
-
-    <span class="doccomment">/// Creates a new output stream that will play on the given device and with the given format.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// On success, returns an identifier for the stream.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Can return an error if the device is no longer valid, or if the output stream format is not</span>
-    <span class="doccomment">/// supported by the device.</span>
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build_output_stream</span>(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="ident">Device</span>,
-        <span class="ident">format</span>: <span class="kw-2">&amp;</span><span class="ident">Format</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">StreamId</span>, <span class="ident">CreationError</span><span class="op">&gt;</span>
-    {
-        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">build_output_stream</span>(<span class="kw-2">&amp;</span><span class="ident">device</span>.<span class="number">0</span>, <span class="ident">format</span>).<span class="ident">map</span>(<span class="ident">StreamId</span>)
-    }
-
-    <span class="doccomment">/// Instructs the audio device that it should start playing the stream with the given ID.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Has no effect is the stream was already playing.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Only call this after you have submitted some data, otherwise you may hear some glitches.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Panic</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// If the stream does not exist, this function can either panic or be a no-op.</span>
-    <span class="doccomment">///</span>
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">play_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">stream</span>: <span class="ident">StreamId</span>) {
-        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">play_stream</span>(<span class="ident">stream</span>.<span class="number">0</span>)
-    }
-
-    <span class="doccomment">/// Instructs the audio device that it should stop playing the stream with the given ID.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Has no effect is the stream was already paused.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// If you call `play` afterwards, the playback will resume where it was.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Panic</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// If the stream does not exist, this function can either panic or be a no-op.</span>
-    <span class="doccomment">///</span>
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pause_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">stream</span>: <span class="ident">StreamId</span>) {
-        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">pause_stream</span>(<span class="ident">stream</span>.<span class="number">0</span>)
-    }
-
-    <span class="doccomment">/// Destroys an existing stream.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Panic</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// If the stream does not exist, this function can either panic or be a no-op.</span>
-    <span class="doccomment">///</span>
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">destroy_stream</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">stream_id</span>: <span class="ident">StreamId</span>) {
-        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">destroy_stream</span>(<span class="ident">stream_id</span>.<span class="number">0</span>)
-    }
-
-    <span class="doccomment">/// Takes control of the current thread and begins the stream processing.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// &gt; **Note**: Since it takes control of the thread, this method is best called on a separate</span>
-    <span class="doccomment">/// &gt; thread.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Whenever a stream needs to be fed some data, the closure passed as parameter is called.</span>
-    <span class="doccomment">/// You can call the other methods of `EventLoop` without getting a deadlock.</span>
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">run</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">callback</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="op">!</span>
-        <span class="kw">where</span> <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="ident">StreamId</span>, <span class="ident">StreamData</span>) <span class="op">+</span> <span class="ident">Send</span>
-    {
-        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">run</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">id</span>, <span class="ident">data</span><span class="op">|</span> <span class="ident">callback</span>(<span class="ident">StreamId</span>(<span class="ident">id</span>), <span class="ident">data</span>))
-    }
 }
 
 <span class="kw">impl</span> <span class="ident">SupportedFormat</span> {
@@ -1365,16 +789,7 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">deref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">T</span>] {
-        <span class="self">self</span>.<span class="ident">buffer</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>().<span class="ident">buffer</span>()
-    }
-}
-
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span><span class="op">&gt;</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">InputBuffer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span><span class="op">&gt;</span>
-    <span class="kw">where</span> <span class="ident">T</span>: <span class="ident">Sample</span>
-{
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
-        <span class="self">self</span>.<span class="ident">buffer</span>.<span class="ident">take</span>().<span class="ident">unwrap</span>().<span class="ident">finish</span>();
+        <span class="self">self</span>.<span class="ident">buffer</span>
     }
 }
 
@@ -1385,7 +800,7 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">deref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">T</span>] {
-        <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;It is forbidden to read from the audio buffer&quot;</span>);
+        <span class="self">self</span>.<span class="ident">buffer</span>
     }
 }
 
@@ -1394,16 +809,7 @@
 {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">fn</span> <span class="ident">deref_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">T</span>] {
-        <span class="self">self</span>.<span class="ident">target</span>.<span class="ident">as_mut</span>().<span class="ident">unwrap</span>().<span class="ident">buffer</span>()
-    }
-}
-
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span><span class="op">&gt;</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">OutputBuffer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span><span class="op">&gt;</span>
-    <span class="kw">where</span> <span class="ident">T</span>: <span class="ident">Sample</span>
-{
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
-        <span class="self">self</span>.<span class="ident">target</span>.<span class="ident">take</span>().<span class="ident">unwrap</span>().<span class="ident">finish</span>();
+        <span class="self">self</span>.<span class="ident">buffer</span>
     }
 }
 
@@ -1424,9 +830,9 @@
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="kw-2">&amp;</span><span class="ident">UnknownTypeOutputBuffer</span>::<span class="ident">U16</span>(<span class="kw-2">ref</span> <span class="ident">buf</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">buf</span>.<span class="ident">target</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>().<span class="ident">len</span>(),
-            <span class="kw-2">&amp;</span><span class="ident">UnknownTypeOutputBuffer</span>::<span class="ident">I16</span>(<span class="kw-2">ref</span> <span class="ident">buf</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">buf</span>.<span class="ident">target</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>().<span class="ident">len</span>(),
-            <span class="kw-2">&amp;</span><span class="ident">UnknownTypeOutputBuffer</span>::<span class="ident">F32</span>(<span class="kw-2">ref</span> <span class="ident">buf</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">buf</span>.<span class="ident">target</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>().<span class="ident">len</span>(),
+            <span class="kw-2">&amp;</span><span class="ident">UnknownTypeOutputBuffer</span>::<span class="ident">U16</span>(<span class="kw-2">ref</span> <span class="ident">buf</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">buf</span>.<span class="ident">len</span>(),
+            <span class="kw-2">&amp;</span><span class="ident">UnknownTypeOutputBuffer</span>::<span class="ident">I16</span>(<span class="kw-2">ref</span> <span class="ident">buf</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">buf</span>.<span class="ident">len</span>(),
+            <span class="kw-2">&amp;</span><span class="ident">UnknownTypeOutputBuffer</span>::<span class="ident">F32</span>(<span class="kw-2">ref</span> <span class="ident">buf</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">buf</span>.<span class="ident">len</span>(),
         }
     }
 }
@@ -1439,110 +845,6 @@
             <span class="ident">min_sample_rate</span>: <span class="ident">format</span>.<span class="ident">sample_rate</span>,
             <span class="ident">max_sample_rate</span>: <span class="ident">format</span>.<span class="ident">sample_rate</span>,
             <span class="ident">data_type</span>: <span class="ident">format</span>.<span class="ident">data_type</span>,
-        }
-    }
-}
-
-<span class="kw">impl</span> <span class="ident">Iterator</span> <span class="kw">for</span> <span class="ident">Devices</span> {
-    <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">Device</span>;
-
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Item</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">next</span>().<span class="ident">map</span>(<span class="ident">Device</span>)
-    }
-
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">size_hint</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">usize</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>) {
-        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">size_hint</span>()
-    }
-}
-
-<span class="kw">impl</span> <span class="ident">Iterator</span> <span class="kw">for</span> <span class="ident">SupportedInputFormats</span> {
-    <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">SupportedFormat</span>;
-
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SupportedFormat</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">next</span>()
-    }
-
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">size_hint</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">usize</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>) {
-        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">size_hint</span>()
-    }
-}
-
-<span class="kw">impl</span> <span class="ident">Iterator</span> <span class="kw">for</span> <span class="ident">SupportedOutputFormats</span> {
-    <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">SupportedFormat</span>;
-
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SupportedFormat</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">next</span>()
-    }
-
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">size_hint</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">usize</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>) {
-        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">size_hint</span>()
-    }
-}
-
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">FormatsEnumerationError</span> {
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">fmt</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">fmt</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="macro">write</span><span class="macro">!</span>(<span class="ident">fmt</span>, <span class="string">&quot;{}&quot;</span>, <span class="self">self</span>.<span class="ident">description</span>())
-    }
-}
-
-<span class="kw">impl</span> <span class="ident">Error</span> <span class="kw">for</span> <span class="ident">FormatsEnumerationError</span> {
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">description</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
-        <span class="kw">match</span> <span class="self">self</span> {
-            <span class="kw-2">&amp;</span><span class="ident">FormatsEnumerationError</span>::<span class="ident">DeviceNotAvailable</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="string">&quot;The requested device is no longer available (for example, it has been unplugged).&quot;</span>
-            },
-        }
-    }
-}
-
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">CreationError</span> {
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">fmt</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">fmt</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="macro">write</span><span class="macro">!</span>(<span class="ident">fmt</span>, <span class="string">&quot;{}&quot;</span>, <span class="self">self</span>.<span class="ident">description</span>())
-    }
-}
-
-<span class="kw">impl</span> <span class="ident">Error</span> <span class="kw">for</span> <span class="ident">CreationError</span> {
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">description</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
-        <span class="kw">match</span> <span class="self">self</span> {
-            <span class="kw-2">&amp;</span><span class="ident">CreationError</span>::<span class="ident">DeviceNotAvailable</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="string">&quot;The requested device is no longer available (for example, it has been unplugged).&quot;</span>
-            },
-
-            <span class="kw-2">&amp;</span><span class="ident">CreationError</span>::<span class="ident">FormatNotSupported</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="string">&quot;The requested samples format is not supported by the device.&quot;</span>
-            },
-        }
-    }
-}
-
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">DefaultFormatError</span> {
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">fmt</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">fmt</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="macro">write</span><span class="macro">!</span>(<span class="ident">fmt</span>, <span class="string">&quot;{}&quot;</span>, <span class="self">self</span>.<span class="ident">description</span>())
-    }
-}
-
-<span class="kw">impl</span> <span class="ident">Error</span> <span class="kw">for</span> <span class="ident">DefaultFormatError</span> {
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">description</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
-        <span class="kw">match</span> <span class="self">self</span> {
-            <span class="kw-2">&amp;</span><span class="ident">DefaultFormatError</span>::<span class="ident">DeviceNotAvailable</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="ident">CreationError</span>::<span class="ident">DeviceNotAvailable</span>.<span class="ident">description</span>()
-            },
-
-            <span class="kw-2">&amp;</span><span class="ident">DefaultFormatError</span>::<span class="ident">StreamTypeNotSupported</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="string">&quot;The requested stream type is not supported by the device.&quot;</span>
-            },
         }
     }
 }

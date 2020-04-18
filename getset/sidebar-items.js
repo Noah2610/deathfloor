@@ -1,1 +1,1 @@
-initSidebarItems({"derive":[["Getters",""],["MutGetters",""],["Setters",""]]});
+initSidebarItems({"derive":[["CopyGetters",""],["Getters",""],["MutGetters",""],["Setters",""]]});

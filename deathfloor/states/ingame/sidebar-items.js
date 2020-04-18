@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["Ingame",""]]});
+initSidebarItems({"fn":[["handle_input",""]],"struct":[["Ingame",""]]});

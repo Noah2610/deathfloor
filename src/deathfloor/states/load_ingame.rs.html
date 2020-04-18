@@ -27,7 +27,6 @@
 <span id="27">27</span>
 <span id="28">28</span>
 <span id="29">29</span>
-<span id="30">30</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">state_prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">helpers</span>::<span class="ident">resource</span>;
@@ -53,9 +52,8 @@
 
     <span class="kw">fn</span> <span class="ident">update</span>(
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="ident">data</span>: <span class="ident">StateData</span><span class="op">&lt;</span><span class="ident">GameData</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="ident">_data</span>: <span class="ident">StateData</span><span class="op">&lt;</span><span class="ident">GameData</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Trans</span><span class="op">&lt;</span><span class="ident">GameData</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span><span class="op">&gt;</span>, <span class="ident">StateEvent</span><span class="op">&gt;</span> {
-        <span class="ident">data</span>.<span class="ident">data</span>.<span class="ident">update_core</span>(<span class="ident">data</span>.<span class="ident">world</span>);
         <span class="ident">Trans</span>::<span class="ident">Switch</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">Ingame</span>::<span class="ident">default</span>()))
     }
 }

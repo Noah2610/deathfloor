@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/lewton-0.9.4/src/audio.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>audio.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../lewton/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/lewton-0.10.1/src/audio.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>audio.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../lewton/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
 <span id="4">   4</span>
@@ -1162,14 +1162,6 @@
 <span id="1162">1162</span>
 <span id="1163">1163</span>
 <span id="1164">1164</span>
-<span id="1165">1165</span>
-<span id="1166">1166</span>
-<span id="1167">1167</span>
-<span id="1168">1168</span>
-<span id="1169">1169</span>
-<span id="1170">1170</span>
-<span id="1171">1171</span>
-<span id="1172">1172</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Vorbis decoder written in Rust</span>
 <span class="comment">//</span>
@@ -1191,7 +1183,7 @@ This module decodes the audio packets given to it.
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">cmp</span>::<span class="ident">min</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">iter</span>;
-<span class="kw">use</span> <span class="ident">smallvec</span>::<span class="ident">SmallVec</span>;
+<span class="kw">use</span> <span class="ident">tinyvec</span>::<span class="ident">TinyVec</span>;
 <span class="kw">use</span> ::<span class="ident">ilog</span>;
 <span class="kw">use</span> ::<span class="ident">bitpacking</span>::<span class="ident">BitpackCursor</span>;
 <span class="kw">use</span> ::<span class="ident">header</span>::{<span class="ident">Codebook</span>, <span class="ident">Floor</span>, <span class="ident">FloorTypeZero</span>, <span class="ident">FloorTypeOne</span>,
@@ -1224,24 +1216,17 @@ This module decodes the audio packets given to it.
 	}
 }
 
-<span class="kw">impl</span> <span class="ident">error</span>::<span class="ident">Error</span> <span class="kw">for</span> <span class="ident">AudioReadError</span> {
-	<span class="kw">fn</span> <span class="ident">description</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
-		<span class="kw">match</span> <span class="self">self</span> {
-			<span class="kw-2">&amp;</span><span class="ident">AudioReadError</span>::<span class="ident">EndOfPacket</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;End of packet reached.&quot;</span>,
-			<span class="kw-2">&amp;</span><span class="ident">AudioReadError</span>::<span class="ident">AudioBadFormat</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Invalid audio packet&quot;</span>,
-			<span class="kw-2">&amp;</span><span class="ident">AudioReadError</span>::<span class="ident">AudioIsHeader</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;The vorbis version is not supported&quot;</span>,
-			<span class="kw-2">&amp;</span><span class="ident">AudioReadError</span>::<span class="ident">BufferNotAddressable</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Requested to create buffer of non-addressable size&quot;</span>,
-		}
-	}
-
-	<span class="kw">fn</span> <span class="ident">cause</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">error</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="prelude-val">None</span>
-	}
-}
+<span class="kw">impl</span> <span class="ident">error</span>::<span class="ident">Error</span> <span class="kw">for</span> <span class="ident">AudioReadError</span> {}
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">AudioReadError</span> {
 	<span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">fmt</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">fmt</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="macro">write</span><span class="macro">!</span>(<span class="ident">fmt</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">error</span>::<span class="ident">Error</span>::<span class="ident">description</span>(<span class="self">self</span>))
+		<span class="kw">let</span> <span class="ident">description</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span> {
+			<span class="ident">AudioReadError</span>::<span class="ident">EndOfPacket</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;End of packet reached.&quot;</span>,
+			<span class="ident">AudioReadError</span>::<span class="ident">AudioBadFormat</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Invalid audio packet&quot;</span>,
+			<span class="ident">AudioReadError</span>::<span class="ident">AudioIsHeader</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;The vorbis version is not supported&quot;</span>,
+			<span class="ident">AudioReadError</span>::<span class="ident">BufferNotAddressable</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Requested to create buffer of non-addressable size&quot;</span>,
+		};
+		<span class="macro">write</span><span class="macro">!</span>(<span class="ident">fmt</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">description</span>)
 	}
 }
 
@@ -1293,48 +1278,48 @@ This module decodes the audio packets given to it.
 	<span class="comment">// TODO this needs to become 128 bits wide, not just 64,</span>
 	<span class="comment">// as floor0_amplitude_bits can be up to 127.</span>
 	<span class="kw">let</span> <span class="ident">amplitude</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">rdr</span>.<span class="ident">read_dyn_u64</span>(<span class="ident">fl</span>.<span class="ident">floor0_amplitude_bits</span>));
-	<span class="kw">if</span> <span class="ident">amplitude</span> <span class="op">&gt;</span> <span class="number">0</span> {
-		<span class="kw">let</span> <span class="ident">booknumber</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">rdr</span>.<span class="ident">read_dyn_u32</span>(
-			::<span class="ident">ilog</span>(<span class="ident">fl</span>.<span class="ident">floor0_number_of_books</span> <span class="kw">as</span> <span class="ident">u64</span>)));
-		<span class="kw">match</span> <span class="ident">fl</span>.<span class="ident">floor0_book_list</span>.<span class="ident">get</span>(<span class="ident">booknumber</span> <span class="kw">as</span> <span class="ident">usize</span>) {
-			<span class="comment">// Undecodable per spec</span>
-			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">try</span><span class="macro">!</span>(<span class="prelude-val">Err</span>(<span class="ident">FloorSpecialCase</span>::<span class="ident">PacketUndecodable</span>)),
-			<span class="prelude-val">Some</span>(<span class="ident">codebook_idx</span>) <span class="op">=</span><span class="op">&gt;</span> {
-				<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">coefficients</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">with_capacity</span>(<span class="ident">fl</span>.<span class="ident">floor0_order</span> <span class="kw">as</span> <span class="ident">usize</span>);
-				<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">last</span> <span class="op">=</span> <span class="number">0.0</span>;
-				<span class="kw">let</span> <span class="ident">codebook</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">codebooks</span>[<span class="kw-2">*</span><span class="ident">codebook_idx</span> <span class="kw">as</span> <span class="ident">usize</span>];
-				<span class="kw">loop</span> {
-					<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">last_new</span> <span class="op">=</span> <span class="ident">last</span>;
-					<span class="kw">let</span> <span class="ident">temp_vector</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">rdr</span>.<span class="ident">read_huffman_vq</span>(<span class="ident">codebook</span>));
-					<span class="kw">if</span> <span class="ident">temp_vector</span>.<span class="ident">len</span>() <span class="op">+</span> <span class="ident">coefficients</span>.<span class="ident">len</span>() <span class="op">&lt;</span> <span class="ident">fl</span>.<span class="ident">floor0_order</span> <span class="kw">as</span> <span class="ident">usize</span> {
-						<span class="comment">// Little optimisation: we don&#39;t have to care about the &gt;= case here</span>
-						<span class="kw">for</span> <span class="kw-2">&amp;</span><span class="ident">e</span> <span class="kw">in</span> <span class="ident">temp_vector</span> {
-							<span class="ident">coefficients</span>.<span class="ident">push</span>((<span class="ident">last</span> <span class="op">+</span> <span class="ident">e</span> <span class="kw">as</span> <span class="ident">f32</span>).<span class="ident">cos</span>());
-							<span class="ident">last_new</span> <span class="op">=</span> <span class="ident">e</span> <span class="kw">as</span> <span class="ident">f32</span>;
-						}
-					} <span class="kw">else</span> {
-						<span class="kw">for</span> <span class="kw-2">&amp;</span><span class="ident">e</span> <span class="kw">in</span> <span class="ident">temp_vector</span> {
-							<span class="ident">coefficients</span>.<span class="ident">push</span>((<span class="ident">last</span> <span class="op">+</span> <span class="ident">e</span> <span class="kw">as</span> <span class="ident">f32</span>).<span class="ident">cos</span>());
-							<span class="ident">last_new</span> <span class="op">=</span> <span class="ident">e</span> <span class="kw">as</span> <span class="ident">f32</span>;
-							<span class="comment">// This rule makes sure that coefficients doesn&#39;t get</span>
-							<span class="comment">// larger than floor0_order and saves an allocation</span>
-							<span class="comment">// in this case</span>
-							<span class="kw">if</span> <span class="ident">coefficients</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">fl</span>.<span class="ident">floor0_order</span> <span class="kw">as</span> <span class="ident">usize</span> {
-								<span class="kw">return</span> <span class="prelude-val">Ok</span>((<span class="ident">coefficients</span>, <span class="ident">amplitude</span>));
-							}
-						}
-					}
-					<span class="ident">last</span> <span class="op">+</span><span class="op">=</span> <span class="ident">last_new</span>;
-					<span class="kw">if</span> <span class="ident">coefficients</span>.<span class="ident">len</span>() <span class="op">&gt;</span><span class="op">=</span> <span class="ident">fl</span>.<span class="ident">floor0_order</span> <span class="kw">as</span> <span class="ident">usize</span> {
-						<span class="kw">return</span> <span class="prelude-val">Ok</span>((<span class="ident">coefficients</span>, <span class="ident">amplitude</span>));
-					}
-				}
-			},
-		}
-	} <span class="kw">else</span> {
+	<span class="kw">if</span> <span class="ident">amplitude</span> <span class="op">&lt;</span><span class="op">=</span> <span class="number">0</span> {
 		<span class="comment">// This channel is unused in this frame,</span>
 		<span class="comment">// its all zeros.</span>
-		<span class="macro">try</span><span class="macro">!</span>(<span class="prelude-val">Err</span>(<span class="ident">FloorSpecialCase</span>::<span class="ident">Unused</span>));
+		<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">FloorSpecialCase</span>::<span class="ident">Unused</span>);
+	}
+
+	<span class="kw">let</span> <span class="ident">booknumber</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">rdr</span>.<span class="ident">read_dyn_u32</span>(
+		::<span class="ident">ilog</span>(<span class="ident">fl</span>.<span class="ident">floor0_number_of_books</span> <span class="kw">as</span> <span class="ident">u64</span>)));
+	<span class="kw">match</span> <span class="ident">fl</span>.<span class="ident">floor0_book_list</span>.<span class="ident">get</span>(<span class="ident">booknumber</span> <span class="kw">as</span> <span class="ident">usize</span>) {
+		<span class="comment">// Undecodable per spec</span>
+		<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">try</span><span class="macro">!</span>(<span class="prelude-val">Err</span>(<span class="ident">FloorSpecialCase</span>::<span class="ident">PacketUndecodable</span>)),
+		<span class="prelude-val">Some</span>(<span class="ident">codebook_idx</span>) <span class="op">=</span><span class="op">&gt;</span> {
+			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">coefficients</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">with_capacity</span>(<span class="ident">fl</span>.<span class="ident">floor0_order</span> <span class="kw">as</span> <span class="ident">usize</span>);
+			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">last</span> <span class="op">=</span> <span class="number">0.0</span>;
+			<span class="kw">let</span> <span class="ident">codebook</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">codebooks</span>[<span class="kw-2">*</span><span class="ident">codebook_idx</span> <span class="kw">as</span> <span class="ident">usize</span>];
+			<span class="kw">loop</span> {
+				<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">last_new</span> <span class="op">=</span> <span class="ident">last</span>;
+				<span class="kw">let</span> <span class="ident">temp_vector</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">rdr</span>.<span class="ident">read_huffman_vq</span>(<span class="ident">codebook</span>));
+				<span class="kw">if</span> <span class="ident">temp_vector</span>.<span class="ident">len</span>() <span class="op">+</span> <span class="ident">coefficients</span>.<span class="ident">len</span>() <span class="op">&lt;</span> <span class="ident">fl</span>.<span class="ident">floor0_order</span> <span class="kw">as</span> <span class="ident">usize</span> {
+					<span class="comment">// Little optimisation: we don&#39;t have to care about the &gt;= case here</span>
+					<span class="kw">for</span> <span class="kw-2">&amp;</span><span class="ident">e</span> <span class="kw">in</span> <span class="ident">temp_vector</span> {
+						<span class="ident">coefficients</span>.<span class="ident">push</span>((<span class="ident">last</span> <span class="op">+</span> <span class="ident">e</span> <span class="kw">as</span> <span class="ident">f32</span>).<span class="ident">cos</span>());
+						<span class="ident">last_new</span> <span class="op">=</span> <span class="ident">e</span> <span class="kw">as</span> <span class="ident">f32</span>;
+					}
+				} <span class="kw">else</span> {
+					<span class="kw">for</span> <span class="kw-2">&amp;</span><span class="ident">e</span> <span class="kw">in</span> <span class="ident">temp_vector</span> {
+						<span class="ident">coefficients</span>.<span class="ident">push</span>((<span class="ident">last</span> <span class="op">+</span> <span class="ident">e</span> <span class="kw">as</span> <span class="ident">f32</span>).<span class="ident">cos</span>());
+						<span class="ident">last_new</span> <span class="op">=</span> <span class="ident">e</span> <span class="kw">as</span> <span class="ident">f32</span>;
+						<span class="comment">// This rule makes sure that coefficients doesn&#39;t get</span>
+						<span class="comment">// larger than floor0_order and saves an allocation</span>
+						<span class="comment">// in this case</span>
+						<span class="kw">if</span> <span class="ident">coefficients</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">fl</span>.<span class="ident">floor0_order</span> <span class="kw">as</span> <span class="ident">usize</span> {
+							<span class="kw">return</span> <span class="prelude-val">Ok</span>((<span class="ident">coefficients</span>, <span class="ident">amplitude</span>));
+						}
+					}
+				}
+				<span class="ident">last</span> <span class="op">+</span><span class="op">=</span> <span class="ident">last_new</span>;
+				<span class="kw">if</span> <span class="ident">coefficients</span>.<span class="ident">len</span>() <span class="op">&gt;</span><span class="op">=</span> <span class="ident">fl</span>.<span class="ident">floor0_order</span> <span class="kw">as</span> <span class="ident">usize</span> {
+					<span class="kw">return</span> <span class="prelude-val">Ok</span>((<span class="ident">coefficients</span>, <span class="ident">amplitude</span>));
+				}
+			}
+		},
 	}
 	<span class="macro">unreachable</span><span class="macro">!</span>();
 }
@@ -1432,41 +1417,45 @@ This module decodes the audio packets given to it.
 	<span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">floor1_y</span>);
 }
 
-<span class="kw">fn</span> <span class="ident">extr_neighbor</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="ident">v</span> :<span class="kw-2">&amp;</span>[<span class="ident">u32</span>], <span class="ident">x</span> :<span class="ident">usize</span>,
-		<span class="ident">compare</span> :<span class="ident">F</span>, <span class="ident">s</span> :<span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">usize</span>, <span class="ident">u32</span>)
-		<span class="kw">where</span> <span class="ident">F</span> :<span class="ident">Fn</span>(<span class="ident">u32</span>, <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-	<span class="kw">let</span> <span class="ident">bound</span> <span class="op">=</span> <span class="ident">v</span>[<span class="ident">x</span>];
-	<span class="kw">let</span> <span class="ident">sm</span> <span class="op">=</span> <span class="ident">v</span>.<span class="ident">split_at</span>(<span class="ident">x</span> <span class="kw">as</span> <span class="ident">usize</span>).<span class="number">0</span>;
+<span class="kw">fn</span> <span class="ident">extr_neighbor</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="ident">v</span> :<span class="kw-2">&amp;</span>[<span class="ident">u32</span>], <span class="ident">max_idx</span> :<span class="ident">usize</span>,
+		<span class="ident">compare</span> :<span class="ident">F</span>, <span class="ident">relation</span> :<span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">usize</span>, <span class="ident">u32</span>)
+		<span class="kw">where</span> <span class="ident">F</span> :<span class="ident">Fn</span>(<span class="ident">u32</span>, <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">cmp</span>::<span class="ident">Ordering</span> {
+	<span class="kw">use</span> ::<span class="ident">std</span>::<span class="ident">cmp</span>::<span class="ident">Ordering</span>;
+
+	<span class="kw">let</span> <span class="ident">bound</span> <span class="op">=</span> <span class="ident">v</span>[<span class="ident">max_idx</span>];
+	<span class="kw">let</span> <span class="ident">prefix</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">v</span>[..<span class="ident">max_idx</span>];
+	<span class="kw">let</span> <span class="ident">smaller</span> <span class="op">=</span> <span class="op">|</span><span class="ident">a</span>, <span class="ident">b</span><span class="op">|</span> <span class="ident">compare</span>(<span class="ident">a</span>, <span class="ident">b</span>) <span class="op">=</span><span class="op">=</span> <span class="ident">Ordering</span>::<span class="ident">Less</span>;
+
 	<span class="comment">// First find a first index that fulfills</span>
-	<span class="comment">// the criterion of being &quot;smaller&quot; than bound;</span>
-	<span class="comment">// If &quot;a smaller b&quot; means compare(a, b) == true</span>
-	<span class="kw">let</span> (<span class="kw-2">mut</span> <span class="ident">extr_idx</span>, <span class="kw-2">mut</span> <span class="ident">max_val</span>) <span class="op">=</span> (<span class="op">|</span><span class="op">|</span> {
-		<span class="kw">for</span> <span class="ident">tu</span> <span class="kw">in</span> <span class="ident">sm</span>.<span class="ident">iter</span>().<span class="ident">cloned</span>().<span class="ident">enumerate</span>() {
-			<span class="kw">if</span> <span class="ident">compare</span>(<span class="ident">tu</span>.<span class="number">1</span>, <span class="ident">bound</span>) { <span class="kw">return</span> <span class="ident">tu</span>; }
-		}
-		<span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;No index y &lt; {} found where v[y] is {} than v[{}] = 0x{:08x}!&quot;</span>,
-			<span class="ident">x</span>, <span class="ident">s</span>, <span class="ident">x</span>, <span class="ident">bound</span>);
-	}) ();
-	<span class="comment">// Now search for &quot;bigger&quot; entries;</span>
-	<span class="comment">// If &quot;a bigger b&quot; means compare(b, a) == true</span>
-	<span class="kw">let</span> <span class="ident">split_idx</span> <span class="op">=</span> <span class="ident">extr_idx</span>;
-	<span class="kw">let</span> <span class="ident">smm</span> <span class="op">=</span> <span class="ident">sm</span>.<span class="ident">split_at</span>(<span class="ident">split_idx</span>).<span class="number">1</span>;
-	<span class="kw">for</span> (<span class="ident">idx</span>, <span class="ident">val</span>) <span class="kw">in</span> <span class="ident">smm</span>.<span class="ident">iter</span>().<span class="ident">cloned</span>().<span class="ident">enumerate</span>() {
-		<span class="kw">if</span> <span class="ident">compare</span>(<span class="ident">val</span>, <span class="ident">bound</span>) <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">compare</span>(<span class="ident">max_val</span>, <span class="ident">val</span>) {
-			<span class="ident">extr_idx</span> <span class="op">=</span> <span class="ident">idx</span> <span class="op">+</span> <span class="ident">split_idx</span>;
-			<span class="ident">max_val</span> <span class="op">=</span> <span class="ident">val</span>;
-		}
-	}
-	<span class="kw">return</span> (<span class="ident">extr_idx</span>, <span class="ident">max_val</span>);
+	<span class="comment">// the criterion of being &quot;smaller&quot; than bound</span>
+	<span class="kw">let</span> <span class="ident">min_idx</span> <span class="op">=</span> <span class="ident">prefix</span>.<span class="ident">iter</span>()
+		.<span class="ident">position</span>(<span class="op">|</span><span class="kw-2">&amp;</span><span class="ident">val</span><span class="op">|</span> <span class="ident">smaller</span>(<span class="ident">val</span>, <span class="ident">bound</span>))
+		.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span>
+			<span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;No index y &lt; {0} found where v[y] is {1} than v[{0}] = 0x{2:08x}!&quot;</span>,
+				<span class="ident">max_idx</span>, <span class="ident">relation</span>, <span class="ident">bound</span>));
+
+	<span class="comment">// Now search for &quot;bigger&quot; entries</span>
+	<span class="kw">let</span> (<span class="ident">offset</span>, <span class="ident">max_neighbor</span>) <span class="op">=</span> <span class="ident">prefix</span>[<span class="ident">min_idx</span>..].<span class="ident">iter</span>().<span class="ident">cloned</span>()
+		.<span class="ident">enumerate</span>()
+		<span class="comment">// According to documentation of Iterator::max_by,</span>
+		<span class="comment">// &quot;If several elements are equally maximum, the last element is returned&quot;.</span>
+		<span class="comment">// Thus, in order to find the *first* maximum element,</span>
+		<span class="comment">// we need to search from the end of `prefix`</span>
+		.<span class="ident">rev</span>()
+		.<span class="ident">filter</span>(<span class="op">|</span><span class="kw-2">&amp;</span>(<span class="ident">_i</span>, <span class="ident">val</span>)<span class="op">|</span> <span class="ident">smaller</span>(<span class="ident">val</span>, <span class="ident">bound</span>))
+		.<span class="ident">max_by</span>(<span class="op">|</span><span class="kw-2">&amp;</span>(<span class="kw">_</span>, <span class="ident">a</span>), <span class="kw-2">&amp;</span>(<span class="kw">_</span>, <span class="ident">b</span>)<span class="op">|</span> <span class="ident">compare</span>(<span class="ident">a</span>, <span class="ident">b</span>))
+		.<span class="ident">unwrap_or</span>((<span class="number">0</span>, <span class="ident">v</span>[<span class="ident">min_idx</span>]));
+
+	(<span class="ident">min_idx</span> <span class="op">+</span> <span class="ident">offset</span>, <span class="ident">max_neighbor</span>)
 }
 
 <span class="kw">fn</span> <span class="ident">low_neighbor</span>(<span class="ident">v</span> :<span class="kw-2">&amp;</span>[<span class="ident">u32</span>], <span class="ident">x</span> :<span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">usize</span>, <span class="ident">u32</span>) {
-	<span class="kw">return</span> <span class="ident">extr_neighbor</span>(<span class="ident">v</span>, <span class="ident">x</span>, <span class="op">|</span><span class="ident">a</span>, <span class="ident">b</span><span class="op">|</span> {<span class="ident">a</span> <span class="op">&lt;</span> <span class="ident">b</span>}, <span class="string">&quot;smaller&quot;</span>);
+	<span class="ident">extr_neighbor</span>(<span class="ident">v</span>, <span class="ident">x</span>, <span class="op">|</span><span class="ident">a</span>, <span class="ident">b</span><span class="op">|</span> <span class="ident">a</span>.<span class="ident">cmp</span>(<span class="kw-2">&amp;</span><span class="ident">b</span>), <span class="string">&quot;smaller&quot;</span>)
 }
 
 
 <span class="kw">fn</span> <span class="ident">high_neighbor</span>(<span class="ident">v</span> :<span class="kw-2">&amp;</span>[<span class="ident">u32</span>], <span class="ident">x</span> :<span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">usize</span>, <span class="ident">u32</span>) {
-	<span class="kw">return</span> <span class="ident">extr_neighbor</span>(<span class="ident">v</span>, <span class="ident">x</span>, <span class="op">|</span><span class="ident">a</span>, <span class="ident">b</span><span class="op">|</span> {<span class="ident">a</span> <span class="op">&gt;</span> <span class="ident">b</span>}, <span class="string">&quot;bigger&quot;</span>);
+	<span class="ident">extr_neighbor</span>(<span class="ident">v</span>, <span class="ident">x</span>, <span class="op">|</span><span class="ident">a</span>, <span class="ident">b</span><span class="op">|</span> <span class="ident">b</span>.<span class="ident">cmp</span>(<span class="kw-2">&amp;</span><span class="ident">a</span>), <span class="string">&quot;bigger&quot;</span>)
 }
 
 <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1592,13 +1581,13 @@ This module decodes the audio packets given to it.
 			<span class="ident">floor1_step2_flag</span>.<span class="ident">push</span>(<span class="bool-val">true</span>);
 			<span class="ident">floor1_final_y</span>.<span class="ident">push</span>(<span class="kw">if</span> <span class="ident">val</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">room</span> {
 				<span class="kw">if</span> <span class="ident">highroom</span> <span class="op">&gt;</span> <span class="ident">lowroom</span> {
-					(<span class="ident">predicted</span> <span class="op">+</span> <span class="ident">val</span> <span class="op">-</span> <span class="ident">lowroom</span>)
+					<span class="ident">predicted</span> <span class="op">+</span> <span class="ident">val</span> <span class="op">-</span> <span class="ident">lowroom</span>
 				} <span class="kw">else</span> {
-					(<span class="ident">predicted</span> <span class="op">-</span> <span class="ident">val</span> <span class="op">+</span> <span class="ident">highroom</span> <span class="op">-</span> <span class="number">1</span>)
+					<span class="ident">predicted</span> <span class="op">-</span> <span class="ident">val</span> <span class="op">+</span> <span class="ident">highroom</span> <span class="op">-</span> <span class="number">1</span>
 				}
 			} <span class="kw">else</span> {
-				(<span class="ident">predicted</span> <span class="op">+</span> (<span class="kw">if</span> <span class="ident">val</span> <span class="op">%</span> <span class="number">2</span> <span class="op">=</span><span class="op">=</span> <span class="number">1</span> {
-					<span class="op">-</span> <span class="ident">val</span> <span class="op">-</span> <span class="number">1</span> } <span class="kw">else</span> { <span class="ident">val</span> } <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">1</span>))
+				<span class="ident">predicted</span> <span class="op">+</span> (<span class="kw">if</span> <span class="ident">val</span> <span class="op">%</span> <span class="number">2</span> <span class="op">=</span><span class="op">=</span> <span class="number">1</span> {
+					<span class="op">-</span> <span class="ident">val</span> <span class="op">-</span> <span class="number">1</span> } <span class="kw">else</span> { <span class="ident">val</span> } <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">1</span>)
 			} <span class="kw">as</span> <span class="ident">u32</span>);
 		} <span class="kw">else</span> {
 			<span class="ident">floor1_final_y</span>.<span class="ident">push</span>(<span class="ident">predicted</span> <span class="kw">as</span> <span class="ident">u32</span>);
@@ -1957,27 +1946,22 @@ This module decodes the audio packets given to it.
 <span class="comment">// this function in unsafe code, no idea</span>
 <span class="kw">fn</span> <span class="ident">dual_mut_idx</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">v</span> :<span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">T</span>], <span class="ident">idx_a</span> :<span class="ident">usize</span>, <span class="ident">idx_b</span> :<span class="ident">usize</span>)
 		<span class="op">-</span><span class="op">&gt;</span> (<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">T</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">T</span>) {
-	<span class="kw">if</span> <span class="ident">idx_a</span> <span class="op">&lt;</span> <span class="ident">idx_b</span> {
-		<span class="kw">let</span> <span class="ident">sl</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">v</span>[<span class="ident">idx_a</span>..<span class="ident">idx_b</span> <span class="op">+</span> <span class="number">1</span>];
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">it</span> <span class="op">=</span> <span class="ident">sl</span>.<span class="ident">iter_mut</span>();
-		(<span class="ident">it</span>.<span class="ident">next</span>().<span class="ident">unwrap</span>(), <span class="ident">it</span>.<span class="ident">last</span>().<span class="ident">unwrap</span>())
-	} <span class="kw">else</span> <span class="kw">if</span> <span class="ident">idx_a</span> <span class="op">&gt;</span> <span class="ident">idx_b</span> {
-		<span class="kw">let</span> <span class="ident">sl</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">v</span>[<span class="ident">idx_b</span>..<span class="ident">idx_a</span> <span class="op">+</span> <span class="number">1</span>];
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">it</span> <span class="op">=</span> <span class="ident">sl</span>.<span class="ident">iter_mut</span>();
-		(<span class="ident">it</span>.<span class="ident">next</span>().<span class="ident">unwrap</span>(), <span class="ident">it</span>.<span class="ident">last</span>().<span class="ident">unwrap</span>())
-	} <span class="kw">else</span> {
-		<span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;not allowed, indices must be different!&quot;</span>);
-	}
+	<span class="macro">assert_ne</span><span class="macro">!</span>(<span class="ident">idx_a</span>, <span class="ident">idx_b</span>, <span class="string">&quot;not allowed, indices must be different!&quot;</span>);
+
+	<span class="kw">let</span> <span class="ident">range</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">idx_a</span> <span class="op">&lt;</span> <span class="ident">idx_b</span> { <span class="ident">idx_a</span>..<span class="ident">idx_b</span><span class="op">+</span><span class="number">1</span> } <span class="kw">else</span> { <span class="ident">idx_b</span>..<span class="ident">idx_a</span><span class="op">+</span><span class="number">1</span> };
+	<span class="kw">let</span> <span class="ident">segment</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">v</span>[<span class="ident">range</span>];
+	<span class="kw">let</span> (<span class="ident">first</span>, <span class="ident">rest</span>) <span class="op">=</span> <span class="ident">segment</span>.<span class="ident">split_first_mut</span>().<span class="ident">unwrap</span>();
+	<span class="kw">let</span> (<span class="ident">last</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="ident">rest</span>.<span class="ident">split_last_mut</span>().<span class="ident">unwrap</span>();
+	(<span class="ident">first</span>, <span class="ident">last</span>)
 }
 
 <span class="kw">fn</span> <span class="ident">dct_iv_slow</span>(<span class="ident">buffer</span> :<span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">f32</span>]) {
-	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">mcos</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">with_capacity</span>(<span class="number">16384</span>);
-	<span class="kw">let</span> <span class="ident">x</span> <span class="op">=</span> <span class="ident">buffer</span>.<span class="ident">to_owned</span>().<span class="ident">clone</span>();
+	<span class="kw">let</span> <span class="ident">x</span> <span class="op">=</span> <span class="ident">buffer</span>.<span class="ident">to_vec</span>();
 	<span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <span class="ident">buffer</span>.<span class="ident">len</span>();
 	<span class="kw">let</span> <span class="ident">nmask</span> <span class="op">=</span> (<span class="ident">n</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">3</span>) <span class="op">-</span> <span class="number">1</span>;
-	<span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span> .. <span class="number">8</span> <span class="op">*</span> <span class="ident">n</span> {
-		<span class="ident">mcos</span>.<span class="ident">push</span>(<span class="ident">f32</span>::<span class="ident">cos</span>(::<span class="ident">std</span>::<span class="ident">f32</span>::<span class="ident">consts</span>::<span class="ident">PI</span> <span class="op">/</span> <span class="number">4.</span> <span class="op">*</span> (<span class="ident">i</span> <span class="kw">as</span> <span class="ident">f32</span>) <span class="op">/</span> (<span class="ident">n</span> <span class="kw">as</span> <span class="ident">f32</span>)));
-	}
+	<span class="kw">let</span> <span class="ident">mcos</span> <span class="op">=</span> (<span class="number">0</span> .. <span class="number">8</span> <span class="op">*</span> <span class="ident">n</span>)
+		.<span class="ident">map</span>(<span class="op">|</span><span class="ident">i</span><span class="op">|</span> (::<span class="ident">std</span>::<span class="ident">f32</span>::<span class="ident">consts</span>::<span class="ident">FRAC_PI_4</span> <span class="op">*</span> (<span class="ident">i</span> <span class="kw">as</span> <span class="ident">f32</span>) <span class="op">/</span> (<span class="ident">n</span> <span class="kw">as</span> <span class="ident">f32</span>)).<span class="ident">cos</span>())
+		.<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
 	<span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span> .. <span class="ident">n</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">acc</span> <span class="op">=</span> <span class="number">0.</span>;
 		<span class="kw">for</span> <span class="ident">j</span> <span class="kw">in</span> <span class="number">0</span> .. <span class="ident">n</span> {
@@ -1986,13 +1970,14 @@ This module decodes the audio packets given to it.
 		<span class="ident">buffer</span>[<span class="ident">i</span>] <span class="op">=</span> <span class="ident">acc</span>;
 	}
 }
+
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
 <span class="kw">fn</span> <span class="ident">inverse_mdct_slow</span>(<span class="ident">buffer</span> :<span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">f32</span>]) {
 	<span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <span class="ident">buffer</span>.<span class="ident">len</span>();
 	<span class="kw">let</span> <span class="ident">n4</span> <span class="op">=</span> <span class="ident">n</span> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">2</span>;
 	<span class="kw">let</span> <span class="ident">n2</span> <span class="op">=</span> <span class="ident">n</span> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">1</span>;
 	<span class="kw">let</span> <span class="ident">n3_4</span> <span class="op">=</span> <span class="ident">n</span> <span class="op">-</span> <span class="ident">n4</span>;
-	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">temp</span> <span class="op">=</span> <span class="ident">buffer</span>[<span class="number">0</span> .. <span class="ident">n2</span>].<span class="ident">to_owned</span>().<span class="ident">clone</span>();
+	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">temp</span> <span class="op">=</span> <span class="ident">buffer</span>[<span class="number">0</span> .. <span class="ident">n2</span>].<span class="ident">to_vec</span>();
 	<span class="ident">dct_iv_slow</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">temp</span>); <span class="comment">// returns -c&#39;-d, a-b&#39;</span>
 	<span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span> .. <span class="ident">n4</span> {
 		<span class="ident">buffer</span>[<span class="ident">i</span>] <span class="op">=</span> <span class="ident">temp</span>[<span class="ident">i</span> <span class="op">+</span> <span class="ident">n4</span>]; <span class="comment">// a-b&#39;</span>
@@ -2112,7 +2097,7 @@ from the ident header.
 		<span class="kw-2">&amp;</span><span class="ident">setup</span>.<span class="ident">codebooks</span>, <span class="kw-2">&amp;</span><span class="ident">setup</span>.<span class="ident">floors</span>));
 
 	<span class="comment">// Now calculate the no_residue vector</span>
-	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">no_residue</span> <span class="op">=</span> <span class="ident">SmallVec</span>::<span class="op">&lt;</span>[<span class="ident">bool</span>; <span class="number">256</span>]<span class="op">&gt;</span>::<span class="ident">new</span>();
+	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">no_residue</span> <span class="op">=</span> <span class="ident">TinyVec</span>::<span class="op">&lt;</span>[<span class="ident">bool</span>; <span class="number">32</span>]<span class="op">&gt;</span>::<span class="ident">new</span>();
 	<span class="kw">for</span> <span class="ident">fl</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">decoded_floor_infos</span> {
 		<span class="ident">no_residue</span>.<span class="ident">push</span>(<span class="ident">fl</span>.<span class="ident">is_unused</span>());
 	}
@@ -2130,7 +2115,7 @@ from the ident header.
 	<span class="comment">// Helper variable</span>
 	<span class="kw">let</span> <span class="ident">resid_vec_len</span> <span class="op">=</span> (<span class="ident">n</span> <span class="op">/</span> <span class="number">2</span>) <span class="kw">as</span> <span class="ident">usize</span>;
 	<span class="kw">for</span> (<span class="ident">i</span>, <span class="kw-2">&amp;</span><span class="ident">residue_number</span>) <span class="kw">in</span> <span class="ident">mapping</span>.<span class="ident">mapping_submap_residues</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>() {
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">do_not_decode_flag</span> <span class="op">=</span> <span class="ident">SmallVec</span>::<span class="op">&lt;</span>[<span class="ident">bool</span>; <span class="number">256</span>]<span class="op">&gt;</span>::<span class="ident">new</span>();
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">do_not_decode_flag</span> <span class="op">=</span> <span class="ident">TinyVec</span>::<span class="op">&lt;</span>[<span class="ident">bool</span>; <span class="number">32</span>]<span class="op">&gt;</span>::<span class="ident">new</span>();
 		<span class="kw">for</span> (<span class="ident">j</span>, <span class="kw-2">&amp;</span><span class="ident">mapping_mux_j</span>) <span class="kw">in</span> <span class="ident">mapping</span>.<span class="ident">mapping_mux</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>() {
 			<span class="kw">if</span> <span class="ident">mapping_mux_j</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">=</span><span class="op">=</span> <span class="ident">i</span> {
 				<span class="ident">do_not_decode_flag</span>.<span class="ident">push</span>(<span class="ident">no_residue</span>[<span class="ident">j</span>]);
@@ -2147,11 +2132,10 @@ from the ident header.
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ch</span> <span class="op">=</span> <span class="number">0</span>;
 		<span class="kw">for</span> (<span class="ident">j</span>, <span class="kw-2">&amp;</span><span class="ident">mapping_mux_j</span>) <span class="kw">in</span> <span class="ident">mapping</span>.<span class="ident">mapping_mux</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>() {
 			<span class="kw">if</span> <span class="ident">mapping_mux_j</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">=</span><span class="op">=</span> <span class="ident">i</span> {
-				<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">v</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">with_capacity</span>(<span class="ident">resid_vec_len</span> <span class="kw">as</span> <span class="ident">usize</span>);
-				<span class="kw">let</span> <span class="ident">vec_at_ch</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">vectors</span>[<span class="ident">resid_vec_len</span> <span class="op">*</span> <span class="ident">ch</span> .. <span class="ident">resid_vec_len</span> <span class="op">*</span> (<span class="ident">ch</span> <span class="op">+</span> <span class="number">1</span>)];
 				<span class="comment">// TODO get rid of this copy somehow...</span>
-				<span class="ident">v</span>.<span class="ident">extend_from_slice</span>(<span class="ident">vec_at_ch</span>);
-				<span class="ident">residue_vectors</span>[<span class="ident">j</span>] <span class="op">=</span> <span class="ident">v</span>;
+				<span class="kw">let</span> <span class="ident">vec_at_ch</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">vectors</span>[<span class="ident">resid_vec_len</span> <span class="op">*</span> <span class="ident">ch</span> .. <span class="ident">resid_vec_len</span> <span class="op">*</span> (<span class="ident">ch</span> <span class="op">+</span> <span class="number">1</span>)];
+				<span class="ident">residue_vectors</span>[<span class="ident">j</span>].<span class="ident">clear</span>();
+				<span class="ident">residue_vectors</span>[<span class="ident">j</span>].<span class="ident">extend_from_slice</span>(<span class="ident">vec_at_ch</span>);
 				<span class="ident">ch</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
 			}
 		}

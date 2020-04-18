@@ -103,6 +103,7 @@
 <span id="103">103</span>
 <span id="104">104</span>
 <span id="105">105</span>
+<span id="106">106</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">system_prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">settings</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
@@ -140,7 +141,7 @@
         <span class="ident">jumppad_affected</span>: <span class="ident">jumppad_affected_store</span>,
         <span class="ident">scale_once</span>: <span class="ident">scale_once_store</span>,
         <span class="ident">health</span>: <span class="ident">health_store</span>,
-        <span class="ident">health_editor</span>: <span class="ident">health_editor_store</span>,
+        <span class="ident">health_action_queue</span>: <span class="ident">health_action_queue_store</span>,
         <span class="ident">health_display</span>: <span class="ident">health_display_store</span>,
         <span class="ident">deals_damage</span>: <span class="ident">deals_damage_store</span>,
         <span class="ident">takes_damage</span>: <span class="ident">takes_damage_store</span>,
@@ -192,7 +193,8 @@
     }
     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">health</span>) <span class="op">=</span> <span class="ident">health</span> {
         <span class="ident">health_store</span>.<span class="ident">insert</span>(<span class="ident">entity</span>, <span class="ident">health</span>)<span class="question-mark">?</span>;
-        <span class="ident">health_editor_store</span>.<span class="ident">insert</span>(<span class="ident">entity</span>, <span class="ident">HealthEditor</span>::<span class="ident">default</span>())<span class="question-mark">?</span>;
+        <span class="ident">health_action_queue_store</span>
+            .<span class="ident">insert</span>(<span class="ident">entity</span>, <span class="ident">HealthActionQueue</span>::<span class="ident">default</span>())<span class="question-mark">?</span>;
     }
     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">health_display</span>) <span class="op">=</span> <span class="ident">health_display</span> {
         <span class="ident">health_display_store</span>.<span class="ident">insert</span>(<span class="ident">entity</span>, <span class="ident">health_display</span>)<span class="question-mark">?</span>;

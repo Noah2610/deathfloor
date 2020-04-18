@@ -257,6 +257,13 @@
 <span id="257">257</span>
 <span id="258">258</span>
 <span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">animation_key</span>::<span class="ident">AnimationKey</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">collision_tag</span>;
@@ -322,6 +329,7 @@
     <span class="kw">use</span> <span class="ident">amethyst</span>::<span class="ident">core</span>::<span class="ident">transform</span>::<span class="ident">TransformBundle</span>;
     <span class="kw">use</span> <span class="ident">amethyst</span>::<span class="ident">renderer</span>::<span class="ident">types</span>::<span class="ident">DefaultBackend</span>;
     <span class="kw">use</span> <span class="ident">amethyst</span>::<span class="ident">renderer</span>::{<span class="ident">RenderFlat2D</span>, <span class="ident">RenderToWindow</span>, <span class="ident">RenderingBundle</span>};
+    <span class="kw">use</span> <span class="ident">amethyst</span>::<span class="ident">ui</span>::{<span class="ident">RenderUi</span>, <span class="ident">UiBundle</span>};
     <span class="kw">use</span> <span class="ident">deathframe</span>::<span class="ident">bundles</span>::<span class="kw-2">*</span>;
 
     <span class="kw">let</span> <span class="ident">transform_bundle</span> <span class="op">=</span> <span class="ident">TransformBundle</span>::<span class="ident">new</span>();
@@ -330,6 +338,7 @@
             <span class="ident">RenderToWindow</span>::<span class="ident">from_config_path</span>(<span class="ident">resource</span>(<span class="string">&quot;config/display.ron&quot;</span>))<span class="question-mark">?</span>
                 .<span class="ident">with_clear</span>([<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>]),
         )
+        .<span class="ident">with_plugin</span>(<span class="ident">RenderUi</span>::<span class="ident">default</span>())
         .<span class="ident">with_plugin</span>(<span class="ident">RenderFlat2D</span>::<span class="ident">default</span>());
     <span class="kw">let</span> <span class="ident">audio_bundle</span> <span class="op">=</span> <span class="ident">AudioBundle</span>::<span class="op">&lt;</span><span class="ident">SoundType</span>, <span class="ident">SongType</span><span class="op">&gt;</span>::<span class="ident">default</span>()
         .<span class="ident">with_sounds_default_volume</span>(
@@ -337,6 +346,7 @@
         );
     <span class="kw">let</span> <span class="ident">ingame_input_bundle</span> <span class="op">=</span> <span class="ident">input</span>::<span class="ident">ingame_input_bundle</span>()<span class="question-mark">?</span>;
     <span class="kw">let</span> <span class="ident">paused_input_bundle</span> <span class="op">=</span> <span class="ident">input</span>::<span class="ident">paused_input_bundle</span>()<span class="question-mark">?</span>;
+    <span class="kw">let</span> <span class="ident">menu_input_bundle</span> <span class="op">=</span> <span class="ident">input</span>::<span class="ident">menu_input_bundle</span>()<span class="question-mark">?</span>;
     <span class="kw">let</span> <span class="ident">physics_bundle</span> <span class="op">=</span> <span class="ident">PhysicsBundle</span>::<span class="op">&lt;</span>
         <span class="ident">collision_tag</span>::<span class="ident">CollisionTag</span>,
         <span class="ident">collision_tag</span>::<span class="ident">SolidTag</span>,
@@ -349,15 +359,18 @@
         .<span class="ident">custom</span>(<span class="ident">CustomData</span>::<span class="ident">default</span>())
         .<span class="ident">dispatcher</span>(<span class="ident">DispatcherId</span>::<span class="ident">Ingame</span>)<span class="question-mark">?</span>
         .<span class="ident">dispatcher</span>(<span class="ident">DispatcherId</span>::<span class="ident">Paused</span>)<span class="question-mark">?</span>
+        .<span class="ident">dispatcher</span>(<span class="ident">DispatcherId</span>::<span class="ident">MainMenu</span>)<span class="question-mark">?</span>
         .<span class="ident">with_core_bundle</span>(<span class="ident">transform_bundle</span>)<span class="question-mark">?</span>
         .<span class="ident">with_core_bundle</span>(<span class="ident">rendering_bundle</span>)<span class="question-mark">?</span>
         .<span class="ident">with_core_bundle</span>(<span class="ident">audio_bundle</span>)<span class="question-mark">?</span>
+        .<span class="ident">with_core_bundle</span>(<span class="ident">menu_input_bundle</span>)<span class="question-mark">?</span>
+        .<span class="ident">with_core_bundle</span>(<span class="ident">UiBundle</span>::<span class="op">&lt;</span><span class="ident">input</span>::<span class="ident">MenuBindings</span><span class="op">&gt;</span>::<span class="ident">new</span>())<span class="question-mark">?</span>
         .<span class="ident">with_core</span>(<span class="ident">ScaleSpritesSystem</span>::<span class="ident">default</span>(), <span class="string">&quot;scale_sprites_system&quot;</span>, <span class="kw-2">&amp;</span>[])<span class="question-mark">?</span>
         .<span class="ident">with_core</span>(<span class="ident">CameraOrthoSystem</span>::<span class="ident">default</span>(), <span class="string">&quot;camera_ortho_system&quot;</span>, <span class="kw-2">&amp;</span>[])<span class="question-mark">?</span>
         .<span class="ident">with_bundle</span>(<span class="ident">DispatcherId</span>::<span class="ident">Ingame</span>, <span class="ident">ingame_input_bundle</span>)<span class="question-mark">?</span>
-        .<span class="ident">with_bundle</span>(<span class="ident">DispatcherId</span>::<span class="ident">Paused</span>, <span class="ident">paused_input_bundle</span>)<span class="question-mark">?</span>
         .<span class="ident">with_bundle</span>(<span class="ident">DispatcherId</span>::<span class="ident">Ingame</span>, <span class="ident">physics_bundle</span>)<span class="question-mark">?</span>
         .<span class="ident">with_bundle</span>(<span class="ident">DispatcherId</span>::<span class="ident">Ingame</span>, <span class="ident">EventHandlersBundle</span>::<span class="ident">default</span>())<span class="question-mark">?</span>
+        .<span class="ident">with_bundle</span>(<span class="ident">DispatcherId</span>::<span class="ident">Paused</span>, <span class="ident">paused_input_bundle</span>)<span class="question-mark">?</span>
         .<span class="ident">with</span>(
             <span class="ident">DispatcherId</span>::<span class="ident">Ingame</span>,
             <span class="ident">HandleAnimationsSystem</span>::<span class="ident">default</span>(),
@@ -381,6 +394,12 @@
             <span class="ident">DispatcherId</span>::<span class="ident">Paused</span>,
             <span class="ident">InputManagerSystem</span>::<span class="op">&lt;</span><span class="ident">input</span>::<span class="ident">PausedBindings</span><span class="op">&gt;</span>::<span class="ident">default</span>(),
             <span class="string">&quot;paused_input_manager_system&quot;</span>,
+            <span class="kw-2">&amp;</span>[],
+        )<span class="question-mark">?</span>
+        .<span class="ident">with</span>(
+            <span class="ident">DispatcherId</span>::<span class="ident">MainMenu</span>,
+            <span class="ident">InputManagerSystem</span>::<span class="op">&lt;</span><span class="ident">input</span>::<span class="ident">MenuBindings</span><span class="op">&gt;</span>::<span class="ident">default</span>(),
+            <span class="string">&quot;main_menu_input_manager_system&quot;</span>,
             <span class="kw-2">&amp;</span>[],
         )<span class="question-mark">?</span>
         .<span class="ident">with</span>(
@@ -476,8 +495,8 @@
         )<span class="question-mark">?</span>
         .<span class="ident">with</span>(
             <span class="ident">DispatcherId</span>::<span class="ident">Ingame</span>,
-            <span class="ident">HandleHealthEditorsSystem</span>::<span class="ident">default</span>(),
-            <span class="string">&quot;handle_health_editors_system&quot;</span>,
+            <span class="ident">UpdateHealthSystem</span>::<span class="ident">default</span>(),
+            <span class="string">&quot;update_health_system&quot;</span>,
             <span class="kw-2">&amp;</span>[],
         )<span class="question-mark">?</span>
         .<span class="ident">with</span>(
@@ -488,31 +507,26 @@
         )<span class="question-mark">?</span>
         .<span class="ident">with</span>(
             <span class="ident">DispatcherId</span>::<span class="ident">Ingame</span>,
-            <span class="ident">HandleDealingAndTakingDamageSystem</span>::<span class="ident">default</span>(),
-            <span class="string">&quot;handle_dealing_and_taking_damage_system&quot;</span>,
-            <span class="kw-2">&amp;</span>[],
-        )<span class="question-mark">?</span>
-        .<span class="ident">with</span>(
-            <span class="ident">DispatcherId</span>::<span class="ident">Ingame</span>,
-            <span class="ident">HandleEntityLifecycleSystem</span>::<span class="ident">default</span>(),
-            <span class="string">&quot;handle_entity_lifecycle_system&quot;</span>,
-            <span class="kw-2">&amp;</span>[
-                <span class="string">&quot;handle_health_editors_system&quot;</span>,
-                <span class="string">&quot;handle_dealing_and_taking_damage_system&quot;</span>,
-            ],
+            <span class="ident">UpdateLifecycleSystem</span>::<span class="ident">default</span>(),
+            <span class="string">&quot;update_lifecycle_system&quot;</span>,
+            <span class="kw-2">&amp;</span>[<span class="string">&quot;update_health_system&quot;</span>, <span class="string">&quot;handle_taking_damage_system&quot;</span>],
         )<span class="question-mark">?</span>;
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;debug&quot;</span>)]</span>
     {
         <span class="kw">use</span> <span class="ident">amethyst</span>::<span class="ident">utils</span>::<span class="ident">fps_counter</span>::<span class="ident">FpsCounterBundle</span>;
+        <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">time</span>::<span class="ident">Duration</span>;
 
         <span class="kw">const</span> <span class="ident">PRINT_EVERY_MS</span>: <span class="ident">u64</span> <span class="op">=</span> <span class="number">1000</span>;
         <span class="kw">let</span> <span class="ident">fps_bundle</span> <span class="op">=</span> <span class="ident">FpsCounterBundle</span>;
-        <span class="kw">let</span> <span class="ident">debug_system</span> <span class="op">=</span> <span class="ident">DebugSystem</span>::<span class="ident">new</span>(<span class="ident">PRINT_EVERY_MS</span>);
 
-        <span class="ident">custom_game_data</span> <span class="op">=</span> <span class="ident">custom_game_data</span>
-            .<span class="ident">with_core_bundle</span>(<span class="ident">fps_bundle</span>)<span class="question-mark">?</span>
-            .<span class="ident">with_core</span>(<span class="ident">debug_system</span>, <span class="string">&quot;debug_system&quot;</span>, <span class="kw-2">&amp;</span>[])<span class="question-mark">?</span>;
+        <span class="ident">custom_game_data</span> <span class="op">=</span>
+            <span class="ident">custom_game_data</span>.<span class="ident">with_core_bundle</span>(<span class="ident">fps_bundle</span>)<span class="question-mark">?</span>.<span class="ident">with_core</span>(
+                <span class="ident">PrintFpsSystem</span>::<span class="ident">default</span>()
+                    .<span class="ident">with_print_delay</span>(<span class="ident">Duration</span>::<span class="ident">from_millis</span>(<span class="ident">PRINT_EVERY_MS</span>)),
+                <span class="string">&quot;print_fps_system&quot;</span>,
+                <span class="kw-2">&amp;</span>[],
+            )<span class="question-mark">?</span>;
     }
 
     <span class="prelude-val">Ok</span>(<span class="ident">custom_game_data</span>)

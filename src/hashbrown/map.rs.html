@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/hashbrown-0.6.3/src/map.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>map.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../hashbrown/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/hashbrown-0.7.1/src/map.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>map.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../hashbrown/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
 <span id="4">   4</span>
@@ -3676,6 +3676,189 @@
 <span id="3676">3676</span>
 <span id="3677">3677</span>
 <span id="3678">3678</span>
+<span id="3679">3679</span>
+<span id="3680">3680</span>
+<span id="3681">3681</span>
+<span id="3682">3682</span>
+<span id="3683">3683</span>
+<span id="3684">3684</span>
+<span id="3685">3685</span>
+<span id="3686">3686</span>
+<span id="3687">3687</span>
+<span id="3688">3688</span>
+<span id="3689">3689</span>
+<span id="3690">3690</span>
+<span id="3691">3691</span>
+<span id="3692">3692</span>
+<span id="3693">3693</span>
+<span id="3694">3694</span>
+<span id="3695">3695</span>
+<span id="3696">3696</span>
+<span id="3697">3697</span>
+<span id="3698">3698</span>
+<span id="3699">3699</span>
+<span id="3700">3700</span>
+<span id="3701">3701</span>
+<span id="3702">3702</span>
+<span id="3703">3703</span>
+<span id="3704">3704</span>
+<span id="3705">3705</span>
+<span id="3706">3706</span>
+<span id="3707">3707</span>
+<span id="3708">3708</span>
+<span id="3709">3709</span>
+<span id="3710">3710</span>
+<span id="3711">3711</span>
+<span id="3712">3712</span>
+<span id="3713">3713</span>
+<span id="3714">3714</span>
+<span id="3715">3715</span>
+<span id="3716">3716</span>
+<span id="3717">3717</span>
+<span id="3718">3718</span>
+<span id="3719">3719</span>
+<span id="3720">3720</span>
+<span id="3721">3721</span>
+<span id="3722">3722</span>
+<span id="3723">3723</span>
+<span id="3724">3724</span>
+<span id="3725">3725</span>
+<span id="3726">3726</span>
+<span id="3727">3727</span>
+<span id="3728">3728</span>
+<span id="3729">3729</span>
+<span id="3730">3730</span>
+<span id="3731">3731</span>
+<span id="3732">3732</span>
+<span id="3733">3733</span>
+<span id="3734">3734</span>
+<span id="3735">3735</span>
+<span id="3736">3736</span>
+<span id="3737">3737</span>
+<span id="3738">3738</span>
+<span id="3739">3739</span>
+<span id="3740">3740</span>
+<span id="3741">3741</span>
+<span id="3742">3742</span>
+<span id="3743">3743</span>
+<span id="3744">3744</span>
+<span id="3745">3745</span>
+<span id="3746">3746</span>
+<span id="3747">3747</span>
+<span id="3748">3748</span>
+<span id="3749">3749</span>
+<span id="3750">3750</span>
+<span id="3751">3751</span>
+<span id="3752">3752</span>
+<span id="3753">3753</span>
+<span id="3754">3754</span>
+<span id="3755">3755</span>
+<span id="3756">3756</span>
+<span id="3757">3757</span>
+<span id="3758">3758</span>
+<span id="3759">3759</span>
+<span id="3760">3760</span>
+<span id="3761">3761</span>
+<span id="3762">3762</span>
+<span id="3763">3763</span>
+<span id="3764">3764</span>
+<span id="3765">3765</span>
+<span id="3766">3766</span>
+<span id="3767">3767</span>
+<span id="3768">3768</span>
+<span id="3769">3769</span>
+<span id="3770">3770</span>
+<span id="3771">3771</span>
+<span id="3772">3772</span>
+<span id="3773">3773</span>
+<span id="3774">3774</span>
+<span id="3775">3775</span>
+<span id="3776">3776</span>
+<span id="3777">3777</span>
+<span id="3778">3778</span>
+<span id="3779">3779</span>
+<span id="3780">3780</span>
+<span id="3781">3781</span>
+<span id="3782">3782</span>
+<span id="3783">3783</span>
+<span id="3784">3784</span>
+<span id="3785">3785</span>
+<span id="3786">3786</span>
+<span id="3787">3787</span>
+<span id="3788">3788</span>
+<span id="3789">3789</span>
+<span id="3790">3790</span>
+<span id="3791">3791</span>
+<span id="3792">3792</span>
+<span id="3793">3793</span>
+<span id="3794">3794</span>
+<span id="3795">3795</span>
+<span id="3796">3796</span>
+<span id="3797">3797</span>
+<span id="3798">3798</span>
+<span id="3799">3799</span>
+<span id="3800">3800</span>
+<span id="3801">3801</span>
+<span id="3802">3802</span>
+<span id="3803">3803</span>
+<span id="3804">3804</span>
+<span id="3805">3805</span>
+<span id="3806">3806</span>
+<span id="3807">3807</span>
+<span id="3808">3808</span>
+<span id="3809">3809</span>
+<span id="3810">3810</span>
+<span id="3811">3811</span>
+<span id="3812">3812</span>
+<span id="3813">3813</span>
+<span id="3814">3814</span>
+<span id="3815">3815</span>
+<span id="3816">3816</span>
+<span id="3817">3817</span>
+<span id="3818">3818</span>
+<span id="3819">3819</span>
+<span id="3820">3820</span>
+<span id="3821">3821</span>
+<span id="3822">3822</span>
+<span id="3823">3823</span>
+<span id="3824">3824</span>
+<span id="3825">3825</span>
+<span id="3826">3826</span>
+<span id="3827">3827</span>
+<span id="3828">3828</span>
+<span id="3829">3829</span>
+<span id="3830">3830</span>
+<span id="3831">3831</span>
+<span id="3832">3832</span>
+<span id="3833">3833</span>
+<span id="3834">3834</span>
+<span id="3835">3835</span>
+<span id="3836">3836</span>
+<span id="3837">3837</span>
+<span id="3838">3838</span>
+<span id="3839">3839</span>
+<span id="3840">3840</span>
+<span id="3841">3841</span>
+<span id="3842">3842</span>
+<span id="3843">3843</span>
+<span id="3844">3844</span>
+<span id="3845">3845</span>
+<span id="3846">3846</span>
+<span id="3847">3847</span>
+<span id="3848">3848</span>
+<span id="3849">3849</span>
+<span id="3850">3850</span>
+<span id="3851">3851</span>
+<span id="3852">3852</span>
+<span id="3853">3853</span>
+<span id="3854">3854</span>
+<span id="3855">3855</span>
+<span id="3856">3856</span>
+<span id="3857">3857</span>
+<span id="3858">3858</span>
+<span id="3859">3859</span>
+<span id="3860">3860</span>
+<span id="3861">3861</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">raw</span>::{<span class="ident">Bucket</span>, <span class="ident">RawDrain</span>, <span class="ident">RawIntoIter</span>, <span class="ident">RawIter</span>, <span class="ident">RawTable</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">CollectionAllocErr</span>;
@@ -3689,7 +3872,7 @@
 
 <span class="doccomment">/// Default hasher for `HashMap`.</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;ahash&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">DefaultHashBuilder</span> <span class="op">=</span> <span class="ident">ahash</span>::<span class="ident">ABuildHasher</span>;
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">DefaultHashBuilder</span> <span class="op">=</span> <span class="ident">ahash</span>::<span class="ident">RandomState</span>;
 
 <span class="doccomment">/// Dummy default hasher for `HashMap`.</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;ahash&quot;</span>))]</span>
@@ -3860,19 +4043,61 @@
 <span class="doccomment">/// ```</span>
 <span class="doccomment">/// use hashbrown::HashMap;</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// fn main() {</span>
-<span class="doccomment">///     let timber_resources: HashMap&lt;&amp;str, i32&gt; =</span>
-<span class="doccomment">///     [(&quot;Norway&quot;, 100),</span>
-<span class="doccomment">///      (&quot;Denmark&quot;, 50),</span>
-<span class="doccomment">///      (&quot;Iceland&quot;, 10)]</span>
-<span class="doccomment">///      .iter().cloned().collect();</span>
-<span class="doccomment">///     // use the values stored in map</span>
-<span class="doccomment">/// }</span>
+<span class="doccomment">/// let timber_resources: HashMap&lt;&amp;str, i32&gt; =</span>
+<span class="doccomment">/// [(&quot;Norway&quot;, 100),</span>
+<span class="doccomment">///  (&quot;Denmark&quot;, 50),</span>
+<span class="doccomment">///  (&quot;Iceland&quot;, 10)]</span>
+<span class="doccomment">///  .iter().cloned().collect();</span>
+<span class="doccomment">/// // use the values stored in map</span>
 <span class="doccomment">/// ```</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span> <span class="op">=</span> <span class="ident">DefaultHashBuilder</span><span class="op">&gt;</span> {
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">hash_builder</span>: <span class="ident">S</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">table</span>: <span class="ident">RawTable</span><span class="op">&lt;</span>(<span class="ident">K</span>, <span class="ident">V</span>)<span class="op">&gt;</span>,
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">Clone</span>, <span class="ident">V</span>: <span class="ident">Clone</span>, <span class="ident">S</span>: <span class="ident">Clone</span><span class="op">&gt;</span> <span class="ident">Clone</span> <span class="kw">for</span> <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="ident">HashMap</span> {
+            <span class="ident">hash_builder</span>: <span class="self">self</span>.<span class="ident">hash_builder</span>.<span class="ident">clone</span>(),
+            <span class="ident">table</span>: <span class="self">self</span>.<span class="ident">table</span>.<span class="ident">clone</span>(),
+        }
+    }
+
+    <span class="kw">fn</span> <span class="ident">clone_from</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) {
+        <span class="comment">// We clone the hash_builder first since this might panic and we don&#39;t</span>
+        <span class="comment">// want the table to have elements hashed with the wrong hash_builder.</span>
+        <span class="kw">let</span> <span class="ident">hash_builder</span> <span class="op">=</span> <span class="ident">source</span>.<span class="ident">hash_builder</span>.<span class="ident">clone</span>();
+
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;nightly&quot;</span>))]</span>
+        {
+            <span class="self">self</span>.<span class="ident">table</span>.<span class="ident">clone_from</span>(<span class="kw-2">&amp;</span><span class="ident">source</span>.<span class="ident">table</span>);
+        }
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;nightly&quot;</span>)]</span>
+        {
+            <span class="kw">trait</span> <span class="ident">HashClone</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span> {
+                <span class="kw">fn</span> <span class="ident">clone_from</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">hash_builder</span>: <span class="kw-2">&amp;</span><span class="ident">S</span>);
+            }
+            <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">Clone</span>, <span class="ident">V</span>: <span class="ident">Clone</span>, <span class="ident">S</span><span class="op">&gt;</span> <span class="ident">HashClone</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span><span class="op">&gt;</span> {
+                <span class="ident">default</span> <span class="kw">fn</span> <span class="ident">clone_from</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">_hash_builder</span>: <span class="kw-2">&amp;</span><span class="ident">S</span>) {
+                    <span class="self">self</span>.<span class="ident">table</span>.<span class="ident">clone_from</span>(<span class="kw-2">&amp;</span><span class="ident">source</span>.<span class="ident">table</span>);
+                }
+            }
+            <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">Clone</span>, <span class="ident">V</span>: <span class="ident">Clone</span>, <span class="ident">S</span><span class="op">&gt;</span> <span class="ident">HashClone</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span><span class="op">&gt;</span>
+            <span class="kw">where</span>
+                <span class="ident">K</span>: <span class="ident">Eq</span> <span class="op">+</span> <span class="ident">Hash</span>,
+                <span class="ident">S</span>: <span class="ident">BuildHasher</span>,
+            {
+                <span class="kw">fn</span> <span class="ident">clone_from</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">hash_builder</span>: <span class="kw-2">&amp;</span><span class="ident">S</span>) {
+                    <span class="self">self</span>.<span class="ident">table</span>
+                        .<span class="ident">clone_from_with_hasher</span>(<span class="kw-2">&amp;</span><span class="ident">source</span>.<span class="ident">table</span>, <span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">make_hash</span>(<span class="ident">hash_builder</span>, <span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="number">0</span>));
+                }
+            }
+            <span class="ident">HashClone</span>::<span class="ident">clone_from</span>(<span class="self">self</span>, <span class="ident">source</span>, <span class="kw-2">&amp;</span><span class="ident">hash_builder</span>);
+        }
+
+        <span class="comment">// Update hash_builder only if we successfully cloned all elements.</span>
+        <span class="self">self</span>.<span class="ident">hash_builder</span> <span class="op">=</span> <span class="ident">hash_builder</span>;
+    }
 }
 
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;inline-more&quot;</span>, <span class="ident">inline</span>)]</span>
@@ -4437,6 +4662,44 @@
             })
     }
 
+    <span class="doccomment">/// Returns the key-value pair corresponding to the supplied key, with a mutable reference to value.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The supplied key may be any borrowed form of the map&#39;s key type, but</span>
+    <span class="doccomment">/// [`Hash`] and [`Eq`] on the borrowed form *must* match those for</span>
+    <span class="doccomment">/// the key type.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`Eq`]: https://doc.rust-lang.org/std/cmp/trait.Eq.html</span>
+    <span class="doccomment">/// [`Hash`]: https://doc.rust-lang.org/std/hash/trait.Hash.html</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ```</span>
+    <span class="doccomment">/// use hashbrown::HashMap;</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// let mut map = HashMap::new();</span>
+    <span class="doccomment">/// map.insert(1, &quot;a&quot;);</span>
+    <span class="doccomment">/// let (k, v) = map.get_key_value_mut(&amp;1).unwrap();</span>
+    <span class="doccomment">/// assert_eq!(k, &amp;1);</span>
+    <span class="doccomment">/// assert_eq!(v, &amp;mut &quot;a&quot;);</span>
+    <span class="doccomment">/// *v = &quot;b&quot;;</span>
+    <span class="doccomment">/// assert_eq!(map.get_key_value_mut(&amp;1), Some((&amp;1, &amp;mut &quot;b&quot;)));</span>
+    <span class="doccomment">/// assert_eq!(map.get_key_value_mut(&amp;2), None);</span>
+    <span class="doccomment">/// ```</span>
+    <span class="attribute">#[<span class="ident">inline</span>]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_key_value_mut</span><span class="op">&lt;</span><span class="ident">Q</span>: <span class="question-mark">?</span><span class="ident">Sized</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">k</span>: <span class="kw-2">&amp;</span><span class="ident">Q</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="kw-2">&amp;</span><span class="ident">K</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">V</span>)<span class="op">&gt;</span>
+    <span class="kw">where</span>
+        <span class="ident">K</span>: <span class="ident">Borrow</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span>,
+        <span class="ident">Q</span>: <span class="ident">Hash</span> <span class="op">+</span> <span class="ident">Eq</span>,
+    {
+        <span class="kw">let</span> <span class="ident">hash</span> <span class="op">=</span> <span class="ident">make_hash</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">hash_builder</span>, <span class="ident">k</span>);
+        <span class="self">self</span>.<span class="ident">table</span>
+            .<span class="ident">find</span>(<span class="ident">hash</span>, <span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">k</span>.<span class="ident">eq</span>(<span class="ident">x</span>.<span class="number">0</span>.<span class="ident">borrow</span>()))
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">item</span><span class="op">|</span> <span class="kw">unsafe</span> {
+                <span class="kw">let</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> (<span class="kw-2">ref</span> <span class="ident">key</span>, <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">value</span>) <span class="op">=</span> <span class="ident">item</span>.<span class="ident">as_mut</span>();
+                (<span class="ident">key</span>, <span class="ident">value</span>)
+            })
+    }
+
     <span class="doccomment">/// Returns `true` if the map contains a value for the specified key.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The key may be any borrowed form of the map&#39;s key type, but</span>
@@ -4582,12 +4845,10 @@
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// use hashbrown::HashMap;</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # fn main() {</span>
     <span class="doccomment">/// let mut map = HashMap::new();</span>
     <span class="doccomment">/// map.insert(1, &quot;a&quot;);</span>
     <span class="doccomment">/// assert_eq!(map.remove_entry(&amp;1), Some((1, &quot;a&quot;)));</span>
     <span class="doccomment">/// assert_eq!(map.remove(&amp;1), None);</span>
-    <span class="doccomment">/// # }</span>
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;inline-more&quot;</span>, <span class="ident">inline</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">remove_entry</span><span class="op">&lt;</span><span class="ident">Q</span>: <span class="question-mark">?</span><span class="ident">Sized</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">k</span>: <span class="kw-2">&amp;</span><span class="ident">Q</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">K</span>, <span class="ident">V</span>)<span class="op">&gt;</span>
@@ -4635,12 +4896,38 @@
             }
         }
     }
+    <span class="doccomment">/// Drains elements which are false under the given predicate,</span>
+    <span class="doccomment">/// and returns an iterator over the removed items.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// In other words, move all pairs `(k, v)` such that `f(&amp;k,&amp;mut v)` returns `false` out</span>
+    <span class="doccomment">/// into another iterator.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// When the returned DrainedFilter is dropped, the elements that don&#39;t satisfy</span>
+    <span class="doccomment">/// the predicate are dropped from the table.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ```</span>
+    <span class="doccomment">/// use hashbrown::HashMap;</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// let mut map: HashMap&lt;i32, i32&gt; = (0..8).map(|x|(x, x*10)).collect();</span>
+    <span class="doccomment">/// let drained = map.drain_filter(|&amp;k, _| k % 2 == 0);</span>
+    <span class="doccomment">/// assert_eq!(drained.count(), 4);</span>
+    <span class="doccomment">/// assert_eq!(map.len(), 4);</span>
+    <span class="doccomment">/// ```</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">drain_filter</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DrainFilter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">F</span><span class="op">&gt;</span>
+    <span class="kw">where</span>
+        <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">K</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">V</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>,
+    {
+        <span class="ident">DrainFilter</span> {
+            <span class="ident">f</span>,
+            <span class="ident">iter</span>: <span class="kw">unsafe</span> { <span class="self">self</span>.<span class="ident">table</span>.<span class="ident">iter</span>() },
+            <span class="ident">table</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">table</span>,
+        }
+    }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span><span class="op">&gt;</span> <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span><span class="op">&gt;</span>
-<span class="kw">where</span>
-    <span class="ident">S</span>: <span class="ident">BuildHasher</span>,
-{
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span><span class="op">&gt;</span> <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a raw entry builder for the HashMap.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Raw entries provide the lowest level of control for searching and</span>
@@ -4726,7 +5013,6 @@
 <span class="kw">where</span>
     <span class="ident">K</span>: <span class="ident">Debug</span>,
     <span class="ident">V</span>: <span class="ident">Debug</span>,
-    <span class="ident">S</span>: <span class="ident">BuildHasher</span>,
 {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
         <span class="ident">f</span>.<span class="ident">debug_map</span>().<span class="ident">entries</span>(<span class="self">self</span>.<span class="ident">iter</span>()).<span class="ident">finish</span>()
@@ -4735,7 +5021,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span><span class="op">&gt;</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-    <span class="ident">S</span>: <span class="ident">BuildHasher</span> <span class="op">+</span> <span class="ident">Default</span>,
+    <span class="ident">S</span>: <span class="ident">Default</span>,
 {
     <span class="doccomment">/// Creates an empty `HashMap&lt;K, V, S&gt;`, with the `Default` value for the hasher.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;inline-more&quot;</span>, <span class="ident">inline</span>)]</span>
@@ -4919,6 +5205,66 @@
     }
 }
 
+<span class="doccomment">/// A draining iterator over entries of a `HashMap` which don&#39;t satisfy the predicate `f`.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// This `struct` is created by the [`drain_filter`] method on [`HashMap`]. See its</span>
+<span class="doccomment">/// documentation for more.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [`drain_filter`]: struct.HashMap.html#method.drain_filter</span>
+<span class="doccomment">/// [`HashMap`]: struct.HashMap.html</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DrainFilter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">F</span><span class="op">&gt;</span>
+<span class="kw">where</span>
+    <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">K</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">V</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>,
+{
+    <span class="ident">f</span>: <span class="ident">F</span>,
+    <span class="ident">iter</span>: <span class="ident">RawIter</span><span class="op">&lt;</span>(<span class="ident">K</span>, <span class="ident">V</span>)<span class="op">&gt;</span>,
+    <span class="ident">table</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">RawTable</span><span class="op">&lt;</span>(<span class="ident">K</span>, <span class="ident">V</span>)<span class="op">&gt;</span>,
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">DrainFilter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">F</span><span class="op">&gt;</span>
+<span class="kw">where</span>
+    <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">K</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">V</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>,
+{
+    <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+        <span class="kw">struct</span> <span class="ident">DropGuard</span><span class="op">&lt;</span><span class="lifetime">&#39;r</span>, <span class="lifetime">&#39;a</span>, <span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">F</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;r</span> <span class="kw-2">mut</span> <span class="ident">DrainFilter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">F</span><span class="op">&gt;</span>)
+        <span class="kw">where</span>
+            <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">K</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">V</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
+
+        <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;r</span>, <span class="lifetime">&#39;a</span>, <span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">DropGuard</span><span class="op">&lt;</span><span class="lifetime">&#39;r</span>, <span class="lifetime">&#39;a</span>, <span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">F</span><span class="op">&gt;</span>
+        <span class="kw">where</span>
+            <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">K</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">V</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>,
+        {
+            <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+                <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw">_</span>) <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">next</span>() {}
+            }
+        }
+        <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">item</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">next</span>() {
+            <span class="kw">let</span> <span class="ident">guard</span> <span class="op">=</span> <span class="ident">DropGuard</span>(<span class="self">self</span>);
+            <span class="ident">drop</span>(<span class="ident">item</span>);
+            <span class="ident">mem</span>::<span class="ident">forget</span>(<span class="ident">guard</span>);
+        }
+    }
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="ident">Iterator</span> <span class="kw">for</span> <span class="ident">DrainFilter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">F</span><span class="op">&gt;</span>
+<span class="kw">where</span>
+    <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">K</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">V</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>,
+{
+    <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> (<span class="ident">K</span>, <span class="ident">V</span>);
+    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Item</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> {
+            <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">item</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">iter</span>.<span class="ident">next</span>() {
+                <span class="kw">let</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> (<span class="kw-2">ref</span> <span class="ident">key</span>, <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">value</span>) <span class="op">=</span> <span class="ident">item</span>.<span class="ident">as_mut</span>();
+                <span class="kw">if</span> <span class="op">!</span>(<span class="self">self</span>.<span class="ident">f</span>)(<span class="ident">key</span>, <span class="ident">value</span>) {
+                    <span class="self">self</span>.<span class="ident">table</span>.<span class="ident">erase_no_drop</span>(<span class="kw-2">&amp;</span><span class="ident">item</span>);
+                    <span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="ident">item</span>.<span class="ident">read</span>());
+                }
+            }
+        }
+        <span class="prelude-val">None</span>
+    }
+}
+
 <span class="doccomment">/// A mutable iterator over the values of a `HashMap`.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This `struct` is created by the [`values_mut`] method on [`HashMap`]. See its</span>
@@ -4997,15 +5343,13 @@
     <span class="ident">map</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span><span class="op">&gt;</span>,
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span><span class="op">&gt;</span> <span class="ident">RawEntryBuilderMut</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span><span class="op">&gt;</span>
-<span class="kw">where</span>
-    <span class="ident">S</span>: <span class="ident">BuildHasher</span>,
-{
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span><span class="op">&gt;</span> <span class="ident">RawEntryBuilderMut</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a `RawEntryMut` from the given key.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;inline-more&quot;</span>, <span class="ident">inline</span>)]</span>
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">wrong_self_convention</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_key</span><span class="op">&lt;</span><span class="ident">Q</span>: <span class="question-mark">?</span><span class="ident">Sized</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">k</span>: <span class="kw-2">&amp;</span><span class="ident">Q</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RawEntryMut</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span><span class="op">&gt;</span>
     <span class="kw">where</span>
+        <span class="ident">S</span>: <span class="ident">BuildHasher</span>,
         <span class="ident">K</span>: <span class="ident">Borrow</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span>,
         <span class="ident">Q</span>: <span class="ident">Hash</span> <span class="op">+</span> <span class="ident">Eq</span>,
     {
@@ -5026,10 +5370,7 @@
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span><span class="op">&gt;</span> <span class="ident">RawEntryBuilderMut</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span><span class="op">&gt;</span>
-<span class="kw">where</span>
-    <span class="ident">S</span>: <span class="ident">BuildHasher</span>,
-{
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span><span class="op">&gt;</span> <span class="ident">RawEntryBuilderMut</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a `RawEntryMut` from the given hash.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;inline-more&quot;</span>, <span class="ident">inline</span>)]</span>
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">wrong_self_convention</span>)]</span>
@@ -5058,15 +5399,13 @@
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span><span class="op">&gt;</span> <span class="ident">RawEntryBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span><span class="op">&gt;</span>
-<span class="kw">where</span>
-    <span class="ident">S</span>: <span class="ident">BuildHasher</span>,
-{
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span><span class="op">&gt;</span> <span class="ident">RawEntryBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">K</span>, <span class="ident">V</span>, <span class="ident">S</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Access an entry by key.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;inline-more&quot;</span>, <span class="ident">inline</span>)]</span>
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy</span>::<span class="ident">wrong_self_convention</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_key</span><span class="op">&lt;</span><span class="ident">Q</span>: <span class="question-mark">?</span><span class="ident">Sized</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">k</span>: <span class="kw-2">&amp;</span><span class="ident">Q</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">K</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">V</span>)<span class="op">&gt;</span>
     <span class="kw">where</span>
+        <span class="ident">S</span>: <span class="ident">BuildHasher</span>,
         <span class="ident">K</span>: <span class="ident">Borrow</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span>,
         <span class="ident">Q</span>: <span class="ident">Hash</span> <span class="op">+</span> <span class="ident">Eq</span>,
     {
@@ -5371,7 +5710,6 @@
         <span class="ident">hasher</span>: <span class="ident">H</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> (<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">K</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">V</span>)
     <span class="kw">where</span>
-        <span class="ident">S</span>: <span class="ident">BuildHasher</span>,
         <span class="ident">H</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">K</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u64</span>,
     {
         <span class="kw">unsafe</span> {
@@ -5646,7 +5984,7 @@
     <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">K</span>;
 
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;inline-more&quot;</span>, <span class="ident">inline</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">K</span>)<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">K</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">next</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">k</span>, <span class="kw">_</span>)<span class="op">|</span> <span class="ident">k</span>)
     }
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;inline-more&quot;</span>, <span class="ident">inline</span>)]</span>
@@ -5666,7 +6004,7 @@
     <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">V</span>;
 
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;inline-more&quot;</span>, <span class="ident">inline</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">V</span>)<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">V</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">next</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">v</span>)<span class="op">|</span> <span class="ident">v</span>)
     }
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;inline-more&quot;</span>, <span class="ident">inline</span>)]</span>
@@ -5686,7 +6024,7 @@
     <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">V</span>;
 
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;inline-more&quot;</span>, <span class="ident">inline</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">V</span>)<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">V</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">next</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">v</span>)<span class="op">|</span> <span class="ident">v</span>)
     }
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;inline-more&quot;</span>, <span class="ident">inline</span>)]</span>
@@ -5885,14 +6223,12 @@
     <span class="doccomment">/// # Examples</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
-    <span class="doccomment">/// # fn main() {</span>
     <span class="doccomment">/// use hashbrown::HashMap;</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// let mut map: HashMap&lt;&amp;str, Option&lt;u32&gt;&gt; = HashMap::new();</span>
     <span class="doccomment">/// map.entry(&quot;poneyland&quot;).or_default();</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// assert_eq!(map[&quot;poneyland&quot;], None);</span>
-    <span class="doccomment">/// # }</span>
     <span class="doccomment">/// ```</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;inline-more&quot;</span>, <span class="ident">inline</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">or_default</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">V</span>
@@ -6316,7 +6652,6 @@
     <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">DefaultHashBuilder</span>;
     <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">Entry</span>::{<span class="ident">Occupied</span>, <span class="ident">Vacant</span>};
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">HashMap</span>, <span class="ident">RawEntryMut</span>};
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">miri</span>))]</span>
     <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">CollectionAllocErr</span>::<span class="kw-2">*</span>;
     <span class="kw">use</span> <span class="ident">rand</span>::{<span class="ident">rngs</span>::<span class="ident">SmallRng</span>, <span class="ident">Rng</span>, <span class="ident">SeedableRng</span>};
     <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">cell</span>::<span class="ident">RefCell</span>;
@@ -6386,6 +6721,21 @@
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">m</span>.<span class="ident">insert</span>(<span class="number">2</span>, <span class="number">4</span>).<span class="ident">is_none</span>());
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">m</span>.<span class="ident">len</span>(), <span class="number">2</span>);
         <span class="kw">let</span> <span class="ident">m2</span> <span class="op">=</span> <span class="ident">m</span>.<span class="ident">clone</span>();
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">*</span><span class="ident">m2</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="number">1</span>).<span class="ident">unwrap</span>(), <span class="number">2</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">*</span><span class="ident">m2</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="number">2</span>).<span class="ident">unwrap</span>(), <span class="number">4</span>);
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">m2</span>.<span class="ident">len</span>(), <span class="number">2</span>);
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">test_clone_from</span>() {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">m</span> <span class="op">=</span> <span class="ident">HashMap</span>::<span class="ident">new</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">m2</span> <span class="op">=</span> <span class="ident">HashMap</span>::<span class="ident">new</span>();
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">m</span>.<span class="ident">len</span>(), <span class="number">0</span>);
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">m</span>.<span class="ident">insert</span>(<span class="number">1</span>, <span class="number">2</span>).<span class="ident">is_none</span>());
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">m</span>.<span class="ident">len</span>(), <span class="number">1</span>);
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">m</span>.<span class="ident">insert</span>(<span class="number">2</span>, <span class="number">4</span>).<span class="ident">is_none</span>());
+        <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">m</span>.<span class="ident">len</span>(), <span class="number">2</span>);
+        <span class="ident">m2</span>.<span class="ident">clone_from</span>(<span class="kw-2">&amp;</span><span class="ident">m</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">*</span><span class="ident">m2</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="number">1</span>).<span class="ident">unwrap</span>(), <span class="number">2</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="kw-2">*</span><span class="ident">m2</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="number">2</span>).<span class="ident">unwrap</span>(), <span class="number">4</span>);
         <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">m2</span>.<span class="ident">len</span>(), <span class="number">2</span>);
@@ -6574,7 +6924,7 @@
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">miri</span>))]</span> <span class="comment">// FIXME: https://github.com/rust-lang/miri/issues/654</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">miri</span>, <span class="ident">ignore</span>)]</span> <span class="comment">// FIXME: takes too long</span>
     <span class="kw">fn</span> <span class="ident">test_lots_of_insertions</span>() {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">m</span> <span class="op">=</span> <span class="ident">HashMap</span>::<span class="ident">new</span>();
 
@@ -7068,7 +7418,6 @@
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">m</span> <span class="op">=</span> <span class="ident">HashMap</span>::<span class="ident">new</span>();
 
-        <span class="comment">// FIXME: https://github.com/rust-lang/miri/issues/653</span>
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rng</span> <span class="op">=</span> {
             <span class="kw">let</span> <span class="ident">seed</span> <span class="op">=</span> [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>, <span class="number">16</span>];
             <span class="ident">SmallRng</span>::<span class="ident">from_seed</span>(<span class="ident">seed</span>)
@@ -7182,7 +7531,24 @@
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">miri</span>))]</span> <span class="comment">// FIXME: https://github.com/rust-lang/miri/issues/655</span>
+    <span class="kw">fn</span> <span class="ident">test_drain_filter</span>() {
+        {
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">map</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">i32</span>, <span class="ident">i32</span><span class="op">&gt;</span> <span class="op">=</span> (<span class="number">0</span>..<span class="number">8</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> (<span class="ident">x</span>, <span class="ident">x</span> <span class="op">*</span> <span class="number">10</span>)).<span class="ident">collect</span>();
+            <span class="kw">let</span> <span class="ident">drained</span> <span class="op">=</span> <span class="ident">map</span>.<span class="ident">drain_filter</span>(<span class="op">|</span><span class="kw-2">&amp;</span><span class="ident">k</span>, <span class="kw">_</span><span class="op">|</span> <span class="ident">k</span> <span class="op">%</span> <span class="number">2</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span>);
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">out</span> <span class="op">=</span> <span class="ident">drained</span>.<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
+            <span class="ident">out</span>.<span class="ident">sort_unstable</span>();
+            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="macro">vec</span><span class="macro">!</span>[(<span class="number">1</span>, <span class="number">10</span>), (<span class="number">3</span>, <span class="number">30</span>), (<span class="number">5</span>, <span class="number">50</span>), (<span class="number">7</span>, <span class="number">70</span>)], <span class="ident">out</span>);
+            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">map</span>.<span class="ident">len</span>(), <span class="number">4</span>);
+        }
+        {
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">map</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">i32</span>, <span class="ident">i32</span><span class="op">&gt;</span> <span class="op">=</span> (<span class="number">0</span>..<span class="number">8</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> (<span class="ident">x</span>, <span class="ident">x</span> <span class="op">*</span> <span class="number">10</span>)).<span class="ident">collect</span>();
+            <span class="ident">drop</span>(<span class="ident">map</span>.<span class="ident">drain_filter</span>(<span class="op">|</span><span class="kw-2">&amp;</span><span class="ident">k</span>, <span class="kw">_</span><span class="op">|</span> <span class="ident">k</span> <span class="op">%</span> <span class="number">2</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span>));
+            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">map</span>.<span class="ident">len</span>(), <span class="number">4</span>);
+        }
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">miri</span>, <span class="ident">ignore</span>)]</span> <span class="comment">// FIXME: no OOM signalling (https://github.com/rust-lang/miri/issues/613)</span>
     <span class="kw">fn</span> <span class="ident">test_try_reserve</span>() {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">empty_bytes</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">u8</span>, <span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">HashMap</span>::<span class="ident">new</span>();
 
@@ -7315,7 +7681,7 @@
         <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
         <span class="kw">struct</span> <span class="ident">IntWrapper</span>(<span class="ident">u64</span>);
 
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">m</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">IntWrapper</span>, ()<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">HashMap</span>::<span class="ident">new</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">m</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">IntWrapper</span>, (), ()<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">HashMap</span>::<span class="ident">default</span>();
         {
             <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">m</span>.<span class="ident">raw_entry</span>().<span class="ident">from_hash</span>(<span class="number">0</span>, <span class="op">|</span><span class="ident">k</span><span class="op">|</span> <span class="ident">k</span>.<span class="number">0</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span>).<span class="ident">is_none</span>());
         }

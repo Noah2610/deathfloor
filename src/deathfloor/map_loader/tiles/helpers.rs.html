@@ -67,6 +67,7 @@
 <span id="67">67</span>
 <span id="68">68</span>
 <span id="69">69</span>
+<span id="70">70</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">mod</span> <span class="ident">prelude</span> {
     <span class="kw">pub</span>(<span class="kw">in</span> <span class="kw">super</span>::<span class="kw">super</span>) <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">base_tile_entity</span>;
@@ -132,6 +133,7 @@
         .<span class="ident">with</span>(<span class="ident">ScaleOnce</span>::<span class="ident">default</span>())
         .<span class="ident">with</span>(<span class="ident">Transparent</span>)
         .<span class="ident">with</span>(<span class="ident">loadable</span>)
+        .<span class="ident">with</span>(<span class="ident">Loaded</span>::<span class="ident">default</span>()) <span class="comment">// TODO</span>
         .<span class="ident">with</span>(<span class="ident">Hidden</span>)
         .<span class="ident">with</span>(<span class="ident">Lifecycle</span>::<span class="ident">default</span>());
 

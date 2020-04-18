@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/nalgebra-0.18.1/src/geometry/quaternion_construction.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>quaternion_construction.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="https://nalgebra.org/img/favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../nalgebra/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/nalgebra-0.19.0/src/geometry/quaternion_construction.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>quaternion_construction.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="https://nalgebra.org/img/favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../nalgebra/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -737,6 +737,58 @@
 <span id="737">737</span>
 <span id="738">738</span>
 <span id="739">739</span>
+<span id="740">740</span>
+<span id="741">741</span>
+<span id="742">742</span>
+<span id="743">743</span>
+<span id="744">744</span>
+<span id="745">745</span>
+<span id="746">746</span>
+<span id="747">747</span>
+<span id="748">748</span>
+<span id="749">749</span>
+<span id="750">750</span>
+<span id="751">751</span>
+<span id="752">752</span>
+<span id="753">753</span>
+<span id="754">754</span>
+<span id="755">755</span>
+<span id="756">756</span>
+<span id="757">757</span>
+<span id="758">758</span>
+<span id="759">759</span>
+<span id="760">760</span>
+<span id="761">761</span>
+<span id="762">762</span>
+<span id="763">763</span>
+<span id="764">764</span>
+<span id="765">765</span>
+<span id="766">766</span>
+<span id="767">767</span>
+<span id="768">768</span>
+<span id="769">769</span>
+<span id="770">770</span>
+<span id="771">771</span>
+<span id="772">772</span>
+<span id="773">773</span>
+<span id="774">774</span>
+<span id="775">775</span>
+<span id="776">776</span>
+<span id="777">777</span>
+<span id="778">778</span>
+<span id="779">779</span>
+<span id="780">780</span>
+<span id="781">781</span>
+<span id="782">782</span>
+<span id="783">783</span>
+<span id="784">784</span>
+<span id="785">785</span>
+<span id="786">786</span>
+<span id="787">787</span>
+<span id="788">788</span>
+<span id="789">789</span>
+<span id="790">790</span>
+<span id="791">791</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;arbitrary&quot;</span>)]</span>
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">base</span>::<span class="ident">dimension</span>::<span class="ident">U4</span>;
@@ -753,7 +805,7 @@
 
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">base</span>::<span class="ident">dimension</span>::<span class="ident">U3</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">base</span>::<span class="ident">storage</span>::<span class="ident">Storage</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">base</span>::{<span class="ident">Unit</span>, <span class="ident">Vector</span>, <span class="ident">Vector3</span>, <span class="ident">Vector4</span>, <span class="ident">Matrix3</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">base</span>::{<span class="ident">Unit</span>, <span class="ident">Vector</span>, <span class="ident">Vector3</span>, <span class="ident">Vector4</span>, <span class="ident">Matrix3</span>, <span class="ident">Matrix4</span>};
 
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">geometry</span>::{<span class="ident">Quaternion</span>, <span class="ident">Rotation3</span>, <span class="ident">UnitQuaternion</span>};
 
@@ -1415,6 +1467,58 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_scaled_axis_eps</span><span class="op">&lt;</span><span class="ident">SB</span><span class="op">&gt;</span>(<span class="ident">axisangle</span>: <span class="ident">Vector</span><span class="op">&lt;</span><span class="ident">N</span>, <span class="ident">U3</span>, <span class="ident">SB</span><span class="op">&gt;</span>, <span class="ident">eps</span>: <span class="ident">N</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>
     <span class="kw">where</span> <span class="ident">SB</span>: <span class="ident">Storage</span><span class="op">&lt;</span><span class="ident">N</span>, <span class="ident">U3</span><span class="op">&gt;</span> {
         <span class="self">Self</span>::<span class="ident">new_eps</span>(<span class="ident">axisangle</span>, <span class="ident">eps</span>)
+    }
+
+    <span class="doccomment">/// Create the mean unit quaternion from a data structure implementing IntoIterator</span>
+    <span class="doccomment">/// returning unit quaternions.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The method will panic if the iterator does not return any quaternions.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Algorithm from: Oshman, Yaakov, and Avishy Carmi. &quot;Attitude estimation from vector</span>
+    <span class="doccomment">/// observations using a genetic-algorithm-embedded quaternion particle filter.&quot; Journal of</span>
+    <span class="doccomment">/// Guidance, Control, and Dynamics 29.4 (2006): 879-891.</span>
+    <span class="doccomment">/// </span>
+    <span class="doccomment">/// # Example</span>
+    <span class="doccomment">/// ```</span>
+    <span class="doccomment">/// # #[macro_use] extern crate approx;</span>
+    <span class="doccomment">/// # use std::f32;</span>
+    <span class="doccomment">/// # use nalgebra::{UnitQuaternion};</span>
+    <span class="doccomment">/// let q1 = UnitQuaternion::from_euler_angles(0.0, 0.0, 0.0);</span>
+    <span class="doccomment">/// let q2 = UnitQuaternion::from_euler_angles(-0.1, 0.0, 0.0);</span>
+    <span class="doccomment">/// let q3 = UnitQuaternion::from_euler_angles(0.1, 0.0, 0.0);</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// let quat_vec = vec![q1, q2, q3];</span>
+    <span class="doccomment">/// let q_mean = UnitQuaternion::mean_of(quat_vec);</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// let euler_angles_mean = q_mean.euler_angles();</span>
+    <span class="doccomment">/// assert_relative_eq!(euler_angles_mean.0, 0.0, epsilon = 1.0e-7)</span>
+    <span class="doccomment">/// ```</span>
+    <span class="attribute">#[<span class="ident">inline</span>]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mean_of</span>(<span class="ident">unit_quaternions</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="self">Self</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="kw">let</span> <span class="ident">quaternions_matrix</span>: <span class="ident">Matrix4</span><span class="op">&lt;</span><span class="ident">N</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">unit_quaternions</span>
+            .<span class="ident">into_iter</span>()
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">q</span><span class="op">|</span> <span class="ident">q</span>.<span class="ident">as_vector</span>() <span class="op">*</span> <span class="ident">q</span>.<span class="ident">as_vector</span>().<span class="ident">transpose</span>())
+            .<span class="ident">sum</span>();
+
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">quaternions_matrix</span>.<span class="ident">is_zero</span>());
+        
+        <span class="kw">let</span> <span class="ident">eigen_matrix</span> <span class="op">=</span> <span class="ident">quaternions_matrix</span>
+            .<span class="ident">try_symmetric_eigen</span>(<span class="ident">N</span>::<span class="ident">RealField</span>::<span class="ident">default_epsilon</span>(), <span class="number">10</span>)
+            .<span class="ident">expect</span>(<span class="string">&quot;Quaternions matrix could not be diagonalized. This behavior should not be possible.&quot;</span>);
+
+        <span class="kw">let</span> <span class="ident">max_eigenvalue_index</span> <span class="op">=</span> <span class="ident">eigen_matrix</span>
+            .<span class="ident">eigenvalues</span>
+            .<span class="ident">iter</span>()
+            .<span class="ident">position</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">v</span> <span class="op">=</span><span class="op">=</span> <span class="ident">eigen_matrix</span>.<span class="ident">eigenvalues</span>.<span class="ident">max</span>())
+            .<span class="ident">unwrap</span>();
+
+        <span class="kw">let</span> <span class="ident">max_eigenvector</span> <span class="op">=</span> <span class="ident">eigen_matrix</span>.<span class="ident">eigenvectors</span>.<span class="ident">column</span>(<span class="ident">max_eigenvalue_index</span>);
+        <span class="ident">UnitQuaternion</span>::<span class="ident">from_quaternion</span>(<span class="ident">Quaternion</span>::<span class="ident">new</span>(
+            <span class="ident">max_eigenvector</span>[<span class="number">0</span>],
+            <span class="ident">max_eigenvector</span>[<span class="number">1</span>],
+            <span class="ident">max_eigenvector</span>[<span class="number">2</span>],
+            <span class="ident">max_eigenvector</span>[<span class="number">3</span>],
+        ))
     }
 }
 

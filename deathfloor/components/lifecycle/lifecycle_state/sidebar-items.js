@@ -1,1 +1,0 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_LifecycleState",""]],"enum":[["LifecycleState","A lifecycle's state. Variants are in-order. So lifecycle state switches occur from top to bottom."]]});
