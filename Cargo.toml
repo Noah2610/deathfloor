@@ -17,7 +17,7 @@ specs-derive = "0.4.0"
 version = "*"
 # path = "../deathframe"
 git = "https://github.com/Noah2610/deathframe"
-branch = "develop"
+rev = "de12e6069f942caf83682b311b5b8216f03eb100"
 features = [
     "vulkan",
     "physics",
