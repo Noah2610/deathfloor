@@ -59,10 +59,13 @@
                             OnCollision(And([
                                 Not(IsTag("Solid")),
                                 IsState(Enter),
-                            ])): MoveAction(AddVelocity(
-                                x: 200.0,
-                                y: 200.0,
-                            )),
+                            ])): Group([
+                                MoveAction(AddVelocity(
+                                    x: 200.0,
+                                    y: 200.0,
+                                )),
+                                EntityAction(SwitchVariant("MoveRight")),
+                            ]),
                         },
                     ),
 
@@ -78,10 +81,13 @@
                             OnCollision(And([
                                 Not(IsTag("Solid")),
                                 IsState(Enter),
-                            ])): MoveAction(AddVelocity(
-                                x: -200.0,
-                                y: 200.0,
-                            )),
+                            ])): Group([
+                                MoveAction(AddVelocity(
+                                    x: -200.0,
+                                    y: 200.0,
+                                )),
+                                EntityAction(SwitchVariant("MoveLeft")),
+                            ]),
                         },
                     ),
                 },

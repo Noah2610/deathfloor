@@ -1,6 +1,7 @@
 mod animation_action;
 mod delay;
 mod echo;
+mod entity_action;
 mod group;
 mod health_action;
 mod insert_components;
@@ -13,6 +14,7 @@ pub mod prelude {
     pub use super::animation_action::AnimationAction;
     pub use super::delay::Delay;
     pub use super::echo::Echo;
+    pub use super::entity_action::EntityAction;
     pub use super::group::Group;
     pub use super::health_action::HealthAction;
     pub use super::insert_components::InsertComponents;
@@ -41,6 +43,7 @@ pub enum ActionType {
     HealthAction(HealthAction),
     AnimationAction(AnimationAction),
     SoundAction(SoundAction),
+    EntityAction(EntityAction),
 }
 
 #[derive(SystemData)]
@@ -55,4 +58,5 @@ pub struct ActionTriggerStorages<'a> {
     pub health_action:     WriteStorage<'a, ActionTrigger<HealthAction>>,
     pub animation_action:  WriteStorage<'a, ActionTrigger<AnimationAction>>,
     pub sound_action:      WriteStorage<'a, ActionTrigger<SoundAction>>,
+    pub entity_action:     WriteStorage<'a, ActionTrigger<EntityAction>>,
 }

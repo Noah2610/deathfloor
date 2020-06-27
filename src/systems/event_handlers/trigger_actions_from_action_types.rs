@@ -30,7 +30,7 @@ impl<'a> System<'a> for TriggerActionsFromActionTypesSystem {
                             (&mut action_trigger_components.echo)
                                 .get_mut_or_default(entity)
                         {
-                            action_trigger.trigger(echo);
+                            action_trigger.add_action(echo);
                         }
                     }
                     ActionType::Group(group) => {
@@ -38,7 +38,7 @@ impl<'a> System<'a> for TriggerActionsFromActionTypesSystem {
                             (&mut action_trigger_components.group)
                                 .get_mut_or_default(entity)
                         {
-                            action_trigger.trigger(group);
+                            action_trigger.add_action(group);
                         }
                     }
                     ActionType::MoveAction(move_action) => {
@@ -46,7 +46,7 @@ impl<'a> System<'a> for TriggerActionsFromActionTypesSystem {
                             (&mut action_trigger_components.move_action)
                                 .get_mut_or_default(entity)
                         {
-                            action_trigger.trigger(move_action);
+                            action_trigger.add_action(move_action);
                         }
                     }
                     ActionType::Random(random) => {
@@ -54,7 +54,7 @@ impl<'a> System<'a> for TriggerActionsFromActionTypesSystem {
                             (&mut action_trigger_components.random)
                                 .get_mut_or_default(entity)
                         {
-                            action_trigger.trigger(random);
+                            action_trigger.add_action(random);
                         }
                     }
                     ActionType::Delay(delay) => {
@@ -62,7 +62,7 @@ impl<'a> System<'a> for TriggerActionsFromActionTypesSystem {
                             (&mut action_trigger_components.delay)
                                 .get_mut_or_default(entity)
                         {
-                            action_trigger.trigger(delay);
+                            action_trigger.add_action(delay);
                         }
                     }
                     ActionType::RepeatDelay(repeat_delay) => {
@@ -70,7 +70,7 @@ impl<'a> System<'a> for TriggerActionsFromActionTypesSystem {
                             (&mut action_trigger_components.repeat_delay)
                                 .get_mut_or_default(entity)
                         {
-                            action_trigger.trigger(repeat_delay);
+                            action_trigger.add_action(repeat_delay);
                         }
                     }
                     ActionType::InsertComponents(insert_components) => {
@@ -78,7 +78,7 @@ impl<'a> System<'a> for TriggerActionsFromActionTypesSystem {
                             (&mut action_trigger_components.insert_components)
                                 .get_mut_or_default(entity)
                         {
-                            action_trigger.trigger(insert_components);
+                            action_trigger.add_action(insert_components);
                         }
                     }
                     ActionType::HealthAction(health_action) => {
@@ -86,7 +86,7 @@ impl<'a> System<'a> for TriggerActionsFromActionTypesSystem {
                             (&mut action_trigger_components.health_action)
                                 .get_mut_or_default(entity)
                         {
-                            action_trigger.trigger(health_action);
+                            action_trigger.add_action(health_action);
                         }
                     }
                     ActionType::AnimationAction(animation_action) => {
@@ -94,7 +94,7 @@ impl<'a> System<'a> for TriggerActionsFromActionTypesSystem {
                             (&mut action_trigger_components.animation_action)
                                 .get_mut_or_default(entity)
                         {
-                            action_trigger.trigger(animation_action);
+                            action_trigger.add_action(animation_action);
                         }
                     }
                     ActionType::SoundAction(sound_action) => {
@@ -102,7 +102,15 @@ impl<'a> System<'a> for TriggerActionsFromActionTypesSystem {
                             (&mut action_trigger_components.sound_action)
                                 .get_mut_or_default(entity)
                         {
-                            action_trigger.trigger(sound_action);
+                            action_trigger.add_action(sound_action);
+                        }
+                    }
+                    ActionType::EntityAction(entity_action) => {
+                        if let Some(action_trigger) =
+                            (&mut action_trigger_components.entity_action)
+                                .get_mut_or_default(entity)
+                        {
+                            action_trigger.add_action(entity_action);
                         }
                     }
                 }

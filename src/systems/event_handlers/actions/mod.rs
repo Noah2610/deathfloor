@@ -3,6 +3,7 @@ use super::system_prelude;
 pub mod animation_action;
 pub mod delay;
 pub mod echo;
+pub mod entity_action;
 pub mod group;
 pub mod health_action;
 pub mod insert_components;
