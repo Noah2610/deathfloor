@@ -1,5 +1,4 @@
 use super::system_prelude::*;
-use crate::settings::prelude::*;
 
 #[derive(Default)]
 pub struct HandleActionInsertComponents;
@@ -22,7 +21,7 @@ impl<'a> System<'a> for HandleActionInsertComponents {
         for (entity, action_trigger) in
             (&entities, &mut action_trigger_store).join()
         {
-            for action in action_trigger.drain() {
+            for action in action_trigger.drain_actions() {
                 insert_components(entity, action.0, &mut components_storages)
                     .expect("Couldn't insert some components.");
             }

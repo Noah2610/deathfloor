@@ -1,5 +1,4 @@
 use super::system_prelude::*;
-use crate::settings::prelude::*;
 
 pub fn insert_components(
     entity: Entity,

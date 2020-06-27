@@ -1,4 +1,7 @@
+mod variants;
+
 pub mod prelude {
+    pub use super::variants::EntityConfigVariants;
     pub use super::EntityComponentsData;
     pub use super::EntityComponentsStorages;
     pub use super::EntityConfig;
@@ -10,6 +13,7 @@ use crate::collision_tag::CollisionTagWrapper;
 use crate::components::prelude::*;
 use deathframe::amethyst::ecs::shred::ResourceId;
 use deathframe::amethyst::ecs::{SystemData, World, WriteStorage};
+use variants::EntityConfigVariants;
 
 /// Config for entities.
 /// All fields are optional and can be omitted.
@@ -18,6 +22,8 @@ use deathframe::amethyst::ecs::{SystemData, World, WriteStorage};
 pub struct EntityConfig {
     /// List of components to be added to the entity.
     pub components:    Option<EntityComponentsData>,
+    /// Variants for this entity.
+    pub variants:      Option<EntityConfigVariants>,
     /// Register events/actions.
     pub events:        Option<EventsRegister>,
     /// General collision tag config.
@@ -31,6 +37,7 @@ impl Merge for EntityConfig {
     fn merge(&mut self, other: Self) {
         *self = Self {
             components:    self.components.take().merged(other.components),
+            variants:      self.variants.take().merged(other.variants),
             events:        self.events.take().merged(other.events),
             collision_tag: other.collision_tag.or(self.collision_tag.take()),
             solid_tag:     other.solid_tag.or(self.solid_tag.take()),

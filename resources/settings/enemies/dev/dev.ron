@@ -1,0 +1,107 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "Dev": (
+            spritesheet_filename: "enemy_normal.png",
+
+            entity: (
+                components: (
+                    size: (
+                        w: 16.0,
+                        h: 24.0,
+                    ),
+                    gravity: (
+                        x: None,
+                        y: -400.0,
+                    ),
+                    max_movement_velocity: (
+                        x: 100.0,
+                        y: 200.0,
+                    ),
+                    base_friction: (
+                        friction_x: 1000.0,
+                        friction_y: None,
+                    ),
+                    animations: {
+                        Idle: Cycle([
+                            (13, 500),
+                            (14, 500),
+                        ]),
+                        Walk: Cycle([
+                            (4, 100),
+                            (5, 100),
+                            (6, 100),
+                        ]),
+                    },
+                    hitbox: Size,
+                    health: (
+                        health: 6,
+                        max_health: 6,
+                    ),
+                    health_display: (
+                        position: Top,
+                        size: (32.0, 2.0),
+                        padding: 4.0,
+                        border_padding: 0.5,
+                    ),
+                ),
+
+                variants: {
+                    "MoveLeft": (
+                        components: (
+                            walker: (
+                                x: -200.0,
+                                y: None,
+                            ),
+                        ),
+
+                        events: {
+                            OnCollision(And([
+                                Not(IsTag("Solid")),
+                                IsState(Enter),
+                            ])): Group([
+                                MoveAction(AddVelocity(
+                                    x: 200.0,
+                                    y: 200.0,
+                                )),
+                                EntityAction(SwitchVariant("MoveRight")),
+                            ]),
+                        },
+                    ),
+
+                    "MoveRight": (
+                        components: (
+                            walker: (
+                                x: 200.0,
+                                y: None,
+                            ),
+                        ),
+
+                        events: {
+                            OnCollision(And([
+                                Not(IsTag("Solid")),
+                                IsState(Enter),
+                            ])): Group([
+                                MoveAction(AddVelocity(
+                                    x: -200.0,
+                                    y: 200.0,
+                                )),
+                                EntityAction(SwitchVariant("MoveLeft")),
+                            ]),
+                        },
+                    ),
+                },
+
+                collision_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Player", "Jumppad", "Bullet", "Enemy"],
+                ),
+
+                solid_tag: (
+                    labels: ["Enemy", "Solid"],
+                    collides_with: ["Solid"],
+                ),
+            ),
+        ),
+    }
+)

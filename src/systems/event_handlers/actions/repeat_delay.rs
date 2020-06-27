@@ -41,7 +41,7 @@ impl<'a> System<'a> for HandleActionRepeatDelay {
                 let timed_actions = self.registered.entry(entity).or_default();
 
                 // REGISTER TIMERS AND ACTIONS
-                for repeat_delay in action_trigger.drain() {
+                for repeat_delay in action_trigger.drain_actions() {
                     for i in 0 .. repeat_delay.loops {
                         let delay_ms = i as u64 * repeat_delay.delay_ms;
                         let mut timer = Timer::new(
@@ -68,7 +68,7 @@ impl<'a> System<'a> for HandleActionRepeatDelay {
 
                 for idx in to_trigger.into_iter().rev() {
                     let timed_action = timed_actions.remove(idx);
-                    action_type_trigger.trigger(timed_action.action.clone());
+                    action_type_trigger.add_action(timed_action.action.clone());
                 }
 
                 should_remove_entry = timed_actions.is_empty();

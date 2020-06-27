@@ -37,7 +37,7 @@ impl<'a> System<'a> for HandleEventInterval {
                     // Update timer
                     timer.update().unwrap();
                     if timer.state.is_finished() {
-                        action_type_trigger.trigger(action.clone());
+                        action_type_trigger.add_action(action.clone());
                         timer.start().unwrap();
                     }
                 } else {

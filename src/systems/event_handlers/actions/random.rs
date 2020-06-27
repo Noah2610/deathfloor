@@ -22,13 +22,13 @@ impl<'a> System<'a> for HandleActionRandom {
         for (action_trigger, action_type_trigger_store) in
             (&mut action_trigger_store, &mut action_type_trigger_store).join()
         {
-            for action in action_trigger.drain() {
+            for action in action_trigger.drain_actions() {
                 let random_num = rng.gen_range(0.0, 1.0);
                 if action.chance > random_num {
-                    action_type_trigger_store.trigger(*action.on_success);
+                    action_type_trigger_store.add_action(*action.on_success);
                 } else {
                     if let Some(failure) = action.on_failure {
-                        action_type_trigger_store.trigger(*failure);
+                        action_type_trigger_store.add_action(*failure);
                     }
                 }
             }

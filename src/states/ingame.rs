@@ -1,28 +1,28 @@
 use super::state_prelude::*;
 use crate::input::prelude::{IngameActionBinding, IngameBindings};
 
+const BGM: SongType = SongType::Floor1;
+
 #[derive(Default)]
 pub struct Ingame;
 
 impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Ingame {
     fn on_start(&mut self, data: StateData<GameData<'a, 'b>>) {
         data.world.insert(BulletCreator::default());
-        data.world
-            .write_resource::<Songs<SongType>>()
-            .autoplay(vec![SongType::Floor1, SongType::Cntrlgun]);
+        data.world.write_resource::<Songs<SongType>>().play(&BGM);
     }
 
     fn on_stop(&mut self, data: StateData<GameData<'a, 'b>>) {
         data.world.remove::<BulletCreator>();
-        data.world.write_resource::<Songs<SongType>>().stop();
+        data.world.write_resource::<Songs<SongType>>().stop(&BGM);
     }
 
     fn on_resume(&mut self, data: StateData<GameData<'a, 'b>>) {
-        let _ = data.world.write_resource::<Songs<SongType>>().resume();
+        let _ = data.world.write_resource::<Songs<SongType>>().resume(&BGM);
     }
 
     fn on_pause(&mut self, data: StateData<GameData<'a, 'b>>) {
-        let _ = data.world.write_resource::<Songs<SongType>>().pause();
+        let _ = data.world.write_resource::<Songs<SongType>>().pause(&BGM);
     }
 
     fn update(

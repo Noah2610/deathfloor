@@ -8,7 +8,7 @@ impl<'a> System<'a> for HandleActionEcho {
 
     fn run(&mut self, mut action_trigger_store: Self::SystemData) {
         for action_trigger in (&mut action_trigger_store).join() {
-            for action in action_trigger.drain() {
+            for action in action_trigger.drain_actions() {
                 println!("{}", action);
             }
         }

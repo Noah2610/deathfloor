@@ -1,7 +1,10 @@
 use super::state_prelude::*;
 use crate::helpers::resource;
+use crate::input::menu_bindings::*;
 use amethyst::ui::{UiEvent, UiEventType};
 use deathframe::core::menu::prelude::*;
+
+const BGM: SongType = SongType::Cntrlgun;
 
 #[derive(Default)]
 pub struct MainMenu {
@@ -11,14 +14,12 @@ pub struct MainMenu {
 impl MainMenu {
     fn start<'a, 'b>(&mut self, data: &mut StateData<GameData<'a, 'b>>) {
         self.create_ui(data, resource("ui/main_menu.ron").to_str().unwrap());
-        data.world
-            .write_resource::<Songs<SongType>>()
-            .play(SongType::Cntrlgun);
+        data.world.write_resource::<Songs<SongType>>().play(&BGM);
     }
 
     fn stop<'a, 'b>(&mut self, data: &mut StateData<GameData<'a, 'b>>) {
         self.delete_ui(data);
-        data.world.write_resource::<Songs<SongType>>().stop();
+        data.world.write_resource::<Songs<SongType>>().stop(&BGM);
     }
 }
 
@@ -75,6 +76,14 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for MainMenu {
         data.data
             .update(data.world, DispatcherId::MainMenu)
             .unwrap();
+
+        let input = data.world.read_resource::<InputManager<MenuBindings>>();
+        if input.is_down(MenuActionBinding::Select) {
+            return Trans::Push(Box::new(LoadIngame::default()));
+        } else if input.is_down(MenuActionBinding::Quit) {
+            return Trans::Quit;
+        }
+
         Trans::None
     }
 

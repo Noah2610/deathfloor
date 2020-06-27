@@ -19,9 +19,9 @@ impl<'a> System<'a> for HandleActionGroup {
         for (action_trigger, action_type_trigger) in
             (&mut action_trigger_store, &mut action_type_trigger_store).join()
         {
-            for action in action_trigger.drain() {
+            for action in action_trigger.drain_actions() {
                 for grouped_action in action.0 {
-                    action_type_trigger.trigger(grouped_action);
+                    action_type_trigger.add_action(grouped_action);
                 }
             }
         }

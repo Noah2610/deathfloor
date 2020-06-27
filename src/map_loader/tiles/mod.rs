@@ -39,7 +39,18 @@ pub(super) fn load_tiles(
         let entity = entity_builder.build();
 
         if let Some(entity_config) = tile_settings.entity {
-            edit_entity_with_entity_config(world, entity, entity_config)?;
+            let type_variant = tile
+                .props
+                .get("variant")
+                .and_then(|val| val.as_str())
+                .map(ToString::to_string);
+
+            edit_entity_with_entity_config(
+                world,
+                entity,
+                entity_config,
+                type_variant,
+            )?;
         }
     }
 

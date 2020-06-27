@@ -12,6 +12,7 @@ mod handle_jumppad_affected;
 mod handle_movables;
 mod handle_scales;
 mod handle_walkers;
+mod update_entity_configs;
 
 pub mod prelude {
     pub use deathframe::amethyst::utils::ortho_camera::CameraOrthoSystem;
@@ -31,6 +32,7 @@ pub mod prelude {
     pub use super::handle_movables::HandleMovablesSystem;
     pub use super::handle_scales::HandleScalesSystem;
     pub use super::handle_walkers::HandleWalkersSystem;
+    pub use super::update_entity_configs::UpdateEntityConfigsSystem;
 }
 
 pub mod system_prelude {
