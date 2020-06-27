@@ -30,7 +30,7 @@ impl<'a> System<'a> for HandleEventOnCollision {
                     EventType::OnCollision(None)
                         if !collider.collisions.is_empty() =>
                     {
-                        action_type_trigger.trigger(action.clone());
+                        action_type_trigger.add_action(action.clone());
                     }
                     EventType::OnCollision(Some(query_exp)) => {
                         if collider
@@ -39,7 +39,7 @@ impl<'a> System<'a> for HandleEventOnCollision {
                             .run()
                             .is_some()
                         {
-                            action_type_trigger.trigger(action.clone());
+                            action_type_trigger.add_action(action.clone());
                         }
                     }
                     _ => (),

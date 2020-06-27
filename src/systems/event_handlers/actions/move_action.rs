@@ -16,7 +16,7 @@ impl<'a> System<'a> for HandleActionMoveAction {
         for (action_trigger, movable) in
             (&mut action_trigger_store, &mut movables).join()
         {
-            for action in action_trigger.drain() {
+            for action in action_trigger.drain_actions() {
                 movable.add_action(action.0);
             }
         }

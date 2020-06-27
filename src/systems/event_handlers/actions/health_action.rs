@@ -16,7 +16,7 @@ impl<'a> System<'a> for HandleActionHealthAction {
         for (action_trigger, health_action_queu) in
             (&mut action_trigger_store, &mut health_action_queue_store).join()
         {
-            for action in action_trigger.drain() {
+            for action in action_trigger.drain_actions() {
                 health_action_queu.add_action(action.0);
             }
         }

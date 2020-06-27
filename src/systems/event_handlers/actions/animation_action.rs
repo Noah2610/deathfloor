@@ -19,7 +19,7 @@ impl<'a> System<'a> for HandleActionAnimationAction {
         for (action_trigger, animation_editor) in
             (&mut action_trigger_store, &mut animation_editor_store).join()
         {
-            for action in action_trigger.drain() {
+            for action in action_trigger.drain_actions() {
                 animation_editor.add_action(action.0);
             }
         }

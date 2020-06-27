@@ -1,5 +1,4 @@
 use super::component_prelude::*;
-use std::vec::Drain;
 
 #[derive(Component, Clone, Deserialize)]
 #[storage(DenseVecStorage)]
@@ -8,23 +7,6 @@ where
     A: 'static + Clone + Send + Sync,
 {
     actions: Vec<A>,
-}
-
-impl<A> ActionTrigger<A>
-where
-    A: 'static + Clone + Send + Sync,
-{
-    /// Trigger an action.
-    #[deprecated]
-    pub fn trigger(&mut self, action: A) {
-        self.add_action(action);
-    }
-
-    /// Drain all triggered actions.
-    #[deprecated]
-    pub fn drain(&mut self) -> Drain<A> {
-        self.drain_actions()
-    }
 }
 
 impl<A> ActionQueue for ActionTrigger<A>

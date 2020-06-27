@@ -32,7 +32,7 @@ impl<'a> System<'a> for HandleEventLifecycle {
             if let Some(action) =
                 events_register.get_action(&event_type).cloned()
             {
-                action_type_trigger.trigger(action);
+                action_type_trigger.add_action(action);
             }
         }
     }

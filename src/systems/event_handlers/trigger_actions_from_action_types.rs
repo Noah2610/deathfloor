@@ -23,7 +23,7 @@ impl<'a> System<'a> for TriggerActionsFromActionTypesSystem {
         for (entity, action_type_trigger) in
             (&entities, &mut action_type_triggers).join()
         {
-            for action_type in action_type_trigger.drain() {
+            for action_type in action_type_trigger.drain_actions() {
                 match action_type {
                     ActionType::Echo(echo) => {
                         if let Some(action_trigger) =
