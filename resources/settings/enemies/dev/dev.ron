@@ -54,7 +54,18 @@
                                 y: None,
                             ),
                         ),
+
+                        events: {
+                            OnCollision(And([
+                                Not(IsTag("Solid")),
+                                IsState(Enter),
+                            ])): MoveAction(AddVelocity(
+                                x: 200.0,
+                                y: 200.0,
+                            )),
+                        },
                     ),
+
                     "MoveRight": (
                         components: (
                             walker: (
@@ -62,10 +73,17 @@
                                 y: None,
                             ),
                         ),
-                    ),
-                },
 
-                events: {
+                        events: {
+                            OnCollision(And([
+                                Not(IsTag("Solid")),
+                                IsState(Enter),
+                            ])): MoveAction(AddVelocity(
+                                x: -200.0,
+                                y: 200.0,
+                            )),
+                        },
+                    ),
                 },
 
                 collision_tag: (
