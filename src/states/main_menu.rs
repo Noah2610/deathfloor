@@ -3,6 +3,8 @@ use crate::helpers::resource;
 use amethyst::ui::{UiEvent, UiEventType};
 use deathframe::core::menu::prelude::*;
 
+const BGM: SongType = SongType::Cntrlgun;
+
 #[derive(Default)]
 pub struct MainMenu {
     ui_data: UiData,
@@ -11,14 +13,12 @@ pub struct MainMenu {
 impl MainMenu {
     fn start<'a, 'b>(&mut self, data: &mut StateData<GameData<'a, 'b>>) {
         self.create_ui(data, resource("ui/main_menu.ron").to_str().unwrap());
-        data.world
-            .write_resource::<Songs<SongType>>()
-            .play(SongType::Cntrlgun);
+        data.world.write_resource::<Songs<SongType>>().play(&BGM);
     }
 
     fn stop<'a, 'b>(&mut self, data: &mut StateData<GameData<'a, 'b>>) {
         self.delete_ui(data);
-        data.world.write_resource::<Songs<SongType>>().stop();
+        data.world.write_resource::<Songs<SongType>>().stop(&BGM);
     }
 }
 
