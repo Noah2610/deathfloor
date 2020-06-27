@@ -55,6 +55,11 @@ pub(super) fn edit_entity_with_entity_config(
         }
     }
 
+    // ENTITY_CONFIG_REGISTER
+    world
+        .write_component::<EntityConfigRegister>()
+        .insert(entity, EntityConfigRegister::new(entity_config.clone()))?;
+
     // COLLISION / SOLID TAGS
     if let Some(collision_tag) = entity_config.collision_tag {
         let mut collider_storage =

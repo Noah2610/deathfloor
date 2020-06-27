@@ -243,6 +243,12 @@ fn build_game_data<'a, 'b>(
             UpdateLifecycleSystem::default(),
             "update_lifecycle_system",
             &["update_health_system", "handle_taking_damage_system"],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            UpdateEntityConfigsSystem::default(),
+            "update_entity_configs_system",
+            &[],
         )?;
 
     #[cfg(feature = "debug")]

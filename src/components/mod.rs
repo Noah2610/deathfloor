@@ -1,6 +1,7 @@
 mod animation_editor;
 mod bullet;
 mod enemy;
+mod entity_config_register;
 mod event_listener;
 mod health_display;
 mod jumper;
@@ -22,6 +23,10 @@ pub mod prelude {
     pub use super::animation_editor::prelude::*;
     pub use super::bullet::Bullet;
     pub use super::enemy::prelude::*;
+    pub use super::entity_config_register::{
+        EntityConfigRegister,
+        EntityConfigRegisterAction,
+    };
     pub use super::event_listener::prelude::*;
     pub use super::health_display::prelude::*;
     pub use super::jumper::Jumper;
