@@ -94,7 +94,7 @@
 
                 collision_tag: (
                     labels: ["Enemy"],
-                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
+                    collides_with: ["Player", "Jumppad", "Bullet", "Enemy"],
                 ),
 
                 solid_tag: (
