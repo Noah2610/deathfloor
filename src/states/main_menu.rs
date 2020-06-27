@@ -1,5 +1,6 @@
 use super::state_prelude::*;
 use crate::helpers::resource;
+use crate::input::menu_bindings::*;
 use amethyst::ui::{UiEvent, UiEventType};
 use deathframe::core::menu::prelude::*;
 
@@ -75,6 +76,14 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for MainMenu {
         data.data
             .update(data.world, DispatcherId::MainMenu)
             .unwrap();
+
+        let input = data.world.read_resource::<InputManager<MenuBindings>>();
+        if input.is_down(MenuActionBinding::Select) {
+            return Trans::Push(Box::new(LoadIngame::default()));
+        } else if input.is_down(MenuActionBinding::Quit) {
+            return Trans::Quit;
+        }
+
         Trans::None
     }
 

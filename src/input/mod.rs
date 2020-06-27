@@ -1,6 +1,6 @@
-mod ingame_bindings;
-mod menu_bindings;
-mod paused_bindings;
+pub mod ingame_bindings;
+pub mod menu_bindings;
+pub mod paused_bindings;
 
 pub mod prelude {
     pub use super::ingame_bindings::{
