@@ -41,8 +41,20 @@ where
 pub(super) fn edit_entity_with_entity_config(
     world: &mut World,
     entity: Entity,
-    entity_config: EntityConfig,
+    mut entity_config: EntityConfig,
+    variant: Option<String>,
 ) -> amethyst::Result<()> {
+    if let Some(variant_name) = variant {
+        if let Some(variant) = {
+            entity_config
+                .variants
+                .as_ref()
+                .and_then(|variants| variants.get(&variant_name).cloned())
+        } {
+            entity_config.merge(variant);
+        }
+    }
+
     // COLLISION / SOLID TAGS
     if let Some(collision_tag) = entity_config.collision_tag {
         let mut collider_storage =

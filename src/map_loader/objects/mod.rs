@@ -23,7 +23,17 @@ pub(super) fn load_objects(
             }
 
             ObjectType::Enemy(enemy_type) => {
-                let _ = build_enemy::build(world, &object, enemy_type.clone())?;
+                let variant = object
+                    .props
+                    .get("variant")
+                    .and_then(|val| val.as_str())
+                    .map(ToString::to_string);
+                let _ = build_enemy::build(
+                    world,
+                    &object,
+                    enemy_type.clone(),
+                    variant,
+                )?;
             }
 
             ObjectType::None => eprintln!(

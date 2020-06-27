@@ -5,6 +5,7 @@ pub(super) fn build(
     world: &mut World,
     object: &ObjectData,
     enemy_type: EnemyType,
+    type_variant: Option<String>,
 ) -> amethyst::Result<Entity> {
     let enemy_settings = world
         .read_resource::<Settings>()
@@ -43,7 +44,12 @@ pub(super) fn build(
         .with(SoundPlayer::<SoundType>::default())
         .build();
 
-    edit_entity_with_entity_config(world, entity, enemy_settings.entity)?;
+    edit_entity_with_entity_config(
+        world,
+        entity,
+        enemy_settings.entity,
+        type_variant,
+    )?;
 
     Ok(entity)
 }
