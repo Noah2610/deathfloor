@@ -2,13 +2,13 @@
 (
     types: {
         "NormalRight": (
-            spritesheet_filename: "enemy_yellow_normal1.png",
+            spritesheet_filename: "enemy_tank.png",
 
             entity: (
                 components: (
                     size: (
-                        w: 24.0,
-                        h: 32.0,
+                        w: 64.0,
+                        h: 64.0,
                     ),
                     gravity: (
                         x: None,
@@ -25,12 +25,16 @@
                     animations: {
                         Idle: Cycle([
                             (0, 100),
-                            (1, 100),
+                            (5, 100),
                         ]),
                         Walk: Cycle([
                             (0, 100),
                             (1, 100),
                             (2, 100),
+                            (3, 100),
+                            (4, 100),
+                            (5, 100),
+
                         ]),
                     },
                     hitbox: Size,

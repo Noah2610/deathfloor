@@ -5,7 +5,7 @@
         "NormalLeft": (
             /// Filename of this enemy's spritesheet,
             /// under `resources/spritesheets`.
-            spritesheet_filename: "enemy_yellow_normal1.png",
+            spritesheet_filename: "enemy_tank.png",
 
             /// Entity data, such as _components_, _events/actions_, collision stuff.
             entity: (
@@ -14,8 +14,8 @@
                 components: (
                     /// If this is not set, uses tiled object size.
                     size: (
-                        w: 16.0,
-                        h: 24.0,
+                        w: 64.0,
+                        h: 64.0,
                     ),
                     gravity: (
                         x: None,
@@ -32,12 +32,15 @@
                     animations: {
                         Idle: Cycle([
                             (0, 100),
-                            (1, 100),
+                            (5, 100),
                         ]),
                         Walk: Cycle([
                             (0, 100),
                             (1, 100),
                             (2, 100),
+                            (3, 100),
+                            (4, 100),
+                            (5, 100),
                         ]),
                     },
                     hitbox: Size,

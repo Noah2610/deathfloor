@@ -2,13 +2,13 @@
 (
     types: {
         "NormalLeftFast": (
-            spritesheet_filename: "enemy_normal_fast.png",
+            spritesheet_filename: "enemy_yellow_normal1.png",
 
             entity: (
                 components: (
                     size: (
                         w: 16.0,
-                        h: 16.0,
+                        h: 24.0,
                     ),
                     gravity: (
                         x: None,
@@ -24,13 +24,13 @@
                     ),
                     animations: {
                         Idle: Cycle([
-                            (13, 500),
-                            (14, 500),
+                            (1, 150),
+                            (2, 150),
                         ]),
                         Walk: Cycle([
-                            (4, 100),
-                            (5, 100),
-                            (6, 100),
+                            (0, 120),
+                            (1, 120),
+                            (2, 120),
                         ]),
                     },
                     hitbox: Size,
