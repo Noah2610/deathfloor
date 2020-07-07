@@ -12,9 +12,9 @@
         /// Movement acceleration.
         acceleration:        (900.0, 1400.0),
         /// Soft-max for movement velocity.
-        max_velocity:        (120.0, 420.0),
+        max_velocity:        (110.0, 400.0),
         /// Friction factor applied to velocity every frame.
-        base_friction:       (1000.0, None),
+        base_friction:       (1100.0, None),
         /// The normal gravity.
         gravity:             (None, -900.0),
     ),
