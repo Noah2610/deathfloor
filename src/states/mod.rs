@@ -1,9 +1,9 @@
-mod ingame;
-mod level_select;
-mod load_ingame;
-mod main_menu;
-mod paused;
-mod startup;
+pub mod ingame;
+pub mod level_select;
+pub mod load_ingame;
+pub mod main_menu;
+pub mod paused;
+pub mod startup;
 
 pub mod prelude {
     pub use super::aliases::*;

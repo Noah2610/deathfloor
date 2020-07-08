@@ -50,6 +50,13 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for LevelSelect {
             .unwrap();
         data.data.update_core(data.world);
 
+        if let Some(selected_level_name) =
+            data.world.read_resource::<SelectLevel>().0.as_ref()
+        {
+            let level_path = resource("levels").join(selected_level_name);
+            return Trans::Push(Box::new(LoadIngame::new(level_path)));
+        }
+
         Trans::None
     }
 
