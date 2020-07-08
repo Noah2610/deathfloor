@@ -1,3 +1,5 @@
+// resources/config/ingame_bindings.ron
+
 use deathframe::amethyst::input::BindingTypes;
 use deathframe::core::geo::prelude::{Axis, ByAxis};
 use std::fmt;
@@ -17,6 +19,7 @@ pub enum IngameActionBinding {
     PlayerShoot,
 
     TogglePause,
+    Quit,
 
     // DEBUG
     ReloadLevel,

@@ -27,6 +27,8 @@ impl Ingame {
 
         if input_manager.is_down(IngameActionBinding::TogglePause) {
             Some(Trans::Push(Box::new(Paused::default())))
+        } else if input_manager.is_down(IngameActionBinding::Quit) {
+            Some(Trans::Pop)
         } else if input_manager.is_down(IngameActionBinding::ReloadLevel) {
             Some(Trans::Switch(Box::new(LoadIngame::new(
                 self.level_path.clone(),

@@ -1,3 +1,4 @@
+// src/input/ingame_bindings.rs
 (
     axes: {
         PlayerX: Emulated(pos: Key(D), neg: Key(A)),
@@ -7,7 +8,8 @@
         PlayerJump:  [ [Key(Space)], [Key(K)], ],
         PlayerShoot: [ [Key(J)], ],
 
-        TogglePause: [ [Key(P)], [Key(Escape)] ],
+        TogglePause: [ [Key(P)], ],
+        Quit:        [ [Key(Escape)], ],
 
         // DEBUG
         ReloadLevel: [ [Key(R)], ],
