@@ -1,1 +1,1 @@
-List((texture_width:72,texture_height:32,sprites:[(x:0,y:0,width:24,height:32,),(x:24,y:0,width:24,height:32,),(x:48,y:0,width:24,height:32,),],))
+List((texture_width:144,texture_height:32,sprites:[(x:0,y:0,width:24,height:32,),(x:24,y:0,width:24,height:32,),(x:48,y:0,width:24,height:32,),(x:72,y:0,width:24,height:32,),(x:96,y:0,width:24,height:32,),(x:120,y:0,width:24,height:32,),],))

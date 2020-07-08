@@ -49,8 +49,8 @@
                         y: None,
                     ),
                     health: (
-                        health: 6,
-                        max_health: 6,
+                        health: 15,
+                        max_health: 15,
                     ),
                     health_display: (
                         position: Top,
@@ -71,7 +71,7 @@
                             IsTag("Player"),
                         ]),
                     ): MoveAction(AddVelocity(
-                        x: 200.0,
+                        x: 0,
                     )),
 
                     OnCollision(
@@ -80,7 +80,7 @@
                             IsTag("Player"),
                         ]),
                     ): MoveAction(AddVelocity(
-                        x: -200.0,
+                        x: 0,
                     )),
 
                     OnCollision(
@@ -91,7 +91,7 @@
                     ): Group([
                         SoundAction(PlayWithVolume(Jump, 0.3)),
                         MoveAction(SetVelocity(
-                            y: 100.0,
+                            y: 0.0,
                         )),
                         HealthAction(Lose(2)),
                     ]),
@@ -121,7 +121,7 @@
                     ])): Group([
                         InsertComponents((
                             walker: (
-                                x: 250.0,
+                                x: -250,
                             ),
                         )),
                     ]),
