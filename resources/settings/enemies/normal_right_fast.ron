@@ -2,13 +2,13 @@
 (
     types: {
         "NormalRightFast": (
-            spritesheet_filename: "enemy_yellow_normal1.png",
+            spritesheet_filename: "enemy_yellow_runner1.png",
 
             entity: (
                 components: (
                     size: (
-                        w: 16.0,
-                        h: 24.0,
+                        w: 32.0,
+                        h: 32.0,
                     ),
                     gravity: (
                         x: None,
@@ -25,12 +25,13 @@
                     animations: {
                         Idle: Cycle([
                             (1, 150),
-                            (2, 150),
+                            
                         ]),
                         Walk: Cycle([
                             (0, 120),
                             (1, 120),
                             (2, 120),
+                            (3, 120),
                         ]),
                     },
                     hitbox: Size,
