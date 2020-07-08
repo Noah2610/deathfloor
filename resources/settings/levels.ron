@@ -20,5 +20,4 @@
         "testmap6.json",
         "testmap7.json",
     ],
-    default: "level.json",
 )
