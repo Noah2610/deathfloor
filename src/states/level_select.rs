@@ -4,6 +4,9 @@ use amethyst::ui::{UiEvent, UiEventType};
 use deathframe::core::menu::prelude::*;
 
 #[derive(Default)]
+pub struct SelectLevel(pub Option<String>);
+
+#[derive(Default)]
 pub struct LevelSelect {
     ui_data: UiData,
 }
@@ -11,10 +14,12 @@ pub struct LevelSelect {
 impl LevelSelect {
     fn start<'a, 'b>(&mut self, data: &mut StateData<GameData<'a, 'b>>) {
         self.create_ui(data, resource("ui/level_select.ron").to_str().unwrap());
+        data.world.insert(SelectLevel::default());
     }
 
     fn stop<'a, 'b>(&mut self, data: &mut StateData<GameData<'a, 'b>>) {
         self.delete_ui(data);
+        data.world.remove::<LevelSelect>();
     }
 }
 

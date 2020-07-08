@@ -1,3 +1,5 @@
+// resources/config/menu_bindings.ron
+
 use deathframe::amethyst::input::BindingTypes;
 use std::fmt;
 

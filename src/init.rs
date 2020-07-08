@@ -107,6 +107,18 @@ fn build_game_data<'a, 'b>(
         .with_bundle(DispatcherId::Ingame, EventHandlersBundle::default())?
         .with_bundle(DispatcherId::Paused, paused_input_bundle)?
         .with(
+            DispatcherId::Ui,
+            InputManagerSystem::<input::MenuBindings>::default(),
+            "ui_input_manager_system",
+            &[],
+        )?
+        .with(
+            DispatcherId::LevelSelect,
+            HandleLevelSelectSystem::default(),
+            "handle_level_select_system",
+            &[],
+        )?
+        .with(
             DispatcherId::Ingame,
             HandleAnimationsSystem::default(),
             "handle_animations_system",
@@ -129,12 +141,6 @@ fn build_game_data<'a, 'b>(
             DispatcherId::Paused,
             InputManagerSystem::<input::PausedBindings>::default(),
             "paused_input_manager_system",
-            &[],
-        )?
-        .with(
-            DispatcherId::Ui,
-            InputManagerSystem::<input::MenuBindings>::default(),
-            "ui_input_manager_system",
             &[],
         )?
         .with(

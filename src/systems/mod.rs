@@ -9,6 +9,7 @@ mod event_handlers;
 mod handle_animation_editors;
 mod handle_animations;
 mod handle_jumppad_affected;
+mod handle_level_select;
 mod handle_movables;
 mod handle_scales;
 mod handle_walkers;
@@ -29,6 +30,7 @@ pub mod prelude {
     pub use super::handle_animation_editors::HandleAnimationEditorsSystem;
     pub use super::handle_animations::HandleAnimationsSystem;
     pub use super::handle_jumppad_affected::HandleJumppadAffectedSystem;
+    pub use super::handle_level_select::HandleLevelSelectSystem;
     pub use super::handle_movables::HandleMovablesSystem;
     pub use super::handle_scales::HandleScalesSystem;
     pub use super::handle_walkers::HandleWalkersSystem;

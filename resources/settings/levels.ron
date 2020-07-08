@@ -1,0 +1,24 @@
+// src/settings/level_settings.rs
+
+#![enable(implicit_some)]
+(
+    levels: [
+        "level.json",
+        "level0.json",
+        "rubber_ball_room.json",
+        "testlevel1.json",
+        "testlevel3.json",
+        "testlevel4.json",
+        "testlevel5.json",
+        "testlevel6.json",
+        "testmap1.1.json",
+        "testmap1.json",
+        "testmap2.json",
+        "testmap3.json",
+        "testmap4.json",
+        "testmap5.json",
+        "testmap6.json",
+        "testmap7.json",
+    ],
+    default: "level.json",
+)
