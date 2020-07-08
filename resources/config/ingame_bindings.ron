@@ -9,7 +9,6 @@
         PlayerShoot: [ [Key(J)], ],
 
         TogglePause: [ [Key(P)], ],
-        Quit:        [ [Key(Escape)], ],
 
         // DEBUG
         ReloadLevel: [ [Key(R)], ],
