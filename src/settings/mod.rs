@@ -4,6 +4,7 @@ pub mod prelude {
     pub use super::entity_config::prelude::*;
     pub use super::general_settings::GeneralSettings;
     pub use super::hitbox_config::HitboxConfig;
+    pub use super::level_settings::LevelSettings;
     pub use super::player_settings::prelude::*;
     pub use super::tiles_settings::prelude::*;
     pub use super::Settings;
@@ -15,6 +16,7 @@ mod enemies_settings;
 mod entity_config;
 mod general_settings;
 mod hitbox_config;
+mod level_settings;
 mod player_settings;
 mod tiles_settings;
 
@@ -29,6 +31,7 @@ use std::path::PathBuf;
 pub struct Settings {
     pub general: GeneralSettings,
     pub camera:  CameraSettings,
+    pub level:   LevelSettings,
     pub player:  PlayerSettings,
     pub tiles:   TilesSettings,
     pub enemies: EnemiesSettings,
@@ -39,6 +42,7 @@ impl Settings {
         Ok(Settings {
             general: Self::load_file::<GeneralSettings, _>("general.ron")?,
             camera:  Self::load_file::<CameraSettings, _>("camera.ron")?,
+            level:   Self::load_file::<LevelSettings, _>("levels.ron")?,
             player:  Self::load_file::<PlayerSettings, _>("player.ron")?,
             tiles:   Self::load_dir::<TilesSettings, _>("tiles")?,
             enemies: Self::load_dir::<EnemiesSettings, _>("enemies")?,

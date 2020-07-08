@@ -2,5 +2,7 @@
 pub enum DispatcherId {
     Ingame,
     Paused,
+    Ui,
     MainMenu,
+    LevelSelect,
 }

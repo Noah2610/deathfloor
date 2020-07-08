@@ -92,7 +92,9 @@ fn build_game_data<'a, 'b>(
         .custom(CustomData::default())
         .dispatcher(DispatcherId::Ingame)?
         .dispatcher(DispatcherId::Paused)?
+        .dispatcher(DispatcherId::Ui)?
         .dispatcher(DispatcherId::MainMenu)?
+        .dispatcher(DispatcherId::LevelSelect)?
         .with_core_bundle(transform_bundle)?
         .with_core_bundle(rendering_bundle)?
         .with_core_bundle(audio_bundle)?
@@ -104,6 +106,18 @@ fn build_game_data<'a, 'b>(
         .with_bundle(DispatcherId::Ingame, physics_bundle)?
         .with_bundle(DispatcherId::Ingame, EventHandlersBundle::default())?
         .with_bundle(DispatcherId::Paused, paused_input_bundle)?
+        .with(
+            DispatcherId::Ui,
+            InputManagerSystem::<input::MenuBindings>::default(),
+            "ui_input_manager_system",
+            &[],
+        )?
+        .with(
+            DispatcherId::LevelSelect,
+            HandleLevelSelectSystem::default(),
+            "handle_level_select_system",
+            &[],
+        )?
         .with(
             DispatcherId::Ingame,
             HandleAnimationsSystem::default(),
@@ -127,12 +141,6 @@ fn build_game_data<'a, 'b>(
             DispatcherId::Paused,
             InputManagerSystem::<input::PausedBindings>::default(),
             "paused_input_manager_system",
-            &[],
-        )?
-        .with(
-            DispatcherId::MainMenu,
-            InputManagerSystem::<input::MenuBindings>::default(),
-            "main_menu_input_manager_system",
             &[],
         )?
         .with(

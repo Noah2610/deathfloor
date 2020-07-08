@@ -1,8 +1,8 @@
 (
     axes: {},
     actions: {
-        Next:   [ [Key(J)], [Key(S)], [Key(Down)], [Key(Tab)] ],
-        Prev:   [ [Key(K)], [Key(W)], [Key(Up)], [Key(LShift), Key(Tab)] ],
+        Next:   [ [Key(J)], [Key(D)], [Key(Right)], [Key(Tab)] ],
+        Prev:   [ [Key(K)], [Key(A)], [Key(Left)], [Key(LShift), Key(Tab)] ],
         Select: [ [Key(Return)], [Key(Space)], ],
         Quit:   [ [Key(Escape)], ],
     },

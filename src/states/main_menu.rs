@@ -33,7 +33,7 @@ impl<'a, 'b> Menu<GameData<'a, 'b>, StateEvent> for MainMenu {
         if let UiEventType::ClickStop = event.event_type {
             match event_name.as_str() {
                 "btn_start" => {
-                    Some(Trans::Push(Box::new(LoadIngame::default())))
+                    Some(Trans::Push(Box::new(LevelSelect::default())))
                 }
                 "btn_quit" => Some(Trans::Quit),
                 _ => None,
@@ -73,13 +73,15 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for MainMenu {
         &mut self,
         data: StateData<GameData<'a, 'b>>,
     ) -> Trans<GameData<'a, 'b>, StateEvent> {
+        data.data.update_only(data.world, DispatcherId::Ui).unwrap();
         data.data
-            .update(data.world, DispatcherId::MainMenu)
+            .update_only(data.world, DispatcherId::MainMenu)
             .unwrap();
+        data.data.update_core(data.world);
 
         let input = data.world.read_resource::<InputManager<MenuBindings>>();
         if input.is_down(MenuActionBinding::Select) {
-            return Trans::Push(Box::new(LoadIngame::default()));
+            return Trans::Push(Box::new(LevelSelect::default()));
         } else if input.is_down(MenuActionBinding::Quit) {
             return Trans::Quit;
         }

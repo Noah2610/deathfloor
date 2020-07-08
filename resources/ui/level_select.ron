@@ -1,0 +1,113 @@
+#![enable(implicit_some)]
+Container(
+    transform: (
+        id:             "level_select",
+        x:              0.0,
+        y:              0.0,
+        z:              0.0,
+        width:          1.0,
+        height:         1.0,
+        anchor:         Middle,
+        mouse_reactive: false,
+        percent:        true,
+        opaque:         false,
+    ),
+
+    background: SolidColor(0.1, 0.1, 0.1, 1.0),
+
+    children: [
+        Label(
+            transform: (
+                id:             "level_select_title",
+                x:              0.0,
+                y:              0.25,
+                z:              1.0,
+                width:          0.75,
+                height:         0.25,
+                anchor:         Middle,
+                mouse_reactive: false,
+                percent:        true,
+                opaque:         false,
+            ),
+            text: (
+                text:      "level select",
+                font_size: 32.0,
+                color:     (1.0, 0.0, 0.0, 1.0),
+                font:      File("resources/fonts/undefined-medium.ttf", ("TTF", ())),
+                align:     Middle,
+            ),
+        ),
+
+        // START LEVEL
+        Button(
+            transform: (
+                id:             "btn_select_level",
+                x:              0.0,
+                y:              -0.25,
+                z:              1.0,
+                width:          0.5,
+                height:         0.25,
+                anchor:         Middle,
+                pivot:          Middle,
+                mouse_reactive: true,
+                percent:        true,
+                opaque:         true,
+            ),
+            button: (
+                text:              "",
+                font_size:         24.0,
+                font:              File("resources/fonts/undefined-medium.ttf", ("TTF", ())),
+                normal_text_color: (1.0, 1.0, 1.0, 1.0),
+                hover_text_color:  (0.5, 0.5, 0.5, 1.0),
+            ),
+        ),
+
+        // PREV LEVEL
+        Button(
+            transform: (
+                id:             "btn_prev_level",
+                x:              -0.3,
+                y:              -0.25,
+                z:              1.0,
+                width:          0.1,
+                height:         0.1,
+                anchor:         Middle,
+                pivot:          Middle,
+                mouse_reactive: true,
+                percent:        true,
+                opaque:         true,
+            ),
+            button: (
+                text:              "<",
+                font_size:         24.0,
+                font:              File("resources/fonts/undefined-medium.ttf", ("TTF", ())),
+                normal_text_color: (1.0, 1.0, 1.0, 1.0),
+                hover_text_color:  (0.5, 0.5, 0.5, 1.0),
+            ),
+        ),
+
+        // NEXT LEVEL
+        Button(
+            transform: (
+                id:             "btn_next_level",
+                x:              0.3,
+                y:              -0.25,
+                z:              1.0,
+                width:          0.1,
+                height:         0.1,
+                anchor:         Middle,
+                pivot:          Middle,
+                mouse_reactive: true,
+                percent:        true,
+                opaque:         true,
+            ),
+            button: (
+                text:              ">",
+                font_size:         24.0,
+                font:              File("resources/fonts/undefined-medium.ttf", ("TTF", ())),
+                normal_text_color: (1.0, 1.0, 1.0, 1.0),
+                hover_text_color:  (0.5, 0.5, 0.5, 1.0),
+            ),
+        ),
+    ],
+)
