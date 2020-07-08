@@ -39,9 +39,11 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for LevelSelect {
         &mut self,
         data: StateData<GameData<'a, 'b>>,
     ) -> Trans<GameData<'a, 'b>, StateEvent> {
+        data.data.update_only(data.world, DispatcherId::Ui).unwrap();
         data.data
-            .update(data.world, DispatcherId::LevelSelect)
+            .update_only(data.world, DispatcherId::LevelSelect)
             .unwrap();
+        data.data.update_core(data.world);
 
         Trans::None
     }

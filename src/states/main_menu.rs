@@ -73,9 +73,11 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for MainMenu {
         &mut self,
         data: StateData<GameData<'a, 'b>>,
     ) -> Trans<GameData<'a, 'b>, StateEvent> {
+        data.data.update_only(data.world, DispatcherId::Ui).unwrap();
         data.data
-            .update(data.world, DispatcherId::MainMenu)
+            .update_only(data.world, DispatcherId::MainMenu)
             .unwrap();
+        data.data.update_core(data.world);
 
         let input = data.world.read_resource::<InputManager<MenuBindings>>();
         if input.is_down(MenuActionBinding::Select) {

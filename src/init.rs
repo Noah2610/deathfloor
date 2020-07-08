@@ -92,6 +92,7 @@ fn build_game_data<'a, 'b>(
         .custom(CustomData::default())
         .dispatcher(DispatcherId::Ingame)?
         .dispatcher(DispatcherId::Paused)?
+        .dispatcher(DispatcherId::Ui)?
         .dispatcher(DispatcherId::MainMenu)?
         .dispatcher(DispatcherId::LevelSelect)?
         .with_core_bundle(transform_bundle)?
@@ -131,9 +132,9 @@ fn build_game_data<'a, 'b>(
             &[],
         )?
         .with(
-            DispatcherId::MainMenu,
+            DispatcherId::Ui,
             InputManagerSystem::<input::MenuBindings>::default(),
-            "main_menu_input_manager_system",
+            "ui_input_manager_system",
             &[],
         )?
         .with(
