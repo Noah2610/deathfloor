@@ -1,4 +1,5 @@
 mod ingame;
+mod level_select;
 mod load_ingame;
 mod main_menu;
 mod paused;
@@ -7,6 +8,7 @@ mod startup;
 pub mod prelude {
     pub use super::aliases::*;
     pub use super::ingame::Ingame;
+    pub use super::level_select::LevelSelect;
     pub use super::load_ingame::LoadIngame;
     pub use super::main_menu::MainMenu;
     pub use super::paused::Paused;

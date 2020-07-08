@@ -33,7 +33,7 @@ impl<'a, 'b> Menu<GameData<'a, 'b>, StateEvent> for MainMenu {
         if let UiEventType::ClickStop = event.event_type {
             match event_name.as_str() {
                 "btn_start" => {
-                    Some(Trans::Push(Box::new(LoadIngame::default())))
+                    Some(Trans::Push(Box::new(LevelSelect::default())))
                 }
                 "btn_quit" => Some(Trans::Quit),
                 _ => None,
@@ -79,7 +79,7 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for MainMenu {
 
         let input = data.world.read_resource::<InputManager<MenuBindings>>();
         if input.is_down(MenuActionBinding::Select) {
-            return Trans::Push(Box::new(LoadIngame::default()));
+            return Trans::Push(Box::new(LevelSelect::default()));
         } else if input.is_down(MenuActionBinding::Quit) {
             return Trans::Quit;
         }

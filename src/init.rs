@@ -93,6 +93,7 @@ fn build_game_data<'a, 'b>(
         .dispatcher(DispatcherId::Ingame)?
         .dispatcher(DispatcherId::Paused)?
         .dispatcher(DispatcherId::MainMenu)?
+        .dispatcher(DispatcherId::LevelSelect)?
         .with_core_bundle(transform_bundle)?
         .with_core_bundle(rendering_bundle)?
         .with_core_bundle(audio_bundle)?
