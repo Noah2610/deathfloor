@@ -45,27 +45,37 @@ Container(
         ),
 
         // LEVEL INDEX
-        // Label(
-        //     transform: (
-        //         id:             "level_select_index",
-        //         x:              0.0,
-        //         y:              -0.1,
-        //         z:              1.0,
-        //         width:          0.75,
-        //         height:         0.1,
-        //         anchor:         Middle,
-        //         mouse_reactive: false,
-        //         percent:        true,
-        //         opaque:         false,
-        //     ),
-        //     text: (
-        //         text:      "level index",
-        //         font_size: 24.0,
-        //         color:     (1.0, 0.0, 0.0, 1.0),
-        //         font:      File("resources/fonts/undefined-medium.ttf", ("TTF", ())),
-        //         align:     Middle,
-        //     ),
-        // ),
+        Label(
+            transform: (
+                id:             "level_select_index",
+                x:              0.0,
+                y:              -0.3,
+                z:              1.0,
+                width:          0.75,
+                height:         0.1,
+                anchor:         Middle,
+                mouse_reactive: false,
+                percent:        true,
+                opaque:         false,
+            ),
+            text: (
+                text:      "level index",
+                font_size: 20.0,
+                color:     (
+                    0.9450980392156862,
+                    0.34901960784313724,
+                    0.27450980392156865,
+
+                    // 0.9607843137254902,
+                    // 0.7215686274509804,
+                    // 0.1803921568627451,
+
+                    1.0,
+                ),
+                font:      File("resources/fonts/undefined-medium.ttf", ("TTF", ())),
+                align:     Middle,
+            ),
+        ),
 
         // START LEVEL
         Button(

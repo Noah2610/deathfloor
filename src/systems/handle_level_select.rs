@@ -2,7 +2,8 @@ use super::system_prelude::*;
 use crate::states::level_select::SelectLevel;
 use amethyst::ui::{UiText, UiTransform};
 
-const UI_BTN_SELECT_ID: &str = "btn_select_level_btn_txt";
+const UI_BTN_ID: &str = "btn_select_level_btn_txt";
+const UI_IDX_ID: &str = "level_select_index";
 
 #[derive(Default)]
 pub struct HandleLevelSelectSystem {
@@ -60,9 +61,15 @@ impl<'a> System<'a> for HandleLevelSelectSystem {
         for (ui_transform, ui_text) in
             (&ui_transform_store, &mut ui_text_store).join()
         {
-            if &ui_transform.id == UI_BTN_SELECT_ID {
+            // LEVEL NAME
+            if &ui_transform.id == UI_BTN_ID {
                 ui_text.text =
                     selected_level_name.replace(".json", "").replace("_", " ");
+            } else
+            // LEVEL INDEX
+            if &ui_transform.id == UI_IDX_ID {
+                ui_text.text =
+                    format!("{} / {}", self.selected_idx + 1, levels_len);
             }
         }
     }
