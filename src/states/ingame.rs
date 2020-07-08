@@ -62,6 +62,7 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Ingame {
     fn on_stop(&mut self, data: StateData<GameData<'a, 'b>>) {
         data.world.remove::<BulletCreator>();
         data.world.write_resource::<Songs<SongType>>().stop(&BGM);
+        data.world.delete_all();
     }
 
     fn on_resume(&mut self, data: StateData<GameData<'a, 'b>>) {
