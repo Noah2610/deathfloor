@@ -65,12 +65,22 @@
                                             x: -32.0,
                                             y: 32.0,
                                         ),
-                                        size: (
-                                            w: 16.0,
-                                            h: 16.0,
-                                        ),
+                                        size: (w: 16.0, h: 16.0),
                                         props: {
                                             "variant": "MoveLeft",
+                                        },
+                                    ),
+                                ))),
+                                SpawnAction(SpawnAbsolute((
+                                    object: (
+                                        type: Enemy("Dev"),
+                                        pos: (
+                                            x: 32.0,
+                                            y: 160.0,
+                                        ),
+                                        size: (w: 16.0, h: 16.0),
+                                        props: {
+                                            "variant": "MoveRight",
                                         },
                                     ),
                                 ))),
@@ -129,8 +139,8 @@
                 ),
 
                 solid_tag: (
-                    labels: ["Enemy", "Solid"],
-                    collides_with: ["Solid"],
+                    labels: ["Enemy"],
+                    collides_with: ["Solid", "Player"],
                 ),
             ),
         ),

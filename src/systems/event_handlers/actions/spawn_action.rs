@@ -26,6 +26,9 @@ impl<'a> System<'a> for HandleActionSpawnAction {
 
             for action in action_trigger.drain_actions() {
                 match action {
+                    action::SpawnAction::SpawnAbsolute(object_spawn_data) => {
+                        object_spawner.add(object_spawn_data);
+                    }
                     action::SpawnAction::SpawnRelative(
                         mut object_spawn_data,
                     ) => {
