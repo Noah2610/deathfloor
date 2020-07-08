@@ -1,5 +1,6 @@
 use super::state_prelude::*;
 use crate::helpers::resource;
+use crate::input::menu_bindings::*;
 use amethyst::ui::{UiEvent, UiEventType};
 use deathframe::core::menu::prelude::*;
 
@@ -49,6 +50,14 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for LevelSelect {
             .update_only(data.world, DispatcherId::LevelSelect)
             .unwrap();
         data.data.update_core(data.world);
+
+        if data
+            .world
+            .read_resource::<InputManager<MenuBindings>>()
+            .is_down(MenuActionBinding::Quit)
+        {
+            return Trans::Pop;
+        }
 
         if let Some(selected_level_name) =
             data.world.read_resource::<SelectLevel>().0.as_ref()
