@@ -6,7 +6,8 @@ const UI_BTN_SELECT_ID: &str = "btn_select_level_btn_txt";
 
 #[derive(Default)]
 pub struct HandleLevelSelectSystem {
-    selected_idx: usize,
+    selected_idx:        usize,
+    selected_level_name: Option<String>,
 }
 
 impl<'a> System<'a> for HandleLevelSelectSystem {
@@ -31,9 +32,11 @@ impl<'a> System<'a> for HandleLevelSelectSystem {
         let level_settings = &settings.level;
         let levels_len = level_settings.levels.len();
 
+        let selected_level_name =
+            level_settings.levels[self.selected_idx].clone();
+
         if input_manager.is_down(MenuActionBinding::Select) {
-            select_level.0 =
-                Some(level_settings.levels[self.selected_idx].clone());
+            select_level.0 = self.selected_level_name.clone();
         } else {
             let next_idx_opt = if input_manager.is_down(MenuActionBinding::Next)
             {
@@ -50,18 +53,21 @@ impl<'a> System<'a> for HandleLevelSelectSystem {
 
             if let Some(next_idx) = next_idx_opt {
                 self.selected_idx = next_idx;
-
-                for (ui_transform, ui_text) in
-                    (&ui_transform_store, &mut ui_text_store).join()
-                {
-                    if &ui_transform.id == UI_BTN_SELECT_ID {
-                        ui_text.text = level_settings.levels[self.selected_idx]
-                            .clone()
-                            .replace(".json", "")
-                            .replace("_", " ");
-                    }
-                }
+                self.selected_level_name = Some(selected_level_name.clone());
             }
+        }
+
+        for (ui_transform, ui_text) in
+            (&ui_transform_store, &mut ui_text_store).join()
+        {
+            if &ui_transform.id == UI_BTN_SELECT_ID {
+                ui_text.text =
+                    selected_level_name.replace(".json", "").replace("_", " ");
+            }
+        }
+
+        if self.selected_level_name.is_none() {
+            self.selected_level_name = Some(selected_level_name);
         }
     }
 }
