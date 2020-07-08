@@ -29,9 +29,12 @@ impl<'a> System<'a> for HandleLevelSelectSystem {
         let levels_len = level_settings.levels.len();
 
         let next_idx_opt = if input_manager.is_down(MenuActionBinding::Next) {
-            Some((self.selected_idx + 1) % levels_len)
+            Some((self.selected_idx + 1).rem_euclid(levels_len))
         } else if input_manager.is_down(MenuActionBinding::Prev) {
-            Some(((self.selected_idx as i32 - 1) % levels_len as i32) as usize)
+            Some(
+                ((self.selected_idx as i32 - 1).rem_euclid(levels_len as i32))
+                    as usize,
+            )
         } else {
             None
         };
@@ -42,9 +45,7 @@ impl<'a> System<'a> for HandleLevelSelectSystem {
             for (ui_transform, ui_text) in
                 (&ui_transform_store, &mut ui_text_store).join()
             {
-                dbg!(&ui_transform.id);
                 if &ui_transform.id == UI_BTN_SELECT_ID {
-                    dbg!("FOUND MATCHING UI_TEXT");
                     ui_text.text = level_settings.levels[self.selected_idx]
                         .clone()
                         .replace(".json", "")
