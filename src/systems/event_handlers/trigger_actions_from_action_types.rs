@@ -113,6 +113,14 @@ impl<'a> System<'a> for TriggerActionsFromActionTypesSystem {
                             action_trigger.add_action(entity_action);
                         }
                     }
+                    ActionType::SpawnAction(spawn_action) => {
+                        if let Some(action_trigger) =
+                            (&mut action_trigger_components.spawn_action)
+                                .get_mut_or_default(entity)
+                        {
+                            action_trigger.add_action(spawn_action);
+                        }
+                    }
                 }
             }
         }

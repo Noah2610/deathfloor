@@ -20,18 +20,18 @@ pub(super) fn build(
             ))
         })?;
 
+    let sprite_render = get_sprite_render(
+        world,
+        format!("spritesheets/{}", &enemy_settings.spritesheet_filename),
+        1, // TODO
+    )?;
+
     let size = enemy_settings
         .entity
         .components
         .as_ref()
         .and_then(|comps| comps.size.clone())
         .unwrap_or(object.size.into());
-
-    let sprite_render = get_sprite_render(
-        world,
-        format!("spritesheets/{}", &enemy_settings.spritesheet_filename),
-        1, // TODO
-    )?;
 
     let entity = base_object_entity(world, object)?
         .with(size)

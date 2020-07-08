@@ -8,6 +8,8 @@ mod helpers;
 mod objects;
 mod tiles;
 
+pub use objects::load_object;
+
 use amethyst::ecs::World;
 use deathframe::amethyst;
 use map_data::prelude::*;

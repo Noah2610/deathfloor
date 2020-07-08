@@ -47,6 +47,37 @@
                 ),
 
                 variants: {
+                    "Spawner": (
+                        components: (),
+
+                        events: {
+                            OnCollision(And([
+                                IsTag("Bullet"),
+                                IsState(Enter),
+                            ])): Group([
+                                MoveAction(AddVelocity(
+                                    y: 200.0,
+                                )),
+                                SpawnAction(SpawnRelative((
+                                    object: (
+                                        type: Enemy("Dev"),
+                                        pos: (
+                                            x: -32.0,
+                                            y: 32.0,
+                                        ),
+                                        size: (
+                                            w: 16.0,
+                                            h: 16.0,
+                                        ),
+                                        props: {
+                                            "variant": "MoveLeft",
+                                        },
+                                    ),
+                                ))),
+                            ]),
+                        },
+                    ),
+
                     "MoveLeft": (
                         components: (
                             walker: (

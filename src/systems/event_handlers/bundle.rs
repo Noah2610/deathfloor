@@ -111,6 +111,11 @@ impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventHandlersBundle<'c> {
             "handle_action_entity_action_system",
             actions_deps,
         );
+        builder.add(
+            actions::spawn_action::HandleActionSpawnAction::default(),
+            "handle_action_spawn_action_system",
+            actions_deps,
+        );
         Ok(())
     }
 }

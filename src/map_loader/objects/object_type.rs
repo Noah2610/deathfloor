@@ -1,6 +1,6 @@
 use crate::components::prelude::EnemyType;
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 pub enum ObjectType {
     #[serde(rename = "")]
     None,

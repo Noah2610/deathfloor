@@ -72,11 +72,12 @@ pub struct Tile {
     pub props:     Props,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 pub struct Object {
     #[serde(rename = "type")]
     pub object_type: ObjectType,
     pub pos:         Pos,
     pub size:        Size,
+    #[serde(default)]
     pub props:       Props,
 }

@@ -11,3 +11,4 @@ pub mod move_action;
 pub mod random;
 pub mod repeat_delay;
 pub mod sound_action;
+pub mod spawn_action;

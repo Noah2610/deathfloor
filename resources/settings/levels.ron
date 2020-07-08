@@ -3,6 +3,7 @@
 #![enable(implicit_some)]
 (
     levels: [
+        "dev.json",
         "level.json",
         "level0.json",
         "rubber_ball_room.json",

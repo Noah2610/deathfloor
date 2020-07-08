@@ -9,6 +9,7 @@ mod move_action;
 mod random;
 mod repeat_delay;
 mod sound_action;
+mod spawn_action;
 
 pub mod prelude {
     pub use super::animation_action::AnimationAction;
@@ -22,6 +23,7 @@ pub mod prelude {
     pub use super::random::Random;
     pub use super::repeat_delay::RepeatDelay;
     pub use super::sound_action::SoundAction;
+    pub use super::spawn_action::SpawnAction;
     pub use super::ActionTriggerStorages;
     pub use super::ActionType;
 }
@@ -44,6 +46,7 @@ pub enum ActionType {
     AnimationAction(AnimationAction),
     SoundAction(SoundAction),
     EntityAction(EntityAction),
+    SpawnAction(SpawnAction),
 }
 
 #[derive(SystemData)]
@@ -59,4 +62,5 @@ pub struct ActionTriggerStorages<'a> {
     pub animation_action:  WriteStorage<'a, ActionTrigger<AnimationAction>>,
     pub sound_action:      WriteStorage<'a, ActionTrigger<SoundAction>>,
     pub entity_action:     WriteStorage<'a, ActionTrigger<EntityAction>>,
+    pub spawn_action:      WriteStorage<'a, ActionTrigger<SpawnAction>>,
 }
