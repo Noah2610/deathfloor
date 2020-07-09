@@ -40,6 +40,9 @@ mod aliases {
 
     pub type GameDataBuilder<'a, 'b> =
         CustomGameDataBuilder<'a, 'b, DispatcherId, CustomData>;
+
+    pub const BGM: super::state_prelude::SongType =
+        super::state_prelude::SongType::Cntrlgun;
 }
 
 #[derive(Default)]
