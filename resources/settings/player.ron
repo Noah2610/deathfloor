@@ -63,7 +63,7 @@
     /// Optional.
     wall_slider: (
         /// Fixed y velocity when sliding on wall.
-        slide_velocity: -20.0,
+        slide_velocity: -40.0,
     ),
 
     /// Data for the player shooting.
