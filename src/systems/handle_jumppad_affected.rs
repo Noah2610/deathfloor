@@ -35,7 +35,7 @@ impl<'a> System<'a> for HandleJumppadAffectedSystem {
                 if collider
                     .query::<FindQuery<CollisionTag>>()
                     .filter_ids(&vec![jumppad_entity.id()])
-                    .exp(&sSide(Inner))
+                    .exp(&IsSide(Inner))
                     .run()
                     .is_some()
                 {
