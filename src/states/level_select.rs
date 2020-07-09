@@ -16,6 +16,14 @@ impl LevelSelect {
     fn start<'a, 'b>(&mut self, data: &mut StateData<GameData<'a, 'b>>) {
         self.create_ui(data, resource("ui/level_select.ron").to_str().unwrap());
         data.world.insert(SelectLevel::default());
+
+        if let Some(bgm) =
+            data.world.write_resource::<Songs<SongType>>().get_mut(&BGM)
+        {
+            if !bgm.is_playing() {
+                bgm.play();
+            }
+        }
     }
 
     fn stop<'a, 'b>(&mut self, data: &mut StateData<GameData<'a, 'b>>) {
@@ -63,6 +71,7 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for LevelSelect {
             data.world.read_resource::<SelectLevel>().0.as_ref()
         {
             let level_path = resource("levels").join(selected_level_name);
+            data.world.write_resource::<Songs<SongType>>().stop(&BGM);
             return Trans::Push(Box::new(LoadIngame::new(level_path)));
         }
 
