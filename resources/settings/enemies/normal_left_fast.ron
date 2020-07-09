@@ -32,7 +32,14 @@
                             (5, 120),
                         ]),
                     },
-                    hitbox: Size,
+                    hitbox: Custom([
+                        (
+                            top:    10.0,
+                            bottom: -10.0,
+                            left:   -8.0,
+                            right:  8.0,
+                        )
+                    ]),
                     walker: (
                         x: -500.0,
                         y: None,

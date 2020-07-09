@@ -40,8 +40,8 @@
                         y: None,
                     ),
                     health: (
-                        health: 4,
-                        max_health: 4,
+                        health: 3,
+                        max_health: 3,
                     ),
                     health_display: (
                         position: Top,
