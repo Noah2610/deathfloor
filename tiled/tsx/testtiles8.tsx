@@ -1023,10 +1023,6 @@
  <tile id="789" type="Ground"/>
  <tile id="790" type="Ground"/>
  <tile id="791" type="Ground"/>
- <tile id="792" type="Ground"/>
- <tile id="793" type="Ground"/>
- <tile id="794" type="Ground"/>
- <tile id="795" type="Ground"/>
  <tile id="796" type="Ground"/>
  <tile id="797" type="Ground"/>
  <tile id="798" type="Ground"/>
@@ -1055,10 +1051,6 @@
  <tile id="821" type="Ground"/>
  <tile id="822" type="Ground"/>
  <tile id="823" type="Ground"/>
- <tile id="824" type="Ground"/>
- <tile id="825" type="Ground"/>
- <tile id="826" type="Ground"/>
- <tile id="827" type="Ground"/>
  <tile id="828" type="Ground"/>
  <tile id="829" type="Ground"/>
  <tile id="830" type="Ground"/>
@@ -1087,10 +1079,6 @@
  <tile id="853" type="Ground"/>
  <tile id="854" type="Ground"/>
  <tile id="855" type="Ground"/>
- <tile id="856" type="Ground"/>
- <tile id="857" type="Ground"/>
- <tile id="858" type="Ground"/>
- <tile id="859" type="Ground"/>
  <tile id="860" type="Ground"/>
  <tile id="861" type="Ground"/>
  <tile id="862" type="Ground"/>
@@ -1119,10 +1107,6 @@
  <tile id="885" type="Ground"/>
  <tile id="886" type="Ground"/>
  <tile id="887" type="Ground"/>
- <tile id="888" type="Ground"/>
- <tile id="889" type="Ground"/>
- <tile id="890" type="Ground"/>
- <tile id="891" type="Ground"/>
  <tile id="892" type="Ground"/>
  <tile id="893" type="Ground"/>
  <tile id="894" type="Ground"/>
