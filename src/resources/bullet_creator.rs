@@ -27,4 +27,5 @@ pub struct BulletComponents {
     pub velocity:      Velocity,
     pub sprite_render: SpriteRender,
     pub animation:     Animation,
+    pub collision_tag: CollisionTag,
 }
