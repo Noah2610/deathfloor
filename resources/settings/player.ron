@@ -89,7 +89,7 @@
                 (1, 100),
             ]),
             /// Collision tag for spawned bullets.
-            /// The bullet will hit and destroy itself when it collides with an entity
+            /// The bullet will destroy itself when it collides with an entity
             /// with a label from `collides_with`.
             collision_tag: (
                 labels: ["Bullet"],
