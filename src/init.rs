@@ -5,6 +5,7 @@ use crate::input;
 use crate::settings::Settings;
 use crate::states::prelude::*;
 use amethyst::core::frame_limiter::FrameRateLimitConfig;
+use amethyst::window::DisplayConfig;
 use deathframe::amethyst;
 use std::path::PathBuf;
 
@@ -54,6 +55,27 @@ fn frame_rate_limit_config() -> amethyst::Result<FrameRateLimitConfig> {
     ))?)?)
 }
 
+fn get_display_config() -> amethyst::Result<DisplayConfig> {
+    use std::fs::File;
+
+    let file = File::open(resource("config/display.ron"))?;
+    let display_config: DisplayConfig = {
+        #[cfg(not(feature = "dev"))]
+        {
+            ron::de::from_reader(file)?
+        }
+        #[cfg(feature = "dev")]
+        {
+            let mut config: DisplayConfig = ron::de::from_reader(file)?;
+            config.max_dimensions = config.dimensions.clone();
+            config.min_dimensions = config.dimensions.clone();
+            config
+        }
+    };
+
+    Ok(display_config)
+}
+
 fn build_game_data<'a, 'b>(
     settings: &Settings,
 ) -> amethyst::Result<GameDataBuilder<'a, 'b>> {
@@ -68,7 +90,7 @@ fn build_game_data<'a, 'b>(
     let transform_bundle = TransformBundle::new();
     let rendering_bundle = RenderingBundle::<DefaultBackend>::new()
         .with_plugin(
-            RenderToWindow::from_config_path(resource("config/display.ron"))?
+            RenderToWindow::from_config(get_display_config()?)
                 .with_clear([0.0, 0.0, 0.0, 1.0]),
         )
         .with_plugin(RenderUi::default())
