@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="248" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="48">
  <editorsettings>
-  <export format="deathfloor-export"/>
+  <export target="../../resources/levels/testlevel3backwards.json" format="deathfloor-export"/>
  </editorsettings>
  <tileset firstgid="1" source="../tsx/testtiles8.tsx"/>
  <layer id="1" name="Tile Layer 1" width="248" height="27">
@@ -74,7 +74,6 @@
   <object id="44" name="Fast Left" type="Enemy(NormalLeftFast)" x="1720" y="96" width="8" height="8"/>
   <object id="45" name="Fast Left" type="Enemy(NormalLeftFast)" x="1680" y="152" width="8" height="8"/>
   <object id="46" name="Fast Right" type="Enemy(NormalRightFast)" x="1752" y="96" width="8" height="8"/>
-  <object id="47" name="Fast Right" type="Enemy(NormalRightFast)" x="1760" y="96" width="8" height="8"/>
  </objectgroup>
  <objectgroup id="2" name="Player">
   <properties>
