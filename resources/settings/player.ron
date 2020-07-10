@@ -74,7 +74,7 @@
         /// Data for the spawned bullets.
         bullet: (
             /// The bullet's size.
-            size: (8.0, 4.0),
+            size: (6, 6),
             /// Bullet velocity (x, y).
             /// Both axes should be positive, are inverted in-game, if necessary.
             velocity: (250.0, 0.0),
