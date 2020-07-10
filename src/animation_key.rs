@@ -2,6 +2,7 @@
 pub enum AnimationKey {
     Idle,
     Walk,
+    Death,
     Custom(String),
 }
 

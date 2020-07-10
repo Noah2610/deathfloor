@@ -279,6 +279,12 @@ fn build_game_data<'a, 'b>(
             UpdateEntityConfigsSystem::default(),
             "update_entity_configs_system",
             &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            PlayDeathAnimationBeforeDeletionSystem::default(),
+            "play_death_animation_before_deletion_system",
+            &[],
         )?;
 
     #[cfg(feature = "debug")]
