@@ -89,9 +89,17 @@ fn switch_variant(
         .config
         .variants
         .as_ref()
-        .and_then(|variants| variants.get(variant_name).clone())
+        .and_then(|variants| variants.get(variant_name).cloned())
     {
-        let entity_config = variant;
+        let mut entity_config = variant;
+        // NOTE: Only merge events, not components.
+        //       Entity should already have all root components,
+        //       unless they were overwritten by a variant.
+        //       We should overwrite the root components with themselves,
+        //       because this will remove any queued actions on any components.
+        entity_config
+            .events
+            .merge(entity_config_register.config.events.clone());
 
         // EVENTS
         if let Some(events_register) = entity_config.events.clone() {
