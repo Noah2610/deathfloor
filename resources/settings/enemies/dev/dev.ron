@@ -57,10 +57,7 @@
                 ),
 
                 events: {
-                    OnCollision(And([IsTag("Bullet"), IsState(Enter)])): Group([
-                        Echo("HIT"),
-                        HealthAction(Lose(1)),
-                    ]),
+                    OnCollision(And([IsTag("Bullet"), IsState(Enter)])): HealthAction(Lose(1)),
                 },
 
                 variants: {
