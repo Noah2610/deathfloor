@@ -65,7 +65,7 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
                     velocity
                 };
 
-                let _bullet = bullet_creator.add(BulletComponents {
+                bullet_creator.add(BulletComponents {
                     bullet:        (&shooter.bullet_data).into(),
                     transform:     bullet_transform,
                     size:          shooter.bullet_data.size.into(),
@@ -75,6 +75,11 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
                         sprite_number: 0,
                     },
                     animation:     shooter.bullet_data.animation.clone().into(),
+                    collision_tag: shooter
+                        .bullet_data
+                        .collision_tag
+                        .clone()
+                        .into(),
                 });
 
                 shooter.cooldown_timer.start().unwrap();

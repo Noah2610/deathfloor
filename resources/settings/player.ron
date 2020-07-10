@@ -1,3 +1,4 @@
+// src/settings/player_settings.rs
 #![enable(implicit_some)]
 /// Player settings.
 (
@@ -87,6 +88,13 @@
                 (2, 100),
                 (1, 100),
             ]),
+            /// Collision tag for spawned bullets.
+            /// The bullet will destroy itself when it collides with an entity
+            /// with a label from `collides_with`.
+            collision_tag: (
+                labels: ["Bullet"],
+                collides_with: ["Tile"],
+            ),
         ),
     ),
 

@@ -4,17 +4,17 @@ pub struct CollisionLabel(pub String);
 
 impl CollisionLabel {
     /// Returns the label we decided to make the "Tile" label.
-    pub fn tile() -> CollisionLabel {
+    pub fn tile() -> Self {
         "Tile".into()
     }
 
     /// Returns the label we decided to make the "Solid" label.
-    pub fn solid() -> CollisionLabel {
+    pub fn solid() -> Self {
         "Solid".into()
     }
 
     /// Returns the label we decided to make the "Bullet" label.
-    pub fn bullet() -> CollisionLabel {
+    pub fn bullet() -> Self {
         "Bullet".into()
     }
 }

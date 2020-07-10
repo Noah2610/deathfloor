@@ -35,6 +35,7 @@ default-features = false
 [features]
 default = []
 debug = ["deathframe/debug"]
+dev   = []
 
 [profile.dev]
 opt-level        = 2
