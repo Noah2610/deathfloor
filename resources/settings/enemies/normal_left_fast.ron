@@ -2,7 +2,7 @@
 (
     types: {
         "NormalLeftFast": (
-            spritesheet_filename: "enemy_yellow_normal_exploding_full.png",
+            spritesheet_filename: "enemy_yellow_normal_full.png",
 
             entity: (
                 components: (
@@ -33,11 +33,11 @@
                             (4, 120),
                         ]),
                         Death: Once([
-                            (6, 80),
-                            (7, 80),
-                            (8, 80),
-                            (9, 80),
-                            (10, 80),
+                            (6, 50),
+                            (7, 50),
+                            (8, 50),
+                            (9, 50),
+                            (10, 50),
 
                         ]),
                     },
