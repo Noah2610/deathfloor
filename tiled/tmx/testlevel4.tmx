@@ -49,9 +49,7 @@
   <object id="10" name="Fast Left" type="Enemy(NormalLeftFast)" x="1416" y="128" width="8" height="8"/>
   <object id="11" name="Fast Left" type="Enemy(NormalLeftFast)" x="1384" y="136" width="8" height="8"/>
   <object id="12" name="Fast Left" type="Enemy(NormalLeftFast)" x="1352" y="152" width="8" height="8"/>
-  <object id="15" name="Normal Left" type="Enemy(NormalLeft)" x="1616" y="64" width="8" height="8"/>
-  <object id="16" name="Fast Left" type="Enemy(NormalLeftFast)" x="1592" y="64" width="8" height="8"/>
-  <object id="17" name="Normal Left" type="Enemy(NormalLeft)" x="1640" y="64" width="8" height="8"/>
+  <object id="16" name="Fast Left" type="Enemy(NormalLeftFast)" x="1544" y="48" width="8" height="8"/>
   <object id="18" name="Fast Left" type="Enemy(NormalLeftFast)" x="1800" y="80" width="8" height="8"/>
   <object id="19" name="Fast Left" type="Enemy(NormalLeftFast)" x="1944" y="64" width="8" height="8"/>
   <object id="20" name="Fast Left" type="Enemy(NormalLeftFast)" x="2288" y="136" width="8" height="8"/>
