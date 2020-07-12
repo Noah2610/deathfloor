@@ -126,8 +126,8 @@
 
     /// Starting health.
     health: (
-        health: 20,
-        max_health: 20,
+        health: 10,
+        max_health: 10,
     ),
 
     /// Component for rendering health.
