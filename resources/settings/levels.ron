@@ -5,10 +5,15 @@
     levels: [
         "dev.json",
         "level.json",
-        "level0.json",
+        "level1.json",
+        "level2.json",
+        "level3.json",
         "rubber_ball_room.json",
         "testlevel1.json",
         "testlevel3.json",
+        "testlevel3.1.json",
+        "testlevel3.4.json",
+        "testlevel3backwards.json",
         "testlevel4.json",
         "testlevel5.json",
         "testlevel6.json",
@@ -20,5 +25,6 @@
         "testmap5.json",
         "testmap6.json",
         "testmap7.json",
+        "level4.json",
     ],
 )

@@ -32,6 +32,16 @@
                             (5, 100),
                             (6, 100),
                         ]),
+                        Death: Once([
+                            (15, 250),
+                            (16, 250),
+                            (17, 250),
+                            (18, 250),
+                            (19, 250),
+                            (20, 250),
+                            (21, 250),
+                            (22, 250),
+                        ]),
                     },
                     hitbox: Size,
                     health: (
@@ -45,6 +55,10 @@
                         border_padding: 0.5,
                     ),
                 ),
+
+                events: {
+                    OnCollision(And([IsTag("Bullet"), IsState(Enter)])): HealthAction(Lose(1)),
+                },
 
                 variants: {
                     "Spawner": (

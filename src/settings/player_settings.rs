@@ -1,3 +1,5 @@
+// resources/settings/player.ron
+
 use super::hitbox_config::HitboxConfig;
 use super::SizeSettings;
 use crate::animation_key::AnimationKey;
@@ -44,4 +46,5 @@ pub struct ShooterBulletData {
     pub velocity:         (f32, f32),
     pub despawn_after_ms: u64,
     pub animation:        AnimationTypeWrapper<Animation>,
+    pub collision_tag:    CollisionTagWrapper,
 }

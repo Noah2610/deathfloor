@@ -32,14 +32,21 @@
                             (5, 120),
                         ]),
                     },
-                    hitbox: Size,
+                    hitbox: Custom([
+                        (
+                            top:    10.0,
+                            bottom: -11.0,
+                            left:   -8.0,
+                            right:  8.0,
+                        )
+                    ]),
                     walker: (
                         x: -500.0,
                         y: None,
                     ),
                     health: (
-                        health: 4,
-                        max_health: 4,
+                        health: 1,
+                        max_health: 1,
                     ),
                     health_display: (
                         position: Top,

@@ -13,6 +13,7 @@ mod handle_level_select;
 mod handle_movables;
 mod handle_scales;
 mod handle_walkers;
+mod play_death_animation_before_deletion;
 mod update_entity_configs;
 
 pub mod prelude {
@@ -34,6 +35,7 @@ pub mod prelude {
     pub use super::handle_movables::HandleMovablesSystem;
     pub use super::handle_scales::HandleScalesSystem;
     pub use super::handle_walkers::HandleWalkersSystem;
+    pub use super::play_death_animation_before_deletion::PlayDeathAnimationBeforeDeletionSystem;
     pub use super::update_entity_configs::UpdateEntityConfigsSystem;
 }
 

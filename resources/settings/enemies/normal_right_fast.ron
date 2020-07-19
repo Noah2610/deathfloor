@@ -28,20 +28,27 @@
                             
                         ]),
                         Walk: Cycle([
-                            (0, 120),
-                            (1, 120),
-                            (2, 120),
-                            (3, 120),
+                            (0, 100),
+                            (1, 100),
+                            (2, 100),
+                            (3, 100),
                         ]),
                     },
-                    hitbox: Size,
+                    hitbox: Custom([
+                        (
+                            top:    4.0,
+                            bottom: -15.0,
+                            left:   -10.0,
+                            right:  10.0,
+                          ) 
+                        ]),
                     walker: (
                         x: 500.0,
                         y: None,
                     ),
                     health: (
-                        health: 4,
-                        max_health: 4,
+                        health: 3,
+                        max_health: 3,
                     ),
                     health_display: (
                         position: Top,

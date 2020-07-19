@@ -8,7 +8,7 @@
                 components: (
                     size: (
                         w: 16.0,
-                        h: 32.0,
+                        h: 24.0,
                     ),
                     gravity: (
                         x: None,
@@ -40,8 +40,8 @@
                         y: None,
                     ),
                     health: (
-                        health: 12,
-                        max_health: 12,
+                        health: 4,
+                        max_health: 4,
                     ),
                     health_display: (
                         position: Top,

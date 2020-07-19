@@ -7,37 +7,28 @@ impl<'a> System<'a> for CreateBulletsSystem {
     type SystemData = (Write<'a, BulletCreator>, BulletCreatorStorages<'a>);
 
     fn run(&mut self, (mut bullet_creator, mut storages): Self::SystemData) {
-        for bullet_comps in bullet_creator.drain() {
-            let hitbox = Hitbox::from(vec![Rect::from(&bullet_comps.size)]);
-
-            let collision_tag = CollisionTag::builder()
-                .label(CollisionLabel::bullet())
-                .collides_with(vec![CollisionLabel::tile()])
-                .build()
-                .unwrap();
+        for comps in bullet_creator.drain() {
+            let hitbox = Hitbox::from(vec![Rect::from(&comps.size)]);
 
             let _entity = storages
                 .entities
                 .build_entity()
-                .with(bullet_comps.bullet, &mut storages.bullet_store)
-                .with(bullet_comps.transform, &mut storages.transform_store)
-                .with(bullet_comps.size, &mut storages.size_store)
-                .with(bullet_comps.velocity, &mut storages.velocity_store)
-                .with(
-                    bullet_comps.sprite_render,
-                    &mut storages.sprite_render_store,
-                )
+                .with(comps.bullet, &mut storages.bullet_store)
+                .with(comps.transform, &mut storages.transform_store)
+                .with(comps.size, &mut storages.size_store)
+                .with(comps.velocity, &mut storages.velocity_store)
+                .with(comps.sprite_render, &mut storages.sprite_render_store)
                 .with(ScaleOnce::default(), &mut storages.scale_once_store)
                 .with(
-                    Collider::new(collision_tag.clone()),
+                    Collider::new(comps.collision_tag.clone()),
                     &mut storages.collider_store,
                 )
                 .with(
-                    Collidable::new(collision_tag),
+                    Collidable::new(comps.collision_tag),
                     &mut storages.collidable_store,
                 )
                 .with(hitbox, &mut storages.hitbox_store)
-                .with(bullet_comps.animation, &mut storages.animation_store)
+                .with(comps.animation, &mut storages.animation_store)
                 .build();
         }
     }
