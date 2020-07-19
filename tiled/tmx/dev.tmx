@@ -53,9 +53,9 @@
     <property name="variant" value="MoveLeft"/>
    </properties>
   </object>
-  <object id="6" name="Dev MoveRight" type="Enemy(Dev)" x="136" y="184" width="8" height="16">
+  <object id="6" name="Dev SPAWNER" type="Enemy(Dev)" x="184" y="184" width="8" height="16">
    <properties>
-    <property name="variant" value="MoveRight"/>
+    <property name="variant" value="Spawner"/>
    </properties>
   </object>
  </objectgroup>

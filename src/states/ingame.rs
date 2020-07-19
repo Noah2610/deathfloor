@@ -80,10 +80,24 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Ingame {
         data.data.update_only(data.world, DispatcherId::Ui).unwrap();
         data.data.update(data.world, DispatcherId::Ingame).unwrap();
 
+        update_object_spawner(data.world);
+
         if let Some(trans) = self.handle_input(&data.world) {
             return trans;
         }
 
         Trans::None
+    }
+}
+
+fn update_object_spawner(world: &mut World) {
+    use crate::map_loader::load_object;
+
+    let to_spawn: Vec<ObjectSpawnData> = {
+        let mut object_spawner = world.write_resource::<ObjectSpawner>();
+        object_spawner.drain().collect()
+    };
+    for object_data in to_spawn {
+        load_object(world, object_data.object);
     }
 }
