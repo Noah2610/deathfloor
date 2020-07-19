@@ -20,13 +20,12 @@ impl<'a> System<'a> for HandleAnimationsSystem {
             (&entities, &velocities, &mut animation_containers).join()
         {
             // TODO
-            // - handle other axis
-            match velocity.x {
+            // handle other axis
+            let _ = match velocity.x {
                 x if x > PADDING => animations.play(AnimationKey::Walk),
                 x if x < -PADDING => animations.play(AnimationKey::Walk),
                 _ => animations.play(AnimationKey::Idle),
-            }
-            .unwrap();
+            };
         }
     }
 }
