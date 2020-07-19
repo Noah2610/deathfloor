@@ -51,6 +51,7 @@ impl Merge for EntityConfig {
 #[serde(deny_unknown_fields)]
 pub struct EntityComponentsData {
     pub size:                  Option<Size>,
+    pub velocity:              Option<Velocity>,
     pub gravity:               Option<Gravity>,
     pub max_movement_velocity: Option<MaxMovementVelocity>,
     pub base_friction:         Option<BaseFriction>,
@@ -63,6 +64,7 @@ pub struct EntityComponentsData {
     pub health_display:        Option<HealthDisplay>,
     pub deals_damage:          Option<DealsDamage>,
     pub takes_damage:          Option<TakesDamage>,
+    pub bullet:                Option<Bullet>,
 }
 
 impl Merge for EntityComponentsData {
@@ -71,6 +73,7 @@ impl Merge for EntityComponentsData {
     fn merge(&mut self, other: EntityComponentsData) {
         *self = Self {
             size:                  other.size.or(self.size.take()),
+            velocity:                  other.velocity.or(self.velocity.take()),
             gravity:               other.gravity.or(self.gravity.take()),
             max_movement_velocity: other.max_movement_velocity.or(self.max_movement_velocity.take()),
             base_friction:         other.base_friction.or(self.base_friction.take()),
@@ -83,6 +86,7 @@ impl Merge for EntityComponentsData {
             health_display:        other.health_display.or(self.health_display.take()),
             deals_damage:          other.deals_damage.or(self.deals_damage.take()),
             takes_damage:          other.takes_damage.or(self.takes_damage.take()),
+            bullet:          other.bullet.or(self.bullet.take()),
         };
     }
 }
@@ -90,6 +94,7 @@ impl Merge for EntityComponentsData {
 #[derive(SystemData)]
 pub struct EntityComponentsStorages<'a> {
     pub size:                  WriteStorage<'a, Size>,
+    pub velocity:              WriteStorage<'a, Velocity>,
     pub gravity:               WriteStorage<'a, Gravity>,
     pub max_movement_velocity: WriteStorage<'a, MaxMovementVelocity>,
     pub base_friction:         WriteStorage<'a, BaseFriction>,
@@ -105,4 +110,5 @@ pub struct EntityComponentsStorages<'a> {
     pub health_display:        WriteStorage<'a, HealthDisplay>,
     pub deals_damage:          WriteStorage<'a, DealsDamage>,
     pub takes_damage:          WriteStorage<'a, TakesDamage>,
+    pub bullet:                WriteStorage<'a, Bullet>,
 }

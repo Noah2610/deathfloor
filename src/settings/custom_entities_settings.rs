@@ -1,6 +1,6 @@
 pub mod prelude {
-    pub use super::EnemiesSettings;
-    pub use super::EnemySettings;
+    pub use super::CustomEntitiesSettings;
+    pub use super::CustomEntitySettings;
 }
 
 use super::entity_config::prelude::*;
@@ -8,11 +8,11 @@ use crate::components::prelude::*;
 use std::collections::HashMap;
 
 #[derive(Clone, Deserialize, Default)]
-pub struct EnemiesSettings {
-    pub types: HashMap<EnemyType, EnemySettings>,
+pub struct CustomEntitiesSettings {
+    pub types: HashMap<String, CustomEntitySettings>,
 }
 
-impl Merge for EnemiesSettings {
+impl Merge for CustomEntitiesSettings {
     fn merge(&mut self, other: Self) {
         let types = &mut self.types;
         types.extend(other.types);
@@ -20,9 +20,8 @@ impl Merge for EnemiesSettings {
 }
 
 #[derive(Clone, Deserialize)]
-pub struct EnemySettings {
-    /// Filename of the spritesheet to load for this enemy.
+pub struct CustomEntitySettings {
     #[serde(alias = "spritesheet")]
-    pub spritesheet_filename: String,
+    pub spritesheet_filename: Option<String>,
     pub entity:               EntityConfig,
 }

@@ -1,5 +1,6 @@
 pub mod prelude {
     pub use super::camera_settings::CameraSettings;
+    pub use super::custom_entities_settings::CustomEntitiesSettings;
     pub use super::enemies_settings::prelude::*;
     pub use super::entity_config::prelude::*;
     pub use super::general_settings::GeneralSettings;
@@ -12,6 +13,7 @@ pub mod prelude {
 }
 
 mod camera_settings;
+mod custom_entities_settings;
 mod enemies_settings;
 mod entity_config;
 mod general_settings;
@@ -29,23 +31,25 @@ use std::path::PathBuf;
 
 #[derive(Clone, Deserialize)]
 pub struct Settings {
-    pub general: GeneralSettings,
-    pub camera:  CameraSettings,
-    pub level:   LevelSettings,
-    pub player:  PlayerSettings,
-    pub tiles:   TilesSettings,
-    pub enemies: EnemiesSettings,
+    pub general:         GeneralSettings,
+    pub camera:          CameraSettings,
+    pub level:           LevelSettings,
+    pub player:          PlayerSettings,
+    pub tiles:           TilesSettings,
+    pub enemies:         EnemiesSettings,
+    pub custom_entities: CustomEntitiesSettings,
 }
 
 impl Settings {
     pub fn load() -> amethyst::Result<Self> {
         Ok(Settings {
-            general: Self::load_file::<GeneralSettings, _>("general.ron")?,
-            camera:  Self::load_file::<CameraSettings, _>("camera.ron")?,
-            level:   Self::load_file::<LevelSettings, _>("levels.ron")?,
-            player:  Self::load_file::<PlayerSettings, _>("player.ron")?,
-            tiles:   Self::load_dir::<TilesSettings, _>("tiles")?,
-            enemies: Self::load_dir::<EnemiesSettings, _>("enemies")?,
+            general:         Self::load_file("general.ron")?,
+            camera:          Self::load_file("camera.ron")?,
+            level:           Self::load_file("levels.ron")?,
+            player:          Self::load_file("player.ron")?,
+            tiles:           Self::load_dir("tiles")?,
+            enemies:         Self::load_dir("enemies")?,
+            custom_entities: Self::load_dir("custom_entities")?,
         })
     }
 

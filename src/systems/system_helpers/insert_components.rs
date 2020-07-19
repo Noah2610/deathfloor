@@ -7,6 +7,7 @@ pub fn insert_components(
 ) -> Result<(), amethyst::ecs::error::Error> {
     let EntityComponentsData {
         size,
+        velocity,
         gravity,
         max_movement_velocity,
         base_friction,
@@ -19,9 +20,11 @@ pub fn insert_components(
         health_display,
         deals_damage,
         takes_damage,
+        bullet,
     } = components;
     let &mut EntityComponentsStorages {
         size: size_store,
+        velocity: velocity_store,
         gravity: gravity_store,
         max_movement_velocity: max_movement_velocity_store,
         base_friction: base_friction_store,
@@ -37,10 +40,14 @@ pub fn insert_components(
         health_display: health_display_store,
         deals_damage: deals_damage_store,
         takes_damage: takes_damage_store,
+        bullet: bullet_store,
     } = &mut storages;
 
     let size_opt = size.or_else(|| size_store.get(entity).cloned());
 
+    if let Some(velocity) = velocity {
+        velocity_store.insert(entity, velocity)?;
+    }
     if let Some(gravity) = gravity {
         gravity_store.insert(entity, gravity)?;
     }
@@ -96,6 +103,9 @@ pub fn insert_components(
     }
     if let Some(takes_damage) = takes_damage {
         takes_damage_store.insert(entity, takes_damage)?;
+    }
+    if let Some(bullet) = bullet {
+        bullet_store.insert(entity, bullet)?;
     }
     if let Some(size) = size_opt {
         size_store.insert(entity, size)?;

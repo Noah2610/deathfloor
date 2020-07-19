@@ -1,0 +1,56 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "DevBullet": (
+            spritesheet_filename: "player_bullet.png",
+
+            entity: (
+                components: (
+                    size: (w: 8.0, h: 8.0),
+                    animations: {
+                        Idle: Cycle([
+                            (0, 100),
+                            (1, 100),
+                            (2, 100),
+                            (3, 100),
+                        ]),
+                        Walk: Cycle([
+                            (0, 100),
+                            (1, 100),
+                            (2, 100),
+                            (3, 100),
+                        ]),
+                    },
+                    hitbox: Size,
+                    bullet: (
+                        despawn_after_ms: 10_000,
+                    ),
+                ),
+
+                variants: {
+                    "MoveLeft": (
+                        components: (
+                            velocity: (
+                                x: -100.0,
+                                y: 0.0,
+                            ),
+                        ),
+                    ),
+                    "MoveRight": (
+                        components: (
+                            velocity: (
+                                x: 100.0,
+                                y: 0.0,
+                            ),
+                        ),
+                    ),
+                },
+
+                collision_tag: (
+                    labels: ["Projectile"],
+                    collides_with: ["Player"],
+                ),
+            ),
+        ),
+    }
+)

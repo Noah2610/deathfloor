@@ -891,7 +891,7 @@ dependencies = [
 [[package]]
 name = "deathframe"
 version = "0.6.0"
-source = "git+https://github.com/Noah2610/deathframe?branch=develop#83d4db8ccd02c3cc07c4f6f2d8ffac9d62a0856f"
+source = "git+https://github.com/Noah2610/deathframe?branch=develop#3065d6cdd9d85fbe1d7ab7bcb88e4c589d196305"
 dependencies = [
  "deathframe_animation 0.1.0 (git+https://github.com/Noah2610/deathframe?branch=develop)",
  "deathframe_audio 0.1.0 (git+https://github.com/Noah2610/deathframe?branch=develop)",
@@ -902,7 +902,7 @@ dependencies = [
 [[package]]
 name = "deathframe_animation"
 version = "0.1.0"
-source = "git+https://github.com/Noah2610/deathframe?branch=develop#83d4db8ccd02c3cc07c4f6f2d8ffac9d62a0856f"
+source = "git+https://github.com/Noah2610/deathframe?branch=develop#3065d6cdd9d85fbe1d7ab7bcb88e4c589d196305"
 dependencies = [
  "climer 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "deathframe_core 0.1.0 (git+https://github.com/Noah2610/deathframe?branch=develop)",
@@ -913,7 +913,7 @@ dependencies = [
 [[package]]
 name = "deathframe_audio"
 version = "0.1.0"
-source = "git+https://github.com/Noah2610/deathframe?branch=develop#83d4db8ccd02c3cc07c4f6f2d8ffac9d62a0856f"
+source = "git+https://github.com/Noah2610/deathframe?branch=develop#3065d6cdd9d85fbe1d7ab7bcb88e4c589d196305"
 dependencies = [
  "deathframe_core 0.1.0 (git+https://github.com/Noah2610/deathframe?branch=develop)",
  "serde 1.0.104 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -922,7 +922,7 @@ dependencies = [
 [[package]]
 name = "deathframe_core"
 version = "0.1.0"
-source = "git+https://github.com/Noah2610/deathframe?branch=develop#83d4db8ccd02c3cc07c4f6f2d8ffac9d62a0856f"
+source = "git+https://github.com/Noah2610/deathframe?branch=develop#3065d6cdd9d85fbe1d7ab7bcb88e4c589d196305"
 dependencies = [
  "amethyst 0.15.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "derive_builder 0.9.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -932,7 +932,7 @@ dependencies = [
 [[package]]
 name = "deathframe_physics"
 version = "0.1.0"
-source = "git+https://github.com/Noah2610/deathframe?branch=develop#83d4db8ccd02c3cc07c4f6f2d8ffac9d62a0856f"
+source = "git+https://github.com/Noah2610/deathframe?branch=develop#3065d6cdd9d85fbe1d7ab7bcb88e4c589d196305"
 dependencies = [
  "deathframe_core 0.1.0 (git+https://github.com/Noah2610/deathframe?branch=develop)",
  "derive_builder 0.9.0 (registry+https://github.com/rust-lang/crates.io-index)",
