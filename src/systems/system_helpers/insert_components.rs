@@ -11,6 +11,7 @@ pub fn insert_components(
         gravity,
         max_movement_velocity,
         base_friction,
+        animation,
         animations,
         hitbox,
         walker,
@@ -28,6 +29,7 @@ pub fn insert_components(
         gravity: gravity_store,
         max_movement_velocity: max_movement_velocity_store,
         base_friction: base_friction_store,
+        animation: animation_store,
         animations: animations_store,
         animation_editor: animation_editor_store,
         hitbox: hitbox_store,
@@ -56,6 +58,10 @@ pub fn insert_components(
     }
     if let Some(base_friction) = base_friction {
         base_friction_store.insert(entity, base_friction)?;
+    }
+    if let Some(mut animation) = animation {
+        animation.play_cycle();
+        animation_store.insert(entity, animation)?;
     }
     if let Some(animations) = animations {
         animations_store.insert(entity, animations)?;

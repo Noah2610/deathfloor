@@ -55,6 +55,7 @@ pub struct EntityComponentsData {
     pub gravity:               Option<Gravity>,
     pub max_movement_velocity: Option<MaxMovementVelocity>,
     pub base_friction:         Option<BaseFriction>,
+    pub animation:             Option<Animation>,
     pub animations:            Option<AnimationsContainer<AnimationKey>>,
     pub hitbox:                Option<HitboxConfig>,
     pub walker:                Option<Walker>,
@@ -73,10 +74,11 @@ impl Merge for EntityComponentsData {
     fn merge(&mut self, other: EntityComponentsData) {
         *self = Self {
             size:                  other.size.or(self.size.take()),
-            velocity:                  other.velocity.or(self.velocity.take()),
+            velocity:              other.velocity.or(self.velocity.take()),
             gravity:               other.gravity.or(self.gravity.take()),
             max_movement_velocity: other.max_movement_velocity.or(self.max_movement_velocity.take()),
             base_friction:         other.base_friction.or(self.base_friction.take()),
+            animation:             other.animation.or(self.animation.take()),
             animations:            other.animations.or(self.animations.take()),
             hitbox:                other.hitbox.or(self.hitbox.take()),
             walker:                other.walker.or(self.walker.take()),
@@ -86,7 +88,7 @@ impl Merge for EntityComponentsData {
             health_display:        other.health_display.or(self.health_display.take()),
             deals_damage:          other.deals_damage.or(self.deals_damage.take()),
             takes_damage:          other.takes_damage.or(self.takes_damage.take()),
-            bullet:          other.bullet.or(self.bullet.take()),
+            bullet:                other.bullet.or(self.bullet.take()),
         };
     }
 }
@@ -98,6 +100,7 @@ pub struct EntityComponentsStorages<'a> {
     pub gravity:               WriteStorage<'a, Gravity>,
     pub max_movement_velocity: WriteStorage<'a, MaxMovementVelocity>,
     pub base_friction:         WriteStorage<'a, BaseFriction>,
+    pub animation:             WriteStorage<'a, Animation>,
     pub animations: WriteStorage<'a, AnimationsContainer<AnimationKey>>,
     pub animation_editor:      WriteStorage<'a, AnimationEditor>,
     pub hitbox:                WriteStorage<'a, Hitbox>,

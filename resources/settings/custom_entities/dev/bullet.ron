@@ -7,14 +7,12 @@
             entity: (
                 components: (
                     size: (w: 8.0, h: 8.0),
-                    animations: {
-                        Idle: Cycle([
-                            (0, 100),
-                            (1, 100),
-                            (2, 100),
-                            (3, 100),
-                        ]),
-                    },
+                    animation: [
+                        (0, 100),
+                        (1, 100),
+                        (2, 100),
+                        (3, 100),
+                    ],
                     hitbox: Size,
                     bullet: (
                         despawn_after_ms: 10_000,
