@@ -19,6 +19,10 @@
                     ),
                 ),
 
+                events: {
+                    OnCollision(And([IsTag("Tile"), IsState(Enter)])): EntityAction(DeleteEntity),
+                },
+
                 variants: {
                     "MoveLeft": (
                         components: (
@@ -40,7 +44,7 @@
 
                 collision_tag: (
                     labels: ["Projectile"],
-                    collides_with: ["Player"],
+                    collides_with: ["Player", "Tile"],
                 ),
             ),
         ),
