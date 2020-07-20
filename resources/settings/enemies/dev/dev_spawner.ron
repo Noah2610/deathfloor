@@ -1,0 +1,95 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "DevSpawner": (
+            spritesheet_filename: "enemy_normal.png",
+
+            entity: (
+                components: (
+                    size: (w: 16.0, h: 24.0),
+                    gravity: (x: None, y: -400.0),
+                    max_movement_velocity: (x: 100.0, y: 200.0),
+                    base_friction: (friction_x: 1000.0, friction_y: None),
+                    animations: {
+                        Idle: Cycle([
+                            (13, 500),
+                            (14, 500),
+                        ]),
+                        Walk: Cycle([
+                            (4, 100),
+                            (5, 100),
+                            (6, 100),
+                        ]),
+                        Death: Once([
+                            (15, 250),
+                            (16, 250),
+                            (17, 250),
+                            (18, 250),
+                            (19, 250),
+                            (20, 250),
+                            (21, 250),
+                            (22, 250),
+                        ]),
+                    },
+                    hitbox: Size,
+                    walker: (
+                        x: -150.0,
+                        y: None,
+                    ),
+                    health: (
+                        health: 10,
+                        max_health: 10,
+                    ),
+                    health_display: (
+                        position: Top,
+                        size: (32.0, 2.0),
+                        padding: 4.0,
+                        border_padding: 0.5,
+                    ),
+                ),
+
+                events: {
+                    OnCollision(And([
+                        IsTag("Bullet"),
+                        IsState(Enter),
+                    ])): Random((
+                        chance: 0.5,
+                        on_success: SpawnAction(SpawnRelative((
+                            object: (
+                                type: Custom("DevBullet"),
+                                pos: (x: 0.0, y: 0.0),
+                                size: (w: 8.0, h: 8.0),
+                                props: {
+                                    "variant": "MoveLeft",
+                                }
+                            ),
+                        ))),
+                        on_failure: SpawnAction(SpawnRelative((
+                            object: (
+                                        type: Enemy("Dev"),
+                                        pos: (
+                                            x: -32.0,
+                                            y: 32.0,
+                                        ),
+                                        size: (w: 16.0, h: 16.0),
+                                        props: {
+                                            "variant": "MoveLeft",
+                                }
+                            ),
+                        ))),
+                    )),
+                },
+
+                collision_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Player", "Jumppad", "Bullet", "Enemy"],
+                ),
+
+                solid_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Solid", "Player"],
+                ),
+            ),
+        ),
+    }
+)
