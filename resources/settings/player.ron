@@ -100,7 +100,7 @@
             /// with a label from `collides_with`.
             collision_tag: (
                 labels: ["Bullet"],
-                collides_with: ["Tile"],
+                collides_with: ["Tile", "Enemy"],
             ),
         ),
     ),
