@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.5" orientation="orthogonal" renderorder="right-down" width="128" height="32" tilewidth="8" tileheight="8" infinite="0" nextlayerid="4" nextobjectid="8">
+<map version="1.2" tiledversion="1.3.5" orientation="orthogonal" renderorder="right-down" width="128" height="32" tilewidth="8" tileheight="8" infinite="0" nextlayerid="4" nextobjectid="9">
  <editorsettings>
   <export target="../../resources/levels/dev.json" format="deathfloor-export"/>
  </editorsettings>
@@ -58,7 +58,12 @@
     <property name="variant" value="Spawner"/>
    </properties>
   </object>
-  <object id="7" name="Dev Bullet Spawner" type="Enemy(DevBulletSpawner)" x="256" y="184" width="8" height="16"/>
+  <object id="7" name="Dev Bullet Spawner" type="Enemy(DevBulletSpawner)" x="504" y="192" width="8" height="16"/>
+  <object id="8" name="BG" type="Custom(BgTest1)" x="0" y="80" width="128" height="128">
+   <properties>
+    <property name="z" type="float" value="-1"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="2" name="player">
   <properties>
