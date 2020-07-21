@@ -1,8 +1,8 @@
 #![enable(implicit_some)]
 (
     types: {
-        "BgTest1": (
-            spritesheet: "bg/bg_test1.png",
+        "BgTest1.1": (
+            spritesheet: "bg/bg_test1.1.png",
             entity: (),
         ),
     },
