@@ -22,6 +22,7 @@ pub fn insert_components(
         deals_damage,
         takes_damage,
         bullet,
+        ledge_detector_data,
     } = components;
     let &mut EntityComponentsStorages {
         size: size_store,
@@ -43,6 +44,7 @@ pub fn insert_components(
         deals_damage: deals_damage_store,
         takes_damage: takes_damage_store,
         bullet: bullet_store,
+        ledge_detector: ledge_detector_store,
     } = &mut storages;
 
     let size_opt = size.or_else(|| size_store.get(entity).cloned());
@@ -112,6 +114,10 @@ pub fn insert_components(
     }
     if let Some(bullet) = bullet {
         bullet_store.insert(entity, bullet)?;
+    }
+    if let Some(ledge_detector_data) = ledge_detector_data {
+        // CREATE CORNER ENTITIES!
+        ledge_detector_store.insert(entity, Default::default())?;
     }
     if let Some(size) = size_opt {
         size_store.insert(entity, size)?;

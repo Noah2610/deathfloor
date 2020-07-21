@@ -66,6 +66,8 @@ pub struct EntityComponentsData {
     pub deals_damage:          Option<DealsDamage>,
     pub takes_damage:          Option<TakesDamage>,
     pub bullet:                Option<Bullet>,
+    #[serde(rename = "ledge_detector")]
+    pub ledge_detector_data:   Option<LedgeDetectorData>,
 }
 
 impl Merge for EntityComponentsData {
@@ -89,6 +91,7 @@ impl Merge for EntityComponentsData {
             deals_damage:          other.deals_damage.or(self.deals_damage.take()),
             takes_damage:          other.takes_damage.or(self.takes_damage.take()),
             bullet:                other.bullet.or(self.bullet.take()),
+            ledge_detector_data:   other.ledge_detector_data.or(self.ledge_detector_data.take()),
         };
     }
 }
@@ -114,4 +117,5 @@ pub struct EntityComponentsStorages<'a> {
     pub deals_damage:          WriteStorage<'a, DealsDamage>,
     pub takes_damage:          WriteStorage<'a, TakesDamage>,
     pub bullet:                WriteStorage<'a, Bullet>,
+    pub ledge_detector:        WriteStorage<'a, LedgeDetector>,
 }
