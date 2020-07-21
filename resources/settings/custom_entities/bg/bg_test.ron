@@ -5,5 +5,17 @@
             spritesheet: "bg/bg_test1.1.png",
             entity: (),
         ),
+        "BgTest2": (
+            spritesheet: "bg/bg_test2.png",
+            entity: (),
+        ),
+        "BgTest2.4": (
+            spritesheet: "bg/bg_test2.4.png",
+            entity: (),
+        ),
+        "BgTest3.4": (
+            spritesheet: "bg/bg_test3.4.png",
+            entity: (),
+        ),
     },
 )
