@@ -28,5 +28,5 @@ impl ActionQueue for LedgeDetector {
 
 #[derive(Clone, Deserialize)]
 pub struct LedgeDetectorData {
-    corners: Vec<corner_detector::LedgeDetectorCornerDetectorData>,
+    pub corners: Vec<corner_detector::LedgeDetectorCornerDetectorData>,
 }

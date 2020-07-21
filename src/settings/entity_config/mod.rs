@@ -12,7 +12,7 @@ use crate::animation_key::AnimationKey;
 use crate::collision_tag::CollisionTagWrapper;
 use crate::components::prelude::*;
 use deathframe::amethyst::ecs::shred::ResourceId;
-use deathframe::amethyst::ecs::{SystemData, World, WriteStorage};
+use deathframe::amethyst::ecs::{Entities, SystemData, World, WriteStorage};
 use variants::EntityConfigVariants;
 
 /// Config for entities.
@@ -98,24 +98,30 @@ impl Merge for EntityComponentsData {
 
 #[derive(SystemData)]
 pub struct EntityComponentsStorages<'a> {
-    pub size:                  WriteStorage<'a, Size>,
-    pub velocity:              WriteStorage<'a, Velocity>,
-    pub gravity:               WriteStorage<'a, Gravity>,
-    pub max_movement_velocity: WriteStorage<'a, MaxMovementVelocity>,
-    pub base_friction:         WriteStorage<'a, BaseFriction>,
-    pub animation:             WriteStorage<'a, Animation>,
+    pub entities:                       Entities<'a>,
+    pub transform:                      WriteStorage<'a, Transform>,
+    pub size:                           WriteStorage<'a, Size>,
+    pub velocity:                       WriteStorage<'a, Velocity>,
+    pub gravity:                        WriteStorage<'a, Gravity>,
+    pub max_movement_velocity:          WriteStorage<'a, MaxMovementVelocity>,
+    pub base_friction:                  WriteStorage<'a, BaseFriction>,
+    pub animation:                      WriteStorage<'a, Animation>,
     pub animations: WriteStorage<'a, AnimationsContainer<AnimationKey>>,
-    pub animation_editor:      WriteStorage<'a, AnimationEditor>,
-    pub hitbox:                WriteStorage<'a, Hitbox>,
-    pub walker:                WriteStorage<'a, Walker>,
-    pub jumppad:               WriteStorage<'a, Jumppad>,
-    pub jumppad_affected:      WriteStorage<'a, JumppadAffected>,
-    pub scale_once:            WriteStorage<'a, ScaleOnce>,
-    pub health:                WriteStorage<'a, Health>,
-    pub health_action_queue:   WriteStorage<'a, HealthActionQueue>,
-    pub health_display:        WriteStorage<'a, HealthDisplay>,
-    pub deals_damage:          WriteStorage<'a, DealsDamage>,
-    pub takes_damage:          WriteStorage<'a, TakesDamage>,
-    pub bullet:                WriteStorage<'a, Bullet>,
-    pub ledge_detector:        WriteStorage<'a, LedgeDetector>,
+    pub animation_editor:               WriteStorage<'a, AnimationEditor>,
+    pub hitbox:                         WriteStorage<'a, Hitbox>,
+    pub walker:                         WriteStorage<'a, Walker>,
+    pub jumppad:                        WriteStorage<'a, Jumppad>,
+    pub jumppad_affected:               WriteStorage<'a, JumppadAffected>,
+    pub scale_once:                     WriteStorage<'a, ScaleOnce>,
+    pub health:                         WriteStorage<'a, Health>,
+    pub health_action_queue:            WriteStorage<'a, HealthActionQueue>,
+    pub health_display:                 WriteStorage<'a, HealthDisplay>,
+    pub deals_damage:                   WriteStorage<'a, DealsDamage>,
+    pub takes_damage:                   WriteStorage<'a, TakesDamage>,
+    pub bullet:                         WriteStorage<'a, Bullet>,
+    pub ledge_detector:                 WriteStorage<'a, LedgeDetector>,
+    pub ledge_detector_corner_detector:
+        WriteStorage<'a, LedgeDetectorCornerDetector>,
+    pub collider_solid:                 WriteStorage<'a, Collider<SolidTag>>,
+    pub solid:                          WriteStorage<'a, Solid<SolidTag>>,
 }

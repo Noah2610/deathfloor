@@ -46,7 +46,7 @@
                     ),
                     ledge_detector: (
                         // Which corners to detect ledges for
-                        corner_detectors: [
+                        corners: [
                             (
                                 // Corner to detect
                                 corner:      BottomLeft,

@@ -1,27 +1,29 @@
-use super::prelude::*;
+use super::*;
 
-#[derive(Clone, Deserialize)]
-#[serde(from = "LedgeDetectorCornerDetectorData")]
+#[derive(Component, Clone, Builder)]
+#[storage(VecStorage)]
+#[builder(pattern = "owned")]
 pub struct LedgeDetectorCornerDetector {
     corner:      LedgeDetectorCorner,
     if_touching: LedgeDetectorSide,
+    owner:       Entity,
+}
+
+impl LedgeDetectorCornerDetector {
+    pub fn builder() -> LedgeDetectorCornerDetectorBuilder {
+        LedgeDetectorCornerDetectorBuilder::default()
+    }
 }
 
 // Used for deserialization / configuration
 #[derive(Clone, Deserialize)]
 pub struct LedgeDetectorCornerDetectorData {
-    #[serde(flatten)]
-    corner_detector: LedgeDetectorCornerDetector,
+    pub corner:      LedgeDetectorCorner,
+    pub if_touching: LedgeDetectorSide,
     #[serde(default)]
-    offset:          (f32, f32),
+    pub offset:      (f32, f32),
     #[serde(default = "default_corner_detector_size")]
-    size:            (f32, f32),
-}
-
-impl From<LedgeDetectorCornerDetectorData> for LedgeDetectorCornerDetector {
-    fn from(data: LedgeDetectorCornerDetectorData) -> Self {
-        data.corner_detector
-    }
+    pub size:        (f32, f32),
 }
 
 const fn default_corner_detector_size() -> (f32, f32) {
