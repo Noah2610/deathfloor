@@ -16,7 +16,17 @@ use super::component_prelude::*;
 #[derive(Component, Default)]
 #[storage(DenseVecStorage)]
 pub struct LedgeDetector {
-    actions: Vec<LedgeDetectorAction>,
+    corner_entities: Vec<Entity>,
+    actions:         Vec<LedgeDetectorAction>,
+}
+
+impl LedgeDetector {
+    pub fn new(corner_entities: Vec<Entity>) -> Self {
+        Self {
+            corner_entities,
+            actions: Default::default(),
+        }
+    }
 }
 
 impl ActionQueue for LedgeDetector {
@@ -28,5 +38,6 @@ impl ActionQueue for LedgeDetector {
 
 #[derive(Clone, Deserialize)]
 pub struct LedgeDetectorData {
-    pub corners: Vec<corner_detector::LedgeDetectorCornerDetectorData>,
+    pub corners:       Vec<corner_detector::LedgeDetectorCornerDetectorData>,
+    pub collides_with: Vec<CollisionLabel>,
 }

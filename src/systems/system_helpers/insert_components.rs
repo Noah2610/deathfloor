@@ -1,5 +1,4 @@
 use super::system_prelude::*;
-use deathframe::physics::components::helpers::WithCollisionTag;
 
 pub fn insert_components(
     entity: Entity,
@@ -49,7 +48,7 @@ pub fn insert_components(
         bullet: bullet_store,
         ledge_detector: ledge_detector_store,
         ledge_detector_corner_detector: ledge_detector_corner_detector_store,
-        collider_solid: collider_solid_store,
+        collider: collider_store,
         solid: solid_store,
         follow: follow_store,
     } = &mut storages;
@@ -123,7 +122,6 @@ pub fn insert_components(
         bullet_store.insert(entity, bullet)?;
     }
     if let Some(ledge_detector_data) = ledge_detector_data {
-        ledge_detector_store.insert(entity, Default::default())?;
         let owner_half_size = size_opt
             .as_ref()
             .ok_or_else(|| {
@@ -132,44 +130,55 @@ pub fn insert_components(
                 ))
             })?
             .half();
-        let solid_tag = solid_store
-            .get(entity)
-            .ok_or_else(|| {
-                amethyst::Error::from_string(String::from(
-                    "LedgeDetector entity needs to have solid collision",
-                ))
-            })?
-            .collision_tag()
-            .clone();
-        for corner in ledge_detector_data.corners {
-            let follow_offset = (
-                owner_half_size.w + corner.offset.0,
-                owner_half_size.h + corner.offset.1,
-            );
-            let transform = Transform::default();
-            let size = Size::from(corner.size);
-            let hitbox = Hitbox::from(vec![(&size).into()]);
-            let _corner_entity = entities
-                .build_entity()
-                .with(transform, transform_store)
-                .with(size, size_store)
-                .with(hitbox, hitbox_store)
-                .with(
-                    Follow::new(entity).with_offset(follow_offset),
-                    follow_store,
-                )
-                .with(Collider::new(solid_tag.clone()), collider_solid_store)
-                .with(
-                    LedgeDetectorCornerDetector::builder()
-                        .owner(entity)
-                        .corner(corner.corner)
-                        .if_touching(corner.if_touching)
-                        .build()
-                        .unwrap(),
-                    ledge_detector_corner_detector_store,
-                )
-                .build();
-        }
+        // let solid_tag = solid_store
+        //     .get(entity)
+        //     .ok_or_else(|| {
+        //         amethyst::Error::from_string(String::from(
+        //             "LedgeDetector entity needs to have solid collision",
+        //         ))
+        //     })?
+        //     .collision_tag()
+        //     .clone();
+        let collison_tag = CollisionTag {
+            labels:        Default::default(),
+            collides_with: ledge_detector_data.collides_with,
+        };
+        let corner_entities = ledge_detector_data
+            .corners
+            .into_iter()
+            .map(|corner| {
+                let follow_offset = (
+                    owner_half_size.w + corner.offset.0,
+                    owner_half_size.h + corner.offset.1,
+                );
+                let transform = Transform::default();
+                let size = Size::from(corner.size);
+                let hitbox = Hitbox::from(vec![(&size).into()]);
+                entities
+                    .build_entity()
+                    .with(transform, transform_store)
+                    .with(size, size_store)
+                    .with(hitbox, hitbox_store)
+                    .with(
+                        Follow::new(entity).with_offset(follow_offset),
+                        follow_store,
+                    )
+                    .with(Collider::new(collison_tag.clone()), collider_store)
+                    .with(
+                        LedgeDetectorCornerDetector::builder()
+                            .owner(entity)
+                            .corner(corner.corner)
+                            .if_touching(corner.if_touching)
+                            .build()
+                            .unwrap(),
+                        ledge_detector_corner_detector_store,
+                    )
+                    .build()
+            })
+            .collect();
+
+        ledge_detector_store
+            .insert(entity, LedgeDetector::new(corner_entities))?;
     }
     if let Some(size) = size_opt {
         size_store.insert(entity, size)?;

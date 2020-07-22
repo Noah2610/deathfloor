@@ -122,7 +122,7 @@ pub struct EntityComponentsStorages<'a> {
     pub ledge_detector:                 WriteStorage<'a, LedgeDetector>,
     pub ledge_detector_corner_detector:
         WriteStorage<'a, LedgeDetectorCornerDetector>,
-    pub collider_solid:                 WriteStorage<'a, Collider<SolidTag>>,
+    pub collider: WriteStorage<'a, Collider<CollisionTag>>,
     pub solid:                          WriteStorage<'a, Solid<SolidTag>>,
     pub follow:                         WriteStorage<'a, Follow>,
 }

@@ -1,4 +1,4 @@
-#[derive(Clone, Deserialize)]
+#[derive(Clone, Copy, Deserialize, PartialEq, Eq, Hash)]
 pub enum LedgeDetectorCorner {
     TopLeft,
     TopRight,
@@ -6,7 +6,7 @@ pub enum LedgeDetectorCorner {
     BottomRight,
 }
 
-#[derive(Clone, Deserialize)]
+#[derive(Clone, Copy, Deserialize, PartialEq, Eq, Hash)]
 pub enum LedgeDetectorSide {
     Top,
     Bottom,

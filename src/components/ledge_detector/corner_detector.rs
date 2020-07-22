@@ -4,9 +4,9 @@ use super::*;
 #[storage(VecStorage)]
 #[builder(pattern = "owned")]
 pub struct LedgeDetectorCornerDetector {
-    corner:      LedgeDetectorCorner,
-    if_touching: LedgeDetectorSide,
-    owner:       Entity,
+    pub owner:       Entity,
+    pub corner:      LedgeDetectorCorner,
+    pub if_touching: LedgeDetectorSide,
 }
 
 impl LedgeDetectorCornerDetector {
