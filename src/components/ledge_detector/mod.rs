@@ -27,6 +27,10 @@ impl LedgeDetector {
             actions: Default::default(),
         }
     }
+
+    pub fn drain_corner_entities(&mut self) -> std::vec::Drain<Entity> {
+        self.corner_entities.drain(..)
+    }
 }
 
 impl ActionQueue for LedgeDetector {

@@ -49,7 +49,6 @@ pub fn insert_components(
         ledge_detector: ledge_detector_store,
         ledge_detector_corner_detector: ledge_detector_corner_detector_store,
         collider: collider_store,
-        solid: solid_store,
         follow: follow_store,
     } = &mut storages;
 
@@ -122,6 +121,15 @@ pub fn insert_components(
         bullet_store.insert(entity, bullet)?;
     }
     if let Some(ledge_detector_data) = ledge_detector_data {
+        if let Some(existing_ledge_detector) =
+            ledge_detector_store.get_mut(entity)
+        {
+            for corner_entity in existing_ledge_detector.drain_corner_entities()
+            {
+                entities.delete(corner_entity)?;
+            }
+        }
+
         let owner_half_size = size_opt
             .as_ref()
             .ok_or_else(|| {
@@ -130,15 +138,6 @@ pub fn insert_components(
                 ))
             })?
             .half();
-        // let solid_tag = solid_store
-        //     .get(entity)
-        //     .ok_or_else(|| {
-        //         amethyst::Error::from_string(String::from(
-        //             "LedgeDetector entity needs to have solid collision",
-        //         ))
-        //     })?
-        //     .collision_tag()
-        //     .clone();
         let collison_tag = CollisionTag {
             labels:        Default::default(),
             collides_with: ledge_detector_data.collides_with,
