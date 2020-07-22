@@ -156,7 +156,7 @@ pub fn insert_components(
 
                 let follow_offset = match &corner.corner {
                     Corner::TopLeft => (
-                        -owner_half_size.w - half_size.w - corner.offset.0,
+                        -owner_half_size.w - half_size.w + corner.offset.0,
                         owner_half_size.h + half_size.h + corner.offset.1,
                     ),
                     Corner::TopRight => (
@@ -164,12 +164,12 @@ pub fn insert_components(
                         owner_half_size.h + half_size.h + corner.offset.1,
                     ),
                     Corner::BottomLeft => (
-                        -owner_half_size.w - half_size.w - corner.offset.0,
-                        -owner_half_size.h - half_size.h - corner.offset.1,
+                        -owner_half_size.w - half_size.w + corner.offset.0,
+                        -owner_half_size.h - half_size.h + corner.offset.1,
                     ),
                     Corner::BottomRight => (
                         owner_half_size.w + half_size.w + corner.offset.0,
-                        -owner_half_size.h - half_size.h - corner.offset.1,
+                        -owner_half_size.h - half_size.h + corner.offset.1,
                     ),
                 };
 
