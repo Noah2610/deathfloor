@@ -147,13 +147,32 @@ pub fn insert_components(
             .corners
             .into_iter()
             .map(|corner| {
-                let follow_offset = (
-                    owner_half_size.w + corner.offset.0,
-                    owner_half_size.h + corner.offset.1,
-                );
+                use self::LedgeDetectorCorner as Corner;
+
                 let transform = Transform::default();
                 let size = Size::from(corner.size);
+                let half_size = size.half();
                 let hitbox = Hitbox::from(vec![(&size).into()]);
+
+                let follow_offset = match &corner.corner {
+                    Corner::TopLeft => (
+                        -owner_half_size.w - half_size.w - corner.offset.0,
+                        owner_half_size.h + half_size.h + corner.offset.1,
+                    ),
+                    Corner::TopRight => (
+                        owner_half_size.w + half_size.w + corner.offset.0,
+                        owner_half_size.h + half_size.h + corner.offset.1,
+                    ),
+                    Corner::BottomLeft => (
+                        -owner_half_size.w - half_size.w - corner.offset.0,
+                        -owner_half_size.h - half_size.h - corner.offset.1,
+                    ),
+                    Corner::BottomRight => (
+                        owner_half_size.w + half_size.w + corner.offset.0,
+                        -owner_half_size.h - half_size.h - corner.offset.1,
+                    ),
+                };
+
                 entities
                     .build_entity()
                     .with(transform, transform_store)

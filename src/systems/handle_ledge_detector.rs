@@ -1,4 +1,5 @@
 use super::system_prelude::*;
+use deathframe::physics::query::prelude::FindQuery;
 use std::collections::HashMap;
 
 #[derive(Default)]
@@ -9,7 +10,7 @@ impl<'a> System<'a> for HandleLedgeDetectorSystem {
         Entities<'a>,
         WriteStorage<'a, LedgeDetector>,
         ReadStorage<'a, LedgeDetectorCornerDetector>,
-        ReadStorage<'a, Collider<SolidTag>>,
+        ReadStorage<'a, Collider<CollisionTag>>,
     );
 
     fn run(
@@ -18,7 +19,7 @@ impl<'a> System<'a> for HandleLedgeDetectorSystem {
             entities,
             mut ledge_detector_store,
             corner_detector_store,
-            collider_solid_store,
+            collider_store,
         ): Self::SystemData,
     ) {
         let mut corner_collisions = HashMap::<
@@ -27,7 +28,7 @@ impl<'a> System<'a> for HandleLedgeDetectorSystem {
         >::new();
 
         for (corner_detector, corner_collider) in
-            (&corner_detector_store, &collider_solid_store).join()
+            (&corner_detector_store, &collider_store).join()
         {
             if corner_collider.collisions.is_empty() {
                 let entry = corner_collisions
@@ -40,14 +41,26 @@ impl<'a> System<'a> for HandleLedgeDetectorSystem {
             }
         }
 
-        for (entity, ledge_detector) in
-            (&entities, &mut ledge_detector_store).join()
+        for (entity, ledge_detector, collider) in
+            (&entities, &mut ledge_detector_store, &collider_store).join()
         {
             if let Some(collisions) = corner_collisions.get(&entity) {
                 for (corner, side) in collisions {
-                    ledge_detector.add_action(LedgeDetectorAction::Detected(
-                        *corner, *side,
-                    ));
+                    let query_exp = {
+                        use deathframe::physics::query::exp::prelude_variants::*;
+                        IsSide(side.into())
+                    };
+
+                    if collider
+                        .query::<FindQuery<CollisionTag>>()
+                        .exp(&query_exp)
+                        .run()
+                        .is_some()
+                    {
+                        ledge_detector.add_action(
+                            LedgeDetectorAction::Detected(*corner, *side),
+                        );
+                    }
                 }
             }
         }

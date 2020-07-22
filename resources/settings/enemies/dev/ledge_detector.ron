@@ -45,6 +45,7 @@
                         border_padding: 0.5,
                     ),
                     ledge_detector: (
+                        collides_with: ["Solid"],
                         // Which corners to detect ledges for
                         corners: [
                             (
@@ -87,8 +88,11 @@
                                 IsState(Enter),
                             ])): EntityAction(SwitchVariant("MoveRight")),
                             //          corner detector  if touching side
-                            //             vvvvvvvvvv     vvvvvv
-                            OnLedgeDetect((BottomLeft,    Bottom)): EntityAction(SwitchVariant("MoveRight")),
+                            //            vvvvvvvvvv     vvvvvv
+                            OnLedgeDetect(BottomLeft, Bottom): Group([
+                                Echo("MOVE RIGHT, LEDGE LEFT!!"),
+                                EntityAction(SwitchVariant("MoveRight")),
+                            ]),
                         },
                     ),
 
@@ -105,19 +109,22 @@
                                 Not(IsTag("Solid")),
                                 IsState(Enter),
                             ])): EntityAction(SwitchVariant("MoveLeft")),
-                            OnLedgeDetect((BottomRight, Bottom)): EntityAction(SwitchVariant("MoveLeft")),
+                            OnLedgeDetect(BottomRight, Bottom): Group([
+                                Echo("MOVE LEFT, LEDGE RIGHT!!"),
+                                EntityAction(SwitchVariant("MoveLeft")),
+                            ]),
                         },
                     ),
                 },
 
                 collision_tag: (
                     labels: ["Enemy"],
-                    collides_with: ["Player", "Jumppad", "Bullet", "Enemy"],
+                    collides_with: ["Solid", "Player", "Jumppad", "Bullet", "Enemy"],
                 ),
 
                 solid_tag: (
                     labels: ["Enemy"],
-                    collides_with: ["Solid", "Player"],
+                    collides_with: ["Solid"],
                 ),
             ),
         ),
