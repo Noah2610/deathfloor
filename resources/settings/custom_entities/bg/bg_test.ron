@@ -17,5 +17,21 @@
             spritesheet: "bg/bg_test3.4.png",
             entity: (),
         ),
+        "BgTest4.4": (
+            spritesheet: "bg/bg_test4.4.png",
+            entity: (),
+        ),
+        "BgTest4.5": (
+            spritesheet: "bg/bg_test4.5.png",
+            entity: (),
+        ),
+        "BgTest4.6": (
+            spritesheet: "bg/bg_test4.6.png",
+            entity: (),
+        ),
+        "BgTest4.91": (
+            spritesheet: "bg/bg_test4.91.png",
+            entity: (),
+        ),
     },
 )
