@@ -290,7 +290,7 @@ fn build_game_data<'a, 'b>(
             DispatcherId::Ingame,
             HandleLedgeDetectorSystem::default(),
             "handle_ledge_detector_system",
-            &[],
+            &["update_collisions_system"],
         )?;
 
     #[cfg(feature = "debug")]
