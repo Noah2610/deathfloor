@@ -142,6 +142,7 @@ pub fn insert_components(
             labels:        Default::default(),
             collides_with: ledge_detector_data.collides_with,
         };
+
         let corner_entities = ledge_detector_data
             .corners
             .into_iter()
