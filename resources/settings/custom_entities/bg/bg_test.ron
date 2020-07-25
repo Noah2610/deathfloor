@@ -33,5 +33,9 @@
             spritesheet: "bg/bg_test4.91.png",
             entity: (),
         ),
+        "BgTest3.5": (
+            spritesheet: "bg/bg_test3.5.png",
+            entity: (),
+        ),
     },
 )
