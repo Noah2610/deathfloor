@@ -74,25 +74,28 @@ fn switch_variant(
         }
 
         // COLLISION / SOLID TAGS
-        // if let Some(collision_tag) = entity_config.collision_tag {
-        //     let mut collider_storage =
-        //         world.write_component::<Collider<CollisionTag>>();
-        //     let mut collidable_storage =
-        //         world.write_component::<Collidable<CollisionTag>>();
-        //     collider_storage.insert(
-        //         entity,
-        //         Collider::new(CollisionTag::from(collision_tag.clone())),
-        //     )?;
-        //     collidable_storage.insert(
-        //         entity,
-        //         Collidable::new(CollisionTag::from(collision_tag)),
-        //     )?;
-        // }
-        // if let Some(solid_tag) = entity_config.solid_tag {
-        //     let mut solid_storage = world.write_component::<Solid<SolidTag>>();
-        //     solid_storage
-        //         .insert(entity, Solid::new(CollisionTag::from(solid_tag)))?;
-        // }
+        if let Some(collision_tag) = entity_config.collision_tag {
+            components_stores
+                .collider
+                .insert(
+                    entity,
+                    Collider::new(CollisionTag::from(collision_tag.clone())),
+                )
+                .unwrap();
+            components_stores
+                .collidable
+                .insert(
+                    entity,
+                    Collidable::new(CollisionTag::from(collision_tag)),
+                )
+                .unwrap();
+        }
+        if let Some(solid_tag) = entity_config.solid_tag {
+            components_stores
+                .solid
+                .insert(entity, Solid::new(CollisionTag::from(solid_tag)))
+                .unwrap();
+        }
 
         // COMPONENTS
         if let Some(components) = entity_config.components.clone() {
