@@ -8,6 +8,7 @@ mod display_health;
 mod event_handlers;
 mod handle_animation_editors;
 mod handle_animations;
+mod handle_death_bound;
 mod handle_jumppad_affected;
 mod handle_ledge_detector;
 mod handle_level_select;
@@ -31,6 +32,7 @@ pub mod prelude {
     pub use super::event_handlers::EventHandlersBundle;
     pub use super::handle_animation_editors::HandleAnimationEditorsSystem;
     pub use super::handle_animations::HandleAnimationsSystem;
+    pub use super::handle_death_bound::HandleDeathBoundSystem;
     pub use super::handle_jumppad_affected::HandleJumppadAffectedSystem;
     pub use super::handle_ledge_detector::HandleLedgeDetectorSystem;
     pub use super::handle_level_select::HandleLevelSelectSystem;

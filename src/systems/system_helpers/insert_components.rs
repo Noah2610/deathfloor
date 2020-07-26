@@ -52,6 +52,7 @@ pub fn insert_components(
         ledge_detector: ledge_detector_store,
         ledge_detector_corner_detector: ledge_detector_corner_detector_store,
         follow: follow_store,
+        death_bound: death_bound_store,
     } = &mut storages;
 
     let size_opt = size.or_else(|| size_store.get(entity).cloned());
@@ -138,8 +139,9 @@ pub fn insert_components(
                 transform_store,
                 size_store,
                 hitbox_store,
-                follow_store,
                 collider_store,
+                follow_store,
+                death_bound_store,
             ),
         )?;
     }
@@ -161,8 +163,9 @@ fn insert_ledge_detector(
         transform_store,
         size_store,
         hitbox_store,
-        follow_store,
         collider_store,
+        follow_store,
+        death_bound_store,
     ): (
         &mut Entities,
         &mut WriteStorage<LedgeDetector>,
@@ -170,14 +173,15 @@ fn insert_ledge_detector(
         &mut WriteStorage<Transform>,
         &mut WriteStorage<Size>,
         &mut WriteStorage<Hitbox>,
-        &mut WriteStorage<Follow>,
         &mut WriteStorage<Collider<CollisionTag>>,
+        &mut WriteStorage<Follow>,
+        &mut WriteStorage<DeathBound>,
     ),
 ) -> amethyst::Result<()> {
     if let Some(existing_ledge_detector) = ledge_detector_store.get_mut(entity)
     {
         for corner_entity in existing_ledge_detector.drain_corner_entities() {
-            entities.delete(corner_entity)?;
+            let _ = entities.delete(corner_entity)?;
         }
     }
 
@@ -236,6 +240,7 @@ fn insert_ledge_detector(
                         .unwrap(),
                     ledge_detector_corner_detector_store,
                 )
+                .with(DeathBound::new(entity), death_bound_store)
                 .build()
         })
         .collect();

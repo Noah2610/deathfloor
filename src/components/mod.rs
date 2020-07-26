@@ -1,5 +1,6 @@
 mod animation_editor;
 mod bullet;
+mod death_bound;
 mod enemy;
 mod entity_config_register;
 mod event_listener;
@@ -23,6 +24,7 @@ pub mod prelude {
 
     pub use super::animation_editor::prelude::*;
     pub use super::bullet::Bullet;
+    pub use super::death_bound::DeathBound;
     pub use super::enemy::prelude::*;
     pub use super::entity_config_register::{
         EntityConfigRegister,

@@ -126,4 +126,5 @@ pub struct EntityComponentsStorages<'a> {
     pub ledge_detector_corner_detector:
         WriteStorage<'a, LedgeDetectorCornerDetector>,
     pub follow:                         WriteStorage<'a, Follow>,
+    pub death_bound:                    WriteStorage<'a, DeathBound>,
 }
