@@ -90,7 +90,7 @@
                             ])): EntityAction(SwitchVariant("MoveRight")),
                             //          corner detector  if touching side
                             //            vvvvvvvvvv     vvvvvv
-                            OnLedgeDetect(BottomLeft, Bottom): Group([
+                            OnLedgeDetect(BottomLeft,    Bottom): Group([
                                 Echo("MOVE RIGHT, LEDGE LEFT!!"),
                                 EntityAction(SwitchVariant("MoveRight")),
                             ]),
