@@ -25,16 +25,16 @@ impl<'a> System<'a> for HandleEventOnLedgeDetectSystem {
         )
             .join()
         {
-            for ledge_detector_action in ledge_detector.drain_actions() {
-                match ledge_detector_action {
-                    LedgeDetectorAction::Detected(corner, side) => {
-                        let event_type = EventType::OnLedgeDetect(corner, side);
-                        if let Some(action) =
-                            events_register.get_action(&event_type).cloned()
-                        {
-                            action_type_trigger.add_action(action);
-                        }
-                    }
+            for LedgeDetectorDetected {
+                corner,
+                if_touching,
+            } in ledge_detector.drain_detected()
+            {
+                let event_type = EventType::OnLedgeDetect(corner, if_touching);
+                if let Some(action) =
+                    events_register.get_action(&event_type).cloned()
+                {
+                    action_type_trigger.add_action(action);
                 }
             }
         }

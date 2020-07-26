@@ -70,8 +70,11 @@ impl<'a> System<'a> for HandleLedgeDetectorSystem {
                             .run()
                             .is_some()
                         {
-                            ledge_detector.add_action(
-                                LedgeDetectorAction::Detected(*corner, *side),
+                            ledge_detector.add_detected(
+                                LedgeDetectorDetected {
+                                    corner:      *corner,
+                                    if_touching: *side,
+                                },
                             );
                         }
                     }

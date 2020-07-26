@@ -2,41 +2,48 @@ pub mod prelude {
     pub use super::corner_detector::LedgeDetectorCornerDetector;
     pub use super::geo::LedgeDetectorCorner;
     pub use super::geo::LedgeDetectorSide;
-    pub use super::ledge_detector_action::LedgeDetectorAction;
     pub use super::LedgeDetector;
     pub use super::LedgeDetectorData;
+    pub use super::LedgeDetectorDetected;
 }
 
 mod corner_detector;
 mod geo;
-mod ledge_detector_action;
 
 use super::component_prelude::*;
+use std::collections::hash_set::{self, HashSet};
 
-#[derive(Component, Default)]
+#[derive(PartialEq, Eq, Hash)]
+pub struct LedgeDetectorDetected {
+    pub corner:      LedgeDetectorCorner,
+    pub if_touching: LedgeDetectorSide,
+}
+
+#[derive(Component)]
 #[storage(DenseVecStorage)]
 pub struct LedgeDetector {
     corner_entities: Vec<Entity>,
-    actions:         Vec<LedgeDetectorAction>,
+    detected:        HashSet<LedgeDetectorDetected>,
 }
 
 impl LedgeDetector {
     pub fn new(corner_entities: Vec<Entity>) -> Self {
         Self {
             corner_entities,
-            actions: Default::default(),
+            detected: HashSet::default(),
         }
     }
 
     pub fn drain_corner_entities(&mut self) -> std::vec::Drain<Entity> {
         self.corner_entities.drain(..)
     }
-}
 
-impl ActionQueue for LedgeDetector {
-    type Action = LedgeDetectorAction;
-    fn mut_actions(&mut self) -> &mut Vec<Self::Action> {
-        &mut self.actions
+    pub fn add_detected(&mut self, detected: LedgeDetectorDetected) {
+        self.detected.insert(detected);
+    }
+
+    pub fn drain_detected(&mut self) -> hash_set::Drain<LedgeDetectorDetected> {
+        self.detected.drain()
     }
 }
 
