@@ -1,5 +1,6 @@
 mod animation_editor;
 mod bullet;
+mod death_bound;
 mod enemy;
 mod entity_config_register;
 mod event_listener;
@@ -7,6 +8,7 @@ mod health_display;
 mod jumper;
 mod jumppad;
 mod jumppad_affected;
+mod ledge_detector;
 mod max_movement_velocity;
 mod movable;
 mod physics_data;
@@ -22,6 +24,7 @@ pub mod prelude {
 
     pub use super::animation_editor::prelude::*;
     pub use super::bullet::Bullet;
+    pub use super::death_bound::DeathBound;
     pub use super::enemy::prelude::*;
     pub use super::entity_config_register::{
         EntityConfigRegister,
@@ -32,6 +35,7 @@ pub mod prelude {
     pub use super::jumper::Jumper;
     pub use super::jumppad::Jumppad;
     pub use super::jumppad_affected::JumppadAffected;
+    pub use super::ledge_detector::prelude::*;
     pub use super::max_movement_velocity::MaxMovementVelocity;
     pub use super::movable::prelude::*;
     pub use super::physics_data::PhysicsData;

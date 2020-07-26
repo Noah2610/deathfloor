@@ -1,5 +1,9 @@
 use crate::collision_tag::CollisionTag;
-use crate::components::prelude::LifecycleState;
+use crate::components::prelude::{
+    LedgeDetectorCorner,
+    LedgeDetectorSide,
+    LifecycleState,
+};
 use deathframe::physics::query::exp::prelude::QueryExpression;
 
 /// Events, which trigger Actions.
@@ -20,6 +24,9 @@ pub enum EventType {
     /// Triggers an action in regular intervals.
     /// Pass an interval delay integer (milliseconds).
     Interval(u64),
+
+    /// Triggers when the entity's `LedgeDetector` detects a ledge.
+    OnLedgeDetect(LedgeDetectorCorner, LedgeDetectorSide),
 }
 
 impl From<EventTypeDeser> for EventType {
@@ -34,6 +41,7 @@ impl From<EventTypeDeser> for EventType {
             Deser::Lifecycle(x) => Lifecycle(x),
             Deser::OnCollision(x) => OnCollision(x),
             Deser::Interval(x) => Interval(x),
+            Deser::OnLedgeDetect(corner, side) => OnLedgeDetect(corner, side),
         }
     }
 }
@@ -50,4 +58,5 @@ pub enum EventTypeDeser {
     Lifecycle(LifecycleState),
     OnCollision(Option<QueryExpression<CollisionTag>>),
     Interval(u64),
+    OnLedgeDetect(LedgeDetectorCorner, LedgeDetectorSide),
 }

@@ -1,0 +1,133 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "LedgeDetector": (
+            spritesheet_filename: "enemy_normal.png",
+
+            entity: (
+                components: (
+                    size: (
+                        w: 16.0,
+                        h: 24.0,
+                    ),
+                    gravity: (
+                        x: None,
+                        y: -400.0,
+                    ),
+                    max_movement_velocity: (
+                        x: 100.0,
+                        y: 200.0,
+                    ),
+                    base_friction: (
+                        friction_x: 1000.0,
+                        friction_y: None,
+                    ),
+                    animations: {
+                        Idle: Cycle([
+                            (13, 500),
+                            (14, 500),
+                        ]),
+                        Walk: Cycle([
+                            (4, 100),
+                            (5, 100),
+                            (6, 100),
+                        ]),
+                    },
+                    hitbox: Size,
+                    health: (
+                        health: 6,
+                        max_health: 6,
+                    ),
+                    health_display: (
+                        position: Top,
+                        size: (32.0, 2.0),
+                        padding: 4.0,
+                        border_padding: 0.5,
+                    ),
+                    ledge_detector: (
+                        collides_with: ["Solid"],
+                        // Which corners to detect ledges for
+                        corners: [
+                            (
+                                // Corner to detect
+                                corner:      BottomLeft,
+                                // Only detect when entity is touching this side
+                                // (for example standing on ground)
+                                if_touching: Bottom,
+                                // Optional position offset for the corner detector entity
+                                // Default: `(0.0, 0.0)`
+                                offset: (-4.0, 0.0),
+                                // Optional hitbox size of the corner detectors
+                                // Default: `(4.0, 4.0)`
+                                size: (4.0, 4.0),
+                            ),
+                            (
+                                corner:      BottomRight,
+                                if_touching: Bottom,
+                                offset: (4.0, 0.0),
+                            ),
+                        ],
+                    ),
+                ),
+
+                events: {
+                    OnCollision(And([IsTag("Bullet"), IsState(Enter)])): HealthAction(Lose(1)),
+                },
+
+                variants: {
+                    "MoveLeft": (
+                        components: (
+                            walker: (
+                                x: -200.0,
+                                y: None,
+                            ),
+                        ),
+
+                        events: {
+                            OnCollision(And([
+                                Not(IsTag("Solid")),
+                                IsState(Enter),
+                            ])): EntityAction(SwitchVariant("MoveRight")),
+                            //          corner detector  if touching side
+                            //            vvvvvvvvvv     vvvvvv
+                            OnLedgeDetect(BottomLeft, Bottom): Group([
+                                Echo("MOVE RIGHT, LEDGE LEFT!!"),
+                                EntityAction(SwitchVariant("MoveRight")),
+                            ]),
+                        },
+                    ),
+
+                    "MoveRight": (
+                        components: (
+                            walker: (
+                                x: 200.0,
+                                y: None,
+                            ),
+                        ),
+
+                        events: {
+                            OnCollision(And([
+                                Not(IsTag("Solid")),
+                                IsState(Enter),
+                            ])): EntityAction(SwitchVariant("MoveLeft")),
+                            OnLedgeDetect(BottomRight, Bottom): Group([
+                                Echo("MOVE LEFT, LEDGE RIGHT!!"),
+                                EntityAction(SwitchVariant("MoveLeft")),
+                            ]),
+                        },
+                    ),
+                },
+
+                collision_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Solid", "Player", "Jumppad", "Bullet", "Enemy"],
+                ),
+
+                solid_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Solid"],
+                ),
+            ),
+        ),
+    }
+)

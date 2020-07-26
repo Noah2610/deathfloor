@@ -285,6 +285,18 @@ fn build_game_data<'a, 'b>(
             PlayDeathAnimationBeforeDeletionSystem::default(),
             "play_death_animation_before_deletion_system",
             &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            HandleLedgeDetectorSystem::default(),
+            "handle_ledge_detector_system",
+            &["update_collisions_system"],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            HandleDeathBoundSystem::default(),
+            "handle_death_bound_system",
+            &[],
         )?;
 
     #[cfg(feature = "debug")]
