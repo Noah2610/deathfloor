@@ -297,6 +297,12 @@ fn build_game_data<'a, 'b>(
             HandleDeathBoundSystem::default(),
             "handle_death_bound_system",
             &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            HandleDyingEntitiesSystem::default(),
+            "handle_dying_entities_system",
+            &[],
         )?;
 
     #[cfg(feature = "debug")]
