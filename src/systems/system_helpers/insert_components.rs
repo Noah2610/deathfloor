@@ -36,6 +36,9 @@ pub fn insert_components(
         animations: animations_store,
         animation_editor: animation_editor_store,
         hitbox: hitbox_store,
+        collider: collider_store,
+        collidable: collidable_store,
+        solid: solid_store,
         walker: walker_store,
         jumppad: jumppad_store,
         jumppad_affected: jumppad_affected_store,
@@ -48,7 +51,6 @@ pub fn insert_components(
         bullet: bullet_store,
         ledge_detector: ledge_detector_store,
         ledge_detector_corner_detector: ledge_detector_corner_detector_store,
-        collider: collider_store,
         follow: follow_store,
     } = &mut storages;
 

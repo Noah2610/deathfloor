@@ -109,6 +109,9 @@ pub struct EntityComponentsStorages<'a> {
     pub animations: WriteStorage<'a, AnimationsContainer<AnimationKey>>,
     pub animation_editor:               WriteStorage<'a, AnimationEditor>,
     pub hitbox:                         WriteStorage<'a, Hitbox>,
+    pub collider: WriteStorage<'a, Collider<CollisionTag>>,
+    pub collidable: WriteStorage<'a, Collidable<CollisionTag>>,
+    pub solid:                          WriteStorage<'a, Solid<SolidTag>>,
     pub walker:                         WriteStorage<'a, Walker>,
     pub jumppad:                        WriteStorage<'a, Jumppad>,
     pub jumppad_affected:               WriteStorage<'a, JumppadAffected>,
@@ -122,6 +125,5 @@ pub struct EntityComponentsStorages<'a> {
     pub ledge_detector:                 WriteStorage<'a, LedgeDetector>,
     pub ledge_detector_corner_detector:
         WriteStorage<'a, LedgeDetectorCornerDetector>,
-    pub collider: WriteStorage<'a, Collider<CollisionTag>>,
     pub follow:                         WriteStorage<'a, Follow>,
 }
