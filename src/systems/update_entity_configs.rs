@@ -74,27 +74,44 @@ fn switch_variant(
         }
 
         // COLLISION / SOLID TAGS
-        if let Some(collision_tag) = entity_config.collision_tag {
-            components_stores
-                .collider
-                .insert(
-                    entity,
-                    Collider::new(CollisionTag::from(collision_tag.clone())),
-                )
-                .unwrap();
-            components_stores
-                .collidable
-                .insert(
-                    entity,
-                    Collidable::new(CollisionTag::from(collision_tag)),
-                )
-                .unwrap();
+        // Update existing collision / solid tags if entity already has Collider / Solid,
+        // or insert new Collider / Solid if it doesn't.
+        if let Some(collision_tag_wrapper) = entity_config.collision_tag {
+            let collision_tag: CollisionTag = collision_tag_wrapper.into();
+
+            if let Some(existing_collider) =
+                components_stores.collider.get_mut(entity)
+            {
+                existing_collider.tag = collision_tag.clone();
+            } else {
+                components_stores
+                    .collider
+                    .insert(entity, Collider::new(collision_tag.clone()))
+                    .unwrap();
+            }
+            if let Some(existing_collidable) =
+                components_stores.collidable.get_mut(entity)
+            {
+                existing_collidable.tag = collision_tag;
+            } else {
+                components_stores
+                    .collidable
+                    .insert(entity, Collidable::new(collision_tag))
+                    .unwrap();
+            }
         }
-        if let Some(solid_tag) = entity_config.solid_tag {
-            components_stores
-                .solid
-                .insert(entity, Solid::new(CollisionTag::from(solid_tag)))
-                .unwrap();
+        if let Some(solid_tag_wrapper) = entity_config.solid_tag {
+            let solid_tag: SolidTag = solid_tag_wrapper.into();
+            if let Some(existing_solid) =
+                components_stores.solid.get_mut(entity)
+            {
+                existing_solid.tag = solid_tag;
+            } else {
+                components_stores
+                    .solid
+                    .insert(entity, Solid::new(solid_tag))
+                    .unwrap();
+            }
         }
 
         // COMPONENTS
