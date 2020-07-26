@@ -44,6 +44,14 @@ pub(super) fn edit_entity_with_entity_config(
     mut entity_config: EntityConfig,
     variant: Option<String>,
 ) -> amethyst::Result<()> {
+    // ENTITY_CONFIG_REGISTER
+    // NOTE: Insert this first, so the inserted entity config
+    //       is the one without the variant stuff merged.
+    world
+        .write_component::<EntityConfigRegister>()
+        .insert(entity, EntityConfigRegister::new(entity_config.clone()))?;
+
+    // Merge variant into entity config
     if let Some(variant_name) = variant {
         if let Some(variant) = {
             entity_config
@@ -54,11 +62,6 @@ pub(super) fn edit_entity_with_entity_config(
             entity_config.merge(variant);
         }
     }
-
-    // ENTITY_CONFIG_REGISTER
-    world
-        .write_component::<EntityConfigRegister>()
-        .insert(entity, EntityConfigRegister::new(entity_config.clone()))?;
 
     // COLLISION / SOLID TAGS
     if let Some(collision_tag) = entity_config.collision_tag {

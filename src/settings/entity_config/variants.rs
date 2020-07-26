@@ -21,7 +21,6 @@ impl From<HashMap<String, EntityConfig>> for EntityConfigVariants {
 }
 
 impl Merge for EntityConfigVariants {
-    #[rustfmt::skip]
     fn merge(&mut self, other: EntityConfigVariants) {
         self.variants.extend(other.variants);
     }

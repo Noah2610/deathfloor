@@ -60,8 +60,6 @@ impl<'a> System<'a> for UpdateEntityConfigsSystem {
             for action in
                 entity_config_register.drain_actions().collect::<Vec<_>>()
             {
-                // use Act as EntityConfigRegisterAction;
-
                 match action {
                     EntityConfigRegisterAction::SwitchVariant(variant_name) => {
                         switch_variant(
