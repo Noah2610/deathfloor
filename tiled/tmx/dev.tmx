@@ -58,7 +58,7 @@
    </properties>
   </object>
   <object id="7" name="Dev Bullet Spawner" type="Enemy(DevBulletSpawner)" x="216" y="184" width="8" height="16"/>
-  <object id="8" name="BG" type="Custom(BgTest1)" x="0" y="80" width="128" height="128">
+  <object id="8" name="BG" type="Custom(BgTest1.1)" x="0" y="80" width="128" height="128">
    <properties>
     <property name="z" type="float" value="-1"/>
    </properties>
