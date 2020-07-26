@@ -4,7 +4,7 @@ pub fn insert_components(
     entity: Entity,
     components: EntityComponentsData,
     mut storages: &mut EntityComponentsStorages,
-) -> Result<(), amethyst::Error> {
+) -> amethyst::Result<()> {
     let EntityComponentsData {
         size,
         velocity,
@@ -121,87 +121,123 @@ pub fn insert_components(
         bullet_store.insert(entity, bullet)?;
     }
     if let Some(ledge_detector_data) = ledge_detector_data {
-        if let Some(existing_ledge_detector) =
-            ledge_detector_store.get_mut(entity)
-        {
-            for corner_entity in existing_ledge_detector.drain_corner_entities()
-            {
-                entities.delete(corner_entity)?;
-            }
-        }
-
-        let owner_half_size = size_opt
-            .as_ref()
-            .ok_or_else(|| {
+        insert_ledge_detector(
+            entity,
+            ledge_detector_data,
+            size_opt.as_ref().ok_or_else(|| {
                 amethyst::Error::from_string(String::from(
                     "LedgeDetector entity needs to have a size",
                 ))
-            })?
-            .half();
-        let collison_tag = CollisionTag {
-            labels:        Default::default(),
-            collides_with: ledge_detector_data.collides_with,
-        };
-
-        let corner_entities = ledge_detector_data
-            .corners
-            .into_iter()
-            .map(|corner| {
-                use self::LedgeDetectorCorner as Corner;
-
-                let transform = Transform::default();
-                let size = Size::from(corner.size);
-                let half_size = size.half();
-                let hitbox = Hitbox::from(vec![(&size).into()]);
-
-                let follow_offset = match &corner.corner {
-                    Corner::TopLeft => (
-                        -owner_half_size.w - half_size.w + corner.offset.0,
-                        owner_half_size.h + half_size.h + corner.offset.1,
-                    ),
-                    Corner::TopRight => (
-                        owner_half_size.w + half_size.w + corner.offset.0,
-                        owner_half_size.h + half_size.h + corner.offset.1,
-                    ),
-                    Corner::BottomLeft => (
-                        -owner_half_size.w - half_size.w + corner.offset.0,
-                        -owner_half_size.h - half_size.h + corner.offset.1,
-                    ),
-                    Corner::BottomRight => (
-                        owner_half_size.w + half_size.w + corner.offset.0,
-                        -owner_half_size.h - half_size.h + corner.offset.1,
-                    ),
-                };
-
-                entities
-                    .build_entity()
-                    .with(transform, transform_store)
-                    .with(size, size_store)
-                    .with(hitbox, hitbox_store)
-                    .with(
-                        Follow::new(entity).with_offset(follow_offset),
-                        follow_store,
-                    )
-                    .with(Collider::new(collison_tag.clone()), collider_store)
-                    .with(
-                        LedgeDetectorCornerDetector::builder()
-                            .owner(entity)
-                            .corner(corner.corner)
-                            .if_touching(corner.if_touching)
-                            .build()
-                            .unwrap(),
-                        ledge_detector_corner_detector_store,
-                    )
-                    .build()
-            })
-            .collect();
-
-        ledge_detector_store
-            .insert(entity, LedgeDetector::new(corner_entities))?;
+            })?,
+            (
+                entities,
+                ledge_detector_store,
+                ledge_detector_corner_detector_store,
+                transform_store,
+                size_store,
+                hitbox_store,
+                follow_store,
+                collider_store,
+            ),
+        )?;
     }
     if let Some(size) = size_opt {
         size_store.insert(entity, size)?;
     }
 
+    Ok(())
+}
+
+fn insert_ledge_detector(
+    entity: Entity,
+    ledge_detector_data: LedgeDetectorData,
+    owner_size: &Size,
+    (
+        entities,
+        ledge_detector_store,
+        ledge_detector_corner_detector_store,
+        transform_store,
+        size_store,
+        hitbox_store,
+        follow_store,
+        collider_store,
+    ): (
+        &mut Entities,
+        &mut WriteStorage<LedgeDetector>,
+        &mut WriteStorage<LedgeDetectorCornerDetector>,
+        &mut WriteStorage<Transform>,
+        &mut WriteStorage<Size>,
+        &mut WriteStorage<Hitbox>,
+        &mut WriteStorage<Follow>,
+        &mut WriteStorage<Collider<CollisionTag>>,
+    ),
+) -> amethyst::Result<()> {
+    if let Some(existing_ledge_detector) = ledge_detector_store.get_mut(entity)
+    {
+        for corner_entity in existing_ledge_detector.drain_corner_entities() {
+            entities.delete(corner_entity)?;
+        }
+    }
+
+    let owner_half_size = owner_size.half();
+    let collison_tag = CollisionTag {
+        labels:        Default::default(),
+        collides_with: ledge_detector_data.collides_with,
+    };
+
+    let corner_entities = ledge_detector_data
+        .corners
+        .into_iter()
+        .map(|corner| {
+            use self::LedgeDetectorCorner as Corner;
+
+            let transform = Transform::default();
+            let size = Size::from(corner.size);
+            let half_size = size.half();
+            let hitbox = Hitbox::from(vec![(&size).into()]);
+
+            let follow_offset = match &corner.corner {
+                Corner::TopLeft => (
+                    -owner_half_size.w - half_size.w + corner.offset.0,
+                    owner_half_size.h + half_size.h + corner.offset.1,
+                ),
+                Corner::TopRight => (
+                    owner_half_size.w + half_size.w + corner.offset.0,
+                    owner_half_size.h + half_size.h + corner.offset.1,
+                ),
+                Corner::BottomLeft => (
+                    -owner_half_size.w - half_size.w + corner.offset.0,
+                    -owner_half_size.h - half_size.h + corner.offset.1,
+                ),
+                Corner::BottomRight => (
+                    owner_half_size.w + half_size.w + corner.offset.0,
+                    -owner_half_size.h - half_size.h + corner.offset.1,
+                ),
+            };
+
+            entities
+                .build_entity()
+                .with(transform, transform_store)
+                .with(size, size_store)
+                .with(hitbox, hitbox_store)
+                .with(
+                    Follow::new(entity).with_offset(follow_offset),
+                    follow_store,
+                )
+                .with(Collider::new(collison_tag.clone()), collider_store)
+                .with(
+                    LedgeDetectorCornerDetector::builder()
+                        .owner(entity)
+                        .corner(corner.corner)
+                        .if_touching(corner.if_touching)
+                        .build()
+                        .unwrap(),
+                    ledge_detector_corner_detector_store,
+                )
+                .build()
+        })
+        .collect();
+
+    ledge_detector_store.insert(entity, LedgeDetector::new(corner_entities))?;
     Ok(())
 }
