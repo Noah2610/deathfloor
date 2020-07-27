@@ -6,9 +6,9 @@
  <tileset firstgid="1" source="../tsx/testtiles13.tsx"/>
  <tileset firstgid="1025" source="../tsx/testtiles8.tsx"/>
  <tileset firstgid="2049" source="../tsx/testtiles2.tsx"/>
- <objectgroup id="6" name="BG" visible="0">
+ <objectgroup id="6" name="BG">
   <properties>
-   <property name="z" type="float" value="-1"/>
+   <property name="z" type="float" value="-0.9"/>
   </properties>
   <object id="47" name="BG" type="Custom(BgTest3.5)" x="0" y="0" width="224" height="216"/>
   <object id="48" name="BG" type="Custom(BgTest3.5)" x="224" y="0" width="224" height="216"/>
@@ -21,9 +21,9 @@
   <object id="55" name="BG" type="Custom(BgTest3.5)" x="1792" y="0" width="224" height="216"/>
   <object id="56" name="BG" type="Custom(BgTest3.5)" x="2016" y="0" width="224" height="216"/>
  </objectgroup>
- <objectgroup id="7" name="BG2">
+ <objectgroup id="7" name="BG2" visible="0">
   <properties>
-   <property name="z" type="float" value="-0.9"/>
+   <property name="z" type="float" value="-1"/>
   </properties>
   <object id="57" name="BG" type="Custom(BgTest4)" x="0" y="0" width="224" height="216"/>
   <object id="58" name="BG" type="Custom(BgTest4)" x="224" y="0" width="224" height="216"/>
