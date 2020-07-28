@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="259" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="8" nextobjectid="67">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="259" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="9" nextobjectid="77">
  <editorsettings>
   <export target="../../resources/levels/level3.json" format="deathfloor-export"/>
  </editorsettings>
  <tileset firstgid="1" source="../tsx/testtiles13.tsx"/>
  <tileset firstgid="1025" source="../tsx/testtiles8.tsx"/>
  <tileset firstgid="2049" source="../tsx/testtiles2.tsx"/>
- <objectgroup id="6" name="BG">
+ <objectgroup id="6" name="BG" visible="0">
   <properties>
    <property name="z" type="float" value="-0.9"/>
   </properties>
@@ -20,6 +20,21 @@
   <object id="54" name="BG" type="Custom(BgTest3.5)" x="1568" y="0" width="224" height="216"/>
   <object id="55" name="BG" type="Custom(BgTest3.5)" x="1792" y="0" width="224" height="216"/>
   <object id="56" name="BG" type="Custom(BgTest3.5)" x="2016" y="0" width="224" height="216"/>
+ </objectgroup>
+ <objectgroup id="8" name="BG3">
+  <properties>
+   <property name="z" type="float" value="-0.8"/>
+  </properties>
+  <object id="67" name="BG" type="Custom(BgTest8.2)" x="0" y="0" width="224" height="216"/>
+  <object id="68" name="BG" type="Custom(BgTest8.2)" x="224" y="0" width="224" height="216"/>
+  <object id="69" name="BG" type="Custom(BgTest8.2)" x="448" y="0" width="224" height="216"/>
+  <object id="70" name="BG" type="Custom(BgTest8.2)" x="672" y="0" width="224" height="216"/>
+  <object id="71" name="BG" type="Custom(BgTest8.2)" x="896" y="0" width="224" height="216"/>
+  <object id="72" name="BG" type="Custom(BgTest8.2)" x="1120" y="0" width="224" height="216"/>
+  <object id="73" name="BG" type="Custom(BgTest8.2)" x="1344" y="0" width="224" height="216"/>
+  <object id="74" name="BG" type="Custom(BgTest8.2)" x="1568" y="0" width="224" height="216"/>
+  <object id="75" name="BG" type="Custom(BgTest8.2)" x="1792" y="0" width="224" height="216"/>
+  <object id="76" name="BG" type="Custom(BgTest8.2)" x="2016" y="0" width="224" height="216"/>
  </objectgroup>
  <objectgroup id="7" name="BG2" visible="0">
   <properties>
