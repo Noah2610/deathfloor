@@ -60,11 +60,17 @@ jobs:
           default: true
           override: true
 
-      - name: Build Binary
+      # - name: Build Binary
+      #   uses: actions-rs/cargo@v1
+      #   with:
+      #     command: build
+      #     args: --release
+
+      - name: DEBUG Build Binary with profile release-performance
         uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --release
+          args: --profile release-performance -Z unstable-options
 
       - name: Bundle Release
         run: bin/bundle-release linux
@@ -119,11 +125,17 @@ jobs:
           default: true
           override: true
 
-      - name: Build Binary
+      # - name: Build Binary
+      #   uses: actions-rs/cargo@v1
+      #   with:
+      #     command: build
+      #     args: --release
+
+      - name: DEBUG Build Binary with profile release-performance
         uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --release
+          args: --profile release-performance -Z unstable-options
 
       - name: Bundle Release
         run: bin/bundle-release windows
