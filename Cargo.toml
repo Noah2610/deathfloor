@@ -58,3 +58,7 @@ debug-assertions = false
 codegen-units    = 1
 incremental      = true
 overflow-checks  = false
+
+[profile.release-performance]
+inherits      = "release"
+codegen-units = 256
