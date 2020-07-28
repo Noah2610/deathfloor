@@ -1,3 +1,5 @@
+cargo-features = ["named-profiles"]
+
 [package]
 name = "deathfloor"
 version = "0.0.3"
@@ -44,6 +46,10 @@ debug-assertions = true
 codegen-units    = 1
 incremental      = true
 overflow-checks  = true
+
+[profile.dev-performance]
+inherits      = "dev"
+codegen-units = 256
 
 [profile.release]
 opt-level        = 3

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# shellcheck source=./share.sh disable=SC2155
+_dir="$( dirname "$( realpath "$0" )" )"
+source "${_dir}/share.sh"
+unset _dir
+
+"${ROOT}/bin/run" \
+    -Z unstable-options \
+    --profile dev-performance \
+    "$@"

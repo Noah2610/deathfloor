@@ -21,6 +21,10 @@ pub enum EventType {
     /// a `FindQuery`, and will only trigger the action if the query matches.
     OnCollision(Option<QueryExpression<CollisionTag>>),
 
+    /// Triggers an action after some time delay.
+    /// Trigger after the given milliseconds have passed.
+    Delay(u64),
+
     /// Triggers an action in regular intervals.
     /// Pass an interval delay integer (milliseconds).
     Interval(u64),
@@ -40,6 +44,7 @@ impl From<EventTypeDeser> for EventType {
 
             Deser::Lifecycle(x) => Lifecycle(x),
             Deser::OnCollision(x) => OnCollision(x),
+            Deser::Delay(x) => Delay(x),
             Deser::Interval(x) => Interval(x),
             Deser::OnLedgeDetect(corner, side) => OnLedgeDetect(corner, side),
         }
@@ -57,6 +62,7 @@ pub enum EventTypeDeser {
 
     Lifecycle(LifecycleState),
     OnCollision(Option<QueryExpression<CollisionTag>>),
+    Delay(u64),
     Interval(u64),
     OnLedgeDetect(LedgeDetectorCorner, LedgeDetectorSide),
 }
