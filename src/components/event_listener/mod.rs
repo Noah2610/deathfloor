@@ -1,5 +1,6 @@
 pub mod prelude {
     pub use super::actions::prelude as action;
+    pub use super::event_type_data;
     pub use super::ActionTrigger;
     pub use super::ActionType;
     pub use super::ActionTypeTrigger;
@@ -8,6 +9,7 @@ pub mod prelude {
 }
 
 pub mod actions;
+pub mod event_type_data;
 
 mod action_trigger;
 mod action_type_trigger;
