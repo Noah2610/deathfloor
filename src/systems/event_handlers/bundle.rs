@@ -34,6 +34,11 @@ impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventHandlersBundle<'c> {
             self.deps,
         );
         builder.add(
+            events::delay::HandleEventDelay::default(),
+            "handle_event_delay_system",
+            self.deps,
+        );
+        builder.add(
             events::interval::HandleEventInterval::default(),
             "handle_event_interval_system",
             self.deps,
