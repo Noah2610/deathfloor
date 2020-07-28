@@ -4,7 +4,8 @@ use std::collections::HashMap;
 
 #[derive(Default)]
 pub struct EventsRegisterData {
-    pub delay: HashMap<u64, event_type_data::DelayData>,
+    pub interval: HashMap<u64, event_type_data::IntervalData>,
+    pub delay:    HashMap<u64, event_type_data::DelayData>,
 }
 
 impl Clone for EventsRegisterData {

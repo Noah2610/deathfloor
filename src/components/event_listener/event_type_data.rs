@@ -8,3 +8,7 @@ use climer::Timer;
 pub struct DelayData {
     pub timer: Timer,
 }
+
+pub struct IntervalData {
+    pub timer: Timer,
+}
