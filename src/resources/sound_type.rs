@@ -11,8 +11,8 @@ impl SoundType {
     pub fn path(&self) -> PathBuf {
         let sfx_dir = resource("audio/sfx");
         match self {
-            SoundType::Jump => sfx_dir.join("jump.mp3"),
-            SoundType::Shoot => sfx_dir.join("shoot.mp3"),
+            SoundType::Jump => sfx_dir.join("jump.ogg"),
+            SoundType::Shoot => sfx_dir.join("shoot.ogg"),
         }
     }
 }
