@@ -68,13 +68,13 @@
                 },
 
                 collision_tag: (
-                    labels: ["Enemy"],
+                    labels: ["Enemy", "Solid"],
                     collides_with: ["Player", "Bullet"],
                 ),
 
                 solid_tag: (
-                    labels: ["Enemy"],
-                    collides_with: ["Solid"],
+                    labels: ["Enemy", "Solid"],
+                    collides_with: ["Solid", "Player"],
                 ),
             ),
         ),
