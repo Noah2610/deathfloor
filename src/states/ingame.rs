@@ -98,6 +98,8 @@ fn update_object_spawner(world: &mut World) {
         object_spawner.drain().collect()
     };
     for object_data in to_spawn {
-        load_object(world, object_data.object);
+        if let Err(e) = load_object(world, object_data.object) {
+            eprintln!("[WARNING]\n    Failed to load object.\n    {}", e)
+        }
     }
 }
