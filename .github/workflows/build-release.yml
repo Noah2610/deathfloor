@@ -73,7 +73,7 @@ jobs:
           args: --profile release-performance -Z unstable-options
 
       - name: Bundle Release
-        run: bin/bundle-release linux
+        run: TARGET_PROFILE=release-performance bin/bundle-release linux
         shell: bash
 
       - name: Upload Bundled Release
@@ -138,7 +138,7 @@ jobs:
           args: --profile release-performance -Z unstable-options
 
       - name: Bundle Release
-        run: bin/bundle-release windows
+        run: TARGET_PROFILE=release-performance bin/bundle-release windows
         shell: bash
 
       - name: Upload Bundled Release
