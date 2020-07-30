@@ -115,4 +115,23 @@
  <tile id="1032" type="Ground"/>
  <tile id="1088" type="Ground"/>
  <tile id="1096" type="Ground"/>
+ <tile id="2304" type="Ground"/>
+ <tile id="2305" type="Ground"/>
+ <tile id="2306" type="Ground"/>
+ <tile id="2307" type="Ground"/>
+ <tile id="2308" type="Ground"/>
+ <tile id="2309" type="Ground"/>
+ <tile id="2310" type="Ground"/>
+ <tile id="2311" type="Ground"/>
+ <tile id="2312" type="Ground"/>
+ <tile id="2368" type="Ground"/>
+ <tile id="2376" type="Ground"/>
+ <tile id="2432" type="Ground"/>
+ <tile id="2440" type="Ground"/>
+ <tile id="2496" type="Ground"/>
+ <tile id="2504" type="Ground"/>
+ <tile id="2560" type="Ground"/>
+ <tile id="2568" type="Ground"/>
+ <tile id="2624" type="Ground"/>
+ <tile id="2632" type="Ground"/>
 </tileset>
