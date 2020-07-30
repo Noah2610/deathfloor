@@ -134,4 +134,42 @@
  <tile id="2568" type="Ground"/>
  <tile id="2624" type="Ground"/>
  <tile id="2632" type="Ground"/>
+ <tile id="3383" type="Ground"/>
+ <tile id="3384" type="Ground"/>
+ <tile id="3385" type="Ground"/>
+ <tile id="3386" type="Ground"/>
+ <tile id="3387" type="Ground"/>
+ <tile id="3388" type="Ground"/>
+ <tile id="3389" type="Ground"/>
+ <tile id="3390" type="Ground"/>
+ <tile id="3391" type="Ground"/>
+ <tile id="3447" type="Ground"/>
+ <tile id="3455" type="Ground"/>
+ <tile id="3511" type="Ground"/>
+ <tile id="3519" type="Ground"/>
+ <tile id="3575" type="Ground"/>
+ <tile id="3583" type="Ground"/>
+ <tile id="3639" type="Ground"/>
+ <tile id="3647" type="Ground"/>
+ <tile id="3703" type="Ground"/>
+ <tile id="3711" type="Ground"/>
+ <tile id="3767" type="Ground"/>
+ <tile id="3775" type="Ground"/>
+ <tile id="3831" type="Ground"/>
+ <tile id="3839" type="Ground"/>
+ <tile id="3895" type="Ground"/>
+ <tile id="3903" type="Ground"/>
+ <tile id="3959" type="Ground"/>
+ <tile id="3967" type="Ground"/>
+ <tile id="4023" type="Ground"/>
+ <tile id="4031" type="Ground"/>
+ <tile id="4087" type="Ground"/>
+ <tile id="4088" type="Ground"/>
+ <tile id="4089" type="Ground"/>
+ <tile id="4090" type="Ground"/>
+ <tile id="4091" type="Ground"/>
+ <tile id="4092" type="Ground"/>
+ <tile id="4093" type="Ground"/>
+ <tile id="4094" type="Ground"/>
+ <tile id="4095" type="Ground"/>
 </tileset>
