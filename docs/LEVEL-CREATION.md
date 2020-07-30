@@ -62,6 +62,13 @@ Valid types:
   The object's position is where the player will spawn in-game.  
   The object's size does not affect the player's in-game size.  
   The player's size is defined in the [`settings.ron`] file.
+- `Enemy(ENEMY_TYPE)`  
+  Makes this object an _Enemy_ with the given ENEMY\_TYPE string.  
+  The enemy loads the config for the given ENEMY\_TYPE.
+- `Custom(CUSTOM_TYPE)`  
+  Loads a somewhat blank entity, with minimal predefined components.  
+  Loads the settings file / entity config for the given CUSTOM\_TYPE,  
+  defined in one of the settings files under `resources/settings/custom_entities/`.
 
 ## Tilesets
 Tileset spritesheet images must be PNGs.  

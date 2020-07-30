@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_LedgeDetectorCorner",""],["_IMPL_DESERIALIZE_FOR_LedgeDetectorSide",""]],"enum":[["LedgeDetectorCorner",""],["LedgeDetectorSide",""]]});

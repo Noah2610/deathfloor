@@ -3,8 +3,8 @@ interval <code>(0, 1)</code>, i.e. not including either endpoint.</p>
 <p>All values that can be generated are of the form <code>n * ε + ε/2</code>. For <code>f32</code>
 the 23 most significant random bits of an <code>u32</code> are used, for <code>f64</code> 52 from
 an <code>u64</code>. The conversion uses a transmute-based method.</p>
-<p>See also: <a href="crate::distributions::Standard"><code>Standard</code></a> which samples from <code>[0, 1)</code>, <a href="crate::distributions::OpenClosed01"><code>OpenClosed01</code></a>
-which samples from <code>(0, 1]</code> and <a href="crate::distributions::uniform::Uniform"><code>Uniform</code></a> which samples from arbitrary
+<p>See also: <a href="../../rand/distributions/struct.Standard.html"><code>Standard</code></a> which samples from <code>[0, 1)</code>, <a href="../../rand/distributions/struct.OpenClosed01.html"><code>OpenClosed01</code></a>
+which samples from <code>(0, 1]</code> and <a href="../../rand/distributions/uniform/struct.Uniform.html"><code>Uniform</code></a> which samples from arbitrary
 ranges.</p>
 <h1 id="example" class="section-header"><a href="#example">Example</a></h1>
 <div class="example-wrap"><pre class="rust rust-example-rendered">

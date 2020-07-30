@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["prelude",""]]});
+initSidebarItems({"mod":[["helpers",""],["prelude",""]]});

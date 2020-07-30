@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["action_trigger",""],["action_type_trigger",""],["actions",""],["event_type",""],["events_register",""],["prelude",""]]});
+initSidebarItems({"mod":[["action_trigger",""],["action_type_trigger",""],["actions",""],["event_type",""],["event_type_data","Runtime data for events. Some events need to store data, only for their event instance. This data is stored in the `EventsRegister`, and is cleared when switching variants."],["events_register",""],["prelude",""]]});

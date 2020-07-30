@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["switch_variant",""]],"struct":[["UpdateEntityConfigsSystem",""]]});

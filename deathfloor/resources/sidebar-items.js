@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["bullet_creator",""],["prelude",""],["song_type",""],["sound_type",""]]});
+initSidebarItems({"mod":[["bullet_creator",""],["object_spawner",""],["prelude",""],["song_type",""],["sound_type",""]]});

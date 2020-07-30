@@ -356,7 +356,7 @@ given bit stream parser to work on a byte slice input.</p>
 parser, allowing byte-slice parsers to work on bit streams.</p>
 </td></tr><tr class='module-item'><td><a class="macro" href="macro.call.html" title='nom::call macro'>call</a></td><td class='docblock-short'><p>Used to wrap common expressions and function as macros</p>
 </td></tr><tr class='module-item'><td><a class="macro" href="macro.call_m.html" title='nom::call_m macro'>call_m</a></td><td class='docblock-short'><p>do not use: method combinators moved to the nom-methods crate</p>
-</td></tr><tr class='module-item'><td><a class="macro" href="macro.char.html" title='nom::char macro'>char</a></td><td class='docblock-short'><p>matches one character: `char!(char) =&gt; &amp;[u8] -&gt; IResult&lt;&amp;[u8], char&gt;</p>
+</td></tr><tr class='module-item'><td><a class="macro" href="macro.char.html" title='nom::char macro'>char</a></td><td class='docblock-short'><p>matches one character: `char!(char) =&gt; &amp;<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html" title="u8">u8</a> -&gt; IResult&lt;&amp;<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html" title="u8">u8</a>, char&gt;</p>
 </td></tr><tr class='module-item'><td><a class="macro" href="macro.complete.html" title='nom::complete macro'>complete</a></td><td class='docblock-short'><p>replaces a <code>Incomplete</code> returned by the child parser
 with an <code>Error</code></p>
 </td></tr><tr class='module-item'><td><a class="macro" href="macro.cond.html" title='nom::cond macro'>cond</a></td><td class='docblock-short'><p><code>cond!(bool, I -&gt; IResult&lt;I,O&gt;) =&gt; I -&gt; IResult&lt;I, Option&lt;O&gt;&gt;</code>

@@ -5,7 +5,7 @@
     { ... }
 }</pre></div><div class='docblock'><p>Types (distributions) that can be used to create a random instance of <code>T</code>.</p>
 <p>It is possible to sample from a distribution through both the
-<code>Distribution</code> and [<code>Rng</code>] traits, via <code>distr.sample(&amp;mut rng)</code> and
+<code>Distribution</code> and <a href="../../rand/trait.Rng.html" title="`Rng`"><code>Rng</code></a> traits, via <code>distr.sample(&amp;mut rng)</code> and
 <code>rng.sample(distr)</code>. They also both offer the <a href="Distribution::method.sample_iter"><code>sample_iter</code></a> method, which
 produces an iterator that samples from the distribution.</p>
 <p>All implementations are expected to be immutable; this has the significant

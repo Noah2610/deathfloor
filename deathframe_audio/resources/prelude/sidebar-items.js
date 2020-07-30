@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["SongPlaybackBehavior","The playback behavior for the `Songs` BGM manager."],["SongPlaybackState","The playback state for a song."]],"struct":[["Songs","BGM song manager."],["Sounds","Sound effects manager."]],"trait":[["AudioManager","Trait with common functions between the sound/music managers."]]});
+initSidebarItems({"enum":[["SongPlaybackState","The playback state for a song."]],"struct":[["Song","A `Song`, wraps it's `SourceHandle` and `AudioSink`."],["Songs","BGM song manager."],["Sounds","Sound effects manager."]]});

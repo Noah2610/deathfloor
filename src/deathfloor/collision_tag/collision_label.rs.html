@@ -37,17 +37,17 @@
 
 <span class="kw">impl</span> <span class="ident">CollisionLabel</span> {
     <span class="doccomment">/// Returns the label we decided to make the &quot;Tile&quot; label.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tile</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">CollisionLabel</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">tile</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="string">&quot;Tile&quot;</span>.<span class="ident">into</span>()
     }
 
     <span class="doccomment">/// Returns the label we decided to make the &quot;Solid&quot; label.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">solid</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">CollisionLabel</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">solid</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="string">&quot;Solid&quot;</span>.<span class="ident">into</span>()
     }
 
     <span class="doccomment">/// Returns the label we decided to make the &quot;Bullet&quot; label.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bullet</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">CollisionLabel</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bullet</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="string">&quot;Bullet&quot;</span>.<span class="ident">into</span>()
     }
 }

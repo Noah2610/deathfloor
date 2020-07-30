@@ -17,6 +17,8 @@ by manipulating their <code>Transform</code> appropriately.
 It also handles collision with <code>Solid</code> entities; Solid entities may not move into each other.</p>
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.PlayAnimationsSystem.html" title='deathframe::systems::prelude::PlayAnimationsSystem struct'>PlayAnimationsSystem</a></td><td class='docblock-short'><p>Handles the playing of animations for entities with <code>Animation</code>.</p>
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.PlaySoundsSystem.html" title='deathframe::systems::prelude::PlaySoundsSystem struct'>PlaySoundsSystem</a></td><td class='docblock-short'><p>Plays queued sounds from <code>SoundPlayer</code> components.
+If a resource of component type <code>SoundPlayer</code> exists,
+then it will also be used to play sounds.
 <code>SoundAction::Play</code> sounds are played with the <em>default volume</em>,
 which can be set with the <code>with_default_volume</code> builder function.
 See the <code>Default</code> implementation for the default.</p>
@@ -35,6 +37,10 @@ does not check for entities with <code>Loadable</code> but NOT <code>Loaded</cod
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.UpdateHealthSystem.html" title='deathframe::systems::prelude::UpdateHealthSystem struct'>UpdateHealthSystem</a></td><td class='docblock-short'><p>Updates entities' <code>Health</code>, via <code>HealthAction</code>s from their <code>HealthActionQueue</code>.</p>
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.UpdateLifecycleSystem.html" title='deathframe::systems::prelude::UpdateLifecycleSystem struct'>UpdateLifecycleSystem</a></td><td class='docblock-short'><p>Handles updating of entity's <code>Lifecycle</code> component's <code>LifecycleState</code>.
 Will also delete entities when their state switches to <code>Despawn</code>.</p>
-</td></tr><tr class='module-item'><td><a class="struct" href="struct.UpdateSongPlaybackSystem.html" title='deathframe::systems::prelude::UpdateSongPlaybackSystem struct'>UpdateSongPlaybackSystem</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="struct" href="struct.UpdateSongVolumeSystem.html" title='deathframe::systems::prelude::UpdateSongVolumeSystem struct'>UpdateSongVolumeSystem</a></td><td class='docblock-short'><p>Handles updating the default audio
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.UpdateSongPlaybackSystem.html" title='deathframe::systems::prelude::UpdateSongPlaybackSystem struct'>UpdateSongPlaybackSystem</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="struct" href="struct.UpdateSongStateSystem.html" title='deathframe::systems::prelude::UpdateSongStateSystem struct'>UpdateSongStateSystem</a></td><td class='docblock-short'><p>For now, this system only sets a <code>Song</code>'s <code>PlaybackState</code>
+to <code>Stopped</code> if it's <code>AudioSink</code> is empty.
+If the song is supposed to <em>loop</em>, then it is restarted
+if it's <code>AudioSink</code> is empty.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.UpdateSongVolumeSystem.html" title='deathframe::systems::prelude::UpdateSongVolumeSystem struct'>UpdateSongVolumeSystem</a></td><td class='docblock-short'><p>Handles updating the default audio
 output sink's volume, used with <code>Songs</code>.</p>
 </td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../";window.currentCrate = "deathframe";</script><script src="../../../aliases.js"></script><script src="../../../main.js"></script><script defer src="../../../search-index.js"></script></body></html>

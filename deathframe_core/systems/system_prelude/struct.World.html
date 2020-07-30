@@ -10,7 +10,7 @@ aware of:</p>
 <ol>
 <li>There are many utility methods Specs provides. To use them, you need to
 import <code>specs::WorldExt</code>.</li>
-<li>You should not use [World::empty], but rather <code>specs::WorldExt::new</code>. The
+<li>You should not use <a href="../../../deathframe_core/systems/system_prelude/struct.World.html#method.empty" title="World::empty">World::empty</a>, but rather <code>specs::WorldExt::new</code>. The
 latter can simply be called using <code>World::new()</code>, as long as <code>WorldExt</code>
 is imported.</li>
 </ol>
@@ -61,7 +61,7 @@ exist already.</p>
 </ul>
 </div><h4 id='method.setup' class="method"><code id='setup.v'>pub fn <a href='#method.setup' class='fnname'>setup</a>&lt;'a, T&gt;(&amp;mut self) <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="../../../deathframe_core/systems/system_prelude/trait.SystemData.html" title="trait deathframe_core::systems::system_prelude::SystemData">SystemData</a>&lt;'a&gt;,&nbsp;</span></code><a class='srclink' href='../../../src/shred/world/mod.rs.html#348-350' title='goto source code'>[src]</a></h4><div class='docblock'><p>Sets up system data <code>T</code> for fetching afterwards.</p>
 <p>Most <code>SystemData</code> implementations will insert a sensible default value,
-by implementing [SystemData::setup]. However, it is not guaranteed to
+by implementing <a href="../../../deathframe_core/systems/system_prelude/trait.SystemData.html#tymethod.setup" title="SystemData::setup">SystemData::setup</a>. However, it is not guaranteed to
 do that; if there is no sensible default, <code>setup</code> might not do anything.</p>
 <h1 id="examples-2" class="section-header"><a href="#examples-2">Examples</a></h1>
 <div class="example-wrap"><pre class="rust rust-example-rendered">

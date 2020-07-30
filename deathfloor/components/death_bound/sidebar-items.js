@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DeathBound","A `DeathBound` entity will be deleted if the `DeathBound`'s associated entity is deleted."]]});

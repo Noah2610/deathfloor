@@ -71,11 +71,6 @@
 <span id="71">71</span>
 <span id="72">72</span>
 <span id="73">73</span>
-<span id="74">74</span>
-<span id="75">75</span>
-<span id="76">76</span>
-<span id="77">77</span>
-<span id="78">78</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">state_prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">helpers</span>::<span class="ident">resource</span>;
@@ -126,12 +121,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">sounds</span> <span class="op">=</span> <span class="ident">Sounds</span>::<span class="ident">default</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">load_sound</span> <span class="op">=</span> <span class="op">|</span><span class="ident">sound_type</span>: <span class="ident">SoundType</span><span class="op">|</span> <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">String</span><span class="op">&gt;</span> {
             <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">sound_type</span>.<span class="ident">path</span>();
-            <span class="ident">sounds</span>.<span class="ident">load_audio</span>(
-                <span class="ident">sound_type</span>,
-                <span class="ident">path</span>,
-                <span class="kw-2">&amp;</span><span class="ident">world</span>.<span class="ident">read_resource</span>(),
-                <span class="kw-2">&amp;</span><span class="ident">world</span>.<span class="ident">read_resource</span>(),
-            )
+            <span class="ident">sounds</span>.<span class="ident">load_audio</span>(<span class="ident">sound_type</span>, <span class="ident">path</span>, <span class="ident">world</span>)
         };
         <span class="ident">load_sound</span>(<span class="ident">SoundType</span>::<span class="ident">Jump</span>).<span class="ident">unwrap</span>();
         <span class="ident">load_sound</span>(<span class="ident">SoundType</span>::<span class="ident">Shoot</span>).<span class="ident">unwrap</span>();
@@ -140,15 +130,15 @@
 
     {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">songs</span> <span class="op">=</span> <span class="ident">Songs</span>::<span class="ident">default</span>();
-        <span class="ident">songs</span>.<span class="ident">set_volume</span>(<span class="ident">audio_settings</span>.<span class="ident">songs_volume</span>);
+        <span class="comment">// songs.set_volume(audio_settings.songs_volume);</span>
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">load_song</span> <span class="op">=</span> <span class="op">|</span><span class="ident">song_type</span>: <span class="ident">SongType</span><span class="op">|</span> <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">String</span><span class="op">&gt;</span> {
             <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">song_type</span>.<span class="ident">path</span>();
-            <span class="ident">songs</span>.<span class="ident">load_audio</span>(
-                <span class="ident">song_type</span>,
-                <span class="ident">path</span>,
-                <span class="kw-2">&amp;</span><span class="ident">world</span>.<span class="ident">read_resource</span>(),
-                <span class="kw-2">&amp;</span><span class="ident">world</span>.<span class="ident">read_resource</span>(),
-            )
+            <span class="ident">songs</span>.<span class="ident">load_audio</span>(<span class="ident">song_type</span>.<span class="ident">clone</span>(), <span class="ident">path</span>, <span class="bool-val">true</span>, <span class="ident">world</span>)<span class="question-mark">?</span>;
+            <span class="ident">songs</span>
+                .<span class="ident">get_mut</span>(<span class="kw-2">&amp;</span><span class="ident">song_type</span>)
+                .<span class="ident">expect</span>(<span class="string">&quot;Should have loaded song, trying to set volume&quot;</span>)
+                .<span class="ident">set_volume</span>(<span class="ident">audio_settings</span>.<span class="ident">songs_volume</span>);
+            <span class="prelude-val">Ok</span>(())
         };
         <span class="ident">load_song</span>(<span class="ident">SongType</span>::<span class="ident">Cntrlgun</span>).<span class="ident">unwrap</span>();
         <span class="ident">load_song</span>(<span class="ident">SongType</span>::<span class="ident">Floor1</span>).<span class="ident">unwrap</span>();

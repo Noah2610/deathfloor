@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/git/checkouts/deathframe-5154da0e9f2094f9/de12e60/src/bundles/audio_bundle.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>audio_bundle.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../deathframe/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/git/checkouts/deathframe-5154da0e9f2094f9/257be1e/src/bundles/audio_bundle.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>audio_bundle.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../deathframe/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -109,14 +109,11 @@
 <span id="109">109</span>
 <span id="110">110</span>
 <span id="111">111</span>
-<span id="112">112</span>
-<span id="113">113</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="ident">amethyst</span>::<span class="ident">audio</span>::{<span class="ident">AudioBundle</span> <span class="kw">as</span> <span class="ident">AmethystAudioBundle</span>, <span class="ident">DjSystemDesc</span>};
+<span class="kw">use</span> <span class="ident">amethyst</span>::<span class="ident">audio</span>::<span class="ident">output</span>::<span class="ident">init_output</span>;
+<span class="kw">use</span> <span class="ident">amethyst</span>::<span class="ident">audio</span>::<span class="ident">AudioBundle</span> <span class="kw">as</span> <span class="ident">AmethystAudioBundle</span>;
 <span class="kw">use</span> <span class="ident">amethyst</span>::<span class="ident">core</span>::<span class="ident">bundle</span>::<span class="ident">SystemBundle</span>;
-<span class="kw">use</span> <span class="ident">amethyst</span>::<span class="ident">core</span>::<span class="ident">SystemDesc</span>;
 <span class="kw">use</span> <span class="ident">amethyst</span>::<span class="ident">ecs</span>::{<span class="ident">DispatcherBuilder</span>, <span class="ident">World</span>};
-<span class="kw">use</span> <span class="ident">audio</span>::<span class="ident">resources</span>::<span class="ident">prelude</span>::<span class="ident">Songs</span>;
 <span class="kw">use</span> <span class="ident">audio</span>::<span class="ident">systems</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">core</span>::<span class="ident">amethyst</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span>;
@@ -125,12 +122,10 @@
 
 <span class="doccomment">/// The `AudioBundle` registers amethyst&#39;s `amethyst_audio::AudioBundle`</span>
 <span class="doccomment">/// and the following systems:</span>
-<span class="doccomment">/// - `amethyst_audio::DjSystem` (named `&quot;dj_system&quot;`)</span>
-<span class="doccomment">///   which will use `resources::prelude::Songs` BGM manager,</span>
-<span class="doccomment">///   if it has been inserted into the world.</span>
 <span class="doccomment">/// - `PlaySoundsSystem` (named `&quot;play_sounds_system&quot;`)</span>
 <span class="doccomment">/// - `UpdateSongVolumeSystem` (named `&quot;update_song_volume_system&quot;`)</span>
 <span class="doccomment">/// - `UpdateSongPlaybackSystem` (named `&quot;update_song_playback_system&quot;`)</span>
+<span class="doccomment">/// - `UpdateSongStateSystem` (named `&quot;update_song_state_system&quot;`)</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Both generics are used for both the `Sounds` and the `Songs` audio keys.</span>
 <span class="doccomment">/// `KA` for `Sounds`, `KB` for `Songs`.</span>
@@ -181,6 +176,8 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">amethyst</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="ident">AmethystAudioBundle</span>::<span class="ident">default</span>().<span class="ident">build</span>(<span class="ident">world</span>, <span class="ident">builder</span>)<span class="question-mark">?</span>;
 
+        <span class="ident">init_output</span>(<span class="ident">world</span>);
+
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">play_sounds_system</span> <span class="op">=</span> <span class="ident">PlaySoundsSystem</span>::<span class="op">&lt;</span><span class="ident">KA</span><span class="op">&gt;</span>::<span class="ident">default</span>();
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">sounds_default_volume</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">sounds_default_volume</span> {
             <span class="ident">play_sounds_system</span> <span class="op">=</span>
@@ -201,9 +198,8 @@
         );
 
         <span class="ident">builder</span>.<span class="ident">add</span>(
-            <span class="ident">DjSystemDesc</span>::<span class="ident">new</span>(<span class="op">|</span><span class="ident">songs</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Songs</span><span class="op">&lt;</span><span class="ident">KB</span><span class="op">&gt;</span><span class="op">|</span> <span class="ident">songs</span>.<span class="ident">next_song</span>())
-                .<span class="ident">build</span>(<span class="ident">world</span>),
-            <span class="string">&quot;dj_system&quot;</span>,
+            <span class="ident">UpdateSongStateSystem</span>::<span class="op">&lt;</span><span class="ident">KB</span><span class="op">&gt;</span>::<span class="ident">default</span>(),
+            <span class="string">&quot;update_song_state_system&quot;</span>,
             <span class="kw-2">&amp;</span>[<span class="self">self</span>.<span class="ident">deps</span>, <span class="kw-2">&amp;</span>[<span class="string">&quot;update_song_playback_system&quot;</span>]].<span class="ident">concat</span>(),
         );
 

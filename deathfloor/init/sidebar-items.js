@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["build_game_data",""],["frame_rate_limit_config",""],["init_game",""],["start_logger",""]]});
+initSidebarItems({"fn":[["build_game_data",""],["frame_rate_limit_config",""],["get_display_config",""],["init_game",""],["start_logger",""]]});

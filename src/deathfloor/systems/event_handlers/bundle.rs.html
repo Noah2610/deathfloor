@@ -117,6 +117,26 @@
 <span id="117">117</span>
 <span id="118">118</span>
 <span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">actions</span>;
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">events</span>;
@@ -154,8 +174,18 @@
             <span class="self">self</span>.<span class="ident">deps</span>,
         );
         <span class="ident">builder</span>.<span class="ident">add</span>(
+            <span class="ident">events</span>::<span class="ident">delay</span>::<span class="ident">HandleEventDelay</span>::<span class="ident">default</span>(),
+            <span class="string">&quot;handle_event_delay_system&quot;</span>,
+            <span class="self">self</span>.<span class="ident">deps</span>,
+        );
+        <span class="ident">builder</span>.<span class="ident">add</span>(
             <span class="ident">events</span>::<span class="ident">interval</span>::<span class="ident">HandleEventInterval</span>::<span class="ident">default</span>(),
             <span class="string">&quot;handle_event_interval_system&quot;</span>,
+            <span class="self">self</span>.<span class="ident">deps</span>,
+        );
+        <span class="ident">builder</span>.<span class="ident">add</span>(
+            <span class="ident">events</span>::<span class="ident">on_ledge_detect</span>::<span class="ident">HandleEventOnLedgeDetectSystem</span>::<span class="ident">default</span>(),
+            <span class="string">&quot;handle_event_on_ledge_detect_system&quot;</span>,
             <span class="self">self</span>.<span class="ident">deps</span>,
         );
 
@@ -224,6 +254,16 @@
         <span class="ident">builder</span>.<span class="ident">add</span>(
             <span class="ident">actions</span>::<span class="ident">sound_action</span>::<span class="ident">HandleActionSoundAction</span>::<span class="ident">default</span>(),
             <span class="string">&quot;handle_action_sound_action_system&quot;</span>,
+            <span class="ident">actions_deps</span>,
+        );
+        <span class="ident">builder</span>.<span class="ident">add</span>(
+            <span class="ident">actions</span>::<span class="ident">entity_action</span>::<span class="ident">HandleActionEntityAction</span>::<span class="ident">default</span>(),
+            <span class="string">&quot;handle_action_entity_action_system&quot;</span>,
+            <span class="ident">actions_deps</span>,
+        );
+        <span class="ident">builder</span>.<span class="ident">add</span>(
+            <span class="ident">actions</span>::<span class="ident">spawn_action</span>::<span class="ident">HandleActionSpawnAction</span>::<span class="ident">default</span>(),
+            <span class="string">&quot;handle_action_spawn_action_system&quot;</span>,
             <span class="ident">actions_deps</span>,
         );
         <span class="prelude-val">Ok</span>(())

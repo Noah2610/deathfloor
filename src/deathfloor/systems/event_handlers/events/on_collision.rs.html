@@ -81,7 +81,7 @@
                     <span class="ident">EventType</span>::<span class="ident">OnCollision</span>(<span class="prelude-val">None</span>)
                         <span class="kw">if</span> <span class="op">!</span><span class="ident">collider</span>.<span class="ident">collisions</span>.<span class="ident">is_empty</span>() <span class="op">=</span><span class="op">&gt;</span>
                     {
-                        <span class="ident">action_type_trigger</span>.<span class="ident">trigger</span>(<span class="ident">action</span>.<span class="ident">clone</span>());
+                        <span class="ident">action_type_trigger</span>.<span class="ident">add_action</span>(<span class="ident">action</span>.<span class="ident">clone</span>());
                     }
                     <span class="ident">EventType</span>::<span class="ident">OnCollision</span>(<span class="prelude-val">Some</span>(<span class="ident">query_exp</span>)) <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="kw">if</span> <span class="ident">collider</span>
@@ -90,7 +90,7 @@
                             .<span class="ident">run</span>()
                             .<span class="ident">is_some</span>()
                         {
-                            <span class="ident">action_type_trigger</span>.<span class="ident">trigger</span>(<span class="ident">action</span>.<span class="ident">clone</span>());
+                            <span class="ident">action_type_trigger</span>.<span class="ident">add_action</span>(<span class="ident">action</span>.<span class="ident">clone</span>());
                         }
                     }
                     <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> (),

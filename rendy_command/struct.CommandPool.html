@@ -25,7 +25,7 @@ TODO: Validate buffers were allocated from this pool.</p>
 </div><h4 id='method.reset' class="method"><code id='reset.v'>pub unsafe fn <a href='#method.reset' class='fnname'>reset</a>(&amp;mut self)</code><a class='srclink' href='../src/rendy_command/pool.rs.html#119-121' title='goto source code'>[src]</a></h4><div class='docblock'><p>Reset all buffers of this pool.</p>
 <h1 id="safety-2" class="section-header"><a href="#safety-2">Safety</a></h1>
 <p>All buffers allocated from this pool must be marked reset.
-See [<code>CommandBuffer::mark_reset</code>](struct.Command buffer.html#method.mark_reset)</p>
+See <a href="../rendy_command/struct.CommandBuffer.html#method.mark_reset" title="`CommandBuffer::mark_reset`"><code>CommandBuffer::mark_reset</code></a>(struct.Command buffer.html#method.mark_reset)</p>
 </div><h4 id='method.dispose' class="method"><code id='dispose.v'>pub unsafe fn <a href='#method.dispose' class='fnname'>dispose</a>(self, device: &amp;<a class="struct" href="../rendy_util/wrap/struct.Device.html" title="struct rendy_util::wrap::Device">Device</a>&lt;B&gt;)</code><a class='srclink' href='../src/rendy_command/pool.rs.html#128-132' title='goto source code'>[src]</a></h4><div class='docblock'><p>Dispose of command pool.</p>
 <h1 id="safety-3" class="section-header"><a href="#safety-3">Safety</a></h1>
 <p>All buffers allocated from this pool must be <a href="#method.free_buffers">freed</a>.</p>

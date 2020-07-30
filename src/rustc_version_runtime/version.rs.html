@@ -33,17 +33,17 @@
                 <span class="ident">VersionMeta</span> {
                     <span class="ident">semver</span>: <span class="ident">semver</span>::<span class="ident">Version</span> {
                         <span class="ident">major</span>: <span class="number">1</span>,
-                        <span class="ident">minor</span>: <span class="number">42</span>,
+                        <span class="ident">minor</span>: <span class="number">43</span>,
                         <span class="ident">patch</span>: <span class="number">0</span>,
-                        <span class="ident">pre</span>: <span class="macro">vec</span><span class="macro">!</span>[],
+                        <span class="ident">pre</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">semver</span>::<span class="ident">Identifier</span>::<span class="ident">AlphaNumeric</span>(<span class="string">&quot;nightly&quot;</span>.<span class="ident">to_owned</span>()), ],
                         <span class="ident">build</span>: <span class="macro">vec</span><span class="macro">!</span>[],
                     },
                     <span class="ident">host</span>: <span class="string">&quot;x86_64-unknown-linux-gnu&quot;</span>.<span class="ident">to_owned</span>(),
-                    <span class="ident">short_version_string</span>: <span class="string">&quot;rustc 1.42.0 (b8cedc004 2020-03-09)&quot;</span>.<span class="ident">to_owned</span>(),
-                    <span class="ident">commit_hash</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;b8cedc00407a4c56a3bda1ed605c6fc166655447&quot;</span>.<span class="ident">to_owned</span>()),
-                    <span class="ident">commit_date</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;2020-03-09&quot;</span>.<span class="ident">to_owned</span>()),
+                    <span class="ident">short_version_string</span>: <span class="string">&quot;rustc 1.43.0-nightly (58b834344 2020-02-05)&quot;</span>.<span class="ident">to_owned</span>(),
+                    <span class="ident">commit_hash</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;58b834344fc7b9185e7a50db1ff24e5eb07dae5e&quot;</span>.<span class="ident">to_owned</span>()),
+                    <span class="ident">commit_date</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;2020-02-05&quot;</span>.<span class="ident">to_owned</span>()),
                     <span class="ident">build_date</span>: <span class="prelude-val">None</span>,
-                    <span class="ident">channel</span>: <span class="ident">Channel</span>::<span class="ident">Stable</span>,
+                    <span class="ident">channel</span>: <span class="ident">Channel</span>::<span class="ident">Nightly</span>,
                 }
             }
             </pre></div>

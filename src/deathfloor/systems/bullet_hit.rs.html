@@ -31,9 +31,6 @@
 <span id="31">31</span>
 <span id="32">32</span>
 <span id="33">33</span>
-<span id="34">34</span>
-<span id="35">35</span>
-<span id="36">36</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">system_prelude</span>::<span class="kw-2">*</span>;
 
@@ -54,10 +51,7 @@
 
                 <span class="ident">collider</span>
                     .<span class="ident">query</span>::<span class="op">&lt;</span><span class="ident">FindQuery</span><span class="op">&lt;</span><span class="ident">CollisionTag</span><span class="op">&gt;</span><span class="op">&gt;</span>()
-                    .<span class="ident">exp</span>(<span class="kw-2">&amp;</span><span class="ident">And</span>(<span class="macro">vec</span><span class="macro">!</span>[
-                        <span class="ident">IsTag</span>(<span class="ident">CollisionTag</span>::<span class="ident">from</span>(<span class="ident">CollisionLabel</span>::<span class="ident">tile</span>())),
-                        <span class="ident">IsState</span>(<span class="ident">Enter</span>),
-                    ]))
+                    .<span class="ident">exp</span>(<span class="kw-2">&amp;</span><span class="ident">IsState</span>(<span class="ident">Enter</span>))
                     .<span class="ident">run</span>()
                     .<span class="ident">is_some</span>()
             };

@@ -80,6 +80,7 @@
 <span id="80">80</span>
 <span id="81">81</span>
 <span id="82">82</span>
+<span id="83">83</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">types</span>::{<span class="ident">ObjectType</span>, <span class="ident">TileType</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">components</span>::<span class="ident">prelude</span>::{<span class="ident">Hitbox</span>, <span class="ident">Size</span> <span class="kw">as</span> <span class="ident">SizeComp</span>, <span class="ident">Transform</span>};
@@ -155,12 +156,13 @@
     <span class="kw">pub</span> <span class="ident">props</span>:     <span class="ident">Props</span>,
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Deserialize</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Clone</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Object</span> {
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">object_type</span>: <span class="ident">ObjectType</span>,
     <span class="kw">pub</span> <span class="ident">pos</span>:         <span class="ident">Pos</span>,
     <span class="kw">pub</span> <span class="ident">size</span>:        <span class="ident">Size</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
     <span class="kw">pub</span> <span class="ident">props</span>:       <span class="ident">Props</span>,
 }
 </pre></div>

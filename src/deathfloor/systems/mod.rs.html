@@ -48,6 +48,18 @@
 <span id="48">48</span>
 <span id="49">49</span>
 <span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">bullet_hit</span>;
 <span class="kw">mod</span> <span class="ident">control_player</span>;
@@ -59,10 +71,16 @@
 <span class="kw">mod</span> <span class="ident">event_handlers</span>;
 <span class="kw">mod</span> <span class="ident">handle_animation_editors</span>;
 <span class="kw">mod</span> <span class="ident">handle_animations</span>;
+<span class="kw">mod</span> <span class="ident">handle_death_bound</span>;
+<span class="kw">mod</span> <span class="ident">handle_dying_entities</span>;
 <span class="kw">mod</span> <span class="ident">handle_jumppad_affected</span>;
+<span class="kw">mod</span> <span class="ident">handle_ledge_detector</span>;
+<span class="kw">mod</span> <span class="ident">handle_level_select</span>;
 <span class="kw">mod</span> <span class="ident">handle_movables</span>;
 <span class="kw">mod</span> <span class="ident">handle_scales</span>;
 <span class="kw">mod</span> <span class="ident">handle_walkers</span>;
+<span class="kw">mod</span> <span class="ident">play_death_animation_before_deletion</span>;
+<span class="kw">mod</span> <span class="ident">update_entity_configs</span>;
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">prelude</span> {
     <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">deathframe</span>::<span class="ident">amethyst</span>::<span class="ident">utils</span>::<span class="ident">ortho_camera</span>::<span class="ident">CameraOrthoSystem</span>;
@@ -78,10 +96,16 @@
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">event_handlers</span>::<span class="ident">EventHandlersBundle</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_animation_editors</span>::<span class="ident">HandleAnimationEditorsSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_animations</span>::<span class="ident">HandleAnimationsSystem</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_death_bound</span>::<span class="ident">HandleDeathBoundSystem</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_dying_entities</span>::<span class="ident">HandleDyingEntitiesSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_jumppad_affected</span>::<span class="ident">HandleJumppadAffectedSystem</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_ledge_detector</span>::<span class="ident">HandleLedgeDetectorSystem</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_level_select</span>::<span class="ident">HandleLevelSelectSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_movables</span>::<span class="ident">HandleMovablesSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_scales</span>::<span class="ident">HandleScalesSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_walkers</span>::<span class="ident">HandleWalkersSystem</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">play_death_animation_before_deletion</span>::<span class="ident">PlayDeathAnimationBeforeDeletionSystem</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">update_entity_configs</span>::<span class="ident">UpdateEntityConfigsSystem</span>;
 }
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">system_prelude</span> {

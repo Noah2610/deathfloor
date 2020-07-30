@@ -2,6 +2,7 @@
 - [DESIGN](./DESIGN.md)
 - [ROADMAP](./ROADMAP.md)
 - [FEATURES](./FEATURES.md)
+- [STAGES](./STAGES.md)
 - [LEVEL-CREATION](./LEVEL-CREATION.md)
 
 # Concept Art

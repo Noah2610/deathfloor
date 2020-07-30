@@ -29,7 +29,7 @@ contains.</p>
 </div></div><div class='docblock'><p>Returns a reference to the underlying cause of this <code>Error</code>. Unlike the
 method on <code>Fail</code>, this does not return an <code>Option</code>. The <code>Error</code> type
 always has an underlying failure.</p>
-<p>This method has been deprecated in favor of the [Error::as_fail] method,
+<p>This method has been deprecated in favor of the <a href="../failure/struct.Error.html#method.as_fail" title="Error::as_fail">Error::as_fail</a> method,
 which does the same thing.</p>
 </div><h4 id='method.backtrace' class="method"><code id='backtrace.v'>pub fn <a href='#method.backtrace' class='fnname'>backtrace</a>(&amp;self) -&gt; &amp;<a class="struct" href="../failure/struct.Backtrace.html" title="struct failure::Backtrace">Backtrace</a></code><a class='srclink' href='../src/failure/error/mod.rs.html#94-96' title='goto source code'>[src]</a></h4><div class='docblock'><p>Gets a reference to the <code>Backtrace</code> for this <code>Error</code>.</p>
 <p>If the failure this wrapped carried a backtrace, that backtrace will

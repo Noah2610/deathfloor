@@ -142,13 +142,23 @@
 <span id="142">142</span>
 <span id="143">143</span>
 <span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">prelude</span> {
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">camera_settings</span>::<span class="ident">CameraSettings</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">custom_entities_settings</span>::<span class="ident">CustomEntitiesSettings</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">enemies_settings</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">entity_config</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">general_settings</span>::<span class="ident">GeneralSettings</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">hitbox_config</span>::<span class="ident">HitboxConfig</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">level_settings</span>::<span class="ident">LevelSettings</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">player_settings</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">tiles_settings</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">Settings</span>;
@@ -156,10 +166,12 @@
 }
 
 <span class="kw">mod</span> <span class="ident">camera_settings</span>;
+<span class="kw">mod</span> <span class="ident">custom_entities_settings</span>;
 <span class="kw">mod</span> <span class="ident">enemies_settings</span>;
 <span class="kw">mod</span> <span class="ident">entity_config</span>;
 <span class="kw">mod</span> <span class="ident">general_settings</span>;
 <span class="kw">mod</span> <span class="ident">hitbox_config</span>;
+<span class="kw">mod</span> <span class="ident">level_settings</span>;
 <span class="kw">mod</span> <span class="ident">player_settings</span>;
 <span class="kw">mod</span> <span class="ident">tiles_settings</span>;
 
@@ -172,21 +184,25 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Settings</span> {
-    <span class="kw">pub</span> <span class="ident">general</span>: <span class="ident">GeneralSettings</span>,
-    <span class="kw">pub</span> <span class="ident">camera</span>:  <span class="ident">CameraSettings</span>,
-    <span class="kw">pub</span> <span class="ident">player</span>:  <span class="ident">PlayerSettings</span>,
-    <span class="kw">pub</span> <span class="ident">tiles</span>:   <span class="ident">TilesSettings</span>,
-    <span class="kw">pub</span> <span class="ident">enemies</span>: <span class="ident">EnemiesSettings</span>,
+    <span class="kw">pub</span> <span class="ident">general</span>:         <span class="ident">GeneralSettings</span>,
+    <span class="kw">pub</span> <span class="ident">camera</span>:          <span class="ident">CameraSettings</span>,
+    <span class="kw">pub</span> <span class="ident">level</span>:           <span class="ident">LevelSettings</span>,
+    <span class="kw">pub</span> <span class="ident">player</span>:          <span class="ident">PlayerSettings</span>,
+    <span class="kw">pub</span> <span class="ident">tiles</span>:           <span class="ident">TilesSettings</span>,
+    <span class="kw">pub</span> <span class="ident">enemies</span>:         <span class="ident">EnemiesSettings</span>,
+    <span class="kw">pub</span> <span class="ident">custom_entities</span>: <span class="ident">CustomEntitiesSettings</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Settings</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">amethyst</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="prelude-val">Ok</span>(<span class="ident">Settings</span> {
-            <span class="ident">general</span>: <span class="self">Self</span>::<span class="ident">load_file</span>::<span class="op">&lt;</span><span class="ident">GeneralSettings</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="string">&quot;general.ron&quot;</span>)<span class="question-mark">?</span>,
-            <span class="ident">camera</span>:  <span class="self">Self</span>::<span class="ident">load_file</span>::<span class="op">&lt;</span><span class="ident">CameraSettings</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="string">&quot;camera.ron&quot;</span>)<span class="question-mark">?</span>,
-            <span class="ident">player</span>:  <span class="self">Self</span>::<span class="ident">load_file</span>::<span class="op">&lt;</span><span class="ident">PlayerSettings</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="string">&quot;player.ron&quot;</span>)<span class="question-mark">?</span>,
-            <span class="ident">tiles</span>:   <span class="self">Self</span>::<span class="ident">load_dir</span>::<span class="op">&lt;</span><span class="ident">TilesSettings</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="string">&quot;tiles&quot;</span>)<span class="question-mark">?</span>,
-            <span class="ident">enemies</span>: <span class="self">Self</span>::<span class="ident">load_dir</span>::<span class="op">&lt;</span><span class="ident">EnemiesSettings</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="string">&quot;enemies&quot;</span>)<span class="question-mark">?</span>,
+            <span class="ident">general</span>:         <span class="self">Self</span>::<span class="ident">load_file</span>(<span class="string">&quot;general.ron&quot;</span>)<span class="question-mark">?</span>,
+            <span class="ident">camera</span>:          <span class="self">Self</span>::<span class="ident">load_file</span>(<span class="string">&quot;camera.ron&quot;</span>)<span class="question-mark">?</span>,
+            <span class="ident">level</span>:           <span class="self">Self</span>::<span class="ident">load_file</span>(<span class="string">&quot;levels.ron&quot;</span>)<span class="question-mark">?</span>,
+            <span class="ident">player</span>:          <span class="self">Self</span>::<span class="ident">load_file</span>(<span class="string">&quot;player.ron&quot;</span>)<span class="question-mark">?</span>,
+            <span class="ident">tiles</span>:           <span class="self">Self</span>::<span class="ident">load_dir</span>(<span class="string">&quot;tiles&quot;</span>)<span class="question-mark">?</span>,
+            <span class="ident">enemies</span>:         <span class="self">Self</span>::<span class="ident">load_dir</span>(<span class="string">&quot;enemies&quot;</span>)<span class="question-mark">?</span>,
+            <span class="ident">custom_entities</span>: <span class="self">Self</span>::<span class="ident">load_dir</span>(<span class="string">&quot;custom_entities&quot;</span>)<span class="question-mark">?</span>,
         })
     }
 

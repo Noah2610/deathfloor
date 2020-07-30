@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["aliases",""],["ingame",""],["load_ingame",""],["main_menu",""],["paused",""],["prelude",""],["startup",""],["state_prelude",""]],"struct":[["CustomData",""]]});
+initSidebarItems({"mod":[["aliases",""],["ingame",""],["level_select",""],["load_ingame",""],["main_menu",""],["paused",""],["prelude",""],["startup",""],["state_prelude",""]],"struct":[["CustomData",""]]});

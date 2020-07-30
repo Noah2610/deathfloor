@@ -90,8 +90,8 @@
 
                 <span class="kw">if</span> <span class="ident">collider</span>
                     .<span class="ident">query</span>::<span class="op">&lt;</span><span class="ident">FindQuery</span><span class="op">&lt;</span><span class="ident">CollisionTag</span><span class="op">&gt;</span><span class="op">&gt;</span>()
-                    .<span class="ident">filter_ids</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="ident">jumppad_entity</span>.<span class="ident">id</span>()])
-                    .<span class="ident">exp</span>(<span class="kw-2">&amp;</span><span class="ident">And</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="ident">IsState</span>(<span class="ident">Enter</span>), <span class="ident">IsSide</span>(<span class="ident">Inner</span>)]))
+                    .<span class="ident">filter_ids</span>(<span class="kw-2">&amp;</span><span class="macro">vec</span><span class="macro">!</span>[<span class="ident">jumppad_entity</span>.<span class="ident">id</span>()])
+                    .<span class="ident">exp</span>(<span class="kw-2">&amp;</span><span class="ident">IsSide</span>(<span class="ident">Inner</span>))
                     .<span class="ident">run</span>()
                     .<span class="ident">is_some</span>()
                 {

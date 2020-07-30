@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_EntityAction",""]],"enum":[["EntityAction","`EntityAction`s are used for manipulating `EntityConfig` stuff. For example, to switch used variant, use the `SwitchVariant` action. You can also delete this entity with the `DeleteEntity` action."]]});

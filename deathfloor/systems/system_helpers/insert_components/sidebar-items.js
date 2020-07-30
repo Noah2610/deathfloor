@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["insert_components",""]]});
+initSidebarItems({"fn":[["insert_components",""],["insert_ledge_detector",""]]});

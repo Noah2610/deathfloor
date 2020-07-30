@@ -128,6 +128,7 @@ Cargo features.</p>
 </td></tr><tr class='module-item'><td><a class="mod" href="white_point/index.html" title='amethyst_rendy::palette::white_point mod'>white_point</a></td><td class='docblock-short'><p>Defines the tristimulus values of the CIE Illuminants.</p>
 </td></tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table><tr class='module-item'><td><a class="struct" href="struct.Alpha.html" title='amethyst_rendy::palette::Alpha struct'>Alpha</a></td><td class='docblock-short'><p>An alpha component wrapper for colors.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.Gradient.html" title='amethyst_rendy::palette::Gradient struct'>Gradient</a></td><td class='docblock-short'><p>A linear interpolation between colors.</p>
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.Hsl.html" title='amethyst_rendy::palette::Hsl struct'>Hsl</a></td><td class='docblock-short'><p>Linear HSL color space.</p>
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.Hsv.html" title='amethyst_rendy::palette::Hsv struct'>Hsv</a></td><td class='docblock-short'><p>Linear HSV color space.</p>
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.Hwb.html" title='amethyst_rendy::palette::Hwb struct'>Hwb</a></td><td class='docblock-short'><p>Linear HWB color space.</p>
@@ -140,7 +141,8 @@ Cargo features.</p>
 </td></tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
 <table><tr class='module-item'><td><a class="enum" href="enum.Color.html" title='amethyst_rendy::palette::Color enum'>Color</a></td><td class='docblock-short'><p>A generic color type.</p>
 </td></tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
-<table><tr class='module-item'><td><a class="trait" href="trait.Component.html" title='amethyst_rendy::palette::Component trait'>Component</a></td><td class='docblock-short'><p>Common trait for color components.</p>
+<table><tr class='module-item'><td><a class="trait" href="trait.Blend.html" title='amethyst_rendy::palette::Blend trait'>Blend</a></td><td class='docblock-short'><p>A trait for colors that can be blended together.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.Component.html" title='amethyst_rendy::palette::Component trait'>Component</a></td><td class='docblock-short'><p>Common trait for color components.</p>
 </td></tr><tr class='module-item'><td><a class="trait" href="trait.ComponentWise.html" title='amethyst_rendy::palette::ComponentWise trait'>ComponentWise</a></td><td class='docblock-short'><p>Perform a unary or binary operation on each component of a color.</p>
 </td></tr><tr class='module-item'><td><a class="trait" href="trait.FromColor.html" title='amethyst_rendy::palette::FromColor trait'>FromColor</a></td><td class='docblock-short'><p>FromColor provides conversion from the colors.</p>
 </td></tr><tr class='module-item'><td><a class="trait" href="trait.GetHue.html" title='amethyst_rendy::palette::GetHue trait'>GetHue</a></td><td class='docblock-short'><p>A trait for colors where a hue may be calculated.</p>
@@ -148,11 +150,16 @@ Cargo features.</p>
 </td></tr><tr class='module-item'><td><a class="trait" href="trait.IntoColor.html" title='amethyst_rendy::palette::IntoColor trait'>IntoColor</a></td><td class='docblock-short'><p>IntoColor provides conversion to the colors.</p>
 </td></tr><tr class='module-item'><td><a class="trait" href="trait.Limited.html" title='amethyst_rendy::palette::Limited trait'>Limited</a></td><td class='docblock-short'><p>A trait for clamping and checking if colors are within their ranges.</p>
 </td></tr><tr class='module-item'><td><a class="trait" href="trait.Mix.html" title='amethyst_rendy::palette::Mix trait'>Mix</a></td><td class='docblock-short'><p>A trait for linear color interpolation.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.Pixel.html" title='amethyst_rendy::palette::Pixel trait'>Pixel</a></td><td class='docblock-short'><p>Represents colors that can be serialized and deserialized from raw color components.</p>
 </td></tr><tr class='module-item'><td><a class="trait" href="trait.Saturate.html" title='amethyst_rendy::palette::Saturate trait'>Saturate</a></td><td class='docblock-short'><p>A trait for colors where the saturation (or chroma) can be manipulated
 without conversion.</p>
 </td></tr><tr class='module-item'><td><a class="trait" href="trait.Shade.html" title='amethyst_rendy::palette::Shade trait'>Shade</a></td><td class='docblock-short'><p>The <code>Shade</code> trait allows a color to be lightened or darkened.</p>
 </td></tr></table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
 <table><tr class='module-item'><td><a class="type" href="type.Colora.html" title='amethyst_rendy::palette::Colora type'>Colora</a></td><td class='docblock-short'><p>Generic color with an alpha component. See the <a href="struct.Alpha.html#Colora"><code>Colora</code> implementation in <code>Alpha</code></a>.</p>
+</td></tr><tr class='module-item'><td><a class="type" href="type.GammaLuma.html" title='amethyst_rendy::palette::GammaLuma type'>GammaLuma</a></td><td class='docblock-short'><p>Gamma 2.2 encoded luminance.</p>
+</td></tr><tr class='module-item'><td><a class="type" href="type.GammaLumaa.html" title='amethyst_rendy::palette::GammaLumaa type'>GammaLumaa</a></td><td class='docblock-short'><p>Gamma 2.2 encoded luminance with an alpha component.</p>
+</td></tr><tr class='module-item'><td><a class="type" href="type.GammaSrgb.html" title='amethyst_rendy::palette::GammaSrgb type'>GammaSrgb</a></td><td class='docblock-short'><p>Gamma 2.2 encoded sRGB.</p>
+</td></tr><tr class='module-item'><td><a class="type" href="type.GammaSrgba.html" title='amethyst_rendy::palette::GammaSrgba type'>GammaSrgba</a></td><td class='docblock-short'><p>Gamma 2.2 encoded sRGB with an alpha component.</p>
 </td></tr><tr class='module-item'><td><a class="type" href="type.Hsla.html" title='amethyst_rendy::palette::Hsla type'>Hsla</a></td><td class='docblock-short'><p>Linear HSL with an alpha component. See the <a href="struct.Alpha.html#Hsla"><code>Hsla</code> implementation in
 <code>Alpha</code></a>.</p>
 </td></tr><tr class='module-item'><td><a class="type" href="type.Hsva.html" title='amethyst_rendy::palette::Hsva type'>Hsva</a></td><td class='docblock-short'><p>Linear HSV with an alpha component. See the <a href="struct.Alpha.html#Hsva"><code>Hsva</code> implementation in
@@ -163,7 +170,15 @@ without conversion.</p>
 implementation in <code>Alpha</code></a>.</p>
 </td></tr><tr class='module-item'><td><a class="type" href="type.Lcha.html" title='amethyst_rendy::palette::Lcha type'>Lcha</a></td><td class='docblock-short'><p>CIE L*C*h° with an alpha component. See the <a href="struct.Alpha.html#Lcha"><code>Lcha</code> implementation in
 <code>Alpha</code></a>.</p>
+</td></tr><tr class='module-item'><td><a class="type" href="type.LinLuma.html" title='amethyst_rendy::palette::LinLuma type'>LinLuma</a></td><td class='docblock-short'><p>Linear luminance.</p>
+</td></tr><tr class='module-item'><td><a class="type" href="type.LinLumaa.html" title='amethyst_rendy::palette::LinLumaa type'>LinLumaa</a></td><td class='docblock-short'><p>Linear luminance with an alpha component.</p>
+</td></tr><tr class='module-item'><td><a class="type" href="type.LinSrgb.html" title='amethyst_rendy::palette::LinSrgb type'>LinSrgb</a></td><td class='docblock-short'><p>Linear sRGB.</p>
+</td></tr><tr class='module-item'><td><a class="type" href="type.LinSrgba.html" title='amethyst_rendy::palette::LinSrgba type'>LinSrgba</a></td><td class='docblock-short'><p>Linear sRGB with an alpha component.</p>
 </td></tr><tr class='module-item'><td><a class="type" href="type.Mat3.html" title='amethyst_rendy::palette::Mat3 type'>Mat3</a></td><td class='docblock-short'><p>A 9 element array representing a 3x3 matrix</p>
+</td></tr><tr class='module-item'><td><a class="type" href="type.Srgb.html" title='amethyst_rendy::palette::Srgb type'>Srgb</a></td><td class='docblock-short'><p>Nonlinear sRGB.</p>
+</td></tr><tr class='module-item'><td><a class="type" href="type.SrgbLuma.html" title='amethyst_rendy::palette::SrgbLuma type'>SrgbLuma</a></td><td class='docblock-short'><p>sRGB encoded luminance.</p>
+</td></tr><tr class='module-item'><td><a class="type" href="type.SrgbLumaa.html" title='amethyst_rendy::palette::SrgbLumaa type'>SrgbLumaa</a></td><td class='docblock-short'><p>sRGB encoded luminance with an alpha component.</p>
+</td></tr><tr class='module-item'><td><a class="type" href="type.Srgba.html" title='amethyst_rendy::palette::Srgba type'>Srgba</a></td><td class='docblock-short'><p>Nonlinear sRGB with an alpha component.</p>
 </td></tr><tr class='module-item'><td><a class="type" href="type.Xyza.html" title='amethyst_rendy::palette::Xyza type'>Xyza</a></td><td class='docblock-short'><p>CIE 1931 XYZ with an alpha component. See the <a href="struct.Alpha.html#Xyza"><code>Xyza</code> implementation in
 <code>Alpha</code></a>.</p>
 </td></tr><tr class='module-item'><td><a class="type" href="type.Yxya.html" title='amethyst_rendy::palette::Yxya type'>Yxya</a></td><td class='docblock-short'><p>CIE 1931 Yxy (xyY) with an alpha component. See the <a href="struct.Alpha.html#Yxya"><code>Yxya</code> implementation

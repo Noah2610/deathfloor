@@ -1,1 +1,1 @@
-initSidebarItems({"type":[["GameData",""],["GameDataBuilder",""]]});
+initSidebarItems({"constant":[["BGM",""]],"type":[["GameData",""],["GameDataBuilder",""]]});

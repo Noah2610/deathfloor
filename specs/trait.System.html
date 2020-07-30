@@ -21,7 +21,7 @@ data.</p>
 This is used to optimize the way they're executed (might
 allow more parallelization).</p>
 <p>Defaults to <code>RunningTime::Average</code>.</p>
-</div><h3 id='method.accessor' class='method'><code id='accessor.v'>fn <a href='#method.accessor' class='fnname'>accessor</a>(&amp;'b self) -&gt; <a class="enum" href="../specs/enum.AccessorCow.html" title="enum specs::AccessorCow">AccessorCow</a>&lt;'a, 'b, Self&gt;</code></h3><div class='docblock'><p>Return the accessor from the [<code>SystemData</code>].</p>
+</div><h3 id='method.accessor' class='method'><code id='accessor.v'>fn <a href='#method.accessor' class='fnname'>accessor</a>(&amp;'b self) -&gt; <a class="enum" href="../specs/enum.AccessorCow.html" title="enum specs::AccessorCow">AccessorCow</a>&lt;'a, 'b, Self&gt;</code></h3><div class='docblock'><p>Return the accessor from the <a href="../specs/prelude/trait.SystemData.html" title="`SystemData`"><code>SystemData</code></a>.</p>
 </div><h3 id='method.setup' class='method'><code id='setup.v'>fn <a href='#method.setup' class='fnname'>setup</a>(&amp;mut self, world: &amp;mut <a class="struct" href="../specs/world/struct.World.html" title="struct specs::world::World">World</a>)</code></h3><div class='docblock'><p>Sets up the <code>World</code> using <code>Self::SystemData::setup</code>.</p>
 </div><h3 id='method.dispose' class='method'><code id='dispose.v'>fn <a href='#method.dispose' class='fnname'>dispose</a>(self, world: &amp;mut <a class="struct" href="../specs/world/struct.World.html" title="struct specs::world::World">World</a>)</code></h3><div class='docblock'><p>Performs clean up that requires resources from the <code>World</code>.
 This commonly removes components from <code>world</code> which depend on external

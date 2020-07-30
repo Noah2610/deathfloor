@@ -45,7 +45,12 @@
 <span id="45">45</span>
 <span id="46">46</span>
 <span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
 </pre><div class="example-wrap"><pre class="rust ">
+<span class="comment">// resources/settings/player.ron</span>
+
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">hitbox_config</span>::<span class="ident">HitboxConfig</span>;
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">SizeSettings</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">animation_key</span>::<span class="ident">AnimationKey</span>;
@@ -92,6 +97,7 @@
     <span class="kw">pub</span> <span class="ident">velocity</span>:         (<span class="ident">f32</span>, <span class="ident">f32</span>),
     <span class="kw">pub</span> <span class="ident">despawn_after_ms</span>: <span class="ident">u64</span>,
     <span class="kw">pub</span> <span class="ident">animation</span>:        <span class="ident">AnimationTypeWrapper</span><span class="op">&lt;</span><span class="ident">Animation</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">collision_tag</span>:    <span class="ident">CollisionTagWrapper</span>,
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../";window.currentCrate = "deathfloor";</script><script src="../../../aliases.js"></script><script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script><script defer src="../../../search-index.js"></script></body></html>

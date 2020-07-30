@@ -86,7 +86,7 @@ allowed to specify cross dependencies.</p>
 </div><h4 id='method.with_thread_local' class="method"><code id='with_thread_local.v'>pub fn <a href='#method.with_thread_local' class='fnname'>with_thread_local</a>&lt;T&gt;(self, system: T) -&gt; <a class="struct" href="../../specs/prelude/struct.DispatcherBuilder.html" title="struct specs::prelude::DispatcherBuilder">DispatcherBuilder</a>&lt;'a, 'b&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="../../specs/prelude/trait.RunNow.html" title="trait specs::prelude::RunNow">RunNow</a>&lt;'c&gt; + 'b,&nbsp;</span></code><a class='srclink' href='../../src/shred/dispatch/builder.rs.html#271-278' title='goto source code'>[src]</a></h4><div class='docblock'><p>Adds a new thread local system.</p>
 <p>Please only use this if your struct is not <code>Send</code> and <code>Sync</code>.</p>
 <p>Thread-local systems are dispatched in-order.</p>
-<p>Same as [DispatcherBuilder::add_thread_local], but returns <code>self</code> to
+<p>Same as <a href="../../specs/prelude/struct.DispatcherBuilder.html#method.add_thread_local" title="DispatcherBuilder::add_thread_local">DispatcherBuilder::add_thread_local</a>, but returns <code>self</code> to
 enable method chaining.</p>
 </div><h4 id='method.add_thread_local' class="method"><code id='add_thread_local.v'>pub fn <a href='#method.add_thread_local' class='fnname'>add_thread_local</a>&lt;T&gt;(&amp;mut self, system: T) <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="../../specs/prelude/trait.RunNow.html" title="trait specs::prelude::RunNow">RunNow</a>&lt;'c&gt; + 'b,&nbsp;</span></code><a class='srclink' href='../../src/shred/dispatch/builder.rs.html#285-290' title='goto source code'>[src]</a></h4><div class='docblock'><p>Adds a new thread local system.</p>
 <p>Please only use this if your struct is not <code>Send</code> and <code>Sync</code>.</p>
@@ -98,7 +98,7 @@ after this barrier.</p>
 since the last call to <code>add_barrier()</code>/<code>with_barrier()</code>.</p>
 <p>Thread-local systems are not affected by barriers;
 they're always executed at the end.</p>
-<p>Same as [DispatcherBuilder::add_barrier], but returns <code>self</code> to enable
+<p>Same as <a href="../../specs/prelude/struct.DispatcherBuilder.html#method.add_barrier" title="DispatcherBuilder::add_barrier">DispatcherBuilder::add_barrier</a>, but returns <code>self</code> to enable
 method chaining.</p>
 </div><h4 id='method.add_barrier' class="method"><code id='add_barrier.v'>pub fn <a href='#method.add_barrier' class='fnname'>add_barrier</a>(&amp;mut self)</code><a class='srclink' href='../../src/shred/dispatch/builder.rs.html#319-321' title='goto source code'>[src]</a></h4><div class='docblock'><p>Inserts a barrier which assures that all systems
 added before the barrier are executed before the ones

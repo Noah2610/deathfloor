@@ -10,10 +10,10 @@ that still allows you to use <a href="https://doc.rust-lang.org/std/default/trai
 types</a>,
 so I think that you'll find these vecs useful in many cases.</p>
 <ul>
-<li><a href="ArrayVec"><code>ArrayVec</code></a> is an array-backed vec-like structure with a fixed
+<li><a href="../tinyvec/struct.ArrayVec.html"><code>ArrayVec</code></a> is an array-backed vec-like structure with a fixed
 capacity. If you try to grow the length past the array's capacity it will
 error or panic (depending on the method used).</li>
-<li>(<code>alloc</code> feature) <a href="TinyVec"><code>TinyVec</code></a> is an enum that's either an
+<li>(<code>alloc</code> feature) <a href="../tinyvec/enum.TinyVec.html"><code>TinyVec</code></a> is an enum that's either an
 &quot;Inline&quot; <code>ArrayVec</code> or a &quot;Heap&quot; <code>Vec</code>. If it's Inline and you try to grow
 the <code>ArrayVec</code> beyond its array capacity it will quietly transition into
 Heap mode and then continue the operation.</li>

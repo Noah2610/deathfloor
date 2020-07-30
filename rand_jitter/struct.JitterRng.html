@@ -11,8 +11,8 @@ A custom timer can be supplied, making it possible to use <code>JitterRng</code>
 <code>no_std</code> environments.</p>
 <p>The timer must have nanosecond precision.</p>
 <p>This method is more low-level than <code>new()</code>. It is the responsibility of
-the caller to run <a href="JitterRng::test_timer"><code>test_timer</code></a> before using any numbers generated with
-<code>JitterRng</code>, and optionally call <a href="JitterRng::set_rounds"><code>set_rounds</code></a>. Also it is important to
+the caller to run <a href="../rand_jitter/struct.JitterRng.html#method.test_timer"><code>test_timer</code></a> before using any numbers generated with
+<code>JitterRng</code>, and optionally call <a href="../rand_jitter/struct.JitterRng.html#method.set_rounds"><code>set_rounds</code></a>. Also it is important to
 consume at least one <code>u64</code> before using the first result to initialize
 the entropy collection pool.</p>
 <h1 id="example" class="section-header"><a href="#example">Example</a></h1>
@@ -41,14 +41,14 @@ the entropy collection pool.</p>
 </div><h4 id='method.set_rounds' class="method"><code id='set_rounds.v'>pub fn <a href='#method.set_rounds' class='fnname'>set_rounds</a>(&amp;mut self, rounds: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>)</code><a class='srclink' href='../src/rand_jitter/lib.rs.html#270-273' title='goto source code'>[src]</a></h4><div class='docblock'><p>Configures how many rounds are used to generate each 64-bit value.
 This must be greater than zero, and has a big impact on performance
 and output quality.</p>
-<p><a href="JitterRng::new_with_timer"><code>new_with_timer</code></a> conservatively uses 64 rounds, but often less rounds
+<p><a href="../rand_jitter/struct.JitterRng.html#method.new_with_timer"><code>new_with_timer</code></a> conservatively uses 64 rounds, but often less rounds
 can be used. The <code>test_timer()</code> function returns the minimum number of
 rounds required for full strength (platform dependent), so one may use
 <code>rng.set_rounds(rng.test_timer()?);</code> or cache the value.</p>
 </div><h4 id='method.test_timer' class="method"><code id='test_timer.v'>pub fn <a href='#method.test_timer' class='fnname'>test_timer</a>(&amp;mut self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a class="enum" href="../rand_jitter/enum.TimerError.html" title="enum rand_jitter::TimerError">TimerError</a>&gt;</code><a class='srclink' href='../src/rand_jitter/lib.rs.html#513-648' title='goto source code'>[src]</a></h4><div class='docblock'><p>Basic quality tests on the timer, by measuring CPU timing jitter a few
 hundred times.</p>
 <p>If successful, this will return the estimated number of rounds necessary
-to collect 64 bits of entropy. Otherwise a [<code>TimerError</code>] with the cause
+to collect 64 bits of entropy. Otherwise a <a href="../rand_jitter/enum.TimerError.html" title="`TimerError`"><code>TimerError</code></a> with the cause
 of the failure will be returned.</p>
 </div><h4 id='method.timer_stats' class="method"><code id='timer_stats.v'>pub fn <a href='#method.timer_stats' class='fnname'>timer_stats</a>(&amp;mut self, var_rounds: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a></code><a class='srclink' href='../src/rand_jitter/lib.rs.html#664-672' title='goto source code'>[src]</a></h4><div class='docblock'><p>Statistical test: return the timer delta of one normal run of the
 <code>JitterRng</code> entropy collector.</p>

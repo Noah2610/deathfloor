@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["handle_input",""]],"struct":[["Ingame",""]]});
+initSidebarItems({"constant":[["BGM",""]],"fn":[["update_object_spawner",""]],"struct":[["Ingame",""]]});

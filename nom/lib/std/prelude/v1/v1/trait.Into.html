@@ -39,11 +39,11 @@ used to be a little bit more strict. To bypass this, you could implement <a href
 (as <a href="trait.From.html"><code>From</code></a> does with <a href="trait.Into.html"><code>Into</code></a>). Therefore, you should always try to implement <a href="trait.From.html"><code>From</code></a>
 and then fall back to <a href="trait.Into.html"><code>Into</code></a> if <a href="trait.From.html"><code>From</code></a> can't be implemented.</p>
 <h1 id="examples" class="section-header"><a href="#examples">Examples</a></h1>
-<p><a href="../../std/string/struct.String.html"><code>String</code></a> implements <a href="trait.Into.html"><code>Into</code></a><code>&lt;</code><a href="../../std/vec/struct.Vec.html"><code>Vec</code></a><code>&lt;</code>[<code>u8</code>]<code>&gt;&gt;</code>:</p>
+<p><a href="../../std/string/struct.String.html"><code>String</code></a> implements <a href="trait.Into.html"><code>Into</code></a><code>&lt;</code><a href="../../std/vec/struct.Vec.html"><code>Vec</code></a><code>&lt;</code><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html" title="`u8`"><code>u8</code></a><code>&gt;&gt;</code>:</p>
 <p>In order to express that we want a generic function to take all arguments that can be
 converted to a specified type <code>T</code>, we can use a trait bound of <a href="trait.Into.html"><code>Into</code></a><code>&lt;T&gt;</code>.
 For example: The function <code>is_hello</code> takes all arguments that can be converted into a
-<a href="../../std/vec/struct.Vec.html"><code>Vec</code></a><code>&lt;</code>[<code>u8</code>]<code>&gt;</code>.</p>
+<a href="../../std/vec/struct.Vec.html"><code>Vec</code></a><code>&lt;</code><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html" title="`u8`"><code>u8</code></a><code>&gt;</code>.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">fn</span> <span class="ident">is_hello</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">s</span>: <span class="ident">T</span>) {
