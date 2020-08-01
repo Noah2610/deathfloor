@@ -204,9 +204,22 @@
  <tile id="1032" type="Ground"/>
  <tile id="1088" type="Ground"/>
  <tile id="1096" type="Ground"/>
+ <tile id="1511" type="Ground"/>
+ <tile id="1512" type="Ground"/>
+ <tile id="1513" type="Ground"/>
+ <tile id="1514" type="Ground"/>
+ <tile id="1515" type="Ground"/>
+ <tile id="1516" type="Ground"/>
+ <tile id="1517" type="Ground"/>
+ <tile id="1518" type="Ground"/>
+ <tile id="1519" type="Ground"/>
  <tile id="1545" type="Ground"/>
  <tile id="1546" type="Ground"/>
  <tile id="1547" type="Ground"/>
+ <tile id="1578" type="Ground"/>
+ <tile id="1583" type="Ground"/>
+ <tile id="1642" type="Ground"/>
+ <tile id="1647" type="Ground"/>
  <tile id="1740" type="Ground"/>
  <tile id="1741" type="Ground"/>
  <tile id="1742" type="Ground"/>
