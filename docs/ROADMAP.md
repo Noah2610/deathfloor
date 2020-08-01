@@ -21,38 +21,38 @@
 
 ## v0.0.4
 - [ ] menus ([#24])
-  - [ ] main menu
+  - [x] main menu
   - [ ] paused menu
-- [ ] audio ([#23])
+- [x] audio ([#23])
   - [x] SFX
-  - [ ] BGM
-- [ ] extended tile configs  
+  - [x] BGM
+- [x] extended tile configs  
   tile animations ([#20]), tile events/actions
 
 ## v0.0.5
-- features:
-- [ ] basic pickup system
-- [ ] moving platforms
-- [ ] "LOS" enemy component 
-- [ ] camera system
-- [ ] ability select screen with functional UI
+### Features
+- [ ] item and pickup system ([#49])
+- [ ] moving platforms ([#50])
+- [ ] line-of-sight detection ([#51])
+- [ ] camera system ([#19])
+- [ ] ability select screen with functional UI ([#52])
 
-- audio:
+### Audio
 - [ ] music, implement test tracks
-- [ ] sfx:
 - [ ] shooting, jumping
-- [ ] footsteps? different footsteps for different ground? (ID set as property in tiled?)
+- [ ] footsteps
 - [ ] enemy sounds
 
-- enemies:
+### Enemies
+- [ ] refactor existing enemy configs ([#48])
 - [ ] configure more enemies
 - [ ] implement enemies into playable levels
 - [ ] more enemy sprites and animations
 
-- levels:
+### Levels
 - [ ] more playable levels with up to date mechanics and enemies
 
-- environment graphics:
+### Environment Graphics
 - [ ] more backgrounds
 - [ ] animated decoration and background elements (grass? etc..)
 - [ ] polish tilesets, add animated foreground tiles
@@ -62,6 +62,12 @@
 [#9]: https://github.com/Noah2610/deathfloor/issues/9
 [#10]: https://github.com/Noah2610/deathfloor/issues/10
 [#11]: https://github.com/Noah2610/deathfloor/issues/11
+[#19]: https://github.com/Noah2610/deathfloor/issues/19
 [#20]: https://github.com/Noah2610/deathfloor/issues/20
 [#23]: https://github.com/Noah2610/deathfloor/issues/23
 [#24]: https://github.com/Noah2610/deathfloor/issues/24
+[#48]: https://github.com/Noah2610/deathfloor/issues/48
+[#49]: https://github.com/Noah2610/deathfloor/issues/49
+[#50]: https://github.com/Noah2610/deathfloor/issues/50
+[#51]: https://github.com/Noah2610/deathfloor/issues/51
+[#52]: https://github.com/Noah2610/deathfloor/issues/52
