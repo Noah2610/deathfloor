@@ -876,7 +876,7 @@ dependencies = [
 
 [[package]]
 name = "deathfloor"
-version = "0.0.3"
+version = "0.0.4"
 dependencies = [
  "climer 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "deathframe 0.6.0 (git+https://github.com/Noah2610/deathframe?branch=develop)",
