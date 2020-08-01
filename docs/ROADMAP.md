@@ -29,6 +29,34 @@
 - [ ] extended tile configs  
   tile animations ([#20]), tile events/actions
 
+## v0.0.5
+- features:
+- [ ] basic pickup system
+- [ ] moving platforms
+- [ ] "LOS" enemy component 
+- [ ] camera system
+- [ ] ability select screen with functional UI
+
+- audio:
+- [ ] music, implement test tracks
+- [ ] sfx:
+- [ ] shooting, jumping
+- [ ] footsteps? different footsteps for different ground? (ID set as property in tiled?)
+- [ ] enemy sounds
+
+- enemies:
+- [ ] configure more enemies
+- [ ] implement enemies into playable levels
+- [ ] more enemy sprites and animations
+
+- levels:
+- [ ] more playable levels with up to date mechanics and enemies
+
+- environment graphics:
+- [ ] more backgrounds
+- [ ] animated decoration and background elements (grass? etc..)
+- [ ] polish tilesets, add animated foreground tiles
+
 [#7]: https://github.com/Noah2610/deathfloor/issues/7
 [#8]: https://github.com/Noah2610/deathfloor/issues/8
 [#9]: https://github.com/Noah2610/deathfloor/issues/9
