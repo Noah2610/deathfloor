@@ -23,8 +23,23 @@ Any arguments are passed to the underlying `cargo run` command.
 ## Documentation
 See [`docs`][docs].
 
-## License
-Distributed under the terms of the [MIT License][license].
+## Licensing
+### Code
+All code for this project is distributed under the terms of the [MIT License][license-mit].
 
-[docs]:    ./docs
-[license]: ./LICENSE
+### Assets
+Assets, including all image and audio files under the [`resources/`][resources] directory,  
+and all concept art under the [`docs/concept-art/`][concept-art] directory of this project,  
+excluding fonts, are distributed under the terms of the  
+[Creative Commons Attribution-NonCommercial 4.0 International License][license-cc].
+
+### Fonts
+Used fonts are distributed under their respective licenses:
+- [undefined medium][font-undefined-medium]
+
+[docs]:                  ./docs
+[resources]:             ./resources
+[concept-art]:           ./docs/concept-art
+[license-mit]:           ./LICENSE
+[license-cc]:            https://creativecommons.org/licenses/by-nc/4.0/
+[font-undefined-medium]: https://github.com/andirueckel/undefined-medium
