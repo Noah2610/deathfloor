@@ -31,11 +31,12 @@
 
 ## v0.0.5
 ### Features
-- [ ] item and pickup system ([#49])
+- [ ] ability system ([#52])
+- [ ] consumable pickup system ([#49])
 - [ ] moving platforms ([#50])
 - [ ] line-of-sight detection ([#51])
 - [ ] camera system ([#19])
-- [ ] ability select screen with functional UI ([#52])
+- [ ] footsteps ([#53])
 
 ### Audio
 - [ ] music, implement test tracks
@@ -71,3 +72,4 @@
 [#50]: https://github.com/Noah2610/deathfloor/issues/50
 [#51]: https://github.com/Noah2610/deathfloor/issues/51
 [#52]: https://github.com/Noah2610/deathfloor/issues/52
+[#53]: https://github.com/Noah2610/deathfloor/issues/53
