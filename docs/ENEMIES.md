@@ -31,6 +31,11 @@ vertical shooter
 - vertical walker and wall pivot
 - when player los start shooting in set interval
 
+mech
+- walk, but: walk consists of 2 states? / variants? / intervals: Move forward and play animation for short interval, stop movement and animation for short interval, loop
+-> because:
+
+
 mini
 - walk, very fast, no ledge detect
 - explode on player collision or after set delay (randomized delay?)
