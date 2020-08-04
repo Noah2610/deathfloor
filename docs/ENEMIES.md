@@ -1,7 +1,13 @@
 
 shooter
-walker, ledge turn
+walker, ledge and wall turn
 shoot in set interval
+
+charger
+- walker, ledge and wall turn
+- when player los: change animation, increase speed, remove ledge turn component
+- damage player on contact
+- collision with solids, spikes, jumppads, player
 
 patrol
 walker, ledge turn
@@ -9,7 +15,7 @@ walker, ledge turn
 
 
 aggro
-- walker, ledge turn.
+- walker, ledge and wall turn.
 - when player enters LOS set higher movement speed and remove ledge and edge turn
 - on death explode
 - when hits wall explode
@@ -32,6 +38,12 @@ mini
 security
 - walk
 - when player los spawn 3 minis in short interval, stop walking, start shooting. loop shooting until player exits los then walk. loop
+
+
+mine
+- "walk", only wall turn.
+- no gravity
+- exlode on player collision
 
 
 flying kamikaze
