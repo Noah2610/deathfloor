@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="240" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="6" nextobjectid="12">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="240" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="7" nextobjectid="13">
  <editorsettings>
   <export target="../../resources/levels/level10.json" format="deathfloor-export"/>
  </editorsettings>
@@ -120,6 +120,12 @@
 449,450,451,452,450,451,452,450,451,452,453,454,193,194,577,577,577,577,577,577,577,578,193,194,449,450,451,452,450,451,452,450,451,452,453,454,69,70,69,70,69,70,69,70,69,70,69,70,69,70,69,70,69,70,69,70,69,70,69,70,69,70,69,70,69,70,69,70,69,70,69,70,69,70,69,70,69,70,69,70,69,70,69,70,69,70,69,70,1985,1986,1987,1988,1989,1990,1985,1986,1987,1988,1989,1990,1985,1986,1987,1988,1989,1990,1985,1986,1987,1988,1989,1990,69,70,0,0,0,0,69,70,0,0,0,0,1217,1218,1219,1219,1218,1218,1218,1218,1218,1218,1218,1218,1218,1218,1218,1218,1986,1219,1219,1219,1219,1219,1225,2561,2562,2563,2564,2563,2564,2563,2564,2563,2564,2563,2564,2563,2564,2563,2564,2563,2564,2563,2564,2563,2305,2564,2563,2564,2563,2564,2563,2564,2563,2564,2563,2564,2563,2564,2563,2566,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="6" name="Enemies">
+  <properties>
+   <property name="z" type="float" value="0.9"/>
+  </properties>
+  <object id="12" name="Fast Left" type="Enemy(TowerBlueTest)" x="344" y="112" width="8" height="8"/>
+ </objectgroup>
  <objectgroup id="4" name="Player">
   <properties>
    <property name="z" type="float" value="1"/>
