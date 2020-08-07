@@ -24,24 +24,25 @@
                     ),
                     animations: {
                         Idle: Cycle([
-                            (1, 150),
-                            
+                            (3, 150),
+                            (5, 150),
+                             
                         ]),
                         Walk: Cycle([
                             (0, 150),
                             (1, 150),
-
                             (3, 150),
                             (4, 150),
                             (5, 150),
+     
                         ]),
                     },
                     hitbox: Custom([
                         (
                             top:    16.0,
                             bottom: -32.0,
-                            left:   -12.0,
-                            right:  12.0,
+                            left:   -8.0,
+                            right:  8.0,
                           ) 
                         ]),
                     walker: (
