@@ -1,0 +1,135 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "Shooter": (
+            spritesheet_filename: "enemy_shooter.png",
+
+            entity: (
+                components: (
+                    size: (
+                        w: 48.0,
+                        h: 48.0,
+                    ),
+                    gravity: (
+                        x: None,
+                        y: -900.0,
+                    ),
+                    max_movement_velocity: (
+                        x: 100.0,
+                        y: 100.0,
+                    ),
+                    base_friction: (
+                        friction_x: 1000.0,
+                    ),
+                    animations: {
+                        Walk: Cycle([
+                            (0, 150),
+                            (1, 150),
+                            (2, 150),
+                            (3, 150),
+                        ]),
+                    },
+                    hitbox: Custom([
+                        (
+                            top:    12.0,
+                            bottom: -24.0,
+                            left:   -12.0,
+                            right:  12.0,
+                        ),
+                    ]),
+                    health: (
+                        health: 6,
+                        max_health: 6,
+                    ),
+                    health_display: (
+                        position: Top,
+                        size: (32.0, 2.0),
+                        padding: 4.0,
+                        border_padding: 0.5,
+                    ),
+                    deals_damage: (
+                        damage: 1,
+                    ),
+                    ledge_detector: (
+                        corners: [
+                            (
+                                corner:      BottomLeft,
+                                if_touching: Bottom,
+                            ),
+                            (
+                                corner:      BottomRight,
+                                if_touching: Bottom,
+                            ),
+                        ],
+                        collides_with: ["Solid"],
+                    ),
+                ),
+
+                variants: {
+                    "Left": (
+                        components: (
+                            walker: (
+                                x: -500.0,
+                            ),
+                        ),
+                        events: {
+                            OnLedgeDetect(BottomLeft, Bottom):
+                                EntityAction(SwitchVariant("Right")),
+                            OnCollision(And([
+                                    IsTag("Solid"),
+                                    IsState(Enter),
+                                    IsSide(Left),
+                                ])): EntityAction(SwitchVariant("Right")),
+                            Interval(1000): SpawnAction(SpawnRelative((
+                                object: (
+                                    type: Custom("ShooterBullet"),
+                                    pos: (x: -24.0, y: -4.0),
+                                    size: (w: 16.0, h: 16.0),
+                                    props: {
+                                        "variant": "Left",
+                                    },
+                                ),
+                            ))),
+                        },
+                    ),
+                    "Right": (
+                        components: (
+                            walker: (
+                                x: 500.0,
+                            ),
+                        ),
+                        events: {
+                            OnLedgeDetect(BottomRight, Bottom):
+                                EntityAction(SwitchVariant("Left")),
+                            OnCollision(And([
+                                    IsTag("Solid"),
+                                    IsState(Enter),
+                                    IsSide(Right),
+                                ])): EntityAction(SwitchVariant("Left")),
+                            Interval(1000): SpawnAction(SpawnRelative((
+                                object: (
+                                    type: Custom("ShooterBullet"),
+                                    pos: (x: 24.0, y: -4.0),
+                                    size: (w: 16.0, h: 16.0),
+                                    props: {
+                                        "variant": "Right",
+                                    },
+                                ),
+                            ))),
+                        },
+                    ),
+                },
+
+                collision_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
+                ),
+
+                solid_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Solid"],
+                ),
+            ),
+        ),
+    }
+)

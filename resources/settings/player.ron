@@ -36,7 +36,7 @@
         /// Used with other collider entities, to check if they collide with this entity.
         labels: ["Player"],
         /// `CollisionLabel`s that the player collides with.
-        collides_with: ["Tile", "Solid", "Jumppad", "Bullet", "Enemy"],
+        collides_with: ["Tile", "Solid", "Jumppad", "Enemy", "EnemyBullet"],
     ),
 
     /// For _solid_ collision checking.

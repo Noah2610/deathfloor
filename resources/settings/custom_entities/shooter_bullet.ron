@@ -1,0 +1,58 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "ShooterBullet": (
+            spritesheet_filename: "player_bullet.png",
+
+            entity: (
+                components: (
+                    size: (w: 8.0, h: 8.0),
+                    animation: [
+                        (0, 100),
+                        (1, 100),
+                        (2, 100),
+                        (3, 100),
+                    ],
+                    hitbox: Size,
+                    bullet: (
+                        despawn_after_ms: 10_000,
+                    ),
+                    deals_damage: (
+                        damage: 2,
+                    ),
+                ),
+
+                events: {
+                    OnCollision(And([
+                        Or([IsTag("Solid")]),
+                        IsState(Enter),
+                    ])): EntityAction(DeleteEntity),
+                },
+
+                variants: {
+                    "Left": (
+                        components: (
+                            velocity: (
+                                x: -200.0,
+                                y: 0.0,
+                            ),
+                        ),
+                    ),
+                    "Right": (
+                        components: (
+                            velocity: (
+                                x: 200.0,
+                                y: 0.0,
+                            ),
+                        ),
+                    ),
+                },
+
+                collision_tag: (
+                    labels: ["EnemyBullet"],
+                    collides_with: ["Player", "Solid"],
+                ),
+            ),
+        ),
+    }
+)
