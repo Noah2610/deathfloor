@@ -56,7 +56,9 @@ impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventHandlersBundle<'c> {
             &[self.deps, &[
                 "handle_event_lifecycle_system",
                 "handle_event_on_collision_system",
+                "handle_event_delay_system",
                 "handle_event_interval_system",
+                "handle_event_on_ledge_detect_system",
             ]]
             .concat(),
         );

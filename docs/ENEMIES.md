@@ -14,7 +14,7 @@ walker, ledge turn
 when player enters LOS stop movement components,  
 change hitbox and animation (prone), start shooting in set interval
 
-# aggro
+# kamikaze
 - walker, ledge and wall turn.
 - when player enters LOS set higher movement speed and remove ledge and edge turn
 - on death explode
