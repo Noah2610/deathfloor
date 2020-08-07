@@ -38,8 +38,8 @@
                         ),
                     ]),
                     health: (
-                        health: 6,
-                        max_health: 6,
+                        health: 5,
+                        max_health: 5,
                     ),
                     health_display: (
                         position: Top,
@@ -64,6 +64,11 @@
                         collides_with: ["Solid"],
                     ),
                 ),
+
+                events: {
+                    OnCollision(And([IsTag("Bullet"), IsState(Enter)])):
+                        HealthAction(Lose(1)),
+                },
 
                 variants: {
                     "Left": (
