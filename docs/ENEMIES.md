@@ -32,7 +32,8 @@ change hitbox and animation (prone), start shooting in set interval
 - when player los start shooting in set interval
 
 # mech
-- walk, but: walk consists of 2 states? / variants? / intervals: Move forward and play animation for short interval, stop movement and animation for short interval, loop
+- walk, but: walk consists of 2 states? / variants? / intervals:  
+  Move forward and play animation for short interval, stop movement and animation for short interval, loop
 -> because:
 
 # mini
@@ -41,7 +42,8 @@ change hitbox and animation (prone), start shooting in set interval
 
 # security
 - walk
-- when player los spawn 3 minis in short interval, stop walking, start shooting. loop shooting until player exits los then walk. loop
+- when player los spawn 3 minis in short interval, stop walking, start shooting.  
+  loop shooting until player exits los then walk. loop
 
 # mine
 - "walk", only wall turn.
@@ -59,7 +61,7 @@ change hitbox and animation (prone), start shooting in set interval
 - when player los stop moving and shoot riccochet bullet diagonally upwards in player direction on x axis
 
 # riccochet bullet
-- basically rubber ball 
+- basically rubber ball
 - deal player damage on contact and despawn
 
 # walking tower (3)
@@ -72,7 +74,7 @@ from its top, its middle part or its bottom. (in player x direction). loop
 - on player los move slowly and randomize between 4 fire points but 2 times. - shoots a bullet from 2 random positions. loop
 
 # rocket bullet
-move forward with slightly randomized y
+move forward with slightly randomized y  
 explode on wall or player collision
 
 # walking tower (2)
