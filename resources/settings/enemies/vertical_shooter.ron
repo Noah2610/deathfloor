@@ -1,0 +1,123 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "VerticalShooter": (
+            spritesheet_filename: "enemy_shooter.png",
+
+            entity: (
+                components: (
+                    size: (
+                        w: 48.0,
+                        h: 48.0,
+                    ),
+                    max_movement_velocity: (
+                        x: 100.0,
+                        y: 100.0,
+                    ),
+                    base_friction: (
+                        friction_y: 1000.0,
+                    ),
+                    animations: {
+                        Walk: Cycle([
+                            (0, 150),
+                            (1, 150),
+                            (2, 150),
+                            (3, 150),
+                        ]),
+                    },
+                    hitbox: Custom([
+                        (
+                            top:    12.0,
+                            bottom: -24.0,
+                            left:   -12.0,
+                            right:  12.0,
+                        ),
+                    ]),
+                    health: (
+                        health: 5,
+                        max_health: 5,
+                    ),
+                    health_display: (
+                        position: Top,
+                        size: (32.0, 2.0),
+                        padding: 4.0,
+                        border_padding: 0.5,
+                    ),
+                    deals_damage: (
+                        damage: 1,
+                    ),
+                ),
+
+                events: {
+                    OnCollision(And([IsTag("Bullet"), IsState(Enter)])):
+                        HealthAction(Lose(1)),
+
+                        Interval(500): Random((
+                            chance: 0.5,
+                            on_success: SpawnAction(SpawnRelative((
+                                object: (
+                                    type: Custom("ShooterBullet"),
+                                    pos: (x: 24.0, y: -4.0),
+                                    size: (w: 16.0, h: 16.0),
+                                    props: {
+                                        "variant": "Right",
+                                    },
+                                ),
+                            ))),
+                            on_failure: SpawnAction(SpawnRelative((
+                                object: (
+                                    type: Custom("ShooterBullet"),
+                                    pos: (x: -24.0, y: -4.0),
+                                    size: (w: 16.0, h: 16.0),
+                                    props: {
+                                        "variant": "Left",
+                                    },
+                                ),
+                            ))),
+                        )),
+                },
+
+                variants: {
+                    "Up": (
+                        components: (
+                            walker: (
+                                y: 500.0,
+                            ),
+                        ),
+                        events: {
+                            OnCollision(And([
+                                    IsTag("Solid"),
+                                    IsState(Enter),
+                                    IsSide(Top),
+                                ])): EntityAction(SwitchVariant("Down")),
+                        },
+                    ),
+                    "Down": (
+                        components: (
+                            walker: (
+                                y: -500.0,
+                            ),
+                        ),
+                        events: {
+                            OnCollision(And([
+                                    IsTag("Solid"),
+                                    IsState(Enter),
+                                    IsSide(Bottom),
+                                ])): EntityAction(SwitchVariant("Up")),
+                        },
+                    ),
+                },
+
+                collision_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
+                ),
+
+                solid_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Solid"],
+                ),
+            ),
+        ),
+    }
+)

@@ -26,7 +26,6 @@ change hitbox and animation (prone), start shooting in set interval
   stop movement components, after short delay jump towards player, loop.  
   jump values based on current player pos
 
-
 # vertical shooter
 - no gravity component
 - vertical walker and wall pivot
@@ -44,7 +43,7 @@ change hitbox and animation (prone), start shooting in set interval
 - walk
 - when player los spawn 3 minis in short interval, stop walking, start shooting. loop shooting until player exits los then walk. loop
 
- #mine
+# mine
 - "walk", only wall turn.
 - no gravity
 - exlode on player collision
