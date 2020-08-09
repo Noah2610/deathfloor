@@ -3600,7 +3600,6 @@
  <tile id="3770" type="Ground"/>
  <tile id="3771" type="Ground"/>
  <tile id="3772" type="Ground"/>
- <tile id="3776" type="Ground"/>
  <tile id="3777" type="Ground"/>
  <tile id="3778" type="Ground"/>
  <tile id="3779" type="Ground"/>
@@ -3791,12 +3790,6 @@
  <tile id="3973" type="Ground"/>
  <tile id="3974" type="Ground"/>
  <tile id="3975" type="Ground"/>
- <tile id="3976" type="Ground"/>
- <tile id="3977" type="Ground"/>
- <tile id="3978" type="Ground"/>
- <tile id="3979" type="Ground"/>
- <tile id="3980" type="Ground"/>
- <tile id="3981" type="Ground"/>
  <tile id="3982" type="Ground"/>
  <tile id="3983" type="Ground"/>
  <tile id="3984" type="Ground"/>
