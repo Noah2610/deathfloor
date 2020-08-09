@@ -145,7 +145,7 @@
     <property name="variant" value="Up"/>
    </properties>
   </object>
-  <object id="18" name="VERTI" type="Enemy(VerticalShooter)" x="288" y="128" width="16" height="16">
+  <object id="18" name="VERTI" type="Enemy(VerticalShooter)" x="290" y="128" width="16" height="16">
    <properties>
     <property name="variant" value="Up"/>
    </properties>
