@@ -109,3 +109,11 @@ explode on wall or player collision
 # tank
 - gravity, walker, ledge and wall turn
 - on player los: stop moving, set lower friction values, start shooting in set interval. everytime the enemy shoots he applies x knockback to himself (opposite to shooting direction)
+
+# bomb dropper
+
+
+# flying platform
+
+
+# flying platform shooter
