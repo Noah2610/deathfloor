@@ -19,7 +19,7 @@
                     ),
                     animations: {
                         Walk: Cycle([
-                            (0, 150),
+                            (3, 150),
                         ]),
                     },
                     hitbox: Custom([
@@ -78,7 +78,7 @@
                     "Up": (
                         components: (
                             walker: (
-                                y: 500.0,
+                                y: 400.0,
                             ),
                         ),
                         events: {
@@ -92,7 +92,7 @@
                     "Down": (
                         components: (
                             walker: (
-                                y: -500.0,
+                                y: -400.0,
                             ),
                         ),
                         events: {
