@@ -89,3 +89,19 @@ explode on wall or player collision
 # flying shooter
 - no gravity
 - move to randomized locations in near proximity. when there, shoot into player direction on x axis, after short delay loop
+
+# bombs
+- explode on contact with player or solids
+- gravity affected?
+
+# bomber
+- no gravity, walker, wall turn
+- "drop bombs" in set interval -> either have bombs be regular projectile with const velocity or, preferably, have them be gravity affected and thus accalerate after being spawned
+- bombs explode on contact with player or solids
+
+# dropper
+- no gravity, no movement components, placed at ceiling
+- when player enters los (below dropper), add gravity component (and maybe minor -y vel in case gravity alone is not sufficient for the enemy to drop fast enough
+- on contact damage player
+- maybe: explode on floor contact
+- maybe: switch to variant with movement components on floor contact
