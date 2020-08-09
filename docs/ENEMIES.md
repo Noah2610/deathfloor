@@ -105,3 +105,7 @@ explode on wall or player collision
 - on contact damage player
 - maybe: explode on floor contact
 - maybe: switch to variant with movement components on floor contact
+
+# tank
+- gravity, walker, ledge and wall turn
+- on player los: stop moving, set lower friction values, start shooting in set interval. everytime the enemy shoots he applies x knockback to himself (opposite to shooting direction)
