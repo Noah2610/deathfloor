@@ -124,7 +124,7 @@
   <properties>
    <property name="z" type="float" value="0.9"/>
   </properties>
-  <object id="12" name="Fast Left" type="Enemy(TowerBlueTest)" x="344" y="112" width="8" height="8"/>
+  <object id="12" name="Runner" type="Enemy(Runner)" x="680" y="112" width="8" height="8"/>
   <object id="13" name="VERTI" type="Enemy(VerticalShooter)" x="816" y="104" width="16" height="16">
    <properties>
     <property name="variant" value="Up"/>

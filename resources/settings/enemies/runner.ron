@@ -1,0 +1,136 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "Runner": (
+            spritesheet_filename: "enemy_runner_blue.png",
+
+            entity: (
+                components: (
+                    size: (
+                        w: 40.0,
+                        h: 40.0,
+                    ),
+                    gravity: (
+                        x: None,
+                        y: -400.0,
+                    ),
+                    max_movement_velocity: (
+                        x: 500.0,
+                        y: 250.0,
+                    ),
+                    base_friction: (
+                        friction_x: 600.0,
+                        friction_y: None,
+                    ),
+                    animations: {
+                        Idle: Cycle([
+                            (1, 150),
+                        ]),
+                        Walk: Cycle([
+                            (0, 100),
+                            (4, 100),
+                            (5, 100),
+                        ]),
+                        Death: Once([
+                            (5, 50),
+                        ]),
+                    },
+                    hitbox: Custom([
+                        (
+                            top:    12.0,
+                            bottom: -20.0,
+                            left:   -12.0,
+                            right:  12.0,
+                        )
+                    ]),
+                    walker: (
+                        x: -900.0,
+                        y: None,
+                    ),
+                    health: (
+                        health: 1,
+                        max_health: 1,
+                    ),
+                    health_display: (
+                        position: Top,
+                        size: (32.0, 2.0),
+                        padding: 4.0,
+                        border_padding: 0.5,
+                    ),
+                    deals_damage: (
+                        damage: 4,
+                    ),
+                ),
+
+                events: {
+                    OnCollision(
+                        And([
+                            IsSide(Left),
+                            IsTag("Player"),
+                        ]),
+                    ): MoveAction(AddVelocity(
+                        x: 500.0,
+                        y: 0,
+                    )),
+
+                    OnCollision(
+                        And([
+                            IsSide(Right),
+                            IsTag("Player"),
+                        ]),
+                    ): MoveAction(AddVelocity(
+                        x: -500.0,
+                        y: 0,
+                    )),
+
+                    OnCollision(
+                        And([
+                            IsTag("Bullet"),
+                            IsState(Enter),
+                        ]),
+                    ): Group([
+                        SoundAction(PlayWithVolume(Jump, 0.3)),
+                        MoveAction(AddVelocity(
+                            y: 150.0,
+                        )),
+                        HealthAction(Lose(1)),
+                    ]),
+
+                    // PIVOT
+
+                    OnCollision(And([
+                        Or([IsSide(Right), IsSide(InnerSide( x: Right ))]),
+                        IsState(Enter),
+                    ])): Group([
+                        InsertComponents((
+                            walker: (
+                                x: -800.0,
+                            ),
+                        )),
+                    ]),
+
+                    OnCollision(And([
+                        Or([IsSide(Left), IsSide(InnerSide( x: Left ))]),
+                        IsState(Enter),
+                    ])): Group([
+                        InsertComponents((
+                            walker: (
+                                x: 800.0,
+                            ),
+                        )),
+                    ]),
+                },
+
+                collision_tag: (
+                    labels: ["Enemy", "Solid"],
+                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
+                ),
+
+                solid_tag: (
+                    labels: ["Enemy", "Solid"],
+                    collides_with: ["Solid"],
+                ),
+            ),
+        ),
+    }
+)

@@ -3735,8 +3735,6 @@
  <tile id="3915" type="Ground"/>
  <tile id="3916" type="Ground"/>
  <tile id="3917" type="Ground"/>
- <tile id="3918" type="Ground"/>
- <tile id="3919" type="Ground"/>
  <tile id="3920" type="Ground"/>
  <tile id="3921" type="Ground"/>
  <tile id="3922" type="Ground"/>
@@ -3790,8 +3788,6 @@
  <tile id="3973" type="Ground"/>
  <tile id="3974" type="Ground"/>
  <tile id="3975" type="Ground"/>
- <tile id="3982" type="Ground"/>
- <tile id="3983" type="Ground"/>
  <tile id="3984" type="Ground"/>
  <tile id="3985" type="Ground"/>
  <tile id="3986" type="Ground"/>
@@ -3851,8 +3847,6 @@
  <tile id="4043" type="Ground"/>
  <tile id="4044" type="Ground"/>
  <tile id="4045" type="Ground"/>
- <tile id="4046" type="Ground"/>
- <tile id="4047" type="Ground"/>
  <tile id="4048" type="Ground"/>
  <tile id="4049" type="Ground"/>
  <tile id="4050" type="Ground"/>
