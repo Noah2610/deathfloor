@@ -2,7 +2,7 @@
 (
     types: {
         "NormalRightFast": (
-            spritesheet_filename: "enemy_yellow_runner1.png",
+            spritesheet_filename: "enemy_shooter.png",
 
             entity: (
                 components: (

@@ -4,16 +4,16 @@
 (
     /// The player's in-game size.
     size: (
-        width:  12.0,
-        height: 16.0,
+        width:  16.0,
+        height: 20.0,
     ),
 
     /// The player's physics data; stuff involving velocity.
     physics: (
         /// Movement acceleration.
-        acceleration:        (900.0, 1400.0),
+        acceleration:        (950.0, 1500.0),
         /// Soft-max for movement velocity.
-        max_velocity:        (100.0, 380.0),
+        max_velocity:        (110.0, 410.0),
         /// Friction factor applied to velocity every frame.
         base_friction:       (1100.0, None),
         /// The normal gravity.
@@ -23,10 +23,10 @@
     /// The player's hitbox.
     hitbox: Custom([
         (
-            top:    7.0,
-            bottom: -8.0,
-            left:   -5.0,
-            right:  5.0,
+            top:    6.0,
+            bottom: -10.0,
+            left:   -6.0,
+            right:  6.0,
         )
     ]),
 
@@ -50,7 +50,7 @@
         /// The gravity applied only when jumping (holding down the jump button).
         gravity:        (None, -450.0),
         /// The velocity boost when jumping.
-        strength:       200.0,
+        strength:       220.0,
         /// The velocity boost, when releasing the jump button after jumping.
         /// Should be negative.
         kill_strength:  -60.0,
