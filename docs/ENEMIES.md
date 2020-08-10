@@ -60,7 +60,7 @@ change hitbox and animation (prone), start shooting in set interval
 - slow walk, ledge and wall turn
 - when player los stop moving and shoot riccochet bullet diagonally upwards in player direction on x axis
 
-# riccochet bullet
+# riccochet bullet (projectile)
 - basically rubber ball
 - deal player damage on contact and despawn
 
@@ -73,7 +73,7 @@ from its top, its middle part or its bottom. (in player x direction). loop
 - idle, no walking
 - on player los move slowly and randomize between 4 fire points but 2 times. - shoots a bullet from 2 random positions. loop
 
-# rocket bullet
+# rocket bullet (projectile)
 move forward with slightly randomized y  
 explode on wall or player collision
 
@@ -90,7 +90,7 @@ explode on wall or player collision
 - no gravity
 - move to randomized locations in near proximity. when there, shoot into player direction on x axis, after short delay loop
 
-# bombs
+# bomb (projectile)
 - explode on contact with player or solids
 - gravity affected?
 
@@ -117,3 +117,19 @@ explode on wall or player collision
 
 
 # flying platform shooter
+
+
+# discharger
+- gravity, walker, ledge and wall turn
+- spawn 2 discharges in set interval, one to the left and one to the right
+
+
+# discharge (projectile)
+
+
+# electric barrier
+- no gravity, no movement, doesnt take damage 
+- sprite consists of 2 coils inbetween which electric static is drawn
+- switch between 2 variants in set interval
+- variant 1: no static, no damage
+- variant 2: animated static, damage on contact
