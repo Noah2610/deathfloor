@@ -125,11 +125,16 @@ explode on wall or player collision
 
 
 # discharge (projectile)
+- gravity affected
+- gets spawned with slight x and y "impulse" ("jump") (values dependent on variant, variant dependent on information given by the enemy who spawns the discharge)
+- after short delay (which is used to play a spawn animation) switch to another variant with different animation and movement components, walker and wall turn
+- damage player on contact
+- destroy on player contact or after 10 sec 
 
 
 # electric barrier
 - no gravity, no movement, doesnt take damage 
 - sprite consists of 2 coils inbetween which electric static is drawn
-- switch between 2 variants in set interval
-- variant 1: no static, no damage
-- variant 2: animated static, damage on contact
+- switch between 2 states in set interval
+- state 1: no static, no damage, maybe
+- state 2: animated static, damage on contact
