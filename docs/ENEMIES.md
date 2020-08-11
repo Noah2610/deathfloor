@@ -1,35 +1,40 @@
 # shooter
 - walker, ledge and wall turn
 - shoot in set interval
+- medium hp
 
 # charger
 - walker, ledge and wall turn
 - when player los: change animation, increase speed, remove ledge turn component
 - damage player on contact
 - collision with solids, spikes, jumppads, player
+- low hp
 
 # patrol
-walker, ledge turn
-
-when player enters LOS stop movement components,  
-change hitbox and animation (prone), start shooting in set interval
+- walker, ledge turn
+- when player enters LOS stop movement components,  
+  change hitbox and animation (prone), start shooting in set interval
+- medium hp
 
 # kamikaze
 - walker, ledge and wall turn.
 - when player enters LOS set higher movement speed and remove ledge and edge turn
 - on death explode
 - when hits wall explode
+- low hp
 
 # jumper
 - walk
 - when player los:  
   stop movement components, after short delay jump towards player, loop.  
   jump values based on current player pos
+- medium hp
 
 # vertical shooter
 - no gravity component
 - vertical walker and wall pivot
 - when player los start shooting in set interval
+- medium hp
 
 # mech
 - walk, but: walk consists of 2 states? / variants? / intervals:  
@@ -39,11 +44,13 @@ change hitbox and animation (prone), start shooting in set interval
 # mini
 - walk, very fast, no ledge detect
 - explode on player collision or after set delay (randomized delay?)
+- low hp
 
 # security
 - walk
 - when player los spawn 3 minis in short interval, stop walking, start shooting.  
   loop shooting until player exits los then walk. loop
+- medium / high hp?
 
 # mine
 - "walk", only wall turn.
@@ -55,10 +62,12 @@ change hitbox and animation (prone), start shooting in set interval
 - no gravity
 - when player los (large los zone) start chasing player (like stabman ghosts) and explode after short delay
 - exlode on player collision
+- low hp
 
 # riccochet tank
 - slow walk, ledge and wall turn
 - when player los stop moving and shoot riccochet bullet diagonally upwards in player direction on x axis
+- high hp
 
 # riccochet bullet (projectile)
 - basically rubber ball
@@ -85,6 +94,7 @@ explode on wall or player collision
 - really strong
 - idle until being hit by any projectile (player or enemy)
 - then: slowly walk towards player, shoot rocket from randomized fire points in short interval
+- high hp
 
 # flying shooter
 - no gravity
@@ -105,10 +115,12 @@ explode on wall or player collision
 - on contact damage player
 - maybe: explode on floor contact
 - maybe: switch to variant with movement components on floor contact
+- low hp
 
 # tank
 - gravity, walker, ledge and wall turn
 - on player los: stop moving, set lower friction values, start shooting in set interval. everytime the enemy shoots he applies x knockback to himself (opposite to shooting direction)
+- high hp
 
 # bomb dropper
 
@@ -122,7 +134,7 @@ explode on wall or player collision
 # discharger
 - gravity, walker, ledge and wall turn
 - spawn 2 discharges in set interval, one to the left and one to the right
-
+- medium hp
 
 # discharge (projectile)
 - gravity affected
@@ -131,6 +143,10 @@ explode on wall or player collision
 - damage player on contact
 - destroy on player contact or after 10 sec 
 
+# jumping battery
+- gravity, no movement components
+- on player LOS: jump with hardcoded y and semi randomized x value. when touching floor again, spawn 2 discharges, one to the left and one to the right. short delay, loop.
+- high hp
 
 # electric barrier
 - no gravity, no movement, doesnt take damage 
@@ -138,3 +154,25 @@ explode on wall or player collision
 - switch between 2 states in set interval
 - state 1: no static, no damage, maybe
 - state 2: animated static, damage on contact
+
+# jumping shooter
+- gravity, no movement components
+- on player LOS, jump with hardcoded y and x (x sign dependent on player pos but value is set) and shoot 3 projectiles into facing direction in short interval. short delay after landing, then loop.
+
+# basic turret
+
+
+# peeker
+- gravity, no movement
+- switches between 2 variants (animation, (in)vincibility, shooting) in set interval
+
+# walking peeker
+- peeker except he walks forward during shooting variant
+
+# shocker
+- gravity, walker, ledge and wall turn
+- on player LOS: increase movement speed, spawn electric static in front of it in set interval
+
+# electric static:
+- large "projectile" that damages player on contact and has short lifetime
+- has walker component but values are 0 per default - values are passed by entity that spawns the static (does it work like that?)
