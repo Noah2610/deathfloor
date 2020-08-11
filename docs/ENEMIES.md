@@ -161,6 +161,9 @@ explode on wall or player collision
 
 # basic turret
 
+# burst turret
+
+# shotgun turret
 
 # peeker
 - gravity, no movement
@@ -175,4 +178,8 @@ explode on wall or player collision
 
 # electric static:
 - large "projectile" that damages player on contact and has short lifetime
-- has walker component but values are 0 per default - values are passed by entity that spawns the static (does it work like that?)
+- has walker component but no set movement values - values are passed by entity that spawns the static (does / can it work like that?) so the static can, when spawned by a turret, be "stationary" but, when spawned by a moving enemy, "move with" the enemy (at the enemys vel) and be projected in front of the enemy like a flamethrower.
+
+# diagonal shooter
+
+# birdman
