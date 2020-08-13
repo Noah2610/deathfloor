@@ -15,12 +15,6 @@ pub fn load_object(
     world: &mut World,
     object: ObjectData,
 ) -> amethyst::Result<()> {
-    let variant = object
-        .props
-        .get("variant")
-        .and_then(|val| val.as_str())
-        .map(ToString::to_string);
-
     match &object.object_type {
         ObjectType::Player => eprintln!(
             "[WARNING]
@@ -28,21 +22,11 @@ pub fn load_object(
         ),
 
         ObjectType::Enemy(enemy_type) => {
-            let _ = build_enemy::build(
-                world,
-                &object,
-                enemy_type.clone(),
-                variant,
-            )?;
+            let _ = build_enemy::build(world, &object, enemy_type.clone())?;
         }
 
         ObjectType::Custom(custom_type) => {
-            let _ = build_custom::build(
-                world,
-                &object,
-                custom_type.clone(),
-                variant,
-            )?;
+            let _ = build_custom::build(world, &object, custom_type.clone())?;
         }
 
         ObjectType::None => eprintln!(

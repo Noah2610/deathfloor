@@ -5,7 +5,6 @@ pub(super) fn build(
     world: &mut World,
     object: &ObjectData,
     custom_type: String,
-    type_variant: Option<String>,
 ) -> amethyst::Result<Entity> {
     let settings = world
         .read_resource::<Settings>()
@@ -40,12 +39,13 @@ pub(super) fn build(
 
     let entity = entity_builder.build();
 
-    edit_entity_with_entity_config(
-        world,
-        entity,
-        settings.entity,
-        type_variant,
-    )?;
+    let variant = object
+        .props
+        .get("variant")
+        .and_then(|val| val.as_str())
+        .map(ToString::to_string);
+
+    edit_entity_with_entity_config(world, entity, settings.entity, variant)?;
 
     Ok(entity)
 }

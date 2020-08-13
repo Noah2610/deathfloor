@@ -46,25 +46,13 @@ pub(super) fn base_tile_entity<'a>(
     tile: &TileData,
     tile_size: SizeData,
 ) -> amethyst::Result<EntityBuilder<'a>> {
-    const DEFAULT_Z: f32 = 0.0;
-
-    let mut transform: Transform = tile.pos.into();
-    transform.set_translation_z(tile.z_or(DEFAULT_Z));
-
     let size: Size = tile_size.into();
     let loadable = Loadable::default().with_padding(TILE_LOADABLE_PADDING);
 
-    let entity = world
-        .create_entity()
+    Ok(base_entity(world, tile)?
         // .with(Tile::default()) // TODO
-        .with(transform)
         .with(size)
-        .with(ScaleOnce::default())
-        .with(Transparent)
         .with(loadable)
         .with(Loaded::default()) // TODO
-        .with(Hidden)
-        .with(Lifecycle::default());
-
-    Ok(entity)
+        .with(Hidden))
 }
