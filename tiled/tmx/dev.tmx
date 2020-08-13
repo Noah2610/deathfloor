@@ -70,7 +70,7 @@
   <object id="15" name="EXOKISUIB" type="Custom(Explosion)" x="72" y="184" width="16" height="16"/>
   <object id="16" name="VERTI" type="Enemy(VerticalShooter)" x="136" y="144" width="8" height="16">
    <properties>
-    <property name="scale_x" type="float" value="-1"/>
+    <property name="scale_x" type="float" value="1"/>
     <property name="variant" value="Up"/>
    </properties>
   </object>
