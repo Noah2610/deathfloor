@@ -1,4 +1,5 @@
 pub(super) mod prelude {
+    pub(in super::super) use super::base_entity;
     pub(in super::super) use super::edit_entity_with_entity_config;
     pub(in super::super) use super::get_sprite_render;
     pub use crate::animation_key::AnimationKey;
@@ -19,6 +20,38 @@ use amethyst::ecs::WorldExt;
 use deathframe::resources::SpriteSheetHandles;
 use prelude::*;
 use std::path::PathBuf;
+
+pub(super) fn base_entity<'a, T>(
+    world: &'a mut World,
+    propful: &T,
+) -> amethyst::Result<EntityBuilder<'a>>
+where
+    T: Propful,
+{
+    let mut transform: Transform = propful.pos().into();
+    transform.set_translation_z(propful.z_or_default());
+
+    let scale_x = propful
+        .props()
+        .get("scale_x")
+        .and_then(|v| v.as_f64())
+        .map(|v| v as f32);
+    let scale_y = propful
+        .props()
+        .get("scale_y")
+        .and_then(|v| v.as_f64())
+        .map(|v| v as f32);
+
+    let scale = transform.scale_mut();
+    scale_x.map(|x| scale.x = x);
+    scale_y.map(|y| scale.y = y);
+
+    Ok(world
+        .create_entity()
+        .with(transform)
+        .with(ScaleOnce::default())
+        .with(Transparent))
+}
 
 pub(super) fn get_sprite_render<P>(
     world: &mut World,

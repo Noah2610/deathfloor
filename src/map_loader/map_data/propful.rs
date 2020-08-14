@@ -1,17 +1,21 @@
-use super::{Object, Props, Tile};
+use super::{Object, Pos, Props, Tile};
 
 pub trait Propful {
     fn props(&self) -> &Props;
 
-    fn z(&self) -> f32 {
-        self.z_or(0.0)
-    }
+    fn pos(&self) -> Pos;
 
-    fn z_or(&self, default: f32) -> f32 {
+    fn default_z() -> f32;
+
+    fn z(&self) -> Option<f32> {
         self.props()
             .get("z")
-            .and_then(|z_value| z_value.as_f64().map(|f| f as f32))
-            .unwrap_or(default)
+            .and_then(|val| val.as_f64())
+            .map(|f| f as f32)
+    }
+
+    fn z_or_default(&self) -> f32 {
+        self.z().unwrap_or_else(Self::default_z)
     }
 
     fn is_solid(&self) -> bool {
@@ -26,10 +30,22 @@ impl Propful for Tile {
     fn props(&self) -> &Props {
         &self.props
     }
+    fn pos(&self) -> Pos {
+        self.pos
+    }
+    fn default_z() -> f32 {
+        0.0
+    }
 }
 
 impl Propful for Object {
     fn props(&self) -> &Props {
         &self.props
+    }
+    fn pos(&self) -> Pos {
+        self.pos
+    }
+    fn default_z() -> f32 {
+        1.0
     }
 }

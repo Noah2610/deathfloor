@@ -16,20 +16,9 @@ pub(super) fn base_object_entity<'a>(
     world: &'a mut World,
     object: &ObjectData,
 ) -> amethyst::Result<EntityBuilder<'a>> {
-    const DEFAULT_Z: f32 = 1.0;
-
-    let mut transform: Transform = object.pos.into();
-    transform.set_translation_z(object.z_or(DEFAULT_Z));
-
     let size: Size = object.size.into();
 
-    let entity = world
-        .create_entity()
-        .with(transform)
-        .with(size.clone())
-        .with(ScaleOnce::default())
-        .with(Transparent)
-        .with(Lifecycle::default());
-
-    Ok(entity)
+    Ok(base_entity(world, object)?
+        .with(size)
+        .with(Lifecycle::default()))
 }
