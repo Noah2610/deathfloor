@@ -141,7 +141,7 @@ explode on wall or player collision
 - gets spawned with slight x and y "impulse" ("jump") (values dependent on variant, variant dependent on information given by the enemy who spawns the discharge)
 - after short delay (which is used to play a spawn animation) switch to another variant with different animation and movement components, walker and wall turn
 - damage player on contact
-- destroy on player contact or after 10 sec 
+- destroy on player contact or after 10 sec
 
 # jumping battery
 - gravity, no movement components

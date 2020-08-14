@@ -49,29 +49,29 @@
                     OnCollision(And([IsTag("Bullet"), IsState(Enter)])):
                         HealthAction(Lose(1)),
 
-                        Interval(500): Random((
-                            chance: 0.5,
-                            on_success: SpawnAction(SpawnRelative((
-                                object: (
-                                    type: Custom("ShooterBullet"),
-                                    pos: (x: 24.0, y: -4.0),
-                                    size: (w: 16.0, h: 16.0),
-                                    props: {
-                                        "variant": "Right",
-                                    },
-                                ),
-                            ))),
-                            on_failure: SpawnAction(SpawnRelative((
-                                object: (
-                                    type: Custom("ShooterBullet"),
-                                    pos: (x: -24.0, y: -4.0),
-                                    size: (w: 16.0, h: 16.0),
-                                    props: {
-                                        "variant": "Left",
-                                    },
-                                ),
-                            ))),
-                        )),
+                    Interval(500): Random((
+                        chance: 0.5,
+                        on_success: SpawnAction(SpawnRelative((
+                            object: (
+                                type: Custom("ShooterBullet"),
+                                pos: (x: 24.0, y: -4.0),
+                                size: (w: 16.0, h: 16.0),
+                                props: {
+                                    "variant": "Right",
+                                },
+                            ),
+                        ))),
+                        on_failure: SpawnAction(SpawnRelative((
+                            object: (
+                                type: Custom("ShooterBullet"),
+                                pos: (x: -24.0, y: -4.0),
+                                size: (w: 16.0, h: 16.0),
+                                props: {
+                                    "variant": "Left",
+                                },
+                            ),
+                        ))),
+                    )),
                 },
 
                 variants: {

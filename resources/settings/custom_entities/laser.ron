@@ -1,0 +1,59 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "Laser": (
+            spritesheet_filename: "projectile_laser.png",
+
+            entity: (
+                components: (
+                    size: (w: 1920.0, h: 8.0),
+                    hitbox: Custom([
+                        (
+                            top:    2.0,
+                            bottom: -2.0,
+                            left:   -960.0,
+                            right:  960.0,
+                        ),
+                    ]),
+                ),
+
+                variants: {
+                    "Active": (
+                        components: (
+                            animation: [
+                                (0, 1000),
+                            ],
+                            deals_damage: (
+                                damage: 4,
+                            ),
+                        ),
+                        events: {
+                            Delay(200): EntityAction(SwitchVariant("FadeOut")),
+                        },
+                    ),
+
+                    "FadeOut": (
+                        components: (
+                            animation: [
+                                (1, 100),
+                                (2, 100),
+                                (3, 100),
+                                (4, 100),
+                                (5, 100),
+                                (6, 100),
+                            ],
+                        ),
+                        events: {
+                            Delay(600): EntityAction(DeleteEntity),
+                        },
+                    ),
+                },
+
+                collision_tag: (
+                    labels: ["EnemyBullet"],
+                    collides_with: ["Player", "Solid"],
+                ),
+            ),
+        ),
+    }
+)

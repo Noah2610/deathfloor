@@ -1,0 +1,155 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "LaserPeeker": (
+            spritesheet_filename: "enemy_peeker.png",
+
+            entity: (
+                components: (
+                    size: (
+                        w: 16.0,
+                        h: 32.0,
+                    ),
+                    animations: {
+                        Custom("Hide"): Once([
+                            (0, 1000),
+                        ]),
+                        Custom("HideToPeek"): Once([
+                            (1, 100),
+                            (2, 100),
+                            (3, 100),
+                            (4, 100),
+                            (5, 100),
+                            (6, 100),
+                            (7, 100),
+                            (8, 100),
+                        ]),
+                        Custom("Peek"): Once([
+                            (9, 1000),
+                        ]),
+                        Custom("Cooldown"): Once([
+                            (10, 100),
+                            (11, 100),
+                            (12, 100),
+                            (13, 100),
+                        ]),
+                        Custom("PeekToHide"): Once([
+                            (8, 100),
+                            (7, 100),
+                            (6, 100),
+                            (5, 100),
+                            (4, 100),
+                            (3, 100),
+                            (2, 100),
+                            (1, 100),
+                        ]),
+                    },
+                    health: (
+                        health: 5,
+                        max_health: 5,
+                    ),
+                    health_display: (
+                        position: Top,
+                        size: (32.0, 2.0),
+                        padding: 4.0,
+                        border_padding: 0.5,
+                    ),
+                ),
+
+                variants: {
+                    "Hide": (
+                        components: (
+                            hitbox: Custom([
+                                (
+                                    top:    2.0,
+                                    bottom: -16.0,
+                                    left:   -8.0,
+                                    right:  8.0,
+                                ),
+                            ]),
+                        ),
+                        events: {
+                            Delay(0): AnimationAction(Play(Custom("Hide"))),
+                            Delay(1000): EntityAction(SwitchVariant("HideToPeek")),
+                        },
+                    ),
+
+                    "HideToPeek": (
+                        components: (
+                            hitbox: Custom([
+                                (
+                                    top:    8.0,
+                                    bottom: -16.0,
+                                    left:   -8.0,
+                                    right:  8.0,
+                                ),
+                            ]),
+                        ),
+                        events: {
+                            Delay(0): Group([
+                                Echo("HideToPeek OnSpawn"),
+                                AnimationAction(Play(Custom("HideToPeek"))),
+                            ]),
+                            Delay(800): EntityAction(SwitchVariant("Peek")),
+                        },
+                    ),
+
+                    "Peek": (
+                        components: (
+                            hitbox: Custom([
+                                (
+                                    top:    14.0,
+                                    bottom: -16.0,
+                                    left:   -8.0,
+                                    right:  8.0,
+                                ),
+                            ]),
+                        ),
+                        events: {
+                            Delay(0): AnimationAction(Play(Custom("Peek"))),
+                            Delay(200): SpawnAction(SpawnRelative((
+                                object: (
+                                    type: Custom("Laser"),
+                                    pos: (x: -960.0, y: 0.0),
+                                    size: (w: 16.0, h: 16.0),
+                                    props: {
+                                        "variant": "Active",
+                                    },
+                                ),
+                            ))),
+                            Delay(400): AnimationAction(Play(Custom("Cooldown"))),
+                            Delay(800): EntityAction(SwitchVariant("PeekToHide")),
+                        },
+                    ),
+
+                    "PeekToHide": (
+                        components: (
+                            hitbox: Custom([
+                                (
+                                    top:    8.0,
+                                    bottom: -16.0,
+                                    left:   -8.0,
+                                    right:  8.0,
+                                ),
+                            ]),
+                        ),
+                        events: {
+                            Delay(0): AnimationAction(Play(Custom("PeekToHide"))),
+                            Delay(800): EntityAction(SwitchVariant("Hide")),
+                        },
+                    ),
+                },
+
+                collision_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
+                ),
+
+                solid_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Solid"],
+                ),
+            ),
+        ),
+    }
+)
