@@ -1,0 +1,69 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "ProjectileDischarge": (
+            spritesheet_filename: "projectile_discharge.png",
+
+            entity: (
+                components: (
+                    size: (w: 16.0, h: 16.0),
+                    animation: [
+                        (0, 100),
+                        (1, 100),
+                        (2, 100),
+                    ],
+                    gravity: (
+                        y: -400.0,
+                    ),
+                    hitbox: Size,
+                    deals_damage: (
+                        damage: 4,
+                    ),
+                ),
+
+                events: {
+                    Delay(5_000): EntityAction(DeleteEntity),
+                    OnCollision(And([IsTag("Player"), IsState(Enter)])):
+                        EntityAction(DeleteEntity),
+                },
+
+                variants: {
+                    "Left": (
+                        components: (
+                            velocity: (
+                                x: -50.0,
+                                y: 150.0,
+                            ),
+                        ),
+                        events: {
+                            OnCollision(And([IsTag("Solid"), IsState(Enter), IsSide(Left)])):
+                                EntityAction(SwitchVariant("Right")),
+                        },
+                    ),
+                    "Right": (
+                        components: (
+                            velocity: (
+                                x: 50.0,
+                                y: 150.0,
+                            ),
+                        ),
+                        events: {
+                            OnCollision(And([IsTag("Solid"), IsState(Enter), IsSide(Right)])):
+                                EntityAction(SwitchVariant("Left")),
+                        },
+                    ),
+                },
+
+                collision_tag: (
+                    labels: ["EnemyBullet"],
+                    collides_with: ["Player", "Solid"],
+                ),
+
+                solid_tag: (
+                    labels: ["EnemyBullet"],
+                    collides_with: ["Solid"],
+                ),
+            ),
+        ),
+    }
+)

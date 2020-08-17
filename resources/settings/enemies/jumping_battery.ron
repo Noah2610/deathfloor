@@ -95,6 +95,26 @@
                             OnCollision(And([IsTag("Solid"), IsState(Enter), IsSide(Bottom)])): Group([
                                 AnimationAction(Pop),
                                 EntityAction(SwitchVariant("Sit")),
+                                SpawnAction(SpawnRelative((
+                                    object: (
+                                        type: Custom("ProjectileDischarge"),
+                                        pos: (x: 0.0, y: -16.0),
+                                        size: (w: 16.0, h: 16.0),
+                                        props: {
+                                            "variant": "Left",
+                                        },
+                                    ),
+                                ))),
+                                SpawnAction(SpawnRelative((
+                                    object: (
+                                        type: Custom("ProjectileDischarge"),
+                                        pos: (x: 0.0, y: -16.0),
+                                        size: (w: 16.0, h: 16.0),
+                                        props: {
+                                            "variant": "Right",
+                                        },
+                                    ),
+                                ))),
                             ]),
                         },
                     ),
