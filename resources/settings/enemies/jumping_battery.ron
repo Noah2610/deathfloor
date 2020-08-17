@@ -1,0 +1,115 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "JumpingBattery": (
+            spritesheet_filename: "enemy_jumping_battery.png",
+
+            entity: (
+                components: (
+                    size: (
+                        w: 24.0,
+                        h: 48.0,
+                    ),
+                    animations: {
+                        Idle: Cycle([
+                            (1, 1000),
+                        ]),
+                        Custom("Jump"): Cycle([
+                            (0, 1000),
+                        ]),
+                    },
+                    gravity: (
+                        x: None,
+                        y: -400.0,
+                    ),
+                    max_movement_velocity: (
+                        x: 50.0,
+                        y: 250.0,
+                    ),
+                    health: (
+                        health: 5,
+                        max_health: 5,
+                    ),
+                    health_display: (
+                        position: Top,
+                        size: (32.0, 2.0),
+                        padding: 4.0,
+                        border_padding: 0.5,
+                    ),
+                    deals_damage: (
+                        damage: 2,
+                    ),
+                ),
+
+                events: {
+                    OnCollision(And([IsTag("Bullet"), IsState(Enter)])):
+                        HealthAction(Lose(1)),
+                },
+
+                variants: {
+                    "Sit": (
+                        components: (
+                            hitbox: Custom([
+                                (
+                                    top:    10.0,
+                                    bottom: -24.0,
+                                    left:   -9.0,
+                                    right:  9.0,
+                                ),
+                            ]),
+                        ),
+                        events: {
+                            Delay(0): MoveAction(SetVelocity(
+                                x: 0.0,
+                                y: 0.0,
+                            )),
+                            Delay(2000): EntityAction(SwitchVariant("Jump")),
+                        },
+                    ),
+                    "Jump": (
+                        components: (
+                            hitbox: Custom([
+                                (
+                                    top:    16.0,
+                                    bottom: -24.0,
+                                    left:   -9.0,
+                                    right:  9.0,
+                                ),
+                            ]),
+                        ),
+                        events: {
+                            Delay(0): Group([
+                                AnimationAction(Push(Custom("Jump"))),
+                                Random((
+                                    chance: 0.5,
+                                    on_success: MoveAction(SetVelocity(
+                                        x: 200.0,
+                                        y: 400.0,
+                                    )),
+                                    on_failure: MoveAction(SetVelocity(
+                                        x: -200.0,
+                                        y: 400.0,
+                                    )),
+                                )),
+                            ]),
+                            OnCollision(And([IsTag("Solid"), IsState(Enter), IsSide(Bottom)])): Group([
+                                AnimationAction(Pop),
+                                EntityAction(SwitchVariant("Sit")),
+                            ]),
+                        },
+                    ),
+                },
+
+                collision_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
+                ),
+
+                solid_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Solid"],
+                ),
+            ),
+        ),
+    }
+)
