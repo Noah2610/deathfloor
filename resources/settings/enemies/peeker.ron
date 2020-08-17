@@ -11,10 +11,10 @@
                         h: 32.0,
                     ),
                     animations: {
-                        Custom("Hide"): Once([
+                        Custom("Hide"): Cycle([
                             (0, 1000),
                         ]),
-                        Custom("HideToPeek"): Once([
+                        Custom("HideToPeek"): Cycle([
                             (1, 100),
                             (2, 100),
                             (3, 100),
@@ -24,16 +24,16 @@
                             (7, 100),
                             (8, 100),
                         ]),
-                        Custom("Peek"): Once([
-                            (9, 1000),
+                        Custom("Peek"): Cycle([
+                            (9, 100),
                         ]),
-                        Custom("Cooldown"): Once([
+                        Custom("Cooldown"): Cycle([
                             (10, 100),
                             (11, 100),
                             (12, 100),
                             (13, 100),
                         ]),
-                        Custom("PeekToHide"): Once([
+                        Custom("PeekToHide"): Cycle([
                             (8, 100),
                             (7, 100),
                             (6, 100),
@@ -86,10 +86,7 @@
                             ]),
                         ),
                         events: {
-                            Delay(0): Group([
-                                Echo("HideToPeek OnSpawn"),
-                                AnimationAction(Play(Custom("HideToPeek"))),
-                            ]),
+                            Delay(0): AnimationAction(Play(Custom("HideToPeek"))),
                             Delay(800): EntityAction(SwitchVariant("Peek")),
                         },
                     ),
