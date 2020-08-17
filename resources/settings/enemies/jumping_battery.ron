@@ -79,6 +79,7 @@
                         ),
                         events: {
                             Delay(0): Group([
+                                SoundAction(PlayWithVolume(Jump, 0.5)),
                                 AnimationAction(Push(Custom("Jump"))),
                                 Random((
                                     chance: 0.5,
@@ -95,6 +96,7 @@
                             OnCollision(And([IsTag("Solid"), IsState(Enter), IsSide(Bottom)])): Group([
                                 AnimationAction(Pop),
                                 EntityAction(SwitchVariant("Sit")),
+                                SoundAction(PlayWithVolume(Shoot, 0.5)),
                                 SpawnAction(SpawnRelative((
                                     object: (
                                         type: Custom("ProjectileDischarge"),
