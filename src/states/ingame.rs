@@ -7,7 +7,7 @@ use crate::input::prelude::{
 };
 use std::path::PathBuf;
 
-const BGM: SongType = SongType::Floor1;
+const BGM: SongType = SongType::Ingame;
 
 pub struct Ingame {
     level_path: PathBuf,

@@ -66,8 +66,8 @@ fn load_audio(world: &mut World) {
                 .set_volume(audio_settings.songs_volume);
             Ok(())
         };
-        load_song(SongType::Cntrlgun).unwrap();
-        load_song(SongType::Floor1).unwrap();
+        load_song(SongType::Ingame).unwrap();
+        load_song(SongType::Menu).unwrap();
         world.insert(songs);
     }
 }
