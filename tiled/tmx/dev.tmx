@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="200" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="4" nextobjectid="24">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="200" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="4" nextobjectid="25">
  <editorsettings>
   <export target="../../resources/levels/dev.json" format="deathfloor-export"/>
  </editorsettings>
@@ -81,6 +81,11 @@
    <properties>
     <property name="scale_x" type="float" value="1"/>
     <property name="variant" value="Up"/>
+   </properties>
+  </object>
+  <object id="24" name="SHOOTER" type="Enemy(UfoSmall)" x="1112" y="32" width="8" height="8">
+   <properties>
+    <property name="variant" value="Left"/>
    </properties>
   </object>
  </objectgroup>

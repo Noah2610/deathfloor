@@ -1,18 +1,18 @@
 #![enable(implicit_some)]
 (
     types: {
-        "Shooter": (
+        "UfoSmall": (
             spritesheet_filename: "enemy_ufo_small.png",
 
             entity: (
                 components: (
                     size: (
-                        w: 48.0,
-                        h: 48.0,
+                        w: 16.0,
+                        h: 16.0,
                     ),
                     gravity: (
                         x: None,
-                        y: -900.0,
+                        y: None,
                     ),
                     max_movement_velocity: (
                         x: 100.0,
@@ -31,10 +31,10 @@
                     },
                     hitbox: Custom([
                         (
-                            top:    12.0,
-                            bottom: -24.0,
-                            left:   -12.0,
-                            right:  12.0,
+                            top:    7.0,
+                            bottom: -7.0,
+                            left:   -7.0,
+                            right:  7.0,
                         ),
                     ]),
                     health: (
@@ -49,19 +49,6 @@
                     ),
                     deals_damage: (
                         damage: 1,
-                    ),
-                    ledge_detector: (
-                        corners: [
-                            (
-                                corner:      BottomLeft,
-                                if_touching: Bottom,
-                            ),
-                            (
-                                corner:      BottomRight,
-                                if_touching: Bottom,
-                            ),
-                        ],
-                        collides_with: ["Solid"],
                     ),
                 ),
 
@@ -78,8 +65,6 @@
                             ),
                         ),
                         events: {
-                            OnLedgeDetect(BottomLeft, Bottom):
-                                EntityAction(SwitchVariant("Right")),
                             OnCollision(And([
                                     IsTag("Solid"),
                                     IsState(Enter),
@@ -88,10 +73,10 @@
                             Interval(1000): SpawnAction(SpawnRelative((
                                 object: (
                                     type: Custom("ShooterBullet"),
-                                    pos: (x: 0.0, y: -16.0),
+                                    pos: (x: 0.0, y: -10.0),
                                     size: (w: 16.0, h: 16.0),
                                     props: {
-                                        "variant": "Left",
+                                        "variant": "Down",
                                     },
                                 ),
                             ))),
@@ -104,8 +89,6 @@
                             ),
                         ),
                         events: {
-                            OnLedgeDetect(BottomRight, Bottom):
-                                EntityAction(SwitchVariant("Left")),
                             OnCollision(And([
                                     IsTag("Solid"),
                                     IsState(Enter),
@@ -114,10 +97,10 @@
                             Interval(1000): SpawnAction(SpawnRelative((
                                 object: (
                                     type: Custom("ShooterBullet"),
-                                    pos: (x: 0.0, y: -16.0),
+                                    pos: (x: 0.0, y: -10.0),
                                     size: (w: 16.0, h: 16.0),
                                     props: {
-                                        "variant": "Right",
+                                        "variant": "Down",
                                     },
                                 ),
                             ))),
