@@ -12,3 +12,8 @@ pub struct DelayData {
 pub struct IntervalData {
     pub timer: Timer,
 }
+
+#[derive(Default)]
+pub struct InitData {
+    pub initialized: bool,
+}

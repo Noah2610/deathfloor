@@ -31,6 +31,11 @@ pub enum EventType {
 
     /// Triggers when the entity's `LedgeDetector` detects a ledge.
     OnLedgeDetect(LedgeDetectorCorner, LedgeDetectorSide),
+
+    /// Triggers once for this entity config.
+    /// Similar to `OnSpawn`, but also triggers for variants,
+    /// when switching to them.
+    Init,
 }
 
 impl From<EventTypeDeser> for EventType {
@@ -47,6 +52,7 @@ impl From<EventTypeDeser> for EventType {
             Deser::Delay(x) => Delay(x),
             Deser::Interval(x) => Interval(x),
             Deser::OnLedgeDetect(corner, side) => OnLedgeDetect(corner, side),
+            Deser::Init => Init,
         }
     }
 }
@@ -65,4 +71,5 @@ pub enum EventTypeDeser {
     Delay(u64),
     Interval(u64),
     OnLedgeDetect(LedgeDetectorCorner, LedgeDetectorSide),
+    Init,
 }

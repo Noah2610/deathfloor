@@ -46,6 +46,8 @@
                         HealthAction(Lose(1)),
                 },
 
+                default_variant: "Sit",
+
                 variants: {
                     "Sit": (
                         components: (
@@ -59,7 +61,7 @@
                             ]),
                         ),
                         events: {
-                            Delay(0): MoveAction(SetVelocity(
+                            Init: MoveAction(SetVelocity(
                                 x: 0.0,
                                 y: 0.0,
                             )),
@@ -78,7 +80,8 @@
                             ]),
                         ),
                         events: {
-                            Delay(0): Group([
+                            Init: Group([
+                                SoundAction(PlayWithVolume(Jump, 0.5)),
                                 AnimationAction(Push(Custom("Jump"))),
                                 Random((
                                     chance: 0.5,
@@ -95,6 +98,7 @@
                             OnCollision(And([IsTag("Solid"), IsState(Enter), IsSide(Bottom)])): Group([
                                 AnimationAction(Pop),
                                 EntityAction(SwitchVariant("Sit")),
+                                SoundAction(PlayWithVolume(Shoot, 0.5)),
                                 SpawnAction(SpawnRelative((
                                     object: (
                                         type: Custom("ProjectileDischarge"),

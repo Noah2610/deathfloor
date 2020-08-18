@@ -1,7 +1,14 @@
 use super::system_prelude::*;
+use std::collections::HashSet;
 
+/// Removes select components from entities whose `Lifecycle` is `Death`.
+/// Stages removal of components for `Death` entities,
+/// but only actually removes the components in the next frame.
+/// This is primarily to make the `EventsRegister`'s `OnDeath` event trigger.
 #[derive(Default)]
-pub struct HandleDyingEntitiesSystem;
+pub struct HandleDyingEntitiesSystem {
+    to_remove: HashSet<Entity>,
+}
 
 impl<'a> System<'a> for HandleDyingEntitiesSystem {
     type SystemData = (
@@ -30,8 +37,8 @@ impl<'a> System<'a> for HandleDyingEntitiesSystem {
             mut ledge_detector_store,
         ): Self::SystemData,
     ) {
-        for (entity, lifecycle) in (&entities, &lifecycle_store).join() {
-            if let LifecycleState::Death = &lifecycle.state {
+        for entity in self.to_remove.drain() {
+            if entities.is_alive(entity) {
                 velocity_store.remove(entity);
                 gravity_store.remove(entity);
                 collider_store.remove(entity);
@@ -39,6 +46,12 @@ impl<'a> System<'a> for HandleDyingEntitiesSystem {
                 solid_store.remove(entity);
                 events_register_store.remove(entity);
                 ledge_detector_store.remove(entity);
+            }
+        }
+
+        for (entity, lifecycle) in (&entities, &lifecycle_store).join() {
+            if let LifecycleState::Death = &lifecycle.state {
+                self.to_remove.insert(entity);
             }
         }
     }

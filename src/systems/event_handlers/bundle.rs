@@ -26,12 +26,12 @@ impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventHandlersBundle<'c> {
         builder.add(
             events::lifecycle::HandleEventLifecycle::default(),
             "handle_event_lifecycle_system",
-            self.deps,
+            &[self.deps, &["update_lifecycle_system"]].concat(),
         );
         builder.add(
             events::on_collision::HandleEventOnCollision::default(),
             "handle_event_on_collision_system",
-            self.deps,
+            &[self.deps, &["update_collisions_system"]].concat(),
         );
         builder.add(
             events::delay::HandleEventDelay::default(),
@@ -46,6 +46,11 @@ impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventHandlersBundle<'c> {
         builder.add(
             events::on_ledge_detect::HandleEventOnLedgeDetectSystem::default(),
             "handle_event_on_ledge_detect_system",
+            &[self.deps, &["handle_ledge_detector_system"]].concat(),
+        );
+        builder.add(
+            events::init::HandleEventInit::default(),
+            "handle_event_init_system",
             self.deps,
         );
 
@@ -59,6 +64,7 @@ impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventHandlersBundle<'c> {
                 "handle_event_delay_system",
                 "handle_event_interval_system",
                 "handle_event_on_ledge_detect_system",
+                "handle_event_init_system",
             ]]
             .concat(),
         );

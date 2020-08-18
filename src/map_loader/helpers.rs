@@ -75,8 +75,10 @@ pub(super) fn edit_entity_with_entity_config(
     world: &mut World,
     entity: Entity,
     mut entity_config: EntityConfig,
-    variant: Option<String>,
+    variant_prop: Option<String>,
 ) -> amethyst::Result<()> {
+    let variant = variant_prop.or(entity_config.default_variant.clone());
+
     // ENTITY_CONFIG_REGISTER
     // NOTE: Insert this first, so the inserted entity config
     //       is the one without the variant stuff merged.
