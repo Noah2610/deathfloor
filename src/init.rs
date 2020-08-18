@@ -126,7 +126,6 @@ fn build_game_data<'a, 'b>(
         .with_core(CameraOrthoSystem::default(), "camera_ortho_system", &[])?
         .with_bundle(DispatcherId::Ingame, ingame_input_bundle)?
         .with_bundle(DispatcherId::Ingame, physics_bundle)?
-        .with_bundle(DispatcherId::Ingame, EventHandlersBundle::default())?
         .with_bundle(DispatcherId::Paused, paused_input_bundle)?
         .with(
             DispatcherId::Ui,
@@ -303,7 +302,8 @@ fn build_game_data<'a, 'b>(
             HandleDyingEntitiesSystem::default(),
             "handle_dying_entities_system",
             &[],
-        )?;
+        )?
+        .with_bundle(DispatcherId::Ingame, EventHandlersBundle::default())?;
 
     #[cfg(feature = "debug")]
     {
