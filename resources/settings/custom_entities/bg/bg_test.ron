@@ -61,5 +61,9 @@
             spritesheet: "bg/bg_test8.2.png",
             entity: (),
         ),
+            "BgDev1": (
+            spritesheet: "bg/bg_dev1.png",
+            entity: (),
+        ),
     },
 )
