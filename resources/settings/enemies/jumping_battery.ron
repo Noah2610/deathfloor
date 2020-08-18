@@ -46,6 +46,8 @@
                         HealthAction(Lose(1)),
                 },
 
+                default_variant: "Sit",
+
                 variants: {
                     "Sit": (
                         components: (

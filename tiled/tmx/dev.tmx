@@ -63,16 +63,8 @@
     <property name="variant" value="Up"/>
    </properties>
   </object>
-  <object id="18" name="PEEKY BOY" type="Enemy(LaserPeeker)" x="280" y="176" width="16" height="32">
-   <properties>
-    <property name="variant" value="Hide"/>
-   </properties>
-  </object>
-  <object id="19" name="BATTERY YEET" type="Enemy(JumpingBattery)" x="136" y="152" width="24" height="48">
-   <properties>
-    <property name="variant" value="Sit"/>
-   </properties>
-  </object>
+  <object id="18" name="PEEKY BOY" type="Enemy(LaserPeeker)" x="280" y="176" width="16" height="32"/>
+  <object id="19" name="BATTERY YEET" type="Enemy(JumpingBattery)" x="136" y="152" width="24" height="48"/>
  </objectgroup>
  <objectgroup id="2" name="player">
   <properties>

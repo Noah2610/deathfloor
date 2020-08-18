@@ -21,26 +21,31 @@ use variants::EntityConfigVariants;
 #[serde(deny_unknown_fields)]
 pub struct EntityConfig {
     /// List of components to be added to the entity.
-    pub components:    Option<EntityComponentsData>,
+    pub components:      Option<EntityComponentsData>,
     /// Variants for this entity.
-    pub variants:      Option<EntityConfigVariants>,
+    pub variants:        Option<EntityConfigVariants>,
+    /// The default variant to use, when no variant prop was set.
+    pub default_variant: Option<String>,
     /// Register events/actions.
-    pub events:        Option<EventsRegister>,
+    pub events:          Option<EventsRegister>,
     /// General collision tag config.
-    pub collision_tag: Option<CollisionTagWrapper>,
+    pub collision_tag:   Option<CollisionTagWrapper>,
     /// Solid collision tag config.
-    pub solid_tag:     Option<CollisionTagWrapper>,
+    pub solid_tag:       Option<CollisionTagWrapper>,
 }
 
 impl Merge for EntityConfig {
     /// `other` takes precedence.
     fn merge(&mut self, other: Self) {
         *self = Self {
-            components:    self.components.take().merged(other.components),
-            variants:      self.variants.take().merged(other.variants),
-            events:        self.events.take().merged(other.events),
-            collision_tag: other.collision_tag.or(self.collision_tag.take()),
-            solid_tag:     other.solid_tag.or(self.solid_tag.take()),
+            components:      self.components.take().merged(other.components),
+            variants:        self.variants.take().merged(other.variants),
+            default_variant: other
+                .default_variant
+                .or(self.default_variant.take()),
+            events:          self.events.take().merged(other.events),
+            collision_tag:   other.collision_tag.or(self.collision_tag.take()),
+            solid_tag:       other.solid_tag.or(self.solid_tag.take()),
         };
     }
 }
