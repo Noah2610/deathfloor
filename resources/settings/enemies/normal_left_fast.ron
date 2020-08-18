@@ -7,8 +7,8 @@
             entity: (
                 components: (
                     size: (
-                        w: 16.0,
-                        h: 24.0,
+                        w: 24.0,
+                        h: 32.0,
                     ),
                     gravity: (
                         x: None,
@@ -43,8 +43,8 @@
                     },
                     hitbox: Custom([
                         (
-                            top:    10.0,
-                            bottom: -11.0,
+                            top:    7.0,
+                            bottom: -16.0,
                             left:   -8.0,
                             right:  8.0,
                         )
