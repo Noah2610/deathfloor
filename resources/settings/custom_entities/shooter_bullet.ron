@@ -53,6 +53,14 @@
                             ),
                         ),
                     ),
+                     "Down": (
+                        components: (
+                            velocity: (
+                                x: 0.0,
+                                y: -100.0,
+                            ),
+                        ),
+                    ),
                 },
 
                 collision_tag: (
