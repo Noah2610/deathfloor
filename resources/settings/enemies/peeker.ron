@@ -69,7 +69,7 @@
                             ]),
                         ),
                         events: {
-                            Delay(0): AnimationAction(Play(Custom("Hide"))),
+                            Init: AnimationAction(Play(Custom("Hide"))),
                             Delay(1000): EntityAction(SwitchVariant("HideToPeek")),
                         },
                     ),
@@ -86,7 +86,7 @@
                             ]),
                         ),
                         events: {
-                            Delay(0): AnimationAction(Play(Custom("HideToPeek"))),
+                            Init: AnimationAction(Play(Custom("HideToPeek"))),
                             Delay(800): EntityAction(SwitchVariant("Peek")),
                         },
                     ),
@@ -103,7 +103,7 @@
                             ]),
                         ),
                         events: {
-                            Delay(0): AnimationAction(Play(Custom("Peek"))),
+                            Init: AnimationAction(Play(Custom("Peek"))),
                             Delay(200): SpawnAction(SpawnRelative((
                                 object: (
                                     type: Custom("Laser"),
@@ -131,7 +131,7 @@
                             ]),
                         ),
                         events: {
-                            Delay(0): AnimationAction(Play(Custom("PeekToHide"))),
+                            Init: AnimationAction(Play(Custom("PeekToHide"))),
                             Delay(800): EntityAction(SwitchVariant("Hide")),
                         },
                     ),

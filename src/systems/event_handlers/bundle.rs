@@ -48,6 +48,11 @@ impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventHandlersBundle<'c> {
             "handle_event_on_ledge_detect_system",
             self.deps,
         );
+        builder.add(
+            events::init::HandleEventInit::default(),
+            "handle_event_init_system",
+            self.deps,
+        );
 
         // TRIGGER ACTIONS FROM ACTION TYPES
         builder.add(

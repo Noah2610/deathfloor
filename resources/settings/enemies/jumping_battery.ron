@@ -59,7 +59,7 @@
                             ]),
                         ),
                         events: {
-                            Delay(0): MoveAction(SetVelocity(
+                            Init: MoveAction(SetVelocity(
                                 x: 0.0,
                                 y: 0.0,
                             )),
@@ -78,7 +78,7 @@
                             ]),
                         ),
                         events: {
-                            Delay(0): Group([
+                            Init: Group([
                                 SoundAction(PlayWithVolume(Jump, 0.5)),
                                 AnimationAction(Push(Custom("Jump"))),
                                 Random((
