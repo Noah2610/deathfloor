@@ -1,0 +1,137 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "BigBilly": (
+            spritesheet_filename: "enemy_tank.png",
+
+            entity: (
+                components: (
+                    size: (
+                        w: 64.0,
+                        h: 64.0,
+                    ),
+                    gravity: (
+                        x: None,
+                        y: -400.0,
+                    ),
+                    max_movement_velocity: (
+                        x: 500.0,
+                        y: 200.0,
+                    ),
+                    base_friction: (
+                        friction_x: 1000.0,
+                    ),
+                    animations: {
+                        Walk: Cycle([
+                            (0, 50),
+                            (1, 50),
+                            (2, 50),
+                            (3, 50),
+                            (4, 50),
+                            (5, 50),
+                        ]),
+                    },
+                    hitbox: Custom([
+                        (
+                            top:    24.0,
+                            bottom: -32.0,
+                            left:   -20.0,
+                            right:  20.0,
+                        ),
+                    ]),
+                    health: (
+                        health: 12,
+                        max_health: 12,
+                    ),
+                    health_display: (
+                        position: Top,
+                        size: (32.0, 2.0),
+                        padding: 4.0,
+                        border_padding: 0.5,
+                    ),
+                    deals_damage: (
+                        damage: 5,
+                    ),
+                ),
+
+                events: {
+                    OnCollision(And([IsTag("Bullet"), IsState(Enter)])):
+                        HealthAction(Lose(1)),
+                },
+
+                variants: {
+                    "Left": (
+                        components: (
+                            walker: (
+                                x: -10.0,
+                            ),
+                        ),
+                        events: {
+                            OnLedgeDetect(BottomLeft, Bottom):
+                                EntityAction(SwitchVariant("Right")),
+                            OnCollision(And([
+                                    IsTag("Solid"),
+                                    IsState(Enter),
+                                    IsSide(Left),
+                                ])): EntityAction(SwitchVariant("Right")),
+                            Interval(1000): SpawnAction(SpawnRelative((
+                                object: (
+                                    type: Custom("BillyBullet"),
+                                    pos: (x: -24.0, y: 0),
+                                    size: (w: 16.0, h: 16.0),
+                                    props: {
+                                        "variant": "Left",
+                                    },
+                                ),
+                            ))),
+                            Interval(1000): MoveAction(AddVelocity(
+                        x: 500.0,
+                        y: 0.0,
+                    )),
+                 },
+                    ),
+                    "Right": (
+                        components: (
+                            walker: (
+                                x: 10.0,
+                            ),
+                        ),
+                        events: {
+                            OnLedgeDetect(BottomRight, Bottom):
+                                EntityAction(SwitchVariant("Left")),
+                            OnCollision(And([
+                                    IsTag("Solid"),
+                                    IsState(Enter),
+                                    IsSide(Right),
+                                ])): EntityAction(SwitchVariant("Left")),
+                            Interval(1000): SpawnAction(SpawnRelative((
+                                object: (
+                                    type: Custom("BillyBullet"),
+                                    pos: (x: 24.0, y: 0),
+                                    size: (w: 16.0, h: 16.0),
+                                    props: {
+                                        "variant": "Right",
+                                    },
+                                ),
+                            ))),
+                        Interval(1000): MoveAction(AddVelocity(
+                        x: -500.0,
+                        y: 0.0,
+                    )),
+                },
+                    ),
+                },
+
+                collision_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
+                ),
+
+                solid_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Solid"],
+                ),
+            ),
+        ),
+    }
+)

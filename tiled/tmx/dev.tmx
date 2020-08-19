@@ -101,7 +101,7 @@
     <property name="variant" value="Left"/>
    </properties>
   </object>
-  <object id="42" name="SNEEZER" type="Enemy(Sneezer)" x="928" y="40" width="24" height="48">
+  <object id="42" name="SNEEZER" type="Enemy(Sneezer)" x="928" y="56" width="32" height="32">
    <properties>
     <property name="variant" value="Sit"/>
    </properties>
