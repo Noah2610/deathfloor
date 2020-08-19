@@ -743,12 +743,6 @@
  <tile id="509" type="Ground"/>
  <tile id="510" type="Ground"/>
  <tile id="511" type="Ground"/>
- <tile id="512" type="Ground"/>
- <tile id="513" type="Ground"/>
- <tile id="514" type="Ground"/>
- <tile id="515" type="Ground"/>
- <tile id="516" type="Ground"/>
- <tile id="517" type="Ground"/>
  <tile id="518" type="Ground"/>
  <tile id="519" type="Ground"/>
  <tile id="520" type="Ground"/>
@@ -775,12 +769,6 @@
  <tile id="541" type="Ground"/>
  <tile id="542" type="Ground"/>
  <tile id="543" type="Ground"/>
- <tile id="544" type="Ground"/>
- <tile id="545" type="Ground"/>
- <tile id="546" type="Ground"/>
- <tile id="547" type="Ground"/>
- <tile id="548" type="Ground"/>
- <tile id="549" type="Ground"/>
  <tile id="550" type="Ground"/>
  <tile id="551" type="Ground"/>
  <tile id="552" type="Ground"/>
@@ -807,12 +795,6 @@
  <tile id="573" type="Ground"/>
  <tile id="574" type="Ground"/>
  <tile id="575" type="Ground"/>
- <tile id="576" type="Ground"/>
- <tile id="577" type="Ground"/>
- <tile id="578" type="Ground"/>
- <tile id="579" type="Ground"/>
- <tile id="580" type="Ground"/>
- <tile id="581" type="Ground"/>
  <tile id="582" type="Ground"/>
  <tile id="583" type="Ground"/>
  <tile id="584" type="Ground"/>
@@ -839,12 +821,6 @@
  <tile id="605" type="Ground"/>
  <tile id="606" type="Ground"/>
  <tile id="607" type="Ground"/>
- <tile id="608" type="Ground"/>
- <tile id="609" type="Ground"/>
- <tile id="610" type="Ground"/>
- <tile id="611" type="Ground"/>
- <tile id="612" type="Ground"/>
- <tile id="613" type="Ground"/>
  <tile id="614" type="Ground"/>
  <tile id="615" type="Ground"/>
  <tile id="616" type="Ground"/>
@@ -871,12 +847,6 @@
  <tile id="637" type="Ground"/>
  <tile id="638" type="Ground"/>
  <tile id="639" type="Ground"/>
- <tile id="640" type="Ground"/>
- <tile id="641" type="Ground"/>
- <tile id="642" type="Ground"/>
- <tile id="643" type="Ground"/>
- <tile id="644" type="Ground"/>
- <tile id="645" type="Ground"/>
  <tile id="646" type="Ground"/>
  <tile id="647" type="Ground"/>
  <tile id="648" type="Ground"/>
@@ -903,12 +873,6 @@
  <tile id="669" type="Ground"/>
  <tile id="670" type="Ground"/>
  <tile id="671" type="Ground"/>
- <tile id="672" type="Ground"/>
- <tile id="673" type="Ground"/>
- <tile id="674" type="Ground"/>
- <tile id="675" type="Ground"/>
- <tile id="676" type="Ground"/>
- <tile id="677" type="Ground"/>
  <tile id="678" type="Ground"/>
  <tile id="679" type="Ground"/>
  <tile id="680" type="Ground"/>
