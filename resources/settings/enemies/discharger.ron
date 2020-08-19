@@ -89,6 +89,11 @@
                         },
                     ),
                     "LeftDischarge": (
+                        components: (
+                            walker: (
+                                x: 0.0,
+                            ),
+                        ),
                         events: {
                             Init: Group([
                                 AnimationAction(Push(Custom("Face"))),
@@ -129,7 +134,7 @@
                             ),
                         ),
                         events: {
-                            OnLedgeDetect(BottomLeft, Bottom):
+                            OnLedgeDetect(BottomRight, Bottom):
                                     EntityAction(SwitchVariant("LeftMove")),
                             OnCollision(And([
                                     IsTag("Solid"),
@@ -140,6 +145,11 @@
                         },
                     ),
                     "RightDischarge": (
+                        components: (
+                            walker: (
+                                x: 0.0,
+                            ),
+                        ),
                         events: {
                             Init: Group([
                                 AnimationAction(Push(Custom("Face"))),
