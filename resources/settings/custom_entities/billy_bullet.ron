@@ -6,7 +6,7 @@
 
             entity: (
                 components: (
-                    size: (w: 6.0, h: 6.0),
+                    size: (w: 12.0, h: 12.0),
                     animation: [
                         (0, 100),
                         (1, 100),
@@ -15,10 +15,10 @@
                     ],
                     hitbox: Custom([
                         (
-                            top:    2.0,
-                            bottom: -2.0,
-                            left:   -2.0,
-                            right:  2.0,
+                            top:    5.0,
+                            bottom: -5.0,
+                            left:   -5.0,
+                            right:  5.0,
                         )
                     ]),
                     bullet: (
