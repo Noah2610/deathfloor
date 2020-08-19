@@ -8,6 +8,8 @@ impl<'a> System<'a> for HandleEventOnLedgeDetectSystem {
         ReadStorage<'a, EventsRegister>,
         WriteStorage<'a, ActionTypeTrigger>,
         WriteStorage<'a, LedgeDetector>,
+        ReadStorage<'a, Loadable>,
+        ReadStorage<'a, Loaded>,
     );
 
     fn run(
@@ -16,25 +18,40 @@ impl<'a> System<'a> for HandleEventOnLedgeDetectSystem {
             events_register_store,
             mut action_type_trigger_store,
             mut ledge_detector_store,
+            loadable_store,
+            loaded_store,
         ): Self::SystemData,
     ) {
-        for (events_register, action_type_trigger, ledge_detector) in (
+        for (
+            events_register,
+            action_type_trigger,
+            ledge_detector,
+            loadable_opt,
+            loaded_opt,
+        ) in (
             &events_register_store,
             &mut action_type_trigger_store,
             &mut ledge_detector_store,
+            loadable_store.maybe(),
+            loaded_store.maybe(),
         )
             .join()
         {
-            for LedgeDetectorDetected {
-                corner,
-                if_touching,
-            } in ledge_detector.drain_detected()
+            if let (Some(_), Some(_)) | (None, None) =
+                (loadable_opt, loaded_opt)
             {
-                let event_type = EventType::OnLedgeDetect(corner, if_touching);
-                if let Some(action) =
-                    events_register.get_action(&event_type).cloned()
+                for LedgeDetectorDetected {
+                    corner,
+                    if_touching,
+                } in ledge_detector.drain_detected()
                 {
-                    action_type_trigger.add_action(action);
+                    let event_type =
+                        EventType::OnLedgeDetect(corner, if_touching);
+                    if let Some(action) =
+                        events_register.get_action(&event_type).cloned()
+                    {
+                        action_type_trigger.add_action(action);
+                    }
                 }
             }
         }
