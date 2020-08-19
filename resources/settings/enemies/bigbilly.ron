@@ -63,7 +63,7 @@
                     "Left": (
                         components: (
                             walker: (
-                                x: -10.0,
+                                x: -100.0,
                             ),
                         ),
                         events: {
@@ -74,26 +74,28 @@
                                     IsState(Enter),
                                     IsSide(Left),
                                 ])): EntityAction(SwitchVariant("Right")),
-                            Interval(1000): SpawnAction(SpawnRelative((
-                                object: (
-                                    type: Custom("BillyBullet"),
-                                    pos: (x: -24.0, y: 0),
-                                    size: (w: 16.0, h: 16.0),
-                                    props: {
-                                        "variant": "Left",
-                                    },
-                                ),
-                            ))),
-                            Interval(1000): MoveAction(AddVelocity(
-                        x: 500.0,
-                        y: 0.0,
-                    )),
-                 },
+                            Interval(1000): Group([
+                                SpawnAction(SpawnRelative((
+                                    object: (
+                                        type: Custom("BillyBullet"),
+                                        pos: (x: -24.0, y: 0),
+                                        size: (w: 16.0, h: 16.0),
+                                        props: {
+                                            "variant": "Left",
+                                        },
+                                    ),
+                                ))),
+                                MoveAction(AddVelocity(
+                                    x: -200.0,
+                                    y: 0.0,
+                                )),
+                            ]),
+                         },
                     ),
                     "Right": (
                         components: (
                             walker: (
-                                x: 10.0,
+                                x: 100.0,
                             ),
                         ),
                         events: {
@@ -104,21 +106,23 @@
                                     IsState(Enter),
                                     IsSide(Right),
                                 ])): EntityAction(SwitchVariant("Left")),
-                            Interval(1000): SpawnAction(SpawnRelative((
-                                object: (
-                                    type: Custom("BillyBullet"),
-                                    pos: (x: 24.0, y: 0),
-                                    size: (w: 16.0, h: 16.0),
-                                    props: {
-                                        "variant": "Right",
-                                    },
-                                ),
-                            ))),
-                        Interval(1000): MoveAction(AddVelocity(
-                        x: -500.0,
-                        y: 0.0,
-                    )),
-                },
+                            Interval(1000): Group([
+                                SpawnAction(SpawnRelative((
+                                    object: (
+                                        type: Custom("BillyBullet"),
+                                        pos: (x: 24.0, y: 0),
+                                        size: (w: 16.0, h: 16.0),
+                                        props: {
+                                            "variant": "Right",
+                                        },
+                                    ),
+                                ))),
+                                MoveAction(AddVelocity(
+                                    x: 200.0,
+                                    y: 0.0,
+                                )),
+                            ]),
+                        },
                     ),
                 },
 

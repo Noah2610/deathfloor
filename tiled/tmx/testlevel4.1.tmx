@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="320" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="7" nextobjectid="91">
+<map version="1.2" tiledversion="1.3.5" orientation="orthogonal" renderorder="right-down" width="320" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="7" nextobjectid="91">
  <editorsettings>
   <export target="../../resources/levels/level5.json" format="deathfloor-export"/>
  </editorsettings>
@@ -85,7 +85,7 @@
   <object id="27" type="Enemy(Spike)" x="1688" y="136" width="64" height="16"/>
   <object id="28" type="Enemy(Spike)" x="1832" y="136" width="64" height="16"/>
   <object id="29" type="Enemy(Spike)" x="2136" y="152" width="64" height="16"/>
-  <object id="38" name="BILLY" type="Enemy(BigBilly)" x="2488" y="64" width="8" height="8">
+  <object id="38" name="BILLY" type="Enemy(BigBilly)" x="2360" y="24" width="64" height="64">
    <properties>
     <property name="variant" value="Left"/>
    </properties>
