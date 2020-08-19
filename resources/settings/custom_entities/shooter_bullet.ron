@@ -2,7 +2,7 @@
 (
     types: {
         "ShooterBullet": (
-            spritesheet_filename: "player_bullet.png",
+            spritesheet_filename: "enemy_bullet.png",
 
             entity: (
                 components: (
