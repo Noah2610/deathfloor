@@ -1,0 +1,203 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "Discharger": (
+            spritesheet_filename: "enemy_discharger.png",
+
+            entity: (
+                components: (
+                    size: (
+                        w: 16.0,
+                        h: 24.0,
+                    ),
+                    gravity: (
+                        x: None,
+                        y: -900.0,
+                    ),
+                    max_movement_velocity: (
+                        x: 100.0,
+                        y: 100.0,
+                    ),
+                    animations: {
+                        Walk: Cycle([
+                            (0, 150),
+                        ]),
+                        Custom("Face"): Once([
+                            (1, 1200),
+                        ]),
+                    },
+                    hitbox: Custom([
+                        (
+                            top:    8.0,
+                            bottom: -12.0,
+                            left:   -7.0,
+                            right:  7.0,
+                        ),
+                    ]),
+                    health: (
+                        health: 5,
+                        max_health: 5,
+                    ),
+                    health_display: (
+                        position: Top,
+                        size: (32.0, 2.0),
+                        padding: 4.0,
+                        border_padding: 0.5,
+                    ),
+                    deals_damage: (
+                        damage: 1,
+                    ),
+                    ledge_detector: (
+                        corners: [
+                            (
+                                corner:      BottomLeft,
+                                if_touching: Bottom,
+                            ),
+                            (
+                                corner:      BottomRight,
+                                if_touching: Bottom,
+                            ),
+                        ],
+                        collides_with: ["Solid"],
+                    ),
+                ),
+
+                events: {
+                    OnCollision(And([IsTag("Bullet"), IsState(Enter)])):
+                        HealthAction(Lose(1)),
+                },
+
+                variants: {
+                    "LeftMove": (
+                        components: (
+                        base_friction: (
+                        friction_x: 1000.0,
+                          ),
+                        ),
+                            walker: (
+                                x: -250.0,
+                            ),
+                        ),
+                        events: {
+                            OnLedgeDetect(BottomLeft, Bottom):
+                                EntityAction(SwitchVariant("RightMove")),
+                            OnCollision(And([
+                                    IsTag("Solid"),
+                                    IsState(Enter),
+                                    IsSide(Left),
+                                ])): EntityAction(SwitchVariant("RightMove")),
+                            Delay(1200): EntityAction(SwitchVariant("LeftDischarge")),                           
+                        },
+                    ),
+                    "LeftDischarge": (
+                     components: (
+                        base_friction: (
+                        friction_x: 1000000.0,
+                          ),
+                        ),
+                        events: {         
+                        Init: Group([
+                        AnimationAction(Push(Custom("Face"))),
+                        MoveAction(SetVelocity(
+                                x: 0.0,
+                                y: 0.0,
+                            )),
+                            ]),
+                            Delay(600): Group([ SpawnAction(SpawnRelative((
+                                object: (
+                                    type: Custom("ProjectileDischarge"),
+                                    pos: (x: -6.0, y: 10.0),
+                                    size: (w: 16.0, h: 16.0),
+                                    props: {
+                                        "variant": "Left",
+                                    },
+                                ),
+                            ))),
+                            SpawnAction(SpawnRelative((
+                                object: (
+                                    type: Custom("ProjectileDischarge"),
+                                    pos: (x: 6.0, y: 10.0),
+                                    size: (w: 16.0, h: 16.0),
+                                    props: {
+                                        "variant": "Right",
+                                    },
+                                ),
+                            ))),
+                         ]),
+                         Delay(1200): EntityAction(SwitchVariant("LeftMove")),
+                      },
+                  ),
+                    "RightMove": (
+                        components: (
+                        base_friction: (
+                        friction_x: 1000.0,
+                          ),
+                        ),
+                            walker: (
+                                x: 250.0,
+                            ),
+                        ),
+                        events: {
+                        OnLedgeDetect(BottomLeft, Bottom):
+                                EntityAction(SwitchVariant("LeftMove")),
+                            OnCollision(And([
+                                    IsTag("Solid"),
+                                    IsState(Enter),
+                                    IsSide(Left),
+                                ])): EntityAction(SwitchVariant("LeftMove")),
+                            Delay(1200): EntityAction(SwitchVariant("RightDischarge")),
+                        },
+                    ),
+                    "RightDischarge": (
+                        components: (
+                        base_friction: (
+                        friction_x: 1000000.0,
+                          ),
+                        ),
+                        events: {    
+                        Init: Group([
+                        AnimationAction(Push(Custom("Face"))),
+                        MoveAction(SetVelocity(
+                                x: 0.0,
+                                y: 0.0,
+                            )),
+                            ]),
+                            Delay(600): Group([ SpawnAction(SpawnRelative((
+                                object: (
+                                    type: Custom("ProjectileDischarge"),
+                                    pos: (x: -6.0, y: 10.0),
+                                    size: (w: 16.0, h: 16.0),
+                                    props: {
+                                        "variant": "Left",
+                                    },
+                                ),
+                            ))),
+                            SpawnAction(SpawnRelative((
+                                object: (
+                                    type: Custom("ProjectileDischarge"),
+                                    pos: (x: 6.0, y: 10.0),
+                                    size: (w: 16.0, h: 16.0),
+                                    props: {
+                                        "variant": "Right",
+                                    },
+                                ),
+                            ))),
+                         ]),
+                         Delay(1200): EntityAction(SwitchVariant("RightMove")),
+                      },
+                  ),
+               },
+
+                collision_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
+                ),
+
+                solid_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Solid"],
+                ),
+            ),
+        ),
+    }
+)
