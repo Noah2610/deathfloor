@@ -23,9 +23,6 @@
                         friction_y: None,
                     ),
                     animations: {
-                        Idle: Cycle([
-                            (1, 150),
-                        ]),
                         Walk: Cycle([
                             (0, 90),
                             (1, 90),
@@ -97,10 +94,6 @@
                             IsState(Enter),
                         ]),
                     ): Group([
-                        SoundAction(PlayWithVolume(Jump, 0.3)),
-                        MoveAction(AddVelocity(
-                            y: 150.0,
-                        )),
                         HealthAction(Lose(1)),
                     ]),
 
