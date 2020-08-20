@@ -24,6 +24,13 @@ pub trait Propful {
             .and_then(|prop| prop.as_bool())
             .unwrap_or(false)
     }
+
+    fn variant(&self) -> Option<String> {
+        self.props()
+            .get("variant")
+            .and_then(|val| val.as_str())
+            .map(ToString::to_string)
+    }
 }
 
 impl Propful for Tile {

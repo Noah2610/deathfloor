@@ -5,6 +5,7 @@ use super::SizeSettings;
 use crate::animation_key::AnimationKey;
 use crate::collision_tag::CollisionTagWrapper;
 use crate::components::prelude::*;
+use crate::settings::entity_config::EntityConfig;
 use deathframe::animation::components::prelude::{
     Animation,
     AnimationsContainer,
@@ -32,12 +33,18 @@ pub struct PlayerSettings {
     pub health:         Health,
     pub health_display: HealthDisplay,
     pub takes_damage:   TakesDamage,
+
+    #[serde(alias = "entity")]
+    pub entity_config: Option<EntityConfig>,
 }
 
 #[derive(Clone, Deserialize)]
 pub struct ShooterData {
     pub cooldown_ms: u64,
     pub bullet:      ShooterBulletData,
+
+    #[serde(alias = "entity")]
+    pub entity_config: Option<EntityConfig>,
 }
 
 #[derive(Clone, Deserialize)]

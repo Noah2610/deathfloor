@@ -60,5 +60,18 @@ pub(super) fn build(
         entity_builder = entity_builder.with(wall_slider);
     }
 
-    Ok(entity_builder.build())
+    let entity = entity_builder.build();
+
+    if let Some(entity_config) = player_settings.entity_config {
+        if let Err(e) = edit_entity_with_entity_config(
+            world,
+            entity,
+            entity_config,
+            object.variant(),
+        ) {
+            eprintln!("[WARNING]\n    Player entity config error:\n    {}", e);
+        }
+    }
+
+    Ok(entity)
 }

@@ -39,11 +39,7 @@ pub(super) fn build(
 
     let entity = entity_builder.build();
 
-    let variant = object
-        .props
-        .get("variant")
-        .and_then(|val| val.as_str())
-        .map(ToString::to_string);
+    let variant = object.variant();
 
     edit_entity_with_entity_config(world, entity, settings.entity, variant)?;
 
