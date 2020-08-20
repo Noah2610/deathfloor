@@ -73,7 +73,7 @@
                 events: {
                     OnCollision(
                         And([
-                            IsSide(Left),
+                            Or([IsSide(Left), IsSide(InnerSide( x: Left ))]),
                             IsTag("Player"),
                         ]),
                     ): MoveAction(AddVelocity(
@@ -83,7 +83,7 @@
 
                     OnCollision(
                         And([
-                            IsSide(Right),
+                            Or([IsSide(Right), IsSide(InnerSide( x: Right ))]),
                             IsTag("Player"),
                         ]),
                     ): MoveAction(AddVelocity(
@@ -130,12 +130,12 @@
                 },
 
                 collision_tag: (
-                    labels: ["Enemy", "Solid"],
+                    labels: ["Enemy"],
                     collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
                 ),
 
                 solid_tag: (
-                    labels: ["Enemy", "Solid"],
+                    labels: ["Enemy"],
                     collides_with: ["Solid"],
                 ),
             ),
