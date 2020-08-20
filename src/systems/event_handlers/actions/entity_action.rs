@@ -34,6 +34,15 @@ impl<'a> System<'a> for HandleActionEntityAction {
                             ),
                         )
                     }
+                    action::EntityAction::PushVariant(variant_name) => {
+                        config_register.add_action(
+                            EntityConfigRegisterAction::PushVariant(
+                                variant_name,
+                            ),
+                        )
+                    }
+                    action::EntityAction::PopVariant => config_register
+                        .add_action(EntityConfigRegisterAction::PopVariant),
                     action::EntityAction::DeleteEntity => {
                         entities.delete(entity).expect(
                             "Couldn't delete entity via \

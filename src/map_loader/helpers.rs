@@ -82,9 +82,9 @@ pub(super) fn edit_entity_with_entity_config(
     // ENTITY_CONFIG_REGISTER
     // NOTE: Insert this first, so the inserted entity config
     //       is the one without the variant stuff merged.
-    world
-        .write_component::<EntityConfigRegister>()
-        .insert(entity, EntityConfigRegister::new(entity_config.clone()))?;
+    //       Is created here and inserted a bit later.
+    let mut entity_config_register =
+        EntityConfigRegister::new(entity_config.clone());
 
     // Merge variant into entity config
     if let Some(variant_name) = variant {
@@ -94,9 +94,14 @@ pub(super) fn edit_entity_with_entity_config(
                 .as_ref()
                 .and_then(|variants| variants.get(&variant_name).cloned())
         } {
+            entity_config_register.push_config(variant.clone());
             entity_config.merge(variant);
         }
     }
+
+    world
+        .write_component::<EntityConfigRegister>()
+        .insert(entity, entity_config_register)?;
 
     // COLLISION / SOLID TAGS
     if let Some(collision_tag) = entity_config.collision_tag {
