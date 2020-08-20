@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.5" orientation="orthogonal" renderorder="right-down" width="264" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="91">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="264" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="91">
  <editorsettings>
   <export target="../../resources/levels/dev.json" format="deathfloor-export"/>
  </editorsettings>
@@ -7,7 +7,7 @@
  <tileset firstgid="1025" source="../tsx/testtiles2.tsx"/>
  <tileset firstgid="2049" source="../tsx/testtiles19.tsx"/>
  <tileset firstgid="6145" source="../tsx/testtiles8.tsx"/>
- <objectgroup id="4" name="bg" visible="0">
+ <objectgroup id="4" name="bg">
   <properties>
    <property name="z" type="float" value="-1"/>
   </properties>
@@ -81,7 +81,6 @@
     <property name="variant" value="Sit"/>
    </properties>
   </object>
-  <object id="59" name="BG" type="Custom(BgDev1)" x="2080" y="0" width="224" height="216"/>
   <object id="61" name="SHOOTER" type="Enemy(Shooter)" x="1448" y="160" width="8" height="16">
    <properties>
     <property name="variant" value="Left"/>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="237" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="12" nextobjectid="119">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="237" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="12" nextobjectid="120">
  <editorsettings>
   <export target="../../resources/levels/level11.json" format="deathfloor-export"/>
  </editorsettings>
@@ -242,6 +242,11 @@
    </properties>
   </object>
   <object id="118" name="UFO" type="Enemy(UfoSmall)" x="1464" y="40" width="8" height="8">
+   <properties>
+    <property name="variant" value="Left"/>
+   </properties>
+  </object>
+  <object id="119" name="UFO" type="Enemy(UfoSmall)" x="1696" y="48" width="8" height="8">
    <properties>
     <property name="variant" value="Left"/>
    </properties>
