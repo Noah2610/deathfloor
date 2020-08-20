@@ -151,7 +151,12 @@
     /// The player's entity config.
     entity: (
         events: {
-            // ENEMY KNOCKBACk
+            // ENEMY KNOCKBACK
+
+            // Insert default friction when coming from the Knockback variant.
+            Init: InsertComponents((
+                base_friction: (x: 1100.0, y: None),
+            )),
 
             OnCollision(And([
                 IsTag("Enemy"),
@@ -160,10 +165,13 @@
                    IsSide(Left),
                    IsSide(InnerSide( x: Left )),
                 ]),
-            ])): MoveAction(AddVelocity(
-                x: 200.0,
-                y: 300.0,
-            )),
+            ])): Group([
+                MoveAction(AddVelocity(
+                    x: 500.0,
+                    y: 250.0,
+                )),
+                EntityAction(PushVariant("Knockback")),
+            ]),
 
             OnCollision(And([
                 IsTag("Enemy"),
@@ -172,10 +180,36 @@
                    IsSide(Right),
                    IsSide(InnerSide( x: Right )),
                 ]),
+            ])): Group([
+                MoveAction(AddVelocity(
+                    x: -500.0,
+                    y: 250.0,
+                )),
+                EntityAction(PushVariant("Knockback")),
+            ]),
+
+            OnCollision(And([
+                IsTag("Enemy"),
+                IsState(Enter),
+                Or([
+                   IsSide(Bottom),
+                   IsSide(InnerSide( y: Bottom )),
+                ]),
             ])): MoveAction(AddVelocity(
-                x: -200.0,
-                y: 300.0,
+                y: 250.0,
             )),
+        },
+
+        variants: {
+            "Knockback": (
+                components: (
+                    // Disable friction by setting all friction fields to None
+                    base_friction: (),
+                ),
+                events: {
+                    Delay(250): EntityAction(PopVariant),
+                },
+            ),
         },
     ),
 )
