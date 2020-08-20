@@ -147,4 +147,35 @@
 
     /// Player takes damage against damage-dealing entities (DealsDamage).
     takes_damage: (),
+
+    /// The player's entity config.
+    entity: (
+        events: {
+            // ENEMY KNOCKBACk
+
+            OnCollision(And([
+                IsTag("Enemy"),
+                IsState(Enter),
+                Or([
+                   IsSide(Left),
+                   IsSide(InnerSide( x: Left )),
+                ]),
+            ])): MoveAction(AddVelocity(
+                x: 200.0,
+                y: 300.0,
+            )),
+
+            OnCollision(And([
+                IsTag("Enemy"),
+                IsState(Enter),
+                Or([
+                   IsSide(Right),
+                   IsSide(InnerSide( x: Right )),
+                ]),
+            ])): MoveAction(AddVelocity(
+                x: -200.0,
+                y: 300.0,
+            )),
+        },
+    ),
 )
