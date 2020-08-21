@@ -85,7 +85,7 @@
                                     IsState(Enter),
                                     IsSide(Left),
                                 ])): EntityAction(SwitchVariant("RightMove")),
-                            Delay(1200): EntityAction(PushVariant("Discharge")),
+                            Delay(1800): EntityAction(PushVariant("Discharge")),
                         },
                     ),
                     "RightMove": (
@@ -102,7 +102,7 @@
                                     IsState(Enter),
                                     IsSide(Right),
                                 ])): EntityAction(SwitchVariant("LeftMove")),
-                            Delay(1200): EntityAction(PushVariant("Discharge")),
+                            Delay(1800): EntityAction(PushVariant("Discharge")),
                         },
                     ),
                     "Discharge": (
