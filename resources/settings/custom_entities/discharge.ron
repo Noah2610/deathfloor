@@ -22,7 +22,7 @@
                 ),
 
                 events: {
-                    Delay(5_000): EntityAction(DeleteEntity),
+                    Delay(2_000): EntityAction(DeleteEntity),
                     OnCollision(And([IsTag("Player"), IsState(Enter)])):
                         EntityAction(DeleteEntity),
                 },
