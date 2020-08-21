@@ -31,7 +31,7 @@
                     "Left": (
                         components: (
                             velocity: (
-                                x: -50.0,
+                                x: -60.0,
                                 y: 150.0,
                             ),
                         ),
@@ -43,7 +43,7 @@
                     "Right": (
                         components: (
                             velocity: (
-                                x: 50.0,
+                                x: 60.0,
                                 y: 150.0,
                             ),
                         ),
