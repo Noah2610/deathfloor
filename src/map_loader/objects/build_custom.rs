@@ -39,9 +39,12 @@ pub(super) fn build(
 
     let entity = entity_builder.build();
 
-    let variant = object.variant();
-
-    edit_entity_with_entity_config(world, entity, settings.entity, variant)?;
+    edit_entity_with_entity_config(
+        world,
+        entity,
+        settings.entity,
+        object.variant(),
+    )?;
 
     Ok(entity)
 }

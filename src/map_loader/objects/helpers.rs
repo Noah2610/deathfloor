@@ -20,5 +20,6 @@ pub(super) fn base_object_entity<'a>(
 
     Ok(base_entity(world, object)?
         .with(size)
-        .with(Lifecycle::default()))
+        .with(Lifecycle::default())
+        .with(Movable::default()))
 }
