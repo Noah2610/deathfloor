@@ -1,4 +1,5 @@
 #[derive(Clone, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct GeneralSettings {
     pub audio:         AudioSettings,
     pub loader_system: LoaderSystemSettings,
@@ -6,6 +7,7 @@ pub struct GeneralSettings {
 }
 
 #[derive(Clone, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct AudioSettings {
     /// Default volume for sounds, when using `SoundAction::Play`.
     pub sounds_default_volume: f32,
@@ -14,11 +16,13 @@ pub struct AudioSettings {
 }
 
 #[derive(Clone, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct LoaderSystemSettings {
     pub use_cache: bool,
 }
 
 #[derive(Clone, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct DebugSettings {
     pub fps_sample_size: usize,
 }

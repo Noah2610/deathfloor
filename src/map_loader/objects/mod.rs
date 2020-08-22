@@ -4,6 +4,7 @@ mod build_camera;
 mod build_custom;
 mod build_enemy;
 mod build_player;
+mod build_player_bullet;
 mod helpers;
 
 use super::map_data::prelude::*;
@@ -20,6 +21,10 @@ pub fn load_object(
             "[WARNING]
     Cannot build Player object here."
         ),
+
+        ObjectType::PlayerBullet => {
+            let _ = build_player_bullet::build(world, &object);
+        }
 
         ObjectType::Enemy(enemy_type) => {
             let _ = build_enemy::build(world, &object, enemy_type.clone())?;

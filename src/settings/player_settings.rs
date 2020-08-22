@@ -6,19 +6,15 @@ use crate::animation_key::AnimationKey;
 use crate::collision_tag::CollisionTagWrapper;
 use crate::components::prelude::*;
 use crate::settings::entity_config::EntityConfig;
-use deathframe::animation::components::prelude::{
-    Animation,
-    AnimationsContainer,
-};
-use deathframe::animation::data::prelude::AnimationTypeWrapper;
+use deathframe::animation::components::prelude::AnimationsContainer;
 
 pub mod prelude {
     pub use super::PlayerSettings;
-    pub use super::ShooterBulletData;
     pub use super::ShooterData;
 }
 
 #[derive(Clone, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct PlayerSettings {
     pub size:           SizeSettings,
     pub physics:        PhysicsData,
@@ -39,19 +35,7 @@ pub struct PlayerSettings {
 }
 
 #[derive(Clone, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct ShooterData {
     pub cooldown_ms: u64,
-    pub bullet:      ShooterBulletData,
-
-    #[serde(alias = "entity")]
-    pub entity_config: Option<EntityConfig>,
-}
-
-#[derive(Clone, Deserialize)]
-pub struct ShooterBulletData {
-    pub size:             (f32, f32),
-    pub velocity:         (f32, f32),
-    pub despawn_after_ms: u64,
-    pub animation:        AnimationTypeWrapper<Animation>,
-    pub collision_tag:    CollisionTagWrapper,
 }

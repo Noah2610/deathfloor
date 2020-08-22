@@ -1,5 +1,5 @@
 use super::component_prelude::*;
-use crate::settings::prelude::{ShooterBulletData, ShooterData};
+use crate::settings::prelude::ShooterData;
 use climer::Timer;
 use std::time::Duration;
 
@@ -7,7 +7,6 @@ use std::time::Duration;
 #[storage(VecStorage)]
 pub struct Shooter {
     pub cooldown_timer: Timer,
-    pub bullet_data:    ShooterBulletData,
 }
 
 impl From<ShooterData> for Shooter {
@@ -17,7 +16,6 @@ impl From<ShooterData> for Shooter {
                 Some(Duration::from_millis(data.cooldown_ms).into()),
                 None,
             ),
-            bullet_data:    data.bullet,
         }
     }
 }

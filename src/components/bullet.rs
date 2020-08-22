@@ -1,5 +1,4 @@
 use super::component_prelude::*;
-use crate::settings::prelude::ShooterBulletData;
 use climer::Timer;
 use std::time::Duration;
 
@@ -8,17 +7,6 @@ use std::time::Duration;
 #[serde(from = "BulletData")]
 pub struct Bullet {
     pub despawn_timer: Timer,
-}
-
-impl From<&ShooterBulletData> for Bullet {
-    fn from(data: &ShooterBulletData) -> Self {
-        Self {
-            despawn_timer: Timer::new(
-                Some(Duration::from_millis(data.despawn_after_ms).into()),
-                None,
-            ),
-        }
-    }
 }
 
 impl From<BulletData> for Bullet {
@@ -32,7 +20,8 @@ impl From<BulletData> for Bullet {
     }
 }
 
-#[derive(Deserialize)]
+#[derive(Clone, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct BulletData {
     pub despawn_after_ms: u64,
 }

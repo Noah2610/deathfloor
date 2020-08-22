@@ -6,6 +6,7 @@ pub mod prelude {
     pub use super::general_settings::GeneralSettings;
     pub use super::hitbox_config::HitboxConfig;
     pub use super::level_settings::LevelSettings;
+    pub use super::player_bullet_settings::prelude::*;
     pub use super::player_settings::prelude::*;
     pub use super::tiles_settings::prelude::*;
     pub use super::Settings;
@@ -19,6 +20,7 @@ mod entity_config;
 mod general_settings;
 mod hitbox_config;
 mod level_settings;
+mod player_bullet_settings;
 mod player_settings;
 mod tiles_settings;
 
@@ -35,6 +37,7 @@ pub struct Settings {
     pub camera:          CameraSettings,
     pub level:           LevelSettings,
     pub player:          PlayerSettings,
+    pub player_bullet:   PlayerBulletSettings,
     pub tiles:           TilesSettings,
     pub enemies:         EnemiesSettings,
     pub custom_entities: CustomEntitiesSettings,
@@ -47,6 +50,7 @@ impl Settings {
             camera:          Self::load_file("camera.ron")?,
             level:           Self::load_file("levels.ron")?,
             player:          Self::load_file("player.ron")?,
+            player_bullet:   Self::load_file("player_bullet.ron")?,
             tiles:           Self::load_dir("tiles")?,
             enemies:         Self::load_dir("enemies")?,
             custom_entities: Self::load_dir("custom_entities")?,

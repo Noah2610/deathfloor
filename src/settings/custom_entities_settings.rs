@@ -8,6 +8,7 @@ use crate::components::prelude::*;
 use std::collections::HashMap;
 
 #[derive(Clone, Deserialize, Default)]
+#[serde(deny_unknown_fields)]
 pub struct CustomEntitiesSettings {
     pub types: HashMap<String, CustomEntitySettings>,
 }

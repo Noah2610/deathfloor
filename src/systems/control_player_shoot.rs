@@ -1,6 +1,9 @@
 use super::system_prelude::*;
 use crate::helpers::resource;
+use crate::map_loader::map_data::prelude::*;
+use crate::map_loader::types::ObjectType;
 use amethyst::core::math::Vector3;
+use std::collections::HashMap;
 use std::path::PathBuf;
 
 #[derive(Default)]
@@ -8,7 +11,8 @@ pub struct ControlPlayerShootSystem;
 
 impl<'a> System<'a> for ControlPlayerShootSystem {
     type SystemData = (
-        Write<'a, BulletCreator>,
+        // Write<'a, BulletCreator>,
+        Write<'a, ObjectSpawner>,
         WriteExpect<'a, SpriteSheetHandles<PathBuf>>,
         Read<'a, InputManager<IngameBindings>>,
         WriteStorage<'a, Shooter>,
@@ -20,7 +24,8 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
     fn run(
         &mut self,
         (
-            mut bullet_creator,
+            // mut bullet_creator,
+            mut object_spawner,
             sprite_sheet_handles,
             input_manager,
             mut shooters,
@@ -50,37 +55,56 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
             let facing = Facing::from(transform);
 
             if should_shoot {
-                let bullet_transform = {
+                let bullet_pos = {
                     let trans = transform.translation();
-                    Transform::from(Vector3::new(
-                        trans.x,
-                        trans.y,
-                        trans.z + 0.1,
-                    ))
+                    (trans.x, trans.y, trans.z + 0.1)
                 };
-                let bullet_velocity = {
-                    let mut velocity: Velocity =
-                        shooter.bullet_data.velocity.into();
-                    velocity.x *= facing.mult();
-                    velocity
-                };
+                // let bullet_velocity = {
+                //     let mut velocity: Velocity =
+                //         shooter.bullet_data.velocity.into();
+                //     velocity.x *= facing.mult();
+                //     velocity
+                // };
 
-                bullet_creator.add(BulletComponents {
-                    bullet:        (&shooter.bullet_data).into(),
-                    transform:     bullet_transform,
-                    size:          shooter.bullet_data.size.into(),
-                    velocity:      bullet_velocity,
-                    sprite_render: SpriteRender {
-                        sprite_sheet:  bullet_spritesheet_handle.clone(),
-                        sprite_number: 0,
+                object_spawner.add(ObjectSpawnData {
+                    object: ObjectData {
+                        object_type: ObjectType::PlayerBullet,
+                        pos:         PosData {
+                            x: bullet_pos.0,
+                            y: bullet_pos.1,
+                        },
+                        size:        SizeData { w: 0.0, h: 0.0 },
+                        props:       {
+                            let mut props = HashMap::new();
+                            props.insert(
+                                "z".to_string(),
+                                (bullet_pos.2 + 0.1).into(),
+                            );
+                            props.insert(
+                                "dir_x".to_string(),
+                                facing.mult().into(),
+                            );
+                            props
+                        },
                     },
-                    animation:     shooter.bullet_data.animation.clone().into(),
-                    collision_tag: shooter
-                        .bullet_data
-                        .collision_tag
-                        .clone()
-                        .into(),
                 });
+
+                // bullet_creator.add(BulletComponents {
+                //     bullet:        (&shooter.bullet_data).into(),
+                //     transform:     bullet_transform,
+                //     size:          shooter.bullet_data.size.into(),
+                //     velocity:      bullet_velocity,
+                //     sprite_render: SpriteRender {
+                //         sprite_sheet:  bullet_spritesheet_handle.clone(),
+                //         sprite_number: 0,
+                //     },
+                //     animation:     shooter.bullet_data.animation.clone().into(),
+                //     collision_tag: shooter
+                //         .bullet_data
+                //         .collision_tag
+                //         .clone()
+                //         .into(),
+                // });
 
                 shooter.cooldown_timer.start().unwrap();
 
