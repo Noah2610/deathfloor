@@ -7,7 +7,7 @@
     /// Bullet data.
     bullet: (
         /// Despawn the bullet after this amount of milliseconds.
-        despawn_after_ms: 10_000,
+        despawn_after_ms: 5_000,
     ),
     entity: (
         components: (
@@ -36,8 +36,8 @@
         ),
 
         /// Set the `default_variant` to use one of the bullet variants below.
-        /// Possible variants: "Swerve", "Mortar", "Rocket"
-        // default_variant: "Swerve",
+        /// Possible variants: "Swerve", "Mortar", "Rocket", "Skipper"
+        default_variant: "Swerve",
 
         variants: {
             "Random": (
@@ -270,6 +270,33 @@
                         h: 6.0,
                     ),
                     hitbox: Size,
+                ),
+            ),
+
+            "Skipper": (
+                components: (
+                    velocity: (
+                        x: 100.0,
+                        y: 200.0,
+                    ),
+                    gravity: (
+                        y: -1000.0,
+                    ),
+                    death_on_contact: (
+                        collides_with: [],
+                    ),
+                ),
+                events: {
+                    OnCollision(And([IsState(Enter), Or([IsSide(Bottom), IsSide(InnerSide( y: Bottom ))])])):
+                        MoveAction(SetVelocity( y: 200.0 )),
+                    OnCollision(And([IsState(Enter), Or([IsSide(Left), IsSide(InnerSide( x: Left ))])])):
+                        MoveAction(SetVelocity( x: 100.0, y: 200.0 )),
+                    OnCollision(And([IsState(Enter), Or([IsSide(Right), IsSide(InnerSide( x: Right ))])])):
+                        MoveAction(SetVelocity( x: -100.0, y: 200.0 )),
+                },
+                solid_tag: (
+                    labels: ["PlayerBullet"],
+                    collides_with: ["Solid"],
                 ),
             ),
         },
