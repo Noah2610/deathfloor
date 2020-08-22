@@ -30,14 +30,256 @@
                 (2, 100),
                 (1, 100),
             ],
+            death_on_contact: (
+                collides_with: ["Solid", "Enemy"],
+            ),
         ),
+
+        /// Set the `default_variant` to use one of the bullet variants below.
+        /// Possible variants: "Swerve", "Mortar", "Rocket"
+        // default_variant: "Swerve",
+
+        variants: {
+            "Random": (
+                events: {
+                    Init: Group([
+                        Random((
+                            chance: 0.25,
+                            on_success: EntityAction(SwitchVariant("Swerve")),
+                            on_failure: Group([
+                                Random((
+                                    chance: 0.25,
+                                    on_success: EntityAction(SwitchVariant("Mortar")),
+                                    on_failure: Group([
+                                        Random((
+                                            chance: 0.25,
+                                            on_success: EntityAction(SwitchVariant("Rocket")),
+                                        )),
+                                    ]),
+                                )),
+                            ]),
+                        )),
+                    ]),
+                },
+            ),
+
+            "Swerve": (
+                events: {
+                    Init: EntityAction(SwitchVariant("SwerveUp")),
+                },
+            ),
+            "SwerveUp": (
+                events: {
+                    Init: MoveAction(SetVelocity( y: 0.0 )),
+                    Interval(1): MoveAction(AddVelocity( y: 10.0, )),
+                    Delay(200): EntityAction(SwitchVariant("SwerveDown")),
+                },
+            ),
+            "SwerveDown": (
+                events: {
+                    Init: MoveAction(SetVelocity( y: 0.0 )),
+                    Interval(1): MoveAction(AddVelocity( y: -10.0, )),
+                    Delay(200): EntityAction(SwitchVariant("SwerveUp")),
+                },
+            ),
+
+            "Mortar": (
+                components: (
+                    velocity: (
+                        x: 150.0,
+                        y: 200.0,
+                    ),
+                    gravity: (
+                        y: -500.0,
+                    ),
+                    size: (
+                        w: 12.0,
+                        h: 12.0,
+                    ),
+                    hitbox: Size,
+                ),
+                events: {
+                    OnCollision(IsState(Enter)): Group([
+                        SpawnAction(SpawnRelative((
+                            object: (
+                                type: PlayerBullet,
+                                pos: (x: -4.0, y: 8.0),
+                                size: (w: 4.0, h: 4.0),
+                                props: {
+                                    "variant": "MortarShard",
+                                    "dir_x": -1.0,
+                                },
+                            ),
+                        ))),
+                        SpawnAction(SpawnRelative((
+                            object: (
+                                type: PlayerBullet,
+                                pos: (x: 4.0, y: 8.0),
+                                size: (w: 4.0, h: 4.0),
+                                props: {
+                                    "variant": "MortarShard",
+                                    "dir_x": 1.0,
+                                },
+                            ),
+                        ))),
+                    ]),
+                },
+            ),
+            "MortarShard": (
+                components: (
+                    velocity: (
+                        x: 75.0,
+                        y: 100.0,
+                    ),
+                    gravity: (
+                        y: -500.0,
+                    ),
+                    size: (
+                        w: 4.0,
+                        h: 4.0,
+                    ),
+                    hitbox: Size,
+                ),
+            ),
+
+            "Rocket": (
+                components: (
+                    velocity: (
+                        x: 0.0,
+                        y: 100.0,
+                    ),
+                    size: (
+                        w: 24.0,
+                        h: 12.0,
+                    ),
+                ),
+                events: {
+                    Interval(300): Group([
+                        SpawnAction(SpawnRelative((
+                            object: (
+                                type: PlayerBullet,
+                                pos: (x: 0.0, y: 0.0),
+                                size: (w: 8.0, h: 8.0),
+                                props: {
+                                    "variant": "RocketShard0",
+                                    "dir_x": -1.0,
+                                },
+                            ),
+                        ))),
+                        SpawnAction(SpawnRelative((
+                            object: (
+                                type: PlayerBullet,
+                                pos: (x: 0.0, y: 0.0),
+                                size: (w: 8.0, h: 8.0),
+                                props: {
+                                    "variant": "RocketShard0",
+                                    "dir_x": 1.0,
+                                },
+                            ),
+                        ))),
+                        SpawnAction(SpawnRelative((
+                            object: (
+                                type: PlayerBullet,
+                                pos: (x: 0.0, y: 0.0),
+                                size: (w: 8.0, h: 8.0),
+                                props: {
+                                    "variant": "RocketShard1",
+                                    "dir_x": -1.0,
+                                },
+                            ),
+                        ))),
+                        SpawnAction(SpawnRelative((
+                            object: (
+                                type: PlayerBullet,
+                                pos: (x: 0.0, y: 0.0),
+                                size: (w: 8.0, h: 8.0),
+                                props: {
+                                    "variant": "RocketShard1",
+                                    "dir_x": 1.0,
+                                },
+                            ),
+                        ))),
+                        SpawnAction(SpawnRelative((
+                            object: (
+                                type: PlayerBullet,
+                                pos: (x: 0.0, y: 0.0),
+                                size: (w: 8.0, h: 8.0),
+                                props: {
+                                    "variant": "RocketShard2",
+                                    "dir_x": -1.0,
+                                },
+                            ),
+                        ))),
+                        SpawnAction(SpawnRelative((
+                            object: (
+                                type: PlayerBullet,
+                                pos: (x: 0.0, y: 0.0),
+                                size: (w: 8.0, h: 8.0),
+                                props: {
+                                    "variant": "RocketShard2",
+                                    "dir_x": 1.0,
+                                },
+                            ),
+                        ))),
+                    ]),
+                },
+            ),
+            "RocketShard0": (
+                components: (
+                    velocity: (
+                        x: 50.0,
+                        y: 0.0,
+                    ),
+                    gravity: (
+                        y: -500.0,
+                    ),
+                    size: (
+                        w: 6.0,
+                        h: 6.0,
+                    ),
+                    hitbox: Size,
+                ),
+            ),
+            "RocketShard1": (
+                components: (
+                    velocity: (
+                        x: 100.0,
+                        y: 0.0,
+                    ),
+                    gravity: (
+                        y: -500.0,
+                    ),
+                    size: (
+                        w: 6.0,
+                        h: 6.0,
+                    ),
+                    hitbox: Size,
+                ),
+            ),
+            "RocketShard2": (
+                components: (
+                    velocity: (
+                        x: 150.0,
+                        y: 0.0,
+                    ),
+                    gravity: (
+                        y: -500.0,
+                    ),
+                    size: (
+                        w: 6.0,
+                        h: 6.0,
+                    ),
+                    hitbox: Size,
+                ),
+            ),
+        },
 
         /// Collision tag for spawned bullets.
         /// The bullet will destroy itself when it collides with an entity
         /// with a label from `collides_with`.
         collision_tag: (
             labels: ["Bullet"],
-            collides_with: ["Tile", "Enemy"],
+            collides_with: ["Tile", "Solid", "Enemy"],
         ),
     ),
 )
