@@ -15,14 +15,21 @@
                     gravity: (
                         y: -400.0,
                     ),
-                    hitbox: Size,
+                    hitbox: Custom([
+                        (
+                            top:    5.0,
+                            bottom: -7.0,
+                            left:   -7.0,
+                            right:  7.0,
+                        ),
+                    ]),
                     deals_damage: (
                         damage: 4,
                     ),
                 ),
 
                 events: {
-                    Delay(2_000): EntityAction(DeleteEntity),
+                    Delay(2_500): EntityAction(DeleteEntity),
                     OnCollision(And([IsTag("Player"), IsState(Enter)])):
                         EntityAction(DeleteEntity),
                 },
@@ -31,7 +38,7 @@
                     "Left": (
                         components: (
                             velocity: (
-                                x: -50.0,
+                                x: -60.0,
                                 y: 150.0,
                             ),
                         ),
@@ -43,7 +50,7 @@
                     "Right": (
                         components: (
                             velocity: (
-                                x: 50.0,
+                                x: 60.0,
                                 y: 150.0,
                             ),
                         ),

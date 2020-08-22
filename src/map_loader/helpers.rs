@@ -15,8 +15,8 @@ pub(super) mod prelude {
     pub use deathframe::resources::SpriteSheetHandles;
 }
 
-use crate::systems::system_helpers::prelude::insert_components;
-use amethyst::ecs::WorldExt;
+use crate::systems::system_helpers::prelude::add_entity_config;
+use amethyst::ecs::SystemData;
 use deathframe::resources::SpriteSheetHandles;
 use prelude::*;
 use std::path::PathBuf;
@@ -74,73 +74,13 @@ where
 pub(super) fn edit_entity_with_entity_config(
     world: &mut World,
     entity: Entity,
-    mut entity_config: EntityConfig,
+    entity_config: EntityConfig,
     variant_prop: Option<String>,
 ) -> amethyst::Result<()> {
-    let variant = variant_prop.or(entity_config.default_variant.clone());
-
-    // ENTITY_CONFIG_REGISTER
-    // NOTE: Insert this first, so the inserted entity config
-    //       is the one without the variant stuff merged.
-    //       Is created here and inserted a bit later.
-    let mut entity_config_register =
-        EntityConfigRegister::new(entity_config.clone());
-
-    // Merge variant into entity config
-    if let Some(variant_name) = variant {
-        if let Some(variant) = {
-            entity_config
-                .variants
-                .as_ref()
-                .and_then(|variants| variants.get(&variant_name).cloned())
-        } {
-            entity_config_register.push_config(variant.clone());
-            entity_config.merge(variant);
-        }
-    }
-
-    world
-        .write_component::<EntityConfigRegister>()
-        .insert(entity, entity_config_register)?;
-
-    // COLLISION / SOLID TAGS
-    if let Some(collision_tag) = entity_config.collision_tag {
-        let mut collider_storage =
-            world.write_component::<Collider<CollisionTag>>();
-        let mut collidable_storage =
-            world.write_component::<Collidable<CollisionTag>>();
-        collider_storage.insert(
-            entity,
-            Collider::new(CollisionTag::from(collision_tag.clone())),
-        )?;
-        collidable_storage.insert(
-            entity,
-            Collidable::new(CollisionTag::from(collision_tag)),
-        )?;
-    }
-    if let Some(solid_tag) = entity_config.solid_tag {
-        let mut solid_storage = world.write_component::<Solid<SolidTag>>();
-        solid_storage
-            .insert(entity, Solid::new(CollisionTag::from(solid_tag)))?;
-    }
-
-    // EVENTS
-    if let Some(events_register) = entity_config.events {
-        let mut events_register_storage =
-            world.write_component::<EventsRegister>();
-        let mut action_type_trigger_storage =
-            world.write_component::<ActionTypeTrigger>();
-        events_register_storage.insert(entity, events_register)?;
-        action_type_trigger_storage
-            .insert(entity, ActionTypeTrigger::default())?;
-    }
-
-    // COMPONENTS
-    if let Some(components) = entity_config.components {
-        world.exec(|mut components_storages: EntityComponentsStorages| {
-            insert_components(entity, components, &mut components_storages)
-        })?;
-    }
-
-    Ok(())
+    add_entity_config(
+        entity,
+        entity_config,
+        variant_prop,
+        SystemData::fetch(world),
+    )
 }
