@@ -83,7 +83,6 @@
                         ))),
                     ]),
 
-                    // TODO: OnDeath event not working cause HandleDyingEntitiesSystem
                     OnDeath: SpawnAction(SpawnRelative((
                         object: (
                             type: Custom("Explosion"),

@@ -4,11 +4,6 @@
 (
 
     spritesheet: "player_bullet.png",
-    /// Bullet data.
-    bullet: (
-        /// Despawn the bullet after this amount of milliseconds.
-        despawn_after_ms: 5_000,
-    ),
     entity: (
         components: (
             /// The bullet's size.
@@ -32,6 +27,9 @@
             ],
             death_on_contact: (
                 collides_with: ["Solid", "Enemy"],
+            ),
+            death_after_delay: (
+                delay_ms: 1000,
             ),
         ),
 

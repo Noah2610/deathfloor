@@ -14,8 +14,12 @@
                         (3, 100),
                     ],
                     hitbox: Size,
-                    bullet: (
-                        despawn_after_ms: 10_000,
+                    bullet: (),
+                    death_after_delay: (
+                        delay_ms: 5_000,
+                    ),
+                    death_on_contact: (
+                        collides_with: ["Player", "Solid"],
                     ),
                 ),
 
