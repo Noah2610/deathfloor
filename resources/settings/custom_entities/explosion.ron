@@ -21,11 +21,10 @@
                     deals_damage: (
                         damage: 4,
                     ),
+                    death_after_delay: (
+                        delay_ms: 800,
+                    ),
                 ),
-
-                events: {
-                    Delay(800): EntityAction(DeleteEntity),
-                },
 
                 collision_tag: (
                     labels: ["EnemyBullet"],

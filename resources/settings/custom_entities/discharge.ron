@@ -26,10 +26,12 @@
                     deals_damage: (
                         damage: 4,
                     ),
+                    death_after_delay: (
+                        delay_ms: 2500,
+                    ),
                 ),
 
                 events: {
-                    Delay(2_500): EntityAction(DeleteEntity),
                     OnCollision(And([IsTag("Player"), IsState(Enter)])):
                         EntityAction(DeleteEntity),
                 },

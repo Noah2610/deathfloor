@@ -42,10 +42,13 @@
                                 (5, 100),
                                 (6, 100),
                             ],
+                            deals_damage: (
+                                damage: 0,
+                            ),
+                            death_after_delay: (
+                                delay_ms: 600,
+                            ),
                         ),
-                        events: {
-                            Delay(600): EntityAction(DeleteEntity),
-                        },
                     ),
                 },
 
