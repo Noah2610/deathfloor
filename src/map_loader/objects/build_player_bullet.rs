@@ -27,7 +27,7 @@ pub(super) fn build(
     let entity = base_object_entity(world, object)?
         .with(size)
         .with(sprite_render)
-        .with(Bullet::from(settings.bullet_data))
+        .with(Bullet::default())
         .build();
 
     if let Some(entity_config) = settings.entity_config {

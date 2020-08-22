@@ -1,8 +1,6 @@
-mod bullet_hit;
 mod control_player;
 mod control_player_jump;
 mod control_player_shoot;
-mod delete_bullets;
 mod display_health;
 mod event_handlers;
 mod handle_animation_editors;
@@ -24,11 +22,9 @@ pub mod prelude {
     pub use deathframe::amethyst::utils::ortho_camera::CameraOrthoSystem;
     pub use deathframe::systems::prelude::*;
 
-    pub use super::bullet_hit::BulletHitSystem;
     pub use super::control_player::ControlPlayerSystem;
     pub use super::control_player_jump::ControlPlayerJumpSystem;
     pub use super::control_player_shoot::ControlPlayerShootSystem;
-    pub use super::delete_bullets::DeleteBulletsSystem;
     pub use super::display_health::DisplayHealthSystem;
     pub use super::event_handlers::EventHandlersBundle;
     pub use super::handle_animation_editors::HandleAnimationEditorsSystem;

@@ -55,12 +55,10 @@ impl Ingame {
 
 impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Ingame {
     fn on_start(&mut self, data: StateData<GameData<'a, 'b>>) {
-        data.world.insert(BulletCreator::default());
         data.world.write_resource::<Songs<SongType>>().play(&BGM);
     }
 
     fn on_stop(&mut self, data: StateData<GameData<'a, 'b>>) {
-        data.world.remove::<BulletCreator>();
         data.world.write_resource::<Songs<SongType>>().stop(&BGM);
         data.world.delete_all();
     }

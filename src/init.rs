@@ -223,12 +223,6 @@ fn build_game_data<'a, 'b>(
         )?
         .with(
             DispatcherId::Ingame,
-            DeleteBulletsSystem::default(),
-            "delete_bullets_system",
-            &[],
-        )?
-        .with(
-            DispatcherId::Ingame,
             HandleWalkersSystem::default(),
             "handle_walkers_system",
             &[],
