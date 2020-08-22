@@ -6,10 +6,17 @@ pub fn add_entity_config(
     entity: Entity,
     mut entity_config: EntityConfig,
     variant_prop: Option<String>,
-    components_storages: &mut EntityComponentsStorages,
-    entity_config_register_store: &mut WriteStorage<EntityConfigRegister>,
-    events_register_store: &mut WriteStorage<EventsRegister>,
-    action_type_trigger_store: &mut WriteStorage<ActionTypeTrigger>,
+    (
+        mut components_storages,
+        mut entity_config_register_store,
+        mut events_register_store,
+        mut action_type_trigger_store,
+    ): (
+        EntityComponentsStorages,
+        WriteStorage<EntityConfigRegister>,
+        WriteStorage<EventsRegister>,
+        WriteStorage<ActionTypeTrigger>,
+    ),
 ) -> amethyst::Result<()> {
     let variant = variant_prop.or(entity_config.default_variant.clone());
 
@@ -61,7 +68,7 @@ pub fn add_entity_config(
 
     // COMPONENTS
     if let Some(components) = entity_config.components {
-        insert_components(entity, components, components_storages)?;
+        insert_components(entity, components, &mut components_storages)?;
     }
 
     Ok(())

@@ -81,9 +81,6 @@ pub(super) fn edit_entity_with_entity_config(
         entity,
         entity_config,
         variant_prop,
-        &mut SystemData::fetch(world),
-        &mut SystemData::fetch(world),
-        &mut SystemData::fetch(world),
-        &mut SystemData::fetch(world),
+        SystemData::fetch(world),
     )
 }
