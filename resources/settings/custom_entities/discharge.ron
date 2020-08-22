@@ -15,7 +15,14 @@
                     gravity: (
                         y: -400.0,
                     ),
-                    hitbox: Size,
+                    hitbox: Custom([
+                        (
+                            top:    5.0,
+                            bottom: -7.0,
+                            left:   -7.0,
+                            right:  7.0,
+                        ),
+                    ]),
                     deals_damage: (
                         damage: 4,
                     ),
