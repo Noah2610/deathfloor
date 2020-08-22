@@ -24,6 +24,9 @@ impl<'a> System<'a> for HandleActionLifecycleAction {
                     action::LifecycleAction::SetState(state) => {
                         lifecycle.state = state;
                     }
+                    action::LifecycleAction::Prolong(frames) => {
+                        lifecycle.prolong(frames);
+                    }
                 }
             }
         }

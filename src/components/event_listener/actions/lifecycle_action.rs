@@ -6,6 +6,7 @@ pub enum LifecycleAction {
     /// Kills the enemy.
     /// Similar to setting the entity's health to 0.
     Die,
+
     /// Directly set the lifecycle state.
     /// Examples:
     /// ```ron
@@ -20,4 +21,9 @@ pub enum LifecycleAction {
     ///     SetState(Death)
     /// ```
     SetState(LifecycleState),
+
+    /// Prolong the current lifecycle state by the given amount of frames.
+    /// Only really useful when you want to prolong an entity's existence,
+    /// when it is already in the `Death` state.
+    Prolong(usize),
 }
