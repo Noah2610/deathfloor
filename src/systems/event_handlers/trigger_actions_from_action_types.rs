@@ -121,6 +121,14 @@ impl<'a> System<'a> for TriggerActionsFromActionTypesSystem {
                             action_trigger.add_action(spawn_action);
                         }
                     }
+                    ActionType::LifecycleAction(lifecycle_action) => {
+                        if let Some(action_trigger) =
+                            (&mut action_trigger_components.lifecycle_action)
+                                .get_mut_or_default(entity)
+                        {
+                            action_trigger.add_action(lifecycle_action);
+                        }
+                    }
                 }
             }
         }
