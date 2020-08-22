@@ -223,12 +223,6 @@ fn build_game_data<'a, 'b>(
         )?
         .with(
             DispatcherId::Ingame,
-            CreateBulletsSystem::default(),
-            "create_bullets_system",
-            &["control_player_shoot_system"],
-        )?
-        .with(
-            DispatcherId::Ingame,
             DeleteBulletsSystem::default(),
             "delete_bullets_system",
             &[],
@@ -237,11 +231,7 @@ fn build_game_data<'a, 'b>(
             DispatcherId::Ingame,
             BulletHitSystem::default(),
             "bullet_hit_system",
-            &[
-                "create_bullets_system",
-                "delete_bullets_system",
-                "update_collisions_system",
-            ],
+            &["delete_bullets_system", "update_collisions_system"],
         )?
         .with(
             DispatcherId::Ingame,

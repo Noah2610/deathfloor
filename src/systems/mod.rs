@@ -2,7 +2,6 @@ mod bullet_hit;
 mod control_player;
 mod control_player_jump;
 mod control_player_shoot;
-mod create_bullets;
 mod delete_bullets;
 mod display_health;
 mod event_handlers;
@@ -27,7 +26,6 @@ pub mod prelude {
     pub use super::control_player::ControlPlayerSystem;
     pub use super::control_player_jump::ControlPlayerJumpSystem;
     pub use super::control_player_shoot::ControlPlayerShootSystem;
-    pub use super::create_bullets::CreateBulletsSystem;
     pub use super::delete_bullets::DeleteBulletsSystem;
     pub use super::display_health::DisplayHealthSystem;
     pub use super::event_handlers::EventHandlersBundle;

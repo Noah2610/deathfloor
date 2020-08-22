@@ -1,19 +1,14 @@
 use super::system_prelude::*;
-use crate::helpers::resource;
 use crate::map_loader::map_data::prelude::*;
 use crate::map_loader::types::ObjectType;
-use amethyst::core::math::Vector3;
 use std::collections::HashMap;
-use std::path::PathBuf;
 
 #[derive(Default)]
 pub struct ControlPlayerShootSystem;
 
 impl<'a> System<'a> for ControlPlayerShootSystem {
     type SystemData = (
-        // Write<'a, BulletCreator>,
         Write<'a, ObjectSpawner>,
-        WriteExpect<'a, SpriteSheetHandles<PathBuf>>,
         Read<'a, InputManager<IngameBindings>>,
         WriteStorage<'a, Shooter>,
         ReadStorage<'a, Transform>,
@@ -24,9 +19,7 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
     fn run(
         &mut self,
         (
-            // mut bullet_creator,
             mut object_spawner,
-            sprite_sheet_handles,
             input_manager,
             mut shooters,
             transforms,
@@ -34,12 +27,6 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
             mut sound_player_store,
         ): Self::SystemData,
     ) {
-        let bullet_spritesheet_handle = sprite_sheet_handles
-            .get(&resource("spritesheets/player_bullet.png"))
-            .expect(
-                "player_bullet.png spritesheet should be loaded at this point",
-            );
-
         for (shooter, transform, animation_editor_opt, sound_player_opt) in (
             &mut shooters,
             &transforms,
@@ -59,12 +46,6 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
                     let trans = transform.translation();
                     (trans.x, trans.y, trans.z + 0.1)
                 };
-                // let bullet_velocity = {
-                //     let mut velocity: Velocity =
-                //         shooter.bullet_data.velocity.into();
-                //     velocity.x *= facing.mult();
-                //     velocity
-                // };
 
                 object_spawner.add(ObjectSpawnData {
                     object: ObjectData {
@@ -88,23 +69,6 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
                         },
                     },
                 });
-
-                // bullet_creator.add(BulletComponents {
-                //     bullet:        (&shooter.bullet_data).into(),
-                //     transform:     bullet_transform,
-                //     size:          shooter.bullet_data.size.into(),
-                //     velocity:      bullet_velocity,
-                //     sprite_render: SpriteRender {
-                //         sprite_sheet:  bullet_spritesheet_handle.clone(),
-                //         sprite_number: 0,
-                //     },
-                //     animation:     shooter.bullet_data.animation.clone().into(),
-                //     collision_tag: shooter
-                //         .bullet_data
-                //         .collision_tag
-                //         .clone()
-                //         .into(),
-                // });
 
                 shooter.cooldown_timer.start().unwrap();
 
