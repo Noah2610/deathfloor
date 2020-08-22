@@ -55,10 +55,14 @@
                             (
                                 corner:      BottomLeft,
                                 if_touching: Bottom,
+                                size: (1.0, 1.0),
+                                offset: (-4.0, 0.0),
                             ),
                             (
                                 corner:      BottomRight,
                                 if_touching: Bottom,
+                                size: (1.0, 1.0),
+                                offset: (-4.0, 0.0),
                             ),
                         ],
                         collides_with: ["Solid"],
