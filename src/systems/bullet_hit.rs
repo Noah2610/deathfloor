@@ -1,5 +1,6 @@
 use super::system_prelude::*;
 
+// TODO REMOVE
 #[derive(Default)]
 pub struct BulletHitSystem;
 

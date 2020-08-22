@@ -8,6 +8,7 @@ mod event_handlers;
 mod handle_animation_editors;
 mod handle_animations;
 mod handle_death_bound;
+mod handle_death_on_contact;
 mod handle_dying_entities;
 mod handle_jumppad_affected;
 mod handle_ledge_detector;
@@ -32,6 +33,7 @@ pub mod prelude {
     pub use super::handle_animation_editors::HandleAnimationEditorsSystem;
     pub use super::handle_animations::HandleAnimationsSystem;
     pub use super::handle_death_bound::HandleDeathBoundSystem;
+    pub use super::handle_death_on_contact::HandleDeathOnContactSystem;
     pub use super::handle_dying_entities::HandleDyingEntitiesSystem;
     pub use super::handle_jumppad_affected::HandleJumppadAffectedSystem;
     pub use super::handle_ledge_detector::HandleLedgeDetectorSystem;

@@ -229,12 +229,6 @@ fn build_game_data<'a, 'b>(
         )?
         .with(
             DispatcherId::Ingame,
-            BulletHitSystem::default(),
-            "bullet_hit_system",
-            &["delete_bullets_system", "update_collisions_system"],
-        )?
-        .with(
-            DispatcherId::Ingame,
             HandleWalkersSystem::default(),
             "handle_walkers_system",
             &[],
@@ -292,6 +286,12 @@ fn build_game_data<'a, 'b>(
             HandleDyingEntitiesSystem::default(),
             "handle_dying_entities_system",
             &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            HandleDeathOnContactSystem::default(),
+            "handle_death_on_contact_system",
+            &["update_collisions_system"],
         )?
         .with_bundle(DispatcherId::Ingame, EventHandlersBundle::default())?;
 
