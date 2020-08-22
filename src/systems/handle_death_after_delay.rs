@@ -25,15 +25,17 @@ impl<'a> System<'a> for HandleDeathAfterDelaySystem {
         )
             .join()
         {
-            if death_after_delay.timer.state.is_stopped() {
-                death_after_delay.timer.start().unwrap();
-            }
-            death_after_delay.timer.update().unwrap();
-            if death_after_delay.timer.state.is_finished() {
-                if let Some(lifecycle) = lifecycle_opt {
-                    lifecycle.state = LifecycleState::Death;
-                } else {
-                    entities.delete(entity).unwrap();
+            if !death_after_delay.timer.state.is_finished() {
+                if death_after_delay.timer.state.is_stopped() {
+                    death_after_delay.timer.start().unwrap();
+                }
+                death_after_delay.timer.update().unwrap();
+                if death_after_delay.timer.state.is_finished() {
+                    if let Some(lifecycle) = lifecycle_opt {
+                        lifecycle.state = LifecycleState::Death;
+                    } else {
+                        entities.delete(entity).unwrap();
+                    }
                 }
             }
         }
