@@ -74,6 +74,7 @@ pub struct EntityComponentsData {
     #[serde(rename = "ledge_detector")]
     pub ledge_detector_data:   Option<LedgeDetectorData>,
     pub death_on_contact:      Option<DeathOnContact>,
+    pub death_after_delay:     Option<DeathAfterDelay>,
 }
 
 impl Merge for EntityComponentsData {
@@ -99,6 +100,7 @@ impl Merge for EntityComponentsData {
             bullet:                other.bullet.or(self.bullet.take()),
             ledge_detector_data:   other.ledge_detector_data.or(self.ledge_detector_data.take()),
             death_on_contact:      other.death_on_contact.or(self.death_on_contact.take()),
+            death_after_delay:     other.death_after_delay.or(self.death_after_delay.take()),
         };
     }
 }
@@ -135,4 +137,5 @@ pub struct EntityComponentsStorages<'a> {
     pub follow:                         WriteStorage<'a, Follow>,
     pub death_bound:                    WriteStorage<'a, DeathBound>,
     pub death_on_contact:               WriteStorage<'a, DeathOnContact>,
+    pub death_after_delay:              WriteStorage<'a, DeathAfterDelay>,
 }

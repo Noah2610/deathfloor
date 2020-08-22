@@ -1,5 +1,6 @@
 pub mod animation_editor;
 pub mod bullet;
+pub mod death_after_delay;
 pub mod death_bound;
 pub mod death_on_contact;
 pub mod enemy;
@@ -25,6 +26,7 @@ pub mod prelude {
 
     pub use super::animation_editor::prelude::*;
     pub use super::bullet::Bullet;
+    pub use super::death_after_delay::DeathAfterDelay;
     pub use super::death_bound::DeathBound;
     pub use super::death_on_contact::DeathOnContact;
     pub use super::enemy::prelude::*;

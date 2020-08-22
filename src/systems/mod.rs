@@ -7,6 +7,7 @@ mod display_health;
 mod event_handlers;
 mod handle_animation_editors;
 mod handle_animations;
+mod handle_death_after_delay;
 mod handle_death_bound;
 mod handle_death_on_contact;
 mod handle_dying_entities;
@@ -32,6 +33,7 @@ pub mod prelude {
     pub use super::event_handlers::EventHandlersBundle;
     pub use super::handle_animation_editors::HandleAnimationEditorsSystem;
     pub use super::handle_animations::HandleAnimationsSystem;
+    pub use super::handle_death_after_delay::HandleDeathAfterDelaySystem;
     pub use super::handle_death_bound::HandleDeathBoundSystem;
     pub use super::handle_death_on_contact::HandleDeathOnContactSystem;
     pub use super::handle_dying_entities::HandleDyingEntitiesSystem;
