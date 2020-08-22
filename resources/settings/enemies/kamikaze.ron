@@ -70,17 +70,7 @@
                             ]),
                         ]),
                     ])): Group([
-                        HealthAction(Lose(100)),
-                        SpawnAction(SpawnRelative((
-                            object: (
-                                type: Custom("Explosion"),
-                                pos: (x: 0.0, y: 0.0),
-                                size: (w: 16.0, h: 16.0),
-                                props: {
-                                    "z": 0.6,
-                                },
-                            ),
-                        ))),
+                        LifecycleAction(Die),
                     ]),
 
                     OnDeath: SpawnAction(SpawnRelative((
