@@ -23,6 +23,7 @@ pub fn insert_components(
         takes_damage,
         bullet,
         ledge_detector_data,
+        death_on_contact,
     } = components;
     let &mut EntityComponentsStorages {
         entities,
@@ -53,6 +54,7 @@ pub fn insert_components(
         ledge_detector_corner_detector: ledge_detector_corner_detector_store,
         follow: follow_store,
         death_bound: death_bound_store,
+        death_on_contact: death_on_contact_store,
     } = &mut storages;
 
     let size_opt = size.or_else(|| size_store.get(entity).cloned());
@@ -144,6 +146,9 @@ pub fn insert_components(
                 death_bound_store,
             ),
         )?;
+    }
+    if let Some(death_on_contact) = death_on_contact {
+        death_on_contact_store.insert(entity, death_on_contact)?;
     }
     if let Some(size) = size_opt {
         size_store.insert(entity, size)?;
