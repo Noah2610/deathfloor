@@ -69,9 +69,7 @@
                                 Or([IsSide(Left), IsSide(Right)]),
                             ]),
                         ]),
-                    ])): Group([
-                        LifecycleAction(Die),
-                    ]),
+                    ])): LifecycleAction(Die),
 
                     OnDeath: SpawnAction(SpawnRelative((
                         object: (
