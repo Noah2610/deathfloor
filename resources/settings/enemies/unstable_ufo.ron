@@ -1,7 +1,7 @@
 #![enable(implicit_some)]
 (
     types: {
-        "UfoSmall": (
+        "UnstableUFO": (
             spritesheet_filename: "enemy_ufo_small.png",
 
             entity: (
@@ -50,6 +50,10 @@
                     deals_damage: (
                         damage: 1,
                     ),
+                    velocity: (
+                        x: -250.0,
+                        y: 0.0,
+                    ),
                 ),
 
                 events: {
@@ -80,32 +84,7 @@
 
                 default_variant: "Left",
 
-                variants: {
-                    "Left": (
-                        components: (
-                            walker: (
-                                x: -500.0,
-                            ),
-                        ),
-                        events: {
-                            OnCollision(And([
-                                    IsTag("Solid"),
-                                    IsState(Enter),
-                                    IsSide(Left),
-                                ])): EntityAction(SwitchVariant("Right")),
-                            Interval(1000): SpawnAction(SpawnRelative((
-                                object: (
-                                    type: Custom("ShooterBullet"),
-                                    pos: (x: 0.0, y: -10.0),
-                                    size: (w: 16.0, h: 16.0),
-                                    props: {
-                                        "variant": "Down",
-                                    },
-                                ),
-                            ))),
-                        },
-                    ),
-
+                   variants: {
                     "Left": (
                         events: {
                             Init: EntityAction(SwitchVariant("SwerveUp")),
@@ -114,17 +93,17 @@
 
                     "SwerveUp": (
                         events: {
-                            Init: MoveAction(SetVelocity( y: 0.0 )),
-                            Interval(1): MoveAction(AddVelocity( y: 10.0, )),
-                            Delay(200): EntityAction(SwitchVariant("SwerveDown")),
+                            Init: MoveAction(SetVelocity(x: -250, y: 0.0 )),
+                            Interval(1): MoveAction(AddVelocity( y: 8.0, )),
+                            Delay(350): EntityAction(SwitchVariant("SwerveDown")),
                         },
                     ),
 
                     "SwerveDown": (
                         events: {
-                            Init: MoveAction(SetVelocity( y: 0.0 )),
-                            Interval(1): MoveAction(AddVelocity( y: -10.0, )),
-                            Delay(200): EntityAction(SwitchVariant("SwerveUp")),
+                            Init: MoveAction(SetVelocity(x: -250, y: 0.0 )),
+                            Interval(1): MoveAction(AddVelocity( y: -8.0, )),
+                            Delay(350): EntityAction(SwitchVariant("SwerveUp")),
                         },
                     ),
 

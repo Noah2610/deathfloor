@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="264" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="91">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="264" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="92">
  <editorsettings>
   <export target="../../resources/levels/dev.json" format="deathfloor-export"/>
  </editorsettings>
@@ -117,6 +117,7 @@
   </object>
   <object id="89" name="MINI" type="Enemy(MiniBlue)" x="936" y="128" width="16" height="24"/>
   <object id="90" name="MINI" type="Enemy(MiniBlue)" x="536" y="160" width="16" height="24"/>
+  <object id="91" name="UFO" type="Enemy(UnstableUFO)" x="1672" y="72" width="8" height="8"/>
  </objectgroup>
  <objectgroup id="2" name="player">
   <properties>
