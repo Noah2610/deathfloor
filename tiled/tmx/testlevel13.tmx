@@ -93,12 +93,12 @@
   </object>
   <object id="25" name="Fast Left" type="Enemy(NormalLeftFast)" x="1528" y="48" width="8" height="8"/>
   <object id="26" name="Fast Left" type="Enemy(NormalLeftFast)" x="1552" y="48" width="8" height="8"/>
-  <object id="28" name="DISCHARGER" type="Enemy(Discharger)" x="1792" y="136" width="8" height="16">
+  <object id="28" name="DISCHARGER" type="Enemy(Discharger)" x="1816" y="136" width="8" height="16">
    <properties>
     <property name="variant" value="LeftMove"/>
    </properties>
   </object>
-  <object id="31" name="SHOOTER" type="Enemy(Shooter)" x="2016" y="152" width="8" height="16">
+  <object id="31" name="SHOOTER" type="Enemy(Shooter)" x="2056" y="136" width="8" height="16">
    <properties>
     <property name="variant" value="Left"/>
    </properties>
@@ -123,7 +123,7 @@
     <property name="variant" value="Hide"/>
    </properties>
   </object>
-  <object id="45" name="DISCHARGER" type="Enemy(Discharger)" x="2864" y="24" width="8" height="16">
+  <object id="45" name="DISCHARGER" type="Enemy(Discharger)" x="2856" y="24" width="8" height="16">
    <properties>
     <property name="variant" value="LeftMove"/>
    </properties>
