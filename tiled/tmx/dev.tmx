@@ -116,7 +116,7 @@
   <object id="94" name="KAMIKAZE DRONE" type="Enemy(KamikazeDrone)" x="1216" y="48" width="8" height="8"/>
   <object id="95" name="KAMIKAZE DRONE" type="Enemy(KamikazeDrone)" x="1280" y="32" width="8" height="8"/>
   <object id="96" name="KAMIKAZE DRONE" type="Enemy(KamikazeDrone)" x="1016" y="48" width="8" height="8"/>
-  <object id="97" name="UFO" type="Enemy(UfoSmallRapid)" x="1808" y="32" width="8" height="8">
+  <object id="97" name="UFO RAPID" type="Enemy(UfoSmallRapid)" x="1808" y="32" width="8" height="8">
    <properties>
     <property name="variant" value="Left"/>
    </properties>
