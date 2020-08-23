@@ -2,7 +2,7 @@
 (
     types: {
         "UnstableUFO": (
-            spritesheet_filename: "enemy_ufo_small.png",
+            spritesheet_filename: "enemy_unstable_ufo.png",
 
             entity: (
                 components: (
@@ -15,8 +15,8 @@
                         y: None,
                     ),
                     max_movement_velocity: (
-                        x: 100.0,
-                        y: 100.0,
+                        x: 300.0,
+                        y: 300.0,
                     ),
                     base_friction: (
                         friction_x: 1000.0,
@@ -31,10 +31,10 @@
                     },
                     hitbox: Custom([
                         (
-                            top:    7.0,
-                            bottom: -7.0,
-                            left:   -7.0,
-                            right:  7.0,
+                            top:    2.0,
+                            bottom: -2.0,
+                            left:   -2.0,
+                            right:  2.0,
                         ),
                     ]),
                     health: (
@@ -51,7 +51,7 @@
                         damage: 1,
                     ),
                     velocity: (
-                        x: -250.0,
+                        x: -650.0,
                         y: 0.0,
                     ),
                 ),
@@ -65,10 +65,21 @@
                             IsTag("Player"),
                             And([
                                 IsTag("Solid"),
-                                Or([IsSide(Left), IsSide(Right)]),
                             ]),
                         ]),
-                    ])): LifecycleAction(Die),
+                    ])): Group ([
+                    LifecycleAction(Die),  
+                        SpawnAction(SpawnRelative((
+                        object: (
+                            type: Custom("Explosion"),
+                            pos: (x: 0.0, y: 0.0),
+                            size: (w: 16.0, h: 16.0),
+                            props: {
+                                "z": 0.6,
+                            },
+                        ),
+                    ))),
+                    ]),
 
                     OnDeath: SpawnAction(SpawnRelative((
                         object: (
@@ -93,46 +104,21 @@
 
                     "SwerveUp": (
                         events: {
-                            Init: MoveAction(SetVelocity(x: -250, y: 0.0 )),
-                            Interval(1): MoveAction(AddVelocity( y: 8.0, )),
-                            Delay(350): EntityAction(SwitchVariant("SwerveDown")),
+                            Init: MoveAction(SetVelocity(x: -650, y: 0.0 )),
+                            Interval(2): MoveAction(AddVelocity( y: 6.0, )),
+                            Delay(500): EntityAction(SwitchVariant("SwerveDown")),
                         },
                     ),
 
                     "SwerveDown": (
                         events: {
-                            Init: MoveAction(SetVelocity(x: -250, y: 0.0 )),
-                            Interval(1): MoveAction(AddVelocity( y: -8.0, )),
-                            Delay(350): EntityAction(SwitchVariant("SwerveUp")),
-                        },
-                    ),
-
-                    "Right": (
-                        components: (
-                            walker: (
-                                x: 500.0,
-                            ),
-                        ),
-                        events: {
-                            OnCollision(And([
-                                    IsTag("Solid"),
-                                    IsState(Enter),
-                                    IsSide(Right),
-                                ])): EntityAction(SwitchVariant("Left")),
-                            Interval(1000): SpawnAction(SpawnRelative((
-                                object: (
-                                    type: Custom("ShooterBullet"),
-                                    pos: (x: 0.0, y: -10.0),
-                                    size: (w: 16.0, h: 16.0),
-                                    props: {
-                                        "variant": "Down",
-                                    },
-                                ),
-                            ))),
+                            Init: MoveAction(SetVelocity(x: -650, y: 0.0 )),
+                            Interval(2): MoveAction(AddVelocity( y: -6.0, )),
+                            Delay(500): EntityAction(SwitchVariant("SwerveUp")),
                         },
                     ),
                 },
-
+                
                 collision_tag: (
                     labels: ["Enemy"],
                     collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
