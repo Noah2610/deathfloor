@@ -1,0 +1,118 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "KamikazeDrone": (
+            spritesheet_filename: "enemy_kamikaze_drone.png",
+
+            entity: (
+                components: (
+                    size: (
+                        w: 16.0,
+                        h: 16.0,
+                    ),
+                    gravity: (
+                        x: None,
+                        y: None,
+                    ),
+                    max_movement_velocity: (
+                        x: 300.0,
+                        y: 300.0,
+                    ),
+                    base_friction: (
+                        friction_x: 1000.0,
+                    ),
+                    animations: {
+                        Walk: Cycle([
+                            (0, 150),
+                            (1, 150),
+                            (2, 150),
+                            (3, 150),
+                        ]),
+                    },
+                    hitbox: Custom([
+                        (
+                            top:    2.0,
+                            bottom: -2.0,
+                            left:   -2.0,
+                            right:  2.0,
+                        ),
+                    ]),
+                    health: (
+                        health: 5,
+                        max_health: 5,
+                    ),
+                    health_display: (
+                        position: Top,
+                        size: (32.0, 2.0),
+                        padding: 4.0,
+                        border_padding: 0.5,
+                    ),
+                    deals_damage: (
+                        damage: 1,
+                    ),
+                ),
+
+                default_variant: "Left",
+
+                   variants: {
+                    "Left": (
+                          //  Init: MoveAction(SetVelocity(x: -300, y: -150 )),
+                            components: (
+                            walker: (
+                                x: -300.0,
+                                y: -150.0,
+                            ),
+                        ),
+                    ),
+                },    
+
+                events: {
+                    OnCollision(And([IsTag("Bullet"), IsState(Enter)])):
+                        HealthAction(Lose(1)),
+                    OnCollision(And([
+                        IsState(Enter),
+                        Or([
+                            IsTag("Player"),
+                            And([
+                                IsTag("Solid"),
+                            ]),
+                        ]),
+                    ])): Group ([
+                    LifecycleAction(Die),  
+                        SpawnAction(SpawnRelative((
+                        object: (
+                            type: Custom("Explosion"),
+                            pos: (x: 0.0, y: 0.0),
+                            size: (w: 16.0, h: 16.0),
+                            props: {
+                                "z": 0.6,
+                            },
+                        ),
+                    ))),
+                    ]),
+
+                    OnDeath: SpawnAction(SpawnRelative((
+                        object: (
+                            type: Custom("Explosion"),
+                            pos: (x: 0.0, y: 0.0),
+                            size: (w: 16.0, h: 16.0),
+                            props: {
+                                "z": 0.6,
+                            },
+                        ),
+                    ))),
+                },
+                
+                collision_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
+                ),
+
+                solid_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Solid"],
+                ),
+            ),
+        ),
+    }
+)
