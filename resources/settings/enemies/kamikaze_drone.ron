@@ -59,8 +59,8 @@
                           //  Init: MoveAction(SetVelocity(x: -300, y: -150 )),
                             components: (
                             walker: (
-                                x: -300.0,
-                                y: -150.0,
+                                x: -350.0,
+                                y: -180.0,
                             ),
                         ),
                     ),
@@ -81,7 +81,7 @@
                     LifecycleAction(Die),  
                         SpawnAction(SpawnRelative((
                         object: (
-                            type: Custom("Explosion"),
+                            type: Custom("ExplosionSmall"),
                             pos: (x: 0.0, y: 0.0),
                             size: (w: 16.0, h: 16.0),
                             props: {
@@ -93,7 +93,7 @@
 
                     OnDeath: SpawnAction(SpawnRelative((
                         object: (
-                            type: Custom("Explosion"),
+                            type: Custom("ExplosionSmall"),
                             pos: (x: 0.0, y: 0.0),
                             size: (w: 16.0, h: 16.0),
                             props: {
