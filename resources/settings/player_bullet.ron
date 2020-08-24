@@ -29,13 +29,13 @@
                 collides_with: ["Solid", "Enemy"],
             ),
             death_after_delay: (
-                delay_ms: 1000,
+                delay_ms: 5_000,
             ),
         ),
 
         /// Set the `default_variant` to use one of the bullet variants below.
         /// Possible variants: "Swerve", "Mortar", "Rocket", "Skipper"
-        default_variant: "Swerve",
+        // default_variant: "Swerve",
 
         variants: {
             "Random": (

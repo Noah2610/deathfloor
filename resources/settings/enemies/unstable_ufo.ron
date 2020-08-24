@@ -10,10 +10,6 @@
                         w: 16.0,
                         h: 16.0,
                     ),
-                    gravity: (
-                        x: None,
-                        y: None,
-                    ),
                     max_movement_velocity: (
                         x: 300.0,
                         y: 300.0,
@@ -28,6 +24,8 @@
                             (2, 150),
                             (3, 150),
                         ]),
+                        // Workaround for OnDeath event.
+                        Death: Once([]),
                     },
                     hitbox: Custom([
                         (
@@ -63,23 +61,9 @@
                         IsState(Enter),
                         Or([
                             IsTag("Player"),
-                            And([
-                                IsTag("Solid"),
-                            ]),
+                            IsTag("Solid"),
                         ]),
-                    ])): Group ([
-                    LifecycleAction(Die),  
-                        SpawnAction(SpawnRelative((
-                        object: (
-                            type: Custom("Explosion"),
-                            pos: (x: 0.0, y: 0.0),
-                            size: (w: 16.0, h: 16.0),
-                            props: {
-                                "z": 0.6,
-                            },
-                        ),
-                    ))),
-                    ]),
+                    ])): LifecycleAction(Die),
 
                     OnDeath: SpawnAction(SpawnRelative((
                         object: (
@@ -95,7 +79,7 @@
 
                 default_variant: "Left",
 
-                   variants: {
+                variants: {
                     "Left": (
                         events: {
                             Init: EntityAction(SwitchVariant("SwerveUp")),
@@ -104,16 +88,16 @@
 
                     "SwerveUp": (
                         events: {
-                            Init: MoveAction(SetVelocity(x: -650, y: 0.0 )),
-                            Interval(2): MoveAction(AddVelocity( y: 6.0, )),
+                            Init: MoveAction(SetVelocity(x: -650, y: 0.0)),
+                            Interval(2): MoveAction(AddVelocity(y: 6.0)),
                             Delay(500): EntityAction(SwitchVariant("SwerveDown")),
                         },
                     ),
 
                     "SwerveDown": (
                         events: {
-                            Init: MoveAction(SetVelocity(x: -650, y: 0.0 )),
-                            Interval(2): MoveAction(AddVelocity( y: -6.0, )),
+                            Init: MoveAction(SetVelocity(x: -650, y: 0.0)),
+                            Interval(2): MoveAction(AddVelocity(y: -6.0)),
                             Delay(500): EntityAction(SwitchVariant("SwerveUp")),
                         },
                     ),

@@ -28,6 +28,8 @@
                             (2, 150),
                             (3, 150),
                         ]),
+                        // Stupid workaround for OnDeath events to trigger.
+                        Death: Once([]),
                     },
                     hitbox: Custom([
                         (
@@ -38,8 +40,8 @@
                         ),
                     ]),
                     health: (
-                        health: 5,
-                        max_health: 5,
+                        health: 1,
+                        max_health: 1,
                     ),
                     health_display: (
                         position: Top,
@@ -54,17 +56,17 @@
 
                 default_variant: "Left",
 
-                   variants: {
+                variants: {
                     "Left": (
-                          //  Init: MoveAction(SetVelocity(x: -300, y: -150 )),
-                            components: (
+                        // Init: MoveAction(SetVelocity(x: -300, y: -150 )),
+                        components: (
                             walker: (
                                 x: -350.0,
                                 y: -180.0,
                             ),
                         ),
                     ),
-                },    
+                },
 
                 events: {
                     OnCollision(And([IsTag("Bullet"), IsState(Enter)])):
@@ -73,23 +75,9 @@
                         IsState(Enter),
                         Or([
                             IsTag("Player"),
-                            And([
-                                IsTag("Solid"),
-                            ]),
+                            IsTag("Solid"),
                         ]),
-                    ])): Group ([
-                    LifecycleAction(Die),  
-                        SpawnAction(SpawnRelative((
-                        object: (
-                            type: Custom("ExplosionSmall"),
-                            pos: (x: 0.0, y: 0.0),
-                            size: (w: 16.0, h: 16.0),
-                            props: {
-                                "z": 0.6,
-                            },
-                        ),
-                    ))),
-                    ]),
+                    ])): LifecycleAction(Die),
 
                     OnDeath: SpawnAction(SpawnRelative((
                         object: (
@@ -102,7 +90,7 @@
                         ),
                     ))),
                 },
-                
+
                 collision_tag: (
                     labels: ["Enemy"],
                     collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
