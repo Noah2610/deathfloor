@@ -136,10 +136,11 @@
 
             OnCollision(And([
                 IsTag("Enemy"),
+                Not(IsTag("NoKnockback")),
                 IsState(Enter),
                 Or([
-                   IsSide(Left),
-                   IsSide(InnerSide( x: Left )),
+                    IsSide(Left),
+                    IsSide(InnerSide( x: Left )),
                 ]),
             ])): Group([
                 MoveAction(AddVelocity(
@@ -151,10 +152,11 @@
 
             OnCollision(And([
                 IsTag("Enemy"),
+                Not(IsTag("NoKnockback")),
                 IsState(Enter),
                 Or([
-                   IsSide(Right),
-                   IsSide(InnerSide( x: Right )),
+                    IsSide(Right),
+                    IsSide(InnerSide( x: Right )),
                 ]),
             ])): Group([
                 MoveAction(AddVelocity(
@@ -169,8 +171,8 @@
                 Not(IsTag("NoKnockback")),
                 IsState(Enter),
                 Or([
-                   IsSide(Bottom),
-                   IsSide(InnerSide( y: Bottom )),
+                    IsSide(Bottom),
+                    IsSide(InnerSide( y: Bottom )),
                 ]),
             ])): MoveAction(AddVelocity(
                 y: 250.0,
