@@ -166,6 +166,7 @@
 
             OnCollision(And([
                 IsTag("Enemy"),
+                Not(IsTag("NoKnockback")),
                 IsState(Enter),
                 Or([
                    IsSide(Bottom),

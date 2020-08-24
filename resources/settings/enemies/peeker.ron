@@ -140,7 +140,7 @@
                 },
 
                 collision_tag: (
-                    labels: ["Enemy"],
+                    labels: ["Enemy", "NoKnockback"],
                     collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
                 ),
 
