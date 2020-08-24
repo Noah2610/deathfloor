@@ -27,7 +27,7 @@
                         damage: 4,
                     ),
                     death_after_delay: (
-                        delay_ms: 2500,
+                        delay_ms: 2800,
                     ),
                 ),
 
