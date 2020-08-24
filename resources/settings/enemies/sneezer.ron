@@ -23,7 +23,7 @@
                         y: -400.0,
                     ),
                     max_movement_velocity: (
-                        x: 50.0,
+                        x: 65.0,
                         y: 250.0,
                     ),
                     health: (
