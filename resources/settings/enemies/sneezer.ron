@@ -65,7 +65,7 @@
                                 x: 0.0,
                                 y: 0.0,
                             )),
-                            Delay(2000): EntityAction(SwitchVariant("Jump")),
+                            Delay(1700): EntityAction(SwitchVariant("Jump")),
                         },
                     ),
                     "Jump": (
