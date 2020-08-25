@@ -1,0 +1,26 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "ConsumableHealth": (
+            spritesheet_filename: "explosion.png",
+
+            entity: (
+                components: (
+                    size: (w: 16.0, h: 16.0),
+                    animation: [
+                        (2, 1000),
+                    ],
+                    hitbox: Size,
+                    death_on_contact: (
+                        collides_with: ["ConsumableHealthConsumer"],
+                    ),
+                ),
+
+                collision_tag: (
+                    labels: ["Consumable", "ConsumableHealth"],
+                    collides_with: ["ConsumableHealthConsumer"],
+                ),
+            ),
+        ),
+    }
+)
