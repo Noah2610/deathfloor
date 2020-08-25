@@ -53,6 +53,11 @@ impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventHandlersBundle<'c> {
             "handle_event_init_system",
             self.deps,
         );
+        builder.add(
+            events::on_animation_end::HandleEventOnAnimationEnd::default(),
+            "handle_event_on_animation_end_system",
+            self.deps,
+        );
 
         // TRIGGER ACTIONS FROM ACTION TYPES
         builder.add(
@@ -65,6 +70,7 @@ impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventHandlersBundle<'c> {
                 "handle_event_interval_system",
                 "handle_event_on_ledge_detect_system",
                 "handle_event_init_system",
+                "handle_event_on_animation_end_system",
             ]]
             .concat(),
         );

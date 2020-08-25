@@ -1,3 +1,4 @@
+use crate::animation_key::AnimationKey;
 use crate::collision_tag::CollisionTag;
 use crate::components::prelude::{
     LedgeDetectorCorner,
@@ -36,6 +37,11 @@ pub enum EventType {
     /// Similar to `OnSpawn`, but also triggers for variants,
     /// when switching to them.
     Init,
+
+    /// Triggers when the given animation ends.
+    /// The animation has to be a `Once` animation,
+    /// because `Cycle` animations never end.
+    OnAnimationEnd(AnimationKey),
 }
 
 impl From<EventTypeDeser> for EventType {
@@ -53,6 +59,7 @@ impl From<EventTypeDeser> for EventType {
             Deser::Interval(x) => Interval(x),
             Deser::OnLedgeDetect(corner, side) => OnLedgeDetect(corner, side),
             Deser::Init => Init,
+            Deser::OnAnimationEnd(anim) => OnAnimationEnd(anim),
         }
     }
 }
@@ -72,4 +79,5 @@ pub enum EventTypeDeser {
     Interval(u64),
     OnLedgeDetect(LedgeDetectorCorner, LedgeDetectorSide),
     Init,
+    OnAnimationEnd(AnimationKey),
 }
