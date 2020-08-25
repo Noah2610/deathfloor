@@ -65,6 +65,8 @@ impl<'a> System<'a> for HandleEventOnAnimationEnd {
                                 self.last_finished_anims
                                     .insert(entity, last_anim.clone());
                             }
+                        } else {
+                            let _ = self.last_finished_anims.remove(&entity);
                         }
                     }
                 }
