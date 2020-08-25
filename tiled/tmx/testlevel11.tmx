@@ -182,7 +182,6 @@
   </properties>
   <object id="102" name="PEEKY BOY RIGHT" type="Enemy(LaserPeeker)" x="400" y="136" width="16" height="32">
    <properties>
-    <property name="variant" value="Hide"/>
    </properties>
   </object>
   <object id="103" name="SHOOTER" type="Enemy(Shooter)" x="640" y="112" width="8" height="16">
@@ -197,7 +196,6 @@
   </object>
   <object id="105" name="PEEKY BOY LEFT" type="Enemy(LaserPeeker)" x="320" y="136" width="16" height="32">
    <properties>
-    <property name="variant" value="Hide"/>
    </properties>
   </object>
   <object id="107" name="SNEEZER" type="Enemy(Sneezer)" x="912" y="112" width="32" height="32">
@@ -227,12 +225,10 @@
   </object>
   <object id="115" name="PEEKY BOY LEFT" type="Enemy(LaserPeeker)" x="1704" y="168" width="16" height="32">
    <properties>
-    <property name="variant" value="Hide"/>
    </properties>
   </object>
   <object id="117" name="PEEKY BOY LEFT" type="Enemy(LaserPeeker)" x="1704" y="120" width="16" height="32">
    <properties>
-    <property name="variant" value="Hide"/>
    </properties>
   </object>
   <object id="118" name="UFO" type="Enemy(UfoSmall)" x="1464" y="40" width="8" height="8">

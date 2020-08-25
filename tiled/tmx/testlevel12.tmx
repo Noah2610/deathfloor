@@ -94,7 +94,6 @@
   </object>
   <object id="73" name="PEEKY BOY RIGHT" type="Enemy(LaserPeeker)" x="240" y="152" width="16" height="32">
    <properties>
-    <property name="variant" value="Hide"/>
    </properties>
   </object>
   <object id="78" name="Fast Left" type="Enemy(NormalLeftFast)" x="528" y="64" width="8" height="8"/>
@@ -146,7 +145,6 @@
   </object>
   <object id="104" name="PEEKY BOY RIGHT" type="Enemy(LaserPeeker)" x="1104" y="168" width="16" height="32">
    <properties>
-    <property name="variant" value="Hide"/>
    </properties>
   </object>
   <object id="105" name="DISCHARGER" type="Enemy(Discharger)" x="1784" y="72" width="8" height="16">

@@ -73,12 +73,10 @@
   </object>
   <object id="19" name="PEEKY BOY RIGHT" type="Enemy(LaserPeeker)" x="2936" y="152" width="16" height="32">
    <properties>
-    <property name="variant" value="Hide"/>
    </properties>
   </object>
   <object id="20" name="PEEKY BOY RIGHT" type="Enemy(LaserPeeker)" x="3000" y="48" width="16" height="32">
    <properties>
-    <property name="variant" value="Hide"/>
    </properties>
   </object>
   <object id="22" name="DISCHARGER" type="Enemy(Discharger)" x="3136" y="48" width="8" height="16">
@@ -120,7 +118,6 @@
   </object>
   <object id="44" name="PEEKY BOY RIGHT" type="Enemy(LaserPeeker)" x="2456" y="168" width="16" height="32">
    <properties>
-    <property name="variant" value="Hide"/>
    </properties>
   </object>
   <object id="45" name="DISCHARGER" type="Enemy(Discharger)" x="2856" y="24" width="8" height="16">
@@ -142,12 +139,10 @@
   <object id="52" name="Fast Left" type="Enemy(NormalLeftFast)" x="4072" y="32" width="8" height="8"/>
   <object id="53" name="PEEKY BOY RIGHT" type="Enemy(LaserPeeker)" x="4032" y="152" width="16" height="32">
    <properties>
-    <property name="variant" value="Hide"/>
    </properties>
   </object>
   <object id="57" name="PEEKY BOY LEFT" type="Enemy(LaserPeeker)" x="4304" y="24" width="16" height="32">
    <properties>
-    <property name="variant" value="Hide"/>
    </properties>
   </object>
   <object id="58" name="Fast Left" type="Enemy(NormalLeftFast)" x="4256" y="32" width="8" height="8"/>
