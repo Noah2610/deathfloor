@@ -140,9 +140,10 @@
                                         },
                                     ),
                                 ))),
-                             ]),
-                             Delay(1200): EntityAction(PopVariant),
-                          },
+                            ]),
+                            OnAnimationEnd(Custom("Face")):
+                                EntityAction(PopVariant),
+                        },
                     ),
                 },
 
