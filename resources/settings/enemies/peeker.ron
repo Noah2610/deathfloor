@@ -53,9 +53,57 @@
                     ),
                 ),
 
-                default_variant: "Hide",
+                default_variant: "ShootLeft",
 
                 variants: {
+                    "ShootLeft": (
+                        events: {
+                            // Initially just switch to "Hide".
+                            OnSpawn: EntityAction(PushVariant("Hide")),
+
+                            // After being popped back here, do the shooting.
+                            Delay(1): AnimationAction(Push(Custom("Peek"))),
+                            Delay(200): SpawnAction(SpawnRelative((
+                                object: (
+                                    type: Custom("Laser"),
+                                    pos: (x: -960.0, y: 0.0),
+                                    size: (w: 16.0, h: 16.0),
+                                    props: {
+                                        "variant": "Active",
+                                    },
+                                ),
+                            ))),
+                            OnAnimationEnd(Custom("Peek")):
+                                AnimationAction(Push(Custom("Cooldown"))),
+                            OnAnimationEnd(Custom("Cooldown")):
+                                EntityAction(PushVariant("PeekToHide")),
+                        },
+                    ),
+
+                    "ShootRight": (
+                        events: {
+                            // Initially just switch to "Hide".
+                            OnSpawn: EntityAction(PushVariant("Hide")),
+
+                            // After being popped back here, do the shooting.
+                            Delay(1): AnimationAction(Push(Custom("Peek"))),
+                            Delay(200): SpawnAction(SpawnRelative((
+                                object: (
+                                    type: Custom("Laser"),
+                                    pos: (x: 960.0, y: 0.0),
+                                    size: (w: 16.0, h: 16.0),
+                                    props: {
+                                        "variant": "Active",
+                                    },
+                                ),
+                            ))),
+                            OnAnimationEnd(Custom("Peek")):
+                                AnimationAction(Push(Custom("Cooldown"))),
+                            OnAnimationEnd(Custom("Cooldown")):
+                                EntityAction(PushVariant("PeekToHide")),
+                        },
+                    ),
+
                     "Hide": (
                         components: (
                             hitbox: Custom([
@@ -104,21 +152,7 @@
                             ]),
                         ),
                         events: {
-                            Init: AnimationAction(Push(Custom("Peek"))),
-                            Delay(200): SpawnAction(SpawnRelative((
-                                object: (
-                                    type: Custom("Laser"),
-                                    pos: (x: -960.0, y: 0.0),
-                                    size: (w: 16.0, h: 16.0),
-                                    props: {
-                                        "variant": "Active",
-                                    },
-                                ),
-                            ))),
-                            OnAnimationEnd(Custom("Peek")):
-                                AnimationAction(Push(Custom("Cooldown"))),
-                            OnAnimationEnd(Custom("Cooldown")):
-                                EntityAction(SwitchVariant("PeekToHide")),
+                            Init: EntityAction(PopVariant),
                         },
                     ),
 
