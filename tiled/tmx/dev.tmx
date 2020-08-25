@@ -119,6 +119,7 @@
   </object>
   <object id="98" name="PEEKY BOY" type="Enemy(LaserPeeker)" x="424" y="120" width="16" height="32">
    <properties>
+    <property name="scale_x" type="float" value="-1"/>
     <property name="variant" value="ShootRight"/>
    </properties>
   </object>
