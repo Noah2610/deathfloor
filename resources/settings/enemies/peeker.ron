@@ -11,32 +11,29 @@
                         h: 32.0,
                     ),
                     animations: {
-                        Custom("Hide"): Cycle([
-                            (0, 1000),
+                        Custom("Hide"): Once([
+                            (0, 2000),
                         ]),
-                        Custom("HideToPeek"): Cycle([
+                        Custom("HideToPeek"): Once([
                             (1, 100),
                             (2, 100),
                             (3, 100),
                             (4, 100),
                             (5, 100),
-                            (6, 100),
-                            (7, 100),
-                            (8, 100),
+                            (6, 200),
+                            (7, 200),
+                            (8, 200),
                         ]),
-                        Custom("Peek"): Cycle([
-                            (9, 100),
+                        Custom("Peek"): Once([
+                            (9, 400),
                         ]),
-                        Custom("Cooldown"): Cycle([
-                            (10, 100),
-                            (11, 100),
-                            (12, 100),
-                            (13, 100),
+                        Custom("Cooldown"): Once([
+                            (10, 150),
+                            (11, 150),
+                            (12, 150),
+                            (13, 500),
                         ]),
-                        Custom("PeekToHide"): Cycle([
-                            (8, 100),
-                            (7, 100),
-                            (6, 100),
+                        Custom("PeekToHide"): Once([
                             (5, 100),
                             (4, 100),
                             (3, 100),
@@ -71,8 +68,9 @@
                             ]),
                         ),
                         events: {
-                            Init: AnimationAction(Play(Custom("Hide"))),
-                            Delay(1000): EntityAction(SwitchVariant("HideToPeek")),
+                            Init: AnimationAction(Push(Custom("Hide"))),
+                            OnAnimationEnd(Custom("Hide")):
+                                EntityAction(SwitchVariant("HideToPeek")),
                         },
                     ),
 
@@ -88,8 +86,9 @@
                             ]),
                         ),
                         events: {
-                            Init: AnimationAction(Play(Custom("HideToPeek"))),
-                            Delay(800): EntityAction(SwitchVariant("Peek")),
+                            Init: AnimationAction(Push(Custom("HideToPeek"))),
+                            OnAnimationEnd(Custom("HideToPeek")):
+                                EntityAction(SwitchVariant("Peek")),
                         },
                     ),
 
@@ -105,7 +104,7 @@
                             ]),
                         ),
                         events: {
-                            Init: AnimationAction(Play(Custom("Peek"))),
+                            Init: AnimationAction(Push(Custom("Peek"))),
                             Delay(200): SpawnAction(SpawnRelative((
                                 object: (
                                     type: Custom("Laser"),
@@ -116,8 +115,10 @@
                                     },
                                 ),
                             ))),
-                            Delay(400): AnimationAction(Play(Custom("Cooldown"))),
-                            Delay(800): EntityAction(SwitchVariant("PeekToHide")),
+                            OnAnimationEnd(Custom("Peek")):
+                                AnimationAction(Push(Custom("Cooldown"))),
+                            OnAnimationEnd(Custom("Cooldown")):
+                                EntityAction(SwitchVariant("PeekToHide")),
                         },
                     ),
 
@@ -133,8 +134,9 @@
                             ]),
                         ),
                         events: {
-                            Init: AnimationAction(Play(Custom("PeekToHide"))),
-                            Delay(800): EntityAction(SwitchVariant("Hide")),
+                            Init: AnimationAction(Push(Custom("PeekToHide"))),
+                            OnAnimationEnd(Custom("PeekToHide")):
+                                EntityAction(SwitchVariant("Hide")),
                         },
                     ),
                 },
