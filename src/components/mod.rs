@@ -1,5 +1,6 @@
 pub mod animation_editor;
 pub mod bullet;
+pub mod can_interact;
 pub mod death_after_delay;
 pub mod death_bound;
 pub mod death_on_contact;
@@ -7,6 +8,7 @@ pub mod enemy;
 pub mod entity_config_register;
 pub mod event_listener;
 pub mod health_display;
+pub mod interactable;
 pub mod jumper;
 pub mod jumppad;
 pub mod jumppad_affected;
@@ -26,6 +28,7 @@ pub mod prelude {
 
     pub use super::animation_editor::prelude::*;
     pub use super::bullet::Bullet;
+    pub use super::can_interact::CanInteract;
     pub use super::death_after_delay::DeathAfterDelay;
     pub use super::death_bound::DeathBound;
     pub use super::death_on_contact::DeathOnContact;
@@ -36,6 +39,7 @@ pub mod prelude {
     };
     pub use super::event_listener::prelude::*;
     pub use super::health_display::prelude::*;
+    pub use super::interactable::{Interactable, InteractableAction};
     pub use super::jumper::Jumper;
     pub use super::jumppad::Jumppad;
     pub use super::jumppad_affected::JumppadAffected;
