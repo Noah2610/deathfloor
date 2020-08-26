@@ -15,7 +15,10 @@
                 ),
 
                 events: {
-                    OnInteract: Echo("INTERACTED!"),
+                    OnInteract: Group([
+                        PlayerAction(HealthAction(Gain(10))),
+                        EntityAction(DeleteEntity),
+                    ]),
                 },
 
                 collision_tag: (
