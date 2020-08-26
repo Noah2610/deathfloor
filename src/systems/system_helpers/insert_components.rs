@@ -25,6 +25,7 @@ pub fn insert_components(
         ledge_detector_data,
         death_on_contact,
         death_after_delay,
+        interactable,
     } = components;
     let &mut EntityComponentsStorages {
         entities,
@@ -57,6 +58,7 @@ pub fn insert_components(
         death_bound: death_bound_store,
         death_on_contact: death_on_contact_store,
         death_after_delay: death_after_delay_store,
+        interactable: interactable_store,
     } = &mut storages;
 
     let size_opt = size.or_else(|| size_store.get(entity).cloned());
@@ -154,6 +156,9 @@ pub fn insert_components(
     }
     if let Some(death_after_delay) = death_after_delay {
         death_after_delay_store.insert(entity, death_after_delay)?;
+    }
+    if let Some(interactable) = interactable {
+        interactable_store.insert(entity, interactable)?;
     }
     if let Some(size) = size_opt {
         size_store.insert(entity, size)?;
