@@ -42,6 +42,11 @@ pub enum EventType {
     /// The animation has to be a `Once` animation,
     /// because `Cycle` animations never end.
     OnAnimationEnd(AnimationKey),
+
+    /// Triggers when this entity is interacted with
+    /// by an entity with `CanInteract`.
+    /// Only available if this entity has the `Interactable` component.
+    OnInteract,
 }
 
 impl From<EventTypeDeser> for EventType {
@@ -60,6 +65,7 @@ impl From<EventTypeDeser> for EventType {
             Deser::OnLedgeDetect(corner, side) => OnLedgeDetect(corner, side),
             Deser::Init => Init,
             Deser::OnAnimationEnd(anim) => OnAnimationEnd(anim),
+            Deser::OnInteract => OnInteract,
         }
     }
 }
@@ -80,4 +86,5 @@ pub enum EventTypeDeser {
     OnLedgeDetect(LedgeDetectorCorner, LedgeDetectorSide),
     Init,
     OnAnimationEnd(AnimationKey),
+    OnInteract,
 }
