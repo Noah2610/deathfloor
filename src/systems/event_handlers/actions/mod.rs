@@ -9,6 +9,7 @@ pub mod health_action;
 pub mod insert_components;
 pub mod lifecycle_action;
 pub mod move_action;
+pub mod player_action;
 pub mod random;
 pub mod repeat_delay;
 pub mod sound_action;

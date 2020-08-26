@@ -7,6 +7,7 @@ mod health_action;
 mod insert_components;
 mod lifecycle_action;
 mod move_action;
+mod player_action;
 mod random;
 mod repeat_delay;
 mod sound_action;
@@ -22,6 +23,7 @@ pub mod prelude {
     pub use super::insert_components::InsertComponents;
     pub use super::lifecycle_action::LifecycleAction;
     pub use super::move_action::MoveAction;
+    pub use super::player_action::PlayerAction;
     pub use super::random::Random;
     pub use super::repeat_delay::RepeatDelay;
     pub use super::sound_action::SoundAction;
@@ -50,6 +52,7 @@ pub enum ActionType {
     EntityAction(EntityAction),
     SpawnAction(SpawnAction),
     LifecycleAction(LifecycleAction),
+    PlayerAction(PlayerAction),
 }
 
 #[derive(SystemData)]
@@ -67,4 +70,5 @@ pub struct ActionTriggerStorages<'a> {
     pub entity_action:     WriteStorage<'a, ActionTrigger<EntityAction>>,
     pub spawn_action:      WriteStorage<'a, ActionTrigger<SpawnAction>>,
     pub lifecycle_action:  WriteStorage<'a, ActionTrigger<LifecycleAction>>,
+    pub player_action:     WriteStorage<'a, ActionTrigger<PlayerAction>>,
 }
