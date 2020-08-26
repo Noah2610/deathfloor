@@ -32,7 +32,7 @@
 ## v0.0.5
 ### Features
 - [ ] ability system ([#52])
-- [ ] consumable pickup system ([#49])
+- [ ] consumable pickup system ([#49], [#70])
 - [ ] moving platforms ([#50])
 - [ ] line-of-sight detection ([#51])
 - [ ] camera system ([#19])
@@ -73,3 +73,4 @@
 [#51]: https://github.com/Noah2610/deathfloor/issues/51
 [#52]: https://github.com/Noah2610/deathfloor/issues/52
 [#53]: https://github.com/Noah2610/deathfloor/issues/53
+[#70]: https://github.com/Noah2610/deathfloor/issues/70
