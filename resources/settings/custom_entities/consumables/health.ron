@@ -11,14 +11,16 @@
                         (2, 1000),
                     ],
                     hitbox: Size,
-                    death_on_contact: (
-                        collides_with: ["ConsumableHealthConsumer"],
-                    ),
+                    interactable: (),
                 ),
 
+                events: {
+                    OnInteract: Echo("INTERACTED!"),
+                },
+
                 collision_tag: (
-                    labels: ["Consumable", "ConsumableHealth"],
-                    collides_with: ["ConsumableHealthConsumer"],
+                    labels: ["Consumable"],
+                    collides_with: [],
                 ),
             ),
         ),
