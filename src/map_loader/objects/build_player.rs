@@ -41,6 +41,7 @@ pub(super) fn build(
         .with(HealthActionQueue::default())
         .with(AnimationEditor::default())
         .with(SoundPlayer::<SoundType>::default())
+        .with(CanInteract::default())
         .with(player_settings.jumper)
         .with(player_settings.animations)
         .with(player_settings.health)

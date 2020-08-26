@@ -293,6 +293,12 @@ fn build_game_data<'a, 'b>(
             "handle_death_after_delay_system",
             &[],
         )?
+        .with(
+            DispatcherId::Ingame,
+            HandleInteractableSystem::default(),
+            "handle_interactable_system",
+            &["update_collisions_system"],
+        )?
         .with_bundle(DispatcherId::Ingame, EventHandlersBundle::default())?;
 
     #[cfg(feature = "debug")]

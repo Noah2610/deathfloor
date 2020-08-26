@@ -20,6 +20,8 @@ pub enum IngameActionBinding {
 
     TogglePause,
 
+    Interact,
+
     // DEBUG
     ReloadLevel,
 }

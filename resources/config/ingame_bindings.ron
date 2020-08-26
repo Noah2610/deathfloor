@@ -10,6 +10,8 @@
 
         TogglePause: [ [Key(P)], ],
 
+        Interact:    [ [Key(E)], ],
+
         // DEBUG
         ReloadLevel: [ [Key(R)], ],
     },
