@@ -30,12 +30,14 @@
   tile animations ([#20]), tile events/actions
 
 ## v0.0.5
+- [ ] consumable pickup system ([#49], [#70])
+- [ ] camera system ([#19])
+- [ ] line-of-sight detection ([#51])
+
+## v0.0.6
 ### Features
 - [ ] ability system ([#52])
-- [ ] consumable pickup system ([#49], [#70])
 - [ ] moving platforms ([#50])
-- [ ] line-of-sight detection ([#51])
-- [ ] camera system ([#19])
 - [ ] footsteps ([#53])
 
 ### Audio
