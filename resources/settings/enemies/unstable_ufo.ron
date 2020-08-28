@@ -49,7 +49,7 @@
                         damage: 1,
                     ),
                     velocity: (
-                        x: -650.0,
+                        x: 0.0,
                         y: 0.0,
                     ),
                 ),
@@ -81,6 +81,22 @@
 
                 variants: {
                     "Left": (
+                        components: (
+                            walker: (
+                                x: -650.0,
+                            ),
+                        ),
+                        events: {
+                            Init: EntityAction(SwitchVariant("SwerveUp")),
+                        },
+                    ),
+
+                    "Right": (
+                        components: (
+                            walker: (
+                                x: 650.0,
+                            ),
+                        ),
                         events: {
                             Init: EntityAction(SwitchVariant("SwerveUp")),
                         },
@@ -88,7 +104,7 @@
 
                     "SwerveUp": (
                         events: {
-                            Init: MoveAction(SetVelocity(x: -650, y: 0.0)),
+                            Init: MoveAction(SetVelocity(y: 0.0)),
                             Interval(2): MoveAction(AddVelocity(y: 6.0)),
                             Delay(500): EntityAction(SwitchVariant("SwerveDown")),
                         },
@@ -96,7 +112,7 @@
 
                     "SwerveDown": (
                         events: {
-                            Init: MoveAction(SetVelocity(x: -650, y: 0.0)),
+                            Init: MoveAction(SetVelocity(y: 0.0)),
                             Interval(2): MoveAction(AddVelocity(y: -6.0)),
                             Delay(500): EntityAction(SwitchVariant("SwerveUp")),
                         },
