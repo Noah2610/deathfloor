@@ -1,0 +1,115 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "ProjectileRubber": (
+            spritesheet_filename: "projectile_rubber.png",
+
+            entity: (
+                components: (
+                    size: (
+                        w: 16.0,
+                        h: 16.0,
+                    ),
+                    animations: {
+                        Walk: Cycle([
+                            (0, 50),
+                        ]),
+                        Custom("Impact"): Once([
+                            (0, 50),
+                            (1, 50),
+                            (2, 50),
+                            (1, 50),
+                            (0, 50),
+                            (3, 50),
+                            (4, 50),
+                            (3, 50),
+                        ]),
+                    },
+                    hitbox: Custom([
+                        (
+                            top:    4.0,
+                            bottom: -4.0,
+                            left:   -4.0,
+                            right:  4.0,
+                        ),
+                    ]),
+                    bullet: (),
+                    death_after_delay: (
+                        delay_ms: 10_000,
+                    ),
+                    death_on_contact: (
+                        collides_with: ["Player"],
+                    ),
+                    deals_damage: (
+                        damage: 2,
+                    ),
+                ),
+
+                events: {
+                    OnCollision(And([IsTag("Solid"), IsState(Enter)])):
+                        AnimationAction(Push(Custom("Impact"))),
+                    OnCollision(And([
+                        IsTag("Solid"),
+                        IsState(Enter),
+                        Or([
+                            IsSide(Left),
+                            IsSide(InnerSide( x: Left )),
+                        ]),
+                    ])): MoveAction(SetVelocity(x: 80.0)),
+                    OnCollision(And([
+                        IsTag("Solid"),
+                        IsState(Enter),
+                        Or([
+                            IsSide(Right),
+                            IsSide(InnerSide( x: Right )),
+                        ]),
+                    ])): MoveAction(SetVelocity(x: -80.0)),
+                    OnCollision(And([
+                        IsTag("Solid"),
+                        IsState(Enter),
+                        Or([
+                            IsSide(Top),
+                            IsSide(InnerSide( y: Top )),
+                        ]),
+                    ])): MoveAction(SetVelocity(y: -110.0)),
+                    OnCollision(And([
+                        IsTag("Solid"),
+                        IsState(Enter),
+                        Or([
+                            IsSide(Bottom),
+                            IsSide(InnerSide( y: Bottom )),
+                        ]),
+                    ])): MoveAction(SetVelocity(y: 110.0)),
+                },
+
+                variants: {
+                    "Left": (
+                        components: (
+                            velocity: (
+                                x: -80.0,
+                                y: 110.0,
+                            ),
+                        ),
+                    ),
+                    "Right": (
+                        components: (
+                            velocity: (
+                                x: 80.0,
+                                y: 110.0,
+                            ),
+                        ),
+                    ),
+                },
+
+                collision_tag: (
+                    labels: ["EnemyBullet"],
+                    collides_with: ["Player", "Solid"],
+                ),
+                solid_tag: (
+                    labels: ["EnemyBullet"],
+                    collides_with: ["Solid"],
+                ),
+            ),
+        ),
+    },
+)
