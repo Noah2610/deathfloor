@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="640" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="96">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="640" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="97">
  <editorsettings>
   <export target="../../resources/levels/level14.json" format="deathfloor-export"/>
  </editorsettings>
@@ -70,10 +70,7 @@
   <properties>
    <property name="z" type="float" value="0.8"/>
   </properties>
-  <object id="3" name="PEEKY BOY LEFT" type="Enemy(LaserPeeker)" x="368" y="120" width="16" height="32">
-   <properties>
-   </properties>
-  </object>
+  <object id="3" name="PEEKY BOY LEFT" type="Enemy(LaserPeeker)" x="368" y="120" width="16" height="32"/>
   <object id="12" name="SHOOTER" type="Enemy(Shooter)" x="240" y="40" width="8" height="16">
    <properties>
     <property name="variant" value="Left"/>
@@ -102,10 +99,6 @@
     <property name="variant" value="Left"/>
    </properties>
   </object>
-  <object id="26" name="PEEKY BOY RIGHT" type="Enemy(LaserPeeker)" x="2208" y="120" width="16" height="32">
-   <properties>
-   </properties>
-  </object>
   <object id="27" name="SNEEZER" type="Enemy(Sneezer)" x="1296" y="144" width="32" height="32">
    <properties>
     <property name="variant" value="Sit"/>
@@ -127,10 +120,7 @@
     <property name="variant" value="Left"/>
    </properties>
   </object>
-  <object id="34" name="PEEKY BOY RIGHT" type="Enemy(LaserPeeker)" x="1808" y="136" width="16" height="32">
-   <properties>
-   </properties>
-  </object>
+  <object id="34" name="PEEKY BOY RIGHT" type="Enemy(LaserPeeker)" x="1808" y="136" width="16" height="32"/>
   <object id="44" name="SHOOTER" type="Enemy(Shooter)" x="1920" y="152" width="8" height="16">
    <properties>
     <property name="variant" value="Left"/>
@@ -193,10 +183,7 @@
     <property name="variant" value="Sit"/>
    </properties>
   </object>
-  <object id="87" name="PEEKY BOY RIGHT" type="Enemy(LaserPeeker)" x="4080" y="168" width="16" height="32">
-   <properties>
-   </properties>
-  </object>
+  <object id="87" name="PEEKY BOY RIGHT" type="Enemy(LaserPeeker)" x="4080" y="168" width="16" height="32"/>
   <object id="88" name="DISCHARGER" type="Enemy(Discharger)" x="4024" y="80" width="8" height="16">
    <properties>
     <property name="variant" value="LeftMove"/>
@@ -212,10 +199,7 @@
     <property name="variant" value="LeftMove"/>
    </properties>
   </object>
-  <object id="91" name="PEEKY BOY LEFT" type="Enemy(LaserPeeker)" x="4336" y="40" width="16" height="32">
-   <properties>
-   </properties>
-  </object>
+  <object id="91" name="PEEKY BOY LEFT" type="Enemy(LaserPeeker)" x="4336" y="40" width="16" height="32"/>
   <object id="92" name="SHOOTER" type="Enemy(Shooter)" x="3400" y="104" width="8" height="16">
    <properties>
     <property name="variant" value="Left"/>
@@ -234,6 +218,12 @@
   <object id="95" name="UFO" type="Enemy(UfoSmall)" x="3520" y="32" width="8" height="8">
    <properties>
     <property name="variant" value="Left"/>
+   </properties>
+  </object>
+  <object id="96" name="PEEKY BOY" type="Enemy(LaserPeeker)" x="2208" y="120" width="16" height="32">
+   <properties>
+    <property name="scale_x" type="float" value="-1"/>
+    <property name="variant" value="ShootRight"/>
    </properties>
   </object>
  </objectgroup>
