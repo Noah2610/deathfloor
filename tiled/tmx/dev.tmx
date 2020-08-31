@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="264" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="104">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="264" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="105">
  <editorsettings>
   <export target="../../resources/levels/dev.json" format="deathfloor-export"/>
  </editorsettings>
@@ -126,11 +126,16 @@
    </properties>
   </object>
   <object id="103" name="JUMPING CAN" type="Enemy(JumpingCan)" x="1264" y="104" width="8" height="8"/>
+  <object id="104" name="TURRET" type="Enemy(TurretBasicHorizontal)" x="672" y="104" width="16" height="32">
+   <properties>
+    <property name="variant" value="Left"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="2" name="player">
   <properties>
    <property name="z" type="float" value="1"/>
   </properties>
-  <object id="1" name="Player" type="Player" x="1104" y="104" width="16" height="16"/>
+  <object id="1" name="Player" type="Player" x="752" y="112" width="16" height="16"/>
  </objectgroup>
 </map>
