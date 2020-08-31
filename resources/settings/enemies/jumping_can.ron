@@ -17,6 +17,17 @@
                         Custom("Jump"): Cycle([
                             (0, 1000),
                         ]),
+                        Custom("Peek"): Once([
+                            (3, 100),
+                            (4, 200),
+                            (5, 50),
+                            (6, 50),
+                            (7, 300),
+                            (6, 50),
+                            (5, 50),
+                            (4, 100),
+                            (3, 100),
+                        ])
                     },
                     gravity: (
                         x: None,
@@ -65,7 +76,8 @@
                                 x: 0.0,
                                 y: 0.0,
                             )),
-                            Delay(1000): EntityAction(SwitchVariant("Jump")),
+                            Delay(400): AnimationAction(Push(Custom("Peek"))),
+                            OnAnimationEnd(Custom("Peek")): EntityAction(SwitchVariant("Jump")),                           
                         },
                     ),
                     "Jump": (
