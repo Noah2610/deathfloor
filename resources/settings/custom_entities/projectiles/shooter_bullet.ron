@@ -57,11 +57,27 @@
                             ),
                         ),
                     ),
-                     "Down": (
+                    "Down": (
                         components: (
                             velocity: (
                                 x: 0.0,
-                                y: -80.0,
+                                y: -70.0,
+                            ),
+                        ),
+                    ),
+                    "LeftDownDia": (
+                        components: (
+                            velocity: (
+                                x: -60.0,
+                                y: -60.0,
+                            ),
+                        ),
+                    ),
+                    "RightDownDia": (
+                        components: (
+                            velocity: (
+                                x: 60.0,
+                                y: -60.0,
                             ),
                         ),
                     ),
