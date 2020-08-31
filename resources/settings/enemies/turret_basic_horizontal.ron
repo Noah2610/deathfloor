@@ -22,27 +22,27 @@
                         friction_x: 1000.0,
                     ),
                     animations: {
-                        Custom("Default"): Cycle([
-                            (0, 1000),
+                        Custom("Default"): Once([
+                            (0, 800),
                         ]),
-                        Custom("Charge"): Cycle([
-                            (1, 150),
-                            (2, 150),
-                            (3, 150),
+                        Custom("Charge"):Once([
+                            (1, 120),
+                            (2, 120),
+                            (3, 120),
                         ]),
-                        Custom("Reset"): Cycle([
-                            (4, 80),
-                            (5, 80),
-                            (6, 80),
-                            (7, 80),
-                            (8, 80),
-                            (9, 80),
-                            (15, 150),
-                            (14, 150),
-                            (13, 150),
-                            (12, 150),
-                            (11, 150),
-                            (10, 150),
+                        Custom("Reset"): Once([
+                            (4, 40),
+                            (5, 40),
+                            (6, 40),
+                            (7, 40),
+                            (8, 40),
+                            (9, 40),
+                            (15, 120),
+                            (14, 120),
+                            (13, 120),
+                            (12, 120),
+                            (11, 120),
+                            (10, 120),
                         ]),
                     },
                     hitbox: Custom([
@@ -60,11 +60,25 @@
                 ),
 
                 variants: {
-                    "Left": (
-                        components: (
-                        ),
+                    "Default": (
                         events: {
-                            Interval(1000): SpawnAction(SpawnRelative((
+                            Init: AnimationAction(Push(Custom("Default"))),
+                            OnAnimationEnd(Custom("Default")): EntityAction(SwitchVariant("Charge")),
+                        }
+                    ),
+
+                    "Charge": (
+                        events: {
+                            Init: AnimationAction(Push(Custom("Charge"))),
+                            OnAnimationEnd(Custom("Charge")): EntityAction(SwitchVariant("Left")),
+                        }
+                    ),
+                                       
+                    "Left": (
+                        events: {
+                            Init: Group([
+                            AnimationAction(Push(Custom("Reset"))),
+                            SpawnAction(SpawnRelative((
                                 object: (
                                     type: Custom("ShooterBullet"),
                                     pos: (x: -16.0, y: 0.0),
@@ -74,8 +88,11 @@
                                     },
                                 ),
                             ))),
+                            ]),
+                            OnAnimationEnd(Custom("Reset")): EntityAction(SwitchVariant("Default")),
                         },
                     ),
+
                     "Right": (
                         components: (
                         ),
