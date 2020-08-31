@@ -27,8 +27,8 @@
                         y: 250.0,
                     ),
                     health: (
-                        health: 5,
-                        max_health: 5,
+                        health: 6,
+                        max_health: 6,
                     ),
                     health_display: (
                         position: Top,

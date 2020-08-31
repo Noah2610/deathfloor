@@ -1,8 +1,8 @@
 #![enable(implicit_some)]
 (
     types: {
-        "Sneezer": (
-            spritesheet_filename: "enemy_sneezer.png",
+        "JumpingCan": (
+            spritesheet_filename: "enemy_jumping_can.png",
 
             entity: (
                 components: (
@@ -27,8 +27,8 @@
                         y: 250.0,
                     ),
                     health: (
-                        health: 6,
-                        max_health: 6,
+                        health: 4,
+                        max_health: 4,
                     ),
                     health_display: (
                         position: Top,
