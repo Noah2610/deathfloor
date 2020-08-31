@@ -12,7 +12,7 @@
                     ),
                     animations: {
                         Idle: Cycle([
-                            (1, 1000),
+                            (2, 1000),
                         ]),
                         Custom("Jump"): Cycle([
                             (0, 1000),
@@ -97,28 +97,7 @@
                             ]),
                             OnCollision(And([IsTag("Solid"), IsState(Enter), IsSide(Bottom)])): Group([
                                 AnimationAction(Pop),
-                                EntityAction(SwitchVariant("Sit")),
-                                SoundAction(PlayWithVolume(Shoot, 0.5)),
-                                SpawnAction(SpawnRelative((
-                                    object: (
-                                        type: Custom("ShooterBullet"),
-                                        pos: (x: -4.0, y: -4.0),
-                                        size: (w: 16.0, h: 16.0),
-                                        props: {
-                                            "variant": "Left",
-                                        },
-                                    ),
-                                ))),
-                                SpawnAction(SpawnRelative((
-                                    object: (
-                                        type: Custom("ShooterBullet"),
-                                        pos: (x: 4.0, y: -4.0),
-                                        size: (w: 16.0, h: 16.0),
-                                        props: {
-                                            "variant": "Right",
-                                        },
-                                    ),
-                                ))),
+                                EntityAction(SwitchVariant("Sit")),                               
                             ]),
                         },
                     ),

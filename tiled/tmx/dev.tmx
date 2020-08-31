@@ -125,11 +125,7 @@
     <property name="variant" value="Left"/>
    </properties>
   </object>
-  <object id="103" name="JUMPING CAN" type="Enemy(JumpingCan)" x="1248" y="120" width="8" height="8">
-   <properties>
-    <property name="variant" value="Left"/>
-   </properties>
-  </object>
+  <object id="103" name="JUMPING CAN" type="Enemy(JumpingCan)" x="1264" y="104" width="8" height="8"/>
  </objectgroup>
  <objectgroup id="2" name="player">
   <properties>
