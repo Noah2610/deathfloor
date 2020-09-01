@@ -9,4 +9,6 @@ pub struct IfAction {
     pub condition: Condition,
     #[serde(rename = "then")]
     pub action:    Box<ActionType>,
+    #[serde(rename = "else", default)]
+    pub fallback:  Option<Box<ActionType>>,
 }

@@ -190,6 +190,7 @@
                     50.0,
                 ),
                 then: Echo("BELOW full health"),
+                else: Echo("AT full health"),
             )),
 
             Interval(250): Group([
