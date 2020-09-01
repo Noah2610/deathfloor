@@ -156,6 +156,11 @@ impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventsActionsBundle<'c> {
             "handle_action_player_action_system",
             actions_deps,
         );
+        builder.add(
+            actions::if_action::HandleActionIfAction::default(),
+            "handle_action_if_action_system",
+            actions_deps,
+        );
         Ok(())
     }
 }
