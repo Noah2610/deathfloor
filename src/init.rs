@@ -299,7 +299,7 @@ fn build_game_data<'a, 'b>(
             "handle_interactable_system",
             &["update_collisions_system"],
         )?
-        .with_bundle(DispatcherId::Ingame, EventHandlersBundle::default())?;
+        .with_bundle(DispatcherId::Ingame, EventsActionsBundle::default())?;
 
     #[cfg(feature = "debug")]
     {

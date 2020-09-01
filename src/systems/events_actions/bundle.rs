@@ -5,18 +5,18 @@ use amethyst::core::bundle::SystemBundle;
 use amethyst::ecs::{DispatcherBuilder, World};
 use deathframe::core::amethyst;
 
-pub struct EventHandlersBundle<'a> {
+pub struct EventsActionsBundle<'a> {
     deps: &'a [&'a str],
 }
 
-impl<'a> EventHandlersBundle<'a> {
+impl<'a> EventsActionsBundle<'a> {
     pub fn with_deps(mut self, deps: &'a [&'a str]) -> Self {
         self.deps = deps;
         self
     }
 }
 
-impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventHandlersBundle<'c> {
+impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventsActionsBundle<'c> {
     fn build(
         self,
         _world: &mut World,
@@ -160,7 +160,7 @@ impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventHandlersBundle<'c> {
     }
 }
 
-impl<'a> Default for EventHandlersBundle<'a> {
+impl<'a> Default for EventsActionsBundle<'a> {
     fn default() -> Self {
         Self {
             deps: Default::default(),

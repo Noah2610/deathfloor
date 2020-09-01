@@ -6,7 +6,7 @@ pub mod death_bound;
 pub mod death_on_contact;
 pub mod enemy;
 pub mod entity_config_register;
-pub mod event_listener;
+pub mod events_register;
 pub mod health_display;
 pub mod interactable;
 pub mod jumper;
@@ -37,7 +37,7 @@ pub mod prelude {
         EntityConfigRegister,
         EntityConfigRegisterAction,
     };
-    pub use super::event_listener::prelude::*;
+    pub use super::events_register::prelude::*;
     pub use super::health_display::prelude::*;
     pub use super::interactable::{Interactable, InteractableAction};
     pub use super::jumper::Jumper;

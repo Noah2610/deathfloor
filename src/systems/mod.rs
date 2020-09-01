@@ -2,7 +2,7 @@ mod control_player;
 mod control_player_jump;
 mod control_player_shoot;
 mod display_health;
-mod event_handlers;
+mod events_actions;
 mod handle_animation_editors;
 mod handle_animations;
 mod handle_death_after_delay;
@@ -27,7 +27,7 @@ pub mod prelude {
     pub use super::control_player_jump::ControlPlayerJumpSystem;
     pub use super::control_player_shoot::ControlPlayerShootSystem;
     pub use super::display_health::DisplayHealthSystem;
-    pub use super::event_handlers::EventHandlersBundle;
+    pub use super::events_actions::EventsActionsBundle;
     pub use super::handle_animation_editors::HandleAnimationEditorsSystem;
     pub use super::handle_animations::HandleAnimationsSystem;
     pub use super::handle_death_after_delay::HandleDeathAfterDelaySystem;
