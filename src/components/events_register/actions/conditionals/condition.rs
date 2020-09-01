@@ -49,6 +49,7 @@ impl Condition {
 /// or a _value getter_, which is a placeholder for a value from one of
 /// this entity's components (like its position, velocity, or health).
 #[derive(Deserialize, Clone, Debug)]
+#[serde(untagged)]
 pub enum ConditionExpression {
     Literal(ConditionValue),
     Get(ConditionGetter),
@@ -70,7 +71,6 @@ impl ConditionExpression {
 #[derive(Deserialize, Clone, Debug, PartialEq)]
 #[serde(untagged)]
 pub enum ConditionValue {
-    #[serde(skip)]
     Null,
     Num(f32),
     Str(String),
