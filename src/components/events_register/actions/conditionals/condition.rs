@@ -26,20 +26,49 @@ pub enum Condition {
     /// Passes if the first value is _greater than_ the second value (`>`).
     #[serde(alias = "Gt")]
     GreaterThan(ConditionExpression, ConditionExpression),
+
+    /// Always passes (returns `true`).
+    #[serde(alias = "true")]
+    True,
+
+    /// Never passes (returns `false`).
+    #[serde(alias = "false")]
+    False,
+
+    /// Inverts the given condition.
+    Not(Box<Condition>),
+
+    /// `And`s the given conditions together.
+    /// All given conditions must pass for this condition to pass.
+    And(Vec<Condition>),
+
+    /// `Or`s the given conditions together.
+    /// Any of the given conditions must pass for this condition to pass.
+    Or(Vec<Condition>),
 }
 
 impl Condition {
     pub fn passes(&self, entity: Entity, storages: &ConditionStorages) -> bool {
+        use Condition::*;
         match self {
-            Condition::Equal(one, two) => {
+            Equal(one, two) => {
                 one.get(entity, storages) == two.get(entity, storages)
             }
-            Condition::LessThan(one, two) => {
+            LessThan(one, two) => {
                 one.get(entity, storages) < two.get(entity, storages)
             }
-            Condition::GreaterThan(one, two) => {
+            GreaterThan(one, two) => {
                 one.get(entity, storages) > two.get(entity, storages)
             }
+            True => true,
+            False => false,
+            Not(condition) => !condition.passes(entity, storages),
+            And(conditions) => conditions
+                .iter()
+                .all(|condition| condition.passes(entity, storages)),
+            Or(conditions) => conditions
+                .iter()
+                .any(|condition| condition.passes(entity, storages)),
         }
     }
 }
@@ -74,19 +103,26 @@ pub enum ConditionValue {
     Null,
     Num(f32),
     Str(String),
+    Bool(bool),
 }
 
 impl cmp::PartialOrd for ConditionValue {
     fn partial_cmp(&self, other: &Self) -> Option<cmp::Ordering> {
         use ConditionValue::*;
-        if let (Num(one), Num(two)) = (self, other) {
-            one.partial_cmp(&two)
-        } else {
-            eprintln!(
-                "[WARNING]\n    Comparison conditions (LessThan, GreaterThan) \
-                 can only be used with numbers."
-            );
-            None
+
+        match (self, other) {
+            (Null, Null) => Some(cmp::Ordering::Equal),
+            (Num(one), Num(two)) => one.partial_cmp(&two),
+            (Str(one), Str(two)) => one.partial_cmp(&two),
+            (Bool(one), Bool(two)) => one.partial_cmp(&two),
+            (_, _) => {
+                eprintln!(
+                    "[WARNING]\n    Comparison conditions (LessThan, \
+                     GreaterThan) can only be used with two values of the \
+                     same type."
+                );
+                None
+            }
         }
     }
 }
