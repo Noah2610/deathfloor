@@ -100,9 +100,10 @@
                     // PIVOT
 
                     OnCollision(And([
-                        Or([IsSide(Right), IsSide(InnerSide( x: Right ))]),
-                        IsState(Enter),
-                    ])): Group([
+                                    IsTag("Solid"),
+                                    IsState(Enter),
+                                    IsSide(Right),
+                                ])): Group([
                         InsertComponents((
                             walker: (
                                 x: -700.0,
@@ -111,9 +112,10 @@
                     ]),
 
                     OnCollision(And([
-                        Or([IsSide(Left), IsSide(InnerSide( x: Left ))]),
-                        IsState(Enter),
-                    ])): Group([
+                                    IsTag("Solid"),
+                                    IsState(Enter),
+                                    IsSide(Left),
+                                ])): Group([
                         InsertComponents((
                             walker: (
                                 x: 700.0,
@@ -123,12 +125,12 @@
                 },
 
                 collision_tag: (
-                    labels: ["Enemy", "Solid"],
+                    labels: ["Enemy"],
                     collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
                 ),
 
                 solid_tag: (
-                    labels: ["Enemy", "Solid"],
+                    labels: ["Enemy"],
                     collides_with: ["Solid"],
                 ),
             ),
