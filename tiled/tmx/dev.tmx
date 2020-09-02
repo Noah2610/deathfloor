@@ -87,7 +87,7 @@
     <property name="variant" value="Left"/>
    </properties>
   </object>
-  <object id="63" name="Runner" type="Enemy(Runner)" x="2064" y="32" width="8" height="8"/>
+  <object id="63" name="JUGGERNAUT" type="Enemy(Runner)" x="2064" y="32" width="8" height="8"/>
   <object id="65" name="UFO" type="Enemy(UfoSmall)" x="1624" y="32" width="8" height="8">
    <properties>
     <property name="variant" value="Left"/>
