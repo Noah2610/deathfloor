@@ -1,10 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="640" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="271">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="640" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="6" nextobjectid="298">
  <editorsettings>
   <export target="../../resources/levels/level15.json" format="deathfloor-export"/>
  </editorsettings>
  <tileset firstgid="1" source="../tsx/testtiles8.tsx"/>
  <tileset firstgid="1025" source="../tsx/testtiles19.tsx"/>
+ <objectgroup id="5" name="bg" visible="0">
+  <properties>
+   <property name="z" type="float" value="-2"/>
+  </properties>
+  <object id="271" name="BG" type="Custom(BgTest2.4)" x="0" y="0" width="224" height="216"/>
+  <object id="272" name="BG" type="Custom(BgTest2.4)" x="224" y="0" width="224" height="216"/>
+  <object id="273" name="BG" type="Custom(BgTest2.4)" x="448" y="0" width="224" height="216"/>
+  <object id="274" name="BG" type="Custom(BgTest2.4)" x="672" y="0" width="224" height="216"/>
+  <object id="275" name="BG" type="Custom(BgTest2.4)" x="896" y="0" width="224" height="216"/>
+  <object id="276" name="BG" type="Custom(BgTest2.4)" x="1120" y="0" width="224" height="216"/>
+  <object id="277" name="BG" type="Custom(BgTest2.4)" x="1344" y="0" width="224" height="216"/>
+  <object id="278" name="BG" type="Custom(BgTest2.4)" x="1568" y="0" width="224" height="216"/>
+  <object id="279" name="BG" type="Custom(BgTest2.4)" x="1792" y="0" width="224" height="216"/>
+  <object id="280" name="BG" type="Custom(BgTest2.4)" x="2016" y="0" width="224" height="216"/>
+  <object id="281" name="BG" type="Custom(BgTest2.4)" x="2240" y="0" width="224" height="216"/>
+  <object id="282" name="BG" type="Custom(BgTest2.4)" x="2464" y="0" width="224" height="216"/>
+  <object id="283" name="BG" type="Custom(BgTest2.4)" x="2688" y="0" width="224" height="216"/>
+  <object id="284" name="BG" type="Custom(BgTest2.4)" x="2912" y="0" width="224" height="216"/>
+  <object id="285" name="BG" type="Custom(BgTest2.4)" x="3136" y="0" width="224" height="216"/>
+  <object id="286" name="BG" type="Custom(BgTest2.4)" x="3360" y="0" width="224" height="216"/>
+  <object id="287" name="BG" type="Custom(BgTest2.4)" x="3584" y="0" width="224" height="216"/>
+  <object id="288" name="BG" type="Custom(BgTest2.4)" x="3808" y="0" width="224" height="216"/>
+  <object id="289" name="BG" type="Custom(BgTest2.4)" x="4032" y="0" width="224" height="216"/>
+  <object id="290" name="BG" type="Custom(BgTest2.4)" x="4256" y="0" width="224" height="216"/>
+  <object id="291" name="BG" type="Custom(BgTest2.4)" x="4480" y="0" width="224" height="216"/>
+  <object id="292" name="BG" type="Custom(BgTest2.4)" x="4704" y="0" width="224" height="216"/>
+  <object id="293" name="BG" type="Custom(BgTest2.4)" x="4928" y="0" width="224" height="216"/>
+ </objectgroup>
  <objectgroup id="4" name="Spikes">
   <properties>
    <property name="z" type="float" value="0"/>
@@ -131,7 +159,7 @@
   <object id="243" type="Enemy(Spike)" x="4512" y="140" width="48" height="12"/>
   <object id="244" type="Enemy(Spike)" x="4576" y="172" width="48" height="12"/>
   <object id="248" name="RUBBERTANK" type="Enemy(RubberTank)" x="4416" y="32" width="48" height="48"/>
-  <object id="249" name="UFO RAPID" type="Enemy(UfoSmallRapid)" x="3256" y="24" width="8" height="8">
+  <object id="249" name="UFO RAPID" type="Enemy(UfoSmallRapid)" x="3280" y="24" width="8" height="8">
    <properties>
     <property name="variant" value="Left"/>
    </properties>
