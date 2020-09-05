@@ -15,15 +15,13 @@
                 ),
 
                 events: {
-                    OnInteract: Group([
-                        PlayerAction(
-                            If((
-                                if: LessThan(Health(), 50.0),
-                                then: HealthAction(Gain(10)),
-                            )),
-                        ),
-                        EntityAction(DeleteEntity),
-                    ]),
+                    OnInteract: If((
+                        if: LessThan(Player(Health), 50.0),
+                        then: Group([
+                            PlayerAction(HealthAction(Gain(10))),
+                            EntityAction(DeleteEntity),
+                        ]),
+                    )),
                 },
 
                 collision_tag: (
