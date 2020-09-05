@@ -16,7 +16,10 @@
 
                 events: {
                     OnInteract: If((
-                        if: LessThan(Player(Health), 50.0),
+                        if: Equal(
+                            Player(HasFullHealth),
+                            false,
+                        ),
                         then: Group([
                             PlayerAction(HealthAction(Gain(10))),
                             EntityAction(DeleteEntity),
