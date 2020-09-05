@@ -7,6 +7,7 @@ pub mod prelude {
 
 pub use condition_storages::ConditionStorages;
 
+use crate::deathframe::components::component_prelude::ByAxis;
 use deathframe::amethyst::ecs::Entity;
 use deathframe::core::geo::prelude::Axis;
 use std::cmp;
@@ -131,6 +132,8 @@ impl cmp::PartialOrd for ConditionValue {
 /// a specific value on this entity, like its health or velocity.
 #[derive(Deserialize, Clone, Debug)]
 pub enum ConditionGetter {
+    /// Returns the entity's transform position on the given axis as a number.
+    Position(Axis),
     /// Returns the entity's velocity on the given axis as a number.
     Velocity(Axis),
     /// Returns the entity's health as a number.
@@ -144,6 +147,18 @@ impl ConditionGetter {
         storages: &ConditionStorages,
     ) -> ConditionValue {
         match self {
+            Self::Position(axis) => {
+                if let Some(transform) = storages.transform.get(entity) {
+                    let pos = {
+                        let trans = transform.translation();
+                        (trans.x, trans.y)
+                    };
+                    ConditionValue::Num(pos.by_axis(axis))
+                } else {
+                    ConditionValue::Null
+                }
+            }
+
             Self::Velocity(axis) => {
                 if let Some(velocity) = storages.velocity.get(entity) {
                     ConditionValue::Num(velocity.get(axis))
@@ -151,6 +166,7 @@ impl ConditionGetter {
                     ConditionValue::Null
                 }
             }
+
             Self::Health => {
                 if let Some(health) = storages.health.get(entity) {
                     ConditionValue::Num(health.health as f32)
@@ -169,7 +185,8 @@ mod condition_storages {
 
     #[derive(SystemData)]
     pub struct ConditionStorages<'a> {
-        pub velocity: ReadStorage<'a, Velocity>,
-        pub health:   ReadStorage<'a, Health>,
+        pub transform: ReadStorage<'a, Transform>,
+        pub velocity:  ReadStorage<'a, Velocity>,
+        pub health:    ReadStorage<'a, Health>,
     }
 }
