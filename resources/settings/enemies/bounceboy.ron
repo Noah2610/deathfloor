@@ -1,0 +1,124 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "BounceBoy": (
+            spritesheet_filename: "enemy_bounceboy.png",
+
+            entity: (
+                components: (
+                    size: (
+                        w: 32.0,
+                        h: 32.0,
+                    ),
+                    gravity: (
+                        x: None,
+                        y: -900.0,
+                    ),
+                    max_movement_velocity: (
+                        x: 100.0,
+                        y: 100.0,
+                    ),
+                    base_friction: (
+                        friction_x: 1000.0,
+                    ),
+                    animations: {
+                        Walk: Cycle([
+                            (0, 120),
+                            (1, 120),
+                            (2, 120),
+                            (3, 120),
+                        ]),
+                    },
+                    hitbox: Custom([
+                        (
+                            top:    4.0,
+                            bottom: -16.0,
+                            left:   -6.0,
+                            right:  6.0,
+                        ),
+                    ]),
+                    health: (
+                        health: 6,
+                        max_health: 6,
+                    ),
+                    health_display: (
+                        position: Top,
+                        size: (32.0, 2.0),
+                        padding: 4.0,
+                        border_padding: 0.5,
+                    ),
+                    deals_damage: (
+                        damage: 1,
+                    ),
+                    ledge_detector: (
+                        corners: [
+                            (
+                                corner:      BottomLeft,
+                                if_touching: Bottom,
+                                size: (1.0, 1.0),
+                                offset: (-4.0, 0.0),
+                            ),
+                            (
+                                corner:      BottomRight,
+                                if_touching: Bottom,
+                                size: (1.0, 1.0),
+                                offset: (-4.0, 0.0),
+                            ),
+                        ],
+                        collides_with: ["Solid"],
+                    ),
+                ),
+
+                events: {
+                    OnCollision(And([IsTag("Bullet"), IsState(Enter)])):
+                        HealthAction(Lose(1)),
+                },
+
+                variants: {
+                    "Left": (
+                        components: (
+                            walker: (
+                                x: -500.0,
+                            ),
+                        ),
+                        events: {
+                            OnLedgeDetect(BottomLeft, Bottom):
+                                EntityAction(SwitchVariant("Right")),
+                            OnCollision(And([
+                                    IsTag("Solid"),
+                                    IsState(Enter),
+                                    IsSide(Left),
+                                ])): EntityAction(SwitchVariant("Right")),
+                        },
+                    ),
+                    "Right": (
+                        components: (
+                            walker: (
+                                x: 500.0,
+                            ),
+                        ),
+                        events: {
+                            OnLedgeDetect(BottomRight, Bottom):
+                                EntityAction(SwitchVariant("Left")),
+                            OnCollision(And([
+                                    IsTag("Solid"),
+                                    IsState(Enter),
+                                    IsSide(Right),
+                                ])): EntityAction(SwitchVariant("Left")),
+                        },
+                    ),
+                },
+
+                collision_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
+                ),
+
+                solid_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Solid"],
+                ),
+            ),
+        ),
+    }
+)

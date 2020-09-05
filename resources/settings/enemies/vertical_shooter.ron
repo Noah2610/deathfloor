@@ -18,8 +18,23 @@
                         friction_y: 1000.0,
                     ),
                     animations: {
-                        Walk: Cycle([
-                            (3, 150),
+                        Custom("Default"): Once([
+                            (3, 500),
+                        ]),
+                        Custom("Charge"): Once([
+                            (8, 100),
+                            (9, 100),
+                            (10, 100),
+                            (11, 100),
+                            (15, 50),
+                        ]),
+                        Custom("Reset"): Once([
+                            (12, 40),
+                            (13, 40),
+                            (14, 40),
+                            (2, 120),
+                            (1, 120),
+                            (0, 120),
                         ]),
                     },
                     hitbox: Custom([
@@ -48,8 +63,12 @@
                 events: {
                     OnCollision(And([IsTag("Bullet"), IsState(Enter)])):
                         HealthAction(Lose(1)),
-
-                    Interval(500): Random((
+                                             
+                    Init: AnimationAction(Push(Custom("Default"))),
+                    OnAnimationEnd(Custom("Default")): AnimationAction(Push(Custom("Charge"))),
+                    OnAnimationEnd(Custom("Charge")): Group([
+                         AnimationAction(Push(Custom("Reset"))),
+                        Random((
                         chance: 0.5,
                         on_success: SpawnAction(SpawnRelative((
                             object: (
@@ -72,6 +91,8 @@
                             ),
                         ))),
                     )),
+                    ]),
+                    OnAnimationEnd(Custom("Reset")): AnimationAction(Push(Custom("Default"))),
                 },
 
                 variants: {
