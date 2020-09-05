@@ -179,30 +179,6 @@
             ])): MoveAction(AddVelocity(
                 y: 250.0,
             )),
-
-            // -----
-            // DEBUG
-            // -----
-
-            Interval(1000): If((
-                if: LessThan(
-                    Health(),
-                    50.0,
-                ),
-                then: Echo("BELOW full health"),
-                else: Echo("AT full health"),
-            )),
-
-            Interval(250): Group([
-                If((
-                    if: GreaterThan(Velocity(X), 0.0),
-                    then: Echo("MOVING RIGHT!"),
-                )),
-                If((
-                    if: LessThan(Velocity(X), 0.0),
-                    then: Echo("MOVING LEFT!"),
-                )),
-            ]),
         },
 
         variants: {
