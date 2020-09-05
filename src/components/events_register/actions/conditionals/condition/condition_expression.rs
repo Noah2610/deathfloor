@@ -88,6 +88,8 @@ pub enum ConditionExpressionValueGetter {
     Velocity(Axis),
     /// Returns the entity's health as a number.
     Health,
+    /// Returns a boolean depending on if the entity's health is at max.
+    HasFullHealth,
 }
 
 impl ConditionExpressionValueGetter {
@@ -121,6 +123,14 @@ impl ConditionExpressionValueGetter {
             Self::Health => {
                 if let Some(health) = storages.health.get(entity) {
                     Value::Num(health.health as f32)
+                } else {
+                    Value::Null
+                }
+            }
+
+            Self::HasFullHealth => {
+                if let Some(health) = storages.health.get(entity) {
+                    Value::Bool(health.has_full_health())
                 } else {
                     Value::Null
                 }
