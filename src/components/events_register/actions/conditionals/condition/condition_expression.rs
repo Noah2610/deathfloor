@@ -1,78 +1,8 @@
-pub mod prelude {
-    pub use super::Condition;
-    pub use super::ConditionExpression;
-    pub use super::ConditionGetter;
-    pub use super::ConditionStorages;
-}
-
-pub use condition_storages::ConditionStorages;
-
+use super::ConditionStorages;
 use crate::deathframe::components::component_prelude::ByAxis;
 use deathframe::amethyst::ecs::Entity;
 use deathframe::core::geo::prelude::Axis;
 use std::cmp;
-
-/// A _condition_ used with conditional actions (such as `If`).
-/// A condition returns `true` or `false`.
-#[derive(Deserialize, Clone)]
-pub enum Condition {
-    /// Passes if both values are _equal_ (`==`).
-    #[serde(alias = "Eq")]
-    Equal(ConditionExpression, ConditionExpression),
-
-    /// Passes if the first value is _less than_ the second value (`<`).
-    #[serde(alias = "Lt")]
-    LessThan(ConditionExpression, ConditionExpression),
-
-    /// Passes if the first value is _greater than_ the second value (`>`).
-    #[serde(alias = "Gt")]
-    GreaterThan(ConditionExpression, ConditionExpression),
-
-    /// Always passes (returns `true`).
-    #[serde(alias = "true")]
-    True,
-
-    /// Never passes (returns `false`).
-    #[serde(alias = "false")]
-    False,
-
-    /// Inverts the given condition.
-    Not(Box<Condition>),
-
-    /// `And`s the given conditions together.
-    /// All given conditions must pass for this condition to pass.
-    And(Vec<Condition>),
-
-    /// `Or`s the given conditions together.
-    /// Any of the given conditions must pass for this condition to pass.
-    Or(Vec<Condition>),
-}
-
-impl Condition {
-    pub fn passes(&self, entity: Entity, storages: &ConditionStorages) -> bool {
-        use Condition::*;
-        match self {
-            Equal(one, two) => {
-                one.get(entity, storages) == two.get(entity, storages)
-            }
-            LessThan(one, two) => {
-                one.get(entity, storages) < two.get(entity, storages)
-            }
-            GreaterThan(one, two) => {
-                one.get(entity, storages) > two.get(entity, storages)
-            }
-            True => true,
-            False => false,
-            Not(condition) => !condition.passes(entity, storages),
-            And(conditions) => conditions
-                .iter()
-                .all(|condition| condition.passes(entity, storages)),
-            Or(conditions) => conditions
-                .iter()
-                .any(|condition| condition.passes(entity, storages)),
-        }
-    }
-}
 
 /// A `ConditionExpression` is used in conditional actions.
 /// It can be a _literal value_ when the value is just literally typed in the config,
@@ -175,18 +105,5 @@ impl ConditionGetter {
                 }
             }
         }
-    }
-}
-
-mod condition_storages {
-    use crate::components::prelude::*;
-    use deathframe::amethyst::ecs::shred::ResourceId;
-    use deathframe::amethyst::ecs::{ReadStorage, SystemData, World};
-
-    #[derive(SystemData)]
-    pub struct ConditionStorages<'a> {
-        pub transform: ReadStorage<'a, Transform>,
-        pub velocity:  ReadStorage<'a, Velocity>,
-        pub health:    ReadStorage<'a, Health>,
     }
 }
