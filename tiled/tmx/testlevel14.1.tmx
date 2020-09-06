@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="640" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="6" nextobjectid="171">
  <editorsettings>
-  <export target="../../resources/levels/level14.json" format="deathfloor-export"/>
+  <export format="deathfloor-export"/>
  </editorsettings>
  <tileset firstgid="1" source="../tsx/testtiles8.tsx"/>
  <objectgroup id="5" name="bg">
