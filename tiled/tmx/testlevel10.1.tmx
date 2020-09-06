@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="572" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="8" nextobjectid="75">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="572" height="27" tilewidth="8" tileheight="8" infinite="0" nextlayerid="8" nextobjectid="78">
  <editorsettings>
   <export target="../../resources/levels/level16.json" format="deathfloor-export"/>
  </editorsettings>
@@ -201,6 +201,9 @@
   <object id="72" type="Enemy(Spike)" x="2160" y="160" width="48" height="8"/>
   <object id="73" type="Enemy(Spike)" x="2064" y="144" width="48" height="8"/>
   <object id="74" type="Enemy(Spike)" x="2544" y="136" width="192" height="8"/>
+  <object id="75" name="JUMPING CAN" type="Enemy(JumpingCan)" x="2224" y="136" width="8" height="8"/>
+  <object id="76" name="JUMPING CAN" type="Enemy(JumpingCan)" x="2328" y="120" width="8" height="8"/>
+  <object id="77" name="JUMPING CAN" type="Enemy(JumpingCan)" x="2416" y="104" width="8" height="8"/>
  </objectgroup>
  <objectgroup id="4" name="Player">
   <properties>
