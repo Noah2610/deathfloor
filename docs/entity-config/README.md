@@ -1,18 +1,3 @@
-- [Overview](#overview)
-- [Components](#components)
-- [Events](#events)
-- [Actions](#actions)
-  - [Action Conditionals](#action-conditionals)
-    - [`ConditionExpression` literal value](#conditionexpression-literal-value)
-    - [`ConditionExpression` value getter](#conditionexpression-value-getter)
-    - [`ConditionExpression` player value getter](#conditionexpression-player-value-getter)
-- [Collision Tags](#collision-tags)
-- [Variants](#variants)
-  - [Use variant](#use-variant)
-  - [Default variant](#default-variant)
-  - [The variant stack](#the-variant-stack)
-  - [Switching variant details](#switching-variant-details)
-
 # Entity Config Documentation
 <details open>
 <summary>
