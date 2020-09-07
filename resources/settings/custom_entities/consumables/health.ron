@@ -15,10 +15,16 @@
                 ),
 
                 events: {
-                    OnInteract: Group([
-                        PlayerAction(HealthAction(Gain(10))),
-                        EntityAction(DeleteEntity),
-                    ]),
+                    OnInteract: If((
+                        if: Equal(
+                            Player(HasFullHealth),
+                            false,
+                        ),
+                        then: Group([
+                            PlayerAction(HealthAction(Gain(10))),
+                            EntityAction(DeleteEntity),
+                        ]),
+                    )),
                 },
 
                 collision_tag: (

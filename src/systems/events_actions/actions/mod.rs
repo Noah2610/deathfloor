@@ -6,6 +6,7 @@ pub mod echo;
 pub mod entity_action;
 pub mod group;
 pub mod health_action;
+pub mod if_action;
 pub mod insert_components;
 pub mod lifecycle_action;
 pub mod move_action;
