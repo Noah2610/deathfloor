@@ -1,4 +1,16 @@
 # Entity Config Documentation
+<details open>
+<summary>
+    <strong>Table of Contents</strong>
+</summary>
+
+- [Overview](#overview)
+- [Components](#components)
+- [Events](#events)
+- [Actions](#actions)
+- [Collision Tags](#collision-tags)
+</details>
+
 ## Overview
 An _entity config_ is a generic configuration for entities.  
 Some of its features include:
@@ -156,7 +168,7 @@ Some collision rules derived from the below configs:
 - The solid block generates no collision events at all, because its  
   `collision_tag`'s `collides_with` field is omitted.
 
-#### Player collision tag config example
+__Player collision tag config example__
 ```ron
 (
     collision_tag: (
@@ -171,7 +183,7 @@ Some collision rules derived from the below configs:
 )
 ```
 
-#### Solid block collision tag config example
+__Solid block collision tag config example__
 ```ron
 (
     collision_tag: (
