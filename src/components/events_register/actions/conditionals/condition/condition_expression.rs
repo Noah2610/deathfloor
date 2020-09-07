@@ -11,9 +11,9 @@ use std::cmp;
 #[derive(Deserialize, Clone, Debug)]
 #[serde(untagged)]
 pub enum ConditionExpression {
-    Literal(ConditionExpressionValue),
-    Get(ConditionExpressionValueGetter),
     OtherEntityGet(ConditionExpressionOtherEntity),
+    Get(ConditionExpressionValueGetter),
+    Literal(ConditionExpressionValue),
 }
 
 #[derive(Deserialize, Clone, Debug)]
@@ -51,9 +51,9 @@ impl ConditionExpression {
 #[serde(untagged)]
 pub enum ConditionExpressionValue {
     Null,
+    Bool(bool),
     Num(f32),
     Str(String),
-    Bool(bool),
 }
 
 impl PartialEq for ConditionExpressionValue {
@@ -61,9 +61,9 @@ impl PartialEq for ConditionExpressionValue {
         use ConditionExpressionValue::*;
         match (self, other) {
             (Null, Null) => true,
+            (Bool(one), Bool(two)) => one == two,
             (Num(one), Num(two)) => one == two,
             (Str(one), Str(two)) => one == two,
-            (Bool(one), Bool(two)) => one == two,
             (_, _) => {
                 eprintln!(
                     "[WARNING]\n    Condition expression values can only be \
@@ -82,9 +82,9 @@ impl cmp::PartialOrd for ConditionExpressionValue {
         use ConditionExpressionValue::*;
         match (self, other) {
             (Null, Null) => Some(cmp::Ordering::Equal),
+            (Bool(one), Bool(two)) => one.partial_cmp(&two),
             (Num(one), Num(two)) => one.partial_cmp(&two),
             (Str(one), Str(two)) => one.partial_cmp(&two),
-            (Bool(one), Bool(two)) => one.partial_cmp(&two),
             (_, _) => {
                 eprintln!(
                     "[WARNING]\n    Condition expression values can only be \
