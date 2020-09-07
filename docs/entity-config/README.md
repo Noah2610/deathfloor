@@ -21,7 +21,11 @@ Entity config field: `components`
 The `components` field contains a list of optional components for this entity.  
 See [`EntityComponentsData`][docs-EntityComponentsData] for available components.  
 
-### Components Example
+<details>
+<summary>
+    <strong>Components Example</strong>
+</summary>
+
 ```ron
 (
     components: (
@@ -44,6 +48,7 @@ For most components, their docs page shows which fields it needs,
 but for some the way they are configured looks completely different from the docs,  
 and there's no easy way to figure out when that is the case from the docs.  
 For this I should work on manual documentation for every entity config components.
+</details>
 
 ## Events
 Entity config field: `events`
@@ -57,7 +62,11 @@ See the [`EventType` docs][docs-EventType] for available events and their descri
 When an _event_ occurs in game, then it triggers its _action_.  
 See [Actions] to see what actions do.
 
-### Events Example
+<details>
+<summary>
+    <strong>Events Example</strong>
+</summary>
+
 ```ron
 (
     events: { // The `{}` brackets denote a `HashMap`.
@@ -68,6 +77,7 @@ See [Actions] to see what actions do.
     },
 )
 ```
+</details>
 
 ## Actions
 Used in entity config field: `events`
@@ -89,7 +99,11 @@ but if the entity is dead in the next frame then the action won't execute.
 In this case, we can work around this by giving the entity a `Death` animation  
 in its components' `animations` field (`AnimationContainer` component) ([see this issue comment](https://github.com/Noah2610/deathfloor/issues/56#issuecomment-678921295)).
 
-### Actions Example
+<details>
+<summary>
+    <strong>Actions Example</strong>
+</summary>
+
 ```ron
 (
     events: (
@@ -107,6 +121,7 @@ in its components' `animations` field (`AnimationContainer` component) ([see thi
     ),
 )
 ```
+</details>
 
 ## Collision Tags
 Entity config field for general collision checking: `collision_tag`  
@@ -127,7 +142,11 @@ A `CollisionTag` has the following fields:
   This entity collides with entities that have any of these labels specified in their `labels` array.  
   This field is optional, and should be omitted if this entity shouldn't check for collision at all (for example for solid blocks).
 
-### Collision Tags Example
+<details>
+<summary>
+    <strong>Collision Tags Example</strong>
+</summary>
+
 Some collision rules derived from the below configs:
 - The player has solid collision with solid blocks.
 - The player checks for collisions with solid blocks, and enemies,  
@@ -168,6 +187,7 @@ Some collision rules derived from the below configs:
     ),
 )
 ```
+</details>
 
 [Components]:     #components
 [Events]:         #events
