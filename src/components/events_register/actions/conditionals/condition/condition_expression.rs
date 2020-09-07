@@ -47,7 +47,7 @@ impl ConditionExpression {
     }
 }
 
-#[derive(Deserialize, Clone, PartialEq, Debug)]
+#[derive(Deserialize, Clone, Debug)]
 #[serde(untagged)]
 pub enum ConditionExpressionValue {
     Null,
@@ -56,10 +56,30 @@ pub enum ConditionExpressionValue {
     Bool(bool),
 }
 
+impl PartialEq for ConditionExpressionValue {
+    fn eq(&self, other: &Self) -> bool {
+        use ConditionExpressionValue::*;
+        match (self, other) {
+            (Null, Null) => true,
+            (Num(one), Num(two)) => one == two,
+            (Str(one), Str(two)) => one == two,
+            (Bool(one), Bool(two)) => one == two,
+            (_, _) => {
+                eprintln!(
+                    "[WARNING]\n    Condition expression values can only be \
+                     compared if they are the same type.\n    Got: {:?} and \
+                     {:?}",
+                    self, other
+                );
+                false
+            }
+        }
+    }
+}
+
 impl cmp::PartialOrd for ConditionExpressionValue {
     fn partial_cmp(&self, other: &Self) -> Option<cmp::Ordering> {
         use ConditionExpressionValue::*;
-
         match (self, other) {
             (Null, Null) => Some(cmp::Ordering::Equal),
             (Num(one), Num(two)) => one.partial_cmp(&two),
