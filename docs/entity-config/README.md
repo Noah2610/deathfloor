@@ -1,3 +1,18 @@
+- [Overview](#overview)
+- [Components](#components)
+- [Events](#events)
+- [Actions](#actions)
+  - [Action Conditionals](#action-conditionals)
+    - [`ConditionExpression` literal value](#conditionexpression-literal-value)
+    - [`ConditionExpression` value getter](#conditionexpression-value-getter)
+    - [`ConditionExpression` player value getter](#conditionexpression-player-value-getter)
+- [Collision Tags](#collision-tags)
+- [Variants](#variants)
+  - [Use variant](#use-variant)
+  - [Default variant](#default-variant)
+  - [The variant stack](#the-variant-stack)
+  - [Switching variant details](#switching-variant-details)
+
 # Entity Config Documentation
 <details open>
 <summary>
@@ -8,6 +23,10 @@
 - [Components](#components)
 - [Events](#events)
 - [Actions](#actions)
+  - [Action Conditionals](#action-conditionals)
+    - [`ConditionExpression` literal value](#conditionexpression-literal-value)
+    - [`ConditionExpression` value getter](#conditionexpression-value-getter)
+    - [`ConditionExpression` player value getter](#conditionexpression-player-value-getter)
 - [Collision Tags](#collision-tags)
 - [Variants](#variants)
   - [Use variant](#use-variant)
@@ -139,6 +158,92 @@ in its components' `animations` field (`AnimationContainer` component) ([see iss
 )
 ```
 </details>
+
+### Action Conditionals
+The [`If` action][docs-IfAction] is a _conditional action_.  
+It's like an _if_ statement; it only triggers an action if the condition passes.  
+[Related issue #72.](https://github.com/Noah2610/deathfloor/issues/72)
+
+The `If` action is configured differently than its docs show.  
+The config syntax looks like this:
+```ron
+If((
+    if:   ..., // Condition
+    then: ..., // ActionType
+    else: ..., // ActionType (optional)
+)),
+```
+
+A `Condition` (used under the `if` field in the `If` action) can pass or fail  
+(returns `true` or `false`, essentially).  
+If it passes, then the action under the `then` field is triggered.  
+If if fails, the `else` field's action is triggered. The `else` field is optional.
+
+See the [`Condition` docs][docs-Condition] for available conditions and their descriptions.
+
+Conditions like `And`, `Or`, `Not` take further conditions as arguments.  
+The other conditions like `Equal`, `LessThan` take [`ConditionExpression`][docs-ConditionExpression]s as arguments.  
+Don't get distracted by the `ConditionExpression`'s docs, their config syntax is very different.  
+
+The `ConditionExpression` can be a couple different things:
+
+#### `ConditionExpression` literal value
+A literal value can be one of the following, simply written as shown.
+
+- __Boolean__
+  ```
+  true
+  false
+  ```
+- __Number__
+  ```
+  10.0 // Always specified as a float.
+  420.0
+  ```
+- __String__
+  ```
+  "MyString"
+  AlsoMyString // Note, that without `""` it is also parsed as a string.
+               // This is an unwanted side-effect in my opinion, but it's how it works.
+               // We should always use `""` to be more verbose.
+  ```
+- __Null__
+  ```
+  Null
+  ```
+
+#### `ConditionExpression` value getter
+A _value getter_ is like a keyword that is replaced by a value from one of the entity's components.  
+See the [`ConditionExpressionValueGetter` docs][docs-ConditionExpressionValueGetter] for available value getters and their descriptions.  
+For example, the `Health` getter returns the entity's _health_ as a number value,  
+which can be compared with a number literal, like this:
+```ron
+If((
+    if: Equal(
+        Health,
+        10.0,
+    ),
+    then: Echo("Health is exactly 10!"),
+)),
+```
+
+#### `ConditionExpression` player value getter
+A very specifc value that can be used in a condition expression, is `Player(VALUE_GETTER)`.  
+The inner value to `Player(...)` is a [`ConditionExpressionValueGetter`][docs-ConditionExpressionValueGetter],  
+but the value is gotten from the _player_ entity.  
+So with this, we can specifically check a value on the _player_,  
+while still triggering the `then` action on _this_ entity.  
+For example:
+```ron
+If((
+    if: LessThan(
+        Player(Position(X)),
+        Position(X),
+    ),
+    then: Echo("Player is to the LEFT of me!"),
+    else: Echo("Player is to the RIGHT of me (or exactly on my X)!"),
+)),
+```
 
 ## Collision Tags
 Entity config field for general collision checking: `collision_tag`  
@@ -420,8 +525,12 @@ Our `Shooter` enemy entity config (only relevant parts).
 [Collision Tags]: #collision-tags
 [Variants]:       #variants
 
-[docs-EntityConfig]:         https://noah2610.github.io/deathfloor/deathfloor/settings/entity_config/struct.EntityConfig.html
-[docs-EntityComponentsData]: https://noah2610.github.io/deathfloor/deathfloor/settings/entity_config/struct.EntityComponentsData.html
-[docs-EventType]:            https://noah2610.github.io/deathfloor/deathfloor/components/events_register/event_type/enum.EventType.html
-[docs-ActionType]:           https://noah2610.github.io/deathfloor/deathfloor/components/events_register/actions/enum.ActionType.html
-[docs-CollisionTag]:         https://noah2610.github.io/deathfloor/deathfloor/collision_tag/collision_tag/struct.CollisionTag.html
+[docs-EntityConfig]:                   https://noah2610.github.io/deathfloor/deathfloor/settings/entity_config/struct.EntityConfig.html
+[docs-EntityComponentsData]:           https://noah2610.github.io/deathfloor/deathfloor/settings/entity_config/struct.EntityComponentsData.html
+[docs-EventType]:                      https://noah2610.github.io/deathfloor/deathfloor/components/events_register/event_type/enum.EventType.html
+[docs-ActionType]:                     https://noah2610.github.io/deathfloor/deathfloor/components/events_register/actions/enum.ActionType.html
+[docs-CollisionTag]:                   https://noah2610.github.io/deathfloor/deathfloor/collision_tag/collision_tag/struct.CollisionTag.html
+[docs-IfAction]:                       https://noah2610.github.io/deathfloor/deathfloor/components/events_register/actions/conditionals/if_action/struct.IfAction.html
+[docs-Condition]:                      https://noah2610.github.io/deathfloor/deathfloor/components/events_register/actions/conditionals/condition/enum.Condition.html
+[docs-ConditionExpression]:            https://noah2610.github.io/deathfloor/deathfloor/components/events_register/actions/conditionals/condition/condition_expression/enum.ConditionExpression.html
+[docs-ConditionExpressionValueGetter]: https://noah2610.github.io/deathfloor/deathfloor/components/events_register/actions/conditionals/condition/condition_expression/enum.ConditionExpressionValueGetter.html
