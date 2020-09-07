@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_PlayerSettings",""],["_IMPL_DESERIALIZE_FOR_ShooterBulletData",""],["_IMPL_DESERIALIZE_FOR_ShooterData",""]],"mod":[["prelude",""]],"struct":[["PlayerSettings",""],["ShooterBulletData",""],["ShooterData",""]]});
+initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_PlayerSettings",""],["_IMPL_DESERIALIZE_FOR_ShooterData",""]],"mod":[["prelude",""]],"struct":[["PlayerSettings",""],["ShooterData",""]]});

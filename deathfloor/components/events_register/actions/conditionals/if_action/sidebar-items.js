@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_IfAction",""]],"struct":[["IfAction","An action that triggers the action under the `then` field if the condition under the `if` field passes."]]});

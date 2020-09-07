@@ -320,10 +320,6 @@
 <span id="320">320</span>
 <span id="321">321</span>
 <span id="322">322</span>
-<span id="323">323</span>
-<span id="324">324</span>
-<span id="325">325</span>
-<span id="326">326</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">animation_key</span>::<span class="ident">AnimationKey</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">collision_tag</span>;
@@ -453,7 +449,6 @@
         .<span class="ident">with_core</span>(<span class="ident">CameraOrthoSystem</span>::<span class="ident">default</span>(), <span class="string">&quot;camera_ortho_system&quot;</span>, <span class="kw-2">&amp;</span>[])<span class="question-mark">?</span>
         .<span class="ident">with_bundle</span>(<span class="ident">DispatcherId</span>::<span class="ident">Ingame</span>, <span class="ident">ingame_input_bundle</span>)<span class="question-mark">?</span>
         .<span class="ident">with_bundle</span>(<span class="ident">DispatcherId</span>::<span class="ident">Ingame</span>, <span class="ident">physics_bundle</span>)<span class="question-mark">?</span>
-        .<span class="ident">with_bundle</span>(<span class="ident">DispatcherId</span>::<span class="ident">Ingame</span>, <span class="ident">EventHandlersBundle</span>::<span class="ident">default</span>())<span class="question-mark">?</span>
         .<span class="ident">with_bundle</span>(<span class="ident">DispatcherId</span>::<span class="ident">Paused</span>, <span class="ident">paused_input_bundle</span>)<span class="question-mark">?</span>
         .<span class="ident">with</span>(
             <span class="ident">DispatcherId</span>::<span class="ident">Ui</span>,
@@ -551,28 +546,6 @@
         )<span class="question-mark">?</span>
         .<span class="ident">with</span>(
             <span class="ident">DispatcherId</span>::<span class="ident">Ingame</span>,
-            <span class="ident">CreateBulletsSystem</span>::<span class="ident">default</span>(),
-            <span class="string">&quot;create_bullets_system&quot;</span>,
-            <span class="kw-2">&amp;</span>[<span class="string">&quot;control_player_shoot_system&quot;</span>],
-        )<span class="question-mark">?</span>
-        .<span class="ident">with</span>(
-            <span class="ident">DispatcherId</span>::<span class="ident">Ingame</span>,
-            <span class="ident">DeleteBulletsSystem</span>::<span class="ident">default</span>(),
-            <span class="string">&quot;delete_bullets_system&quot;</span>,
-            <span class="kw-2">&amp;</span>[],
-        )<span class="question-mark">?</span>
-        .<span class="ident">with</span>(
-            <span class="ident">DispatcherId</span>::<span class="ident">Ingame</span>,
-            <span class="ident">BulletHitSystem</span>::<span class="ident">default</span>(),
-            <span class="string">&quot;bullet_hit_system&quot;</span>,
-            <span class="kw-2">&amp;</span>[
-                <span class="string">&quot;create_bullets_system&quot;</span>,
-                <span class="string">&quot;delete_bullets_system&quot;</span>,
-                <span class="string">&quot;update_collisions_system&quot;</span>,
-            ],
-        )<span class="question-mark">?</span>
-        .<span class="ident">with</span>(
-            <span class="ident">DispatcherId</span>::<span class="ident">Ingame</span>,
             <span class="ident">HandleWalkersSystem</span>::<span class="ident">default</span>(),
             <span class="string">&quot;handle_walkers_system&quot;</span>,
             <span class="kw-2">&amp;</span>[],
@@ -630,7 +603,26 @@
             <span class="ident">HandleDyingEntitiesSystem</span>::<span class="ident">default</span>(),
             <span class="string">&quot;handle_dying_entities_system&quot;</span>,
             <span class="kw-2">&amp;</span>[],
-        )<span class="question-mark">?</span>;
+        )<span class="question-mark">?</span>
+        .<span class="ident">with</span>(
+            <span class="ident">DispatcherId</span>::<span class="ident">Ingame</span>,
+            <span class="ident">HandleDeathOnContactSystem</span>::<span class="ident">default</span>(),
+            <span class="string">&quot;handle_death_on_contact_system&quot;</span>,
+            <span class="kw-2">&amp;</span>[<span class="string">&quot;update_collisions_system&quot;</span>],
+        )<span class="question-mark">?</span>
+        .<span class="ident">with</span>(
+            <span class="ident">DispatcherId</span>::<span class="ident">Ingame</span>,
+            <span class="ident">HandleDeathAfterDelaySystem</span>::<span class="ident">default</span>(),
+            <span class="string">&quot;handle_death_after_delay_system&quot;</span>,
+            <span class="kw-2">&amp;</span>[],
+        )<span class="question-mark">?</span>
+        .<span class="ident">with</span>(
+            <span class="ident">DispatcherId</span>::<span class="ident">Ingame</span>,
+            <span class="ident">HandleInteractableSystem</span>::<span class="ident">default</span>(),
+            <span class="string">&quot;handle_interactable_system&quot;</span>,
+            <span class="kw-2">&amp;</span>[<span class="string">&quot;update_collisions_system&quot;</span>],
+        )<span class="question-mark">?</span>
+        .<span class="ident">with_bundle</span>(<span class="ident">DispatcherId</span>::<span class="ident">Ingame</span>, <span class="ident">EventsActionsBundle</span>::<span class="ident">default</span>())<span class="question-mark">?</span>;
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;debug&quot;</span>)]</span>
     {

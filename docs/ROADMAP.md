@@ -30,12 +30,15 @@
   tile animations ([#20]), tile events/actions
 
 ## v0.0.5
-### Features
-- [ ] item and pickup system ([#49])
-- [ ] moving platforms ([#50])
-- [ ] line-of-sight detection ([#51])
+- [ ] consumable pickup system ([#49], [#70])
 - [ ] camera system ([#19])
-- [ ] ability select screen with functional UI ([#52])
+- [ ] line-of-sight detection ([#51])
+
+## v0.0.6
+### Features
+- [ ] ability system ([#52])
+- [ ] moving platforms ([#50])
+- [ ] footsteps ([#53])
 
 ### Audio
 - [ ] music, implement test tracks
@@ -71,3 +74,5 @@
 [#50]: https://github.com/Noah2610/deathfloor/issues/50
 [#51]: https://github.com/Noah2610/deathfloor/issues/51
 [#52]: https://github.com/Noah2610/deathfloor/issues/52
+[#53]: https://github.com/Noah2610/deathfloor/issues/53
+[#70]: https://github.com/Noah2610/deathfloor/issues/70

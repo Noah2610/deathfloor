@@ -22,16 +22,16 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">Deserialize</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">SongType</span> {
-    <span class="ident">Floor1</span>,
-    <span class="ident">Cntrlgun</span>,
+    <span class="ident">Ingame</span>,
+    <span class="ident">Menu</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">SongType</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PathBuf</span> {
         <span class="kw">let</span> <span class="ident">sfx_dir</span> <span class="op">=</span> <span class="ident">resource</span>(<span class="string">&quot;audio/bgm&quot;</span>);
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident">SongType</span>::<span class="ident">Floor1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">sfx_dir</span>.<span class="ident">join</span>(<span class="string">&quot;floor1wip.ogg&quot;</span>),
-            <span class="ident">SongType</span>::<span class="ident">Cntrlgun</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">sfx_dir</span>.<span class="ident">join</span>(<span class="string">&quot;cntrlgun.ogg&quot;</span>),
+            <span class="ident">SongType</span>::<span class="ident">Ingame</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">sfx_dir</span>.<span class="ident">join</span>(<span class="string">&quot;9temp.ogg&quot;</span>),
+            <span class="ident">SongType</span>::<span class="ident">Menu</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">sfx_dir</span>.<span class="ident">join</span>(<span class="string">&quot;paulsesh.ogg&quot;</span>),
         }
     }
 }

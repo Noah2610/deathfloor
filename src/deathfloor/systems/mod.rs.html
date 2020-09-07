@@ -61,18 +61,18 @@
 <span id="61">61</span>
 <span id="62">62</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">mod</span> <span class="ident">bullet_hit</span>;
 <span class="kw">mod</span> <span class="ident">control_player</span>;
 <span class="kw">mod</span> <span class="ident">control_player_jump</span>;
 <span class="kw">mod</span> <span class="ident">control_player_shoot</span>;
-<span class="kw">mod</span> <span class="ident">create_bullets</span>;
-<span class="kw">mod</span> <span class="ident">delete_bullets</span>;
 <span class="kw">mod</span> <span class="ident">display_health</span>;
-<span class="kw">mod</span> <span class="ident">event_handlers</span>;
+<span class="kw">mod</span> <span class="ident">events_actions</span>;
 <span class="kw">mod</span> <span class="ident">handle_animation_editors</span>;
 <span class="kw">mod</span> <span class="ident">handle_animations</span>;
+<span class="kw">mod</span> <span class="ident">handle_death_after_delay</span>;
 <span class="kw">mod</span> <span class="ident">handle_death_bound</span>;
+<span class="kw">mod</span> <span class="ident">handle_death_on_contact</span>;
 <span class="kw">mod</span> <span class="ident">handle_dying_entities</span>;
+<span class="kw">mod</span> <span class="ident">handle_interactable</span>;
 <span class="kw">mod</span> <span class="ident">handle_jumppad_affected</span>;
 <span class="kw">mod</span> <span class="ident">handle_ledge_detector</span>;
 <span class="kw">mod</span> <span class="ident">handle_level_select</span>;
@@ -86,18 +86,18 @@
     <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">deathframe</span>::<span class="ident">amethyst</span>::<span class="ident">utils</span>::<span class="ident">ortho_camera</span>::<span class="ident">CameraOrthoSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">deathframe</span>::<span class="ident">systems</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">bullet_hit</span>::<span class="ident">BulletHitSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">control_player</span>::<span class="ident">ControlPlayerSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">control_player_jump</span>::<span class="ident">ControlPlayerJumpSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">control_player_shoot</span>::<span class="ident">ControlPlayerShootSystem</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">create_bullets</span>::<span class="ident">CreateBulletsSystem</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">delete_bullets</span>::<span class="ident">DeleteBulletsSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">display_health</span>::<span class="ident">DisplayHealthSystem</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">event_handlers</span>::<span class="ident">EventHandlersBundle</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">events_actions</span>::<span class="ident">EventsActionsBundle</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_animation_editors</span>::<span class="ident">HandleAnimationEditorsSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_animations</span>::<span class="ident">HandleAnimationsSystem</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_death_after_delay</span>::<span class="ident">HandleDeathAfterDelaySystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_death_bound</span>::<span class="ident">HandleDeathBoundSystem</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_death_on_contact</span>::<span class="ident">HandleDeathOnContactSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_dying_entities</span>::<span class="ident">HandleDyingEntitiesSystem</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_interactable</span>::<span class="ident">HandleInteractableSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_jumppad_affected</span>::<span class="ident">HandleJumppadAffectedSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_ledge_detector</span>::<span class="ident">HandleLedgeDetectorSystem</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">handle_level_select</span>::<span class="ident">HandleLevelSelectSystem</span>;

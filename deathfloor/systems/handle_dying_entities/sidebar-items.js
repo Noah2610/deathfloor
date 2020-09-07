@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["HandleDyingEntitiesSystem",""]]});
+initSidebarItems({"struct":[["HandleDyingEntitiesSystem","Removes select components from entities whose `Lifecycle` is `Death`. Stages removal of components for `Death` entities, but only actually removes the components in the next frame. This is primarily to make the `EventsRegister`'s `OnDeath` event trigger."]]});

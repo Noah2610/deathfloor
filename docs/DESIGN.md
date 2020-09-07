@@ -47,26 +47,32 @@
 - Basic level manager
 - Next-room-object to be placed in tiled
 - Room to room traversal:
-  After a short transition teleport player to new room. new room is seperate tmx / json, so different rooms can have different room sizes / camera settings / zoom level?
+  After a short transition teleport player to new room.  
+  new room is seperate tmx / json, so different rooms can have different room sizes / camera settings / zoom level?
 
 ### Player mechanics (movement and weaponary) per level
-- Pitch:
-When a new level is unlocked, the player is restricted to certain movement and weapon mechanics to enable "precise and concrete" level design. However, when the player has beaten the level,
-it can be replayed with the movement and weapon mechanics of other, already beaten levels. - beating levels globally unlocks their respective mechanics for other, already beaten levels. 
-I would imagine this system to be built upon "slots" - each level gives the player a set (?) amount of available weapon and movement slots that are filled with certain mechanics and can, after
-initially beating the level, be filled by the player with mechanics of their choice.
-Such a system would enable high replayability and gameplay diversity by pretty much only utilizing already existent mechanics -> ressource efficent. The only completely new system would be the
-interactable slot UI. 
+- Pitch  
+When a new level is unlocked, the player is restricted to certain movement and  
+weapon mechanics to enable "precise and concrete" level design.  
+However, when the player has beaten the level, it can be replayed with  
+the movement and weapon mechanics of other, already beaten levels.  
+Beating levels globally unlocks their respective mechanics for other, already beaten levels.  
+I would imagine this system to be built upon "slots" -  
+each level gives the player a set (?) amount of available weapon and  
+movement slots that are filled with certain mechanics and can, after  
+initially beating the level, be filled by the player with mechanics of their choice.  
+Such a system would enable high replayability and gameplay diversity  
+by pretty much only utilizing already existent mechanics -> resource efficient.  
+The only completely new system would be the interactable slot UI.
 
-
-- Camera
+- Camera  
   Limited by level borders
 
-- Player hitboxes:
+- Player hitboxes  
   Seperate hitboxes for solids and damage 
 
 ### Player Movement
-- Jump 
+- Jump
 - Walljump
 - Slide:
   Change hitbox and gain static velocity for duration of slide. spammable?
@@ -77,12 +83,34 @@ interactable slot UI.
 - Animated Backgrounds
 - "Particle Effects":
   Small animated textures with white space are being spawned at location where trigger happens, despawn after going through animation cycle once. Can be for example action lines when jumping or static on the floor when walking over it in some electricity themed level.
-  
+
+### Abilities
+Unlock abilities by acquiring them during a level.
+
+### Ability slots
+Before a level starts, player can select unlocked abilities to use in level.  
+Each level has a set amount of ability slots.
+
+### Consumable pickups
+Player can pickup consumables that have a one-time effect.  
+Example consumables:
+- health
+- max health up
+- extra life
+
+### Checkpoints
+A level can have multiple checkpoints.  
+Player respawns at last checkpoint if they still have an extra life.
+
+### Lives
+Player starts with a set amount of extra lives when starting a level.  
+When the player runs out of lives they game-over and must restart the level  
+from the beginning (reset checkpoints).
 
 ## Combat
 
 ### Health
-Number that can be be added to or subtracted from on certain events. Visually corresponding texture in UI. Set max health. 
+Number that can be be added to or subtracted from on certain events. Visually corresponding texture in UI. Set max health.
 
 ### I-frames
 When the player takes any sort of damage, an animation plays (or maybe shader?) during which the player is invincible to incoming damage. 
@@ -91,8 +119,8 @@ When the player takes any sort of damage, an animation plays (or maybe shader?) 
 A short animation plays and the player is prompted with a screen asking them to either retry the level or to return to the menu.
 If player still has lives left, they respawn at the most recent checkpoint and lose 1 life.
 
-## Enemies 
-- Enemy Death:
+## Enemies
+- Enemy Death  
   Entity gets destroyed, a short animation and maybe sound is played, optionally they drop something (for example a health pack)
 - Spawning enemies
 

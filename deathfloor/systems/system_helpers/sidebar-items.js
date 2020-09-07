@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["insert_components",""],["prelude",""]]});
+initSidebarItems({"mod":[["add_entity_config",""],["insert_components",""],["prelude",""]]});

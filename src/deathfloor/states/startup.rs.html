@@ -140,8 +140,8 @@
                 .<span class="ident">set_volume</span>(<span class="ident">audio_settings</span>.<span class="ident">songs_volume</span>);
             <span class="prelude-val">Ok</span>(())
         };
-        <span class="ident">load_song</span>(<span class="ident">SongType</span>::<span class="ident">Cntrlgun</span>).<span class="ident">unwrap</span>();
-        <span class="ident">load_song</span>(<span class="ident">SongType</span>::<span class="ident">Floor1</span>).<span class="ident">unwrap</span>();
+        <span class="ident">load_song</span>(<span class="ident">SongType</span>::<span class="ident">Ingame</span>).<span class="ident">unwrap</span>();
+        <span class="ident">load_song</span>(<span class="ident">SongType</span>::<span class="ident">Menu</span>).<span class="ident">unwrap</span>();
         <span class="ident">world</span>.<span class="ident">insert</span>(<span class="ident">songs</span>);
     }
 }

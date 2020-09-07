@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_Condition",""]],"enum":[["Condition","A condition used with conditional actions (such as `If`). A condition returns `true` or `false`."]],"mod":[["condition_expression",""],["condition_storages",""],["prelude",""]]});

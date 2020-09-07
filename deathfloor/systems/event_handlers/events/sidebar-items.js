@@ -1,1 +1,0 @@
-initSidebarItems({"mod":[["delay",""],["interval",""],["lifecycle",""],["on_collision",""],["on_ledge_detect",""]]});

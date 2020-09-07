@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_Bullet",""],["_IMPL_DESERIALIZE_FOR_BulletData",""]],"struct":[["Bullet",""],["BulletData",""]]});
+initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_Bullet",""]],"struct":[["Bullet",""]]});

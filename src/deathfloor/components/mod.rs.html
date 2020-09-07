@@ -52,26 +52,38 @@
 <span id="52">52</span>
 <span id="53">53</span>
 <span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">mod</span> <span class="ident">animation_editor</span>;
-<span class="kw">mod</span> <span class="ident">bullet</span>;
-<span class="kw">mod</span> <span class="ident">death_bound</span>;
-<span class="kw">mod</span> <span class="ident">enemy</span>;
-<span class="kw">mod</span> <span class="ident">entity_config_register</span>;
-<span class="kw">mod</span> <span class="ident">event_listener</span>;
-<span class="kw">mod</span> <span class="ident">health_display</span>;
-<span class="kw">mod</span> <span class="ident">jumper</span>;
-<span class="kw">mod</span> <span class="ident">jumppad</span>;
-<span class="kw">mod</span> <span class="ident">jumppad_affected</span>;
-<span class="kw">mod</span> <span class="ident">ledge_detector</span>;
-<span class="kw">mod</span> <span class="ident">max_movement_velocity</span>;
-<span class="kw">mod</span> <span class="ident">movable</span>;
-<span class="kw">mod</span> <span class="ident">physics_data</span>;
-<span class="kw">mod</span> <span class="ident">player</span>;
-<span class="kw">mod</span> <span class="ident">shooter</span>;
-<span class="kw">mod</span> <span class="ident">walker</span>;
-<span class="kw">mod</span> <span class="ident">wall_jumper</span>;
-<span class="kw">mod</span> <span class="ident">wall_slider</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">animation_editor</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">bullet</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">can_interact</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">death_after_delay</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">death_bound</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">death_on_contact</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">enemy</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">entity_config_register</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">events_register</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">health_display</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">interactable</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">jumper</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">jumppad</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">jumppad_affected</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">ledge_detector</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">max_movement_velocity</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">movable</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">physics_data</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">player</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">shooter</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">walker</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">wall_jumper</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">wall_slider</span>;
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">prelude</span> {
     <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">deathframe</span>::<span class="ident">amethyst</span>;
@@ -79,14 +91,18 @@
 
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">animation_editor</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">bullet</span>::<span class="ident">Bullet</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">can_interact</span>::<span class="ident">CanInteract</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">death_after_delay</span>::<span class="ident">DeathAfterDelay</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">death_bound</span>::<span class="ident">DeathBound</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">death_on_contact</span>::<span class="ident">DeathOnContact</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">enemy</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">entity_config_register</span>::{
         <span class="ident">EntityConfigRegister</span>,
         <span class="ident">EntityConfigRegisterAction</span>,
     };
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">event_listener</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">events_register</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">health_display</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">interactable</span>::{<span class="ident">Interactable</span>, <span class="ident">InteractableAction</span>};
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">jumper</span>::<span class="ident">Jumper</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">jumppad</span>::<span class="ident">Jumppad</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">jumppad_affected</span>::<span class="ident">JumppadAffected</span>;

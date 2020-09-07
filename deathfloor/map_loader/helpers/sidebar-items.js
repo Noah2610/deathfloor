@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["edit_entity_with_entity_config","Edits `Entity` with the given `EntityConfig`."],["get_sprite_render",""]],"mod":[["prelude",""]]});
+initSidebarItems({"fn":[["base_entity",""],["edit_entity_with_entity_config","Edits `Entity` with the given `EntityConfig`."],["get_sprite_render",""]],"mod":[["prelude",""]]});

@@ -19,11 +19,9 @@
 <span id="19">19</span>
 <span id="20">20</span>
 <span id="21">21</span>
-<span id="22">22</span>
-<span id="23">23</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">component_prelude</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">settings</span>::<span class="ident">prelude</span>::{<span class="ident">ShooterBulletData</span>, <span class="ident">ShooterData</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">settings</span>::<span class="ident">prelude</span>::<span class="ident">ShooterData</span>;
 <span class="kw">use</span> <span class="ident">climer</span>::<span class="ident">Timer</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">time</span>::<span class="ident">Duration</span>;
 
@@ -31,7 +29,6 @@
 <span class="attribute">#[<span class="ident">storage</span>(<span class="ident">VecStorage</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Shooter</span> {
     <span class="kw">pub</span> <span class="ident">cooldown_timer</span>: <span class="ident">Timer</span>,
-    <span class="kw">pub</span> <span class="ident">bullet_data</span>:    <span class="ident">ShooterBulletData</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ShooterData</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Shooter</span> {
@@ -41,7 +38,6 @@
                 <span class="prelude-val">Some</span>(<span class="ident">Duration</span>::<span class="ident">from_millis</span>(<span class="ident">data</span>.<span class="ident">cooldown_ms</span>).<span class="ident">into</span>()),
                 <span class="prelude-val">None</span>,
             ),
-            <span class="ident">bullet_data</span>:    <span class="ident">data</span>.<span class="ident">bullet</span>,
         }
     }
 }

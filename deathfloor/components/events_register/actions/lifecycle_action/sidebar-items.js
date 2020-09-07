@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_LifecycleAction",""]],"enum":[["LifecycleAction","Actions that change the entity's `Lifecycle` state."]]});

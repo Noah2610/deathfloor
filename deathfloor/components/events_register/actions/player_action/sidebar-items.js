@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_PlayerAction",""]],"struct":[["PlayerAction","A `PlayerAction` allows any entity to trigger an action on the player."]]});
