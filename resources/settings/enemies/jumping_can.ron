@@ -77,7 +77,7 @@
                                 y: 0.0,
                             )),
                             Delay(400): AnimationAction(Push(Custom("Peek"))),
-                            OnAnimationEnd(Custom("Peek")): EntityAction(SwitchVariant("Jump")),                           
+                            OnAnimationEnd(Custom("Peek")): EntityAction(SwitchVariant("Jump")),
                         },
                     ),
                     "Jump": (
@@ -109,7 +109,7 @@
                             ]),
                             OnCollision(And([IsTag("Solid"), IsState(Enter), IsSide(Bottom)])): Group([
                                 AnimationAction(Pop),
-                                EntityAction(SwitchVariant("Sit")),                               
+                                EntityAction(SwitchVariant("Sit")),
                             ]),
                         },
                     ),
