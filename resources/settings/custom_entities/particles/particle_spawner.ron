@@ -1,0 +1,40 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "ParticleSpawner": (
+            entity: (
+                variants: {
+                    "Up": (
+                        events: {
+                            Interval(1000): SpawnAction(SpawnRelative((
+                                object: (
+                                    type: Custom("Particle"),
+                                    pos: (x: 0.0, y: 0.0),
+                                    size: (w: 2.0, h: 2.0),
+                                    props: {
+                                        "variant": "Up",
+                                    },
+                                ),
+                            ))),
+                        },
+                    ),
+
+                    "Down": (
+                        events: {
+                            Interval(1000): SpawnAction(SpawnRelative((
+                                object: (
+                                    type: Custom("Particle"),
+                                    pos: (x: 0.0, y: 0.0),
+                                    size: (w: 2.0, h: 2.0),
+                                    props: {
+                                        "variant": "Down",
+                                    },
+                                ),
+                            ))),
+                        },
+                    ),
+                },
+            ),
+        ),
+    }
+)

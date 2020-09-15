@@ -1,7 +1,7 @@
 #![enable(implicit_some)]
 (
     types: {
-        "JumpingCan": (
+        "JumpingCanSmart": (
             spritesheet_filename: "enemy_jumping_can_blue.png",
 
             entity: (
@@ -95,14 +95,17 @@
                             Init: Group([
                                 SoundAction(PlayWithVolume(Jump, 0.5)),
                                 AnimationAction(Push(Custom("Jump"))),
-                                Random((
-                                    chance: 0.5,
-                                    on_success: MoveAction(SetVelocity(
-                                        x: 200.0,
+                                If((
+                                    if: LessThan(
+                                        Player(Position(X)),
+                                        Position(X),
+                                    ),
+                                    then: MoveAction(SetVelocity(
+                                        x: -200.0,
                                         y: 400.0,
                                     )),
-                                    on_failure: MoveAction(SetVelocity(
-                                        x: -200.0,
+                                    else: MoveAction(SetVelocity(
+                                        x: 200.0,
                                         y: 400.0,
                                     )),
                                 )),
