@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["Facing",""]],"struct":[["ControlPlayerShootSystem",""]]});
+initSidebarItems({"enum":[["FacingAlt",""]],"struct":[["ControlPlayerShootSystem",""]]});

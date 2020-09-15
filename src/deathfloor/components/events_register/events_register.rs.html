@@ -50,6 +50,23 @@
 <span id="50">50</span>
 <span id="51">51</span>
 <span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">component_prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">ActionType</span>, <span class="ident">EventType</span>};
@@ -100,7 +117,24 @@
 
 <span class="kw">impl</span> <span class="ident">Merge</span> <span class="kw">for</span> <span class="ident">EventsRegister</span> {
     <span class="kw">fn</span> <span class="ident">merge</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">other</span>: <span class="self">Self</span>) {
-        <span class="self">self</span>.<span class="ident">events</span>.<span class="ident">extend</span>(<span class="ident">other</span>.<span class="ident">events</span>);
+        <span class="kw">for</span> (<span class="ident">other_event_type</span>, <span class="ident">other_action_type</span>) <span class="kw">in</span> <span class="ident">other</span>.<span class="ident">events</span> {
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">existing_action_type</span>) <span class="op">=</span>
+                <span class="self">self</span>.<span class="ident">events</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">other_event_type</span>)
+            {
+                <span class="self">self</span>.<span class="ident">events</span>.<span class="ident">insert</span>(
+                    <span class="ident">other_event_type</span>,
+                    <span class="ident">ActionType</span>::<span class="ident">Group</span>(
+                        <span class="ident">action</span>::<span class="ident">Group</span>(<span class="macro">vec</span><span class="macro">!</span>[
+                            <span class="ident">existing_action_type</span>,
+                            <span class="ident">other_action_type</span>,
+                        ])
+                        .<span class="ident">flattend</span>(),
+                    ),
+                );
+            } <span class="kw">else</span> {
+                <span class="self">self</span>.<span class="ident">events</span>.<span class="ident">insert</span>(<span class="ident">other_event_type</span>, <span class="ident">other_action_type</span>);
+            }
+        }
     }
 }
 </pre></div>

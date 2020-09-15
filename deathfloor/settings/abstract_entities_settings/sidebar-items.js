@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_AbstractEntitiesSettings",""],["_IMPL_DESERIALIZE_FOR_AbstractEntitySettings",""]],"mod":[["prelude",""]],"struct":[["AbstractEntitiesSettings",""],["AbstractEntitySettings",""]],"type":[["AbstractEntityType",""]]});

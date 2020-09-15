@@ -154,8 +154,15 @@
 <span id="154">154</span>
 <span id="155">155</span>
 <span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">prelude</span> {
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">abstract_entities_settings</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">camera_settings</span>::<span class="ident">CameraSettings</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">custom_entities_settings</span>::<span class="ident">CustomEntitiesSettings</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">enemies_settings</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
@@ -170,6 +177,7 @@
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">SizeSettings</span>;
 }
 
+<span class="kw">mod</span> <span class="ident">abstract_entities_settings</span>;
 <span class="kw">mod</span> <span class="ident">camera_settings</span>;
 <span class="kw">mod</span> <span class="ident">custom_entities_settings</span>;
 <span class="kw">mod</span> <span class="ident">enemies_settings</span>;
@@ -190,27 +198,31 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Settings</span> {
-    <span class="kw">pub</span> <span class="ident">general</span>:         <span class="ident">GeneralSettings</span>,
-    <span class="kw">pub</span> <span class="ident">camera</span>:          <span class="ident">CameraSettings</span>,
-    <span class="kw">pub</span> <span class="ident">level</span>:           <span class="ident">LevelSettings</span>,
-    <span class="kw">pub</span> <span class="ident">player</span>:          <span class="ident">PlayerSettings</span>,
-    <span class="kw">pub</span> <span class="ident">player_bullet</span>:   <span class="ident">PlayerBulletSettings</span>,
-    <span class="kw">pub</span> <span class="ident">tiles</span>:           <span class="ident">TilesSettings</span>,
-    <span class="kw">pub</span> <span class="ident">enemies</span>:         <span class="ident">EnemiesSettings</span>,
-    <span class="kw">pub</span> <span class="ident">custom_entities</span>: <span class="ident">CustomEntitiesSettings</span>,
+    <span class="kw">pub</span> <span class="ident">general</span>:           <span class="ident">GeneralSettings</span>,
+    <span class="kw">pub</span> <span class="ident">camera</span>:            <span class="ident">CameraSettings</span>,
+    <span class="kw">pub</span> <span class="ident">level</span>:             <span class="ident">LevelSettings</span>,
+    <span class="kw">pub</span> <span class="ident">player</span>:            <span class="ident">PlayerSettings</span>,
+    <span class="kw">pub</span> <span class="ident">player_bullet</span>:     <span class="ident">PlayerBulletSettings</span>,
+    <span class="kw">pub</span> <span class="ident">tiles</span>:             <span class="ident">TilesSettings</span>,
+    <span class="kw">pub</span> <span class="ident">enemies</span>:           <span class="ident">EnemiesSettings</span>,
+    <span class="kw">pub</span> <span class="ident">custom_entities</span>:   <span class="ident">CustomEntitiesSettings</span>,
+    <span class="kw">pub</span> <span class="ident">abstract_entities</span>: <span class="ident">AbstractEntitiesSettings</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Settings</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">amethyst</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="prelude-val">Ok</span>(<span class="ident">Settings</span> {
-            <span class="ident">general</span>:         <span class="self">Self</span>::<span class="ident">load_file</span>(<span class="string">&quot;general.ron&quot;</span>)<span class="question-mark">?</span>,
-            <span class="ident">camera</span>:          <span class="self">Self</span>::<span class="ident">load_file</span>(<span class="string">&quot;camera.ron&quot;</span>)<span class="question-mark">?</span>,
-            <span class="ident">level</span>:           <span class="self">Self</span>::<span class="ident">load_file</span>(<span class="string">&quot;levels.ron&quot;</span>)<span class="question-mark">?</span>,
-            <span class="ident">player</span>:          <span class="self">Self</span>::<span class="ident">load_file</span>(<span class="string">&quot;player.ron&quot;</span>)<span class="question-mark">?</span>,
-            <span class="ident">player_bullet</span>:   <span class="self">Self</span>::<span class="ident">load_file</span>(<span class="string">&quot;player_bullet.ron&quot;</span>)<span class="question-mark">?</span>,
-            <span class="ident">tiles</span>:           <span class="self">Self</span>::<span class="ident">load_dir</span>(<span class="string">&quot;tiles&quot;</span>)<span class="question-mark">?</span>,
-            <span class="ident">enemies</span>:         <span class="self">Self</span>::<span class="ident">load_dir</span>(<span class="string">&quot;enemies&quot;</span>)<span class="question-mark">?</span>,
-            <span class="ident">custom_entities</span>: <span class="self">Self</span>::<span class="ident">load_dir</span>(<span class="string">&quot;custom_entities&quot;</span>)<span class="question-mark">?</span>,
+            <span class="ident">general</span>:           <span class="self">Self</span>::<span class="ident">load_file</span>(<span class="string">&quot;settings/general.ron&quot;</span>)<span class="question-mark">?</span>,
+            <span class="ident">camera</span>:            <span class="self">Self</span>::<span class="ident">load_file</span>(<span class="string">&quot;settings/camera.ron&quot;</span>)<span class="question-mark">?</span>,
+            <span class="ident">level</span>:             <span class="self">Self</span>::<span class="ident">load_file</span>(<span class="string">&quot;settings/levels.ron&quot;</span>)<span class="question-mark">?</span>,
+            <span class="ident">player</span>:            <span class="self">Self</span>::<span class="ident">load_file</span>(<span class="string">&quot;entities/player/player.ron&quot;</span>)<span class="question-mark">?</span>,
+            <span class="ident">player_bullet</span>:     <span class="self">Self</span>::<span class="ident">load_file</span>(
+                <span class="string">&quot;entities/player/player_bullet.ron&quot;</span>,
+            )<span class="question-mark">?</span>,
+            <span class="ident">tiles</span>:             <span class="self">Self</span>::<span class="ident">load_dir</span>(<span class="string">&quot;entities/tiles&quot;</span>)<span class="question-mark">?</span>,
+            <span class="ident">enemies</span>:           <span class="self">Self</span>::<span class="ident">load_dir</span>(<span class="string">&quot;entities/enemies&quot;</span>)<span class="question-mark">?</span>,
+            <span class="ident">custom_entities</span>:   <span class="self">Self</span>::<span class="ident">load_dir</span>(<span class="string">&quot;entities/custom&quot;</span>)<span class="question-mark">?</span>,
+            <span class="ident">abstract_entities</span>: <span class="self">Self</span>::<span class="ident">load_dir</span>(<span class="string">&quot;entities/abstract&quot;</span>)<span class="question-mark">?</span>,
         })
     }
 
@@ -219,7 +231,7 @@
         <span class="kw">for</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">T</span>: <span class="ident">serde</span>::<span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
         <span class="ident">S</span>: <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Display</span>,
     {
-        <span class="kw">let</span> <span class="ident">file</span> <span class="op">=</span> <span class="ident">File</span>::<span class="ident">open</span>(<span class="ident">resource</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;settings/{}&quot;</span>, <span class="ident">filename</span>)))<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">file</span> <span class="op">=</span> <span class="ident">File</span>::<span class="ident">open</span>(<span class="ident">resource</span>(<span class="ident">filename</span>.<span class="ident">to_string</span>()))<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(<span class="ident">ron</span>::<span class="ident">de</span>::<span class="ident">from_reader</span>(<span class="ident">file</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
             <span class="ident">amethyst</span>::<span class="ident">Error</span>::<span class="ident">from_string</span>(<span class="macro">format</span><span class="macro">!</span>(
                 <span class="string">&quot;Failed parsing ron settings file: {}\n{:#?}&quot;</span>,
@@ -233,7 +245,7 @@
         <span class="kw">for</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">T</span>: <span class="ident">serde</span>::<span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Merge</span> <span class="op">+</span> <span class="ident">Default</span>,
         <span class="ident">S</span>: <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Display</span>,
     {
-        <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">resource</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;settings/{}&quot;</span>, <span class="ident">dirname</span>));
+        <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">resource</span>(<span class="ident">dirname</span>.<span class="ident">to_string</span>());
         <span class="kw">let</span> <span class="ident">errmsg</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;No settings files found in {:?}&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">path</span>);
         <span class="kw">let</span> <span class="ident">all_settings</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">load_configs_recursively_from</span>(<span class="ident">path</span>)<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">merged_settings</span> <span class="op">=</span> <span class="self">Self</span>::<span class="ident">merge_settings</span>(<span class="ident">all_settings</span>)

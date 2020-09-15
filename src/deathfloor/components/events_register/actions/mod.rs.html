@@ -79,10 +79,15 @@
 <span id="79">79</span>
 <span id="80">80</span>
 <span id="81">81</span>
+<span id="82">82</span>
+<span id="83">83</span>
+<span id="84">84</span>
+<span id="85">85</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">conditionals</span>;
 
 <span class="kw">mod</span> <span class="ident">animation_action</span>;
+<span class="kw">mod</span> <span class="ident">call</span>;
 <span class="kw">mod</span> <span class="ident">delay</span>;
 <span class="kw">mod</span> <span class="ident">echo</span>;
 <span class="kw">mod</span> <span class="ident">entity_action</span>;
@@ -99,6 +104,7 @@
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">prelude</span> {
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">animation_action</span>::<span class="ident">AnimationAction</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">call</span>::<span class="ident">Call</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">conditionals</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">delay</span>::<span class="ident">Delay</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">echo</span>::<span class="ident">Echo</span>;
@@ -138,6 +144,7 @@
     <span class="ident">SpawnAction</span>(<span class="ident">SpawnAction</span>),
     <span class="ident">LifecycleAction</span>(<span class="ident">LifecycleAction</span>),
     <span class="ident">PlayerAction</span>(<span class="ident">PlayerAction</span>),
+    <span class="ident">Call</span>(<span class="ident">Call</span>),
 
     <span class="comment">// Conditionals</span>
     <span class="ident">If</span>(<span class="ident">conditionals</span>::<span class="ident">IfAction</span>),
@@ -159,6 +166,7 @@
     <span class="kw">pub</span> <span class="ident">spawn_action</span>:      <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">ActionTrigger</span><span class="op">&lt;</span><span class="ident">SpawnAction</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">lifecycle_action</span>:  <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">ActionTrigger</span><span class="op">&lt;</span><span class="ident">LifecycleAction</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">player_action</span>:     <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">ActionTrigger</span><span class="op">&lt;</span><span class="ident">PlayerAction</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">call</span>:              <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">ActionTrigger</span><span class="op">&lt;</span><span class="ident">Call</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">if_action</span>: <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">ActionTrigger</span><span class="op">&lt;</span><span class="ident">conditionals</span>::<span class="ident">IfAction</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 </pre></div>

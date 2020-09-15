@@ -11,6 +11,23 @@
 <span id="11">11</span>
 <span id="12">12</span>
 <span id="13">13</span>
+<span id="14">14</span>
+<span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
+<span id="21">21</span>
+<span id="22">22</span>
+<span id="23">23</span>
+<span id="24">24</span>
+<span id="25">25</span>
+<span id="26">26</span>
+<span id="27">27</span>
+<span id="28">28</span>
+<span id="29">29</span>
+<span id="30">30</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">ActionType</span>;
 
@@ -19,6 +36,23 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">from</span> <span class="op">=</span> <span class="string">&quot;Vec&lt;ActionType&gt;&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Group</span>(<span class="kw">pub</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ActionType</span><span class="op">&gt;</span>);
+
+<span class="kw">impl</span> <span class="ident">Group</span> {
+    <span class="doccomment">/// Flattens out all nested `Group` actions.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">flattend</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="number">0</span>
+            .<span class="ident">into_iter</span>()
+            .<span class="ident">fold</span>(<span class="ident">Vec</span>::<span class="ident">new</span>(), <span class="op">|</span><span class="kw-2">mut</span> <span class="ident">acc</span>, <span class="ident">action</span><span class="op">|</span> {
+                <span class="kw">if</span> <span class="kw">let</span> <span class="ident">ActionType</span>::<span class="ident">Group</span>(<span class="ident">nested_group</span>) <span class="op">=</span> <span class="ident">action</span> {
+                    <span class="ident">acc</span>.<span class="ident">append</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">nested_group</span>.<span class="ident">flattend</span>().<span class="number">0</span>);
+                } <span class="kw">else</span> {
+                    <span class="ident">acc</span>.<span class="ident">push</span>(<span class="ident">action</span>);
+                }
+                <span class="ident">acc</span>
+            })
+            .<span class="ident">into</span>()
+    }
+}
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ActionType</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Group</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">actions</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ActionType</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
