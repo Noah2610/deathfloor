@@ -7,6 +7,7 @@
 - [Overview](#overview)
 - [Components](#components)
 - [Events](#events)
+  - [Function Events](#function-events)
 - [Actions](#actions)
   - [Action Conditionals](#action-conditionals)
     - [`ConditionExpression` literal value](#conditionexpression-literal-value)
@@ -95,6 +96,31 @@ See [Actions] to see what actions do.
     //  vvvvvvvvvvvvvvvvvvvvvvvvvvv  vvvvvvvvvvvvvvvvvvvvvvvvvvvvv
         OnSpawn:                     Echo("Entity just spawned!"),
         OnCollision(IsTag("Enemy")): Echo("Collision with Enemy!"),
+    },
+)
+```
+</details>
+
+### Function Events
+The special event `Function(NAME)` can be defined with a name.  
+This event will never be called by the game intself, you can only  
+trigger this event by triggering the `Call(NAME)` action  
+with the corresponding function name.
+
+<details>
+<summary>
+    <strong>Function Event Example</strong>
+</summary>
+
+```ron
+(
+    events: {
+        // Define the function here.
+        // It can then be called with the `Call` action.
+        Function("Greet"): Echo("Hello World!"),
+
+        // Call the "Greet" function.
+        OnSpawn: Call("Greet"),
     },
 )
 ```
