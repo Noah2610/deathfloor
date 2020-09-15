@@ -1,4 +1,5 @@
 pub mod prelude {
+    pub use super::abstract_entities_settings::prelude::*;
     pub use super::camera_settings::CameraSettings;
     pub use super::custom_entities_settings::CustomEntitiesSettings;
     pub use super::enemies_settings::prelude::*;
@@ -13,6 +14,7 @@ pub mod prelude {
     pub use super::SizeSettings;
 }
 
+mod abstract_entities_settings;
 mod camera_settings;
 mod custom_entities_settings;
 mod enemies_settings;
@@ -33,29 +35,31 @@ use std::path::PathBuf;
 
 #[derive(Clone, Deserialize)]
 pub struct Settings {
-    pub general:         GeneralSettings,
-    pub camera:          CameraSettings,
-    pub level:           LevelSettings,
-    pub player:          PlayerSettings,
-    pub player_bullet:   PlayerBulletSettings,
-    pub tiles:           TilesSettings,
-    pub enemies:         EnemiesSettings,
-    pub custom_entities: CustomEntitiesSettings,
+    pub general:           GeneralSettings,
+    pub camera:            CameraSettings,
+    pub level:             LevelSettings,
+    pub player:            PlayerSettings,
+    pub player_bullet:     PlayerBulletSettings,
+    pub tiles:             TilesSettings,
+    pub enemies:           EnemiesSettings,
+    pub custom_entities:   CustomEntitiesSettings,
+    pub abstract_entities: AbstractEntitiesSettings,
 }
 
 impl Settings {
     pub fn load() -> amethyst::Result<Self> {
         Ok(Settings {
-            general:         Self::load_file("settings/general.ron")?,
-            camera:          Self::load_file("settings/camera.ron")?,
-            level:           Self::load_file("settings/levels.ron")?,
-            player:          Self::load_file("entities/player/player.ron")?,
-            player_bullet:   Self::load_file(
+            general:           Self::load_file("settings/general.ron")?,
+            camera:            Self::load_file("settings/camera.ron")?,
+            level:             Self::load_file("settings/levels.ron")?,
+            player:            Self::load_file("entities/player/player.ron")?,
+            player_bullet:     Self::load_file(
                 "entities/player/player_bullet.ron",
             )?,
-            tiles:           Self::load_dir("entities/tiles")?,
-            enemies:         Self::load_dir("entities/enemies")?,
-            custom_entities: Self::load_dir("entities/custom")?,
+            tiles:             Self::load_dir("entities/tiles")?,
+            enemies:           Self::load_dir("entities/enemies")?,
+            custom_entities:   Self::load_dir("entities/custom")?,
+            abstract_entities: Self::load_dir("entities/abstract")?,
         })
     }
 

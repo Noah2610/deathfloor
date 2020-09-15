@@ -5,7 +5,7 @@ use std::collections::HashMap;
 #[derive(Clone, Deserialize, Default)]
 #[serde(from = "HashMap<String, EntityConfig>")]
 pub struct EntityConfigVariants {
-    variants: HashMap<String, EntityConfig>,
+    pub variants: HashMap<String, EntityConfig>,
 }
 
 impl EntityConfigVariants {
@@ -22,6 +22,12 @@ impl From<HashMap<String, EntityConfig>> for EntityConfigVariants {
 
 impl Merge for EntityConfigVariants {
     fn merge(&mut self, other: EntityConfigVariants) {
-        self.variants.extend(other.variants);
+        for (other_variant_name, other_variant) in other.variants {
+            if let Some(variant) = self.variants.get_mut(&other_variant_name) {
+                variant.merge(other_variant);
+            } else {
+                self.variants.insert(other_variant_name, other_variant);
+            }
+        }
     }
 }
