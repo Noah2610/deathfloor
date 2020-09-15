@@ -21,7 +21,8 @@
                             false,
                         ),
                         then: Group([
-                            PlayerAction(HealthAction(Gain(10))),
+                            // Function "PickupHealth" defined in player entity config.
+                            PlayerAction(Call("PickupHealth")),
                             EntityAction(DeleteEntity),
                         ]),
                     )),

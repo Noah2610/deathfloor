@@ -127,6 +127,14 @@
     /// The player's entity config.
     entity: (
         events: {
+            // ---------
+            // FUNCTIONS
+            // ---------
+
+            // Gain health on health consumable pickup.
+            // Called from custom entity "ConsumableHealth".
+            Function("PickupHealth"): HealthAction(Gain(10)),
+
             // ---------------
             // ENEMY KNOCKBACK
             // ---------------
