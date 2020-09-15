@@ -5,6 +5,7 @@ use crate::components::prelude::{
     LedgeDetectorSide,
     LifecycleState,
 };
+use crate::input::ingame_bindings::IngameActionBinding;
 use deathframe::physics::query::exp::prelude::QueryExpression;
 
 /// Events, which trigger Actions.
@@ -52,6 +53,11 @@ pub enum EventType {
     /// Functions alone will never be triggered. They can only be triggered
     /// by triggering the corresponding `Call` action.
     Function(String),
+
+    // TODO documentation
+    OnKeyDown(IngameActionBinding),
+    OnKeyUp(IngameActionBinding),
+    OnKeyPressed(IngameActionBinding),
 }
 
 impl From<EventTypeDeser> for EventType {
@@ -72,6 +78,9 @@ impl From<EventTypeDeser> for EventType {
             Deser::OnAnimationEnd(anim) => OnAnimationEnd(anim),
             Deser::OnInteract => OnInteract,
             Deser::Function(name) => Function(name),
+            Deser::OnKeyDown(key) => OnKeyDown(key),
+            Deser::OnKeyUp(key) => OnKeyUp(key),
+            Deser::OnKeyPressed(key) => OnKeyPressed(key),
         }
     }
 }
@@ -94,4 +103,7 @@ pub enum EventTypeDeser {
     OnAnimationEnd(AnimationKey),
     OnInteract,
     Function(String),
+    OnKeyDown(IngameActionBinding),
+    OnKeyUp(IngameActionBinding),
+    OnKeyPressed(IngameActionBinding),
 }
