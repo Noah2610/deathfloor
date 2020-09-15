@@ -137,6 +137,14 @@ impl<'a> System<'a> for TriggerActionsFromActionTypesSystem {
                             action_trigger.add_action(player_action);
                         }
                     }
+                    ActionType::Call(call) => {
+                        if let Some(action_trigger) =
+                            (&mut action_trigger_components.call)
+                                .get_mut_or_default(entity)
+                        {
+                            action_trigger.add_action(call);
+                        }
+                    }
                     ActionType::If(if_action) => {
                         if let Some(action_trigger) =
                             (&mut action_trigger_components.if_action)

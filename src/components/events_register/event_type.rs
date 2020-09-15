@@ -47,6 +47,11 @@ pub enum EventType {
     /// by an entity with `CanInteract`.
     /// Only available if this entity has the `Interactable` component.
     OnInteract,
+
+    /// Define a _function_, which can be triggered with the `Call` action.
+    /// Functions alone will never be triggered. They can only be triggered
+    /// by triggering the corresponding `Call` action.
+    Function(String),
 }
 
 impl From<EventTypeDeser> for EventType {
@@ -66,6 +71,7 @@ impl From<EventTypeDeser> for EventType {
             Deser::Init => Init,
             Deser::OnAnimationEnd(anim) => OnAnimationEnd(anim),
             Deser::OnInteract => OnInteract,
+            Deser::Function(name) => Function(name),
         }
     }
 }
@@ -87,4 +93,5 @@ pub enum EventTypeDeser {
     Init,
     OnAnimationEnd(AnimationKey),
     OnInteract,
+    Function(String),
 }

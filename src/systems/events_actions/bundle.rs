@@ -161,6 +161,11 @@ impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventsActionsBundle<'c> {
             "handle_action_if_action_system",
             actions_deps,
         );
+        builder.add(
+            actions::call::HandleActionCall::default(),
+            "handle_action_call_system",
+            actions_deps,
+        );
         Ok(())
     }
 }
