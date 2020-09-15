@@ -60,12 +60,12 @@
                 variants: {
                     "Left": (
                         events: {
-                            OnSpawn: EntityAction(SwitchVariant("WalkLeft")),
+                            Init: EntityAction(SwitchVariant("WalkLeft")),
                         }
                     ),
                     "Right": (
                         events: {
-                            OnSpawn: EntityAction(SwitchVariant("WalkRight")),
+                            Init: EntityAction(SwitchVariant("WalkRight")),
                         }
                     ),
 
