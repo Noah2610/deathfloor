@@ -50,23 +50,6 @@
                     deals_damage: (
                         damage: 1,
                     ),
-                    ledge_detector: (
-                        corners: [
-                            (
-                                corner:      BottomLeft,
-                                if_touching: Bottom,
-                                size: (1.0, 1.0),
-                                offset: (-4.0, 0.0),
-                            ),
-                            (
-                                corner:      BottomRight,
-                                if_touching: Bottom,
-                                size: (1.0, 1.0),
-                                offset: (-4.0, 0.0),
-                            ),
-                        ],
-                        collides_with: ["Solid"],
-                    ),
                 ),
 
                 events: {
@@ -76,19 +59,18 @@
 
                 variants: {
                     "Left": (
-                        components: (
-                            walker: (
-                                x: -500.0,
-                            ),
-                        ),
                         events: {
-                            OnLedgeDetect(BottomLeft, Bottom):
-                                EntityAction(SwitchVariant("Right")),
-                            OnCollision(And([
-                                    IsTag("Solid"),
-                                    IsState(Enter),
-                                    IsSide(Left),
-                                ])): EntityAction(SwitchVariant("Right")),
+                            OnSpawn: EntityAction(SwitchVariant("WalkLeft")),
+                        }
+                    ),
+                    "Right": (
+                        events: {
+                            OnSpawn: EntityAction(SwitchVariant("WalkRight")),
+                        }
+                    ),
+
+                    "WalkLeft": (
+                        events: {
                             Interval(1000): SpawnAction(SpawnRelative((
                                 object: (
                                     type: Custom("ShooterBullet"),
@@ -101,20 +83,8 @@
                             ))),
                         },
                     ),
-                    "Right": (
-                        components: (
-                            walker: (
-                                x: 500.0,
-                            ),
-                        ),
+                    "WalkRight": (
                         events: {
-                            OnLedgeDetect(BottomRight, Bottom):
-                                EntityAction(SwitchVariant("Left")),
-                            OnCollision(And([
-                                    IsTag("Solid"),
-                                    IsState(Enter),
-                                    IsSide(Right),
-                                ])): EntityAction(SwitchVariant("Left")),
                             Interval(1000): SpawnAction(SpawnRelative((
                                 object: (
                                     type: Custom("ShooterBullet"),
@@ -128,6 +98,8 @@
                         },
                     ),
                 },
+
+                inherits: ["Walker"],
 
                 collision_tag: (
                     labels: ["Enemy"],

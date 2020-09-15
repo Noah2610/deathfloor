@@ -1,0 +1,70 @@
+#![enable(implicit_some)]
+//! The abstract "Walker" entity can walk left/right with its
+//! "WalkLeft" and "WalkRight" variants.
+//! It turns around when it hits a solid wall or it detects a ledge.
+//! Inherit in entity config with `inherits` field like so:
+//! ```
+//! (
+//!     inherits: ["Walker"],
+//! )
+//! ```
+(
+    types: {
+        "Walker": (
+            components: (
+                ledge_detector: (
+                    corners: [
+                        (
+                            corner:      BottomLeft,
+                            if_touching: Bottom,
+                            size: (1.0, 1.0),
+                            offset: (-4.0, 0.0),
+                        ),
+                        (
+                            corner:      BottomRight,
+                            if_touching: Bottom,
+                            size: (1.0, 1.0),
+                            offset: (-4.0, 0.0),
+                        ),
+                    ],
+                    collides_with: ["Solid"],
+                ),
+            ),
+
+            variants: {
+                "WalkLeft": (
+                    components: (
+                        walker: (
+                            x: -500.0,
+                        ),
+                    ),
+                    events: {
+                        OnLedgeDetect(BottomLeft, Bottom):
+                            EntityAction(SwitchVariant("WalkRight")),
+                        OnCollision(And([
+                                IsTag("Solid"),
+                                IsState(Enter),
+                                IsSide(Left),
+                            ])): EntityAction(SwitchVariant("WalkRight")),
+                    },
+                ),
+                "WalkRight": (
+                    components: (
+                        walker: (
+                            x: 500.0,
+                        ),
+                    ),
+                    events: {
+                        OnLedgeDetect(BottomRight, Bottom):
+                            EntityAction(SwitchVariant("WalkLeft")),
+                        OnCollision(And([
+                                IsTag("Solid"),
+                                IsState(Enter),
+                                IsSide(Right),
+                            ])): EntityAction(SwitchVariant("WalkLeft")),
+                    },
+                ),
+            },
+        ),
+    }
+)
