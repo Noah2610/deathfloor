@@ -19,6 +19,7 @@
   - [Default variant](#default-variant)
   - [The variant stack](#the-variant-stack)
   - [Switching variant details](#switching-variant-details)
+- [Inheritance](#inheritance)
 </details>
 
 ## Overview
@@ -33,6 +34,8 @@ Some of its features include:
 - define entity config _variants_, nested entity configs that  
   can have different components and behavior  
   (see [Variants])
+- entity configs can _inherit_ from _abstract_ entity configs  
+  (see [Inheritance])
 
 Entity config RON is deserialized into the crate's `EntityConfig` struct.  
 See its technical documentation here [`EntityConfig`][docs-EntityConfig].
@@ -387,7 +390,7 @@ when _popping-off_ the previous variant is applied (again, same as _switching_).
 </summary>
 
 The variant stack can be useful in very specific circumstances.  
-For example, our [`Peeker`](../../resources/settings/enemies/peeker.ron) enemy uses this mechanic.  
+For example, our [`Peeker`](../../resources/entities/enemies/peeker.ron) enemy uses this mechanic.  
 The `Peeker` makes heavy use of variants for its general behavior.  
 It has variants for _hiding_ (idling), _charging up_ an attack, _cooling down_ after an attack, etc.  
 But we also need to be able to tell it in which direction to shoot, which we normally do with a variant,  
@@ -440,7 +443,7 @@ when it collides with a wall or it detects a ledge to the left; and vice-versa.
 With the `EntityAction(SwitchVariant("VARIANT_NAME"))` action we can switch variants at runtime.
 
 Our `Shooter` enemy entity config (only relevant parts).  
-[Full `Shooter` config](../../resources/settings/enemies/shooter.ron).
+[Full `Shooter` config](../../resources/entities/enemies/shooter.ron).
 ```ron
 (
     /* ... */
@@ -530,11 +533,40 @@ Our `Shooter` enemy entity config (only relevant parts).
 ```
 </details>
 
+## Inheritance
+Entity config field: `inherits`
+
+The `inherits` field can be given as an array of strings, to inherit  
+abstract entity configs into this entity config.  
+Abstract configs are defined under [`resources/entities/abstract/`](../../resources/entities/abstract).  
+Abstract configs are only used for inheritance, they cannot be placed as standalone entities.
+
+Inheriting an abstract config is like extending/merging the entity config with the abstract config.  
+This merge happens only once when loading all configs. After that / during runtime inheritance  
+is basically ignored, in comparison to _variants_, which can change the entity config during runtime.  
+
+You can use the same variant name in your config, as in the inherited abstract config.  
+The variants are then also merged together.  
+You can even use the same _events_ in your config, even if they have already been defined  
+in the abstract config. Under the hood, events of the same type are merged by wrapping their  
+actions in a `Group` action.
+
+<details>
+<summary>
+    <strong><code>Shooter</code> enemy inheritance example</strong>
+</summary>
+
+See our `Shooter` enemy entity config and abstract `Walker` entity config.  
+[Full `Shooter` config](../../resources/entities/enemies/shooter.ron).  
+[Full `Walker` config](../../resources/entities/abstract/walker.ron).
+</details>
+
 [Components]:     #components
 [Events]:         #events
 [Actions]:        #actions
 [Collision Tags]: #collision-tags
 [Variants]:       #variants
+[Inheritance]:    #inheritance
 
 [docs-EntityConfig]:                   https://noah2610.github.io/deathfloor/deathfloor/settings/entity_config/struct.EntityConfig.html
 [docs-EntityComponentsData]:           https://noah2610.github.io/deathfloor/deathfloor/settings/entity_config/struct.EntityComponentsData.html
