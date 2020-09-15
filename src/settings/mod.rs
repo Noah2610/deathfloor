@@ -46,14 +46,16 @@ pub struct Settings {
 impl Settings {
     pub fn load() -> amethyst::Result<Self> {
         Ok(Settings {
-            general:         Self::load_file("general.ron")?,
-            camera:          Self::load_file("camera.ron")?,
-            level:           Self::load_file("levels.ron")?,
-            player:          Self::load_file("player.ron")?,
-            player_bullet:   Self::load_file("player_bullet.ron")?,
-            tiles:           Self::load_dir("tiles")?,
-            enemies:         Self::load_dir("enemies")?,
-            custom_entities: Self::load_dir("custom_entities")?,
+            general:         Self::load_file("settings/general.ron")?,
+            camera:          Self::load_file("settings/camera.ron")?,
+            level:           Self::load_file("settings/levels.ron")?,
+            player:          Self::load_file("entities/player/player.ron")?,
+            player_bullet:   Self::load_file(
+                "entities/player/player_bullet.ron",
+            )?,
+            tiles:           Self::load_dir("entities/tiles")?,
+            enemies:         Self::load_dir("entities/enemies")?,
+            custom_entities: Self::load_dir("entities/custom")?,
         })
     }
 
@@ -62,7 +64,7 @@ impl Settings {
         for<'de> T: serde::Deserialize<'de>,
         S: std::fmt::Display,
     {
-        let file = File::open(resource(format!("settings/{}", filename)))?;
+        let file = File::open(resource(filename.to_string()))?;
         Ok(ron::de::from_reader(file).map_err(|e| {
             amethyst::Error::from_string(format!(
                 "Failed parsing ron settings file: {}\n{:#?}",
@@ -76,7 +78,7 @@ impl Settings {
         for<'de> T: serde::Deserialize<'de> + Merge + Default,
         S: std::fmt::Display,
     {
-        let path = resource(format!("settings/{}", dirname));
+        let path = resource(dirname.to_string());
         let errmsg = format!("No settings files found in {:?}", &path);
         let all_settings = Self::load_configs_recursively_from(path)?;
         let merged_settings = Self::merge_settings(all_settings)
