@@ -70,26 +70,36 @@
                         AnimationAction(Push(Custom("Reset"))),
                         Random((
                             chance: 0.5,
-                            on_success: SpawnAction(SpawnRelative((
-                                object: (
-                                    type: Custom("ShooterBullet"),
-                                    pos: (x: 24.0, y: -4.0),
-                                    size: (w: 16.0, h: 16.0),
-                                    props: {
-                                        "variant": "Right",
-                                    },
-                                ),
-                            ))),
-                            on_failure: SpawnAction(SpawnRelative((
-                                object: (
-                                    type: Custom("ShooterBullet"),
-                                    pos: (x: -24.0, y: -4.0),
-                                    size: (w: 16.0, h: 16.0),
-                                    props: {
-                                        "variant": "Left",
-                                    },
-                                ),
-                            ))),
+                            on_success: Group([
+                                InsertComponents((
+                                    facing: Left, // spritesheet faces left
+                                )),
+                                SpawnAction(SpawnRelative((
+                                    object: (
+                                        type: Custom("ShooterBullet"),
+                                        pos: (x: 24.0, y: -4.0),
+                                        size: (w: 16.0, h: 16.0),
+                                        props: {
+                                            "variant": "Right",
+                                        },
+                                    ),
+                                ))),
+                            ]),
+                            on_failure: Group([
+                                InsertComponents((
+                                    facing: Right, // spritesheet faces left
+                                )),
+                                SpawnAction(SpawnRelative((
+                                    object: (
+                                        type: Custom("ShooterBullet"),
+                                        pos: (x: -24.0, y: -4.0),
+                                        size: (w: 16.0, h: 16.0),
+                                        props: {
+                                            "variant": "Left",
+                                        },
+                                    ),
+                                ))),
+                            ]),
                         )),
                     ]),
                     OnAnimationEnd(Custom("Reset")): AnimationAction(Push(Custom("Default"))),
