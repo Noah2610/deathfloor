@@ -47,6 +47,23 @@ impl From<HashMap<EventType, ActionType>> for EventsRegister {
 
 impl Merge for EventsRegister {
     fn merge(&mut self, other: Self) {
-        self.events.extend(other.events);
+        for (other_event_type, other_action_type) in other.events {
+            if let Some(existing_action_type) =
+                self.events.remove(&other_event_type)
+            {
+                self.events.insert(
+                    other_event_type,
+                    ActionType::Group(
+                        action::Group(vec![
+                            existing_action_type,
+                            other_action_type,
+                        ])
+                        .flattend(),
+                    ),
+                );
+            } else {
+                self.events.insert(other_event_type, other_action_type);
+            }
+        }
     }
 }
