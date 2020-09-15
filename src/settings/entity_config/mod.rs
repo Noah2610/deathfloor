@@ -76,6 +76,7 @@ pub struct EntityComponentsData {
     pub death_on_contact:      Option<DeathOnContact>,
     pub death_after_delay:     Option<DeathAfterDelay>,
     pub interactable:          Option<Interactable>,
+    pub facing:                Option<Facing>,
 }
 
 impl Merge for EntityComponentsData {
@@ -103,6 +104,7 @@ impl Merge for EntityComponentsData {
             death_on_contact:      other.death_on_contact.or(self.death_on_contact.take()),
             death_after_delay:     other.death_after_delay.or(self.death_after_delay.take()),
             interactable:          other.interactable.or(self.interactable.take()),
+            facing:                other.facing.or(self.facing.take()),
         };
     }
 }
@@ -141,4 +143,5 @@ pub struct EntityComponentsStorages<'a> {
     pub death_on_contact:               WriteStorage<'a, DeathOnContact>,
     pub death_after_delay:              WriteStorage<'a, DeathAfterDelay>,
     pub interactable:                   WriteStorage<'a, Interactable>,
+    pub facing:                         WriteStorage<'a, Facing>,
 }

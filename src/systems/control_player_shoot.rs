@@ -14,6 +14,7 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
         ReadStorage<'a, Transform>,
         WriteStorage<'a, AnimationEditor>,
         WriteStorage<'a, SoundPlayer<SoundType>>,
+        ReadStorage<'a, Facing>,
     );
 
     fn run(
@@ -25,13 +26,21 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
             transforms,
             mut animation_editor_store,
             mut sound_player_store,
+            facing_store,
         ): Self::SystemData,
     ) {
-        for (shooter, transform, animation_editor_opt, sound_player_opt) in (
+        for (
+            shooter,
+            transform,
+            animation_editor_opt,
+            sound_player_opt,
+            facing_opt,
+        ) in (
             &mut shooters,
             &transforms,
             (&mut animation_editor_store).maybe(),
             (&mut sound_player_store).maybe(),
+            facing_store.maybe(),
         )
             .join()
         {
@@ -39,7 +48,9 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
             let should_shoot = input_manager.is_pressed(PlayerShoot)
                 && (shooter.cooldown_timer.state.is_finished()
                     || shooter.cooldown_timer.state.is_stopped());
-            let facing = Facing::from(transform);
+            let facing = facing_opt
+                .map(FacingAlt::from)
+                .unwrap_or_else(|| FacingAlt::from(transform));
 
             if should_shoot {
                 let bullet_pos = {
@@ -89,21 +100,30 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
     }
 }
 
-enum Facing {
+enum FacingAlt {
     Left,
     Right,
 }
 
-impl Facing {
+impl FacingAlt {
     fn mult(&self) -> f32 {
         match self {
-            Facing::Left => -1.0,
-            Facing::Right => 1.0,
+            FacingAlt::Left => -1.0,
+            FacingAlt::Right => 1.0,
         }
     }
 }
 
-impl<'a> From<&'a Transform> for Facing {
+impl From<&Facing> for FacingAlt {
+    fn from(facing: &Facing) -> Self {
+        match facing {
+            Facing::Left => Self::Left,
+            Facing::Right => Self::Right,
+        }
+    }
+}
+
+impl<'a> From<&'a Transform> for FacingAlt {
     fn from(transform: &'a Transform) -> Self {
         let scale = transform.scale();
         if scale.x.is_sign_positive() {

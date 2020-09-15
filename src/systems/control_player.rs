@@ -10,6 +10,7 @@ impl<'a> System<'a> for ControlPlayerSystem {
         ReadStorage<'a, PhysicsData>,
         WriteStorage<'a, Movable>,
         WriteStorage<'a, MaxMovementVelocity>,
+        WriteStorage<'a, Facing>,
     );
 
     fn run(
@@ -20,14 +21,16 @@ impl<'a> System<'a> for ControlPlayerSystem {
             physics_data_store,
             mut movables,
             mut max_movement_velocities,
+            mut facing_store,
         ): Self::SystemData,
     ) {
         let dt = time.delta_seconds() as f32;
 
-        for (physics_data, movable, mut max_velocity_opt) in (
+        for (physics_data, movable, mut max_velocity_opt, mut facing) in (
             &physics_data_store,
             &mut movables,
             (&mut max_movement_velocities).maybe(),
+            (&mut facing_store).maybe(),
         )
             .join()
         {
@@ -39,6 +42,7 @@ impl<'a> System<'a> for ControlPlayerSystem {
                     physics_data,
                     movable,
                     &mut max_velocity_opt,
+                    &mut facing,
                 );
             });
         }
@@ -52,6 +56,7 @@ fn handle_move_on_axis(
     physics_data: &PhysicsData,
     movable: &mut Movable,
     max_movement_velocity_opt: &mut Option<&mut MaxMovementVelocity>,
+    facing_opt: &mut Option<&mut Facing>,
 ) {
     let axis_binding = IngameAxisBinding::from(axis.clone());
     if let Some(val) = input_manager.axis_value(axis_binding) {
@@ -64,6 +69,12 @@ fn handle_move_on_axis(
                     physics_data.max_velocity.by_axis(&axis).map(limit_max),
                 )
             });
+
+            if &axis == &Axis::X {
+                if let Some(facing) = facing_opt {
+                    **facing = Facing::from(val);
+                }
+            }
 
             let acceleration_opt = physics_data.acceleration.by_axis(&axis);
 

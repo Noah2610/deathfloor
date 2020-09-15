@@ -26,6 +26,7 @@ pub fn insert_components(
         death_on_contact,
         death_after_delay,
         interactable,
+        facing,
     } = components;
     let &mut EntityComponentsStorages {
         entities,
@@ -59,6 +60,7 @@ pub fn insert_components(
         death_on_contact: death_on_contact_store,
         death_after_delay: death_after_delay_store,
         interactable: interactable_store,
+        facing: facing_store,
     } = &mut storages;
 
     let size_opt = size.or_else(|| size_store.get(entity).cloned());
@@ -159,6 +161,9 @@ pub fn insert_components(
     }
     if let Some(interactable) = interactable {
         interactable_store.insert(entity, interactable)?;
+    }
+    if let Some(facing) = facing {
+        facing_store.insert(entity, facing)?;
     }
     if let Some(size) = size_opt {
         size_store.insert(entity, size)?;

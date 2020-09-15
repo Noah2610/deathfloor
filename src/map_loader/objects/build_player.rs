@@ -42,6 +42,7 @@ pub(super) fn build(
         .with(AnimationEditor::default())
         .with(SoundPlayer::<SoundType>::default())
         .with(CanInteract::default())
+        .with(Facing::default())
         .with(player_settings.jumper)
         .with(player_settings.animations)
         .with(player_settings.health)

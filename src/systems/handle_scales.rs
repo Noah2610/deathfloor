@@ -6,20 +6,39 @@ const PADDING: f32 = 0.5;
 pub struct HandleScalesSystem;
 
 impl<'a> System<'a> for HandleScalesSystem {
-    type SystemData = (ReadStorage<'a, Velocity>, WriteStorage<'a, Transform>);
+    type SystemData = (
+        ReadStorage<'a, Velocity>,
+        WriteStorage<'a, Transform>,
+        ReadStorage<'a, Facing>,
+    );
 
-    fn run(&mut self, (velocities, mut transforms): Self::SystemData) {
-        for (transform, velocity) in (&mut transforms, &velocities).join() {
-            match velocity.x {
-                x if x > PADDING => {
-                    let scale = transform.scale_mut();
-                    scale.x = scale.x.abs();
-                }
-                x if x < -PADDING => {
+    fn run(
+        &mut self,
+        (velocity_store, mut transform_store, facing_store): Self::SystemData,
+    ) {
+        for (transform, velocity, facing_opt) in
+            (&mut transform_store, &velocity_store, facing_store.maybe()).join()
+        {
+            match facing_opt {
+                Some(Facing::Left) => {
                     let scale = transform.scale_mut();
                     scale.x = -scale.x.abs();
                 }
-                _ => (),
+                Some(Facing::Right) => {
+                    let scale = transform.scale_mut();
+                    scale.x = scale.x.abs();
+                }
+                None => match velocity.x {
+                    x if x > PADDING => {
+                        let scale = transform.scale_mut();
+                        scale.x = scale.x.abs();
+                    }
+                    x if x < -PADDING => {
+                        let scale = transform.scale_mut();
+                        scale.x = -scale.x.abs();
+                    }
+                    _ => (),
+                },
             }
         }
     }
