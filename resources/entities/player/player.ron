@@ -146,6 +146,7 @@
 
             // Shoot like crazy dude
             Function("ShootCrazy"): Group([
+                // Mortar
                 If((
                     if: Equal(
                         Facing(),
@@ -174,6 +175,8 @@
                         ),
                     ))),
                 )),
+
+                // Swerve
                 SpawnAction(SpawnRelative((
                     object: (
                         type: PlayerBullet,
@@ -196,10 +199,46 @@
                         },
                     ),
                 ))),
+
+                // Skipper
+                SpawnAction(SpawnRelative((
+                    object: (
+                        type: PlayerBullet,
+                        pos: (x: 0.0, y: 0.0),
+                        size: (w: 8.0, h: 8.0),
+                        props: {
+                            "variant": "Skipper",
+                            "dir_x": -1.0,
+                        },
+                    ),
+                ))),
+                SpawnAction(SpawnRelative((
+                    object: (
+                        type: PlayerBullet,
+                        pos: (x: 0.0, y: 0.0),
+                        size: (w: 8.0, h: 8.0),
+                        props: {
+                            "variant": "Skipper",
+                            "dir_x": 1.0,
+                        },
+                    ),
+                ))),
             ]),
 
             // yea crazy shoot
             OnKeyPressed(PlayerShoot): Call("ShootCrazy"),
+            // Rocket
+            OnKeyDown(PlayerShoot): SpawnAction(SpawnRelative((
+                object: (
+                    type: PlayerBullet,
+                    pos: (x: 0.0, y: 0.0),
+                    size: (w: 8.0, h: 8.0),
+                    props: {
+                        "variant": "Rocket",
+                        "dir_x": 1.0,
+                    },
+                ),
+            ))),
             // get that health
             OnKeyUp(TogglePause): Call("PickupHealth"),
 
