@@ -128,16 +128,13 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
 
             // JUMP
             if is_jump_key_down && query_matches.bottom {
-                movable.add_action(MoveAction::Jump {
-                    x: None,
-                    y: Some(jumper.strength),
-                });
+                movable.add_action(MoveAction::Jump);
                 jumper.is_jumping = true;
                 jumped = true;
             }
 
             // WALL JUMP
-            if let Some(wall_jumper) = wall_jumper_opt {
+            if wall_jumper_opt.is_some() {
                 if !jumped && is_jump_key_down && is_touching_horz {
                     #[rustfmt::skip]
                     let x_mult = match (query_matches.left, query_matches.right) {
@@ -146,11 +143,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
                         (false, true)  => -1.0,           // touching right, so jump to the left
                         (false, false) => unreachable!(), // `is_touching_horz` is `true`, so this is unreachable
                     };
-
-                    movable.add_action(MoveAction::Jump {
-                        x: wall_jumper.strength.0.map(|x| x * x_mult),
-                        y: wall_jumper.strength.1,
-                    });
+                    movable.add_action(MoveAction::WallJump { x_mult });
                     jumper.is_jumping = true;
                     jumped = true;
                 }
@@ -167,10 +160,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
 
             // KILL JUMP
             if jumper.is_jumping && input_manager.is_up(PlayerJump) {
-                movable.add_action(MoveAction::KillJump {
-                    strength:     jumper.kill_strength,
-                    min_velocity: jumper.min_velocity,
-                });
+                movable.add_action(MoveAction::KillJump);
                 jumper.is_jumping = false;
             }
 

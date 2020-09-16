@@ -45,7 +45,7 @@ impl<'a> System<'a> for HandleJumppadAffectedSystem {
             }
 
             if let Some(jumppad_strength) = jumppad_strength_opt {
-                movable.add_action(MoveAction::Jump {
+                movable.add_action(MoveAction::SetVelocity {
                     x: jumppad_strength.0,
                     y: jumppad_strength.1,
                 });

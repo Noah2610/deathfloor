@@ -54,13 +54,19 @@
             y: -450.0,
         ),
         /// The velocity boost when jumping.
-        strength:       220.0,
+        strength: (
+            y: 220.0,
+        ),
         /// The velocity boost, when releasing the jump button after jumping.
         /// Should be negative.
-        kill_strength:  -60.0,
+        kill_strength: (
+            y: -60.0,
+        ),
         /// The minimum amount of upwards velocity the player should
         /// at least still have, after killing their jump.
-        min_velocity:   45.0,
+        min_velocity: (
+            y: 45.0,
+        ),
     ),
 
     /// Player wall jump settings.
@@ -68,7 +74,10 @@
     wall_jumper: (
         /// The velocity boost (x, y) when wall-jumping.
         /// Both values should be positive.
-        strength:  (200.0, 200.0),
+        strength: (
+            x: 200.0,
+            y: 200.0,
+        ),
     ),
 
     /// Player wall sliding settings.
