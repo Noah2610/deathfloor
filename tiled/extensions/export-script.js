@@ -223,10 +223,15 @@
             };
 
             if (object.polygon && object.polygon.length > 0) {
-                objectOutput.polygon = object.polygon.map((point) => ({
-                    x: point.x,
-                    y: point.y,
-                }));
+                objectOutput.polygon = object.polygon.map((point) =>
+                    invertPosY(
+                        {
+                            x: object.pos.x + point.x,
+                            y: object.pos.y + point.y,
+                        },
+                        mapSize
+                    )
+                );
             }
 
             output.push(objectOutput);

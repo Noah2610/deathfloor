@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-up" width="64" height="64" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="4">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-up" width="64" height="64" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="7">
  <editorsettings>
   <export target="../../resources/levels/dev_camera_path.json" format="deathfloor-export"/>
  </editorsettings>
@@ -87,8 +87,8 @@
   <object id="1" name="PLAYER" type="Player" x="16" y="448" width="16" height="20"/>
  </objectgroup>
  <objectgroup id="4" name="Object Layer 3">
-  <object id="3" name="CameraPath" type="CameraPath" x="32" y="424">
-   <polyline points="0,0 168,0 328,-56 440,16 464,-360"/>
+  <object id="6" type="CameraPath" x="72" y="400">
+   <polyline points="0,0 48,0 80,32 120,64 144,48 160,32 168,8 184,-8 200,-24 216,-40 232,0 248,40 264,64 280,32 296,8 312,-16 328,-32 344,-16 368,-48 384,16 408,-32 408,16 432,24 440,72"/>
   </object>
  </objectgroup>
 </map>
