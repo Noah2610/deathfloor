@@ -17,7 +17,6 @@ pub mod ledge_detector;
 pub mod max_movement_velocity;
 pub mod movable;
 pub mod movement_acceleration;
-pub mod physics_data;
 pub mod player;
 pub mod shooter;
 pub mod walker;
@@ -50,7 +49,6 @@ pub mod prelude {
     pub use super::max_movement_velocity::MaxMovementVelocity;
     pub use super::movable::prelude::*;
     pub use super::movement_acceleration::MovementAcceleration;
-    pub use super::physics_data::PhysicsData;
     pub use super::player::Player;
     pub use super::shooter::Shooter;
     pub use super::walker::Walker;

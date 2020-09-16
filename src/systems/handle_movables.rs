@@ -36,7 +36,7 @@ impl<'a> System<'a> for HandleMovablesSystem {
             velocity,
             max_velocity_opt,
             mut base_friction_opt,
-            movement_acceleration,
+            movement_acceleration_opt,
             mut sound_player_opt,
         ) in (
             &entities,
@@ -44,7 +44,7 @@ impl<'a> System<'a> for HandleMovablesSystem {
             &mut velocities,
             max_movement_velocities.maybe(),
             (&mut base_frictions).maybe(),
-            &movement_acceleration_store,
+            movement_acceleration_store.maybe(),
             (&mut sound_player_store).maybe(),
         )
             .join()
@@ -57,8 +57,8 @@ impl<'a> System<'a> for HandleMovablesSystem {
             for action in movable.drain_actions() {
                 match action {
                     MoveAction::Walk { axis, mult } => {
-                        if let Some(speed) = movement_acceleration
-                            .by_axis(&axis)
+                        if let Some(speed) = movement_acceleration_opt
+                            .and_then(|accel| accel.by_axis(&axis).as_ref())
                             .map(|accel| accel * mult)
                         {
                             if let Some(max) =
@@ -78,8 +78,10 @@ impl<'a> System<'a> for HandleMovablesSystem {
                             }
                         } else {
                             eprintln!(
-                                "[WARNING]\n    Can't use MoveAction::Walk \
-                                 without MovementAcceleration component"
+                                "[WARNING]\n    Can't use MoveAction::Walk on \
+                                 axis {} without MovementAcceleration having \
+                                 that axis set.",
+                                &axis,
                             );
                         }
                     }

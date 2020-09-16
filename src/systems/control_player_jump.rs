@@ -69,7 +69,6 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
         ReadStorage<'a, WallJumper>,
         ReadStorage<'a, WallSlider>,
         ReadStorage<'a, Collider<CollisionTag>>,
-        ReadStorage<'a, PhysicsData>,
         WriteStorage<'a, Movable>,
         WriteStorage<'a, Gravity>,
         ReadStorage<'a, Velocity>,
@@ -84,7 +83,6 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             wall_jumpers,
             wall_sliders,
             colliders,
-            physics_data_store,
             mut movables,
             mut gravities,
             velocities,
@@ -96,9 +94,8 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             wall_jumper_opt,
             wall_slider_opt,
             collider,
-            physics_data,
             movable,
-            mut gravity_opt,
+            gravity_opt,
             velocity,
         ) in (
             &entities,
@@ -106,13 +103,21 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             wall_jumpers.maybe(),
             wall_sliders.maybe(),
             &colliders,
-            &physics_data_store,
             &mut movables,
             (&mut gravities).maybe(),
             &velocities,
         )
             .join()
         {
+            // Set Jumper's original_gravity field
+            if jumper.original_gravity.is_none() {
+                if let Some(original_gravity) =
+                    gravity_opt.as_ref().map(|g| (*g).clone())
+                {
+                    jumper.original_gravity = Some(original_gravity);
+                }
+            }
+
             let query_matches = get_query_matches_from(collider);
             let is_touching_horz = query_matches.left || query_matches.right;
 
@@ -170,49 +175,46 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             }
 
             // set appropriate GRAVITY
-            let mut target_gravity_opt = None;
+            if let Some(mut gravity) = gravity_opt {
+                let mut target_gravity_opt = None;
 
-            let vel_y = velocity.get(&Axis::Y);
-            if is_jump_key_pressed && vel_y >= NORMAL_GRAVITY_BELOW_Y_VEL {
-                target_gravity_opt = Some(TargetGravity::Jump);
-            } else if !is_jump_key_pressed {
-                target_gravity_opt = Some(TargetGravity::Normal);
-            } else if vel_y < NORMAL_GRAVITY_BELOW_Y_VEL {
-                target_gravity_opt = Some(TargetGravity::Normal);
-            }
+                let vel_y = velocity.get(&Axis::Y);
+                if is_jump_key_pressed && vel_y >= NORMAL_GRAVITY_BELOW_Y_VEL {
+                    target_gravity_opt = Some(TargetGravity::Jump);
+                } else if !is_jump_key_pressed {
+                    target_gravity_opt = Some(TargetGravity::Normal);
+                } else if vel_y < NORMAL_GRAVITY_BELOW_Y_VEL {
+                    target_gravity_opt = Some(TargetGravity::Normal);
+                }
 
-            if let Some(target_gravity) = target_gravity_opt {
-                if self
-                    .player_gravities
-                    .get(&entity)
-                    .map(|prev_gravity| prev_gravity != &target_gravity)
-                    .unwrap_or(true)
-                {
-                    match &target_gravity {
-                        TargetGravity::Normal => maybe_set_gravity(
-                            &mut gravity_opt,
-                            &physics_data.gravity,
-                        ),
-                        TargetGravity::Jump => {
-                            maybe_set_gravity(&mut gravity_opt, &jumper.gravity)
+                if let Some(target_gravity) = target_gravity_opt {
+                    if self
+                        .player_gravities
+                        .get(&entity)
+                        .map(|prev_gravity| prev_gravity != &target_gravity)
+                        .unwrap_or(true)
+                    {
+                        match &target_gravity {
+                            TargetGravity::Normal => set_gravity(
+                                &mut gravity,
+                                jumper.original_gravity.as_ref().expect(
+                                    "Jumper should have set original_gravity \
+                                     by now",
+                                ),
+                            ),
+                            TargetGravity::Jump => {
+                                set_gravity(&mut gravity, &jumper.gravity)
+                            }
                         }
+                        self.player_gravities.insert(entity, target_gravity);
                     }
-                    self.player_gravities.insert(entity, target_gravity);
                 }
             }
         }
     }
 }
 
-fn maybe_set_gravity(
-    gravity_opt: &mut Option<&mut Gravity>,
-    gravity_strength: &(Option<f32>, Option<f32>),
-) {
-    if let Some(gravity_comp) = gravity_opt {
-        for axis in Axis::iter() {
-            if let Some(grav) = gravity_strength.by_axis(&axis) {
-                gravity_comp.set(&axis, *grav);
-            }
-        }
-    }
+fn set_gravity(gravity: &mut Gravity, new_gravity: &Gravity) {
+    gravity.x = new_gravity.x;
+    gravity.y = new_gravity.y;
 }

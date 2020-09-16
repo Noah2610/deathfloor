@@ -9,17 +9,17 @@
     ),
 
     /// The player's physics data; stuff involving velocity.
-    physics: (
-        /// Movement acceleration.
-        acceleration:        (950.0, 1500.0),
-        /// Soft-max for movement velocity.
-        // TODO: this is stupid use MaxMovementVelocity component directly
-        max_velocity:        (110.0, 410.0),
-        /// Friction factor applied to velocity every frame.
-        base_friction:       (1100.0, None),
-        /// The normal gravity.
-        gravity:             (None, -900.0),
-    ),
+    // physics: (
+    //     /// Movement acceleration.
+    //     acceleration:        (950.0, 1500.0),
+    //     /// Soft-max for movement velocity.
+    //     // TODO: this is stupid use MaxMovementVelocity component directly
+    //     max_velocity:        (110.0, 410.0),
+    //     /// Friction factor applied to velocity every frame.
+    //     base_friction:       (1100.0, None),
+    //     /// The normal gravity.
+    //     gravity:             (None, -900.0),
+    // ),
 
     /// The player's hitbox.
     hitbox: Custom([
@@ -49,7 +49,10 @@
     /// Player jump settings.
     jumper: (
         /// The gravity applied only when jumping (holding down the jump button).
-        gravity:        (None, -450.0),
+        gravity: (
+            x: None,
+            y: -450.0,
+        ),
         /// The velocity boost when jumping.
         strength:       220.0,
         /// The velocity boost, when releasing the jump button after jumping.
