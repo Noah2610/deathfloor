@@ -110,6 +110,8 @@ pub enum ConditionExpressionValueGetter {
     Health,
     /// Returns a boolean depending on if the entity's health is at max.
     HasFullHealth,
+    /// Returns a string for the facing direction, "Left" or "Right".
+    Facing,
 }
 
 impl ConditionExpressionValueGetter {
@@ -151,6 +153,14 @@ impl ConditionExpressionValueGetter {
             Self::HasFullHealth => {
                 if let Some(health) = storages.health.get(entity) {
                     Value::Bool(health.has_full_health())
+                } else {
+                    Value::Null
+                }
+            }
+
+            Self::Facing => {
+                if let Some(facing) = storages.facing.get(entity) {
+                    Value::Str(facing.to_string())
                 } else {
                     Value::Null
                 }

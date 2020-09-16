@@ -9,16 +9,17 @@
     ),
 
     /// The player's physics data; stuff involving velocity.
-    physics: (
-        /// Movement acceleration.
-        acceleration:        (950.0, 1500.0),
-        /// Soft-max for movement velocity.
-        max_velocity:        (110.0, 410.0),
-        /// Friction factor applied to velocity every frame.
-        base_friction:       (1100.0, None),
-        /// The normal gravity.
-        gravity:             (None, -900.0),
-    ),
+    // physics: (
+    //     /// Movement acceleration.
+    //     acceleration:        (950.0, 1500.0),
+    //     /// Soft-max for movement velocity.
+    //     // TODO: this is stupid use MaxMovementVelocity component directly
+    //     max_velocity:        (110.0, 410.0),
+    //     /// Friction factor applied to velocity every frame.
+    //     base_friction:       (1100.0, None),
+    //     /// The normal gravity.
+    //     gravity:             (None, -900.0),
+    // ),
 
     /// The player's hitbox.
     hitbox: Custom([
@@ -48,15 +49,24 @@
     /// Player jump settings.
     jumper: (
         /// The gravity applied only when jumping (holding down the jump button).
-        gravity:        (None, -450.0),
+        gravity: (
+            x: None,
+            y: -450.0,
+        ),
         /// The velocity boost when jumping.
-        strength:       220.0,
+        strength: (
+            y: 220.0,
+        ),
         /// The velocity boost, when releasing the jump button after jumping.
         /// Should be negative.
-        kill_strength:  -60.0,
+        kill_strength: (
+            y: -60.0,
+        ),
         /// The minimum amount of upwards velocity the player should
         /// at least still have, after killing their jump.
-        min_velocity:   45.0,
+        min_velocity: (
+            y: 45.0,
+        ),
     ),
 
     /// Player wall jump settings.
@@ -64,7 +74,10 @@
     wall_jumper: (
         /// The velocity boost (x, y) when wall-jumping.
         /// Both values should be positive.
-        strength:  (200.0, 200.0),
+        strength: (
+            x: 200.0,
+            y: 200.0,
+        ),
     ),
 
     /// Player wall sliding settings.
@@ -126,26 +139,24 @@
 
     /// The player's entity config.
     entity: (
+        components: (
+            max_movement_velocity: (
+                x: 110.0,
+                y: 410.0,
+            ),
+            movement_acceleration: (
+                x: 950.0,
+                y: 1500.0, // DEBUG
+            ),
+            base_friction: (
+                x: 1100.0,
+            ),
+            gravity: (
+                y: -900.0,
+            ),
+        ),
+
         events: {
-            OnKeyUp(PlayerShoot): Group([
-                SpawnAction(SpawnRelative((
-                    object: (
-                        type: PlayerBullet,
-                        pos: (x: 0.0, y: 0.0),
-                        size: (w: 8.0, h: 8.0),
-                        props: {
-                            "variant": "Rocket",
-                            "dir_x": 1.0,
-                        },
-                    ),
-                ))),
-            ]),
-
-            OnKeyUp(TogglePause): Group([
-                HealthAction(Gain(10)),
-                LifecycleAction(SetState(Alive)),
-            ]),
-
             // ---------
             // FUNCTIONS
             // ---------

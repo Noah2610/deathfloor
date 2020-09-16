@@ -9,7 +9,11 @@ impl<'a> System<'a> for HandleMovablesSystem {
         WriteStorage<'a, Movable>,
         WriteStorage<'a, Velocity>,
         WriteStorage<'a, BaseFriction>,
+        ReadStorage<'a, MovementAcceleration>,
         ReadStorage<'a, MaxMovementVelocity>,
+        ReadStorage<'a, Jumper>,
+        ReadStorage<'a, WallJumper>,
+        ReadStorage<'a, WallSlider>,
         WriteStorage<'a, SoundPlayer<SoundType>>,
         ReadStorage<'a, Loadable>,
         ReadStorage<'a, Loaded>,
@@ -22,7 +26,11 @@ impl<'a> System<'a> for HandleMovablesSystem {
             mut movables,
             mut velocities,
             mut base_frictions,
+            movement_acceleration_store,
             max_movement_velocities,
+            jumper_store,
+            wall_jumper_store,
+            wall_slider_store,
             mut sound_player_store,
             loadables,
             loadeds,
@@ -34,6 +42,10 @@ impl<'a> System<'a> for HandleMovablesSystem {
             velocity,
             max_velocity_opt,
             mut base_friction_opt,
+            movement_acceleration_opt,
+            jumper_opt,
+            wall_jumper_opt,
+            wall_slider_opt,
             mut sound_player_opt,
         ) in (
             &entities,
@@ -41,10 +53,14 @@ impl<'a> System<'a> for HandleMovablesSystem {
             &mut velocities,
             max_movement_velocities.maybe(),
             (&mut base_frictions).maybe(),
+            movement_acceleration_store.maybe(),
+            jumper_store.maybe(),
+            wall_jumper_store.maybe(),
+            wall_slider_store.maybe(),
             (&mut sound_player_store).maybe(),
         )
             .join()
-            .filter(|(entity, _, _, _, _, _)| {
+            .filter(|(entity, _, _, _, _, _, _, _, _, _)| {
                 is_entity_loaded(*entity, &loadables, &loadeds)
             })
         {
@@ -52,57 +68,6 @@ impl<'a> System<'a> for HandleMovablesSystem {
 
             for action in movable.drain_actions() {
                 match action {
-                    MoveAction::Walk { axis, speed } => {
-                        if let Some(max) = max_velocity_opt
-                            .and_then(|max_velocity| max_velocity.get(&axis))
-                        {
-                            velocity.increase_with_max(&axis, speed, max);
-                        } else {
-                            velocity.increase(&axis, speed);
-                        }
-
-                        if base_friction_opt.is_some() {
-                            *(&mut friction_enabled).by_axis(&axis) =
-                                velocity.get(&axis).signum() != speed.signum();
-                        }
-                    }
-
-                    MoveAction::Jump { x, y } => {
-                        let strength = (x, y);
-                        for axis in Axis::iter() {
-                            if let Some(strength) = strength.by_axis(&axis) {
-                                velocity.set(&axis, strength);
-                            }
-                        }
-                        if let Some(sound_player) = sound_player_opt.as_mut() {
-                            sound_player.add_action(
-                                SoundAction::PlayWithVolume(
-                                    SoundType::Jump,
-                                    0.5,
-                                ),
-                            );
-                        }
-                    }
-
-                    MoveAction::KillJump {
-                        strength,
-                        min_velocity,
-                    } => {
-                        let vel = velocity.y;
-                        if vel > min_velocity {
-                            let decreased = (vel + strength).max(min_velocity);
-                            velocity.set(&Axis::Y, decreased);
-                        }
-                    }
-
-                    MoveAction::WallSlide {
-                        velocity: slide_vel,
-                    } => {
-                        if velocity.get(&Axis::Y) < slide_vel {
-                            velocity.set(&Axis::Y, slide_vel);
-                        }
-                    }
-
                     MoveAction::AddVelocity { x, y } => {
                         let add_velocity = (x, y);
                         for axis in Axis::iter() {
@@ -130,6 +95,146 @@ impl<'a> System<'a> for HandleMovablesSystem {
                                     velocity.set(&axis, vel);
                                 }
                             }
+                        }
+                    }
+
+                    MoveAction::Walk { axis, mult } => {
+                        if let Some(speed) = movement_acceleration_opt
+                            .and_then(|accel| accel.by_axis(&axis).as_ref())
+                            .map(|accel| accel * mult)
+                        {
+                            if let Some(max) =
+                                max_velocity_opt.and_then(|max_velocity| {
+                                    max_velocity.get(&axis)
+                                })
+                            {
+                                velocity.increase_with_max(&axis, speed, max);
+                            } else {
+                                velocity.increase(&axis, speed);
+                            }
+
+                            if base_friction_opt.is_some() {
+                                *(&mut friction_enabled).by_axis(&axis) =
+                                    velocity.get(&axis).signum()
+                                        != speed.signum();
+                            }
+                        } else {
+                            eprintln!(
+                                "[WARNING]\n    Can't use MoveAction::Walk on \
+                                 axis {} without MovementAcceleration having \
+                                 that axis set.",
+                                &axis,
+                            );
+                        }
+                    }
+
+                    MoveAction::Jump => {
+                        if let Some(jumper) = jumper_opt {
+                            for axis in Axis::iter() {
+                                if let Some(strength) =
+                                    jumper.strength.by_axis(&axis)
+                                {
+                                    velocity.set(&axis, *strength);
+                                }
+                            }
+                            // TODO
+                            if let Some(sound_player) =
+                                sound_player_opt.as_mut()
+                            {
+                                sound_player.add_action(
+                                    SoundAction::PlayWithVolume(
+                                        SoundType::Jump,
+                                        0.5,
+                                    ),
+                                );
+                            }
+                        } else {
+                            eprintln!(
+                                "[WARNING]\n    Can't use MoveAction::Jump \
+                                 without Jumper component."
+                            );
+                        }
+                    }
+
+                    MoveAction::KillJump => {
+                        if let Some(jumper) = jumper_opt {
+                            for axis in Axis::iter() {
+                                let vel = velocity.by_axis(&axis);
+                                if let Some(kill_strength) = jumper
+                                    .kill_strength
+                                    .by_axis(&axis)
+                                    .as_ref()
+                                    .copied()
+                                {
+                                    let min_velocity = jumper
+                                        .min_velocity
+                                        .by_axis(&axis)
+                                        .unwrap_or(0.0);
+                                    if kill_strength > min_velocity {
+                                        let decreased = (vel + kill_strength)
+                                            .max(min_velocity);
+                                        velocity.set(&Axis::Y, decreased);
+                                    }
+                                }
+                            }
+                        } else {
+                            eprintln!(
+                                "[WARNING]\n    Can't use \
+                                 MoveAction::KillJump without Jumper \
+                                 component."
+                            );
+                        }
+                    }
+
+                    MoveAction::WallJump { x_mult } => {
+                        if let (Some(jumper), Some(wall_jumper)) =
+                            (jumper_opt, wall_jumper_opt)
+                        {
+                            for axis in Axis::iter() {
+                                if let Some(strength) =
+                                    wall_jumper.strength.by_axis(&axis)
+                                {
+                                    let mut strength = *strength;
+                                    if let Axis::X = &axis {
+                                        strength = strength * x_mult;
+                                    }
+                                    velocity.set(&axis, strength);
+                                }
+                            }
+                            // TODO
+                            if let Some(sound_player) =
+                                sound_player_opt.as_mut()
+                            {
+                                sound_player.add_action(
+                                    SoundAction::PlayWithVolume(
+                                        SoundType::Jump,
+                                        0.5,
+                                    ),
+                                );
+                            }
+                        } else {
+                            eprintln!(
+                                "[WARNING]\n    Can't use \
+                                 MoveAction::WallJump without Jumper or \
+                                 WallJumper component."
+                            );
+                        }
+                    }
+
+                    MoveAction::WallSlide => {
+                        if let Some(wall_slider) = wall_slider_opt {
+                            if velocity.get(&Axis::Y)
+                                < wall_slider.slide_velocity
+                            {
+                                velocity
+                                    .set(&Axis::Y, wall_slider.slide_velocity);
+                            }
+                        } else {
+                            eprintln!(
+                                "[WARNING]\n    Can't use \
+                                 MoveAction::WallSlide without WallSlider \
+                                 component."
+                            );
                         }
                     }
                 }

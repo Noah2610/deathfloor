@@ -17,7 +17,6 @@ pub mod prelude {
 #[serde(deny_unknown_fields)]
 pub struct PlayerSettings {
     pub size:           SizeSettings,
-    pub physics:        PhysicsData,
     pub hitbox:         HitboxConfig,
     pub collision_tag:  CollisionTagWrapper,
     pub solid_tag:      CollisionTagWrapper,

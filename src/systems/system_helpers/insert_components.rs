@@ -10,6 +10,7 @@ pub fn insert_components(
         velocity,
         gravity,
         max_movement_velocity,
+        movement_acceleration,
         base_friction,
         animation,
         animations,
@@ -35,6 +36,7 @@ pub fn insert_components(
         velocity: velocity_store,
         gravity: gravity_store,
         max_movement_velocity: max_movement_velocity_store,
+        movement_acceleration: movement_acceleration_store,
         base_friction: base_friction_store,
         animation: animation_store,
         animations: animations_store,
@@ -73,6 +75,9 @@ pub fn insert_components(
     }
     if let Some(max_movement_velocity) = max_movement_velocity {
         max_movement_velocity_store.insert(entity, max_movement_velocity)?;
+    }
+    if let Some(movement_acceleration) = movement_acceleration {
+        movement_acceleration_store.insert(entity, movement_acceleration)?;
     }
     if let Some(base_friction) = base_friction {
         base_friction_store.insert(entity, base_friction)?;

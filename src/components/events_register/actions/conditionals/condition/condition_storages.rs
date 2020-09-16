@@ -9,4 +9,5 @@ pub struct ConditionStorages<'a> {
     pub velocity:  ReadStorage<'a, Velocity>,
     pub health:    ReadStorage<'a, Health>,
     pub player:    ReadStorage<'a, Player>,
+    pub facing:    ReadStorage<'a, Facing>,
 }
