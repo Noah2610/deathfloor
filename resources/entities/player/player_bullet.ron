@@ -29,7 +29,7 @@
                 collides_with: ["Solid", "Enemy"],
             ),
             death_after_delay: (
-                delay_ms: 5_000,
+                delay_ms: 2_000,
             ),
         ),
 
