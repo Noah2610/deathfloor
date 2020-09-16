@@ -127,136 +127,24 @@
 
     /// The player's entity config.
     entity: (
+        components: (
+            max_movement_velocity: (
+                x: 110.0,
+                y: 410.0,
+            ),
+            movement_acceleration: (
+                x: 950.0,
+                y: 1500.0, // DEBUG
+            ),
+            base_friction: (
+                x: 1100.0,
+            ),
+            gravity: (
+                y: -900.0,
+            ),
+        ),
+
         events: {
-            // ------------
-            // STUPID STUFF
-            // ------------
-
-            OnSpawn: Call("SetDefaultPhysics"),
-
-            Function("SetDefaultPhysics"): InsertComponents((
-                max_movement_velocity: (
-                    x: 110.0,
-                    y: 410.0,
-                ),
-                gravity: (
-                    y: -450.0
-                ),
-            )),
-
-            // Shoot like crazy dude
-            Function("ShootCrazy"): Group([
-                // Mortar
-                If((
-                    if: Equal(
-                        Facing(),
-                        "Right",
-                    ),
-                    then: SpawnAction(SpawnRelative((
-                        object: (
-                            type: PlayerBullet,
-                            pos: (x: 0.0, y: 0.0),
-                            size: (w: 8.0, h: 8.0),
-                            props: {
-                                "variant": "Mortar",
-                                "dir_x": 1.0,
-                            },
-                        ),
-                    ))),
-                    else: SpawnAction(SpawnRelative((
-                        object: (
-                            type: PlayerBullet,
-                            pos: (x: 0.0, y: 0.0),
-                            size: (w: 8.0, h: 8.0),
-                            props: {
-                                "variant": "Mortar",
-                                "dir_x": -1.0,
-                            },
-                        ),
-                    ))),
-                )),
-
-                // Swerve
-                SpawnAction(SpawnRelative((
-                    object: (
-                        type: PlayerBullet,
-                        pos: (x: 0.0, y: 0.0),
-                        size: (w: 8.0, h: 8.0),
-                        props: {
-                            "variant": "Swerve",
-                            "dir_x": -1.0,
-                        },
-                    ),
-                ))),
-                SpawnAction(SpawnRelative((
-                    object: (
-                        type: PlayerBullet,
-                        pos: (x: 0.0, y: 0.0),
-                        size: (w: 8.0, h: 8.0),
-                        props: {
-                            "variant": "Swerve",
-                            "dir_x": 1.0,
-                        },
-                    ),
-                ))),
-
-                // Skipper
-                SpawnAction(SpawnRelative((
-                    object: (
-                        type: PlayerBullet,
-                        pos: (x: 0.0, y: 0.0),
-                        size: (w: 8.0, h: 8.0),
-                        props: {
-                            "variant": "Skipper",
-                            "dir_x": -1.0,
-                        },
-                    ),
-                ))),
-                SpawnAction(SpawnRelative((
-                    object: (
-                        type: PlayerBullet,
-                        pos: (x: 0.0, y: 0.0),
-                        size: (w: 8.0, h: 8.0),
-                        props: {
-                            "variant": "Skipper",
-                            "dir_x": 1.0,
-                        },
-                    ),
-                ))),
-            ]),
-
-            // yea crazy shoot
-            OnKeyPressed(PlayerShoot): Call("ShootCrazy"),
-            // Rocket
-            OnKeyDown(PlayerShoot): SpawnAction(SpawnRelative((
-                object: (
-                    type: PlayerBullet,
-                    pos: (x: 0.0, y: 0.0),
-                    size: (w: 8.0, h: 8.0),
-                    props: {
-                        "variant": "Rocket",
-                        "dir_x": 1.0,
-                    },
-                ),
-            ))),
-            // get that health
-            OnKeyUp(TogglePause): Call("PickupHealth"),
-
-            // Reduce gravity when jumping
-            OnKeyDown(PlayerJump): Group([
-                MoveAction(SetVelocity(y: 300.0)),
-                InsertComponents((
-                    max_movement_velocity: (
-                        // x: 70.0,
-                        y: 100.0,
-                    ),
-                    gravity: (
-                        y: -20.0,
-                    ),
-                )),
-            ]),
-            OnKeyUp(PlayerJump): Call("SetDefaultPhysics"),
-
             // ---------
             // FUNCTIONS
             // ---------
