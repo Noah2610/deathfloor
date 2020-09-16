@@ -73,7 +73,7 @@
                             OnAnimationEnd(Custom("Charge")): EntityAction(SwitchVariant("Left")),
                         }
                     ),
-                                       
+
                     "Left": (
                         events: {
                             Init: Group([

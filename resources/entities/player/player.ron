@@ -2,158 +2,124 @@
 #![enable(implicit_some)]
 /// Player settings.
 (
-    /// The player's in-game size.
-    size: (
-        width:  16.0,
-        height: 20.0,
-    ),
-
-    /// The player's physics data; stuff involving velocity.
-    // physics: (
-    //     /// Movement acceleration.
-    //     acceleration:        (950.0, 1500.0),
-    //     /// Soft-max for movement velocity.
-    //     // TODO: this is stupid use MaxMovementVelocity component directly
-    //     max_velocity:        (110.0, 410.0),
-    //     /// Friction factor applied to velocity every frame.
-    //     base_friction:       (1100.0, None),
-    //     /// The normal gravity.
-    //     gravity:             (None, -900.0),
-    // ),
-
-    /// The player's hitbox.
-    hitbox: Custom([
-        (
-            top:    6.0,
-            bottom: -10.0,
-            left:   -6.0,
-            right:  6.0,
-        )
-    ]),
-
-    /// For _general_ collision checking.
-    collision_tag: (
-        /// `CollisionLabel`s for the player.
-        /// Used with other collider entities, to check if they collide with this entity.
-        labels: ["Player"],
-        /// `CollisionLabel`s that the player collides with.
-        collides_with: ["Tile", "Solid", "Jumppad", "Enemy", "EnemyBullet", "Consumable"],
-    ),
-
-    /// For _solid_ collision checking.
-    solid_tag: (
-        labels: ["Player"],
-        collides_with: ["Solid"],
-    ),
-
-    /// Player jump settings.
-    jumper: (
-        /// The gravity applied only when jumping (holding down the jump button).
-        gravity: (
-            x: None,
-            y: -450.0,
-        ),
-        /// The velocity boost when jumping.
-        strength: (
-            y: 220.0,
-        ),
-        /// The velocity boost, when releasing the jump button after jumping.
-        /// Should be negative.
-        kill_strength: (
-            y: -60.0,
-        ),
-        /// The minimum amount of upwards velocity the player should
-        /// at least still have, after killing their jump.
-        min_velocity: (
-            y: 45.0,
-        ),
-    ),
-
-    /// Player wall jump settings.
-    /// Optional.
-    wall_jumper: (
-        /// The velocity boost (x, y) when wall-jumping.
-        /// Both values should be positive.
-        strength: (
-            x: 200.0,
-            y: 200.0,
-        ),
-    ),
-
-    /// Player wall sliding settings.
-    /// Optional.
-    wall_slider: (
-        /// Fixed y velocity when sliding on wall.
-        slide_velocity: -40.0,
-    ),
-
-    /// Data for the player shooting.
-    shooter: (
-        /// Shooting cooldown delay in milliseconds.
-        /// Delay after shooting, before the player can shoot again.
-        cooldown_ms: 450,
-    ),
-
-    /// Player animations config.
-    animations: {
-        Idle: Cycle([
-            (13, 500),
-            (14, 500),
-        ]),
-        Walk: Cycle([
-            (1, 100),
-            (2, 100),
-            (3, 100),
-            (4, 100),
-            (5, 100),
-            (6, 100),
-            (7, 100),
-            (8, 100),
-            (9, 100),
-            (10, 100),
-            (12, 100),
-        ]),
-        Custom("Shoot"): Once([
-            (23, 15),
-            (24, 15),
-            (25, 15),
-        ]),
-    },
-
-    /// Starting health.
-    health: (
-        health: 30,
-        max_health: 30,
-    ),
-
-    /// Component for rendering health.
-    health_display: (
-        position:       Top,
-        size:           (32.0, 2.0),
-        padding:        4.0,
-        border_padding: 0.5,
-    ),
-
-    /// Player takes damage against damage-dealing entities (DealsDamage).
-    takes_damage: (),
-
     /// The player's entity config.
     entity: (
         components: (
+            /// The player's in-game size.
+            size: (
+                w: 16.0,
+                h: 20.0,
+            ),
+            /// The normal gravity.
+            gravity: (
+                y: -900.0,
+            ),
+            /// Friction factor applied to velocity every frame.
+            base_friction: (
+                x: 1100.0,
+            ),
+            /// Soft-max for movement velocity.
             max_movement_velocity: (
                 x: 110.0,
                 y: 410.0,
             ),
+            /// Movement acceleration.
             movement_acceleration: (
                 x: 950.0,
                 y: 1500.0, // DEBUG
             ),
-            base_friction: (
-                x: 1100.0,
+            /// The player's hitbox.
+            hitbox: Custom([
+                (
+                    top:    6.0,
+                    bottom: -10.0,
+                    left:   -6.0,
+                    right:  6.0,
+                ),
+            ]),
+            /// Player jump settings.
+            jumper: (
+                /// The gravity applied only when jumping (holding down the jump button).
+                gravity: (
+                    x: None,
+                    y: -450.0,
+                ),
+                /// The velocity boost when jumping.
+                strength: (
+                    y: 220.0,
+                ),
+                /// The velocity boost, when releasing the jump button after jumping.
+                /// Should be negative.
+                kill_strength: (
+                    y: -60.0,
+                ),
+                /// The minimum amount of upwards velocity the player should
+                /// at least still have, after killing their jump.
+                min_velocity: (
+                    y: 45.0,
+                ),
             ),
-            gravity: (
-                y: -900.0,
+            /// Player wall jump settings.
+            /// Optional.
+            wall_jumper: (
+                /// The velocity boost (x, y) when wall-jumping.
+                /// Both values should be positive.
+                strength: (
+                    x: 200.0,
+                    y: 200.0,
+                ),
             ),
+            /// Player wall sliding settings.
+            /// Optional.
+            wall_slider: (
+                /// Fixed y velocity when sliding on wall.
+                slide_velocity: -40.0,
+            ),
+            /// Data for the player shooting.
+            shooter: (
+                /// Shooting cooldown delay in milliseconds.
+                /// Delay after shooting, before the player can shoot again.
+                cooldown_ms: 450,
+            ),
+            /// Player animations config.
+            animations: {
+                Idle: Cycle([
+                    (13, 500),
+                    (14, 500),
+                ]),
+                Walk: Cycle([
+                    (1, 100),
+                    (2, 100),
+                    (3, 100),
+                    (4, 100),
+                    (5, 100),
+                    (6, 100),
+                    (7, 100),
+                    (8, 100),
+                    (9, 100),
+                    (10, 100),
+                    (12, 100),
+                ]),
+                Custom("Shoot"): Once([
+                    (23, 15),
+                    (24, 15),
+                    (25, 15),
+                ]),
+            },
+            /// Starting health.
+            health: (
+                health: 30,
+                max_health: 30,
+            ),
+            /// Component for rendering health.
+            health_display: (
+                position:       Top,
+                size:           (32.0, 2.0),
+                padding:        4.0,
+                border_padding: 0.5,
+            ),
+            /// Player takes damage against damage-dealing entities (DealsDamage).
+            takes_damage: (),
         ),
 
         events: {
@@ -230,5 +196,20 @@
                 },
             ),
         },
+
+        /// For _general_ collision checking.
+        collision_tag: (
+            /// `CollisionLabel`s for the player.
+            /// Used with other collider entities, to check if they collide with this entity.
+            labels: ["Player"],
+            /// `CollisionLabel`s that the player collides with.
+            collides_with: ["Tile", "Solid", "Jumppad", "Enemy", "EnemyBullet", "Consumable"],
+        ),
+
+        /// For _solid_ collision checking.
+        solid_tag: (
+            labels: ["Player"],
+            collides_with: ["Solid"],
+        ),
     ),
 )
