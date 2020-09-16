@@ -13,6 +13,7 @@
         /// Movement acceleration.
         acceleration:        (950.0, 1500.0),
         /// Soft-max for movement velocity.
+        // TODO: this is stupid use MaxMovementVelocity component directly
         max_velocity:        (110.0, 410.0),
         /// Friction factor applied to velocity every frame.
         base_friction:       (1100.0, None),
@@ -127,39 +128,95 @@
     /// The player's entity config.
     entity: (
         events: {
-            OnKeyPressed(PlayerShoot): If((
-                if: Equal(
-                    Facing(),
-                    "Right",
+            // ------------
+            // STUPID STUFF
+            // ------------
+
+            OnSpawn: Call("SetDefaultPhysics"),
+
+            Function("SetDefaultPhysics"): InsertComponents((
+                max_movement_velocity: (
+                    x: 110.0,
+                    y: 410.0,
                 ),
-                then: SpawnAction(SpawnRelative((
-                    object: (
-                        type: PlayerBullet,
-                        pos: (x: 0.0, y: 0.0),
-                        size: (w: 8.0, h: 8.0),
-                        props: {
-                            "variant": "Mortar",
-                            "dir_x": 1.0,
-                        },
+                gravity: (
+                    y: -450.0
+                ),
+            )),
+
+            // Shoot like crazy dude
+            Function("ShootCrazy"): Group([
+                If((
+                    if: Equal(
+                        Facing(),
+                        "Right",
                     ),
-                ))),
-                else: SpawnAction(SpawnRelative((
+                    then: SpawnAction(SpawnRelative((
+                        object: (
+                            type: PlayerBullet,
+                            pos: (x: 0.0, y: 0.0),
+                            size: (w: 8.0, h: 8.0),
+                            props: {
+                                "variant": "Mortar",
+                                "dir_x": 1.0,
+                            },
+                        ),
+                    ))),
+                    else: SpawnAction(SpawnRelative((
+                        object: (
+                            type: PlayerBullet,
+                            pos: (x: 0.0, y: 0.0),
+                            size: (w: 8.0, h: 8.0),
+                            props: {
+                                "variant": "Mortar",
+                                "dir_x": -1.0,
+                            },
+                        ),
+                    ))),
+                )),
+                SpawnAction(SpawnRelative((
                     object: (
                         type: PlayerBullet,
                         pos: (x: 0.0, y: 0.0),
                         size: (w: 8.0, h: 8.0),
                         props: {
-                            "variant": "Mortar",
+                            "variant": "Swerve",
                             "dir_x": -1.0,
                         },
                     ),
                 ))),
-            )),
-
-            OnKeyUp(TogglePause): Group([
-                HealthAction(Gain(10)),
-                LifecycleAction(SetState(Alive)),
+                SpawnAction(SpawnRelative((
+                    object: (
+                        type: PlayerBullet,
+                        pos: (x: 0.0, y: 0.0),
+                        size: (w: 8.0, h: 8.0),
+                        props: {
+                            "variant": "Swerve",
+                            "dir_x": 1.0,
+                        },
+                    ),
+                ))),
             ]),
+
+            // yea crazy shoot
+            OnKeyPressed(PlayerShoot): Call("ShootCrazy"),
+            // get that health
+            OnKeyUp(TogglePause): Call("PickupHealth"),
+
+            // Reduce gravity when jumping
+            OnKeyDown(PlayerJump): Group([
+                MoveAction(SetVelocity(y: 300.0)),
+                InsertComponents((
+                    max_movement_velocity: (
+                        // x: 70.0,
+                        y: 100.0,
+                    ),
+                    gravity: (
+                        y: -20.0,
+                    ),
+                )),
+            ]),
+            OnKeyUp(PlayerJump): Call("SetDefaultPhysics"),
 
             // ---------
             // FUNCTIONS
