@@ -9,6 +9,7 @@ impl<'a> System<'a> for HandleMovablesSystem {
         WriteStorage<'a, Movable>,
         WriteStorage<'a, Velocity>,
         WriteStorage<'a, BaseFriction>,
+        ReadStorage<'a, MovementAcceleration>,
         ReadStorage<'a, MaxMovementVelocity>,
         WriteStorage<'a, SoundPlayer<SoundType>>,
         ReadStorage<'a, Loadable>,
@@ -22,6 +23,7 @@ impl<'a> System<'a> for HandleMovablesSystem {
             mut movables,
             mut velocities,
             mut base_frictions,
+            movement_acceleration_store,
             max_movement_velocities,
             mut sound_player_store,
             loadables,
@@ -34,6 +36,7 @@ impl<'a> System<'a> for HandleMovablesSystem {
             velocity,
             max_velocity_opt,
             mut base_friction_opt,
+            movement_acceleration,
             mut sound_player_opt,
         ) in (
             &entities,
@@ -41,10 +44,11 @@ impl<'a> System<'a> for HandleMovablesSystem {
             &mut velocities,
             max_movement_velocities.maybe(),
             (&mut base_frictions).maybe(),
+            &movement_acceleration_store,
             (&mut sound_player_store).maybe(),
         )
             .join()
-            .filter(|(entity, _, _, _, _, _)| {
+            .filter(|(entity, _, _, _, _, _, _)| {
                 is_entity_loaded(*entity, &loadables, &loadeds)
             })
         {
@@ -52,18 +56,31 @@ impl<'a> System<'a> for HandleMovablesSystem {
 
             for action in movable.drain_actions() {
                 match action {
-                    MoveAction::Walk { axis, speed } => {
-                        if let Some(max) = max_velocity_opt
-                            .and_then(|max_velocity| max_velocity.get(&axis))
+                    MoveAction::Walk { axis, mult } => {
+                        if let Some(speed) = movement_acceleration
+                            .by_axis(&axis)
+                            .map(|accel| accel * mult)
                         {
-                            velocity.increase_with_max(&axis, speed, max);
-                        } else {
-                            velocity.increase(&axis, speed);
-                        }
+                            if let Some(max) =
+                                max_velocity_opt.and_then(|max_velocity| {
+                                    max_velocity.get(&axis)
+                                })
+                            {
+                                velocity.increase_with_max(&axis, speed, max);
+                            } else {
+                                velocity.increase(&axis, speed);
+                            }
 
-                        if base_friction_opt.is_some() {
-                            *(&mut friction_enabled).by_axis(&axis) =
-                                velocity.get(&axis).signum() != speed.signum();
+                            if base_friction_opt.is_some() {
+                                *(&mut friction_enabled).by_axis(&axis) =
+                                    velocity.get(&axis).signum()
+                                        != speed.signum();
+                            }
+                        } else {
+                            eprintln!(
+                                "[WARNING]\n    Can't use MoveAction::Walk \
+                                 without MovementAcceleration component"
+                            );
                         }
                     }
 

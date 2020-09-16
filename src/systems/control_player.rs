@@ -7,7 +7,7 @@ impl<'a> System<'a> for ControlPlayerSystem {
     type SystemData = (
         Read<'a, Time>,
         Read<'a, InputManager<IngameBindings>>,
-        ReadStorage<'a, PhysicsData>,
+        ReadStorage<'a, MovementAcceleration>,
         WriteStorage<'a, Movable>,
         WriteStorage<'a, MaxMovementVelocity>,
         WriteStorage<'a, Facing>,
@@ -18,7 +18,7 @@ impl<'a> System<'a> for ControlPlayerSystem {
         (
             time,
             input_manager,
-            physics_data_store,
+            movement_acceleration_store,
             mut movables,
             mut max_movement_velocities,
             mut facing_store,
@@ -26,8 +26,13 @@ impl<'a> System<'a> for ControlPlayerSystem {
     ) {
         let dt = time.delta_seconds() as f32;
 
-        for (physics_data, movable, mut max_velocity_opt, mut facing) in (
-            &physics_data_store,
+        for (
+            movement_acceleration,
+            movable,
+            mut max_velocity_opt,
+            mut facing,
+        ) in (
+            &movement_acceleration_store,
             &mut movables,
             (&mut max_movement_velocities).maybe(),
             (&mut facing_store).maybe(),
@@ -39,7 +44,7 @@ impl<'a> System<'a> for ControlPlayerSystem {
                     axis,
                     dt,
                     &input_manager,
-                    physics_data,
+                    movement_acceleration,
                     movable,
                     &mut max_velocity_opt,
                     &mut facing,
@@ -53,7 +58,7 @@ fn handle_move_on_axis(
     axis: Axis,
     dt: f32,
     input_manager: &InputManager<IngameBindings>,
-    physics_data: &PhysicsData,
+    movement_acceleration: &MovementAcceleration,
     movable: &mut Movable,
     max_movement_velocity_opt: &mut Option<&mut MaxMovementVelocity>,
     facing_opt: &mut Option<&mut Facing>,
@@ -62,6 +67,11 @@ fn handle_move_on_axis(
     if let Some(val) = input_manager.axis_value(axis_binding) {
         if val != 0.0 {
             // TODO
+            // This used to set the player's max movement velocity,
+            // so if they where playing with controller and just slightly
+            // pushed the joystick, they would only move slightly.
+            // This doesn't quite work anymore without physics data.
+            //
             // let limit_max = |max_vel: f32| -> f32 { max_vel * val.abs() };
             // max_movement_velocity_opt.as_mut().map(|maxvel| {
             //     maxvel.set_opt(
@@ -70,18 +80,18 @@ fn handle_move_on_axis(
             //     )
             // });
 
-            if &axis == &Axis::X {
+            if let Axis::X = &axis {
                 if let Some(facing) = facing_opt {
                     **facing = Facing::from(val);
                 }
             }
 
-            let acceleration_opt = physics_data.acceleration.by_axis(&axis);
+            // let acceleration_opt = movement_acceleration.by_axis(&axis);
 
-            if let Some(acceleration) = acceleration_opt {
-                let speed = acceleration * val * dt;
-                movable.add_action(MoveAction::Walk { axis, speed });
-            }
+            // if let Some(acceleration) = acceleration_opt {
+            // let speed = acceleration * val * dt;
+            movable.add_action(MoveAction::Walk { axis, mult: val });
+            // }
         }
     }
 }

@@ -3,8 +3,8 @@ use deathframe::core::geo::prelude::Axis;
 #[derive(Clone, Deserialize)]
 pub enum MoveAction {
     Walk {
-        axis:  Axis,
-        speed: f32,
+        axis: Axis,
+        mult: f32,
     },
     Jump {
         x: Option<f32>,
