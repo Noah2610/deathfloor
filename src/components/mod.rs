@@ -14,6 +14,7 @@ pub mod jumper;
 pub mod jumppad;
 pub mod jumppad_affected;
 pub mod ledge_detector;
+pub mod locked_to_path;
 pub mod max_movement_velocity;
 pub mod movable;
 pub mod movement_acceleration;
@@ -46,6 +47,7 @@ pub mod prelude {
     pub use super::jumppad::Jumppad;
     pub use super::jumppad_affected::JumppadAffected;
     pub use super::ledge_detector::prelude::*;
+    pub use super::locked_to_path::LockedToPath;
     pub use super::max_movement_velocity::MaxMovementVelocity;
     pub use super::movable::prelude::*;
     pub use super::movement_acceleration::MovementAcceleration;

@@ -78,6 +78,7 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
                             );
                             props
                         },
+                        polygon:     None,
                     },
                 });
 
