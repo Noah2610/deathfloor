@@ -299,6 +299,12 @@ fn build_game_data<'a, 'b>(
             "handle_interactable_system",
             &["update_collisions_system"],
         )?
+        .with(
+            DispatcherId::Ingame,
+            HandleLockedToPathSystem::default(),
+            "handle_locked_to_path_system",
+            &["follow_system"],
+        )?
         .with_bundle(DispatcherId::Ingame, EventsActionsBundle::default())?;
 
     #[cfg(feature = "debug")]

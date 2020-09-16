@@ -13,6 +13,7 @@ mod handle_interactable;
 mod handle_jumppad_affected;
 mod handle_ledge_detector;
 mod handle_level_select;
+mod handle_locked_to_path;
 mod handle_movables;
 mod handle_scales;
 mod handle_walkers;
@@ -38,6 +39,7 @@ pub mod prelude {
     pub use super::handle_jumppad_affected::HandleJumppadAffectedSystem;
     pub use super::handle_ledge_detector::HandleLedgeDetectorSystem;
     pub use super::handle_level_select::HandleLevelSelectSystem;
+    pub use super::handle_locked_to_path::HandleLockedToPathSystem;
     pub use super::handle_movables::HandleMovablesSystem;
     pub use super::handle_scales::HandleScalesSystem;
     pub use super::handle_walkers::HandleWalkersSystem;

@@ -4,7 +4,7 @@ use crate::map_loader::map_data::ObjectPolygon;
 #[derive(Component)]
 #[storage(DenseVecStorage)]
 pub struct LockedToPath {
-    path: ObjectPolygon,
+    pub path: ObjectPolygon,
 }
 
 impl From<ObjectPolygon> for LockedToPath {
