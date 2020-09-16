@@ -150,11 +150,9 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             }
 
             // WALL SLIDE
-            if let Some(wall_slider) = wall_slider_opt {
+            if wall_slider_opt.is_some() {
                 if !jumped && is_touching_horz && !query_matches.bottom {
-                    movable.add_action(MoveAction::WallSlide {
-                        velocity: wall_slider.slide_velocity,
-                    });
+                    movable.add_action(MoveAction::WallSlide);
                 }
             }
 

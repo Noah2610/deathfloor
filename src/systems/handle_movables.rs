@@ -13,6 +13,7 @@ impl<'a> System<'a> for HandleMovablesSystem {
         ReadStorage<'a, MaxMovementVelocity>,
         ReadStorage<'a, Jumper>,
         ReadStorage<'a, WallJumper>,
+        ReadStorage<'a, WallSlider>,
         WriteStorage<'a, SoundPlayer<SoundType>>,
         ReadStorage<'a, Loadable>,
         ReadStorage<'a, Loaded>,
@@ -29,6 +30,7 @@ impl<'a> System<'a> for HandleMovablesSystem {
             max_movement_velocities,
             jumper_store,
             wall_jumper_store,
+            wall_slider_store,
             mut sound_player_store,
             loadables,
             loadeds,
@@ -43,6 +45,7 @@ impl<'a> System<'a> for HandleMovablesSystem {
             movement_acceleration_opt,
             jumper_opt,
             wall_jumper_opt,
+            wall_slider_opt,
             mut sound_player_opt,
         ) in (
             &entities,
@@ -53,10 +56,11 @@ impl<'a> System<'a> for HandleMovablesSystem {
             movement_acceleration_store.maybe(),
             jumper_store.maybe(),
             wall_jumper_store.maybe(),
+            wall_slider_store.maybe(),
             (&mut sound_player_store).maybe(),
         )
             .join()
-            .filter(|(entity, _, _, _, _, _, _, _, _)| {
+            .filter(|(entity, _, _, _, _, _, _, _, _, _)| {
                 is_entity_loaded(*entity, &loadables, &loadeds)
             })
         {
@@ -64,6 +68,36 @@ impl<'a> System<'a> for HandleMovablesSystem {
 
             for action in movable.drain_actions() {
                 match action {
+                    MoveAction::AddVelocity { x, y } => {
+                        let add_velocity = (x, y);
+                        for axis in Axis::iter() {
+                            if let Some(vel) = add_velocity.by_axis(&axis) {
+                                if let Some(max) = max_velocity_opt
+                                    .and_then(|max_vel| max_vel.get(&axis))
+                                {
+                                    velocity.increase_with_max(&axis, vel, max)
+                                } else {
+                                    velocity.increase(&axis, vel);
+                                }
+                            }
+                        }
+                    }
+
+                    MoveAction::SetVelocity { x, y } => {
+                        let set_velocity = (x, y);
+                        for axis in Axis::iter() {
+                            if let Some(vel) = set_velocity.by_axis(&axis) {
+                                if let Some(max) = max_velocity_opt
+                                    .and_then(|max_vel| max_vel.get(&axis))
+                                {
+                                    velocity.set_with_max(&axis, vel, max)
+                                } else {
+                                    velocity.set(&axis, vel);
+                                }
+                            }
+                        }
+                    }
+
                     MoveAction::Walk { axis, mult } => {
                         if let Some(speed) = movement_acceleration_opt
                             .and_then(|accel| accel.by_axis(&axis).as_ref())
@@ -187,41 +221,20 @@ impl<'a> System<'a> for HandleMovablesSystem {
                         }
                     }
 
-                    MoveAction::WallSlide {
-                        velocity: slide_vel,
-                    } => {
-                        if velocity.get(&Axis::Y) < slide_vel {
-                            velocity.set(&Axis::Y, slide_vel);
-                        }
-                    }
-
-                    MoveAction::AddVelocity { x, y } => {
-                        let add_velocity = (x, y);
-                        for axis in Axis::iter() {
-                            if let Some(vel) = add_velocity.by_axis(&axis) {
-                                if let Some(max) = max_velocity_opt
-                                    .and_then(|max_vel| max_vel.get(&axis))
-                                {
-                                    velocity.increase_with_max(&axis, vel, max)
-                                } else {
-                                    velocity.increase(&axis, vel);
-                                }
+                    MoveAction::WallSlide => {
+                        if let Some(wall_slider) = wall_slider_opt {
+                            if velocity.get(&Axis::Y)
+                                < wall_slider.slide_velocity
+                            {
+                                velocity
+                                    .set(&Axis::Y, wall_slider.slide_velocity);
                             }
-                        }
-                    }
-
-                    MoveAction::SetVelocity { x, y } => {
-                        let set_velocity = (x, y);
-                        for axis in Axis::iter() {
-                            if let Some(vel) = set_velocity.by_axis(&axis) {
-                                if let Some(max) = max_velocity_opt
-                                    .and_then(|max_vel| max_vel.get(&axis))
-                                {
-                                    velocity.set_with_max(&axis, vel, max)
-                                } else {
-                                    velocity.set(&axis, vel);
-                                }
-                            }
+                        } else {
+                            eprintln!(
+                                "[WARNING]\n    Can't use \
+                                 MoveAction::WallSlide without WallSlider \
+                                 component."
+                            );
                         }
                     }
                 }

@@ -1,7 +1,25 @@
 use deathframe::core::geo::prelude::Axis;
 
+/// Move actions are used to manipulate the entity's velocity.
+/// The entity needs to at least have the `Velocity` and `Movable` components.
+///
+/// The basic actions are `AddVelocity` and `SetVelocity`,
+/// which simply add or set the velocity.
+/// The other actions are more specific, and rely on the entity
+/// having some specific components.
+/// See their variant docs for info.
 #[derive(Clone, Deserialize)]
 pub enum MoveAction {
+    AddVelocity {
+        x: Option<f32>,
+        y: Option<f32>,
+    },
+
+    SetVelocity {
+        x: Option<f32>,
+        y: Option<f32>,
+    },
+
     /// Requires component `MoveAcceleration`.
     /// Walk along the given axis, with the given `mult` as the
     /// direction multiplier, with the velocity from `MoveAcceleration`.
@@ -26,15 +44,7 @@ pub enum MoveAction {
         x_mult: f32,
     },
 
-    WallSlide {
-        velocity: f32,
-    },
-    AddVelocity {
-        x: Option<f32>,
-        y: Option<f32>,
-    },
-    SetVelocity {
-        x: Option<f32>,
-        y: Option<f32>,
-    },
+    /// Requires component `WallSlider`.
+    /// Uses `WallSlider`'s slide strength as velocity.
+    WallSlide,
 }
