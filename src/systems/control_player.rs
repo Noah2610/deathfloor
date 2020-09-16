@@ -7,10 +7,9 @@ impl<'a> System<'a> for ControlPlayerSystem {
     type SystemData = (
         Read<'a, Time>,
         Read<'a, InputManager<IngameBindings>>,
-        ReadStorage<'a, MovementAcceleration>,
         WriteStorage<'a, Movable>,
-        WriteStorage<'a, MaxMovementVelocity>,
         WriteStorage<'a, Facing>,
+        ReadStorage<'a, Player>,
     );
 
     fn run(
@@ -18,35 +17,22 @@ impl<'a> System<'a> for ControlPlayerSystem {
         (
             time,
             input_manager,
-            movement_acceleration_store,
             mut movables,
-            mut max_movement_velocities,
             mut facing_store,
+            player_store,
         ): Self::SystemData,
     ) {
         let dt = time.delta_seconds() as f32;
 
-        for (
-            movement_acceleration,
-            movable,
-            mut max_velocity_opt,
-            mut facing,
-        ) in (
-            &movement_acceleration_store,
-            &mut movables,
-            (&mut max_movement_velocities).maybe(),
-            (&mut facing_store).maybe(),
-        )
-            .join()
+        for (movable, mut facing, _) in
+            (&mut movables, (&mut facing_store).maybe(), &player_store).join()
         {
             Axis::for_each(|axis| {
                 handle_move_on_axis(
                     axis,
                     dt,
                     &input_manager,
-                    movement_acceleration,
                     movable,
-                    &mut max_velocity_opt,
                     &mut facing,
                 );
             });
@@ -58,9 +44,7 @@ fn handle_move_on_axis(
     axis: Axis,
     dt: f32,
     input_manager: &InputManager<IngameBindings>,
-    movement_acceleration: &MovementAcceleration,
     movable: &mut Movable,
-    max_movement_velocity_opt: &mut Option<&mut MaxMovementVelocity>,
     facing_opt: &mut Option<&mut Facing>,
 ) {
     let axis_binding = IngameAxisBinding::from(axis.clone());
@@ -86,12 +70,10 @@ fn handle_move_on_axis(
                 }
             }
 
-            // let acceleration_opt = movement_acceleration.by_axis(&axis);
-
-            // if let Some(acceleration) = acceleration_opt {
-            // let speed = acceleration * val * dt;
-            movable.add_action(MoveAction::Walk { axis, mult: val });
-            // }
+            movable.add_action(MoveAction::Walk {
+                axis,
+                mult: val * dt,
+            });
         }
     }
 }
