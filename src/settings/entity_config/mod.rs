@@ -103,14 +103,13 @@ impl EntityConfig {
 
 impl Merge for EntityConfig {
     /// `other` takes precedence.
+    #[rustfmt::skip]
     fn merge(&mut self, other: Self) {
         *self = Self {
             inherits:        self.inherits.take().merged(other.inherits),
             components:      self.components.take().merged(other.components),
             variants:        self.variants.take().merged(other.variants),
-            default_variant: other
-                .default_variant
-                .or(self.default_variant.take()),
+            default_variant: other.default_variant.or(self.default_variant.take()),
             events:          self.events.take().merged(other.events),
             collision_tag:   other.collision_tag.or(self.collision_tag.take()),
             solid_tag:       other.solid_tag.or(self.solid_tag.take()),
@@ -146,6 +145,10 @@ pub struct EntityComponentsData {
     pub death_after_delay:     Option<DeathAfterDelay>,
     pub interactable:          Option<Interactable>,
     pub facing:                Option<Facing>,
+    pub jumper:                Option<Jumper>,
+    pub wall_jumper:           Option<WallJumper>,
+    pub wall_slider:           Option<WallSlider>,
+    pub shooter:               Option<Shooter>,
 }
 
 impl Merge for EntityComponentsData {
@@ -175,11 +178,16 @@ impl Merge for EntityComponentsData {
             death_after_delay:     other.death_after_delay.or(self.death_after_delay.take()),
             interactable:          other.interactable.or(self.interactable.take()),
             facing:                other.facing.or(self.facing.take()),
+            jumper:                other.jumper.or(self.jumper.take()),
+            wall_jumper:           other.wall_jumper.or(self.wall_jumper.take()),
+            wall_slider:           other.wall_slider.or(self.wall_slider.take()),
+            shooter:               other.shooter.or(self.shooter.take()),
         };
     }
 }
 
 #[derive(SystemData)]
+#[rustfmt::skip]
 pub struct EntityComponentsStorages<'a> {
     pub entities:                       Entities<'a>,
     pub transform:                      WriteStorage<'a, Transform>,
@@ -190,11 +198,11 @@ pub struct EntityComponentsStorages<'a> {
     pub movement_acceleration:          WriteStorage<'a, MovementAcceleration>,
     pub base_friction:                  WriteStorage<'a, BaseFriction>,
     pub animation:                      WriteStorage<'a, Animation>,
-    pub animations: WriteStorage<'a, AnimationsContainer<AnimationKey>>,
+    pub animations:                     WriteStorage<'a, AnimationsContainer<AnimationKey>>,
     pub animation_editor:               WriteStorage<'a, AnimationEditor>,
     pub hitbox:                         WriteStorage<'a, Hitbox>,
-    pub collider: WriteStorage<'a, Collider<CollisionTag>>,
-    pub collidable: WriteStorage<'a, Collidable<CollisionTag>>,
+    pub collider:                       WriteStorage<'a, Collider<CollisionTag>>,
+    pub collidable:                     WriteStorage<'a, Collidable<CollisionTag>>,
     pub solid:                          WriteStorage<'a, Solid<SolidTag>>,
     pub walker:                         WriteStorage<'a, Walker>,
     pub jumppad:                        WriteStorage<'a, Jumppad>,
@@ -207,12 +215,15 @@ pub struct EntityComponentsStorages<'a> {
     pub takes_damage:                   WriteStorage<'a, TakesDamage>,
     pub bullet:                         WriteStorage<'a, Bullet>,
     pub ledge_detector:                 WriteStorage<'a, LedgeDetector>,
-    pub ledge_detector_corner_detector:
-        WriteStorage<'a, LedgeDetectorCornerDetector>,
+    pub ledge_detector_corner_detector: WriteStorage<'a, LedgeDetectorCornerDetector>,
     pub follow:                         WriteStorage<'a, Follow>,
     pub death_bound:                    WriteStorage<'a, DeathBound>,
     pub death_on_contact:               WriteStorage<'a, DeathOnContact>,
     pub death_after_delay:              WriteStorage<'a, DeathAfterDelay>,
     pub interactable:                   WriteStorage<'a, Interactable>,
     pub facing:                         WriteStorage<'a, Facing>,
+    pub jumper:                         WriteStorage<'a, Jumper>,
+    pub wall_jumper:                    WriteStorage<'a, WallJumper>,
+    pub wall_slider:                    WriteStorage<'a, WallSlider>,
+    pub shooter:                        WriteStorage<'a, Shooter>,
 }

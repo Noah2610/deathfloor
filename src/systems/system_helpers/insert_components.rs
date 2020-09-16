@@ -28,6 +28,10 @@ pub fn insert_components(
         death_after_delay,
         interactable,
         facing,
+        jumper,
+        wall_jumper,
+        wall_slider,
+        shooter,
     } = components;
     let &mut EntityComponentsStorages {
         entities,
@@ -63,6 +67,10 @@ pub fn insert_components(
         death_after_delay: death_after_delay_store,
         interactable: interactable_store,
         facing: facing_store,
+        jumper: jumper_store,
+        wall_jumper: wall_jumper_store,
+        wall_slider: wall_slider_store,
+        shooter: shooter_store,
     } = &mut storages;
 
     let size_opt = size.or_else(|| size_store.get(entity).cloned());
@@ -169,6 +177,18 @@ pub fn insert_components(
     }
     if let Some(facing) = facing {
         facing_store.insert(entity, facing)?;
+    }
+    if let Some(jumper) = jumper {
+        jumper_store.insert(entity, jumper)?;
+    }
+    if let Some(wall_jumper) = wall_jumper {
+        wall_jumper_store.insert(entity, wall_jumper)?;
+    }
+    if let Some(wall_slider) = wall_slider {
+        wall_slider_store.insert(entity, wall_slider)?;
+    }
+    if let Some(shooter) = shooter {
+        shooter_store.insert(entity, shooter)?;
     }
     if let Some(size) = size_opt {
         size_store.insert(entity, size)?;
