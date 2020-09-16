@@ -61,14 +61,14 @@ fn handle_move_on_axis(
     let axis_binding = IngameAxisBinding::from(axis.clone());
     if let Some(val) = input_manager.axis_value(axis_binding) {
         if val != 0.0 {
-            let limit_max = |max_vel: f32| -> f32 { max_vel * val.abs() };
-
-            max_movement_velocity_opt.as_mut().map(|maxvel| {
-                maxvel.set_opt(
-                    &axis,
-                    physics_data.max_velocity.by_axis(&axis).map(limit_max),
-                )
-            });
+            // TODO
+            // let limit_max = |max_vel: f32| -> f32 { max_vel * val.abs() };
+            // max_movement_velocity_opt.as_mut().map(|maxvel| {
+            //     maxvel.set_opt(
+            //         &axis,
+            //         physics_data.max_velocity.by_axis(&axis).map(limit_max),
+            //     )
+            // });
 
             if &axis == &Axis::X {
                 if let Some(facing) = facing_opt {

@@ -10,14 +10,15 @@ pub(super) fn build(
     let size: Size = player_settings.size.into();
     let sprite_render = get_sprite_render(world, "spritesheets/player.png", 1)?;
     let physics_data = player_settings.physics;
-    let max_movement_velocity = {
-        let mut builder = MaxMovementVelocity::builder();
-        for axis in Axis::iter() {
-            let max_opt = physics_data.max_velocity.by_axis(&axis);
-            builder = builder.with_opt(&axis, max_opt);
-        }
-        builder.build().unwrap()
-    };
+    // TODO
+    // let max_movement_velocity = {
+    //     let mut builder = MaxMovementVelocity::builder();
+    //     for axis in Axis::iter() {
+    //         let max_opt = physics_data.max_velocity.by_axis(&axis);
+    //         builder = builder.with_opt(&axis, max_opt);
+    //     }
+    //     builder.build().unwrap()
+    // };
 
     let hitbox = match player_settings.hitbox {
         HitboxConfig::Size => Hitbox::new().with_rect(Rect::from(&size)),
@@ -50,7 +51,8 @@ pub(super) fn build(
         .with(player_settings.takes_damage)
         .with(hitbox)
         .with(size)
-        .with(max_movement_velocity)
+        // TODO
+        // .with(max_movement_velocity)
         .with(sprite_render)
         .with(physics_data);
 
