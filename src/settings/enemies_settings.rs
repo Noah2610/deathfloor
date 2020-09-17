@@ -8,6 +8,7 @@ use crate::components::prelude::*;
 use std::collections::HashMap;
 
 #[derive(Clone, Deserialize, Default)]
+#[serde(deny_unknown_fields)]
 pub struct EnemiesSettings {
     pub types: HashMap<EnemyType, EnemySettings>,
 }
@@ -20,6 +21,7 @@ impl Merge for EnemiesSettings {
 }
 
 #[derive(Clone, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct EnemySettings {
     /// Filename of the spritesheet to load for this enemy.
     #[serde(alias = "spritesheet")]
