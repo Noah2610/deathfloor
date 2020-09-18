@@ -21,15 +21,14 @@ pub(super) fn build(
 
     let size = settings
         .entity
-        .components
         .as_ref()
+        .and_then(|config| config.components.as_ref())
         .and_then(|comps| comps.size.clone())
-        .unwrap_or(object.size.into());
+        .unwrap_or_else(|| object.size.into());
 
-    let sprite_render_opt =
-        settings.spritesheet_filename.as_ref().map(|filename| {
-            get_sprite_render(world, format!("spritesheets/{}", filename), 0)
-        });
+    let sprite_render_opt = settings.spritesheet_filename.map(|filename| {
+        get_sprite_render(world, format!("spritesheets/{}", filename), 0)
+    });
 
     let mut entity_builder = base_object_entity(world, object)?.with(size);
 
@@ -39,12 +38,14 @@ pub(super) fn build(
 
     let entity = entity_builder.build();
 
-    edit_entity_with_entity_config(
-        world,
-        entity,
-        settings.entity,
-        object.variant(),
-    )?;
+    if let Some(entity_config) = settings.entity {
+        edit_entity_with_entity_config(
+            world,
+            entity,
+            entity_config,
+            object.variant(),
+        )?;
+    }
 
     Ok(entity)
 }
