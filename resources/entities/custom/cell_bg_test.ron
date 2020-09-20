@@ -2,7 +2,7 @@
 (
     types: {
         "CellBgTest": (
-            spritesheet_filename: "bg_cell0.png",
+            spritesheet_filename: "bg_cell1.png",
 
             entity: (
                 components: (
@@ -23,7 +23,38 @@
                     ),
                     animations: {
                         Idle: Cycle([
-                            (0, 100),
+                            (0, 30),
+                            (1, 30),
+                            (2, 30),
+                            (3, 250),
+                            (2, 30),
+                            (1, 50),
+                            (0, 30),
+                            (1, 50),
+                            (0, 30),
+                            (3, 120),
+                            (1, 40),
+                            (2, 40),
+                            (1, 40),
+                            (0, 30),
+                            (3, 2000),
+                        ]),
+                        Custom("Flicker0"): Once([
+                            (0, 30),
+                            (1, 30),
+                            (2, 30),
+                            (3, 250),
+                            (2, 30),
+                            (1, 50),
+                            (0, 30),
+                            (1, 50),
+                            (0, 30),
+                            (3, 120),
+                            (1, 40),
+                            (2, 40),
+                            (1, 40),
+                            (0, 30),
+                            (3, 2000),
                         ]),
                     },
                     hitbox: Custom([
@@ -44,7 +75,7 @@
 
                 collision_tag: (
                     labels: ["Enemy"],
-                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
+                    collides_with: ["Solid", "Jumppad", "Bullet"],
                 ),
 
                 solid_tag: (

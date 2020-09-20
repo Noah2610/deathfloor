@@ -1,0 +1,92 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "BgCell": (
+            spritesheet_filename: "bg_cell1.png",
+
+            entity: (
+                components: (
+                    size: (
+                        w: 240.0,
+                        h: 96.0,
+                    ),
+                    gravity: (
+                        x: None,
+                        y: None,
+                    ),
+                    max_movement_velocity: (
+                        x: 100.0,
+                        y: 100.0,
+                    ),
+                    base_friction: (
+                        friction_x: 1000.0,
+                    ),
+                    animations: {
+                        Idle: Cycle([
+                            (3, 3000),
+                            (1, 80),
+                            (2, 80),
+                            (3, 550),
+                            (2, 100),
+                            (1, 160),
+                            (0, 100),
+                            (1, 100),
+                            (0, 1200),
+                            (3, 120),
+                            (1, 40),
+                            (2, 100),
+                            (1, 100),
+                            (0, 100),
+                            (3, 2000),                            
+                            (1, 80),
+                            (2, 80),
+                            (3, 550),
+                            (1, 80),
+                            (2, 80),
+                            (3, 80),
+                            (1, 160),
+                            (0, 90),
+                            (1, 90),
+                            (0, 90),
+                            (3, 120),
+                            (1, 100),
+                            (2, 100),
+                            (1, 220),
+                            (0, 220),
+                            (3, 90),
+                            (3, 1400),
+                            (1, 90),
+                            (2, 90),
+                            (1, 90),
+                            (0, 90),
+                            (2, 90),
+                        ]),
+                    },
+                    hitbox: Custom([
+                        (
+                            top:    2.0,
+                            bottom: -2.0,
+                            left:   -2.0,
+                            right:  2.0,
+                        ),
+                    ]),
+                    health: (
+                        health: 1,
+                        max_health: 1,
+                    ),
+                ),
+
+
+                collision_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
+                ),
+
+                solid_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Solid"],
+                ),
+            ),
+        ),
+    }
+)

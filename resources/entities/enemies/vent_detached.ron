@@ -1,14 +1,14 @@
 #![enable(implicit_some)]
 (
     types: {
-        "CellBgTest": (
-            spritesheet_filename: "bg_cell0.png",
+        "VentDetached": (
+            spritesheet_filename: "environment_vent_detached.png",
 
             entity: (
                 components: (
                     size: (
-                        w: 240.0,
-                        h: 96.0,
+                        w: 32.0,
+                        h: 32.0,
                     ),
                     gravity: (
                         x: None,
@@ -24,14 +24,17 @@
                     animations: {
                         Idle: Cycle([
                             (0, 100),
+                            (1, 100),
+                            (2, 100),
+
                         ]),
                     },
                     hitbox: Custom([
                         (
-                            top:    12.0,
-                            bottom: -24.0,
-                            left:   -12.0,
-                            right:  12.0,
+                            top:    2.0,
+                            bottom: -4.0,
+                            left:   -2.0,
+                            right:  2.0,
                         ),
                     ]),
                     health: (
@@ -40,7 +43,6 @@
                     ),
                 ),
 
-                // also play sound (some buzzing maybe) when switching to light animation
 
                 collision_tag: (
                     labels: ["Enemy"],
