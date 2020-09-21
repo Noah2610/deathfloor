@@ -1,0 +1,22 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "VentGreyClosed": (
+            spritesheet_filename: "environment_vent_grey_closed.png",
+
+            entity: (
+                components: (
+                    size: (
+                        w: 32.0,
+                        h: 32.0,
+                    ),
+                    animation: [
+                        (0, 100),
+                        (1, 100),
+                        (2, 100),
+                    ],
+                ),
+            ),
+        ),
+    }
+)
