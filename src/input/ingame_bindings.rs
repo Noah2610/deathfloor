@@ -15,6 +15,11 @@ pub enum IngameAxisBinding {
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub enum IngameActionBinding {
+    MoveUp,
+    MoveDown,
+    MoveLeft,
+    MoveRight,
+
     PlayerJump,
     PlayerShoot,
 

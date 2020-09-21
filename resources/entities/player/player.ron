@@ -4,6 +4,8 @@
 (
     /// The player's entity config.
     entity: (
+        inherits: ["Musha"],
+
         components: (
             /// The player's in-game size.
             size: (

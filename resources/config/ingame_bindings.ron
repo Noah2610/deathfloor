@@ -5,6 +5,11 @@
         PlayerY: Emulated(pos: Key(W), neg: Key(S)),
     },
     actions: {
+        MoveUp:    [ [Key(Up)], ],
+        MoveDown:  [ [Key(Down)], ],
+        MoveLeft:  [ [Key(Left)], ],
+        MoveRight: [ [Key(Right)], ],
+
         PlayerJump:  [ [Key(Space)], [Key(K)], ],
         PlayerShoot: [ [Key(J)], ],
 

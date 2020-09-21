@@ -5,6 +5,7 @@
     // Relative to `resources/levels/`
     levels: [
         "dev.json",
+        "musha.json",
         "organic/mixed1.json",
         "organic/mixed2.json",
         "organic/mixed3.json",
