@@ -49,6 +49,9 @@
                         padding: 4.0,
                         border_padding: 0.5,
                     ),
+                    movement_acceleration: (
+                        x: 500.0,
+                    ),
                 ),
 
                 events: {
@@ -87,23 +90,6 @@
                 },
 
                 default_variant: "WalkRight",
-
-                variants: {
-                    "WalkLeft": (
-                        components: (
-                            walker: (
-                                x: -500.0,
-                            ),
-                        ),
-                    ),
-                    "WalkRight": (
-                        components: (
-                            walker: (
-                                x: 500.0,
-                            ),
-                        ),
-                    ),
-                },
 
                 collision_tag: (
                     labels: ["Enemy"],

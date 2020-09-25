@@ -58,6 +58,9 @@
                     deals_damage: (
                         damage: 1,
                     ),
+                    movement_acceleration: (
+                        y: 400.0,
+                    ),
                 ),
 
                 events: {
@@ -109,7 +112,7 @@
                     "Up": (
                         components: (
                             walker: (
-                                y: 400.0,
+                                y: Up,
                             ),
                         ),
                         events: {
@@ -123,7 +126,7 @@
                     "Down": (
                         components: (
                             walker: (
-                                y: -400.0,
+                                y: Down,
                             ),
                         ),
                         events: {

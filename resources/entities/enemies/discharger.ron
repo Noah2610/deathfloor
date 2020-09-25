@@ -5,6 +5,8 @@
             spritesheet_filename: "enemy_discharger.png",
 
             entity: (
+                inherits: ["Walker"],
+
                 components: (
                     size: (
                         w: 16.0,
@@ -50,18 +52,8 @@
                     deals_damage: (
                         damage: 1,
                     ),
-                    ledge_detector: (
-                        corners: [
-                            (
-                                corner:      BottomLeft,
-                                if_touching: Bottom,
-                            ),
-                            (
-                                corner:      BottomRight,
-                                if_touching: Bottom,
-                            ),
-                        ],
-                        collides_with: ["Solid"],
+                    movement_acceleration: (
+                        x: 250.0,
                     ),
                 ),
 
@@ -71,44 +63,47 @@
                 },
 
                 variants: {
+                    // DEPRECATED
+                    "RightMove": (
+                        events: {
+                            Init: EntityAction(SwitchVariant("WalkRight")),
+                        },
+                    ),
+                    // DEPRECATED
                     "LeftMove": (
-                        components: (
-                            walker: (
-                                x: -250.0,
-                            ),
-                        ),
+                        events: {
+                            Init: EntityAction(SwitchVariant("WalkLeft")),
+                        },
+                    ),
+
+                    "WalkLeft": (
                         events: {
                             OnLedgeDetect(BottomLeft, Bottom):
-                                EntityAction(SwitchVariant("RightMove")),
+                                EntityAction(SwitchVariant("WalkRight")),
                             OnCollision(And([
                                     IsTag("Solid"),
                                     IsState(Enter),
                                     IsSide(Left),
-                                ])): EntityAction(SwitchVariant("RightMove")),
+                                ])): EntityAction(SwitchVariant("WalkRight")),
                             Delay(2000): EntityAction(PushVariant("Discharge")),
                         },
                     ),
-                    "RightMove": (
-                        components: (
-                            walker: (
-                                x: 250.0,
-                            ),
-                        ),
+                    "WalkRight": (
                         events: {
                             OnLedgeDetect(BottomRight, Bottom):
-                                    EntityAction(SwitchVariant("LeftMove")),
+                                    EntityAction(SwitchVariant("WalkLeft")),
                             OnCollision(And([
                                     IsTag("Solid"),
                                     IsState(Enter),
                                     IsSide(Right),
-                                ])): EntityAction(SwitchVariant("LeftMove")),
+                                ])): EntityAction(SwitchVariant("WalkLeft")),
                             Delay(2000): EntityAction(PushVariant("Discharge")),
                         },
                     ),
                     "Discharge": (
                         components: (
                             walker: (
-                                x: 0.0,
+                                x: None,
                             ),
                         ),
                         events: {

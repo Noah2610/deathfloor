@@ -10,10 +10,6 @@
                         w: 16.0,
                         h: 16.0,
                     ),
-                    gravity: (
-                        x: None,
-                        y: None,
-                    ),
                     max_movement_velocity: (
                         x: 100.0,
                         y: 100.0,
@@ -50,6 +46,9 @@
                     deals_damage: (
                         damage: 1,
                     ),
+                    movement_acceleration: (
+                        x: 500.0,
+                    ),
                 ),
 
                 events: {
@@ -57,11 +56,13 @@
                         HealthAction(Lose(1)),
                 },
 
+                default_variant: "Left",
+
                 variants: {
                     "Left": (
                         components: (
                             walker: (
-                                x: -500.0,
+                                x: Left,
                             ),
                         ),
                         events: {
@@ -85,7 +86,7 @@
                     "Right": (
                         components: (
                             walker: (
-                                x: 500.0,
+                                x: Right,
                             ),
                         ),
                         events: {

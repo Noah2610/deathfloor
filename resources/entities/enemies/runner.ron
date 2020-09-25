@@ -5,6 +5,8 @@
             spritesheet_filename: "enemy_runner_blue.png",
 
             entity: (
+                inherits: ["Walker"],
+
                 components: (
                     size: (
                         w: 40.0,
@@ -44,10 +46,6 @@
                             right:  10.0,
                         )
                     ]),
-                    walker: (
-                        x: -700.0,
-                        y: None,
-                    ),
                     health: (
                         health: 3,
                         max_health: 3,
@@ -60,6 +58,9 @@
                     ),
                     deals_damage: (
                         damage: 4,
+                    ),
+                    movement_acceleration: (
+                        x: 700.0,
                     ),
                 ),
 
@@ -95,32 +96,6 @@
                             y: 50.0,
                         )),
                         HealthAction(Lose(1)),
-                    ]),
-
-                    // PIVOT
-
-                    OnCollision(And([
-                                    IsTag("Solid"),
-                                    IsState(Enter),
-                                    IsSide(Right),
-                                ])): Group([
-                        InsertComponents((
-                            walker: (
-                                x: -700.0,
-                            ),
-                        )),
-                    ]),
-
-                    OnCollision(And([
-                                    IsTag("Solid"),
-                                    IsState(Enter),
-                                    IsSide(Left),
-                                ])): Group([
-                        InsertComponents((
-                            walker: (
-                                x: 700.0,
-                            ),
-                        )),
                     ]),
                 },
 

@@ -5,6 +5,8 @@
             spritesheet_filename: "enemy_rubber_tank.png",
 
             entity: (
+                inherits: ["Walker"],
+
                 components: (
                     size: (
                         w: 48.0,
@@ -14,7 +16,7 @@
                         y: -900.0,
                     ),
                     max_movement_velocity: (
-                        x: 500.0,
+                        x: 30.0,
                         y: 200.0,
                     ),
                     base_friction: (
@@ -62,22 +64,8 @@
                     deals_damage: (
                         damage: 5,
                     ),
-                    ledge_detector: (
-                        collides_with: ["Solid"],
-                        corners: [
-                            (
-                                corner:      BottomLeft,
-                                if_touching: Bottom,
-                                offset:      (-4.0, 0.0),
-                                size:        (1.0, 1.0),
-                            ),
-                            (
-                                corner:      BottomRight,
-                                if_touching: Bottom,
-                                offset:      (4.0, 0.0),
-                                size:        (1.0, 1.0),
-                            ),
-                        ],
+                    movement_acceleration: (
+                        x: 120.0,
                     ),
                 ),
 
@@ -86,26 +74,16 @@
                         HealthAction(Lose(1)),
                 },
 
-                default_variant: "MoveLeft",
+                default_variant: "WalkLeft",
 
                 variants: {
-                    "MoveLeft": (
-                        components: (
-                            walker: (
-                                x: -200.0,
-                            ),
-                        ),
+                    "WalkLeft": (
                         events: {
-                            OnLedgeDetect(BottomLeft, Bottom):
-                                EntityAction(SwitchVariant("MoveRight")),
-                            OnCollision(And([IsTag("Solid"), IsState(Enter), IsSide(Left)])):
-                                EntityAction(SwitchVariant("MoveRight")),
-
                             Delay(1800): Group([
                                 MoveAction(SetVelocity(x: 0.0)),
                                 InsertComponents((
                                     walker: (
-                                        x: 0.0,
+                                        x: None,
                                     ),
                                 )),
                                 AnimationAction(Push(Custom("Shoot"))),
@@ -124,27 +102,17 @@
                                 ))),
                             ]),
                             OnAnimationEnd(Custom("Shoot")):
-                                EntityAction(SwitchVariant("MoveLeft"))
+                                EntityAction(SwitchVariant("WalkLeft"))
                         },
                     ),
 
-                    "MoveRight": (
-                        components: (
-                            walker: (
-                                x: 200.0,
-                            ),
-                        ),
+                    "WalkRight": (
                         events: {
-                            OnLedgeDetect(BottomRight, Bottom):
-                                EntityAction(SwitchVariant("MoveLeft")),
-                            OnCollision(And([IsTag("Solid"), IsState(Enter), IsSide(Right)])):
-                                EntityAction(SwitchVariant("MoveLeft")),
-
                             Delay(1800): Group([
                                 MoveAction(SetVelocity(x: 0.0)),
                                 InsertComponents((
                                     walker: (
-                                        x: 0.0,
+                                        x: None,
                                     ),
                                 )),
                             ]),
@@ -162,7 +130,7 @@
                                 ))),
                             ]),
                             OnAnimationEnd(Custom("Shoot")):
-                                EntityAction(SwitchVariant("MoveRight"))
+                                EntityAction(SwitchVariant("WalkRight"))
                         },
                     ),
                 },

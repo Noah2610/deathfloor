@@ -5,6 +5,8 @@
             spritesheet_filename: "enemy_yellow_flying1.png",
 
             entity: (
+                inherits: ["Walker"],
+
                 components: (
                     size: (
                         w: 16.0,
@@ -35,10 +37,6 @@
                         ]),
                     },
                     hitbox: Size,
-                    walker: (
-                        x: 250.0,
-                        y: None,
-                    ),
                     health: (
                         health: 4,
                         max_health: 4,
@@ -51,6 +49,9 @@
                     ),
                     deals_damage: (
                         damage: 4,
+                    ),
+                    movement_acceleration: (
+                        x: 250.0,
                     ),
                 ),
 
@@ -86,39 +87,15 @@
                         )),
                         HealthAction(Lose(2)),
                     ]),
-
-                    // PIVOT
-
-                    OnCollision(And([
-                        Or([IsSide(Right), IsSide(InnerSide( x: Right ))]),
-                        IsState(Enter),
-                    ])): Group([
-                        InsertComponents((
-                            walker: (
-                                x: -250.0,
-                            ),
-                        )),
-                    ]),
-
-                    OnCollision(And([
-                        Or([IsSide(Left), IsSide(InnerSide( x: Left ))]),
-                        IsState(Enter),
-                    ])): Group([
-                        InsertComponents((
-                            walker: (
-                                x: 250.0,
-                            ),
-                        )),
-                    ]),
                 },
 
                 collision_tag: (
-                    labels: ["Enemy", "Solid"],
+                    labels: ["Enemy"],
                     collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
                 ),
 
                 solid_tag: (
-                    labels: ["Enemy", "Solid"],
+                    labels: ["Enemy"],
                     collides_with: ["Solid"],
                 ),
             ),

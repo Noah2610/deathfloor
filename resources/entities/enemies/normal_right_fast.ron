@@ -5,6 +5,8 @@
             spritesheet_filename: "enemy_shooter.png",
 
             entity: (
+                inherits: ["Walker"],
+
                 components: (
                     size: (
                         w: 32.0,
@@ -25,7 +27,6 @@
                     animations: {
                         Idle: Cycle([
                             (1, 150),
-                            
                         ]),
                         Walk: Cycle([
                             (0, 100),
@@ -40,12 +41,8 @@
                             bottom: -15.0,
                             left:   -10.0,
                             right:  10.0,
-                          ) 
-                        ]),
-                    walker: (
-                        x: 500.0,
-                        y: None,
-                    ),
+                        ),
+                    ]),
                     health: (
                         health: 3,
                         max_health: 3,
@@ -58,6 +55,9 @@
                     ),
                     deals_damage: (
                         damage: 4,
+                    ),
+                    movement_acceleration: (
+                        x: 500.0,
                     ),
                 ),
 
@@ -94,37 +94,15 @@
                         )),
                         HealthAction(Lose(1)),
                     ]),
-
-                    OnCollision(And([
-                        Or([IsSide(Right), IsSide(InnerSide( x: Right ))]),
-                        IsState(Enter),
-                    ])): Group([
-                        InsertComponents((
-                            walker: (
-                                x: -500.0,
-                            ),
-                        )),
-                    ]),
-
-                    OnCollision(And([
-                        Or([IsSide(Left), IsSide(InnerSide( x: Left ))]),
-                        IsState(Enter),
-                    ])): Group([
-                        InsertComponents((
-                            walker: (
-                                x: 500.0,
-                            ),
-                        )),
-                    ]),
                 },
 
                 collision_tag: (
-                    labels: ["Enemy", "Solid"],
+                    labels: ["Enemy"],
                     collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
                 ),
 
                 solid_tag: (
-                    labels: ["Enemy", "Solid"],
+                    labels: ["Enemy"],
                     collides_with: ["Solid"],
                 ),
             ),

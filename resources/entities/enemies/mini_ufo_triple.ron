@@ -10,10 +10,6 @@
                         w: 16.0,
                         h: 16.0,
                     ),
-                    gravity: (
-                        x: None,
-                        y: None,
-                    ),
                     max_movement_velocity: (
                         x: 100.0,
                         y: 100.0,
@@ -50,6 +46,9 @@
                     deals_damage: (
                         damage: 1,
                     ),
+                    movement_acceleration: (
+                        x: 500.0,
+                    ),
                 ),
 
                 events: {
@@ -61,7 +60,7 @@
                     "Left": (
                         components: (
                             walker: (
-                                x: -500.0,
+                                x: Left,
                             ),
                         ),
                         events: {
@@ -71,43 +70,43 @@
                                     IsSide(Left),
                                 ])): EntityAction(SwitchVariant("Right")),
                             Interval(1200): Group([
-                            SpawnAction(SpawnRelative((
-                                object: (
-                                    type: Custom("ShooterBullet"),
-                                    pos: (x: 0.0, y: -10.0),
-                                    size: (w: 16.0, h: 16.0),
-                                    props: {
-                                        "variant": "Down",
-                                    },
-                                ),
-                            ))),
-                            SpawnAction(SpawnRelative((
-                                object: (
-                                    type: Custom("ShooterBullet"),
-                                    pos: (x: -6.0, y: -10.0),
-                                    size: (w: 16.0, h: 16.0),
-                                    props: {
-                                        "variant": "LeftDownDia",
-                                    },
-                                ),
-                            ))),
-                            SpawnAction(SpawnRelative((
-                                object: (
-                                    type: Custom("ShooterBullet"),
-                                    pos: (x: 6.0, y: -10.0),
-                                    size: (w: 16.0, h: 16.0),
-                                    props: {
-                                        "variant": "RightDownDia",
-                                    },
-                                ),
-                            ))),
-                        ]),
-                     },
-                 ),
+                                SpawnAction(SpawnRelative((
+                                    object: (
+                                        type: Custom("ShooterBullet"),
+                                        pos: (x: 0.0, y: -10.0),
+                                        size: (w: 16.0, h: 16.0),
+                                        props: {
+                                            "variant": "Down",
+                                        },
+                                    ),
+                                ))),
+                                SpawnAction(SpawnRelative((
+                                    object: (
+                                        type: Custom("ShooterBullet"),
+                                        pos: (x: -6.0, y: -10.0),
+                                        size: (w: 16.0, h: 16.0),
+                                        props: {
+                                            "variant": "LeftDownDia",
+                                        },
+                                    ),
+                                ))),
+                                SpawnAction(SpawnRelative((
+                                    object: (
+                                        type: Custom("ShooterBullet"),
+                                        pos: (x: 6.0, y: -10.0),
+                                        size: (w: 16.0, h: 16.0),
+                                        props: {
+                                            "variant": "RightDownDia",
+                                        },
+                                    ),
+                                ))),
+                            ]),
+                         },
+                    ),
                     "Right": (
                         components: (
                             walker: (
-                                x: 500.0,
+                                x: Right,
                             ),
                         ),
                         events: {
@@ -117,37 +116,37 @@
                                     IsSide(Right),
                                 ])): EntityAction(SwitchVariant("Left")),
                             Interval(1200): Group([
-                            SpawnAction(SpawnRelative((
-                                object: (
-                                    type: Custom("ShooterBullet"),
-                                    pos: (x: 0.0, y: -10.0),
-                                    size: (w: 16.0, h: 16.0),
-                                    props: {
-                                        "variant": "Down",
-                                    },
-                                ),
-                            ))),
-                            SpawnAction(SpawnRelative((
-                                object: (
-                                    type: Custom("ShooterBullet"),
-                                    pos: (x: -6.0, y: -10.0),
-                                    size: (w: 16.0, h: 16.0),
-                                    props: {
-                                        "variant": "LeftDownDia",
-                                    },
-                                ),
-                            ))),
-                            SpawnAction(SpawnRelative((
-                                object: (
-                                    type: Custom("ShooterBullet"),
-                                    pos: (x: 6.0, y: -10.0),
-                                    size: (w: 16.0, h: 16.0),
-                                    props: {
-                                        "variant": "RightDownDia",
-                                    },
-                                ),
-                            ))),
-                        ]),
+                                SpawnAction(SpawnRelative((
+                                    object: (
+                                        type: Custom("ShooterBullet"),
+                                        pos: (x: 0.0, y: -10.0),
+                                        size: (w: 16.0, h: 16.0),
+                                        props: {
+                                            "variant": "Down",
+                                        },
+                                    ),
+                                ))),
+                                SpawnAction(SpawnRelative((
+                                    object: (
+                                        type: Custom("ShooterBullet"),
+                                        pos: (x: -6.0, y: -10.0),
+                                        size: (w: 16.0, h: 16.0),
+                                        props: {
+                                            "variant": "LeftDownDia",
+                                        },
+                                    ),
+                                ))),
+                                SpawnAction(SpawnRelative((
+                                    object: (
+                                        type: Custom("ShooterBullet"),
+                                        pos: (x: 6.0, y: -10.0),
+                                        size: (w: 16.0, h: 16.0),
+                                        props: {
+                                            "variant": "RightDownDia",
+                                        },
+                                    ),
+                                ))),
+                            ]),
                         },
                     ),
                 },
