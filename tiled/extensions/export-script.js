@@ -112,8 +112,6 @@
         };
 
         for (const object of objectGroup.objects) {
-            console.log(object.shape);
-
             if (object.shape === MapObject.Rectangle) {
                 const pos = invertPosY(
                     centerPos(object.pos, object.size),
