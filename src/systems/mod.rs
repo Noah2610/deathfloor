@@ -1,5 +1,6 @@
 mod control_player;
 mod control_player_jump;
+mod control_player_kill_velocity;
 mod control_player_shoot;
 mod display_health;
 mod events_actions;
@@ -26,6 +27,7 @@ pub mod prelude {
 
     pub use super::control_player::ControlPlayerSystem;
     pub use super::control_player_jump::ControlPlayerJumpSystem;
+    pub use super::control_player_kill_velocity::ControlPlayerKillVelocitySystem;
     pub use super::control_player_shoot::ControlPlayerShootSystem;
     pub use super::display_health::DisplayHealthSystem;
     pub use super::events_actions::EventsActionsBundle;

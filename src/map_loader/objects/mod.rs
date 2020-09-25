@@ -90,11 +90,12 @@ fn add_camera_path_to_camera(
     camera: deathframe::amethyst::ecs::Entity,
     camera_path: ObjectPolygonData,
 ) -> amethyst::Result<()> {
-    use crate::components::prelude::LockedToPath;
+    use crate::components::prelude::{Confined, LockedToPath};
     use deathframe::amethyst::ecs::WorldExt;
 
     world
         .write_storage::<LockedToPath>()
         .insert(camera, LockedToPath::from(camera_path))?;
+    world.write_storage::<Confined>().remove(camera);
     Ok(())
 }

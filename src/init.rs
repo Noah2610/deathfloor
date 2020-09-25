@@ -207,6 +207,12 @@ fn build_game_data<'a, 'b>(
         )?
         .with(
             DispatcherId::Ingame,
+            ControlPlayerKillVelocitySystem::default(),
+            "control_player_kill_velocity_system",
+            &["ingame_input_manager_system", "update_collisions_system"],
+        )?
+        .with(
+            DispatcherId::Ingame,
             HandleJumppadAffectedSystem::default(),
             "handle_jumppad_affected_system",
             &["update_collisions_system"],

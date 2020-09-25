@@ -79,9 +79,8 @@ pub(super) fn build(
         .with(size)
         .with(camera)
         .with(camera_ortho)
-        .with(loader);
-    // TODO
-    // .with(confined);
+        .with(loader)
+        .with(confined);
 
     if let Some(player_entity) = player_entity_opt {
         entity = entity.with(Follow::new(player_entity));

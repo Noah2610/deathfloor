@@ -6,7 +6,7 @@ pub struct HandleInteractableSystem;
 impl<'a> System<'a> for HandleInteractableSystem {
     type SystemData = (
         Entities<'a>,
-        Read<'a, InputManager<IngameBindings>>,
+        ReadExpect<'a, InputManager<IngameBindings>>,
         ReadStorage<'a, CanInteract>,
         WriteStorage<'a, Interactable>,
         ReadStorage<'a, Collider<CollisionTag>>,
