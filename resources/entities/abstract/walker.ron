@@ -2,6 +2,7 @@
 //! The abstract "Walker" entity can walk left/right with its
 //! "WalkLeft" and "WalkRight" variants.
 //! It turns around when it hits a solid wall or it detects a ledge.
+//! Uses the component `MovementAcceleration` for the acceleration speed.
 //! Inherit in entity config with `inherits` field like so:
 //! ```
 //! (
@@ -29,13 +30,18 @@
                     ],
                     collides_with: ["Solid"],
                 ),
+                /// Overwrite this in the inheriting config
+                /// to set a different acceleration speed.
+                movement_acceleration: (
+                    x: 500.0,
+                ),
             ),
 
             variants: {
                 "WalkLeft": (
                     components: (
                         walker: (
-                            x: -500.0,
+                            x: Left,
                         ),
                     ),
                     events: {
@@ -51,7 +57,7 @@
                 "WalkRight": (
                     components: (
                         walker: (
-                            x: 500.0,
+                            x: Right,
                         ),
                     ),
                     events: {

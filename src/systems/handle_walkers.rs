@@ -27,10 +27,18 @@ impl<'a> System<'a> for HandleWalkersSystem {
         for (_, walker, movable, _) in
             (&entities, &walkers, &mut movables, !&unloaded_store).join()
         {
-            movable.add_action(MoveAction::AddVelocity {
-                x: walker.x.map(|x| x * dt),
-                y: walker.y.map(|y| y * dt),
-            })
+            if let Some(x) = &walker.x {
+                movable.add_action(MoveAction::Walk {
+                    axis: Axis::X,
+                    mult: x.num() * dt,
+                })
+            }
+            if let Some(y) = &walker.y {
+                movable.add_action(MoveAction::Walk {
+                    axis: Axis::Y,
+                    mult: y.num() * dt,
+                })
+            }
         }
     }
 }
