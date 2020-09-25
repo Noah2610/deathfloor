@@ -9,7 +9,7 @@ pub struct ControlPlayerShootSystem;
 impl<'a> System<'a> for ControlPlayerShootSystem {
     type SystemData = (
         Write<'a, ObjectSpawner>,
-        Read<'a, InputManager<IngameBindings>>,
+        ReadExpect<'a, InputManager<IngameBindings>>,
         WriteStorage<'a, Shooter>,
         ReadStorage<'a, Transform>,
         WriteStorage<'a, AnimationEditor>,
@@ -78,6 +78,7 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
                             );
                             props
                         },
+                        polygon:     None,
                     },
                 });
 

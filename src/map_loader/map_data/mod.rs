@@ -9,6 +9,7 @@ pub mod prelude {
     pub use super::Level as LevelData;
     pub use super::Map as MapData;
     pub use super::Object as ObjectData;
+    pub use super::ObjectPolygon as ObjectPolygonData;
     pub use super::Objects as ObjectsData;
     pub use super::Pos as PosData;
     pub use super::Props as PropsData;
@@ -80,4 +81,8 @@ pub struct Object {
     pub size:        Size,
     #[serde(default)]
     pub props:       Props,
+    #[serde(default)]
+    pub polygon:     Option<ObjectPolygon>,
 }
+
+pub type ObjectPolygon = Vec<Pos>;

@@ -106,7 +106,9 @@ fn build_game_data<'a, 'b>(
         collision_tag::CollisionTag,
         collision_tag::SolidTag,
     >::new()
-    .with_deps(&[]);
+    .with_apply_base_friction_velocity_margin(
+        settings.general.physics.base_friction_velocity_margin,
+    );
     let animation_bundle = AnimationBundle::<AnimationKey>::new()
         .with_deps(&["handle_animations_system"]);
 
@@ -207,6 +209,12 @@ fn build_game_data<'a, 'b>(
         )?
         .with(
             DispatcherId::Ingame,
+            ControlPlayerKillVelocitySystem::default(),
+            "control_player_kill_velocity_system",
+            &["ingame_input_manager_system", "update_collisions_system"],
+        )?
+        .with(
+            DispatcherId::Ingame,
             HandleJumppadAffectedSystem::default(),
             "handle_jumppad_affected_system",
             &["update_collisions_system"],
@@ -298,6 +306,12 @@ fn build_game_data<'a, 'b>(
             HandleInteractableSystem::default(),
             "handle_interactable_system",
             &["update_collisions_system"],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            HandleLockedToPathSystem::default(),
+            "handle_locked_to_path_system",
+            &["follow_system"],
         )?
         .with_bundle(DispatcherId::Ingame, EventsActionsBundle::default())?;
 

@@ -17,10 +17,8 @@ pub fn load_object(
     object: ObjectData,
 ) -> amethyst::Result<()> {
     match &object.object_type {
-        ObjectType::Player => eprintln!(
-            "[WARNING]
-    Cannot build Player object here."
-        ),
+        ObjectType::Player => panic!("Cannot build Player object here."),
+        ObjectType::CameraPath => panic!("Cannot build CameraPath here."),
 
         ObjectType::PlayerBullet => {
             let _ = build_player_bullet::build(world, &object);
@@ -49,14 +47,55 @@ pub(super) fn load_objects(
     objects: ObjectsData,
     level_data: &LevelData,
 ) -> amethyst::Result<()> {
+    let mut camera = None;
+    let mut camera_path = None;
+
     for object in objects {
         if let ObjectType::Player = &object.object_type {
             let entity = build_player::build(world, &object)?;
-            let _ = build_camera::build(world, level_data, Some(entity))?;
+            camera =
+                Some(build_camera::build(world, level_data, Some(entity))?);
+        } else if let ObjectType::CameraPath = &object.object_type {
+            if let Some(polygon) = object.polygon {
+                camera_path = Some(polygon);
+            } else {
+                eprintln!(
+                    "[WARNING]\n    Object CameraPath needs to have a polygon \
+                     to define the camera's path."
+                );
+            }
         } else {
             load_object(world, object)?;
         }
     }
 
+    match (camera, camera_path) {
+        (Some(camera), Some(camera_path)) => {
+            add_camera_path_to_camera(world, camera, camera_path)?;
+        }
+        (Some(_), None) | (None, None) => (),
+        (None, Some(_)) => {
+            panic!(
+                "Can't create camera path without Camera entity. Camera \
+                 entity wasn't built."
+            );
+        }
+    }
+
+    Ok(())
+}
+
+fn add_camera_path_to_camera(
+    world: &mut World,
+    camera: deathframe::amethyst::ecs::Entity,
+    camera_path: ObjectPolygonData,
+) -> amethyst::Result<()> {
+    use crate::components::prelude::{Confined, LockedToPath};
+    use deathframe::amethyst::ecs::WorldExt;
+
+    world
+        .write_storage::<LockedToPath>()
+        .insert(camera, LockedToPath::from(camera_path))?;
+    world.write_storage::<Confined>().remove(camera);
     Ok(())
 }

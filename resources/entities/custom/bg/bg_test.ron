@@ -3,67 +3,51 @@
     types: {
         "BgTest1.1": (
             spritesheet: "bg/bg_test1.1.png",
-            entity: (),
         ),
         "BgTest2": (
             spritesheet: "bg/bg_test2.png",
-            entity: (),
         ),
         "BgTest2.4": (
             spritesheet: "bg/bg_test2.4.png",
-            entity: (),
         ),
         "BgTest3.4": (
             spritesheet: "bg/bg_test3.4.png",
-            entity: (),
         ),
         "BgTest4.4": (
             spritesheet: "bg/bg_test4.4.png",
-            entity: (),
         ),
         "BgTest4.5": (
             spritesheet: "bg/bg_test4.5.png",
-            entity: (),
         ),
         "BgTest4.6": (
             spritesheet: "bg/bg_test4.6.png",
-            entity: (),
         ),
         "BgTest4.91": (
             spritesheet: "bg/bg_test4.91.png",
-            entity: (),
         ),
         "BgTest3.5": (
             spritesheet: "bg/bg_test3.5.png",
-            entity: (),
         ),
         "BgTest4": (
             spritesheet: "bg/bg_test4.png",
-            entity: (),
         ),
         "BgTest4.8": (
             spritesheet: "bg/bg_test4.8.png",
-            entity: (),
         ),
         "BgTest5": (
             spritesheet: "bg/bg_test5.png",
-            entity: (),
         ),
         "BgTest5.6": (
             spritesheet: "bg/bg_test5.6.png",
-            entity: (),
         ),
         "BgTest6": (
             spritesheet: "bg/bg_test6.png",
-            entity: (),
         ),
         "BgTest8.2": (
             spritesheet: "bg/bg_test8.2.png",
-            entity: (),
         ),
         "BgDev1": (
             spritesheet: "bg/bg_dev1.png",
-            entity: (),
         ),
         "BgTestCell0": (
             spritesheet: "bg/bg_cell0.png",

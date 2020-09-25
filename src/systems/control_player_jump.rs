@@ -64,7 +64,7 @@ pub struct ControlPlayerJumpSystem {
 impl<'a> System<'a> for ControlPlayerJumpSystem {
     type SystemData = (
         Entities<'a>,
-        Read<'a, InputManager<IngameBindings>>,
+        ReadExpect<'a, InputManager<IngameBindings>>,
         WriteStorage<'a, Jumper>,
         ReadStorage<'a, WallJumper>,
         ReadStorage<'a, WallSlider>,

@@ -8,4 +8,5 @@ pub enum ObjectType {
     PlayerBullet,
     Enemy(EnemyType),
     Custom(String),
+    CameraPath,
 }

@@ -9,8 +9,7 @@ impl<'a> System<'a> for HandleEventDelay {
     type SystemData = (
         WriteStorage<'a, EventsRegister>,
         WriteStorage<'a, ActionTypeTrigger>,
-        ReadStorage<'a, Loadable>,
-        ReadStorage<'a, Loaded>,
+        ReadStorage<'a, Unloaded>,
     );
 
     fn run(
@@ -18,51 +17,42 @@ impl<'a> System<'a> for HandleEventDelay {
         (
             mut events_register_store,
             mut action_type_trigger_store,
-            loadable_store,
-            loaded_store,
+            unloaded_store,
         ): Self::SystemData,
     ) {
-        for (events_register, action_type_trigger, loadable_opt, loaded_opt) in
-            (
-                &mut events_register_store,
-                &mut action_type_trigger_store,
-                loadable_store.maybe(),
-                loaded_store.maybe(),
-            )
-                .join()
+        for (events_register, action_type_trigger, _) in (
+            &mut events_register_store,
+            &mut action_type_trigger_store,
+            !&unloaded_store,
+        )
+            .join()
         {
-            if let (Some(_), Some(_)) | (None, None) =
-                (loadable_opt, loaded_opt)
-            {
-                let delay_events: Vec<(u64, ActionType)> = events_register
-                    .events()
-                    .iter()
-                    .filter_map(|(event, action)| {
-                        if let EventType::Delay(ms) = event {
-                            Some((*ms, action.clone()))
-                        } else {
-                            None
-                        }
-                    })
-                    .collect();
+            let delay_events: Vec<(u64, ActionType)> = events_register
+                .events()
+                .iter()
+                .filter_map(|(event, action)| {
+                    if let EventType::Delay(ms) = event {
+                        Some((*ms, action.clone()))
+                    } else {
+                        None
+                    }
+                })
+                .collect();
 
-                for (ms, action) in delay_events {
-                    let data_entry =
-                        events_register.data.delay.entry(ms).or_insert_with(
-                            || {
-                                let mut timer = Timer::new(
-                                    Some(Duration::from_millis(ms).into()),
-                                    None,
-                                );
-                                timer.start().unwrap();
-                                event_type_data::DelayData { timer }
-                            },
+            for (ms, action) in delay_events {
+                let data_entry =
+                    events_register.data.delay.entry(ms).or_insert_with(|| {
+                        let mut timer = Timer::new(
+                            Some(Duration::from_millis(ms).into()),
+                            None,
                         );
-                    if data_entry.timer.state.is_running() {
-                        data_entry.timer.update().unwrap();
-                        if data_entry.timer.state.is_finished() {
-                            action_type_trigger.add_action(action);
-                        }
+                        timer.start().unwrap();
+                        event_type_data::DelayData { timer }
+                    });
+                if data_entry.timer.state.is_running() {
+                    data_entry.timer.update().unwrap();
+                    if data_entry.timer.state.is_finished() {
+                        action_type_trigger.add_action(action);
                     }
                 }
             }

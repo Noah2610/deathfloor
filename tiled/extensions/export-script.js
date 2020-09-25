@@ -29,7 +29,6 @@
                     outputMap.tiles,
                     getTilesFromLayer(layer)
                 ); // [...outputMap.tiles, ...getTilesFromLayer(layer)]
-
             } else if (layer.isObjectLayer) {
                 outputMap.objects = [].concat(
                     outputMap.objects,
@@ -49,8 +48,8 @@
     // Centers the given position, whose origin (0, 0) should be at top-left
     function centerPos(pos, size) {
         return {
-            x: pos.x + (size.width * 0.5),
-            y: pos.y + (size.height * 0.5),
+            x: pos.x + size.width * 0.5,
+            y: pos.y + size.height * 0.5,
         };
     }
 
@@ -108,15 +107,17 @@
     function getHitboxFrom(objectGroup, layer) {
         const hitboxRects = [];
         const tileSize = {
-            width:  layer.map.tileWidth,
+            width: layer.map.tileWidth,
             height: layer.map.tileHeight,
         };
 
-        for (let object of objectGroup.objects) {
+        for (const object of objectGroup.objects) {
+            console.log(object.shape);
+
             if (object.shape === MapObject.Rectangle) {
                 const pos = invertPosY(
                     centerPos(object.pos, object.size),
-                    tileSize,
+                    tileSize
                 );
                 pos.x -= tileSize.width * 0.5;
                 pos.y -= tileSize.height * 0.5;
@@ -125,13 +126,15 @@
                     h: object.size.height * 0.5,
                 };
                 hitboxRects.push({
-                    top:    pos.y + halfSize.h,
+                    top: pos.y + halfSize.h,
                     bottom: pos.y - halfSize.h,
-                    left:   pos.x - halfSize.w,
-                    right:  pos.x + halfSize.w,
+                    left: pos.x - halfSize.w,
+                    right: pos.x + halfSize.w,
                 });
             } else {
-                console.warn("Tile collision objects can only be rectangle shapes, ignoring.");
+                console.warn(
+                    "Tile collision objects can only be rectangle shapes, ignoring."
+                );
             }
         }
         return hitboxRects;
@@ -140,15 +143,15 @@
     function getTilesFromLayer(layer) {
         const output = [];
         const layerSize = {
-            width:  layer.size.width,
-            height: layer.size.height
+            width: layer.size.width,
+            height: layer.size.height,
         };
         const tileSize = {
-            width:  layer.map.tileWidth,
+            width: layer.map.tileWidth,
             height: layer.map.tileHeight,
         };
         const mapSize = {
-            width:  layerSize.width  * layer.map.tileWidth,
+            width: layerSize.width * layer.map.tileWidth,
             height: layerSize.height * layer.map.tileHeight,
         };
         const layerProps = layer.properties();
@@ -160,17 +163,20 @@
                 if (tile) {
                     const tileOutput = {};
                     const tileset = tile.tileset;
-                    const tilesetName = tileset.image.split("/").pop()
-                        || "MISSING-TILESET.png";
+                    const tilesetName =
+                        tileset.image.split("/").pop() || "MISSING-TILESET.png";
                     tilesetsToAdd[tilesetName] = tileset;
 
                     const tileProps = tile.properties();
                     const pos = invertPosY(
-                        centerPos({
-                            x: x * tileSize.width,
-                            y: y * tileSize.height,
-                        }, tileSize),
-                        mapSize,
+                        centerPos(
+                            {
+                                x: x * tileSize.width,
+                                y: y * tileSize.height,
+                            },
+                            tileSize
+                        ),
+                        mapSize
                     );
 
                     tileOutput.id = tile.id;
@@ -180,7 +186,10 @@
                     tileOutput.props = Object.assign({}, layerProps, tileProps);
 
                     if (tile.objectGroup) {
-                        tileOutput.hitbox = getHitboxFrom(tile.objectGroup, layer);
+                        tileOutput.hitbox = getHitboxFrom(
+                            tile.objectGroup,
+                            layer
+                        );
                     }
 
                     output.push(tileOutput);
@@ -195,17 +204,14 @@
         const output = [];
 
         const mapSize = {
-            width:  layer.map.width  * layer.map.tileWidth,
+            width: layer.map.width * layer.map.tileWidth,
             height: layer.map.height * layer.map.tileHeight,
         };
         const layerProps = layer.properties();
 
-        for (let object of layer.objects) {
+        for (const object of layer.objects) {
             const objectProps = object.properties();
-            const pos = invertPosY(
-                centerPos(object.pos, object.size),
-                mapSize,
-            );
+            const pos = invertPosY(centerPos(object.pos, object.size), mapSize);
             const objectOutput = {
                 type: convertTypeString(object.type),
                 pos: pos,
@@ -215,6 +221,19 @@
                 },
                 props: Object.assign({}, layerProps, objectProps), // { ...layerProps, ...tileProps }
             };
+
+            if (object.polygon && object.polygon.length > 0) {
+                objectOutput.polygon = object.polygon.map((point) =>
+                    invertPosY(
+                        {
+                            x: object.pos.x + point.x,
+                            y: object.pos.y + point.y,
+                        },
+                        mapSize
+                    )
+                );
+            }
+
             output.push(objectOutput);
         }
 
@@ -228,13 +247,13 @@
     function registerMapFormat() {
         const NAME = {
             shortName: "deathfloor-export",
-            longName:  "deathfloor export script",
+            longName: "deathfloor export script",
         };
         const mapFormat = {
-            name:        NAME.longName,
-            extension:   "json",
-            read:        readMap,
-            write:       writeMap,
+            name: NAME.longName,
+            extension: "json",
+            read: readMap,
+            write: writeMap,
             outputFiles: outputFiles,
         };
         tiled.registerMapFormat(NAME.shortName, mapFormat);

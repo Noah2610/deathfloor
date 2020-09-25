@@ -13,7 +13,7 @@ pub struct HandleLevelSelectSystem {
 impl<'a> System<'a> for HandleLevelSelectSystem {
     type SystemData = (
         ReadExpect<'a, Settings>,
-        Read<'a, InputManager<MenuBindings>>,
+        ReadExpect<'a, InputManager<MenuBindings>>,
         ReadStorage<'a, UiTransform>,
         WriteStorage<'a, UiText>,
         Write<'a, SelectLevel>,

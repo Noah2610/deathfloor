@@ -1,8 +1,11 @@
+// resources/settings/general.ron
+
 #[derive(Clone, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct GeneralSettings {
     pub audio:         AudioSettings,
     pub loader_system: LoaderSystemSettings,
+    pub physics:       PhysicsSettings,
     pub debug:         DebugSettings,
 }
 
@@ -19,6 +22,14 @@ pub struct AudioSettings {
 #[serde(deny_unknown_fields)]
 pub struct LoaderSystemSettings {
     pub use_cache: bool,
+}
+
+#[derive(Clone, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct PhysicsSettings {
+    /// When applying friction, if velocity is equal to or below this value,
+    /// then just set the velocity to 0 instead of running friction math.
+    pub base_friction_velocity_margin: f32,
 }
 
 #[derive(Clone, Deserialize)]

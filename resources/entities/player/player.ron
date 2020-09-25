@@ -18,7 +18,7 @@
             ),
             /// Friction factor applied to velocity every frame.
             base_friction: (
-                x: 1100.0,
+                x: 800.0,
             ),
             /// Soft-max for movement velocity.
             max_movement_velocity: (
@@ -62,7 +62,6 @@
                 ),
             ),
             /// Player wall jump settings.
-            /// Optional.
             wall_jumper: (
                 /// The velocity boost (x, y) when wall-jumping.
                 /// Both values should be positive.
@@ -72,10 +71,16 @@
                 ),
             ),
             /// Player wall sliding settings.
-            /// Optional.
             wall_slider: (
                 /// Fixed y velocity when sliding on wall.
                 slide_velocity: -40.0,
+            ),
+            /// The minimum amount of x velocity the player should have,
+            /// after they stop moving on the ground.
+            /// Set to `0.0` to make player completely stop after moving.
+            /// Has to be positive.
+            kill_velocity_min: (
+                min_velocity: 25.0,
             ),
             /// Data for the player shooting.
             shooter: (

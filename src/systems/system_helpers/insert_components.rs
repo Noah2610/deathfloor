@@ -32,6 +32,7 @@ pub fn insert_components(
         wall_jumper,
         wall_slider,
         shooter,
+        kill_velocity_min,
     } = components;
     let &mut EntityComponentsStorages {
         entities,
@@ -71,6 +72,7 @@ pub fn insert_components(
         wall_jumper: wall_jumper_store,
         wall_slider: wall_slider_store,
         shooter: shooter_store,
+        kill_velocity_min: kill_velocity_min_store,
     } = &mut storages;
 
     let size_opt = size.or_else(|| size_store.get(entity).cloned());
@@ -189,6 +191,9 @@ pub fn insert_components(
     }
     if let Some(shooter) = shooter {
         shooter_store.insert(entity, shooter)?;
+    }
+    if let Some(kill_velocity_min) = kill_velocity_min {
+        kill_velocity_min_store.insert(entity, kill_velocity_min)?;
     }
     if let Some(size) = size_opt {
         size_store.insert(entity, size)?;

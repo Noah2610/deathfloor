@@ -9,8 +9,7 @@ impl<'a> System<'a> for HandleEventLifecycle {
         ReadStorage<'a, EventsRegister>,
         WriteStorage<'a, ActionTypeTrigger>,
         ReadStorage<'a, Lifecycle>,
-        ReadStorage<'a, Loadable>,
-        ReadStorage<'a, Loaded>,
+        ReadStorage<'a, Unloaded>,
     );
 
     fn run(
@@ -20,36 +19,23 @@ impl<'a> System<'a> for HandleEventLifecycle {
             events_register_store,
             mut action_type_trigger_store,
             lifecyle_store,
-            loadable_store,
-            loaded_store,
+            unloaded_store,
         ): Self::SystemData,
     ) {
-        for (
-            _entity,
-            events_register,
-            action_type_trigger,
-            lifecycle,
-            loadable_opt,
-            loaded_opt,
-        ) in (
+        for (_entity, events_register, action_type_trigger, lifecycle, _) in (
             &entities,
             &events_register_store,
             &mut action_type_trigger_store,
             &lifecyle_store,
-            loadable_store.maybe(),
-            loaded_store.maybe(),
+            !&unloaded_store,
         )
             .join()
         {
-            if let (Some(_), Some(_)) | (None, None) =
-                (loadable_opt, loaded_opt)
+            let event_type = EventType::Lifecycle(lifecycle.state.clone());
+            if let Some(action) =
+                events_register.get_action(&event_type).cloned()
             {
-                let event_type = EventType::Lifecycle(lifecycle.state.clone());
-                if let Some(action) =
-                    events_register.get_action(&event_type).cloned()
-                {
-                    action_type_trigger.add_action(action);
-                }
+                action_type_trigger.add_action(action);
             }
         }
     }

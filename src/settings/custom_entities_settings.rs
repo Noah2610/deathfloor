@@ -25,5 +25,5 @@ impl Merge for CustomEntitiesSettings {
 pub struct CustomEntitySettings {
     #[serde(alias = "spritesheet")]
     pub spritesheet_filename: Option<String>,
-    pub entity:               EntityConfig,
+    pub entity:               Option<EntityConfig>,
 }

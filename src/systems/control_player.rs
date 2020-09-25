@@ -6,7 +6,7 @@ pub struct ControlPlayerSystem;
 impl<'a> System<'a> for ControlPlayerSystem {
     type SystemData = (
         Read<'a, Time>,
-        Read<'a, InputManager<IngameBindings>>,
+        ReadExpect<'a, InputManager<IngameBindings>>,
         WriteStorage<'a, Movable>,
         WriteStorage<'a, Facing>,
         ReadStorage<'a, Player>,

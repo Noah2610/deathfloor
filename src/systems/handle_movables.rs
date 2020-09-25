@@ -15,8 +15,7 @@ impl<'a> System<'a> for HandleMovablesSystem {
         ReadStorage<'a, WallJumper>,
         ReadStorage<'a, WallSlider>,
         WriteStorage<'a, SoundPlayer<SoundType>>,
-        ReadStorage<'a, Loadable>,
-        ReadStorage<'a, Loaded>,
+        ReadStorage<'a, Unloaded>,
     );
 
     fn run(
@@ -32,8 +31,7 @@ impl<'a> System<'a> for HandleMovablesSystem {
             wall_jumper_store,
             wall_slider_store,
             mut sound_player_store,
-            loadables,
-            loadeds,
+            unloaded_store,
         ): Self::SystemData,
     ) {
         for (
@@ -47,6 +45,7 @@ impl<'a> System<'a> for HandleMovablesSystem {
             wall_jumper_opt,
             wall_slider_opt,
             mut sound_player_opt,
+            _,
         ) in (
             &entities,
             &mut movables,
@@ -58,11 +57,9 @@ impl<'a> System<'a> for HandleMovablesSystem {
             wall_jumper_store.maybe(),
             wall_slider_store.maybe(),
             (&mut sound_player_store).maybe(),
+            !&unloaded_store,
         )
             .join()
-            .filter(|(entity, _, _, _, _, _, _, _, _, _)| {
-                is_entity_loaded(*entity, &loadables, &loadeds)
-            })
         {
             let mut friction_enabled = (true, true);
 

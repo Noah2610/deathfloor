@@ -8,7 +8,7 @@ impl<'a> System<'a> for HandleEventOnKey {
     type SystemData = (
         ReadStorage<'a, EventsRegister>,
         WriteStorage<'a, ActionTypeTrigger>,
-        Read<'a, InputManager<IngameBindings>>,
+        ReadExpect<'a, InputManager<IngameBindings>>,
     );
 
     fn run(
