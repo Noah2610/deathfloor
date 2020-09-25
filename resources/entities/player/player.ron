@@ -78,7 +78,7 @@
             /// Set to `0.0` to make player completely stop after moving.
             /// Has to be positive.
             kill_velocity_min: (
-                min_velocity: 50.0,
+                min_velocity: 25.0,
             ),
             /// Data for the player shooting.
             shooter: (
