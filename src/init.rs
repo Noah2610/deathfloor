@@ -106,7 +106,9 @@ fn build_game_data<'a, 'b>(
         collision_tag::CollisionTag,
         collision_tag::SolidTag,
     >::new()
-    .with_deps(&[]);
+    .with_apply_base_friction_velocity_margin(
+        settings.general.physics.base_friction_velocity_margin,
+    );
     let animation_bundle = AnimationBundle::<AnimationKey>::new()
         .with_deps(&["handle_animations_system"]);
 
