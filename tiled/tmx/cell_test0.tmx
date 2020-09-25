@@ -12,11 +12,11 @@
   <object id="8" name="VENT" type="Custom(VentDetached)" x="216" y="88" width="32" height="32"/>
   <object id="9" name="VENT" type="Custom(VentDetached)" x="248" y="88" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="4" name="Copy of BG" visible="0">
+ <objectgroup id="4" name="Copy of BG" locked="1">
   <properties>
    <property name="z" type="float" value="-2"/>
   </properties>
-  <object id="6" name="bg" type="Enemy(BgCell)" x="72" y="72" width="240" height="96"/>
+  <object id="6" name="bg" type="Custom(CellBgTest)" x="72" y="72" width="240" height="96"/>
  </objectgroup>
  <layer id="1" name="Tiles" width="48" height="27">
   <properties>
