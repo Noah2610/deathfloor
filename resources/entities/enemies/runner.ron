@@ -99,6 +99,8 @@
                     ]),
                 },
 
+                default_variant: "WalkLeft",
+
                 collision_tag: (
                     labels: ["Enemy"],
                     collides_with: ["Player", "Solid", "Jumppad", "Bullet"],

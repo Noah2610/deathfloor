@@ -5,8 +5,6 @@
             spritesheet_filename: "enemy_kamikaze.png",
 
             entity: (
-                inherits: ["Walker"],
-
                 components: (
                     size: (
                         w: 24.0,
@@ -63,6 +61,9 @@
                     ),
                     deals_damage: (
                         damage: 4,
+                    ),
+                    walker: (
+                        x: Left,
                     ),
                     movement_acceleration: (
                         x: 500.0,
