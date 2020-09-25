@@ -26,12 +26,26 @@
 <span id="26">26</span>
 <span id="27">27</span>
 <span id="28">28</span>
+<span id="29">29</span>
+<span id="30">30</span>
+<span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
 </pre><div class="example-wrap"><pre class="rust ">
+<span class="comment">// resources/settings/general.ron</span>
+
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GeneralSettings</span> {
     <span class="kw">pub</span> <span class="ident">audio</span>:         <span class="ident">AudioSettings</span>,
     <span class="kw">pub</span> <span class="ident">loader_system</span>: <span class="ident">LoaderSystemSettings</span>,
+    <span class="kw">pub</span> <span class="ident">physics</span>:       <span class="ident">PhysicsSettings</span>,
     <span class="kw">pub</span> <span class="ident">debug</span>:         <span class="ident">DebugSettings</span>,
 }
 
@@ -48,6 +62,14 @@
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LoaderSystemSettings</span> {
     <span class="kw">pub</span> <span class="ident">use_cache</span>: <span class="ident">bool</span>,
+}
+
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
+<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PhysicsSettings</span> {
+    <span class="doccomment">/// When applying friction, if velocity is equal to or below this value,</span>
+    <span class="doccomment">/// then just set the velocity to 0 instead of running friction math.</span>
+    <span class="kw">pub</span> <span class="ident">base_friction_velocity_margin</span>: <span class="ident">f32</span>,
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>

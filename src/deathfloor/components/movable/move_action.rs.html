@@ -26,34 +26,78 @@
 <span id="26">26</span>
 <span id="27">27</span>
 <span id="28">28</span>
+<span id="29">29</span>
+<span id="30">30</span>
+<span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">deathframe</span>::<span class="ident">core</span>::<span class="ident">geo</span>::<span class="ident">prelude</span>::<span class="ident">Axis</span>;
 
+<span class="doccomment">/// Move actions are used to manipulate the entity&#39;s velocity.</span>
+<span class="doccomment">/// The entity needs to at least have the `Velocity` and `Movable` components.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// The basic actions are `AddVelocity` and `SetVelocity`,</span>
+<span class="doccomment">/// which simply add or set the velocity.</span>
+<span class="doccomment">/// The other actions are more specific, and rely on the entity</span>
+<span class="doccomment">/// having some specific components.</span>
+<span class="doccomment">/// See their variant docs for info.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">MoveAction</span> {
-    <span class="ident">Walk</span> {
-        <span class="ident">axis</span>:  <span class="ident">Axis</span>,
-        <span class="ident">speed</span>: <span class="ident">f32</span>,
-    },
-    <span class="ident">Jump</span> {
-        <span class="ident">x</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>,
-        <span class="ident">y</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>,
-    },
-    <span class="ident">KillJump</span> {
-        <span class="ident">strength</span>:     <span class="ident">f32</span>,
-        <span class="ident">min_velocity</span>: <span class="ident">f32</span>,
-    },
-    <span class="ident">WallSlide</span> {
-        <span class="ident">velocity</span>: <span class="ident">f32</span>,
-    },
     <span class="ident">AddVelocity</span> {
         <span class="ident">x</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>,
         <span class="ident">y</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>,
     },
+
     <span class="ident">SetVelocity</span> {
         <span class="ident">x</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>,
         <span class="ident">y</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>,
     },
+
+    <span class="doccomment">/// Requires component `MoveAcceleration`.</span>
+    <span class="doccomment">/// Walk along the given axis, with the given `mult` as the</span>
+    <span class="doccomment">/// direction multiplier, with the velocity from `MoveAcceleration`.</span>
+    <span class="ident">Walk</span> {
+        <span class="ident">axis</span>: <span class="ident">Axis</span>,
+        <span class="ident">mult</span>: <span class="ident">f32</span>,
+    },
+
+    <span class="doccomment">/// Requires component `Jumper`.</span>
+    <span class="doccomment">/// Jumps with the jump strength from `Jumper`.</span>
+    <span class="ident">Jump</span>,
+
+    <span class="doccomment">/// Requires component `Jumper`.</span>
+    <span class="doccomment">/// Kills the jump with the kill strength</span>
+    <span class="doccomment">/// and the min velocity from `Jumper`.</span>
+    <span class="ident">KillJump</span>,
+
+    <span class="doccomment">/// Requires component `Jumper` and `WallJumper`.</span>
+    <span class="doccomment">/// Does a wall jump with the strength from `WallJumper`.</span>
+    <span class="doccomment">/// Jumps in the x direction given by `x_mult`.</span>
+    <span class="ident">WallJump</span> {
+        <span class="ident">x_mult</span>: <span class="ident">f32</span>,
+    },
+
+    <span class="doccomment">/// Requires component `WallSlider`.</span>
+    <span class="doccomment">/// Uses `WallSlider`&#39;s slide strength as velocity.</span>
+    <span class="ident">WallSlide</span>,
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../../";window.currentCrate = "deathfloor";</script><script src="../../../../aliases.js"></script><script src="../../../../main.js"></script><script src="../../../../source-script.js"></script><script src="../../../../source-files.js"></script><script defer src="../../../../search-index.js"></script></body></html>

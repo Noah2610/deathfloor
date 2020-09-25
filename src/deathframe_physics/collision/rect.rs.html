@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/git/checkouts/deathframe-5154da0e9f2094f9/0535e35/deathframe_physics/src/collision/rect.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>rect.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../deathframe_physics/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/git/checkouts/deathframe-5154da0e9f2094f9/8e055e4/deathframe_physics/src/collision/rect.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>rect.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../deathframe_physics/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -98,22 +98,36 @@
 <span id="98"> 98</span>
 <span id="99"> 99</span>
 <span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">collision</span>::<span class="ident">tag</span>::<span class="ident">CollisionTag</span>;
 <span class="kw">use</span> <span class="ident">amethyst</span>::<span class="ident">ecs</span>::<span class="ident">world</span>::<span class="ident">Index</span>;
 <span class="kw">use</span> <span class="ident">core</span>::<span class="ident">amethyst</span>;
 <span class="kw">use</span> <span class="ident">core</span>::<span class="ident">geo</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 
-<span class="doccomment">/// A rectangular collision area with a unique entity ID.</span>
+<span class="doccomment">/// A collision hitbox with a unique entity ID.</span>
+<span class="doccomment">/// Holds multiple `Rect`s as the hitbox.</span>
 <span class="doccomment">/// Can also hold optional custom data.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CollisionRect</span><span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">T</span><span class="op">&gt;</span>
 <span class="kw">where</span>
     <span class="ident">C</span>: <span class="ident">CollisionTag</span>,
 {
-    <span class="kw">pub</span> <span class="ident">id</span>:     <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Index</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span> <span class="ident">rect</span>:   <span class="ident">Rect</span>,
-    <span class="kw">pub</span> <span class="ident">tag</span>:    <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">id</span>:     <span class="ident">Index</span>,
+    <span class="kw">pub</span> <span class="ident">rects</span>:  <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Rect</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">tag</span>:    <span class="ident">C</span>,
     <span class="kw">pub</span> <span class="ident">custom</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
 }
 
@@ -134,7 +148,7 @@
     <span class="ident">C</span>: <span class="ident">CollisionTag</span>,
 {
     <span class="ident">id</span>:     <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Index</span><span class="op">&gt;</span>,
-    <span class="ident">rect</span>:   <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Rect</span><span class="op">&gt;</span>,
+    <span class="ident">rects</span>:  <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Rect</span><span class="op">&gt;</span>,
     <span class="ident">tag</span>:    <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span>,
     <span class="ident">custom</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
 }
@@ -146,7 +160,7 @@
     <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">id</span>:     <span class="prelude-val">None</span>,
-            <span class="ident">rect</span>:   <span class="prelude-val">None</span>,
+            <span class="ident">rects</span>:  <span class="ident">Vec</span>::<span class="ident">new</span>(),
             <span class="ident">tag</span>:    <span class="prelude-val">None</span>,
             <span class="ident">custom</span>: <span class="prelude-val">None</span>,
         }
@@ -163,9 +177,15 @@
         <span class="self">self</span>
     }
 
-    <span class="doccomment">/// Set the `rect`.</span>
+    <span class="doccomment">/// Set the `rects`.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rects</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">rects</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Rect</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">rects</span> <span class="op">=</span> <span class="ident">rects</span>;
+        <span class="self">self</span>
+    }
+
+    <span class="doccomment">/// Add a `Rect` to the rects vec.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rect</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">rect</span>: <span class="ident">Rect</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="ident">rect</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">rect</span>);
+        <span class="self">self</span>.<span class="ident">rects</span>.<span class="ident">push</span>(<span class="ident">rect</span>);
         <span class="self">self</span>
     }
 
@@ -185,16 +205,22 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">CollisionRect</span><span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">amethyst</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">CollisionRectBuilder</span> {
             <span class="ident">id</span>,
-            <span class="ident">rect</span>,
+            <span class="ident">rects</span>,
             <span class="ident">tag</span>,
             <span class="ident">custom</span>,
         } <span class="op">=</span> <span class="self">self</span>;
         <span class="prelude-val">Ok</span>(<span class="ident">CollisionRect</span> {
-            <span class="ident">id</span>,
-            <span class="ident">rect</span>: <span class="ident">rect</span>.<span class="ident">ok_or</span>(<span class="ident">amethyst</span>::<span class="ident">Error</span>::<span class="ident">from_string</span>(
-                <span class="string">&quot;CollisionRectBuilder requires a Rect&quot;</span>,
-            ))<span class="question-mark">?</span>,
-            <span class="ident">tag</span>,
+            <span class="ident">id</span>: <span class="ident">id</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> {
+                <span class="ident">amethyst</span>::<span class="ident">Error</span>::<span class="ident">from_string</span>(
+                    <span class="string">&quot;CollisionRectBuilder requires an id&quot;</span>,
+                )
+            })<span class="question-mark">?</span>,
+            <span class="ident">rects</span>,
+            <span class="ident">tag</span>: <span class="ident">tag</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> {
+                <span class="ident">amethyst</span>::<span class="ident">Error</span>::<span class="ident">from_string</span>(
+                    <span class="string">&quot;CollisionRectBuilder requires a tag&quot;</span>,
+                )
+            })<span class="question-mark">?</span>,
             <span class="ident">custom</span>,
         })
     }

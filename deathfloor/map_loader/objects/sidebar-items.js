@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["load_object",""],["load_objects",""]],"mod":[["build_camera",""],["build_custom",""],["build_enemy",""],["build_player",""],["build_player_bullet",""],["helpers",""],["object_type",""]]});
+initSidebarItems({"fn":[["add_camera_path_to_camera",""],["load_object",""],["load_objects",""]],"mod":[["build_camera",""],["build_custom",""],["build_enemy",""],["build_player",""],["build_player_bullet",""],["helpers",""],["object_type",""]]});

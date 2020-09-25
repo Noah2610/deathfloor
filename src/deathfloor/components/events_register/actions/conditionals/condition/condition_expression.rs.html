@@ -158,6 +158,16 @@
 <span id="158">158</span>
 <span id="159">159</span>
 <span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">ConditionStorages</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">deathframe</span>::<span class="ident">components</span>::<span class="ident">component_prelude</span>::<span class="ident">ByAxis</span>;
@@ -271,6 +281,8 @@
     <span class="ident">Health</span>,
     <span class="doccomment">/// Returns a boolean depending on if the entity&#39;s health is at max.</span>
     <span class="ident">HasFullHealth</span>,
+    <span class="doccomment">/// Returns a string for the facing direction, &quot;Left&quot; or &quot;Right&quot;.</span>
+    <span class="ident">Facing</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">ConditionExpressionValueGetter</span> {
@@ -312,6 +324,14 @@
             <span class="self">Self</span>::<span class="ident">HasFullHealth</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">health</span>) <span class="op">=</span> <span class="ident">storages</span>.<span class="ident">health</span>.<span class="ident">get</span>(<span class="ident">entity</span>) {
                     <span class="ident">Value</span>::<span class="ident">Bool</span>(<span class="ident">health</span>.<span class="ident">has_full_health</span>())
+                } <span class="kw">else</span> {
+                    <span class="ident">Value</span>::<span class="ident">Null</span>
+                }
+            }
+
+            <span class="self">Self</span>::<span class="ident">Facing</span> <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">facing</span>) <span class="op">=</span> <span class="ident">storages</span>.<span class="ident">facing</span>.<span class="ident">get</span>(<span class="ident">entity</span>) {
+                    <span class="ident">Value</span>::<span class="ident">Str</span>(<span class="ident">facing</span>.<span class="ident">to_string</span>())
                 } <span class="kw">else</span> {
                     <span class="ident">Value</span>::<span class="ident">Null</span>
                 }

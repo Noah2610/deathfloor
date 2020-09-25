@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/git/checkouts/deathframe-5154da0e9f2094f9/0535e35/deathframe_physics/src/systems/update_collisions.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>update_collisions.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../deathframe_physics/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/git/checkouts/deathframe-5154da0e9f2094f9/8e055e4/deathframe_physics/src/systems/update_collisions.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>update_collisions.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../deathframe_physics/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -205,17 +205,6 @@
 <span id="205">205</span>
 <span id="206">206</span>
 <span id="207">207</span>
-<span id="208">208</span>
-<span id="209">209</span>
-<span id="210">210</span>
-<span id="211">211</span>
-<span id="212">212</span>
-<span id="213">213</span>
-<span id="214">214</span>
-<span id="215">215</span>
-<span id="216">216</span>
-<span id="217">217</span>
-<span id="218">218</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">system_prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">marker</span>::<span class="ident">PhantomData</span>;
@@ -250,8 +239,7 @@
         <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Hitbox</span><span class="op">&gt;</span>,
         <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Collider</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span><span class="op">&gt;</span>,
         <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Collidable</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-        <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Loadable</span><span class="op">&gt;</span>,
-        <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Loaded</span><span class="op">&gt;</span>,
+        <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Unloaded</span><span class="op">&gt;</span>,
     );
 
     <span class="kw">fn</span> <span class="ident">run</span>(
@@ -262,8 +250,7 @@
             <span class="ident">hitboxes</span>,
             <span class="kw-2">mut</span> <span class="ident">colliders</span>,
             <span class="ident">collidables</span>,
-            <span class="ident">loadables</span>,
-            <span class="ident">loadeds</span>,
+            <span class="ident">unloaded_store</span>,
         ): <span class="self">Self</span>::<span class="ident">SystemData</span>,
     ) {
         <span class="comment">// Generate the collision grid.</span>
@@ -272,65 +259,56 @@
             <span class="kw-2">&amp;</span><span class="ident">transforms</span>,
             <span class="kw-2">&amp;</span><span class="ident">hitboxes</span>,
             <span class="kw-2">&amp;</span><span class="ident">collidables</span>,
-            <span class="kw-2">&amp;</span><span class="ident">loadables</span>,
-            <span class="kw-2">&amp;</span><span class="ident">loadeds</span>,
+            <span class="kw-2">&amp;</span><span class="ident">unloaded_store</span>,
             <span class="prelude-val">Some</span>(<span class="ident">Point</span>::<span class="ident">new</span>(<span class="ident">PADDING</span>.<span class="number">0</span>, <span class="ident">PADDING</span>.<span class="number">1</span>)),
         );
 
         <span class="comment">// Loop through all Colliders, and check for collision in the CollisionGrid.</span>
-        <span class="kw">for</span> (<span class="ident">entity</span>, <span class="ident">collider</span>, <span class="ident">hitbox</span>, <span class="ident">transform</span>, <span class="ident">loadable_opt</span>, <span class="ident">loaded_opt</span>) <span class="kw">in</span> (
+        <span class="kw">for</span> (<span class="ident">entity</span>, <span class="ident">collider</span>, <span class="ident">hitbox</span>, <span class="ident">transform</span>, <span class="kw">_</span>) <span class="kw">in</span> (
             <span class="kw-2">&amp;</span><span class="ident">entities</span>,
             <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">colliders</span>,
             <span class="kw-2">&amp;</span><span class="ident">hitboxes</span>,
             <span class="kw-2">&amp;</span><span class="ident">transforms</span>,
-            <span class="ident">loadables</span>.<span class="ident">maybe</span>(),
-            <span class="ident">loadeds</span>.<span class="ident">maybe</span>(),
+            <span class="op">!</span><span class="kw-2">&amp;</span><span class="ident">unloaded_store</span>,
         )
             .<span class="ident">join</span>()
         {
-            <span class="kw">if</span> <span class="kw">let</span> (<span class="prelude-val">Some</span>(<span class="kw">_</span>), <span class="prelude-val">Some</span>(<span class="kw">_</span>)) <span class="op">|</span> (<span class="prelude-val">None</span>, <span class="prelude-val">None</span>) <span class="op">=</span>
-                (<span class="ident">loadable_opt</span>, <span class="ident">loaded_opt</span>)
-            {
-                <span class="kw">let</span> <span class="ident">entity_id</span> <span class="op">=</span> <span class="ident">entity</span>.<span class="ident">id</span>();
-                <span class="kw">let</span> <span class="ident">entity_pos</span>: <span class="ident">Point</span> <span class="op">=</span> {
-                    <span class="kw">let</span> <span class="ident">trans</span> <span class="op">=</span> <span class="ident">transform</span>.<span class="ident">translation</span>();
-                    <span class="ident">Point</span>::<span class="ident">new</span>(<span class="ident">trans</span>.<span class="ident">x</span>, <span class="ident">trans</span>.<span class="ident">y</span>)
-                };
-                <span class="kw">let</span> <span class="ident">collider_base_rect</span> <span class="op">=</span> <span class="ident">CollisionRect</span>::<span class="op">&lt;</span><span class="ident">C</span>, ()<span class="op">&gt;</span>::<span class="ident">builder</span>()
-                    .<span class="ident">id</span>(<span class="ident">entity_id</span>)
-                    .<span class="ident">tag</span>(<span class="ident">collider</span>.<span class="ident">tag</span>.<span class="ident">clone</span>());
+            <span class="kw">let</span> <span class="ident">entity_id</span> <span class="op">=</span> <span class="ident">entity</span>.<span class="ident">id</span>();
+            <span class="kw">let</span> <span class="ident">entity_pos</span>: <span class="ident">Point</span> <span class="op">=</span> {
+                <span class="kw">let</span> <span class="ident">trans</span> <span class="op">=</span> <span class="ident">transform</span>.<span class="ident">translation</span>();
+                <span class="ident">Point</span>::<span class="ident">new</span>(<span class="ident">trans</span>.<span class="ident">x</span>, <span class="ident">trans</span>.<span class="ident">y</span>)
+            };
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">collider_rect</span> <span class="op">=</span> <span class="ident">CollisionRect</span>::<span class="op">&lt;</span><span class="ident">C</span>, ()<span class="op">&gt;</span>::<span class="ident">builder</span>()
+                .<span class="ident">id</span>(<span class="ident">entity_id</span>)
+                .<span class="ident">tag</span>(<span class="ident">collider</span>.<span class="ident">tag</span>.<span class="ident">clone</span>())
+                .<span class="ident">build</span>()
+                .<span class="ident">unwrap</span>();
 
-                <span class="kw">for</span> <span class="ident">hitbox_rect</span> <span class="kw">in</span> <span class="ident">hitbox</span>.<span class="ident">rects</span>.<span class="ident">iter</span>() {
-                    <span class="kw">let</span> <span class="ident">rect</span> <span class="op">=</span> <span class="ident">hitbox_rect</span>.<span class="ident">clone</span>().<span class="ident">with_offset</span>(<span class="kw-2">&amp;</span><span class="ident">entity_pos</span>);
-                    <span class="kw">let</span> <span class="ident">collider_rect</span> <span class="op">=</span>
-                        <span class="ident">collider_base_rect</span>.<span class="ident">clone</span>().<span class="ident">rect</span>(<span class="ident">rect</span>).<span class="ident">build</span>().<span class="ident">unwrap</span>();
-                    <span class="kw">let</span> <span class="ident">colliding_rects</span> <span class="op">=</span>
-                        <span class="ident">collision_grid</span>.<span class="ident">colliding_with</span>(<span class="kw-2">&amp;</span><span class="ident">collider_rect</span>);
-                    <span class="kw">if</span> <span class="op">!</span><span class="ident">colliding_rects</span>.<span class="ident">is_empty</span>() {
-                        <span class="kw">let</span> <span class="ident">rect_sides</span> <span class="op">=</span> <span class="ident">RectSides</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">collider_rect</span>.<span class="ident">rect</span>);
-                        <span class="kw">for</span> <span class="ident">other_rect</span> <span class="kw">in</span> <span class="ident">colliding_rects</span> {
-                            <span class="comment">// Check which side is in collision</span>
-                            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">side</span>) <span class="op">=</span>
-                                <span class="ident">rect_sides</span>.<span class="ident">collides_with</span>(<span class="kw-2">&amp;</span><span class="ident">other_rect</span>.<span class="ident">rect</span>)
-                            {
-                                <span class="ident">collider</span>.<span class="ident">set_collision_with</span>(
-                                    <span class="ident">other_rect</span>.<span class="ident">id</span>.<span class="ident">expect</span>(
-                                        <span class="string">&quot;`CollisionRect` should have an `id` \
-                                         here&quot;</span>,
-                                    ),
-                                    <span class="ident">side</span>,
-                                    <span class="ident">other_rect</span>.<span class="ident">tag</span>.<span class="ident">clone</span>().<span class="ident">expect</span>(
-                                        <span class="string">&quot;`CollisionRect` should have a \
-                                         `CollisionTag` here&quot;</span>,
-                                    ),
-                                );
-                            }
+            <span class="kw">for</span> <span class="ident">hitbox_rect</span> <span class="kw">in</span> <span class="ident">hitbox</span>.<span class="ident">rects</span>.<span class="ident">iter</span>() {
+                <span class="kw">let</span> <span class="ident">rect</span> <span class="op">=</span> <span class="ident">hitbox_rect</span>.<span class="ident">clone</span>().<span class="ident">with_offset</span>(<span class="kw-2">&amp;</span><span class="ident">entity_pos</span>);
+                <span class="ident">collider_rect</span>.<span class="ident">rects</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">rect</span>];
+                <span class="kw">let</span> <span class="ident">colliding_rects</span> <span class="op">=</span>
+                    <span class="ident">collision_grid</span>.<span class="ident">colliding_with</span>(<span class="kw-2">&amp;</span><span class="ident">collider_rect</span>);
+                <span class="kw">if</span> <span class="op">!</span><span class="ident">colliding_rects</span>.<span class="ident">is_empty</span>() {
+                    <span class="kw">let</span> <span class="ident">rect_sides</span> <span class="op">=</span> <span class="ident">RectSides</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">collider_rect</span>.<span class="ident">rects</span>[<span class="number">0</span>]);
+                    <span class="kw">for</span> <span class="ident">other_rect</span> <span class="kw">in</span> <span class="ident">colliding_rects</span> {
+                        <span class="comment">// Check which side is in collision</span>
+                        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">side</span>) <span class="op">=</span>
+                            <span class="ident">other_rect</span>.<span class="ident">rects</span>.<span class="ident">iter</span>().<span class="ident">find_map</span>(<span class="op">|</span><span class="ident">other_rect</span><span class="op">|</span> {
+                                <span class="ident">rect_sides</span>.<span class="ident">collides_with</span>(<span class="ident">other_rect</span>)
+                            })
+                        {
+                            <span class="ident">collider</span>.<span class="ident">set_collision_with</span>(
+                                <span class="ident">other_rect</span>.<span class="ident">id</span>,
+                                <span class="ident">side</span>,
+                                <span class="ident">other_rect</span>.<span class="ident">tag</span>.<span class="ident">clone</span>(),
+                            );
                         }
                     }
                 }
-
-                <span class="ident">collider</span>.<span class="ident">update</span>();
             }
+
+            <span class="ident">collider</span>.<span class="ident">update</span>();
         }
     }
 }

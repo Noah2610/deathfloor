@@ -133,6 +133,7 @@
 <span id="133">133</span>
 <span id="134">134</span>
 <span id="135">135</span>
+<span id="136">136</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">system_prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">map_loader</span>::<span class="ident">map_data</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
@@ -145,7 +146,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">System</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ControlPlayerShootSystem</span> {
     <span class="kw">type</span> <span class="ident">SystemData</span> <span class="op">=</span> (
         <span class="ident">Write</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">ObjectSpawner</span><span class="op">&gt;</span>,
-        <span class="ident">Read</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">InputManager</span><span class="op">&lt;</span><span class="ident">IngameBindings</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="ident">ReadExpect</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">InputManager</span><span class="op">&lt;</span><span class="ident">IngameBindings</span><span class="op">&gt;</span><span class="op">&gt;</span>,
         <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Shooter</span><span class="op">&gt;</span>,
         <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Transform</span><span class="op">&gt;</span>,
         <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">AnimationEditor</span><span class="op">&gt;</span>,
@@ -214,6 +215,7 @@
                             );
                             <span class="ident">props</span>
                         },
+                        <span class="ident">polygon</span>:     <span class="prelude-val">None</span>,
                     },
                 });
 

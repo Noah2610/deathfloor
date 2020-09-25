@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["CollisionRect","A rectangular collision area with a unique entity ID. Can also hold optional custom data."],["CollisionRectBuilder","Builder struct for `CollisionRect`."]]});
+initSidebarItems({"struct":[["CollisionRect","A collision hitbox with a unique entity ID. Holds multiple `Rect`s as the hitbox. Can also hold optional custom data."],["CollisionRectBuilder","Builder struct for `CollisionRect`."]]});

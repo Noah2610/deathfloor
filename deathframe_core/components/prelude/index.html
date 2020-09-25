@@ -14,8 +14,7 @@ After <em>spawning</em>, it will stay <em>alive</em> for most of its existence.
 Once it's <code>Health</code> drops to <code>0</code>, it will be <em>dying</em>, and eventually despawn/deleted.
 See the <code>LifecycleState</code> for more details on each lifecycle stage.</p>
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.Loadable.html" title='deathframe_core::components::prelude::Loadable struct'>Loadable</a></td><td class='docblock-short'><p>Entities which have <code>Loadable</code> may be loaded or unloaded
-(get or remove the <code>Loaded</code> component) later on.</p>
-</td></tr><tr class='module-item'><td><a class="struct" href="struct.Loaded.html" title='deathframe_core::components::prelude::Loaded struct'>Loaded</a></td><td class='docblock-short'><p>Entities which have <code>Loadable</code> and <code>Loaded</code> will be included in collision detection.</p>
+(add or remove the <code>Unloaded</code> component) later on.</p>
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.Loader.html" title='deathframe_core::components::prelude::Loader struct'>Loader</a></td><td class='docblock-short'><p><code>Loader</code> entities can load <code>Loadable</code> entities,
 whose transforms are within a loading distance
 from the <code>Loader</code> entity's transform.</p>
@@ -26,6 +25,7 @@ After scaling, this component is removed from the entity.</p>
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.SpriteRender.html" title='deathframe_core::components::prelude::SpriteRender struct'>SpriteRender</a></td><td class='docblock-short'><p>Information for rendering a sprite.</p>
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.Transform.html" title='deathframe_core::components::prelude::Transform struct'>Transform</a></td><td class='docblock-short'><p>Local position, rotation, and scale (from parent if it exists).</p>
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.Transparent.html" title='deathframe_core::components::prelude::Transparent struct'>Transparent</a></td><td class='docblock-short'><p>Transparent mesh component</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.Unloaded.html" title='deathframe_core::components::prelude::Unloaded struct'>Unloaded</a></td><td class='docblock-short'><p>Entities which have <code>Unloaded</code> are ignored in many systems.</p>
 </td></tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
 <table><tr class='module-item'><td><a class="enum" href="enum.HealthAction.html" title='deathframe_core::components::prelude::HealthAction enum'>HealthAction</a></td><td class='docblock-short'></td></tr><tr class='module-item'><td><a class="enum" href="enum.LifecycleState.html" title='deathframe_core::components::prelude::LifecycleState enum'>LifecycleState</a></td><td class='docblock-short'><p>A lifecycle's state.
 Entities' live in variant declaration order, meaning they

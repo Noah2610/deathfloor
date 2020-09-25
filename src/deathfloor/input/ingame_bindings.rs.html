@@ -52,6 +52,11 @@
 <span id="52">52</span>
 <span id="53">53</span>
 <span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// resources/config/ingame_bindings.ron</span>
 
@@ -70,6 +75,11 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">IngameActionBinding</span> {
+    <span class="ident">MoveUp</span>,
+    <span class="ident">MoveDown</span>,
+    <span class="ident">MoveLeft</span>,
+    <span class="ident">MoveRight</span>,
+
     <span class="ident">PlayerJump</span>,
     <span class="ident">PlayerShoot</span>,
 

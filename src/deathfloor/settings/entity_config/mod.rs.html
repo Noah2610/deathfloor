@@ -213,6 +213,26 @@
 <span id="213">213</span>
 <span id="214">214</span>
 <span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">inheritance_chain</span>;
 <span class="kw">mod</span> <span class="ident">variants</span>;
@@ -319,14 +339,13 @@
 
 <span class="kw">impl</span> <span class="ident">Merge</span> <span class="kw">for</span> <span class="ident">EntityConfig</span> {
     <span class="doccomment">/// `other` takes precedence.</span>
+    <span class="attribute">#[<span class="ident">rustfmt</span>::<span class="ident">skip</span>]</span>
     <span class="kw">fn</span> <span class="ident">merge</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">other</span>: <span class="self">Self</span>) {
         <span class="kw-2">*</span><span class="self">self</span> <span class="op">=</span> <span class="self">Self</span> {
             <span class="ident">inherits</span>:        <span class="self">self</span>.<span class="ident">inherits</span>.<span class="ident">take</span>().<span class="ident">merged</span>(<span class="ident">other</span>.<span class="ident">inherits</span>),
             <span class="ident">components</span>:      <span class="self">self</span>.<span class="ident">components</span>.<span class="ident">take</span>().<span class="ident">merged</span>(<span class="ident">other</span>.<span class="ident">components</span>),
             <span class="ident">variants</span>:        <span class="self">self</span>.<span class="ident">variants</span>.<span class="ident">take</span>().<span class="ident">merged</span>(<span class="ident">other</span>.<span class="ident">variants</span>),
-            <span class="ident">default_variant</span>: <span class="ident">other</span>
-                .<span class="ident">default_variant</span>
-                .<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">default_variant</span>.<span class="ident">take</span>()),
+            <span class="ident">default_variant</span>: <span class="ident">other</span>.<span class="ident">default_variant</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">default_variant</span>.<span class="ident">take</span>()),
             <span class="ident">events</span>:          <span class="self">self</span>.<span class="ident">events</span>.<span class="ident">take</span>().<span class="ident">merged</span>(<span class="ident">other</span>.<span class="ident">events</span>),
             <span class="ident">collision_tag</span>:   <span class="ident">other</span>.<span class="ident">collision_tag</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">collision_tag</span>.<span class="ident">take</span>()),
             <span class="ident">solid_tag</span>:       <span class="ident">other</span>.<span class="ident">solid_tag</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">solid_tag</span>.<span class="ident">take</span>()),
@@ -343,6 +362,7 @@
     <span class="kw">pub</span> <span class="ident">velocity</span>:              <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Velocity</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">gravity</span>:               <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Gravity</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">max_movement_velocity</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MaxMovementVelocity</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">movement_acceleration</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MovementAcceleration</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">base_friction</span>:         <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">BaseFriction</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">animation</span>:             <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Animation</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">animations</span>:            <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AnimationsContainer</span><span class="op">&lt;</span><span class="ident">AnimationKey</span><span class="op">&gt;</span><span class="op">&gt;</span>,
@@ -361,6 +381,12 @@
     <span class="kw">pub</span> <span class="ident">death_after_delay</span>:     <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DeathAfterDelay</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">interactable</span>:          <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Interactable</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">facing</span>:                <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Facing</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">jumper</span>:                <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Jumper</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">wall_jumper</span>:           <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">WallJumper</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">wall_slider</span>:           <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">WallSlider</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">shooter</span>:               <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Shooter</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">kill_velocity_min</span>:     <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">KillVelocityMin</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">solid_pusher</span>:          <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SolidPusher</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Merge</span> <span class="kw">for</span> <span class="ident">EntityComponentsData</span> {
@@ -372,6 +398,7 @@
             <span class="ident">velocity</span>:              <span class="ident">other</span>.<span class="ident">velocity</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">velocity</span>.<span class="ident">take</span>()),
             <span class="ident">gravity</span>:               <span class="ident">other</span>.<span class="ident">gravity</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">gravity</span>.<span class="ident">take</span>()),
             <span class="ident">max_movement_velocity</span>: <span class="ident">other</span>.<span class="ident">max_movement_velocity</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">max_movement_velocity</span>.<span class="ident">take</span>()),
+            <span class="ident">movement_acceleration</span>: <span class="ident">other</span>.<span class="ident">movement_acceleration</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">movement_acceleration</span>.<span class="ident">take</span>()),
             <span class="ident">base_friction</span>:         <span class="ident">other</span>.<span class="ident">base_friction</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">base_friction</span>.<span class="ident">take</span>()),
             <span class="ident">animation</span>:             <span class="ident">other</span>.<span class="ident">animation</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">animation</span>.<span class="ident">take</span>()),
             <span class="ident">animations</span>:            <span class="ident">other</span>.<span class="ident">animations</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">animations</span>.<span class="ident">take</span>()),
@@ -389,11 +416,18 @@
             <span class="ident">death_after_delay</span>:     <span class="ident">other</span>.<span class="ident">death_after_delay</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">death_after_delay</span>.<span class="ident">take</span>()),
             <span class="ident">interactable</span>:          <span class="ident">other</span>.<span class="ident">interactable</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">interactable</span>.<span class="ident">take</span>()),
             <span class="ident">facing</span>:                <span class="ident">other</span>.<span class="ident">facing</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">facing</span>.<span class="ident">take</span>()),
+            <span class="ident">jumper</span>:                <span class="ident">other</span>.<span class="ident">jumper</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">jumper</span>.<span class="ident">take</span>()),
+            <span class="ident">wall_jumper</span>:           <span class="ident">other</span>.<span class="ident">wall_jumper</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">wall_jumper</span>.<span class="ident">take</span>()),
+            <span class="ident">wall_slider</span>:           <span class="ident">other</span>.<span class="ident">wall_slider</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">wall_slider</span>.<span class="ident">take</span>()),
+            <span class="ident">shooter</span>:               <span class="ident">other</span>.<span class="ident">shooter</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">shooter</span>.<span class="ident">take</span>()),
+            <span class="ident">kill_velocity_min</span>:     <span class="ident">other</span>.<span class="ident">kill_velocity_min</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">kill_velocity_min</span>.<span class="ident">take</span>()),
+            <span class="ident">solid_pusher</span>:          <span class="ident">other</span>.<span class="ident">solid_pusher</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">solid_pusher</span>.<span class="ident">take</span>()),
         };
     }
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">SystemData</span>)]</span>
+<span class="attribute">#[<span class="ident">rustfmt</span>::<span class="ident">skip</span>]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EntityComponentsStorages</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">pub</span> <span class="ident">entities</span>:                       <span class="ident">Entities</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">transform</span>:                      <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Transform</span><span class="op">&gt;</span>,
@@ -401,13 +435,14 @@
     <span class="kw">pub</span> <span class="ident">velocity</span>:                       <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Velocity</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">gravity</span>:                        <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Gravity</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">max_movement_velocity</span>:          <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">MaxMovementVelocity</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">movement_acceleration</span>:          <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">MovementAcceleration</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">base_friction</span>:                  <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">BaseFriction</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">animation</span>:                      <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Animation</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span> <span class="ident">animations</span>: <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">AnimationsContainer</span><span class="op">&lt;</span><span class="ident">AnimationKey</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">animations</span>:                     <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">AnimationsContainer</span><span class="op">&lt;</span><span class="ident">AnimationKey</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">animation_editor</span>:               <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">AnimationEditor</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">hitbox</span>:                         <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Hitbox</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span> <span class="ident">collider</span>: <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Collider</span><span class="op">&lt;</span><span class="ident">CollisionTag</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span> <span class="ident">collidable</span>: <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Collidable</span><span class="op">&lt;</span><span class="ident">CollisionTag</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">collider</span>:                       <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Collider</span><span class="op">&lt;</span><span class="ident">CollisionTag</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">collidable</span>:                     <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Collidable</span><span class="op">&lt;</span><span class="ident">CollisionTag</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">solid</span>:                          <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Solid</span><span class="op">&lt;</span><span class="ident">SolidTag</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">walker</span>:                         <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Walker</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">jumppad</span>:                        <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Jumppad</span><span class="op">&gt;</span>,
@@ -420,14 +455,19 @@
     <span class="kw">pub</span> <span class="ident">takes_damage</span>:                   <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">TakesDamage</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">bullet</span>:                         <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Bullet</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">ledge_detector</span>:                 <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">LedgeDetector</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span> <span class="ident">ledge_detector_corner_detector</span>:
-        <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">LedgeDetectorCornerDetector</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">ledge_detector_corner_detector</span>: <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">LedgeDetectorCornerDetector</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">follow</span>:                         <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Follow</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">death_bound</span>:                    <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">DeathBound</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">death_on_contact</span>:               <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">DeathOnContact</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">death_after_delay</span>:              <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">DeathAfterDelay</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">interactable</span>:                   <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Interactable</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">facing</span>:                         <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Facing</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">jumper</span>:                         <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Jumper</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">wall_jumper</span>:                    <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">WallJumper</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">wall_slider</span>:                    <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">WallSlider</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">shooter</span>:                        <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Shooter</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">kill_velocity_min</span>:              <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">KillVelocityMin</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">solid_pusher</span>:                   <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">SolidPusher</span><span class="op">&gt;</span>,
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../../";window.currentCrate = "deathfloor";</script><script src="../../../../aliases.js"></script><script src="../../../../main.js"></script><script src="../../../../source-script.js"></script><script src="../../../../source-files.js"></script><script defer src="../../../../search-index.js"></script></body></html>

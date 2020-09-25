@@ -66,6 +66,7 @@
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Deserialize</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TilesSettings</span> {
     <span class="kw">pub</span> <span class="ident">types</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">TileType</span>, <span class="ident">TileSettings</span><span class="op">&gt;</span>,
 }
@@ -84,8 +85,7 @@
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Default</span>, <span class="ident">Deserialize</span>)]</span>
-<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
-<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>)]</span>
+<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">deny_unknown_fields</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TileSettings</span> {
     <span class="kw">pub</span> <span class="ident">entity</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">EntityConfig</span><span class="op">&gt;</span>,
 }
