@@ -9,8 +9,7 @@ impl<'a> System<'a> for HandleWalkersSystem {
         Read<'a, Time>,
         ReadStorage<'a, Walker>,
         WriteStorage<'a, Movable>,
-        ReadStorage<'a, Loadable>,
-        ReadStorage<'a, Loaded>,
+        ReadStorage<'a, Unloaded>,
     );
 
     fn run(
@@ -20,17 +19,13 @@ impl<'a> System<'a> for HandleWalkersSystem {
             time,
             walkers,
             mut movables,
-            loadables,
-            loadeds,
+            unloaded_store,
         ): Self::SystemData,
     ) {
         let dt = time.delta_seconds() as f32;
 
-        for (_, walker, movable) in (&entities, &walkers, &mut movables)
-            .join()
-            .filter(|(entity, _, _)| {
-                is_entity_loaded(*entity, &loadables, &loadeds)
-            })
+        for (_, walker, movable, _) in
+            (&entities, &walkers, &mut movables, !&unloaded_store).join()
         {
             movable.add_action(MoveAction::AddVelocity {
                 x: walker.x.map(|x| x * dt),

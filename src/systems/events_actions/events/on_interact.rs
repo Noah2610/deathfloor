@@ -8,8 +8,7 @@ impl<'a> System<'a> for HandleEventOnInteract {
         ReadStorage<'a, EventsRegister>,
         WriteStorage<'a, ActionTypeTrigger>,
         WriteStorage<'a, Interactable>,
-        ReadStorage<'a, Loadable>,
-        ReadStorage<'a, Loaded>,
+        ReadStorage<'a, Unloaded>,
     );
 
     fn run(
@@ -18,36 +17,24 @@ impl<'a> System<'a> for HandleEventOnInteract {
             events_register_store,
             mut action_type_trigger_store,
             mut interactable_store,
-            loadable_store,
-            loaded_store,
+            unloaded_store,
         ): Self::SystemData,
     ) {
-        for (
-            events_register,
-            action_type_trigger,
-            interactable,
-            loadable_opt,
-            loaded_opt,
-        ) in (
+        for (events_register, action_type_trigger, interactable, _) in (
             &events_register_store,
             &mut action_type_trigger_store,
             &mut interactable_store,
-            loadable_store.maybe(),
-            loaded_store.maybe(),
+            !&unloaded_store,
         )
             .join()
         {
-            if let (Some(_), Some(_)) | (None, None) =
-                (loadable_opt, loaded_opt)
+            if let Some(action) =
+                events_register.get_action(&EventType::OnInteract)
             {
-                if let Some(action) =
-                    events_register.get_action(&EventType::OnInteract)
-                {
-                    for interactable_action in interactable.drain_actions() {
-                        match interactable_action {
-                            InteractableAction::Interacted => {
-                                action_type_trigger.add_action(action.clone());
-                            }
+                for interactable_action in interactable.drain_actions() {
+                    match interactable_action {
+                        InteractableAction::Interacted => {
+                            action_type_trigger.add_action(action.clone());
                         }
                     }
                 }

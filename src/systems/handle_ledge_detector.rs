@@ -11,8 +11,7 @@ impl<'a> System<'a> for HandleLedgeDetectorSystem {
         WriteStorage<'a, LedgeDetector>,
         ReadStorage<'a, LedgeDetectorCornerDetector>,
         ReadStorage<'a, Collider<CollisionTag>>,
-        ReadStorage<'a, Loadable>,
-        ReadStorage<'a, Loaded>,
+        ReadStorage<'a, Unloaded>,
     );
 
     fn run(
@@ -22,8 +21,7 @@ impl<'a> System<'a> for HandleLedgeDetectorSystem {
             mut ledge_detector_store,
             corner_detector_store,
             collider_store,
-            loadable_store,
-            loaded_store,
+            unloaded_store,
         ): Self::SystemData,
     ) {
         let mut corner_collisions = HashMap::<
@@ -45,38 +43,31 @@ impl<'a> System<'a> for HandleLedgeDetectorSystem {
             }
         }
 
-        for (entity, ledge_detector, collider, loadable_opt, loaded_opt) in (
+        for (entity, ledge_detector, collider, _) in (
             &entities,
             &mut ledge_detector_store,
             &collider_store,
-            loadable_store.maybe(),
-            loaded_store.maybe(),
+            !&unloaded_store,
         )
             .join()
         {
-            if let (Some(_), Some(_)) | (None, None) =
-                (loadable_opt, loaded_opt)
-            {
-                if let Some(collisions) = corner_collisions.get(&entity) {
-                    for (corner, side) in collisions {
-                        let query_exp = {
-                            use deathframe::physics::query::exp::prelude_variants::*;
-                            IsSide(side.into())
-                        };
+            if let Some(collisions) = corner_collisions.get(&entity) {
+                for (corner, side) in collisions {
+                    let query_exp = {
+                        use deathframe::physics::query::exp::prelude_variants::*;
+                        IsSide(side.into())
+                    };
 
-                        if collider
-                            .query::<FindQuery<CollisionTag>>()
-                            .exp(&query_exp)
-                            .run()
-                            .is_some()
-                        {
-                            ledge_detector.add_detected(
-                                LedgeDetectorDetected {
-                                    corner:      *corner,
-                                    if_touching: *side,
-                                },
-                            );
-                        }
+                    if collider
+                        .query::<FindQuery<CollisionTag>>()
+                        .exp(&query_exp)
+                        .run()
+                        .is_some()
+                    {
+                        ledge_detector.add_detected(LedgeDetectorDetected {
+                            corner:      *corner,
+                            if_touching: *side,
+                        });
                     }
                 }
             }

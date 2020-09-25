@@ -23,8 +23,7 @@ impl<'a> System<'a> for DisplayHealthSystem {
         WriteStorage<'a, Size>,
         WriteStorage<'a, SpriteRender>,
         WriteStorage<'a, Parent>,
-        ReadStorage<'a, Loadable>,
-        ReadStorage<'a, Loaded>,
+        ReadStorage<'a, Unloaded>,
         WriteStorage<'a, Hidden>,
     );
 
@@ -39,8 +38,7 @@ impl<'a> System<'a> for DisplayHealthSystem {
             mut size_store,
             mut sprite_render_store,
             mut parent_store,
-            loadable_store,
-            loaded_store,
+            unloaded_store,
             mut hidden_store,
         ): Self::SystemData,
     ) {
@@ -50,8 +48,7 @@ impl<'a> System<'a> for DisplayHealthSystem {
             &health_display_store,
             &transform_store,
             &size_store,
-            &loadable_store,
-            &loaded_store,
+            &unloaded_store,
             &hidden_store,
         );
 
@@ -118,23 +115,20 @@ fn generate_display_entity_data(
     health_display_store: &ReadStorage<HealthDisplay>,
     transform_store: &WriteStorage<Transform>,
     size_store: &WriteStorage<Size>,
-    loadable_store: &ReadStorage<Loadable>,
-    loaded_store: &ReadStorage<Loaded>,
+    unloaded_store: &ReadStorage<Unloaded>,
     hidden_store: &WriteStorage<Hidden>,
 ) -> Vec<DisplayEntityData> {
     let mut display_entities_to_create: Vec<DisplayEntityData> = Vec::new();
 
-    for (entity, health, health_display, transform, size_opt) in (
+    for (entity, health, health_display, transform, size_opt, _) in (
         entities,
         health_store,
         health_display_store,
         transform_store,
         size_store.maybe(),
+        !unloaded_store,
     )
         .join()
-        .filter(|(entity, _, _, _, _)| {
-            is_entity_loaded(*entity, loadable_store, loaded_store)
-        })
     {
         let pos: [f32; 3] = {
             let trans = transform.translation();

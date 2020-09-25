@@ -12,8 +12,7 @@ impl<'a> System<'a> for HandleEventOnAnimationEnd {
         ReadStorage<'a, EventsRegister>,
         WriteStorage<'a, ActionTypeTrigger>,
         ReadStorage<'a, AnimationsContainer<AnimationKey>>,
-        ReadStorage<'a, Loadable>,
-        ReadStorage<'a, Loaded>,
+        ReadStorage<'a, Unloaded>,
     );
 
     fn run(
@@ -23,51 +22,38 @@ impl<'a> System<'a> for HandleEventOnAnimationEnd {
             events_register_store,
             mut action_type_trigger_store,
             animations_container_store,
-            loadable_store,
-            loaded_store,
+            unloaded_store,
         ): Self::SystemData,
     ) {
-        for (
-            entity,
-            events_register,
-            action_type_trigger,
-            animations,
-            loadable_opt,
-            loaded_opt,
-        ) in (
+        for (entity, events_register, action_type_trigger, animations, _) in (
             &entities,
             &events_register_store,
             &mut action_type_trigger_store,
             &animations_container_store,
-            loadable_store.maybe(),
-            loaded_store.maybe(),
+            !&unloaded_store,
         )
             .join()
         {
-            if let (Some(_), Some(_)) | (None, None) =
-                (loadable_opt, loaded_opt)
-            {
-                for (event, action) in events_register.events().iter() {
-                    if let EventType::OnAnimationEnd(target_anim) = event {
-                        if let Some(last_anim) =
-                            animations.last_finished_animation()
+            for (event, action) in events_register.events().iter() {
+                if let EventType::OnAnimationEnd(target_anim) = event {
+                    if let Some(last_anim) =
+                        animations.last_finished_animation()
+                    {
+                        if last_anim == target_anim
+                            && self
+                                .last_finished_anims
+                                .get(&entity)
+                                .map(|saved_last_anim| {
+                                    saved_last_anim != last_anim
+                                })
+                                .unwrap_or(true)
                         {
-                            if last_anim == target_anim
-                                && self
-                                    .last_finished_anims
-                                    .get(&entity)
-                                    .map(|saved_last_anim| {
-                                        saved_last_anim != last_anim
-                                    })
-                                    .unwrap_or(true)
-                            {
-                                action_type_trigger.add_action(action.clone());
-                                self.last_finished_anims
-                                    .insert(entity, last_anim.clone());
-                            }
-                        } else {
-                            let _ = self.last_finished_anims.remove(&entity);
+                            action_type_trigger.add_action(action.clone());
+                            self.last_finished_anims
+                                .insert(entity, last_anim.clone());
                         }
+                    } else {
+                        let _ = self.last_finished_anims.remove(&entity);
                     }
                 }
             }

@@ -53,6 +53,5 @@ pub(super) fn base_tile_entity<'a>(
         // .with(Tile::default()) // TODO
         .with(size)
         .with(loadable)
-        .with(Loaded::default()) // TODO
         .with(Hidden))
 }
