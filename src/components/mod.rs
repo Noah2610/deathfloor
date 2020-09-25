@@ -13,6 +13,7 @@ pub mod interactable;
 pub mod jumper;
 pub mod jumppad;
 pub mod jumppad_affected;
+pub mod kill_velocity_min;
 pub mod ledge_detector;
 pub mod locked_to_path;
 pub mod max_movement_velocity;
@@ -46,6 +47,7 @@ pub mod prelude {
     pub use super::jumper::Jumper;
     pub use super::jumppad::Jumppad;
     pub use super::jumppad_affected::JumppadAffected;
+    pub use super::kill_velocity_min::KillVelocityMin;
     pub use super::ledge_detector::prelude::*;
     pub use super::locked_to_path::LockedToPath;
     pub use super::max_movement_velocity::MaxMovementVelocity;
