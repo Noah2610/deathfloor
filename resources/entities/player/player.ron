@@ -144,7 +144,7 @@
 
             // Insert default friction when coming from the Knockback variant.
             Init: InsertComponents((
-                base_friction: (x: 1100.0, y: None),
+                base_friction: (x: 800.0),
             )),
 
             OnCollision(And([

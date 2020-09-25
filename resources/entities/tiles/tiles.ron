@@ -6,6 +6,7 @@
         Ground: (
             entity: (
                 components: (
+                    solid_pusher: (),
                     hitbox: Size,
                 ),
 
@@ -20,6 +21,7 @@
                 /// with one of these collision labels.
                 solid_tag: (
                     labels: ["Tile", "Solid"],
+                    collides_with: ["Solid"],
                 ),
             ),
         ),

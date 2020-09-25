@@ -1,0 +1,93 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "MovingPlatform": (
+            spritesheet_filename: "colors.png",
+
+            entity: (
+                components: (
+                    hitbox: Size,
+                    animation: [
+                        (3, 1000),
+                    ],
+                    velocity: (
+                        x: 0.0,
+                        y: 0.0,
+                    ),
+                    solid_pusher: (),
+                    movement_acceleration: (
+                        x: 500.0,
+                        y: 500.0,
+                    ),
+                    max_movement_velocity: (
+                        x: 10.0,
+                        y: 10.0,
+                    ),
+                ),
+
+                variants: {
+                    "DelayedMoveUp": (
+                        events: {
+                            Delay(3000): EntityAction(SwitchVariant("MoveUp")),
+                        },
+                    ),
+                    "DelayedMoveDown": (
+                        events: {
+                            Delay(3000): EntityAction(SwitchVariant("MoveDown")),
+                        },
+                    ),
+
+                    "MoveUp": (
+                        components: (
+                            walker: (
+                                y: Up,
+                            ),
+                        ),
+                        events: {
+                            Delay(10000): EntityAction(SwitchVariant("MoveDown")),
+                        },
+                    ),
+                    "MoveDown": (
+                        components: (
+                            walker: (
+                                y: Down,
+                            ),
+                        ),
+                        events: {
+                            Delay(10000): EntityAction(SwitchVariant("MoveUp")),
+                        },
+                    ),
+                    "MoveLeft": (
+                        components: (
+                            walker: (
+                                x: Left,
+                            ),
+                        ),
+                        events: {
+                            Delay(10000): EntityAction(SwitchVariant("MoveRight")),
+                        },
+                    ),
+                    "MoveRight": (
+                        components: (
+                            walker: (
+                                x: Right,
+                            ),
+                        ),
+                        events: {
+                            Delay(10000): EntityAction(SwitchVariant("MoveLeft")),
+                        },
+                    ),
+                },
+
+                collision_tag: (
+                    labels: ["Solid"],
+                ),
+
+                solid_tag: (
+                    labels: ["Solid", "Pushable"],
+                    collides_with: ["Player", "Enemy", "Pushable"],
+                ),
+            ),
+        ),
+    }
+)
