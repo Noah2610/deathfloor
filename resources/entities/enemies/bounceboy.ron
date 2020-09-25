@@ -5,6 +5,8 @@
             spritesheet_filename: "enemy_bounceboy.png",
 
             entity: (
+                inherits: ["Walker"],
+
                 components: (
                     size: (
                         w: 32.0,
@@ -47,65 +49,59 @@
                         padding: 4.0,
                         border_padding: 0.5,
                     ),
-                    deals_damage: (
-                        damage: 1,
-                    ),
-                    ledge_detector: (
-                        corners: [
-                            (
-                                corner:      BottomLeft,
-                                if_touching: Bottom,
-                                size: (1.0, 1.0),
-                                offset: (-4.0, 0.0),
-                            ),
-                            (
-                                corner:      BottomRight,
-                                if_touching: Bottom,
-                                size: (1.0, 1.0),
-                                offset: (-4.0, 0.0),
-                            ),
-                        ],
-                        collides_with: ["Solid"],
-                    ),
                 ),
 
                 events: {
                     OnCollision(And([IsTag("Bullet"), IsState(Enter)])):
                         HealthAction(Lose(1)),
+
+                    OnCollision(And([
+                        IsTag("Player"),
+                        IsState(Enter),
+                        Or([
+                            IsSide(Top),
+                            IsSide(InnerSide(y: Top)),
+                        ]),
+                        Not(Or([
+                            IsSide(Bottom),
+                            IsSide(InnerSide(y: Bottom)),
+                        ])),
+                    ])): PlayerAction(MoveAction(
+                        SetVelocity(y: 500.0),
+                    )),
+
+                    OnCollision(And([
+                        IsTag("Player"),
+                        IsState(Enter),
+                        Or([
+                            IsSide(Bottom),
+                            IsSide(InnerSide(y: Bottom)),
+                        ]),
+                        Not(Or([
+                            IsSide(Top),
+                            IsSide(InnerSide(y: Top)),
+                        ])),
+                    ])): PlayerAction(
+                        HealthAction(Lose(10)),
+                    ),
                 },
 
+                default_variant: "WalkRight",
+
                 variants: {
-                    "Left": (
+                    "WalkLeft": (
                         components: (
                             walker: (
                                 x: -500.0,
                             ),
                         ),
-                        events: {
-                            OnLedgeDetect(BottomLeft, Bottom):
-                                EntityAction(SwitchVariant("Right")),
-                            OnCollision(And([
-                                    IsTag("Solid"),
-                                    IsState(Enter),
-                                    IsSide(Left),
-                                ])): EntityAction(SwitchVariant("Right")),
-                        },
                     ),
-                    "Right": (
+                    "WalkRight": (
                         components: (
                             walker: (
                                 x: 500.0,
                             ),
                         ),
-                        events: {
-                            OnLedgeDetect(BottomRight, Bottom):
-                                EntityAction(SwitchVariant("Left")),
-                            OnCollision(And([
-                                    IsTag("Solid"),
-                                    IsState(Enter),
-                                    IsSide(Right),
-                                ])): EntityAction(SwitchVariant("Left")),
-                        },
                     ),
                 },
 

@@ -5,6 +5,8 @@
             spritesheet_filename: "enemy_tank.png",
 
             entity: (
+                inherits: ["Walker"],
+
                 components: (
                     size: (
                         w: 64.0,
@@ -60,20 +62,13 @@
                 },
 
                 variants: {
-                    "Left": (
+                    "WalkLeft": (
                         components: (
                             walker: (
                                 x: -250.0,
                             ),
                         ),
                         events: {
-                            OnLedgeDetect(BottomLeft, Bottom):
-                                EntityAction(SwitchVariant("Right")),
-                            OnCollision(And([
-                                    IsTag("Solid"),
-                                    IsState(Enter),
-                                    IsSide(Left),
-                                ])): EntityAction(SwitchVariant("Right")),
                             Interval(1000): Group([
                                 SpawnAction(SpawnRelative((
                                     object: (
@@ -92,20 +87,13 @@
                             ]),
                          },
                     ),
-                    "Right": (
+                    "WalkRight": (
                         components: (
                             walker: (
                                 x: 250.0,
                             ),
                         ),
                         events: {
-                            OnLedgeDetect(BottomRight, Bottom):
-                                EntityAction(SwitchVariant("Left")),
-                            OnCollision(And([
-                                    IsTag("Solid"),
-                                    IsState(Enter),
-                                    IsSide(Right),
-                                ])): EntityAction(SwitchVariant("Left")),
                             Interval(1000): Group([
                                 SpawnAction(SpawnRelative((
                                     object: (

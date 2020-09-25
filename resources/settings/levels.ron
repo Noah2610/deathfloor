@@ -6,6 +6,7 @@
     levels: [
         "dev.json",
         "dev_camera_path.json",
+        "musha.json",
         "organic/mixed1.json",
         "organic/mixed2.json",
         "organic/mixed3.json",
@@ -30,5 +31,7 @@
         "level14.json",
         "level15.json",
         "level16.json",
+        "testlevel_sandstone1.json",
+        "cell_test0.json",
     ],
 )

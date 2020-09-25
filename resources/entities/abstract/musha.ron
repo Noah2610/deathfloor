@@ -1,0 +1,84 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "Musha": (
+            variants: {
+                "Musha": (
+                    components: (
+                        gravity: (),
+                        base_friction: (
+                            x: 1000.0,
+                            // y: 500.0,
+                        ),
+                        max_movement_velocity: (
+                            x: 100.0,
+                            y: 100.0,
+                        ),
+                        movement_acceleration: (
+                            x: 500.0,
+                            y: 500.0,
+                        ),
+                        shooter: (
+                            cooldown_ms: 99999999999,
+                        ),
+                    ),
+
+                    events: {
+                        OnSpawn: Call("ResetMovement"),
+
+                        Function("ResetMovement"):
+                            InsertComponents((
+                                max_movement_velocity: (
+                                    x: 100.0,
+                                    y: 100.0,
+                                ),
+                            )),
+
+                        Interval(1):
+                            MoveAction(Walk( axis: Y, mult: 1.0, )),
+
+                        // MOVEMENT
+
+                        // Up
+                        OnKeyDown(MoveUp):
+                            InsertComponents((
+                                max_movement_velocity: (
+                                    x: 100.0,
+                                    y: 300.0,
+                                ),
+                            )),
+                        OnKeyUp(MoveUp): Call("ResetMovement"),
+                        // Down
+                        OnKeyDown(MoveDown):
+                            InsertComponents((
+                                max_movement_velocity: (
+                                    x: 100.0,
+                                    y: 50.0,
+                                ),
+                            )),
+                        OnKeyUp(MoveDown): Call("ResetMovement"),
+
+                        // Left
+                        OnKeyPressed(MoveLeft):
+                            MoveAction(Walk( axis: X, mult: -1.0, )),
+
+                        // Right
+                        OnKeyPressed(MoveRight):
+                            MoveAction(Walk( axis: X, mult: 1.0, )),
+
+                        // SHOOT
+
+                        OnKeyDown(PlayerShoot):
+                            SpawnAction(SpawnRelative((
+                                object: (
+                                    type: Custom("MushaPlayerBullet"),
+                                    pos: (x: 0.0, y: 8.0),
+                                    size: (w: 4.0, h: 4.0),
+                                ),
+                            ))),
+                    },
+                ),
+            },
+        ),
+    },
+)

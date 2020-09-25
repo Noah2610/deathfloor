@@ -21,6 +21,7 @@ impl Merge for CustomEntitiesSettings {
 }
 
 #[derive(Clone, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct CustomEntitySettings {
     #[serde(alias = "spritesheet")]
     pub spritesheet_filename: Option<String>,

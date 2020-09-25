@@ -1,0 +1,42 @@
+// src/settings/player_bullet_settings.rs
+#![enable(implicit_some)]
+(
+
+    types: {
+        "MushaPlayerBullet": (
+            spritesheet: "player_bullet.png",
+            entity: (
+                components: (
+                    /// The bullet's size.
+                    size: (
+                        w: 6,
+                        h: 6,
+                    ),
+                    hitbox: Size,
+                    velocity: (
+                        x: 0.0,
+                        y: 250.0,
+                    ),
+                    /// Bullet animation frames.
+                    animation: [
+                    (0, 100),
+                    (1, 100),
+                    (2, 100),
+                    (1, 100),
+                    ],
+                    death_on_contact: (
+                        collides_with: ["Solid", "Enemy"],
+                    ),
+                    death_after_delay: (
+                        delay_ms: 2_000,
+                    ),
+                ),
+
+                collision_tag: (
+                    labels: ["Bullet"],
+                    collides_with: ["Tile", "Solid", "Enemy"],
+                ),
+            ),
+        ),
+    },
+)

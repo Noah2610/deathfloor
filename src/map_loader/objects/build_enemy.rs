@@ -22,7 +22,7 @@ pub(super) fn build(
     let sprite_render = get_sprite_render(
         world,
         format!("spritesheets/{}", &enemy_settings.spritesheet_filename),
-        1, // TODO
+        0,
     )?;
 
     let size = enemy_settings

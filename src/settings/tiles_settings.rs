@@ -12,6 +12,7 @@ pub mod prelude {
 }
 
 #[derive(Clone, Deserialize, Default)]
+#[serde(deny_unknown_fields)]
 pub struct TilesSettings {
     pub types: HashMap<TileType, TileSettings>,
 }
@@ -30,8 +31,7 @@ impl Merge for TilesSettings {
 }
 
 #[derive(Clone, Default, Deserialize)]
-#[serde(default)]
-#[serde(deny_unknown_fields)]
+#[serde(default, deny_unknown_fields)]
 pub struct TileSettings {
     pub entity: Option<EntityConfig>,
 }

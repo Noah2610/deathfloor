@@ -1,0 +1,38 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "CellBgTest": (
+            spritesheet_filename: "bg_cell1.png",
+
+            entity: (
+                components: (
+                    size: (
+                        w: 240.0,
+                        h: 96.0,
+                    ),
+                    animations: {
+                        Idle: Cycle([
+                            (0, 30),
+                            (1, 30),
+                            (2, 30),
+                            (3, 250),
+                            (2, 30),
+                            (1, 50),
+                            (0, 30),
+                            (1, 50),
+                            (0, 30),
+                            (3, 120),
+                            (1, 40),
+                            (2, 40),
+                            (1, 40),
+                            (0, 30),
+                            (3, 2000),
+                        ]),
+                    },
+                ),
+
+                // also play sound (some buzzing maybe) when switching to light animation
+            ),
+        ),
+    }
+)

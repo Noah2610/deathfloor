@@ -131,11 +131,7 @@
     <property name="variant" value="Default"/>
    </properties>
   </object>
-  <object id="105" name="BOUNCEBOY" type="Enemy(BounceBoy)" x="720" y="112" width="8" height="8">
-   <properties>
-    <property name="variant" value="Right"/>
-   </properties>
-  </object>
+  <object id="105" name="BOUNCEBOY" type="Enemy(BounceBoy)" x="704" y="72" width="8" height="8"/>
   <object id="106" name="VERTI" type="Enemy(VerticalShooter)" x="1056" y="120" width="8" height="16">
    <properties>
     <property name="scale_x" type="float" value="-1"/>
