@@ -150,6 +150,7 @@ pub struct EntityComponentsData {
     pub wall_slider:           Option<WallSlider>,
     pub shooter:               Option<Shooter>,
     pub kill_velocity_min:     Option<KillVelocityMin>,
+    pub solid_pusher:          Option<SolidPusher>,
 }
 
 impl Merge for EntityComponentsData {
@@ -184,6 +185,7 @@ impl Merge for EntityComponentsData {
             wall_slider:           other.wall_slider.or(self.wall_slider.take()),
             shooter:               other.shooter.or(self.shooter.take()),
             kill_velocity_min:     other.kill_velocity_min.or(self.kill_velocity_min.take()),
+            solid_pusher:          other.solid_pusher.or(self.solid_pusher.take()),
         };
     }
 }
@@ -229,4 +231,5 @@ pub struct EntityComponentsStorages<'a> {
     pub wall_slider:                    WriteStorage<'a, WallSlider>,
     pub shooter:                        WriteStorage<'a, Shooter>,
     pub kill_velocity_min:              WriteStorage<'a, KillVelocityMin>,
+    pub solid_pusher:                   WriteStorage<'a, SolidPusher>,
 }
