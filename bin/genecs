@@ -5,7 +5,7 @@
 # the second argument is the name of the struct.
 # Regardless of input name, struct names will be in PascalCase,
 # and file names will be in snake_case.
-# Does not add module to `{systems,components}/mod.rs`.
+# Also adds `mod` entry to respective component/system parent mod.
 
 # shellcheck source=./share.sh disable=SC2155
 _dir="$( dirname "$( realpath "$0" )" )"
