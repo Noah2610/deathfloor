@@ -1,5 +1,5 @@
 ## # util.sh
-## Version: `2.2.4`
+## Version: `2.2.5`
 ## https://github.com/Noah2610/util.sh
 
 set -o pipefail
@@ -90,6 +90,7 @@ function _strip_ansi_codes {
 ##   "default", "reset"
 ## ```
 function clrfg {
+    [ -n "$NO_COLOR" ] && return 0
     local color_str="$1"
     local color_code
     [ -z "$color_str" ] && err "No color argument given to function \`clrfg\`"
@@ -108,6 +109,7 @@ function clrfg {
 ##   "default", "reset"
 ## ```
 function clrbg {
+    [ -n "$NO_COLOR" ] && return 0
     local color_str="$1"
     local color_code
     [ -z "$color_str" ] && err "No color argument given to function \`clrbg\`"
@@ -123,6 +125,7 @@ function clrbg {
 ##   "default", "reset"
 ## ```
 function clrattr {
+    [ -n "$NO_COLOR" ] && return 0
     local attr_str="$1"
     [ -z "$attr_str" ] && err "No attribute argument given to function \`clrattr\`"
     case "$attr_str" in
@@ -144,6 +147,7 @@ function clrattr {
 ## - background color (see `clrbg`)
 ## - attribute (see `clrattr`)
 function clr {
+    [ -n "$NO_COLOR" ] && return 0
     local color_fg="$1"
     local color_bg="$2"
     local color_attr="$3"
@@ -157,6 +161,7 @@ function clr {
 
 ## Resets all color settings to default.
 function clrrs {
+    [ -n "$NO_COLOR" ] && return 0
     echo -en "\e[0m"
 }
 
@@ -375,6 +380,9 @@ function _init {
 
     # Set the `$TERMINAL` variable unless it was already set.
     [ -z "$TERMINAL" ] && TERMINAL="termite"
+
+    # Set `$NO_COLOR` to disable color output.
+    [ -z "$NO_COLOR" ] && NO_COLOR=
 
     # Set some commonly used colors.
     # Arrays have the format of `( "fgcolor" "bgcolor" "attribute" )`.
