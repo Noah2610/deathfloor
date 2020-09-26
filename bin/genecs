@@ -37,7 +37,7 @@ function gen_component {
     local name_pascal="$( snake_to_pascal "$1" )"
     local name_snake="$( pascal_to_snake "$1" )"
     local filepath="${DIR_COMPONENTS}/${name_snake}.rs"
-    local component_src="$( cat <<END
+    local src="$( cat <<END
 use super::component_prelude::*;
 
 #[derive(Component, Deserialize, Clone, Default)]
@@ -48,14 +48,32 @@ pub struct ${name_pascal} {
 }
 END
     )"
-    echo "$component_src" > "$filepath"
+
+    # Add component file
+    echo "$src" > "$filepath"
+
+    # Add component module to parent module
+    local mod_filepath="${DIR_COMPONENTS}/mod.rs"
+    check_file "$mod_filepath"
+    local mod_src=()
+    mapfile -t mod_src < <(
+        echo -e \
+            "$( grep '^pub mod .\+;$' "$mod_filepath" )\n"\
+pub mod "${name_snake}"\; \
+        | sort
+    )
+    for (( i = 1; i <= ${#mod_src[@]}; i++ )); do
+        sed -i "${i}s/.*/${mod_src[$(( i - 1 ))]}/" "$mod_filepath"
+    done
+    sed -i "$(( ${#mod_src[@]} + 1 ))i"$'\n' "$mod_filepath"
+
     local name_display="$(clr "${CLR_CODE[@]}")${name_pascal}$(clrrs)"
     local filepath_display="$(clr "${CLR_CODE[@]}")${filepath/${ROOT}\//}$(clrrs)"
     msg "Created component ${name_display}\n    ${filepath_display}"
 }
 
 function gen_system {
-    local name_pascal="$( snake_to_pascal "$1" )"
+    local name_pascal="$( snake_to_pascal "$1" )System"
     local name_snake="$( pascal_to_snake "$1" )"
     local filepath="${DIR_SYSTEMS}/${name_snake}.rs"
     local system_src="$( cat <<END
@@ -73,7 +91,25 @@ impl<'a> System<'a> for ${name_pascal} {
 }
 END
     )"
-    echo "$system_src" > "$filepath"
+
+    # Add system file
+    echo "$src" > "$filepath"
+
+    # Add system module to parent module
+    local mod_filepath="${DIR_SYSTEMS}/mod.rs"
+    check_file "$mod_filepath"
+    local mod_src=()
+    mapfile -t mod_src < <(
+        echo -e \
+            "$( grep '^mod .\+;$' "$mod_filepath" )\n"\
+mod "${name_snake}"\; \
+        | sort
+    )
+    for (( i = 1; i <= ${#mod_src[@]}; i++ )); do
+        sed -i "${i}s/.*/${mod_src[$(( i - 1 ))]}/" "$mod_filepath"
+    done
+    sed -i "$(( ${#mod_src[@]} + 1 ))i"$'\n' "$mod_filepath"
+
     local name_display="$(clr "${CLR_CODE[@]}")${name_pascal}$(clrrs)"
     local filepath_display="$(clr "${CLR_CODE[@]}")${filepath/${ROOT}\//}$(clrrs)"
     msg "Created system ${name_display}\n    ${filepath_display}"
@@ -82,18 +118,16 @@ END
 # MyNewStruct -> my_new_struct
 # https://stackoverflow.com/a/8503127/10927893
 function pascal_to_snake {
-    echo "$(
-        sed -e 's/\([A-Z]\)/_\L\1/g' \
-            -e 's/^_//'              \
-        <<< "$1" )"
+    sed -e 's/\([A-Z]\)/_\L\1/g' \
+        -e 's/^_//'              \
+        <<< "$1"
 }
 
 # my_new_struct -> MyNewStruct
 function snake_to_pascal {
-    echo "$(
         sed -e 's/_\([a-z0-9]\)/\U\1/g' \
             -e 's/^\([a-z]\)/\U\1/'     \
-        <<< "$1" )"
+            <<< "$1"
 }
 
 main "$@"
