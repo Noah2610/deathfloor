@@ -4,7 +4,8 @@
 # The first argument has to be either "com*" or "sys*",
 # the second argument is the name of the struct.
 # Regardless of input name, struct names will be in PascalCase,
-# and file / module names will be in snake_case.
+# and file names will be in snake_case.
+# Does not add module to `{systems,components}/mod.rs`.
 
 # shellcheck source=./share.sh disable=SC2155
 _dir="$( dirname "$( realpath "$0" )" )"
