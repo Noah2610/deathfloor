@@ -73,8 +73,9 @@ pub mod "${name_snake}"\; \
 }
 
 function gen_system {
-    local name_pascal="$( snake_to_pascal "$1" )System"
-    local name_snake="$( pascal_to_snake "$1" )"
+    local name="$( sed 's/_\?[Ss]ystem$//' <<< "$1" )"
+    local name_pascal="$( snake_to_pascal "$name" )System"
+    local name_snake="$( pascal_to_snake "$name" )"
     local filepath="${DIR_SYSTEMS}/${name_snake}.rs"
     local system_src="$( cat <<END
 use super::system_prelude::*;
