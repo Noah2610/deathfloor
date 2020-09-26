@@ -1,0 +1,98 @@
+#!/bin/bash
+
+# Generates ECS component or system.
+# The first argument has to be either "com*" or "sys*",
+# the second argument is the name of the struct.
+# Regardless of input name, struct names will be in PascalCase,
+# and file / module names will be in snake_case.
+
+# shellcheck source=./share.sh disable=SC2155
+_dir="$( dirname "$( realpath "$0" )" )"
+source "${_dir}/share.sh"
+unset _dir
+
+DIR_COMPONENTS="${ROOT}/src/components"
+DIR_SYSTEMS="${ROOT}/src/systems"
+
+check_dir "$DIR_COMPONENTS"
+check_dir "$DIR_SYSTEMS"
+
+function main {
+    local cmd="$1"
+    local name="$2"
+    [ -z "$cmd" ] && err "First argument has to be command \"com*\" or \"sys*\"."
+    [ -z "$name" ] && err "Second argument has to be struct name."
+    case "$cmd" in
+        com*)
+            gen_component "$name"
+            ;;
+        sys*)
+            gen_system "$name"
+            ;;
+    esac
+}
+
+function gen_component {
+    local name_pascal="$( snake_to_pascal "$1" )"
+    local name_snake="$( pascal_to_snake "$1" )"
+    local filepath="${DIR_COMPONENTS}/${name_snake}.rs"
+    local component_src="$( cat <<END
+use super::component_prelude::*;
+
+#[derive(Component, Deserialize, Clone, Default)]
+#[storage(VecStorage)]
+#[serde(deny_unknown_fields)]
+pub struct ${name_pascal} {
+    
+}
+END
+    )"
+    echo "$component_src" > "$filepath"
+    local name_display="$(clr "${CLR_CODE[@]}")${name_pascal}$(clrrs)"
+    local filepath_display="$(clr "${CLR_CODE[@]}")${filepath/${ROOT}\//}$(clrrs)"
+    msg "Created component ${name_display}\n    ${filepath_display}"
+}
+
+function gen_system {
+    local name_pascal="$( snake_to_pascal "$1" )"
+    local name_snake="$( pascal_to_snake "$1" )"
+    local filepath="${DIR_SYSTEMS}/${name_snake}.rs"
+    local system_src="$( cat <<END
+use super::system_prelude::*;
+
+#[derive(Default)]
+pub struct ${name_pascal};
+
+impl<'a> System<'a> for ${name_pascal} {
+    type SystemData = ();
+
+    fn run(&mut self, (): Self::SystemData) {
+        
+    }
+}
+END
+    )"
+    echo "$system_src" > "$filepath"
+    local name_display="$(clr "${CLR_CODE[@]}")${name_pascal}$(clrrs)"
+    local filepath_display="$(clr "${CLR_CODE[@]}")${filepath/${ROOT}\//}$(clrrs)"
+    msg "Created system ${name_display}\n    ${filepath_display}"
+}
+
+# MyNewStruct -> my_new_struct
+# https://stackoverflow.com/a/8503127/10927893
+function pascal_to_snake {
+    echo "$(
+        sed -e 's/\([A-Z]\)/_\L\1/g' \
+            -e 's/^_//'              \
+        <<< "$1" )"
+}
+
+# my_new_struct -> MyNewStruct
+function snake_to_pascal {
+    echo "$(
+        sed -e 's/_\([a-z0-9]\)/\U\1/g' \
+            -e 's/^\([a-z]\)/\U\1/'     \
+        <<< "$1" )"
+}
+
+main "$@"
