@@ -38,7 +38,7 @@ impl<'a> System<'a> for HandleDeathOnContactSystem {
                         labels:        death_on_contact.collides_with.clone(),
                         collides_with: Vec::new(),
                     };
-                    And(vec![IsState(Enter), IsTag(collision_tag)])
+                    IsTag(collision_tag)
                 };
                 let in_contact = collider
                     .query::<FindQuery<CollisionTag>>()
