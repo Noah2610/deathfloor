@@ -211,7 +211,7 @@
         collision_tag: (
             /// `CollisionLabel`s for the player.
             /// Used with other collider entities, to check if they collide with this entity.
-            labels: ["Player"],
+            labels: ["Player", "Pusher"],
             /// `CollisionLabel`s that the player collides with.
             collides_with: ["Tile", "Solid", "Jumppad", "Enemy", "EnemyBullet", "Consumable"],
         ),
@@ -219,7 +219,7 @@
         /// For _solid_ collision checking.
         /// Also for `SolidPusher` collision.
         solid_tag: (
-            labels: ["Player"],
+            labels: ["Player", "Pusher"],
             collides_with: ["Solid", "Pushable"],
         ),
     ),

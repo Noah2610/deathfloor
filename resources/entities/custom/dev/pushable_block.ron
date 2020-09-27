@@ -6,7 +6,10 @@
 
             entity: (
                 components: (
+                    solid_pusher: (),
                     solid_pushable: (),
+                    // Tries to snap position to whole integer when moving.
+                    non_precise_movement: (),
                     hitbox: Size,
                     animation: [
                         (4, 3000),
@@ -18,15 +21,34 @@
                     gravity: (
                         y: -800.0,
                     ),
+                    health: (
+                        health: 3,
+                        max_health: 3,
+                    ),
+                    health_display: (
+                        position: Top,
+                        size: (
+                            24.0,
+                            4.0,
+                        ),
+                        padding: 4.0,
+                        border_padding: 1.0,
+                    ),
                 ),
+
+                events: {
+                    OnCollision(And([IsTag("Bullet"), IsState(Enter)])):
+                        HealthAction(Lose(1)),
+                },
 
                 collision_tag: (
                     labels: ["Solid", "Pushable"],
+                    collides_with: ["Solid", "Bullet", "Pusher"],
                 ),
 
                 solid_tag: (
                     labels: ["Solid", "Pushable"],
-                    collides_with: ["Solid"],
+                    collides_with: ["Solid", "Pusher", "Pushable", "Enemy"],
                 ),
             ),
         ),
