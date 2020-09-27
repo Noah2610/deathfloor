@@ -5,7 +5,7 @@
     // Relative to `resources/levels/`
     levels: [
         "dev.json",
-        "debug_moving_platforms.json",
+        "dev_pushable_blocks.json",
         "dev_camera_path.json",
         "musha.json",
         "organic/mixed1.json",
