@@ -15,7 +15,7 @@
 
                     // Entity loading/unloading stuff
                     loader: (
-                        loading_distance: (256.0, 256.0),
+                        loading_distance: (32.0, 32.0),
                     ),
                     loadable: (
                         padding: (0.0, 0.0),
