@@ -6,11 +6,21 @@
 
             entity: (
                 components: (
+                    // Pusher stuff
                     solid_pusher: (),
                     solid_pushable: (),
+
                     // Tries to snap position to whole integer when moving.
                     non_precise_movement: (),
-                    loadable: (),
+
+                    // Entity loading/unloading stuff
+                    loader: (
+                        loading_distance: (256.0, 256.0),
+                    ),
+                    loadable: (
+                        padding: (0.0, 0.0),
+                    ),
+
                     hitbox: Size,
                     animation: [
                         (4, 3000),

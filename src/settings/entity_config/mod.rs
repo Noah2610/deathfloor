@@ -153,6 +153,7 @@ pub struct EntityComponentsData {
     pub solid_pusher:          Option<SolidPusher>,
     pub solid_pushable:        Option<SolidPushable>,
     pub non_precise_movement:  Option<NonPreciseMovement>,
+    pub loader:                Option<Loader>,
     pub loadable:              Option<Loadable>,
     pub unloaded:              Option<Unloaded>,
 }
@@ -192,6 +193,7 @@ impl Merge for EntityComponentsData {
             solid_pusher:          other.solid_pusher.or(self.solid_pusher.take()),
             solid_pushable:        other.solid_pushable.or(self.solid_pushable.take()),
             non_precise_movement:  other.non_precise_movement.or(self.non_precise_movement.take()),
+            loader:                other.loader.or(self.loader.take()),
             loadable:              other.loadable.or(self.loadable.take()),
             unloaded:              other.unloaded.or(self.unloaded.take()),
         };
@@ -242,6 +244,7 @@ pub struct EntityComponentsStorages<'a> {
     pub solid_pusher:                   WriteStorage<'a, SolidPusher>,
     pub solid_pushable:                 WriteStorage<'a, SolidPushable>,
     pub non_precise_movement:           WriteStorage<'a, NonPreciseMovement>,
+    pub loader:                         WriteStorage<'a, Loader>,
     pub loadable:                       WriteStorage<'a, Loadable>,
     pub unloaded:                       WriteStorage<'a, Unloaded>,
 }
