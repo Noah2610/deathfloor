@@ -77,7 +77,7 @@ function gen_system {
     local name_pascal="$( snake_to_pascal "$name" )System"
     local name_snake="$( pascal_to_snake "$name" )"
     local filepath="${DIR_SYSTEMS}/${name_snake}.rs"
-    local system_src="$( cat <<END
+    local src="$( cat <<END
 use super::system_prelude::*;
 
 #[derive(Default)]
