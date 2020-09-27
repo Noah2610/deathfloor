@@ -152,6 +152,7 @@ pub struct EntityComponentsData {
     pub kill_velocity_min:     Option<KillVelocityMin>,
     pub solid_pusher:          Option<SolidPusher>,
     pub solid_pushable:        Option<SolidPushable>,
+    pub non_precise_movement:  Option<NonPreciseMovement>,
 }
 
 impl Merge for EntityComponentsData {
@@ -188,6 +189,7 @@ impl Merge for EntityComponentsData {
             kill_velocity_min:     other.kill_velocity_min.or(self.kill_velocity_min.take()),
             solid_pusher:          other.solid_pusher.or(self.solid_pusher.take()),
             solid_pushable:        other.solid_pushable.or(self.solid_pushable.take()),
+            non_precise_movement:  other.non_precise_movement.or(self.non_precise_movement.take()),
         };
     }
 }
@@ -235,4 +237,5 @@ pub struct EntityComponentsStorages<'a> {
     pub kill_velocity_min:              WriteStorage<'a, KillVelocityMin>,
     pub solid_pusher:                   WriteStorage<'a, SolidPusher>,
     pub solid_pushable:                 WriteStorage<'a, SolidPushable>,
+    pub non_precise_movement:           WriteStorage<'a, NonPreciseMovement>,
 }
