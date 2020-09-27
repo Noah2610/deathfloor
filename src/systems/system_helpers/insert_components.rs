@@ -36,6 +36,8 @@ pub fn insert_components(
         solid_pusher,
         solid_pushable,
         non_precise_movement,
+        loadable,
+        unloaded,
     } = components;
     let &mut EntityComponentsStorages {
         entities,
@@ -79,6 +81,8 @@ pub fn insert_components(
         solid_pusher: solid_pusher_store,
         solid_pushable: solid_pushable_store,
         non_precise_movement: non_precise_movement_store,
+        loadable: loadable_store,
+        unloaded: unloaded_store,
     } = &mut storages;
 
     let size_opt = size.or_else(|| size_store.get(entity).cloned());
@@ -209,6 +213,12 @@ pub fn insert_components(
     }
     if let Some(non_precise_movement) = non_precise_movement {
         non_precise_movement_store.insert(entity, non_precise_movement)?;
+    }
+    if let Some(loadable) = loadable {
+        loadable_store.insert(entity, loadable)?;
+    }
+    if let Some(unloaded) = unloaded {
+        unloaded_store.insert(entity, unloaded)?;
     }
     if let Some(size) = size_opt {
         size_store.insert(entity, size)?;

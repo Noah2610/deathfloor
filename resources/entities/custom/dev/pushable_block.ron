@@ -10,6 +10,7 @@
                     solid_pushable: (),
                     // Tries to snap position to whole integer when moving.
                     non_precise_movement: (),
+                    loadable: (),
                     hitbox: Size,
                     animation: [
                         (4, 3000),
