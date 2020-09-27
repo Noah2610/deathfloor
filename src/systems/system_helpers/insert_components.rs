@@ -34,6 +34,7 @@ pub fn insert_components(
         shooter,
         kill_velocity_min,
         solid_pusher,
+        solid_pushable,
     } = components;
     let &mut EntityComponentsStorages {
         entities,
@@ -75,6 +76,7 @@ pub fn insert_components(
         shooter: shooter_store,
         kill_velocity_min: kill_velocity_min_store,
         solid_pusher: solid_pusher_store,
+        solid_pushable: solid_pushable_store,
     } = &mut storages;
 
     let size_opt = size.or_else(|| size_store.get(entity).cloned());
@@ -199,6 +201,9 @@ pub fn insert_components(
     }
     if let Some(solid_pusher) = solid_pusher {
         solid_pusher_store.insert(entity, solid_pusher)?;
+    }
+    if let Some(solid_pushable) = solid_pushable {
+        solid_pushable_store.insert(entity, solid_pushable)?;
     }
     if let Some(size) = size_opt {
         size_store.insert(entity, size)?;
