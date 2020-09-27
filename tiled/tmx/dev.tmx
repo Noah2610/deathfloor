@@ -146,7 +146,7 @@
     <property name="variant" value="DelayedMoveUp"/>
    </properties>
   </object>
-  <object id="114" name="solid thing" type="Custom(PushableSolid)" x="1216" y="48" width="96" height="16"/>
+  <object id="114" name="solid thing" type="Custom(PushableBlock)" x="1216" y="48" width="96" height="16"/>
   <object id="115" type="Custom(MovingPlatform)" x="1288" y="88" width="16" height="40"/>
   <object id="116" name="MOVING PLATFORM POGGERS DUDE" type="Custom(MovingPlatform)" x="1216" y="128" width="96" height="16">
    <properties>

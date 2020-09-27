@@ -1,23 +1,32 @@
 #![enable(implicit_some)]
 (
     types: {
-        "PushableSolid": (
+        "PushableBlock": (
             spritesheet_filename: "colors.png",
 
             entity: (
                 components: (
+                    solid_pushable: (),
                     hitbox: Size,
                     animation: [
-                        (0, 3000),
+                        (4, 3000),
                     ],
+                    velocity: (
+                        x: 0.0,
+                        y: 0.0,
+                    ),
+                    gravity: (
+                        y: -800.0,
+                    ),
                 ),
 
                 collision_tag: (
-                    labels: ["Solid"],
+                    labels: ["Solid", "Pushable"],
                 ),
 
                 solid_tag: (
                     labels: ["Solid", "Pushable"],
+                    collides_with: ["Solid"],
                 ),
             ),
         ),

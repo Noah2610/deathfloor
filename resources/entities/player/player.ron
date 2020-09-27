@@ -127,6 +127,9 @@
             ),
             /// Player takes damage against damage-dealing entities (DealsDamage).
             takes_damage: (),
+            /// Pushes entities that this solid tag collides with,
+            /// that have the `SolidPushable` component.
+            solid_pusher: (),
         ),
 
         events: {
@@ -214,9 +217,10 @@
         ),
 
         /// For _solid_ collision checking.
+        /// Also for `SolidPusher` collision.
         solid_tag: (
             labels: ["Player"],
-            collides_with: ["Solid"],
+            collides_with: ["Solid", "Pushable"],
         ),
     ),
 )
