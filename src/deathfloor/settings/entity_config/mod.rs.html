@@ -233,6 +233,21 @@
 <span id="233">233</span>
 <span id="234">234</span>
 <span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">mod</span> <span class="ident">inheritance_chain</span>;
 <span class="kw">mod</span> <span class="ident">variants</span>;
@@ -387,6 +402,11 @@
     <span class="kw">pub</span> <span class="ident">shooter</span>:               <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Shooter</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">kill_velocity_min</span>:     <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">KillVelocityMin</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">solid_pusher</span>:          <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SolidPusher</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">solid_pushable</span>:        <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SolidPushable</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">non_precise_movement</span>:  <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">NonPreciseMovement</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">loader</span>:                <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Loader</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">loadable</span>:              <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Loadable</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">unloaded</span>:              <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Unloaded</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Merge</span> <span class="kw">for</span> <span class="ident">EntityComponentsData</span> {
@@ -422,6 +442,11 @@
             <span class="ident">shooter</span>:               <span class="ident">other</span>.<span class="ident">shooter</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">shooter</span>.<span class="ident">take</span>()),
             <span class="ident">kill_velocity_min</span>:     <span class="ident">other</span>.<span class="ident">kill_velocity_min</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">kill_velocity_min</span>.<span class="ident">take</span>()),
             <span class="ident">solid_pusher</span>:          <span class="ident">other</span>.<span class="ident">solid_pusher</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">solid_pusher</span>.<span class="ident">take</span>()),
+            <span class="ident">solid_pushable</span>:        <span class="ident">other</span>.<span class="ident">solid_pushable</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">solid_pushable</span>.<span class="ident">take</span>()),
+            <span class="ident">non_precise_movement</span>:  <span class="ident">other</span>.<span class="ident">non_precise_movement</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">non_precise_movement</span>.<span class="ident">take</span>()),
+            <span class="ident">loader</span>:                <span class="ident">other</span>.<span class="ident">loader</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">loader</span>.<span class="ident">take</span>()),
+            <span class="ident">loadable</span>:              <span class="ident">other</span>.<span class="ident">loadable</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">loadable</span>.<span class="ident">take</span>()),
+            <span class="ident">unloaded</span>:              <span class="ident">other</span>.<span class="ident">unloaded</span>.<span class="ident">or</span>(<span class="self">self</span>.<span class="ident">unloaded</span>.<span class="ident">take</span>()),
         };
     }
 }
@@ -468,6 +493,11 @@
     <span class="kw">pub</span> <span class="ident">shooter</span>:                        <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Shooter</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">kill_velocity_min</span>:              <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">KillVelocityMin</span><span class="op">&gt;</span>,
     <span class="kw">pub</span> <span class="ident">solid_pusher</span>:                   <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">SolidPusher</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">solid_pushable</span>:                 <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">SolidPushable</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">non_precise_movement</span>:           <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">NonPreciseMovement</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">loader</span>:                         <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Loader</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">loadable</span>:                       <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Loadable</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">unloaded</span>:                       <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Unloaded</span><span class="op">&gt;</span>,
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../../";window.currentCrate = "deathfloor";</script><script src="../../../../aliases.js"></script><script src="../../../../main.js"></script><script src="../../../../source-script.js"></script><script src="../../../../source-files.js"></script><script defer src="../../../../search-index.js"></script></body></html>

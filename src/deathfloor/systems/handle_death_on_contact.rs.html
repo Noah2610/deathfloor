@@ -97,7 +97,7 @@
                         <span class="ident">labels</span>:        <span class="ident">death_on_contact</span>.<span class="ident">collides_with</span>.<span class="ident">clone</span>(),
                         <span class="ident">collides_with</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
                     };
-                    <span class="ident">And</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="ident">IsState</span>(<span class="ident">Enter</span>), <span class="ident">IsTag</span>(<span class="ident">collision_tag</span>)])
+                    <span class="ident">IsTag</span>(<span class="ident">collision_tag</span>)
                 };
                 <span class="kw">let</span> <span class="ident">in_contact</span> <span class="op">=</span> <span class="ident">collider</span>
                     .<span class="ident">query</span>::<span class="op">&lt;</span><span class="ident">FindQuery</span><span class="op">&lt;</span><span class="ident">CollisionTag</span><span class="op">&gt;</span><span class="op">&gt;</span>()
