@@ -7,9 +7,9 @@
                 OnSpawn: Call("SetDefaultPhysics"),
 
                 // yea crazy shoot
-                OnKeyPressed(PlayerShoot): Call("ShootCrazy"),
+                OnKeyPressed(Shoot): Call("ShootCrazy"),
                 // Rocket
-                OnKeyDown(PlayerShoot): SpawnAction(SpawnRelative((
+                OnKeyDown(Shoot): SpawnAction(SpawnRelative((
                     object: (
                         type: PlayerBullet,
                         pos: (x: 0.0, y: 0.0),
@@ -24,7 +24,7 @@
                 OnKeyUp(TogglePause): Call("PickupHealth"),
 
                 // Reduce gravity when jumping
-                OnKeyDown(PlayerJump): Group([
+                OnKeyDown(Jump): Group([
                     MoveAction(SetVelocity(y: 300.0)),
                     InsertComponents((
                         max_movement_velocity: (
@@ -36,7 +36,7 @@
                         ),
                     )),
                 ]),
-                OnKeyUp(PlayerJump): Call("SetDefaultPhysics"),
+                OnKeyUp(Jump): Call("SetDefaultPhysics"),
 
                 Function("SetDefaultPhysics"): InsertComponents((
                     max_movement_velocity: (

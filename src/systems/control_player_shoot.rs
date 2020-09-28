@@ -44,8 +44,10 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
         )
             .join()
         {
+            shooter.did_shoot = false;
+
             shooter.cooldown_timer.update().unwrap();
-            let should_shoot = input_manager.is_pressed(PlayerShoot)
+            let should_shoot = input_manager.is_pressed(Shoot)
                 && (shooter.cooldown_timer.state.is_finished()
                     || shooter.cooldown_timer.state.is_stopped());
             let facing = facing_opt
@@ -53,6 +55,8 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
                 .unwrap_or_else(|| FacingAlt::from(transform));
 
             if should_shoot {
+                shooter.did_shoot = true;
+
                 let bullet_pos = {
                     let trans = transform.translation();
                     (trans.x, trans.y, trans.z + 0.1)

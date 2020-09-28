@@ -7,6 +7,7 @@ use std::time::Duration;
 #[serde(from = "ShooterDeser")]
 pub struct Shooter {
     pub cooldown_timer: Timer,
+    pub did_shoot:      bool,
 }
 
 impl From<ShooterDeser> for Shooter {
@@ -16,6 +17,7 @@ impl From<ShooterDeser> for Shooter {
                 Some(Duration::from_millis(data.cooldown_ms).into()),
                 None,
             ),
+            did_shoot:      false,
         }
     }
 }

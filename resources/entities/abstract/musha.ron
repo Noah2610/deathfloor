@@ -68,7 +68,7 @@
 
                         // SHOOT
 
-                        OnKeyDown(PlayerShoot):
+                        OnKeyDown(Shoot):
                             SpawnAction(SpawnRelative((
                                 object: (
                                     type: Custom("MushaPlayerBullet"),

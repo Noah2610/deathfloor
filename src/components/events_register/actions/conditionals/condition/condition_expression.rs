@@ -1,14 +1,16 @@
 use super::ConditionStorages;
-use crate::deathframe::components::component_prelude::ByAxis;
+use crate::collision_tag::CollisionTag;
 use deathframe::amethyst::ecs::{Entity, Join};
+use deathframe::components::component_prelude::ByAxis;
 use deathframe::core::geo::prelude::Axis;
+use deathframe::physics::query::prelude::{FindQuery, Query, QueryExpression};
 use std::cmp;
 
 /// A `ConditionExpression` is used in conditional actions.
 /// It can be a _literal value_ when the value is just literally typed in the config,
 /// or a _value getter_, which is a placeholder for a value from one of
 /// this entity's components (like its position, velocity, or health).
-#[derive(Deserialize, Clone, Debug)]
+#[derive(Deserialize, Clone)]
 #[serde(untagged)]
 pub enum ConditionExpression {
     OtherEntityGet(ConditionExpressionOtherEntity),
@@ -16,7 +18,7 @@ pub enum ConditionExpression {
     Literal(ConditionExpressionValue),
 }
 
-#[derive(Deserialize, Clone, Debug)]
+#[derive(Deserialize, Clone)]
 pub enum ConditionExpressionOtherEntity {
     Player(ConditionExpressionValueGetter),
 }
@@ -100,7 +102,7 @@ impl cmp::PartialOrd for ConditionExpressionValue {
 
 /// A `ConditionExpressionValueGetter` is a sort of placeholder for
 /// a specific value on this entity, like its health or velocity.
-#[derive(Deserialize, Clone, Debug)]
+#[derive(Deserialize, Clone)]
 pub enum ConditionExpressionValueGetter {
     /// Returns the entity's transform position on the given axis as a number.
     Position(Axis),
@@ -112,6 +114,13 @@ pub enum ConditionExpressionValueGetter {
     HasFullHealth,
     /// Returns a string for the facing direction, "Left" or "Right".
     Facing,
+    /// Returns a string, for the currently active variant name, if any.
+    /// Returns null if no variant is active (only the root entity config).
+    Variant,
+    /// Returns a boolean depending on if the there is a collision
+    /// with the given collision query.
+    /// Returns null if the entity has no `Collider`.
+    Collision(QueryExpression<CollisionTag>),
 }
 
 impl ConditionExpressionValueGetter {
@@ -161,6 +170,32 @@ impl ConditionExpressionValueGetter {
             Self::Facing => {
                 if let Some(facing) = storages.facing.get(entity) {
                     Value::Str(facing.to_string())
+                } else {
+                    Value::Null
+                }
+            }
+
+            Self::Variant => {
+                if let Some(variant_name) = storages
+                    .entity_config_register
+                    .get(entity)
+                    .and_then(|register| register.active_variant_name())
+                {
+                    Value::Str(variant_name.to_string())
+                } else {
+                    Value::Null
+                }
+            }
+
+            Self::Collision(exp) => {
+                if let Some(collider) = storages.collider.get(entity) {
+                    Value::Bool(
+                        collider
+                            .query::<FindQuery<CollisionTag>>()
+                            .exp(exp)
+                            .run()
+                            .is_some(),
+                    )
                 } else {
                     Value::Null
                 }

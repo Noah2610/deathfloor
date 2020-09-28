@@ -11,5 +11,9 @@ pub enum EntityAction {
     /// Pop off the last entity config stack,
     /// drops back to the previous variant.
     PopVariant,
+    /// Re-applies the active entity config's components.
+    ApplyComponents,
+    /// Deletes the entity.
+    /// Does not take `Lifecycle` or `Health` into consideration.
     DeleteEntity,
 }

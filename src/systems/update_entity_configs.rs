@@ -51,6 +51,13 @@ impl<'a> System<'a> for UpdateEntityConfigsSystem {
                         &mut events_register_store,
                         &mut components_stores,
                     ),
+                    EntityConfigRegisterAction::ApplyComponents => {
+                        apply_components(
+                            entity,
+                            entity_config_register,
+                            &mut components_stores,
+                        )
+                    }
                 }
             }
         }
@@ -82,7 +89,8 @@ fn switch_variant(
     if let Some(variant) =
         get_variant_from_register(entity_config_register, target_variant)
     {
-        entity_config_register.switch_config(variant.clone());
+        entity_config_register
+            .switch_config(target_variant.to_string(), variant.clone());
         let mut entity_config = entity_config_register.root_config.clone();
         // NOTE: Ignore root entity config components.
         //       These components should already have been inserted.
@@ -110,7 +118,8 @@ fn push_variant(
     if let Some(variant) =
         get_variant_from_register(entity_config_register, target_variant)
     {
-        entity_config_register.push_config(variant.clone());
+        entity_config_register
+            .push_config(target_variant.to_string(), variant.clone());
         let mut entity_config = entity_config_register.root_config.clone();
         entity_config.components = None;
         entity_config.merge(variant);
@@ -138,7 +147,7 @@ fn pop_variant(
              stack,\n    but the stack is empty."
         );
     }
-    if let Some(variant_config) =
+    if let Some((_, variant_config)) =
         entity_config_register.config_stack.last().cloned()
     {
         entity_config.merge(variant_config);
@@ -209,6 +218,23 @@ fn apply_entity_config(
 
     // COMPONENTS
     if let Some(components) = entity_config.components {
+        insert_components(entity, components, components_stores).unwrap();
+    }
+}
+
+fn apply_components(
+    entity: Entity,
+    entity_config_register: &mut EntityConfigRegister,
+    components_stores: &mut EntityComponentsStorages,
+) {
+    let components = entity_config_register
+        .config_stack
+        .last()
+        .map(|(_, config)| config)
+        .unwrap_or(&entity_config_register.root_config)
+        .components
+        .clone();
+    if let Some(components) = components {
         insert_components(entity, components, components_stores).unwrap();
     }
 }

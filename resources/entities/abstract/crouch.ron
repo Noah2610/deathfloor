@@ -1,0 +1,63 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "Crouch": (
+            events: {
+                OnKeyDown(ToggleCrouch): If((
+                    if: And([
+                        Not(Equal(
+                            Variant,
+                            "Crouch",
+                        )),
+                        Equal(
+                            Collision(And([IsTag("Solid"), IsSide(Bottom)])),
+                            true,
+                        ),
+                    ]),
+                    then: EntityAction(PushVariant("Crouch")),
+                )),
+            },
+
+            variants: {
+                "Crouch": (
+                    components: (
+                        hitbox: Custom([
+                            (
+                                top:    0.0,
+                                bottom: -16.0,
+                                left:   -6.0,
+                                right:  6.0,
+                            ),
+                        ]),
+                        max_movement_velocity: (
+                            x: 50.0,
+                            y: 400.0,
+                        ),
+                        movement_acceleration: (
+                            x: 800.0,
+                            y: 1500.0, // DEBUG
+                        ),
+                        animations: {
+                            Idle: Cycle([
+                                (0, 1000),
+                            ]),
+                            Walk: Cycle([
+                                (0, 1000),
+                            ]),
+                            Custom("Shoot"): Once([
+                                (1, 15),
+                            ]),
+                        },
+                    ),
+                    events: {
+                        OnKeyDown(ToggleCrouch): EntityAction(PopVariant),
+                        OnShoot: EntityAction(PopVariant),
+                        OnJump: EntityAction(PopVariant),
+                        OnCollision(And([IsTag("Enemy"), IsState(Enter)])):
+                            EntityAction(PopVariant),
+                    },
+                ),
+            },
+        ),
+    },
+)

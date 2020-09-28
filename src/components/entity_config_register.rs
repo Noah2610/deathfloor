@@ -1,18 +1,21 @@
 use super::component_prelude::*;
 use crate::settings::prelude::EntityConfig;
 
+type VariantName = String;
+
 #[derive(Clone, Deserialize)]
 pub enum EntityConfigRegisterAction {
     SwitchVariant(String),
     PushVariant(String),
     PopVariant,
+    ApplyComponents,
 }
 
 #[derive(Component)]
 #[storage(DenseVecStorage)]
 pub struct EntityConfigRegister {
     pub root_config:  EntityConfig,
-    pub config_stack: Vec<EntityConfig>,
+    pub config_stack: Vec<(VariantName, EntityConfig)>,
     actions:          Vec<EntityConfigRegisterAction>,
 }
 
@@ -32,20 +35,32 @@ impl EntityConfigRegister {
             .and_then(|variants| variants.get(variant_name).cloned())
     }
 
-    pub fn switch_config(&mut self, new_config: EntityConfig) {
+    pub fn switch_config(
+        &mut self,
+        variant_name: VariantName,
+        new_config: EntityConfig,
+    ) {
         if let Some(last) = self.config_stack.last_mut() {
-            *last = new_config;
+            *last = (variant_name, new_config);
         } else {
-            self.config_stack.push(new_config);
+            self.config_stack.push((variant_name, new_config));
         }
     }
 
-    pub fn push_config(&mut self, new_config: EntityConfig) {
-        self.config_stack.push(new_config);
+    pub fn push_config(
+        &mut self,
+        variant_name: VariantName,
+        new_config: EntityConfig,
+    ) {
+        self.config_stack.push((variant_name, new_config));
     }
 
-    pub fn pop_config(&mut self) -> Option<EntityConfig> {
+    pub fn pop_config(&mut self) -> Option<(VariantName, EntityConfig)> {
         self.config_stack.pop()
+    }
+
+    pub fn active_variant_name(&self) -> Option<&VariantName> {
+        self.config_stack.last().map(|(name, _)| name)
     }
 }
 

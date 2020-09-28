@@ -67,8 +67,10 @@ pub fn add_entity_config(
 
     // 3) APPLY VARIANT
     let variant_name = variant_prop.or(entity_config.default_variant.clone());
-    if let Some(merged_variant) = entity_config.merge_variant(variant_name) {
-        entity_config_register.push_config(merged_variant);
+    if let Some((merged_name, merged_variant)) =
+        entity_config.merge_variant(variant_name)
+    {
+        entity_config_register.push_config(merged_name, merged_variant);
     }
 
     // 4) INSERT EntityConfigRegister COMPONENT

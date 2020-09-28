@@ -121,21 +121,21 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             let query_matches = get_query_matches_from(collider);
             let is_touching_horz = query_matches.left || query_matches.right;
 
-            let is_jump_key_down = input_manager.is_down(PlayerJump);
-            let is_jump_key_pressed = input_manager.is_pressed(PlayerJump);
+            let is_jump_key_down = input_manager.is_down(Jump);
+            let is_jump_key_pressed = input_manager.is_pressed(Jump);
 
-            let mut jumped = false;
+            jumper.did_jump = false;
 
             // JUMP
             if is_jump_key_down && query_matches.bottom {
                 movable.add_action(MoveAction::Jump);
                 jumper.is_jumping = true;
-                jumped = true;
+                jumper.did_jump = true;
             }
 
             // WALL JUMP
             if wall_jumper_opt.is_some() {
-                if !jumped && is_jump_key_down && is_touching_horz {
+                if !jumper.did_jump && is_jump_key_down && is_touching_horz {
                     #[rustfmt::skip]
                     let x_mult = match (query_matches.left, query_matches.right) {
                         (true,  true)  => 0.0,            // touching both sides, so no x boost
@@ -145,19 +145,20 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
                     };
                     movable.add_action(MoveAction::WallJump { x_mult });
                     jumper.is_jumping = true;
-                    jumped = true;
+                    jumper.did_jump = true;
                 }
             }
 
             // WALL SLIDE
             if wall_slider_opt.is_some() {
-                if !jumped && is_touching_horz && !query_matches.bottom {
+                if !jumper.did_jump && is_touching_horz && !query_matches.bottom
+                {
                     movable.add_action(MoveAction::WallSlide);
                 }
             }
 
             // KILL JUMP
-            if jumper.is_jumping && input_manager.is_up(PlayerJump) {
+            if jumper.is_jumping && input_manager.is_up(Jump) {
                 movable.add_action(MoveAction::KillJump);
                 jumper.is_jumping = false;
             }
