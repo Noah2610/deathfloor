@@ -138,11 +138,11 @@
                             (1, 15),
                         ]),
                         Custom("Jump"): Once([
-                            (4, 250),
+                            (12, 250),
                         ]),
                         Custom("InAir"): Once([
-                            (9, 250),
-                            (10, 250),
+                            (12, 250),
+                            (12, 250),
                         ]),
                     },
                     /// Player takes damage against damage-dealing entities (DealsDamage).
