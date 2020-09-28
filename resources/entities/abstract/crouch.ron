@@ -52,9 +52,8 @@
                         },
                     ),
                     events: {
-                        OnKeyDown(ToggleCrouch): Group([
-                            EntityAction(PopVariant),
-                        ]),
+                        OnKeyDown(ToggleCrouch): EntityAction(PopVariant),
+                        OnShoot: EntityAction(PopVariant),
                     },
                 ),
             },

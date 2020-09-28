@@ -9,3 +9,4 @@ pub mod on_collision;
 pub mod on_interact;
 pub mod on_key;
 pub mod on_ledge_detect;
+pub mod on_shoot;

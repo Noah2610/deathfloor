@@ -68,6 +68,11 @@ impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventsActionsBundle<'c> {
             "handle_event_on_key_system",
             self.deps,
         );
+        builder.add(
+            events::on_shoot::HandleEventOnShoot::default(),
+            "handle_event_on_shoot_system",
+            self.deps,
+        );
 
         // TRIGGER ACTIONS FROM ACTION TYPES
         builder.add(
@@ -83,6 +88,7 @@ impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventsActionsBundle<'c> {
                 "handle_event_on_animation_end_system",
                 "handle_event_on_interact_system",
                 "handle_event_on_key_system",
+                "handle_event_on_shoot_system",
             ]]
             .concat(),
         );

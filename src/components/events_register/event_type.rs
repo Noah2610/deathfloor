@@ -58,6 +58,10 @@ pub enum EventType {
     OnKeyDown(IngameActionBinding),
     OnKeyUp(IngameActionBinding),
     OnKeyPressed(IngameActionBinding),
+
+    /// Triggers when this entity _shoots_.
+    /// An entity can only shoot with the `Shooter` component.
+    OnShoot,
 }
 
 impl From<EventTypeDeser> for EventType {
@@ -81,6 +85,7 @@ impl From<EventTypeDeser> for EventType {
             Deser::OnKeyDown(key) => OnKeyDown(key),
             Deser::OnKeyUp(key) => OnKeyUp(key),
             Deser::OnKeyPressed(key) => OnKeyPressed(key),
+            Deser::OnShoot => OnShoot,
         }
     }
 }
@@ -106,4 +111,5 @@ pub enum EventTypeDeser {
     OnKeyDown(IngameActionBinding),
     OnKeyUp(IngameActionBinding),
     OnKeyPressed(IngameActionBinding),
+    OnShoot,
 }
