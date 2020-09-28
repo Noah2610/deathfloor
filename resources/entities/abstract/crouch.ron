@@ -54,6 +54,9 @@
                     events: {
                         OnKeyDown(ToggleCrouch): EntityAction(PopVariant),
                         OnShoot: EntityAction(PopVariant),
+                        OnJump: EntityAction(PopVariant),
+                        OnCollision(And([IsTag("Enemy"), IsState(Enter)])):
+                            EntityAction(PopVariant),
                     },
                 ),
             },
