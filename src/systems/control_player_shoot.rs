@@ -45,7 +45,7 @@ impl<'a> System<'a> for ControlPlayerShootSystem {
             .join()
         {
             shooter.cooldown_timer.update().unwrap();
-            let should_shoot = input_manager.is_pressed(PlayerShoot)
+            let should_shoot = input_manager.is_pressed(Shoot)
                 && (shooter.cooldown_timer.state.is_finished()
                     || shooter.cooldown_timer.state.is_stopped());
             let facing = facing_opt

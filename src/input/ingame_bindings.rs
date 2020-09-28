@@ -9,8 +9,8 @@ pub struct IngameBindings;
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub enum IngameAxisBinding {
-    PlayerX,
-    PlayerY,
+    MoveX,
+    MoveY,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
@@ -20,8 +20,8 @@ pub enum IngameActionBinding {
     MoveLeft,
     MoveRight,
 
-    PlayerJump,
-    PlayerShoot,
+    Jump,
+    Shoot,
 
     TogglePause,
 
@@ -53,7 +53,7 @@ where
     A: Into<Axis>,
 {
     fn from(axis: A) -> Self {
-        (IngameAxisBinding::PlayerX, IngameAxisBinding::PlayerY)
+        (IngameAxisBinding::MoveX, IngameAxisBinding::MoveY)
             .by_axis(&axis.into())
     }
 }

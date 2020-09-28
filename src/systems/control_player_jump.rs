@@ -121,8 +121,8 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             let query_matches = get_query_matches_from(collider);
             let is_touching_horz = query_matches.left || query_matches.right;
 
-            let is_jump_key_down = input_manager.is_down(PlayerJump);
-            let is_jump_key_pressed = input_manager.is_pressed(PlayerJump);
+            let is_jump_key_down = input_manager.is_down(Jump);
+            let is_jump_key_pressed = input_manager.is_pressed(Jump);
 
             let mut jumped = false;
 
@@ -157,7 +157,7 @@ impl<'a> System<'a> for ControlPlayerJumpSystem {
             }
 
             // KILL JUMP
-            if jumper.is_jumping && input_manager.is_up(PlayerJump) {
+            if jumper.is_jumping && input_manager.is_up(Jump) {
                 movable.add_action(MoveAction::KillJump);
                 jumper.is_jumping = false;
             }

@@ -23,7 +23,7 @@ impl<'a> System<'a> for ControlPlayerKillVelocitySystem {
         ): Self::SystemData,
     ) {
         let is_not_moving = input_manager
-            .axis_value(IngameAxisBinding::PlayerX)
+            .axis_value(IngameAxisBinding::MoveX)
             .map(|x| x == 0.0)
             .unwrap_or(false);
 
