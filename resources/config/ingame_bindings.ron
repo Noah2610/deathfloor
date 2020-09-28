@@ -13,9 +13,11 @@
         Jump:  [ [Key(Space)], [Key(K)], ],
         Shoot: [ [Key(J)], ],
 
+        ToggleCrouch: [ [Key(C)], ],
+
         TogglePause: [ [Key(P)], ],
 
-        Interact:    [ [Key(E)], ],
+        Interact: [ [Key(E)], ],
 
         // DEBUG
         ReloadLevel: [ [Key(R)], ],

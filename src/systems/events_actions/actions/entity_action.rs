@@ -43,6 +43,10 @@ impl<'a> System<'a> for HandleActionEntityAction {
                     }
                     action::EntityAction::PopVariant => config_register
                         .add_action(EntityConfigRegisterAction::PopVariant),
+                    action::EntityAction::ApplyComponents => config_register
+                        .add_action(
+                            EntityConfigRegisterAction::ApplyComponents,
+                        ),
                     action::EntityAction::DeleteEntity => {
                         entities.delete(entity).expect(
                             "Couldn't delete entity via \

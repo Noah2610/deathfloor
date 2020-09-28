@@ -112,6 +112,9 @@ pub enum ConditionExpressionValueGetter {
     HasFullHealth,
     /// Returns a string for the facing direction, "Left" or "Right".
     Facing,
+    /// Returns a string, for the currently active variant name, if any.
+    /// Returns null if no variant is active (only the root entity config).
+    Variant,
 }
 
 impl ConditionExpressionValueGetter {
@@ -161,6 +164,18 @@ impl ConditionExpressionValueGetter {
             Self::Facing => {
                 if let Some(facing) = storages.facing.get(entity) {
                     Value::Str(facing.to_string())
+                } else {
+                    Value::Null
+                }
+            }
+
+            Self::Variant => {
+                if let Some(variant_name) = storages
+                    .entity_config_register
+                    .get(entity)
+                    .and_then(|register| register.active_variant_name())
+                {
+                    Value::Str(variant_name.to_string())
                 } else {
                     Value::Null
                 }

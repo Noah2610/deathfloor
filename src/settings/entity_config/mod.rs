@@ -81,7 +81,7 @@ impl EntityConfig {
     pub fn merge_variant(
         &mut self,
         variant_opt: Option<String>,
-    ) -> Option<EntityConfig> {
+    ) -> Option<(String, EntityConfig)> {
         let variant_name = variant_opt.or(self.default_variant.clone());
         let mut merged_variant = None;
 
@@ -92,7 +92,7 @@ impl EntityConfig {
                     .as_ref()
                     .and_then(|variants| variants.get(&variant_name).cloned())
             } {
-                merged_variant = Some(variant.clone());
+                merged_variant = Some((variant_name, variant.clone()));
                 self.merge(variant);
             }
         }

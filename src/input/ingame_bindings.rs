@@ -23,6 +23,8 @@ pub enum IngameActionBinding {
     Jump,
     Shoot,
 
+    ToggleCrouch,
+
     TogglePause,
 
     Interact,
