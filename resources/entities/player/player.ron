@@ -137,6 +137,13 @@
                         Custom("Shoot"): Once([
                             (1, 15),
                         ]),
+                        Custom("Jump"): Once([
+                            (4, 250),
+                        ]),
+                        Custom("InAir"): Once([
+                            (9, 250),
+                            (10, 250),
+                        ]),
                     },
                     /// Player takes damage against damage-dealing entities (DealsDamage).
                     takes_damage: (),
@@ -146,6 +153,25 @@
                 ),
 
                 events: {
+                    // ---------------
+                    // JUMP ANIMATIONS
+                    // ---------------
+
+                    OnJump: AnimationAction(Push(Custom("Jump"))),
+                    OnAnimationEnd(Custom("Jump")): AnimationAction(Push(Custom("InAir"))),
+                    OnAnimationEnd(Custom("InAir")): If((
+                        if: Equal( // if not standing on solid ground
+                            Collision(And([IsTag("Solid"), IsSide(Bottom)])),
+                            false,
+                        ),
+                        then: AnimationAction(Push(Custom("InAir"))),
+                    )),
+                    OnCollision(And([IsTag("Solid"), IsState(Enter), IsSide(Bottom)])):
+                        Group([
+                            AnimationAction(Pop),
+                            AnimationAction(Play(Idle)),
+                        ]),
+
                     // ---------------
                     // ENEMY KNOCKBACK
                     // ---------------
