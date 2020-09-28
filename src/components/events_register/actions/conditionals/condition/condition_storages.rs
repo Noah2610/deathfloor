@@ -1,3 +1,4 @@
+use crate::animation_key::AnimationKey;
 use crate::components::prelude::*;
 use deathframe::amethyst::ecs::shred::ResourceId;
 use deathframe::amethyst::ecs::{Entities, ReadStorage, SystemData, World};
@@ -12,4 +13,5 @@ pub struct ConditionStorages<'a> {
     pub facing:                 ReadStorage<'a, Facing>,
     pub entity_config_register: ReadStorage<'a, EntityConfigRegister>,
     pub collider:               ReadStorage<'a, Collider<CollisionTag>>,
+    pub animations: ReadStorage<'a, AnimationsContainer<AnimationKey>>,
 }

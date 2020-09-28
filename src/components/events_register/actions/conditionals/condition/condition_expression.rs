@@ -121,6 +121,8 @@ pub enum ConditionExpressionValueGetter {
     /// with the given collision query.
     /// Returns null if the entity has no `Collider`.
     Collision(QueryExpression<CollisionTag>),
+    /// Returns a string name for the currently playing animation.
+    Animation,
 }
 
 impl ConditionExpressionValueGetter {
@@ -196,6 +198,18 @@ impl ConditionExpressionValueGetter {
                             .run()
                             .is_some(),
                     )
+                } else {
+                    Value::Null
+                }
+            }
+
+            Self::Animation => {
+                if let Some(animation_name) = storages
+                    .animations
+                    .get(entity)
+                    .and_then(|animations| animations.current())
+                {
+                    Value::Str(animation_name.to_string())
                 } else {
                     Value::Null
                 }
