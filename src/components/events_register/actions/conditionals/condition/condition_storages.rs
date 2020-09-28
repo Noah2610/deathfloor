@@ -11,4 +11,5 @@ pub struct ConditionStorages<'a> {
     pub player:                 ReadStorage<'a, Player>,
     pub facing:                 ReadStorage<'a, Facing>,
     pub entity_config_register: ReadStorage<'a, EntityConfigRegister>,
+    pub collider:               ReadStorage<'a, Collider<CollisionTag>>,
 }
