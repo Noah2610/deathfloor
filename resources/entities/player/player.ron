@@ -166,11 +166,11 @@
                         ),
                         then: AnimationAction(Push(Custom("InAir"))),
                     )),
-                    OnCollision(And([IsTag("Solid"), IsState(Enter), IsSide(Bottom)])):
-                        Group([
-                            AnimationAction(Pop),
-                            AnimationAction(Play(Idle)),
-                        ]),
+                    // OnCollision(And([IsTag("Solid"), IsState(Enter), IsSide(Bottom)])):
+                    //     Group([
+                    //         AnimationAction(Pop),
+                    //         AnimationAction(Play(Idle)),
+                    //     ]),
 
                     // ---------------
                     // ENEMY KNOCKBACK
