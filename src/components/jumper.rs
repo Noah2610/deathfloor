@@ -11,6 +11,8 @@ pub struct Jumper {
     #[serde(skip)]
     pub is_jumping:       bool,
     #[serde(skip)]
+    pub did_jump:         bool,
+    #[serde(skip)]
     pub original_gravity: Option<Gravity>,
 }
 

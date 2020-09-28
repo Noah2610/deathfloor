@@ -62,6 +62,16 @@ pub enum EventType {
     /// Triggers when this entity _shoots_.
     /// An entity can only shoot with the `Shooter` component.
     OnShoot,
+
+    /// Triggers when this entity _jumps_.
+    /// An entity can only jump with the `Jumper` component.
+    OnJump,
+
+    /// Triggers every frame where this entity is _jumping_.
+    /// For the player, this basically means while they are
+    /// holding down the jump button.
+    /// Requires `Jumper` component.
+    WhileJumping,
 }
 
 impl From<EventTypeDeser> for EventType {
@@ -86,6 +96,8 @@ impl From<EventTypeDeser> for EventType {
             Deser::OnKeyUp(key) => OnKeyUp(key),
             Deser::OnKeyPressed(key) => OnKeyPressed(key),
             Deser::OnShoot => OnShoot,
+            Deser::OnJump => OnJump,
+            Deser::WhileJumping => WhileJumping,
         }
     }
 }
@@ -112,4 +124,6 @@ pub enum EventTypeDeser {
     OnKeyUp(IngameActionBinding),
     OnKeyPressed(IngameActionBinding),
     OnShoot,
+    OnJump,
+    WhileJumping,
 }
