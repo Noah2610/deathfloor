@@ -12,33 +12,6 @@
                 w: 16.0,
                 h: 20.0,
             ),
-            /// The normal gravity.
-            gravity: (
-                y: -900.0,
-            ),
-            /// Friction factor applied to velocity every frame.
-            base_friction: (
-                x: 800.0,
-            ),
-            /// Soft-max for movement velocity.
-            max_movement_velocity: (
-                x: 110.0,
-                y: 410.0,
-            ),
-            /// Movement acceleration.
-            movement_acceleration: (
-                x: 950.0,
-                y: 1500.0, // DEBUG
-            ),
-            /// The player's hitbox.
-            hitbox: Custom([
-                (
-                    top:    6.0,
-                    bottom: -10.0,
-                    left:   -6.0,
-                    right:  6.0,
-                ),
-            ]),
             /// Player jump settings.
             jumper: (
                 /// The gravity applied only when jumping (holding down the jump button).
@@ -88,31 +61,6 @@
                 /// Delay after shooting, before the player can shoot again.
                 cooldown_ms: 450,
             ),
-            /// Player animations config.
-            animations: {
-                Idle: Cycle([
-                    (13, 500),
-                    (14, 500),
-                ]),
-                Walk: Cycle([
-                    (1, 100),
-                    (2, 100),
-                    (3, 100),
-                    (4, 100),
-                    (5, 100),
-                    (6, 100),
-                    (7, 100),
-                    (8, 100),
-                    (9, 100),
-                    (10, 100),
-                    (12, 100),
-                ]),
-                Custom("Shoot"): Once([
-                    (23, 15),
-                    (24, 15),
-                    (25, 15),
-                ]),
-            },
             /// Starting health.
             health: (
                 health: 30,
@@ -125,14 +73,11 @@
                 padding:        4.0,
                 border_padding: 0.5,
             ),
-            /// Player takes damage against damage-dealing entities (DealsDamage).
-            takes_damage: (),
-            /// Pushes entities that this solid tag collides with,
-            /// that have the `SolidPushable` component.
-            solid_pusher: (),
         ),
 
         events: {
+            OnSpawn: EntityAction(SwitchVariant("Control")),
+
             // ---------
             // FUNCTIONS
             // ---------
@@ -140,62 +85,125 @@
             // Gain health on health consumable pickup.
             // Called from custom entity "ConsumableHealth".
             Function("PickupHealth"): HealthAction(Gain(10)),
-
-            // ---------------
-            // ENEMY KNOCKBACK
-            // ---------------
-
-            // Insert default friction when coming from the Knockback variant.
-            Init: InsertComponents((
-                base_friction: (x: 800.0),
-            )),
-
-            OnCollision(And([
-                IsTag("Enemy"),
-                Not(IsTag("NoKnockback")),
-                IsState(Enter),
-                Or([
-                    IsSide(Left),
-                    IsSide(InnerSide( x: Left )),
-                ]),
-            ])): Group([
-                    MoveAction(AddVelocity(
-                    x: 500.0,
-                    y: 250.0,
-                )),
-                EntityAction(PushVariant("Knockback")),
-            ]),
-
-            OnCollision(And([
-                IsTag("Enemy"),
-                Not(IsTag("NoKnockback")),
-                IsState(Enter),
-                Or([
-                    IsSide(Right),
-                    IsSide(InnerSide( x: Right )),
-                ]),
-            ])): Group([
-                MoveAction(AddVelocity(
-                    x: -500.0,
-                    y: 250.0,
-                )),
-                EntityAction(PushVariant("Knockback")),
-            ]),
-
-            OnCollision(And([
-                IsTag("Enemy"),
-                Not(IsTag("NoKnockback")),
-                IsState(Enter),
-                Or([
-                    IsSide(Bottom),
-                    IsSide(InnerSide( y: Bottom )),
-                ]),
-            ])): MoveAction(AddVelocity(
-                y: 250.0,
-            )),
         },
 
         variants: {
+            /// When the user is in control of the player.
+            /// This is used to reset base gameplay components, while not
+            /// resetting components such as `Health`, which should only
+            /// be set once to avoid regaining full health on variant switch.
+            "Control": (
+                components: (
+                    /// The normal gravity.
+                    gravity: (
+                        y: -900.0,
+                    ),
+                    /// Friction factor applied to velocity every frame.
+                    base_friction: (
+                        x: 800.0,
+                    ),
+                    /// Soft-max for movement velocity.
+                    max_movement_velocity: (
+                        x: 110.0,
+                        y: 410.0,
+                    ),
+                    /// Movement acceleration.
+                    movement_acceleration: (
+                        x: 950.0,
+                        y: 1500.0, // DEBUG
+                    ),
+                    /// The player's hitbox.
+                    hitbox: Custom([
+                        (
+                            top:    6.0,
+                            bottom: -10.0,
+                            left:   -6.0,
+                            right:  6.0,
+                        ),
+                    ]),
+                    /// Player animations config.
+                    animations: {
+                        Idle: Cycle([
+                            (13, 500),
+                            (14, 500),
+                        ]),
+                        Walk: Cycle([
+                            (1, 100),
+                            (2, 100),
+                            (3, 100),
+                            (4, 100),
+                            (5, 100),
+                            (6, 100),
+                            (7, 100),
+                            (8, 100),
+                            (9, 100),
+                            (10, 100),
+                            (12, 100),
+                        ]),
+                        Custom("Shoot"): Once([
+                            (23, 15),
+                            (24, 15),
+                            (25, 15),
+                        ]),
+                    },
+                    /// Player takes damage against damage-dealing entities (DealsDamage).
+                    takes_damage: (),
+                    /// Pushes entities that this solid tag collides with,
+                    /// that have the `SolidPushable` component.
+                    solid_pusher: (),
+                ),
+
+                events: {
+                    // ---------------
+                    // ENEMY KNOCKBACK
+                    // ---------------
+
+                    OnCollision(And([
+                        IsTag("Enemy"),
+                        Not(IsTag("NoKnockback")),
+                        IsState(Enter),
+                        Or([
+                            IsSide(Left),
+                            IsSide(InnerSide( x: Left )),
+                        ]),
+                    ])): Group([
+                            MoveAction(AddVelocity(
+                            x: 500.0,
+                            y: 250.0,
+                        )),
+                        EntityAction(PushVariant("Knockback")),
+                    ]),
+
+                    OnCollision(And([
+                        IsTag("Enemy"),
+                        Not(IsTag("NoKnockback")),
+                        IsState(Enter),
+                        Or([
+                            IsSide(Right),
+                            IsSide(InnerSide( x: Right )),
+                        ]),
+                    ])): Group([
+                        MoveAction(AddVelocity(
+                            x: -500.0,
+                            y: 250.0,
+                        )),
+                        EntityAction(PushVariant("Knockback")),
+                    ]),
+
+                    OnCollision(And([
+                        IsTag("Enemy"),
+                        Not(IsTag("NoKnockback")),
+                        IsState(Enter),
+                        Or([
+                            IsSide(Bottom),
+                            IsSide(InnerSide( y: Bottom )),
+                        ]),
+                    ])): MoveAction(AddVelocity(
+                        y: 250.0,
+                    )),
+                },
+            ),
+
             "Knockback": (
                 components: (
                     // Disable friction by setting all friction fields to None
