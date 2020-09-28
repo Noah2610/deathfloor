@@ -4,10 +4,16 @@
         "Crouch": (
             events: {
                 OnKeyDown(ToggleCrouch): If((
-                    if: Not(Equal(
-                        Variant,
-                        "Crouch",
-                    )),
+                    if: And([
+                        Not(Equal(
+                            Variant,
+                            "Crouch",
+                        )),
+                        Equal(
+                            Collision(And([IsTag("Solid"), IsSide(Bottom)])),
+                            true,
+                        ),
+                    ]),
                     then: EntityAction(PushVariant("Crouch")),
                 )),
             },
@@ -48,7 +54,6 @@
                     events: {
                         OnKeyDown(ToggleCrouch): Group([
                             EntityAction(PopVariant),
-                            EntityAction(ApplyComponents),
                         ]),
                     },
                 ),
