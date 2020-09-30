@@ -83,7 +83,7 @@
         ): <span class="self">Self</span>::<span class="ident">SystemData</span>,
     ) {
         <span class="kw">let</span> <span class="ident">is_not_moving</span> <span class="op">=</span> <span class="ident">input_manager</span>
-            .<span class="ident">axis_value</span>(<span class="ident">IngameAxisBinding</span>::<span class="ident">PlayerX</span>)
+            .<span class="ident">axis_value</span>(<span class="ident">IngameAxisBinding</span>::<span class="ident">MoveX</span>)
             .<span class="ident">map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">x</span> <span class="op">=</span><span class="op">=</span> <span class="number">0.0</span>)
             .<span class="ident">unwrap_or</span>(<span class="bool-val">false</span>);
 

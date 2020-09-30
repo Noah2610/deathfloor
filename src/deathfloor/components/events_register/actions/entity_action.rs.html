@@ -13,6 +13,10 @@
 <span id="13">13</span>
 <span id="14">14</span>
 <span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
+<span id="19">19</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">/// `EntityAction`s are used for manipulating `EntityConfig` stuff.</span>
 <span class="doccomment">/// For example, to switch used _variant_, use the `SwitchVariant` action.</span>
@@ -27,6 +31,10 @@
     <span class="doccomment">/// Pop off the last entity config stack,</span>
     <span class="doccomment">/// drops back to the previous variant.</span>
     <span class="ident">PopVariant</span>,
+    <span class="doccomment">/// Re-applies the active entity config&#39;s components.</span>
+    <span class="ident">ApplyComponents</span>,
+    <span class="doccomment">/// Deletes the entity.</span>
+    <span class="doccomment">/// Does not take `Lifecycle` or `Health` into consideration.</span>
     <span class="ident">DeleteEntity</span>,
 }
 </pre></div>

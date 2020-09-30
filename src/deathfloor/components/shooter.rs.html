@@ -25,6 +25,8 @@
 <span id="25">25</span>
 <span id="26">26</span>
 <span id="27">27</span>
+<span id="28">28</span>
+<span id="29">29</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">component_prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">climer</span>::<span class="ident">Timer</span>;
@@ -35,6 +37,7 @@
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">from</span> <span class="op">=</span> <span class="string">&quot;ShooterDeser&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Shooter</span> {
     <span class="kw">pub</span> <span class="ident">cooldown_timer</span>: <span class="ident">Timer</span>,
+    <span class="kw">pub</span> <span class="ident">did_shoot</span>:      <span class="ident">bool</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ShooterDeser</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Shooter</span> {
@@ -44,6 +47,7 @@
                 <span class="prelude-val">Some</span>(<span class="ident">Duration</span>::<span class="ident">from_millis</span>(<span class="ident">data</span>.<span class="ident">cooldown_ms</span>).<span class="ident">into</span>()),
                 <span class="prelude-val">None</span>,
             ),
+            <span class="ident">did_shoot</span>:      <span class="bool-val">false</span>,
         }
     }
 }

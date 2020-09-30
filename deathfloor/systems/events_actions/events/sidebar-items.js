@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["delay",""],["init",""],["interval",""],["lifecycle",""],["on_animation_end",""],["on_collision",""],["on_interact",""],["on_key",""],["on_ledge_detect",""]]});
+initSidebarItems({"mod":[["delay",""],["init",""],["interval",""],["jump_events",""],["lifecycle",""],["on_animation_end",""],["on_collision",""],["on_interact",""],["on_key",""],["on_ledge_detect",""],["on_shoot",""]]});

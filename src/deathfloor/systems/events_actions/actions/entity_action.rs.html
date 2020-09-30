@@ -54,6 +54,10 @@
 <span id="54">54</span>
 <span id="55">55</span>
 <span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">system_prelude</span>::<span class="kw-2">*</span>;
 
@@ -100,6 +104,10 @@
                     }
                     <span class="ident">action</span>::<span class="ident">EntityAction</span>::<span class="ident">PopVariant</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">config_register</span>
                         .<span class="ident">add_action</span>(<span class="ident">EntityConfigRegisterAction</span>::<span class="ident">PopVariant</span>),
+                    <span class="ident">action</span>::<span class="ident">EntityAction</span>::<span class="ident">ApplyComponents</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">config_register</span>
+                        .<span class="ident">add_action</span>(
+                            <span class="ident">EntityConfigRegisterAction</span>::<span class="ident">ApplyComponents</span>,
+                        ),
                     <span class="ident">action</span>::<span class="ident">EntityAction</span>::<span class="ident">DeleteEntity</span> <span class="op">=</span><span class="op">&gt;</span> {
                         <span class="ident">entities</span>.<span class="ident">delete</span>(<span class="ident">entity</span>).<span class="ident">expect</span>(
                             <span class="string">&quot;Couldn&#39;t delete entity via \

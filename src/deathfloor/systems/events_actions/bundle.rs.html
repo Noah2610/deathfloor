@@ -183,6 +183,18 @@
 <span id="183">183</span>
 <span id="184">184</span>
 <span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">actions</span>;
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">events</span>;
@@ -254,6 +266,16 @@
             <span class="string">&quot;handle_event_on_key_system&quot;</span>,
             <span class="self">self</span>.<span class="ident">deps</span>,
         );
+        <span class="ident">builder</span>.<span class="ident">add</span>(
+            <span class="ident">events</span>::<span class="ident">on_shoot</span>::<span class="ident">HandleEventOnShoot</span>::<span class="ident">default</span>(),
+            <span class="string">&quot;handle_event_on_shoot_system&quot;</span>,
+            <span class="self">self</span>.<span class="ident">deps</span>,
+        );
+        <span class="ident">builder</span>.<span class="ident">add</span>(
+            <span class="ident">events</span>::<span class="ident">jump_events</span>::<span class="ident">HandleEventJumpEvents</span>::<span class="ident">default</span>(),
+            <span class="string">&quot;handle_event_jump_events_system&quot;</span>,
+            <span class="self">self</span>.<span class="ident">deps</span>,
+        );
 
         <span class="comment">// TRIGGER ACTIONS FROM ACTION TYPES</span>
         <span class="ident">builder</span>.<span class="ident">add</span>(
@@ -269,6 +291,8 @@
                 <span class="string">&quot;handle_event_on_animation_end_system&quot;</span>,
                 <span class="string">&quot;handle_event_on_interact_system&quot;</span>,
                 <span class="string">&quot;handle_event_on_key_system&quot;</span>,
+                <span class="string">&quot;handle_event_on_shoot_system&quot;</span>,
+                <span class="string">&quot;handle_event_jump_events_system&quot;</span>,
             ]]
             .<span class="ident">concat</span>(),
         );

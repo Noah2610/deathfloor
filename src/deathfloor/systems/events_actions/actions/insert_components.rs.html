@@ -28,8 +28,10 @@
 <span id="28">28</span>
 <span id="29">29</span>
 <span id="30">30</span>
+<span id="31">31</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">system_prelude</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">entity_config</span>::<span class="ident">prelude</span>::<span class="ident">EntityConfigComponentsStorages</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">HandleActionInsertComponents</span>;
@@ -38,7 +40,7 @@
     <span class="kw">type</span> <span class="ident">SystemData</span> <span class="op">=</span> (
         <span class="ident">Entities</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
         <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">ActionTrigger</span><span class="op">&lt;</span><span class="ident">action</span>::<span class="ident">InsertComponents</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-        <span class="ident">EntityComponentsStorages</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
+        <span class="ident">EntityConfigComponentsStorages</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
     );
 
     <span class="kw">fn</span> <span class="ident">run</span>(

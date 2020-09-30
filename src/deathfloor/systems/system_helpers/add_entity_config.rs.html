@@ -107,8 +107,17 @@
 <span id="107">107</span>
 <span id="108">108</span>
 <span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">system_prelude</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">entity_config</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 
 <span class="doccomment">/// Adds and applies an entity config to an entity.</span>
 <span class="doccomment">/// Applies components, events, etc. from the entity config.</span>
@@ -124,7 +133,7 @@
         <span class="kw-2">mut</span> <span class="ident">action_type_trigger_store</span>,
     ): (
         <span class="ident">ReadExpect</span><span class="op">&lt;</span><span class="ident">Settings</span><span class="op">&gt;</span>,
-        <span class="ident">EntityComponentsStorages</span>,
+        <span class="ident">EntityConfigComponentsStorages</span>,
         <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="ident">EntityConfigRegister</span><span class="op">&gt;</span>,
         <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="ident">EventsRegister</span><span class="op">&gt;</span>,
         <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="ident">ActionTypeTrigger</span><span class="op">&gt;</span>,
@@ -177,8 +186,10 @@
 
     <span class="comment">// 3) APPLY VARIANT</span>
     <span class="kw">let</span> <span class="ident">variant_name</span> <span class="op">=</span> <span class="ident">variant_prop</span>.<span class="ident">or</span>(<span class="ident">entity_config</span>.<span class="ident">default_variant</span>.<span class="ident">clone</span>());
-    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">merged_variant</span>) <span class="op">=</span> <span class="ident">entity_config</span>.<span class="ident">merge_variant</span>(<span class="ident">variant_name</span>) {
-        <span class="ident">entity_config_register</span>.<span class="ident">push_config</span>(<span class="ident">merged_variant</span>);
+    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">merged_name</span>, <span class="ident">merged_variant</span>)) <span class="op">=</span>
+        <span class="ident">entity_config</span>.<span class="ident">merge_variant</span>(<span class="ident">variant_name</span>)
+    {
+        <span class="ident">entity_config_register</span>.<span class="ident">push_config</span>(<span class="ident">merged_name</span>, <span class="ident">merged_variant</span>);
     }
 
     <span class="comment">// 4) INSERT EntityConfigRegister COMPONENT</span>
@@ -211,6 +222,11 @@
     }
 
     <span class="comment">// COMPONENTS</span>
+    <span class="comment">// Insert `Size` component first.</span>
+    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">size</span>) <span class="op">=</span> <span class="ident">entity_config</span>.<span class="ident">size</span> {
+        <span class="ident">components_storages</span>.<span class="ident">size</span>.<span class="ident">insert</span>(<span class="ident">entity</span>, <span class="ident">size</span>)<span class="question-mark">?</span>;
+    }
+    <span class="comment">// Insert all other components (`components` field).</span>
     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">components</span>) <span class="op">=</span> <span class="ident">entity_config</span>.<span class="ident">components</span> {
         <span class="ident">insert_components</span>(<span class="ident">entity</span>, <span class="ident">components</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">components_storages</span>)<span class="question-mark">?</span>;
     }

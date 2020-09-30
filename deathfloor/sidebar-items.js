@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["main",""]],"mod":[["animation_key",""],["collision_tag",""],["components",""],["dispatcher_id",""],["helpers",""],["init",""],["input",""],["map_loader",""],["resources",""],["settings",""],["states",""],["systems",""]]});
+initSidebarItems({"fn":[["main",""]],"mod":[["animation_key",""],["collision_tag",""],["components",""],["dispatcher_id",""],["entity_config",""],["helpers",""],["init",""],["input",""],["map_loader",""],["resources",""],["settings",""],["states",""],["systems",""]]});

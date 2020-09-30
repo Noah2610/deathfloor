@@ -84,6 +84,7 @@
 <span id="84">84</span>
 <span id="85">85</span>
 <span id="86">86</span>
+<span id="87">87</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">mod</span> <span class="ident">prelude</span> {
     <span class="kw">pub</span>(<span class="kw">in</span> <span class="kw">super</span>::<span class="kw">super</span>) <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">base_entity</span>;
@@ -102,6 +103,7 @@
     <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">deathframe</span>::<span class="ident">resources</span>::<span class="ident">SpriteSheetHandles</span>;
 }
 
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">entity_config</span>::<span class="ident">prelude</span>::<span class="ident">EntityConfig</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">systems</span>::<span class="ident">system_helpers</span>::<span class="ident">prelude</span>::<span class="ident">add_entity_config</span>;
 <span class="kw">use</span> <span class="ident">amethyst</span>::<span class="ident">ecs</span>::<span class="ident">SystemData</span>;
 <span class="kw">use</span> <span class="ident">deathframe</span>::<span class="ident">resources</span>::<span class="ident">SpriteSheetHandles</span>;

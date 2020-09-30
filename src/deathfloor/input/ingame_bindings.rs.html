@@ -69,8 +69,8 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">IngameAxisBinding</span> {
-    <span class="ident">PlayerX</span>,
-    <span class="ident">PlayerY</span>,
+    <span class="ident">MoveX</span>,
+    <span class="ident">MoveY</span>,
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>)]</span>
@@ -80,15 +80,15 @@
     <span class="ident">MoveLeft</span>,
     <span class="ident">MoveRight</span>,
 
-    <span class="ident">PlayerJump</span>,
-    <span class="ident">PlayerShoot</span>,
+    <span class="ident">Jump</span>,
+    <span class="ident">Shoot</span>,
+    <span class="ident">Interact</span>,
+    <span class="ident">ToggleCrouch</span>,
 
     <span class="ident">TogglePause</span>,
-
-    <span class="ident">Interact</span>,
-
-    <span class="comment">// DEBUG</span>
     <span class="ident">ReloadLevel</span>,
+
+    <span class="ident">Custom</span>(<span class="ident">String</span>),
 }
 
 <span class="kw">impl</span> <span class="ident">BindingTypes</span> <span class="kw">for</span> <span class="ident">IngameBindings</span> {
@@ -113,7 +113,7 @@
     <span class="ident">A</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Axis</span><span class="op">&gt;</span>,
 {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">axis</span>: <span class="ident">A</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        (<span class="ident">IngameAxisBinding</span>::<span class="ident">PlayerX</span>, <span class="ident">IngameAxisBinding</span>::<span class="ident">PlayerY</span>)
+        (<span class="ident">IngameAxisBinding</span>::<span class="ident">MoveX</span>, <span class="ident">IngameAxisBinding</span>::<span class="ident">MoveY</span>)
             .<span class="ident">by_axis</span>(<span class="kw-2">&amp;</span><span class="ident">axis</span>.<span class="ident">into</span>())
     }
 }

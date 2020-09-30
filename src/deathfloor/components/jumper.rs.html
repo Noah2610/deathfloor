@@ -32,6 +32,8 @@
 <span id="32">32</span>
 <span id="33">33</span>
 <span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">component_prelude</span>::<span class="kw-2">*</span>;
 
@@ -45,6 +47,8 @@
     <span class="kw">pub</span> <span class="ident">gravity</span>:          <span class="ident">Gravity</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>)]</span>
     <span class="kw">pub</span> <span class="ident">is_jumping</span>:       <span class="ident">bool</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">did_jump</span>:         <span class="ident">bool</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>)]</span>
     <span class="kw">pub</span> <span class="ident">original_gravity</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Gravity</span><span class="op">&gt;</span>,
 }

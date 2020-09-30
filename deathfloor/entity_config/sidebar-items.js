@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_EntityConfig",""]],"mod":[["components",""],["inheritance_chain",""],["prelude",""],["variants",""]],"struct":[["EntityConfig","Config for entities. All fields are optional and can be omitted."]]});

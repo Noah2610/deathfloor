@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["apply_entity_config",""],["get_variant_from_register",""],["pop_variant",""],["push_variant",""],["switch_variant",""]],"struct":[["UpdateEntityConfigsSystem",""]]});
+initSidebarItems({"fn":[["apply_components",""],["apply_entity_config",""],["get_variant_from_register",""],["pop_variant",""],["push_variant",""],["switch_variant",""]],"struct":[["UpdateEntityConfigsSystem",""]]});

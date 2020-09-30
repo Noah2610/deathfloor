@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_EntityConfigRegisterAction",""]],"enum":[["EntityConfigRegisterAction",""]],"struct":[["EntityConfigRegister",""]]});
+initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_EntityConfigRegisterAction",""]],"enum":[["EntityConfigRegisterAction",""]],"struct":[["EntityConfigRegister",""]],"type":[["VariantName",""]]});

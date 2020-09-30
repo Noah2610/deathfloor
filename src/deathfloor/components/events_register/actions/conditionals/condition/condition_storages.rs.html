@@ -11,19 +11,27 @@
 <span id="11">11</span>
 <span id="12">12</span>
 <span id="13">13</span>
+<span id="14">14</span>
+<span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
 </pre><div class="example-wrap"><pre class="rust ">
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">animation_key</span>::<span class="ident">AnimationKey</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">components</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">deathframe</span>::<span class="ident">amethyst</span>::<span class="ident">ecs</span>::<span class="ident">shred</span>::<span class="ident">ResourceId</span>;
 <span class="kw">use</span> <span class="ident">deathframe</span>::<span class="ident">amethyst</span>::<span class="ident">ecs</span>::{<span class="ident">Entities</span>, <span class="ident">ReadStorage</span>, <span class="ident">SystemData</span>, <span class="ident">World</span>};
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">SystemData</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ConditionStorages</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="kw">pub</span> <span class="ident">entities</span>:  <span class="ident">Entities</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span> <span class="ident">transform</span>: <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Transform</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span> <span class="ident">velocity</span>:  <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Velocity</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span> <span class="ident">health</span>:    <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Health</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span> <span class="ident">player</span>:    <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Player</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span> <span class="ident">facing</span>:    <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Facing</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">entities</span>:               <span class="ident">Entities</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">transform</span>:              <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Transform</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">velocity</span>:               <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Velocity</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">health</span>:                 <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Health</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">player</span>:                 <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Player</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">facing</span>:                 <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Facing</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">entity_config_register</span>: <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">EntityConfigRegister</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">collider</span>:               <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Collider</span><span class="op">&lt;</span><span class="ident">CollisionTag</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">animations</span>: <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">AnimationsContainer</span><span class="op">&lt;</span><span class="ident">AnimationKey</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../../../../../../";window.currentCrate = "deathfloor";</script><script src="../../../../../../../aliases.js"></script><script src="../../../../../../../main.js"></script><script src="../../../../../../../source-script.js"></script><script src="../../../../../../../source-files.js"></script><script defer src="../../../../../../../search-index.js"></script></body></html>
