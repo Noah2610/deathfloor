@@ -134,3 +134,73 @@ jobs:
         with:
           name: release-windows
           path: releases
+
+  build-macos-release:
+    name: Build MacOS Release
+    runs-on: macos-10.15
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache cargo registry
+        uses: actions/cache@v1
+        with:
+          path: ~/.cargo/registry
+          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-registry
+      - name: Cache cargo index
+        uses: actions/cache@v1
+        with:
+          path: ~/.cargo/git
+          key: ${{ runner.os }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-index
+      - name: Cache cargo build
+        uses: actions/cache@v1
+        with:
+          path: target
+          key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-build-target
+
+      # - name: Install Dependencies
+      #   run: |
+      #     sudo apt update
+      #     sudo apt install -y \
+      #       gcc \
+      #       pkg-config \
+      #       openssl \
+      #       libasound2-dev \
+      #       cmake \
+      #       build-essential \
+      #       python3 \
+      #       libfreetype6-dev \
+      #       libexpat1-dev \
+      #       libxcb-composite0-dev \
+      #       libssl-dev \
+      #       libx11-dev
+      #   shell: bash
+
+      - name: Install Rust Toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly-2020-02-06
+          profile: minimal
+          default: true
+          override: true
+
+      - name: Build Binary
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release
+
+      - name: Bundle Release
+        run: bin/bundle-release macos
+        shell: bash
+
+      - name: Upload Bundled Release
+        uses: actions/upload-artifact@v1
+        with:
+          name: release-macos
+          path: releases

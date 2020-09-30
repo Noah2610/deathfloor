@@ -17,7 +17,7 @@ specs-derive = "0.4.0"
 [dependencies.deathframe]
 version = "*"
 git = "https://github.com/Noah2610/deathframe"
-branch = "develop"
+branch = "debug/feature-texture-scaling"
 features = [
     "vulkan",
     "physics",
