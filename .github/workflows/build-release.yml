@@ -193,7 +193,7 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --release
+          args: --release --no-default-features --features metal
 
       - name: Bundle Release
         run: bin/bundle-release macos

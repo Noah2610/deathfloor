@@ -19,7 +19,6 @@ version = "*"
 git = "https://github.com/Noah2610/deathframe"
 branch = "debug/feature-texture-scaling"
 features = [
-    "vulkan",
     "physics",
     "animation",
     "audio",
@@ -39,9 +38,11 @@ version = "0.6.0"
 default-features = false
 
 [features]
-default = []
-debug = ["deathframe/debug"]
-dev   = []
+default = ["vulkan"]
+vulkan  = ["deathframe/vulkan"]
+metal   = ["deathframe/metal"]
+debug   = ["deathframe/debug"]
+dev     = []
 
 [profile.dev]
 opt-level        = 2
