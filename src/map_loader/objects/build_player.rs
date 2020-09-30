@@ -7,7 +7,11 @@ pub(super) fn build(
 ) -> amethyst::Result<Entity> {
     let player_settings = world.read_resource::<Settings>().player.clone();
 
-    let sprite_render = get_sprite_render(world, "spritesheets/player.png", 1)?;
+    let sprite_render = get_sprite_render(
+        world,
+        format!("spritesheets/{}", player_settings.spritesheet_filename),
+        1,
+    )?;
 
     let entity = base_object_entity(world, object)?
         .with(Player::default())

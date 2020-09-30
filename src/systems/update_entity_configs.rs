@@ -218,6 +218,12 @@ fn apply_entity_config(
     }
 
     // COMPONENTS
+    // Insert `Size` component first.
+    // TODO: why this no work?
+    if let Some(size) = entity_config.size {
+        components_stores.size.insert(entity, size).unwrap();
+    }
+    // Insert all other components.
     if let Some(components) = entity_config.components {
         insert_components(entity, components, components_stores).unwrap();
     }

@@ -9,6 +9,8 @@ pub mod prelude {
 #[derive(Clone, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct PlayerSettings {
+    #[serde(alias = "spritesheet")]
+    pub spritesheet_filename: String,
     #[serde(alias = "entity")]
-    pub entity_config: Option<EntityConfig>,
+    pub entity_config:        Option<EntityConfig>,
 }
