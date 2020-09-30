@@ -4,7 +4,7 @@
 (
     /// The player's entity config.
     entity: (
-        inherits: ["Crouch", "Musha"],
+        inherits: ["PlayerCrouch", "PlayerMusha"],
 
         components: (
             /// The player's in-game size.
