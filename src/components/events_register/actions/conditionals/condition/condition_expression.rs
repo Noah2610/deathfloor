@@ -106,21 +106,28 @@ impl cmp::PartialOrd for ConditionExpressionValue {
 pub enum ConditionExpressionValueGetter {
     /// Returns the entity's transform position on the given axis as a number.
     Position(Axis),
+
     /// Returns the entity's velocity on the given axis as a number.
     Velocity(Axis),
+
     /// Returns the entity's health as a number.
     Health,
+
     /// Returns a boolean depending on if the entity's health is at max.
     HasFullHealth,
+
     /// Returns a string for the facing direction, "Left" or "Right".
     Facing,
+
     /// Returns a string, for the currently active variant name, if any.
     /// Returns null if no variant is active (only the root entity config).
     Variant,
+
     /// Returns a boolean depending on if the there is a collision
     /// with the given collision query.
     /// Returns null if the entity has no `Collider`.
     Collision(QueryExpression<CollisionTag>),
+
     /// Returns a string name for the currently playing animation.
     Animation,
 }

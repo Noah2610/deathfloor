@@ -22,15 +22,13 @@ pub enum IngameActionBinding {
 
     Jump,
     Shoot,
-
+    Interact,
     ToggleCrouch,
 
     TogglePause,
-
-    Interact,
-
-    // DEBUG
     ReloadLevel,
+
+    Custom(String),
 }
 
 impl BindingTypes for IngameBindings {
