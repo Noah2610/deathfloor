@@ -1,4 +1,5 @@
 use super::system_prelude::*;
+use crate::entity_config::prelude::*;
 
 #[derive(Default)]
 pub struct UpdateEntityConfigsSystem;
@@ -8,7 +9,7 @@ impl<'a> System<'a> for UpdateEntityConfigsSystem {
         Entities<'a>,
         WriteStorage<'a, EntityConfigRegister>,
         WriteStorage<'a, EventsRegister>,
-        EntityComponentsStorages<'a>,
+        EntityConfigComponentsStorages<'a>,
     );
 
     fn run(
@@ -84,7 +85,7 @@ fn switch_variant(
     entity_config_register: &mut EntityConfigRegister,
     target_variant: &str,
     events_register_store: &mut WriteStorage<EventsRegister>,
-    components_stores: &mut EntityComponentsStorages,
+    components_stores: &mut EntityConfigComponentsStorages,
 ) {
     if let Some(variant) =
         get_variant_from_register(entity_config_register, target_variant)
@@ -113,7 +114,7 @@ fn push_variant(
     entity_config_register: &mut EntityConfigRegister,
     target_variant: &str,
     events_register_store: &mut WriteStorage<EventsRegister>,
-    components_stores: &mut EntityComponentsStorages,
+    components_stores: &mut EntityConfigComponentsStorages,
 ) {
     if let Some(variant) =
         get_variant_from_register(entity_config_register, target_variant)
@@ -137,7 +138,7 @@ fn pop_variant(
     entity: Entity,
     entity_config_register: &mut EntityConfigRegister,
     events_register_store: &mut WriteStorage<EventsRegister>,
-    components_stores: &mut EntityComponentsStorages,
+    components_stores: &mut EntityConfigComponentsStorages,
 ) {
     let mut entity_config = entity_config_register.root_config.clone();
     entity_config.components = None;
@@ -165,7 +166,7 @@ fn apply_entity_config(
     entity: Entity,
     entity_config: EntityConfig,
     events_register_store: &mut WriteStorage<EventsRegister>,
-    components_stores: &mut EntityComponentsStorages,
+    components_stores: &mut EntityConfigComponentsStorages,
 ) {
     // EVENTS
     if let Some(events_register) = entity_config.events {
@@ -225,7 +226,7 @@ fn apply_entity_config(
 fn apply_components(
     entity: Entity,
     entity_config_register: &mut EntityConfigRegister,
-    components_stores: &mut EntityComponentsStorages,
+    components_stores: &mut EntityConfigComponentsStorages,
 ) {
     let components = entity_config_register
         .config_stack

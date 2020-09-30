@@ -1,6 +1,6 @@
 // resources/entities/player/player.ron
 
-use crate::settings::entity_config::EntityConfig;
+use crate::entity_config::EntityConfig;
 
 pub mod prelude {
     pub use super::PlayerSettings;

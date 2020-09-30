@@ -1,3 +1,5 @@
+// src/settings/tiles_settings.rs
+
 #![enable(implicit_some)]
 /// Tile settings.
 (

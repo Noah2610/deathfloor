@@ -1,10 +1,12 @@
+// resources/entities/enemies
+
 pub mod prelude {
     pub use super::EnemiesSettings;
     pub use super::EnemySettings;
 }
 
-use super::entity_config::prelude::*;
 use crate::components::prelude::*;
+use crate::entity_config::prelude::*;
 use std::collections::HashMap;
 
 #[derive(Clone, Deserialize, Default)]

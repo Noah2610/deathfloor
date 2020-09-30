@@ -1,9 +1,6 @@
+use super::EntityConfig;
 use super::Merge;
-use crate::settings::prelude::{
-    AbstractEntitiesSettings,
-    AbstractEntityType,
-    EntityConfig,
-};
+use crate::settings::prelude::{AbstractEntitiesSettings, AbstractEntityType};
 
 #[derive(Clone, Deserialize)]
 #[serde(from = "Vec<AbstractEntityType>")]

@@ -1,4 +1,5 @@
 // src/settings/player_bullet_settings.rs
+
 #![enable(implicit_some)]
 /// Player bullet settings.
 (

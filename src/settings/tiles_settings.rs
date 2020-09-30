@@ -1,5 +1,7 @@
-use super::entity_config::prelude::*;
+// resources/entities/tiles/tiles.ron
+
 use crate::components::prelude::Merge;
+use crate::entity_config::prelude::*;
 use crate::map_loader::map_data::Props;
 use crate::map_loader::types::TileType;
 use deathframe::amethyst::{Error, Result};

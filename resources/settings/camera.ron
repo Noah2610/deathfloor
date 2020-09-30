@@ -1,3 +1,5 @@
+// src/settings/camera_settings.rs
+
 #![enable(implicit_some)]
 /// Camera settings.
 (

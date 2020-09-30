@@ -13,6 +13,7 @@ mod animation_key;
 mod collision_tag;
 mod components;
 mod dispatcher_id;
+mod entity_config;
 mod helpers;
 mod init;
 mod input;

@@ -1,11 +1,12 @@
 use super::system_prelude::*;
+use crate::entity_config::prelude::*;
 
 pub fn insert_components(
     entity: Entity,
-    components: EntityComponentsData,
-    mut storages: &mut EntityComponentsStorages,
+    components: EntityConfigComponents,
+    mut storages: &mut EntityConfigComponentsStorages,
 ) -> amethyst::Result<()> {
-    let EntityComponentsData {
+    let EntityConfigComponents {
         size,
         velocity,
         gravity,
@@ -40,7 +41,8 @@ pub fn insert_components(
         loadable,
         unloaded,
     } = components;
-    let &mut EntityComponentsStorages {
+
+    let &mut EntityConfigComponentsStorages {
         entities,
         transform: transform_store,
         size: size_store,

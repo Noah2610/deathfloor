@@ -1,3 +1,5 @@
+// resources/settings/camera.ron
+
 use super::SizeSettings;
 
 #[derive(Clone, Deserialize)]

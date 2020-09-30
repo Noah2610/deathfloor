@@ -1,4 +1,5 @@
 use super::system_prelude::*;
+use crate::entity_config::prelude::*;
 
 /// Adds and applies an entity config to an entity.
 /// Applies components, events, etc. from the entity config.
@@ -14,7 +15,7 @@ pub fn add_entity_config(
         mut action_type_trigger_store,
     ): (
         ReadExpect<Settings>,
-        EntityComponentsStorages,
+        EntityConfigComponentsStorages,
         WriteStorage<EntityConfigRegister>,
         WriteStorage<EventsRegister>,
         WriteStorage<ActionTypeTrigger>,

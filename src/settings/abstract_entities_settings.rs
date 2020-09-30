@@ -1,11 +1,13 @@
+// resources/entities/abstract
+
 pub mod prelude {
     pub use super::AbstractEntitiesSettings;
     pub use super::AbstractEntitySettings;
     pub use super::AbstractEntityType;
 }
 
-use super::entity_config::prelude::*;
 use crate::components::prelude::*;
+use crate::entity_config::prelude::*;
 use std::collections::HashMap;
 
 pub type AbstractEntityType = String;

@@ -1,5 +1,5 @@
 use super::component_prelude::*;
-use crate::settings::prelude::EntityConfig;
+use crate::entity_config::prelude::EntityConfig;
 
 type VariantName = String;
 

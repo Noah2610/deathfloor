@@ -1,10 +1,12 @@
+// resources/entities/custom
+
 pub mod prelude {
     pub use super::CustomEntitiesSettings;
     pub use super::CustomEntitySettings;
 }
 
-use super::entity_config::prelude::*;
 use crate::components::prelude::*;
+use crate::entity_config::prelude::*;
 use std::collections::HashMap;
 
 #[derive(Clone, Deserialize, Default)]

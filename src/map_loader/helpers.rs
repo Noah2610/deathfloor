@@ -15,6 +15,7 @@ pub(super) mod prelude {
     pub use deathframe::resources::SpriteSheetHandles;
 }
 
+use crate::entity_config::prelude::EntityConfig;
 use crate::systems::system_helpers::prelude::add_entity_config;
 use amethyst::ecs::SystemData;
 use deathframe::resources::SpriteSheetHandles;

@@ -1,4 +1,5 @@
 use super::system_prelude::*;
+use crate::entity_config::prelude::EntityConfigComponentsStorages;
 
 #[derive(Default)]
 pub struct HandleActionInsertComponents;
@@ -7,7 +8,7 @@ impl<'a> System<'a> for HandleActionInsertComponents {
     type SystemData = (
         Entities<'a>,
         WriteStorage<'a, ActionTrigger<action::InsertComponents>>,
-        EntityComponentsStorages<'a>,
+        EntityConfigComponentsStorages<'a>,
     );
 
     fn run(

@@ -3,7 +3,6 @@ pub mod prelude {
     pub use super::camera_settings::CameraSettings;
     pub use super::custom_entities_settings::CustomEntitiesSettings;
     pub use super::enemies_settings::prelude::*;
-    pub use super::entity_config::prelude::*;
     pub use super::general_settings::GeneralSettings;
     pub use super::hitbox_config::HitboxConfig;
     pub use super::level_settings::LevelSettings;
@@ -18,7 +17,6 @@ mod abstract_entities_settings;
 mod camera_settings;
 mod custom_entities_settings;
 mod enemies_settings;
-mod entity_config;
 mod general_settings;
 mod hitbox_config;
 mod level_settings;
