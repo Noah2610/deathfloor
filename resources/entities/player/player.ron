@@ -134,15 +134,19 @@
                             (2, 130),
                             (3, 130),
                         ]),
+                        Jump: Once([
+                            (10, 25),
+                            (12, 100),
+                        ]),
+                        Jumping: Cycle([
+                            (5, 1000),
+                        ]),
+                        InAir: Cycle([
+                            (0, 250),
+                            (2, 250),
+                        ]),
                         Custom("Shoot"): Once([
                             (1, 15),
-                        ]),
-                        Custom("Jump"): Once([
-                            (12, 250),
-                        ]),
-                        Custom("InAir"): Cycle([
-                            (12, 250),
-                            (12, 250),
                         ]),
                     },
                     /// Player takes damage against damage-dealing entities (DealsDamage).
@@ -153,24 +157,6 @@
                 ),
 
                 events: {
-                    // ---------------
-                    // JUMP ANIMATIONS
-                    // ---------------
-
-                    OnJump: AnimationAction(Push(Custom("Jump"))),
-                    OnAnimationEnd(Custom("Jump")): AnimationAction(Play(Custom("InAir"))),
-                    // Interval(0): If((
-                    //     if: Equal( // if not standing on solid ground
-                    //         Collision(And([IsTag("Solid"), IsSide(Bottom)])),
-                    //         false,
-                    //     ),
-                    //     then: AnimationAction(Play(Custom("InAir"))),
-                    // )),
-                    // OnCollision(And([IsTag("Solid"), IsState(Enter), IsSide(Bottom)])):
-                    //     Group([
-                    //         AnimationAction(Play(Idle)),
-                    //     ]),
-
                     // ---------------
                     // ENEMY KNOCKBACK
                     // ---------------
