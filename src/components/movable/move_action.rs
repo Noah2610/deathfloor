@@ -10,23 +10,20 @@ use deathframe::core::geo::prelude::Axis;
 /// See their variant docs for info.
 #[derive(Clone, Deserialize)]
 pub enum MoveAction {
-    AddVelocity {
-        x: Option<f32>,
-        y: Option<f32>,
-    },
+    /// Adds the velocity for the given axes.
+    /// There is no max for the velocity.
+    AddVelocity { x: Option<f32>, y: Option<f32> },
 
-    SetVelocity {
-        x: Option<f32>,
-        y: Option<f32>,
-    },
+    /// Set the velocity for the given axes.
+    /// There is no max for the velocity.
+    SetVelocity { x: Option<f32>, y: Option<f32> },
 
     /// Requires component `MoveAcceleration`.
     /// Walk along the given axis, with the given `mult` as the
     /// direction multiplier, with the velocity from `MoveAcceleration`.
-    Walk {
-        axis: Axis,
-        mult: f32,
-    },
+    /// The max velocity for this is the `MaxMovementVelocity` component,
+    /// if this entity has it.
+    Walk { axis: Axis, mult: f32 },
 
     /// Requires component `Jumper`.
     /// Jumps with the jump strength from `Jumper`.
@@ -40,9 +37,7 @@ pub enum MoveAction {
     /// Requires component `Jumper` and `WallJumper`.
     /// Does a wall jump with the strength from `WallJumper`.
     /// Jumps in the x direction given by `x_mult`.
-    WallJump {
-        x_mult: f32,
-    },
+    WallJump { x_mult: f32 },
 
     /// Requires component `WallSlider`.
     /// Uses `WallSlider`'s slide strength as velocity.
