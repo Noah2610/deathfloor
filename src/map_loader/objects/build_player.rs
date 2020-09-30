@@ -11,6 +11,7 @@ pub(super) fn build(
 
     let entity = base_object_entity(world, object)?
         .with(Player::default())
+        .with(Controllable::default())
         .with(Velocity::default())
         .with(Movable::default())
         .with(JumppadAffected::default())

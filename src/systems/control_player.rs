@@ -10,6 +10,7 @@ impl<'a> System<'a> for ControlPlayerSystem {
         WriteStorage<'a, Movable>,
         WriteStorage<'a, Facing>,
         ReadStorage<'a, Player>,
+        ReadStorage<'a, Controllable>,
     );
 
     fn run(
@@ -20,22 +21,30 @@ impl<'a> System<'a> for ControlPlayerSystem {
             mut movables,
             mut facing_store,
             player_store,
+            controllable_store,
         ): Self::SystemData,
     ) {
         let dt = time.delta_seconds() as f32;
 
-        for (movable, mut facing, _) in
-            (&mut movables, (&mut facing_store).maybe(), &player_store).join()
+        for (_, movable, mut facing_opt, controllable) in (
+            &player_store,
+            &mut movables,
+            (&mut facing_store).maybe(),
+            &controllable_store,
+        )
+            .join()
         {
-            Axis::for_each(|axis| {
-                handle_move_on_axis(
-                    axis,
-                    dt,
-                    &input_manager,
-                    movable,
-                    &mut facing,
-                );
-            });
+            if controllable.is_controllable {
+                Axis::for_each(|axis| {
+                    handle_move_on_axis(
+                        axis,
+                        dt,
+                        &input_manager,
+                        movable,
+                        &mut facing_opt,
+                    );
+                });
+            }
         }
     }
 }

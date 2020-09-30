@@ -2,6 +2,7 @@ pub mod conditionals;
 
 mod animation_action;
 mod call;
+mod control_action;
 mod delay;
 mod echo;
 mod entity_action;
@@ -20,6 +21,7 @@ pub mod prelude {
     pub use super::animation_action::AnimationAction;
     pub use super::call::Call;
     pub use super::conditionals;
+    pub use super::control_action::ControlAction;
     pub use super::delay::Delay;
     pub use super::echo::Echo;
     pub use super::entity_action::EntityAction;
@@ -59,9 +61,8 @@ pub enum ActionType {
     LifecycleAction(LifecycleAction),
     PlayerAction(PlayerAction),
     Call(Call),
-
-    // Conditionals
     If(conditionals::IfAction),
+    ControlAction(ControlAction),
 }
 
 #[derive(SystemData)]
@@ -82,4 +83,5 @@ pub struct ActionTriggerStorages<'a> {
     pub player_action:     WriteStorage<'a, ActionTrigger<PlayerAction>>,
     pub call:              WriteStorage<'a, ActionTrigger<Call>>,
     pub if_action: WriteStorage<'a, ActionTrigger<conditionals::IfAction>>,
+    pub control_action:    WriteStorage<'a, ActionTrigger<ControlAction>>,
 }

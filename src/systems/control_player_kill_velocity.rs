@@ -7,6 +7,7 @@ impl<'a> System<'a> for ControlPlayerKillVelocitySystem {
     type SystemData = (
         ReadExpect<'a, InputManager<IngameBindings>>,
         ReadStorage<'a, Player>,
+        ReadStorage<'a, Controllable>,
         ReadStorage<'a, Collider<CollisionTag>>,
         ReadStorage<'a, KillVelocityMin>,
         WriteStorage<'a, Velocity>,
@@ -17,6 +18,7 @@ impl<'a> System<'a> for ControlPlayerKillVelocitySystem {
         (
             input_manager,
             player_store,
+            controllable_store,
             collider_store,
             kill_velocity_min_store,
             mut velocity_store,
@@ -35,23 +37,27 @@ impl<'a> System<'a> for ControlPlayerKillVelocitySystem {
                     IsSide(Bottom),
                 ])
             };
-            for (_, collider, velocity, min_velocity) in (
+            for (_, controllable, collider, velocity, min_velocity) in (
                 &player_store,
+                &controllable_store,
                 &collider_store,
                 &mut velocity_store,
                 &kill_velocity_min_store,
             )
                 .join()
             {
-                let is_standing_on_ground = collider
-                    .query::<FindQuery<CollisionTag>>()
-                    .exp(&query_exp)
-                    .run()
-                    .is_some();
-                if is_standing_on_ground {
-                    let sign = velocity.x.signum();
-                    velocity.x =
-                        velocity.x.abs().min(min_velocity.min_velocity) * sign;
+                if controllable.is_controllable {
+                    let is_standing_on_ground = collider
+                        .query::<FindQuery<CollisionTag>>()
+                        .exp(&query_exp)
+                        .run()
+                        .is_some();
+                    if is_standing_on_ground {
+                        let sign = velocity.x.signum();
+                        velocity.x =
+                            velocity.x.abs().min(min_velocity.min_velocity)
+                                * sign;
+                    }
                 }
             }
         }

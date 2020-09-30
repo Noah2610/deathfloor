@@ -160,6 +160,12 @@
 
                 events: {
                     // ---------------
+                    // SET CONTROLLABLE
+                    // ---------------
+
+                    Init: ControlAction(SetControllable(true)),
+
+                    // ---------------
                     // ENEMY KNOCKBACK
                     // ---------------
 

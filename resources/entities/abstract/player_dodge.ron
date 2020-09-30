@@ -31,14 +31,17 @@
                     ],
 
                     events: {
-                        Init: If((
-                            if: Equal(
-                                Facing(),
-                                "Left",
-                            ),
-                            then: MoveAction(SetVelocity(x: -250.0, y: 0.0)),
-                            else: MoveAction(SetVelocity(x:  250.0, y: 0.0)),
-                        )),
+                        Init: Group([
+                            ControlAction(SetControllable(false)),
+                            If((
+                                if: Equal(
+                                    Facing(),
+                                    "Left",
+                                ),
+                                then: MoveAction(SetVelocity(x: -250.0, y: 0.0)),
+                                else: MoveAction(SetVelocity(x:  250.0, y: 0.0)),
+                            )),
+                        ]),
                         Delay(250): EntityAction(PopVariant),
                     },
                 ),

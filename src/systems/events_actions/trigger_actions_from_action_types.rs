@@ -153,6 +153,14 @@ impl<'a> System<'a> for TriggerActionsFromActionTypesSystem {
                             action_trigger.add_action(if_action);
                         }
                     }
+                    ActionType::ControlAction(control_action) => {
+                        if let Some(action_trigger) =
+                            (&mut action_trigger_components.control_action)
+                                .get_mut_or_default(entity)
+                        {
+                            action_trigger.add_action(control_action);
+                        }
+                    }
                 }
             }
         }
