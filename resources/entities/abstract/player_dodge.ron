@@ -1,0 +1,46 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "PlayerDodge": (
+            events: {
+                OnKeyDown(Custom("Dodge")): EntityAction(PushVariant("Dodge")),
+            },
+
+            variants: {
+                "Dodge": (
+                    // Make immune by removing enemy collision.
+                    // Kinda hacky.
+                    collision_tag: (
+                        labels: ["Player", "Pusher"],
+                        collides_with: ["Tile", "Solid", "Jumppad", "Consumable"],
+                    ),
+
+                    components: (
+                        gravity: (),
+                        base_friction: (),
+                        kill_velocity_min: (
+                            min_velocity: 9000.0,
+                        ),
+                        animations: {
+                            Walk: Cycle([
+                                (4, 1000),
+                            ]),
+                        },
+                    ),
+
+                    events: {
+                        Init: If((
+                            if: Equal(
+                                Facing(),
+                                "Left",
+                            ),
+                            then: MoveAction(SetVelocity(x: -5000.0, y: 0.0)),
+                            else: MoveAction(SetVelocity(x:  5000.0, y: 0.0)),
+                        )),
+                        Delay(500): EntityAction(PopVariant),
+                    },
+                ),
+            },
+        ),
+    },
+)
