@@ -10,10 +10,6 @@
                         h: 10.0,
                     ),
 
-                    events: {
-                        Init: Echo("SONIC"),
-                    },
-
                     components: [
                         MaxMovementVelocity((
                             x: 150.0,
