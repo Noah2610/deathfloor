@@ -2,14 +2,16 @@
 (
     types: {
         "PlayerDodge": (
-            events: {
-                OnKeyDown(Custom("Dodge")): If((
-                    if: Not(Equal(Variant(), "Dodge")),
-                    then: EntityAction(PushVariant("Dodge")),
-                )),
-            },
-
             variants: {
+                "Control": (
+                    events: {
+                        OnKeyDown(Custom("Dodge")): If((
+                            if: Not(Equal(Variant(), "Dodge")),
+                            then: EntityAction(PushVariant("Dodge")),
+                        )),
+                    },
+                ),
+
                 "Dodge": (
                     collision_tag: (
                         labels: ["Player", "Pusher"],
@@ -20,9 +22,6 @@
                         TakesDamage(None),
                         Gravity(None),
                         BaseFriction(None),
-                        KillVelocityMin((
-                            min_velocity: 9000.0,
-                        )),
                         Animations({
                             Walk: Cycle([
                                 (4, 1000),

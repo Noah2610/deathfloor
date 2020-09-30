@@ -10,14 +10,14 @@
         MoveLeft:  [ [Key(Left)], ],
         MoveRight: [ [Key(Right)], ],
 
-        Jump:         [ [Key(Space)], [Key(K)], ],
-        Shoot:        [ [Key(J)], ],
-        Interact:     [ [Key(E)], ],
-        ToggleCrouch: [ [Key(C)], ],
+        Jump:     [ [Key(Space)], [Key(K)], ],
+        Shoot:    [ [Key(J)], ],
+        Interact: [ [Key(E)], ],
 
         TogglePause: [ [Key(P)], ],
         ReloadLevel: [ [Key(R)], ],
 
-        Custom("Dodge"): [ [Key(LShift)], ],
+        Custom("ToggleCrouch"): [ [Key(C)], ],
+        Custom("Dodge"):        [ [Key(LShift)], ],
     },
 )

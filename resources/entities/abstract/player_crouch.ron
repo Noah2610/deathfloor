@@ -2,23 +2,25 @@
 (
     types: {
         "PlayerCrouch": (
-            events: {
-                OnKeyDown(ToggleCrouch): If((
-                    if: And([
-                        Not(Equal(
-                            Variant,
-                            "Crouch",
-                        )),
-                        Equal(
-                            Collision(And([IsTag("Solid"), IsSide(Bottom)])),
-                            true,
-                        ),
-                    ]),
-                    then: EntityAction(PushVariant("Crouch")),
-                )),
-            },
-
             variants: {
+                "Control": (
+                    events: {
+                        OnKeyDown(Custom("ToggleCrouch")): If((
+                            if: And([
+                                Not(Equal(
+                                    Variant,
+                                    "Crouch",
+                                )),
+                                Equal(
+                                    Collision(And([IsTag("Solid"), IsSide(Bottom)])),
+                                    true,
+                                ),
+                            ]),
+                            then: EntityAction(PushVariant("Crouch")),
+                        )),
+                    },
+                ),
+
                 "Crouch": (
                     components: [
                         Hitbox(Custom([
@@ -49,7 +51,7 @@
                         }),
                     ],
                     events: {
-                        OnKeyDown(ToggleCrouch): EntityAction(PopVariant),
+                        OnKeyDown(Custom("ToggleCrouch")): EntityAction(PopVariant),
                         OnShoot: EntityAction(PopVariant),
                         OnJump: EntityAction(PopVariant),
                         OnCollision(And([IsTag("Enemy"), IsState(Enter)])):
