@@ -5,6 +5,8 @@
             spritesheet_filename: "enemy_kamikaze.png",
 
             entity: (
+                inherits: ["Enemy"],
+
                 size: (
                     w: 24.0,
                     h: 32.0,
