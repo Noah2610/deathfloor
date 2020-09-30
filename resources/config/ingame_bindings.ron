@@ -19,5 +19,6 @@
 
         Custom("ToggleCrouch"): [ [Key(C)], ],
         Custom("Dodge"):        [ [Key(LShift)], ],
+        Custom("GainHealth"):   [ [Key(H)], ],
     },
 )

@@ -3,9 +3,11 @@
 #![enable(implicit_some)]
 /// Player settings.
 (
+    spritesheet: "playable_characters/player_fast_short_outline.png",
+
     /// The player's entity config.
     entity: (
-        inherits: ["PlayerCrouch", "PlayerDodge", "PlayerMusha"],
+        inherits: ["PlayableCharacters", "PlayerCrouch", "PlayerDodge", "PlayerMusha"],
 
         size: (
             w: 32.0,
@@ -87,6 +89,13 @@
             // Gain health on health consumable pickup.
             // Called from custom entity "ConsumableHealth".
             Function("PickupHealth"): HealthAction(Gain(10)),
+
+            // ------
+            // CHEATS
+            // ------
+
+            OnKeyDown(Custom("GainHealth")):
+                HealthAction(Gain(10)),
         },
 
         variants: {
@@ -163,7 +172,11 @@
                     // SET CONTROLLABLE
                     // ---------------
 
-                    Init: ControlAction(SetControllable(true)),
+                    Init: Group([
+                        ControlAction(SetControllable(true)),
+                        Echo("HERE"),
+                        EntityAction(SwitchVariant("Sonic")),
+                    ]),
 
                     // ---------------
                     // ENEMY KNOCKBACK
