@@ -4,6 +4,7 @@ mod variants;
 
 pub mod prelude {
     pub use super::components::{
+        EntityConfigComponent,
         EntityConfigComponents,
         EntityConfigComponentsStorages,
     };
@@ -12,7 +13,7 @@ pub mod prelude {
 }
 
 use crate::collision_tag::CollisionTagWrapper;
-use crate::components::prelude::EventsRegister;
+use crate::components::prelude::{EventsRegister, Size};
 use crate::settings::prelude::AbstractEntitiesSettings;
 use components::EntityConfigComponents;
 use deathframe::core::components::component_helpers::prelude::Merge;
@@ -28,6 +29,11 @@ pub struct EntityConfig {
     /// Inherit / merge entity configs from the given abstract configs.
     /// Merges configs from left to right, meaning later entries overwrite earlier ones.
     pub inherits:        Option<EntityConfigInheritanceChain>,
+    /// Entity visual size.
+    /// This is its own field and not part of the `components` field.
+    /// The size has to be inserted before any components, because
+    /// some components rely on the size being set first.
+    pub size:            Option<Size>,
     /// List of components to be added to the entity.
     pub components:      Option<EntityConfigComponents>,
     /// Variants for this entity.
@@ -108,6 +114,7 @@ impl Merge for EntityConfig {
     fn merge(&mut self, other: Self) {
         *self = Self {
             inherits:        self.inherits.take().merged(other.inherits),
+            size:            other.size.or(self.size.take()),
             components:      self.components.take().merged(other.components),
             variants:        self.variants.take().merged(other.variants),
             default_variant: other.default_variant.or(self.default_variant.take()),

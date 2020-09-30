@@ -5,31 +5,35 @@
             spritesheet_filename: "projectile_discharge.png",
 
             entity: (
-                components: (
-                    size: (w: 16.0, h: 16.0),
-                    animation: [
+                size: (
+                    w: 16.0,
+                    h: 16.0,
+                ),
+
+                components: [
+                    Animation([
                         (0, 100),
                         (1, 100),
                         (2, 100),
-                    ],
-                    gravity: (
+                    ]),
+                    Gravity((
                         y: -400.0,
-                    ),
-                    hitbox: Custom([
+                    )),
+                    Hitbox(Custom([
                         (
                             top:    5.0,
                             bottom: -7.0,
                             left:   -7.0,
                             right:  7.0,
                         ),
-                    ]),
-                    deals_damage: (
+                    ])),
+                    DealsDamage((
                         damage: 4,
-                    ),
-                    death_after_delay: (
+                    )),
+                    DeathAfterDelay((
                         delay_ms: 2800,
-                    ),
-                ),
+                    )),
+                ],
 
                 events: {
                     OnCollision(And([IsTag("Player"), IsState(Enter)])):
@@ -38,24 +42,24 @@
 
                 variants: {
                     "Left": (
-                        components: (
-                            velocity: (
+                        components: [
+                            Velocity((
                                 x: -60.0,
                                 y: 150.0,
-                            ),
-                        ),
+                            )),
+                        ],
                         events: {
                             OnCollision(And([IsTag("Solid"), IsState(Enter), IsSide(Left)])):
                                 EntityAction(SwitchVariant("Right")),
                         },
                     ),
                     "Right": (
-                        components: (
-                            velocity: (
+                        components: [
+                            Velocity((
                                 x: 60.0,
                                 y: 150.0,
-                            ),
-                        ),
+                            )),
+                        ],
                         events: {
                             OnCollision(And([IsTag("Solid"), IsState(Enter), IsSide(Right)])):
                                 EntityAction(SwitchVariant("Left")),

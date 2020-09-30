@@ -6,33 +6,34 @@
 
     spritesheet: "player_bullet.png",
     entity: (
-        components: (
+        size: (
+            w: 6,
+            h: 6,
+        ),
+
+        components: [
             /// The bullet's size.
-            size: (
-                w: 6,
-                h: 6,
-            ),
-            hitbox: Size,
+            Hitbox(Size),
             /// Bullet velocity (x, y).
             /// Both axes should be positive, are inverted in-game, if necessary.
-            velocity: (
+            Velocity((
                 x: 250.0,
                 y: 0.0,
-            ),
+            )),
             /// Bullet animation frames.
-            animation: [
+            Animation([
                 (0, 100),
                 (1, 100),
                 (2, 100),
                 (1, 100),
-            ],
-            death_on_contact: (
+            ]),
+            DeathOnContact((
                 collides_with: ["Solid", "Enemy"],
-            ),
-            death_after_delay: (
+            )),
+            DeathAfterDelay((
                 delay_ms: 2_000,
-            ),
-        ),
+            )),
+        ],
 
         /// Set the `default_variant` to use one of the bullet variants below.
         /// Possible variants: "Swerve", "Mortar", "Rocket", "Skipper"
@@ -83,20 +84,20 @@
             ),
 
             "Mortar": (
-                components: (
-                    velocity: (
+                size: (
+                    w: 12.0,
+                    h: 12.0,
+                ),
+                components: [
+                    Velocity((
                         x: 150.0,
                         y: 200.0,
-                    ),
-                    gravity: (
+                    )),
+                    Gravity((
                         y: -500.0,
-                    ),
-                    size: (
-                        w: 12.0,
-                        h: 12.0,
-                    ),
-                    hitbox: Size,
-                ),
+                    )),
+                    Hitbox(Size),
+                ],
                 events: {
                     OnCollision(IsState(Enter)): Group([
                         SpawnAction(SpawnRelative((
@@ -125,33 +126,33 @@
                 },
             ),
             "MortarShard": (
-                components: (
-                    velocity: (
+                size: (
+                    w: 4.0,
+                    h: 4.0,
+                ),
+                components: [
+                    Velocity((
                         x: 75.0,
                         y: 100.0,
-                    ),
-                    gravity: (
+                    )),
+                    Gravity((
                         y: -500.0,
-                    ),
-                    size: (
-                        w: 4.0,
-                        h: 4.0,
-                    ),
-                    hitbox: Size,
-                ),
+                    )),
+                    Hitbox(Size),
+                ],
             ),
 
             "Rocket": (
-                components: (
-                    velocity: (
+                size: (
+                    w: 24.0,
+                    h: 12.0,
+                ),
+                components: [
+                    Velocity((
                         x: 0.0,
                         y: 100.0,
-                    ),
-                    size: (
-                        w: 24.0,
-                        h: 12.0,
-                    ),
-                ),
+                    )),
+                ],
                 events: {
                     Interval(300): Group([
                         SpawnAction(SpawnRelative((
@@ -224,67 +225,69 @@
                 },
             ),
             "RocketShard0": (
-                components: (
-                    velocity: (
+                size: (
+                    w: 6.0,
+                    h: 6.0,
+                ),
+                components: [
+                    Velocity((
                         x: 50.0,
                         y: 0.0,
-                    ),
-                    gravity: (
+                    )),
+                    Gravity((
                         y: -500.0,
-                    ),
-                    size: (
-                        w: 6.0,
-                        h: 6.0,
-                    ),
-                    hitbox: Size,
-                ),
+                    )),
+                    Hitbox(Size),
+                ],
             ),
             "RocketShard1": (
-                components: (
-                    velocity: (
+                size: (
+                    w: 6.0,
+                    h: 6.0,
+                ),
+
+                components: [
+                    Velocity((
                         x: 100.0,
                         y: 0.0,
-                    ),
-                    gravity: (
+                    )),
+                    Gravity((
                         y: -500.0,
-                    ),
-                    size: (
-                        w: 6.0,
-                        h: 6.0,
-                    ),
-                    hitbox: Size,
-                ),
+                    )),
+                    Hitbox(Size),
+                ],
             ),
             "RocketShard2": (
-                components: (
-                    velocity: (
+                size: (
+                    w: 6.0,
+                    h: 6.0,
+                ),
+
+                components: [
+                    Velocity((
                         x: 150.0,
                         y: 0.0,
-                    ),
-                    gravity: (
+                    )),
+                    Gravity((
                         y: -500.0,
-                    ),
-                    size: (
-                        w: 6.0,
-                        h: 6.0,
-                    ),
-                    hitbox: Size,
-                ),
+                    )),
+                    Hitbox(Size),
+                ],
             ),
 
             "Skipper": (
-                components: (
-                    velocity: (
+                components: [
+                    Velocity((
                         x: 100.0,
                         y: 200.0,
-                    ),
-                    gravity: (
+                    )),
+                    Gravity((
                         y: -1000.0,
-                    ),
-                    death_on_contact: (
+                    )),
+                    DeathOnContact((
                         collides_with: [],
-                    ),
-                ),
+                    )),
+                ],
                 events: {
                     OnCollision(And([IsState(Enter), Or([IsSide(Bottom), IsSide(InnerSide( y: Bottom ))])])):
                         MoveAction(SetVelocity( y: 200.0 )),

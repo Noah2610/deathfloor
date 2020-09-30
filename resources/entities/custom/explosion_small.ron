@@ -5,9 +5,13 @@
             spritesheet_filename: "explosion.png",
 
             entity: (
-                components: (
-                    size: (w: 24.0, h: 24.0),
-                    animation: [
+                size: (
+                    w: 24.0,
+                    h: 24.0,
+                ),
+
+                components: [
+                    Animation([
                         (0, 100),
                         (1, 100),
                         (2, 100),
@@ -16,15 +20,15 @@
                         (5, 100),
                         (6, 100),
                         (7, 100),
-                    ],
-                    hitbox: Size,
-                    deals_damage: (
+                    ]),
+                    Hitbox(Size),
+                    DealsDamage((
                         damage: 4,
-                    ),
-                    death_after_delay: (
+                    )),
+                    DeathAfterDelay((
                         delay_ms: 800,
-                    ),
-                ),
+                    )),
+                ],
 
                 collision_tag: (
                     labels: ["EnemyBullet"],

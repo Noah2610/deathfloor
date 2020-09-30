@@ -5,12 +5,13 @@
             spritesheet_filename: "projectile_rubber.png",
 
             entity: (
-                components: (
-                    size: (
-                        w: 16.0,
-                        h: 16.0,
-                    ),
-                    animations: {
+                size: (
+                    w: 16.0,
+                    h: 16.0,
+                ),
+
+                components: [
+                    Animations({
                         Walk: Cycle([
                             (0, 50),
                         ]),
@@ -24,26 +25,26 @@
                             (4, 50),
                             (3, 50),
                         ]),
-                    },
-                    hitbox: Custom([
+                    }),
+                    Hitbox(Custom([
                         (
                             top:    4.0,
                             bottom: -4.0,
                             left:   -4.0,
                             right:  4.0,
                         ),
-                    ]),
-                    bullet: (),
-                    death_after_delay: (
+                    ])),
+                    Bullet(()),
+                    DeathAfterDelay((
                         delay_ms: 10_000,
-                    ),
-                    death_on_contact: (
+                    )),
+                    DeathOnContact((
                         collides_with: ["Player"],
-                    ),
-                    deals_damage: (
+                    )),
+                    DealsDamage((
                         damage: 2,
-                    ),
-                ),
+                    )),
+                ],
 
                 events: {
                     OnCollision(And([IsTag("Solid"), IsState(Enter)])):
@@ -84,20 +85,20 @@
 
                 variants: {
                     "Left": (
-                        components: (
-                            velocity: (
+                        components: [
+                            Velocity((
                                 x: -80.0,
                                 y: 110.0,
-                            ),
-                        ),
+                            )),
+                        ],
                     ),
                     "Right": (
-                        components: (
-                            velocity: (
+                        components: [
+                            Velocity((
                                 x: 80.0,
                                 y: 110.0,
-                            ),
-                        ),
+                            )),
+                        ],
                     ),
                 },
 

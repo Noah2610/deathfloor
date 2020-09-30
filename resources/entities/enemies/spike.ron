@@ -1,27 +1,23 @@
 #![enable(implicit_some)]
-/// Enemies settings.
 (
     types: {
         "Spike": (
             spritesheet_filename: "empty.png",
 
             entity: (
-                components: (
-                    hitbox: Size,
-
-                    deals_damage: (
+                components: [
+                    Hitbox(Size),
+                    DealsDamage((
                         damage: 6,
-                    ),
-                ),
+                    )),
+                ],
 
                 collision_tag: (
                     labels: ["Solid", "Tile"],
-                    collides_with: [],
                 ),
 
                 solid_tag: (
                     labels: ["Solid", "Tile"],
-                    collides_with: [],
                 ),
             ),
         ),

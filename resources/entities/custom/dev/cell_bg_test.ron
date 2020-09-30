@@ -5,12 +5,13 @@
             spritesheet_filename: "bg_cell1.png",
 
             entity: (
-                components: (
-                    size: (
-                        w: 240.0,
-                        h: 96.0,
-                    ),
-                    animations: {
+                size: (
+                    w: 240.0,
+                    h: 96.0,
+                ),
+
+                components: [
+                    Animations({
                         Idle: Cycle([
                             (3, 3000),
                             (1, 80),
@@ -50,8 +51,8 @@
                             (0, 90),
                             (2, 90),
                         ]),
-                    },
-                ),
+                    }),
+                ],
 
                 // also play sound (some buzzing maybe) when switching to light animation
             ),

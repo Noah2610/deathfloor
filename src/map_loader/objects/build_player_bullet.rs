@@ -7,17 +7,6 @@ pub(super) fn build(
 ) -> amethyst::Result<Entity> {
     let settings = world.read_resource::<Settings>().player_bullet.clone();
 
-    let size = settings
-        .entity_config
-        .as_ref()
-        .and_then(|entity_config| {
-            entity_config
-                .components
-                .as_ref()
-                .and_then(|comps| comps.size.clone())
-        })
-        .unwrap_or(object.size.into());
-
     let sprite_render = get_sprite_render(
         world,
         format!("spritesheets/{}", settings.spritesheet_filename),
@@ -25,7 +14,7 @@ pub(super) fn build(
     )?;
 
     let entity = base_object_entity(world, object)?
-        .with(size)
+        .with::<Size>(object.size.into())
         .with(sprite_render)
         .with(Bullet::default())
         .build();

@@ -4,35 +4,35 @@
         "PlayerMusha": (
             variants: {
                 "Musha": (
-                    components: (
-                        gravity: (),
-                        base_friction: (
+                    components: [
+                        Gravity(None),
+                        BaseFriction((
                             x: 1000.0,
                             // y: 500.0,
-                        ),
-                        max_movement_velocity: (
+                        )),
+                        MaxMovementVelocity((
                             x: 100.0,
                             y: 100.0,
-                        ),
-                        movement_acceleration: (
+                        )),
+                        MovementAcceleration((
                             x: 500.0,
                             y: 500.0,
-                        ),
-                        shooter: (
+                        )),
+                        Shooter((
                             cooldown_ms: 99999999999,
-                        ),
-                    ),
+                        )),
+                    ],
 
                     events: {
                         OnSpawn: Call("ResetMovement"),
 
                         Function("ResetMovement"):
-                            InsertComponents((
-                                max_movement_velocity: (
+                            InsertComponents([
+                                MaxMovementVelocity((
                                     x: 100.0,
                                     y: 100.0,
-                                ),
-                            )),
+                                )),
+                            ]),
 
                         Interval(1):
                             MoveAction(Walk( axis: Y, mult: 1.0, )),
@@ -41,21 +41,21 @@
 
                         // Up
                         OnKeyDown(MoveUp):
-                            InsertComponents((
-                                max_movement_velocity: (
+                            InsertComponents([
+                                MaxMovementVelocity((
                                     x: 100.0,
                                     y: 300.0,
-                                ),
-                            )),
+                                )),
+                            ]),
                         OnKeyUp(MoveUp): Call("ResetMovement"),
                         // Down
                         OnKeyDown(MoveDown):
-                            InsertComponents((
-                                max_movement_velocity: (
+                            InsertComponents([
+                                MaxMovementVelocity((
                                     x: 100.0,
                                     y: 50.0,
-                                ),
-                            )),
+                                )),
+                            ]),
                         OnKeyUp(MoveDown): Call("ResetMovement"),
 
                         // Left

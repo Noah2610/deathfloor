@@ -1,0 +1,106 @@
+#![enable(implicit_some)]
+//! Shared Ufo* enemy stuff.
+(
+    types: {
+        "EnemyUfo": (
+            inherits: ["Enemy"],
+
+            size: (
+                w: 16.0,
+                h: 16.0,
+            ),
+
+            components: [
+                MaxMovementVelocity((
+                    x: 100.0,
+                    y: 100.0,
+                )),
+                Animations({
+                    Walk: Cycle([
+                        (0, 150),
+                        (1, 150),
+                        (2, 150),
+                        (3, 150),
+                    ]),
+                }),
+                Hitbox(Custom([
+                    (
+                        top:    7.0,
+                        bottom: -7.0,
+                        left:   -7.0,
+                        right:  7.0,
+                    ),
+                ])),
+                Health((
+                    health: 5,
+                    max_health: 5,
+                )),
+                DealsDamage((
+                    damage: 1,
+                )),
+                MovementAcceleration((
+                    x: 500.0,
+                )),
+                Gravity(None),
+            ],
+
+            events: {
+                Function("ShootBullet"):
+                    SpawnAction(SpawnRelative((
+                        object: (
+                            type: Custom("ShooterBullet"),
+                            pos: (x: 0.0, y: -10.0),
+                            size: (w: 16.0, h: 16.0),
+                            props: {
+                                "variant": "Down",
+                            },
+                        ),
+                    ))),
+            },
+
+            default_variant: "Left",
+
+            variants: {
+                "Left": (
+                    components: [
+                        Walker((
+                            x: Left,
+                        )),
+                    ],
+                    events: {
+                        OnCollision(And([
+                                IsTag("Solid"),
+                                IsState(Enter),
+                                IsSide(Left),
+                            ])): EntityAction(SwitchVariant("Right")),
+                    },
+                ),
+
+                "Right": (
+                    components: [
+                        Walker((
+                            x: Right,
+                        )),
+                    ],
+                    events: {
+                        OnCollision(And([
+                                IsTag("Solid"),
+                                IsState(Enter),
+                                IsSide(Right),
+                            ])): EntityAction(SwitchVariant("Left")),
+                        Interval(1000): SpawnAction(SpawnRelative((
+                            object: (
+                                type: Custom("ShooterBullet"),
+                                pos: (x: 0.0, y: -10.0),
+                                size: (w: 16.0, h: 16.0),
+                                props: {
+                                    "variant": "Down",
+                                },
+                            ),
+                        ))),
+                    },
+                ),
+            },
+        ),
+    }
+)

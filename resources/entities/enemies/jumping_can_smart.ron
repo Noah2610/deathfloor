@@ -5,12 +5,15 @@
             spritesheet_filename: "enemy_jumping_can_blue.png",
 
             entity: (
-                components: (
-                    size: (
-                        w: 24.0,
-                        h: 24.0,
-                    ),
-                    animations: {
+                inherits: ["Enemy"],
+
+                size: (
+                    w: 24.0,
+                    h: 24.0,
+                ),
+
+                components: [
+                    Animations({
                         Idle: Cycle([
                             (2, 1000),
                         ]),
@@ -28,49 +31,38 @@
                             (4, 100),
                             (3, 100),
                         ])
-                    },
-                    gravity: (
+                    }),
+                    Gravity((
                         x: None,
                         y: -400.0,
-                    ),
-                    max_movement_velocity: (
+                    )),
+                    MaxMovementVelocity((
                         x: 65.0,
                         y: 250.0,
-                    ),
-                    health: (
+                    )),
+                    Health((
                         health: 4,
                         max_health: 4,
-                    ),
-                    health_display: (
-                        position: Top,
-                        size: (32.0, 2.0),
-                        padding: 4.0,
-                        border_padding: 0.5,
-                    ),
-                    deals_damage: (
+                    )),
+                    DealsDamage((
                         damage: 2,
-                    ),
-                ),
-
-                events: {
-                    OnCollision(And([IsTag("Bullet"), IsState(Enter)])):
-                        HealthAction(Lose(1)),
-                },
+                    )),
+                ],
 
                 default_variant: "Sit",
 
                 variants: {
                     "Sit": (
-                        components: (
-                            hitbox: Custom([
+                        components: [
+                            Hitbox(Custom([
                                 (
                                     top:    -1.0,
                                     bottom: -12.0,
                                     left:   -5.0,
                                     right:   5.0,
                                 ),
-                            ]),
-                        ),
+                            ])),
+                        ],
                         events: {
                             Init: MoveAction(SetVelocity(
                                 x: 0.0,
@@ -81,16 +73,16 @@
                         },
                     ),
                     "Jump": (
-                        components: (
-                            hitbox: Custom([
+                        components: [
+                            Hitbox(Custom([
                                 (
                                     top:     4.0,
                                     bottom: -12.0,
                                     left:   -5.0,
                                     right:   5.0,
                                 ),
-                            ]),
-                        ),
+                            ])),
+                        ],
                         events: {
                             Init: Group([
                                 SoundAction(PlayWithVolume(Jump, 0.5)),
@@ -117,16 +109,6 @@
                         },
                     ),
                 },
-
-                collision_tag: (
-                    labels: ["Enemy"],
-                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
-                ),
-
-                solid_tag: (
-                    labels: ["Enemy"],
-                    collides_with: ["Solid"],
-                ),
             ),
         ),
     }

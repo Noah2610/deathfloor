@@ -1,0 +1,23 @@
+#![enable(implicit_some)]
+//! Default physics for all enemies.
+//! Includes stuff like gravity, friction, max movement speed, etc.
+(
+    types: {
+        "EnemyPhysics": (
+            components: [
+                Gravity((
+                    y: -900.0,
+                )),
+                BaseFriction((
+                    friction_x: 1000.0,
+                )),
+                MaxMovementVelocity((
+                    x: 500.0,
+                )),
+                MovementAcceleration((
+                    x: 500.0,
+                )),
+            ],
+        ),
+    }
+)

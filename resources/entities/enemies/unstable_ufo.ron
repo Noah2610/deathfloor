@@ -5,19 +5,15 @@
             spritesheet_filename: "enemy_unstable_ufo.png",
 
             entity: (
-                components: (
-                    size: (
-                        w: 16.0,
-                        h: 16.0,
-                    ),
-                    max_movement_velocity: (
-                        x: 300.0,
-                        y: 300.0,
-                    ),
-                    base_friction: (
-                        friction_x: 1000.0,
-                    ),
-                    animations: {
+                inherits: ["Enemy"],
+
+                size: (
+                    w: 16.0,
+                    h: 16.0,
+                ),
+
+                components: [
+                    Animations({
                         Walk: Cycle([
                             (0, 150),
                             (1, 150),
@@ -26,36 +22,26 @@
                         ]),
                         // Workaround for OnDeath event.
                         Death: Once([]),
-                    },
-                    hitbox: Custom([
+                    }),
+                    Hitbox(Custom([
                         (
                             top:    2.0,
                             bottom: -2.0,
                             left:   -2.0,
                             right:  2.0,
                         ),
-                    ]),
-                    health: (
+                    ])),
+                    Health((
                         health: 1,
                         max_health: 1,
-                    ),
-                    health_display: (
-                        position: Top,
-                        size: (32.0, 2.0),
-                        padding: 4.0,
-                        border_padding: 0.5,
-                    ),
-                    deals_damage: (
+                    )),
+                    DealsDamage((
                         damage: 1,
-                    ),
-                    movement_acceleration: (
-                        x: 650.0,
-                    ),
-                ),
+                    )),
+                    Gravity(None),
+                ],
 
                 events: {
-                    OnCollision(And([IsTag("Bullet"), IsState(Enter)])):
-                        HealthAction(Lose(1)),
                     OnCollision(And([
                         IsState(Enter),
                         Or([
@@ -80,22 +66,22 @@
 
                 variants: {
                     "Left": (
-                        components: (
-                            walker: (
+                        components: [
+                            Walker((
                                 x: Left,
-                            ),
-                        ),
+                            )),
+                        ],
                         events: {
                             Init: EntityAction(SwitchVariant("SwerveUp")),
                         },
                     ),
 
                     "Right": (
-                        components: (
-                            walker: (
+                        components: [
+                            Walker((
                                 x: Right,
-                            ),
-                        ),
+                            )),
+                        ],
                         events: {
                             Init: EntityAction(SwitchVariant("SwerveUp")),
                         },
@@ -117,16 +103,6 @@
                         },
                     ),
                 },
-
-                collision_tag: (
-                    labels: ["Enemy"],
-                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
-                ),
-
-                solid_tag: (
-                    labels: ["Enemy"],
-                    collides_with: ["Solid"],
-                ),
             ),
         ),
     }

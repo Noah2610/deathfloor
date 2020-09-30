@@ -5,38 +5,38 @@
             spritesheet_filename: "colors.png",
 
             entity: (
-                components: (
+                components: [
                     // Pusher stuff
-                    solid_pusher: (),
-                    solid_pushable: (),
+                    SolidPusher(()),
+                    SolidPushable(()),
 
                     // Tries to snap position to whole integer when moving.
-                    non_precise_movement: (),
+                    NonPreciseMovement(()),
 
                     // Entity loading/unloading stuff
-                    loader: (
+                    Loader((
                         loading_distance: (32.0, 32.0),
-                    ),
-                    loadable: (
+                    )),
+                    Loadable((
                         padding: (0.0, 0.0),
-                    ),
+                    )),
 
-                    hitbox: Size,
-                    animation: [
+                    Hitbox(Size),
+                    Animation([
                         (4, 3000),
-                    ],
-                    velocity: (
+                    ]),
+                    Velocity((
                         x: 0.0,
                         y: 0.0,
-                    ),
-                    gravity: (
+                    )),
+                    Gravity((
                         y: -800.0,
-                    ),
-                    health: (
+                    )),
+                    Health((
                         health: 3,
                         max_health: 3,
-                    ),
-                    health_display: (
+                    )),
+                    HealthDisplay((
                         position: Top,
                         size: (
                             24.0,
@@ -44,8 +44,8 @@
                         ),
                         padding: 4.0,
                         border_padding: 1.0,
-                    ),
-                ),
+                    )),
+                ],
 
                 events: {
                     OnCollision(And([IsTag("Bullet"), IsState(Enter)])):

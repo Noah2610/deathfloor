@@ -5,23 +5,13 @@
             spritesheet_filename: "enemy_kamikaze.png",
 
             entity: (
-                components: (
-                    size: (
-                        w: 24.0,
-                        h: 32.0,
-                    ),
-                    gravity: (
-                        x: None,
-                        y: -900.0,
-                    ),
-                    max_movement_velocity: (
-                        x: 100.0,
-                        y: 100.0,
-                    ),
-                    base_friction: (
-                        friction_x: 1000.0,
-                    ),
-                    animations: {
+                size: (
+                    w: 24.0,
+                    h: 32.0,
+                ),
+
+                components: [
+                    Animations({
                         Walk: Cycle([
                             (3, 150),
                             (4, 150),
@@ -35,34 +25,25 @@
                             (9, 200),
                             (10, 200),
                         ]),
-                    },
-                    hitbox: Custom([
+                    }),
+                    Hitbox(Custom([
                         (
                             top:    10.0,
                             bottom: -16.0,
                             left:   -10.0,
                             right:  10.0,
                         ),
-                    ]),
-                    health: (
+                    ])),
+                    Health((
                         health: 2,
                         max_health: 2,
-                    ),
-                    health_display: (
-                        position: Top,
-                        size: (32.0, 2.0),
-                        padding: 4.0,
-                        border_padding: 0.5,
-                    ),
-                    movement_acceleration: (
+                    )),
+                    MovementAcceleration((
                         x: 800.0,
-                    ),
-                ),
+                    )),
+                ],
 
                 events: {
-                    OnCollision(And([IsTag("Bullet"), IsState(Enter)])):
-                        HealthAction(Lose(1)),
-
                     OnCollision(And([
                         IsState(Enter),
                         Or([
@@ -90,30 +71,20 @@
 
                 variants: {
                     "Left": (
-                        components: (
-                            walker: (
+                        components: [
+                            Walker((
                                 x: Left,
-                            ),
-                        ),
+                            )),
+                        ],
                     ),
                     "Right": (
-                        components: (
-                            walker: (
+                        components: [
+                            Walker((
                                 x: Right,
-                            ),
-                        ),
+                            )),
+                        ],
                     ),
                 },
-
-                collision_tag: (
-                    labels: ["Enemy"],
-                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
-                ),
-
-                solid_tag: (
-                    labels: ["Enemy"],
-                    collides_with: ["Solid"],
-                ),
             ),
         ),
     }

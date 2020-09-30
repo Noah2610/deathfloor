@@ -5,24 +5,15 @@
             spritesheet_filename: "enemy_mini_blue.png",
 
             entity: (
-                components: (
-                    size: (
-                        w: 16.0,
-                        h: 24.0,
-                    ),
-                    gravity: (
-                        x: None,
-                        y: -400.0,
-                    ),
-                    max_movement_velocity: (
-                        x: 500.0,
-                        y: 250.0,
-                    ),
-                    base_friction: (
-                        friction_x: 600.0,
-                        friction_y: None,
-                    ),
-                    animations: {
+                inherits: ["Enemy"],
+
+                size: (
+                    w: 16.0,
+                    h: 24.0,
+                ),
+
+                components: [
+                    Animations({
                         Walk: Cycle([
                             (0, 90),
                             (1, 90),
@@ -39,35 +30,26 @@
                             (4, 40),
                             (1, 40),
                         ]),
-                    },
-                    hitbox: Custom([
+                    }),
+                    Hitbox(Custom([
                         (
                             top:    6.0,
                             bottom: -12.0,
                             left:   -6.0,
                             right:  6.0,
                         ),
-                    ]),
-                    health: (
+                    ])),
+                    Health((
                         health: 1,
                         max_health: 1,
-                    ),
-                    health_display: (
-                        position: Top,
-                        size: (32.0, 2.0),
-                        padding: 4.0,
-                        border_padding: 0.5,
-                    ),
-                    deals_damage: (
+                    )),
+                    DealsDamage((
                         damage: 4,
-                    ),
-                    walker: (
+                    )),
+                    Walker((
                         x: Left,
-                    ),
-                    movement_acceleration: (
-                        x: 700.0,
-                    ),
-                ),
+                    )),
+                ],
 
                 events: {
                     OnCollision(
@@ -90,49 +72,30 @@
                         y: 0,
                     )),
 
-                    OnCollision(
-                        And([
-                            IsTag("Bullet"),
-                            IsState(Enter),
-                        ]),
-                    ): Group([
-                        HealthAction(Lose(1)),
-                    ]),
-
                     // PIVOT
 
                     OnCollision(And([
                         Or([IsSide(Right), IsSide(InnerSide( x: Right ))]),
                         IsState(Enter),
                     ])): Group([
-                        InsertComponents((
-                            walker: (
+                        InsertComponents([
+                            Walker((
                                 x: Left,
-                            ),
-                        )),
+                            )),
+                        ]),
                     ]),
 
                     OnCollision(And([
                         Or([IsSide(Left), IsSide(InnerSide( x: Left ))]),
                         IsState(Enter),
                     ])): Group([
-                        InsertComponents((
-                            walker: (
+                        InsertComponents([
+                            Walker((
                                 x: Right,
-                            ),
-                        )),
+                            )),
+                        ]),
                     ]),
                 },
-
-                collision_tag: (
-                    labels: ["Enemy"],
-                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
-                ),
-
-                solid_tag: (
-                    labels: ["Enemy"],
-                    collides_with: ["Solid"],
-                ),
             ),
         ),
     }

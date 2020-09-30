@@ -5,24 +5,28 @@
             spritesheet_filename: "enemy_rubber.png",
 
             entity: (
-                components: (
-                    size: (w: 8.0, h: 8.0),
-                    gravity: (x: None, y: -100.0),
-                    hitbox: Size,
-                    health: (
+                size: (
+                    w: 8.0,
+                    h: 8.0,
+                ),
+
+                components: [
+                    Gravity((x: None, y: -100.0)),
+                    Hitbox(Size),
+                    Health((
                         health: 2,
                         max_health: 2,
-                    ),
-                    health_display: (
+                    )),
+                    HealthDisplay((
                         position: Top,
                         size: (6.0, 1.0),
                         padding: 2.0,
                         border_padding: 0.5,
-                    ),
-                        deals_damage: (
+                    )),
+                    DealsDamage((
                         damage: 4,
-                    ),
-                ),
+                    )),
+                ],
 
                 events: {
                     OnCollision(IsSide(Left)):   MoveAction(AddVelocity( x: 100.0, )),
@@ -31,18 +35,14 @@
                     OnCollision(IsSide(Bottom)): MoveAction(AddVelocity( y: 100.0, )),
 
                     OnCollision(IsState(Enter)): Group([
-                        InsertComponents((
-                            size: (w: 16.0, h: 16.0),
-                            scale_once: (),
-                            // hitbox: Size,
-                        )),
+                        InsertComponents([
+                            ScaleOnce(()),
+                        ]),
                         Delay((
                             delay_ms: 250,
-                            action: InsertComponents((
-                                size: (w: 8.0, h: 8.0),
-                                scale_once: (),
-                                // hitbox: Size,
-                            )),
+                            action: InsertComponents([
+                                ScaleOnce(()),
+                            ]),
                         )),
                     ]),
 

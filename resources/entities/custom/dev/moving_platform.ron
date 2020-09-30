@@ -5,25 +5,25 @@
             spritesheet_filename: "colors.png",
 
             entity: (
-                components: (
-                    hitbox: Size,
-                    animation: [
+                components: [
+                    Hitbox(Size),
+                    Animation([
                         (3, 1000),
-                    ],
-                    velocity: (
+                    ]),
+                    Velocity((
                         x: 0.0,
                         y: 0.0,
-                    ),
-                    solid_pusher: (),
-                    movement_acceleration: (
+                    )),
+                    SolidPusher(()),
+                    MovementAcceleration((
                         x: 500.0,
                         y: 500.0,
-                    ),
-                    max_movement_velocity: (
+                    )),
+                    MaxMovementVelocity((
                         x: 10.0,
                         y: 10.0,
-                    ),
-                ),
+                    )),
+                ],
 
                 variants: {
                     "DelayedMoveUp": (
@@ -38,41 +38,41 @@
                     ),
 
                     "MoveUp": (
-                        components: (
-                            walker: (
+                        components: [
+                            Walker((
                                 y: Up,
-                            ),
-                        ),
+                            )),
+                        ],
                         events: {
                             Delay(10000): EntityAction(SwitchVariant("MoveDown")),
                         },
                     ),
                     "MoveDown": (
-                        components: (
-                            walker: (
+                        components: [
+                            Walker((
                                 y: Down,
-                            ),
-                        ),
+                            )),
+                        ],
                         events: {
                             Delay(10000): EntityAction(SwitchVariant("MoveUp")),
                         },
                     ),
                     "MoveLeft": (
-                        components: (
-                            walker: (
+                        components: [
+                            Walker((
                                 x: Left,
-                            ),
-                        ),
+                            )),
+                        ],
                         events: {
                             Delay(10000): EntityAction(SwitchVariant("MoveRight")),
                         },
                     ),
                     "MoveRight": (
-                        components: (
-                            walker: (
+                        components: [
+                            Walker((
                                 x: Right,
-                            ),
-                        ),
+                            )),
+                        ],
                         events: {
                             Delay(10000): EntityAction(SwitchVariant("MoveLeft")),
                         },

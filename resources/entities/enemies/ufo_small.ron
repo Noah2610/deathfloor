@@ -1,0 +1,16 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "UfoSmall": (
+            spritesheet_filename: "enemy_ufo_small.png",
+
+            entity: (
+                inherits: ["EnemyUfo"],
+
+                events: {
+                    Interval(1000): Call("ShootBullet"),
+                },
+            ),
+        ),
+    }
+)

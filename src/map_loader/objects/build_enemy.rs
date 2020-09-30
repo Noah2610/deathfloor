@@ -25,15 +25,8 @@ pub(super) fn build(
         0,
     )?;
 
-    let size = enemy_settings
-        .entity
-        .components
-        .as_ref()
-        .and_then(|comps| comps.size.clone())
-        .unwrap_or(object.size.into());
-
     let entity = base_object_entity(world, object)?
-        .with(size)
+        .with::<Size>(object.size.into())
         .with(Enemy::new(enemy_type))
         .with(Loadable::default())
         .with(sprite_render)

@@ -20,24 +20,24 @@
 
             variants: {
                 "Crouch": (
-                    components: (
-                        hitbox: Custom([
+                    components: [
+                        Hitbox(Custom([
                             (
                                 top:    0.0,
                                 bottom: -16.0,
                                 left:   -6.0,
                                 right:  6.0,
                             ),
-                        ]),
-                        max_movement_velocity: (
+                        ])),
+                        MaxMovementVelocity((
                             x: 50.0,
                             y: 400.0,
-                        ),
-                        movement_acceleration: (
+                        )),
+                        MovementAcceleration((
                             x: 800.0,
                             y: 1500.0, // DEBUG
-                        ),
-                        animations: {
+                        )),
+                        Animations({
                             Idle: Cycle([
                                 (9, 500),
                                 (10, 500),
@@ -46,8 +46,8 @@
                                 (9, 250),
                                 (10, 250),
                             ]),
-                        },
-                    ),
+                        }),
+                    ],
                     events: {
                         OnKeyDown(ToggleCrouch): EntityAction(PopVariant),
                         OnShoot: EntityAction(PopVariant),

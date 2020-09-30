@@ -5,20 +5,24 @@
             spritesheet_filename: "particle.png",
 
             entity: (
-                components: (
-                    size: (w: 2.0, h: 2.0),
-                    animation: [
+                size: (
+                    w: 2.0,
+                    h: 2.0,
+                ),
+
+                components: [
+                    Animation([
                         (0, 250),
                         (1, 250),
                         (2, 250),
                         (3, 250),
                         (4, 250),
                         (5, 250),
-                    ],
-                    death_after_delay: (
+                    ]),
+                    DeathAfterDelay((
                         delay_ms: 15_000,
-                    ),
-                ),
+                    )),
+                ],
 
                 events: {
                     OnSpawn: Random((
@@ -30,15 +34,15 @@
 
                 variants: {
                     "Up": (
-                        components: (
-                            velocity: (x: 0.0, y: 10.0),
-                        ),
+                        components: [
+                            Velocity((x: 0.0, y: 10.0)),
+                        ],
                     ),
 
                     "Down": (
-                        components: (
-                            velocity: (x: 0.0, y: -10.0),
-                        ),
+                        components: [
+                            Velocity((x: 0.0, y: -10.0)),
+                        ],
                     ),
 
                     "SwerveLeft": (

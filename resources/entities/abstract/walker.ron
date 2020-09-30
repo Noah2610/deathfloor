@@ -12,8 +12,8 @@
 (
     types: {
         "Walker": (
-            components: (
-                ledge_detector: (
+            components: [
+                LedgeDetector((
                     corners: [
                         (
                             corner:      BottomLeft,
@@ -29,21 +29,21 @@
                         ),
                     ],
                     collides_with: ["Solid"],
-                ),
+                )),
                 /// Overwrite this in the inheriting config
                 /// to set a different acceleration speed.
-                movement_acceleration: (
+                MovementAcceleration((
                     x: 500.0,
-                ),
-            ),
+                )),
+            ],
 
             variants: {
                 "WalkLeft": (
-                    components: (
-                        walker: (
+                    components: [
+                        Walker((
                             x: Left,
-                        ),
-                    ),
+                        )),
+                    ],
                     events: {
                         OnLedgeDetect(BottomLeft, Bottom):
                             EntityAction(SwitchVariant("WalkRight")),
@@ -55,11 +55,11 @@
                     },
                 ),
                 "WalkRight": (
-                    components: (
-                        walker: (
+                    components: [
+                        Walker((
                             x: Right,
-                        ),
-                    ),
+                        )),
+                    ],
                     events: {
                         OnLedgeDetect(BottomRight, Bottom):
                             EntityAction(SwitchVariant("WalkLeft")),

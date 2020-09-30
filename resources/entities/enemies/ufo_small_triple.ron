@@ -1,0 +1,47 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "UfoSmallTriple": (
+            spritesheet_filename: "enemy_ufo_small.png",
+
+            entity: (
+                inherits: ["EnemyUfo"],
+
+                events: {
+                    Interval(1200): Group([
+                        SpawnAction(SpawnRelative((
+                            object: (
+                                type: Custom("ShooterBullet"),
+                                pos: (x: 0.0, y: -10.0),
+                                size: (w: 16.0, h: 16.0),
+                                props: {
+                                    "variant": "Down",
+                                },
+                            ),
+                        ))),
+                        SpawnAction(SpawnRelative((
+                            object: (
+                                type: Custom("ShooterBullet"),
+                                pos: (x: -6.0, y: -10.0),
+                                size: (w: 16.0, h: 16.0),
+                                props: {
+                                    "variant": "LeftDownDia",
+                                },
+                            ),
+                        ))),
+                        SpawnAction(SpawnRelative((
+                            object: (
+                                type: Custom("ShooterBullet"),
+                                pos: (x: 6.0, y: -10.0),
+                                size: (w: 16.0, h: 16.0),
+                                props: {
+                                    "variant": "RightDownDia",
+                                },
+                            ),
+                        ))),
+                    ]),
+                },
+            ),
+        ),
+    }
+)

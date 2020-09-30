@@ -104,6 +104,11 @@ pub fn add_entity_config(
     }
 
     // COMPONENTS
+    // Insert `Size` component first.
+    if let Some(size) = entity_config.size {
+        components_storages.size.insert(entity, size)?;
+    }
+    // Insert all other components (`components` field).
     if let Some(components) = entity_config.components {
         insert_components(entity, components, &mut components_storages)?;
     }

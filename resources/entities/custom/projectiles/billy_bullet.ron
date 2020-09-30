@@ -5,33 +5,37 @@
             spritesheet_filename: "player_bullet.png",
 
             entity: (
-                components: (
-                    size: (w: 12.0, h: 12.0),
-                    animation: [
+                size: (
+                    w: 12.0,
+                    h: 12.0,
+                ),
+
+                components: [
+                    Animation([
                         (0, 100),
                         (1, 100),
                         (2, 100),
                         (3, 100),
-                    ],
-                    hitbox: Custom([
+                    ]),
+                    Hitbox(Custom([
                         (
                             top:    5.0,
                             bottom: -5.0,
                             left:   -5.0,
                             right:  5.0,
                         )
-                    ]),
-                    bullet: (),
-                    death_after_delay: (
+                    ])),
+                    Bullet(()),
+                    DeathAfterDelay((
                         delay_ms: 5_000,
-                    ),
-                    death_on_contact: (
+                    )),
+                    DeathOnContact((
                         collides_with: ["Player", "Solid"],
-                    ),
-                    deals_damage: (
+                    )),
+                    DealsDamage((
                         damage: 2,
-                    ),
-                ),
+                    )),
+                ],
 
                 events: {
                     OnCollision(And([
@@ -42,28 +46,28 @@
 
                 variants: {
                     "Left": (
-                        components: (
-                            velocity: (
+                        components: [
+                            Velocity((
                                 x: -150.0,
                                 y: 0.0,
-                            ),
-                        ),
+                            )),
+                        ],
                     ),
                     "Right": (
-                        components: (
-                            velocity: (
+                        components: [
+                            Velocity((
                                 x: 150.0,
                                 y: 0.0,
-                            ),
-                        ),
+                            )),
+                        ],
                     ),
                      "Down": (
-                        components: (
-                            velocity: (
+                        components: [
+                            Velocity((
                                 x: 0.0,
                                 y: -100.0,
-                            ),
-                        ),
+                            )),
+                        ],
                     ),
                 },
 

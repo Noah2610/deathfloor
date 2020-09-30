@@ -5,12 +5,16 @@
             spritesheet_filename: "enemy_peeker.png",
 
             entity: (
-                components: (
-                    size: (
-                        w: 16.0,
-                        h: 32.0,
-                    ),
-                    animations: {
+                // Note: this enemy doesn't need to inherit any enemy stuff.
+                inherits: [],
+
+                size: (
+                    w: 16.0,
+                    h: 32.0,
+                ),
+
+                components: [
+                    Animations({
                         Custom("Hide"): Once([
                             (0, 2000),
                         ]),
@@ -40,18 +44,8 @@
                             (2, 100),
                             (1, 100),
                         ]),
-                    },
-                    health: (
-                        health: 5,
-                        max_health: 5,
-                    ),
-                    health_display: (
-                        position: Top,
-                        size: (32.0, 2.0),
-                        padding: 4.0,
-                        border_padding: 0.5,
-                    ),
-                ),
+                    }),
+                ],
 
                 default_variant: "ShootLeft",
 
@@ -105,16 +99,16 @@
                     ),
 
                     "Hide": (
-                        components: (
-                            hitbox: Custom([
+                        components: [
+                            Hitbox(Custom([
                                 (
                                     top:    2.0,
                                     bottom: -16.0,
                                     left:   -8.0,
                                     right:  8.0,
                                 ),
-                            ]),
-                        ),
+                            ])),
+                        ],
                         events: {
                             Init: AnimationAction(Push(Custom("Hide"))),
                             OnAnimationEnd(Custom("Hide")):
@@ -123,16 +117,16 @@
                     ),
 
                     "HideToPeek": (
-                        components: (
-                            hitbox: Custom([
+                        components: [
+                            Hitbox(Custom([
                                 (
                                     top:    8.0,
                                     bottom: -16.0,
                                     left:   -8.0,
                                     right:  8.0,
                                 ),
-                            ]),
-                        ),
+                            ])),
+                        ],
                         events: {
                             Init: AnimationAction(Push(Custom("HideToPeek"))),
                             OnAnimationEnd(Custom("HideToPeek")):
@@ -141,32 +135,32 @@
                     ),
 
                     "Peek": (
-                        components: (
-                            hitbox: Custom([
+                        components: [
+                            Hitbox(Custom([
                                 (
                                     top:    14.0,
                                     bottom: -16.0,
                                     left:   -8.0,
                                     right:  8.0,
                                 ),
-                            ]),
-                        ),
+                            ])),
+                        ],
                         events: {
                             Init: EntityAction(PopVariant),
                         },
                     ),
 
                     "PeekToHide": (
-                        components: (
-                            hitbox: Custom([
+                        components: [
+                            Hitbox(Custom([
                                 (
                                     top:    8.0,
                                     bottom: -16.0,
                                     left:   -8.0,
                                     right:  8.0,
                                 ),
-                            ]),
-                        ),
+                            ])),
+                        ],
                         events: {
                             Init: AnimationAction(Push(Custom("PeekToHide"))),
                             OnAnimationEnd(Custom("PeekToHide")):
@@ -177,12 +171,7 @@
 
                 collision_tag: (
                     labels: ["Enemy", "NoKnockback"],
-                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
-                ),
-
-                solid_tag: (
-                    labels: ["Enemy"],
-                    collides_with: ["Solid"],
+                    collides_with: ["Player", "Bullet", "Solid", "Jumppad"],
                 ),
             ),
         ),

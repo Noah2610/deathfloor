@@ -5,14 +5,18 @@
             spritesheet_filename: "explosion.png",
 
             entity: (
-                components: (
-                    size: (w: 16.0, h: 16.0),
-                    animation: [
-                        (2, 1000),
-                    ],
-                    hitbox: Size,
-                    interactable: (),
+                size: (
+                    w: 16.0,
+                    h: 16.0,
                 ),
+
+                components: [
+                    Animation([
+                        (2, 1000),
+                    ]),
+                    Hitbox(Size),
+                    Interactable(()),
+                ],
 
                 events: {
                     OnInteract: If((

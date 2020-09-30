@@ -26,27 +26,27 @@
                 // Reduce gravity when jumping
                 OnKeyDown(Jump): Group([
                     MoveAction(SetVelocity(y: 300.0)),
-                    InsertComponents((
-                        max_movement_velocity: (
+                    InsertComponents([
+                        MaxMovementVelocity((
                             // x: 70.0,
                             y: 100.0,
-                        ),
-                        gravity: (
+                        )),
+                        Gravity((
                             y: -20.0,
-                        ),
-                    )),
+                        )),
+                    ]),
                 ]),
                 OnKeyUp(Jump): Call("SetDefaultPhysics"),
 
-                Function("SetDefaultPhysics"): InsertComponents((
-                    max_movement_velocity: (
+                Function("SetDefaultPhysics"): InsertComponents([
+                    MaxMovementVelocity((
                         x: 110.0,
                         y: 410.0,
-                    ),
-                    gravity: (
+                    )),
+                    Gravity((
                         y: -450.0
-                    ),
-                )),
+                    )),
+                ]),
 
                 // Shoot like crazy dude
                 Function("ShootCrazy"): Group([

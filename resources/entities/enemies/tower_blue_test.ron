@@ -5,24 +5,15 @@
             spritesheet_filename: "enemy_tower_blue_walk.png",
 
             entity: (
-                components: (
-                    size: (
-                        w: 32.0,
-                        h: 64.0,
-                    ),
-                    gravity: (
-                        x: None,
-                        y: -400.0,
-                    ),
-                    max_movement_velocity: (
-                        x: 500.0,
-                        y: 250.0,
-                    ),
-                    base_friction: (
-                        friction_x: 600.0,
-                        friction_y: None,
-                    ),
-                    animations: {
+                inherits: ["Enemy"],
+
+                size: (
+                    w: 32.0,
+                    h: 64.0,
+                ),
+
+                components: [
+                    Animations({
                         Idle: Cycle([
                             (3, 150),
                             (5, 150),
@@ -34,35 +25,26 @@
                             (4, 150),
                             (5, 150),
                         ]),
-                    },
-                    hitbox: Custom([
+                    }),
+                    Hitbox(Custom([
                         (
                             top:    16.0,
                             bottom: -32.0,
                             left:   -8.0,
                             right:  8.0,
                         )
-                    ]),
-                    health: (
+                    ])),
+                    Health((
                         health: 3,
                         max_health: 3,
-                    ),
-                    health_display: (
-                        position: Top,
-                        size: (32.0, 2.0),
-                        padding: 4.0,
-                        border_padding: 0.5,
-                    ),
-                    deals_damage: (
+                    )),
+                    DealsDamage((
                         damage: 4,
-                    ),
-                    walker: (
+                    )),
+                    Walker((
                         x: Right,
-                    ),
-                    movement_acceleration: (
-                        x: 310.0,
-                    ),
-                ),
+                    )),
+                ],
 
                 events: {
                     OnCollision(
@@ -85,51 +67,28 @@
                         y: 200.0,
                     )),
 
-                    OnCollision(
-                        And([
-                            IsTag("Bullet"),
-                            IsState(Enter),
-                        ]),
-                    ): Group([
-                        SoundAction(PlayWithVolume(Jump, 0.3)),
-                        MoveAction(AddVelocity(
-                            y: 150.0,
-                        )),
-                        HealthAction(Lose(1)),
-                    ]),
-
                     OnCollision(And([
                         Or([IsSide(Right), IsSide(InnerSide( x: Right ))]),
                         IsState(Enter),
                     ])): Group([
-                        InsertComponents((
-                            walker: (
+                        InsertComponents([
+                            Walker((
                                 x: Left,
-                            ),
-                        )),
+                            )),
+                        ]),
                     ]),
 
                     OnCollision(And([
                         Or([IsSide(Left), IsSide(InnerSide( x: Left ))]),
                         IsState(Enter),
                     ])): Group([
-                        InsertComponents((
-                            walker: (
+                        InsertComponents([
+                            Walker((
                                 x: Right,
-                            ),
-                        )),
+                            )),
+                        ]),
                     ]),
                 },
-
-                collision_tag: (
-                    labels: ["Enemy", "Solid"],
-                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
-                ),
-
-                solid_tag: (
-                    labels: ["Enemy", "Solid"],
-                    collides_with: ["Solid"],
-                ),
             ),
         ),
     }

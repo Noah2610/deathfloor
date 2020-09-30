@@ -5,23 +5,16 @@
             spritesheet_filename: "enemy_turret_basic_horizontal.png",
 
             entity: (
-                components: (
-                    size: (
-                        w: 32.0,
-                        h: 16.0,
-                    ),
-                    gravity: (
-                        x: None,
-                        y: None,
-                    ),
-                    max_movement_velocity: (
-                        x: 100.0,
-                        y: 100.0,
-                    ),
-                    base_friction: (
-                        friction_x: 1000.0,
-                    ),
-                    animations: {
+                // This enemy doesn't need to inherit `Enemy` config.
+                inherits: [],
+
+                size: (
+                    w: 32.0,
+                    h: 16.0,
+                ),
+
+                components: [
+                    Animations({
                         Custom("Default"): Once([
                             (0, 800),
                         ]),
@@ -44,20 +37,18 @@
                             (11, 120),
                             (10, 120),
                         ]),
-                    },
-                    hitbox: Custom([
+                    }),
+                    Hitbox(Custom([
                         (
                             top:    12.0,
                             bottom: -24.0,
                             left:   -12.0,
                             right:  12.0,
                         ),
-                    ]),
-                    health: (
-                        health: 1,
-                        max_health: 1,
-                    ),
-                ),
+                    ])),
+                ],
+
+                default_variant: "Default",
 
                 variants: {
                     "Default": (
@@ -77,25 +68,23 @@
                     "Left": (
                         events: {
                             Init: Group([
-                            AnimationAction(Push(Custom("Reset"))),
-                            SpawnAction(SpawnRelative((
-                                object: (
-                                    type: Custom("ShooterBullet"),
-                                    pos: (x: -16.0, y: 0.0),
-                                    size: (w: 16.0, h: 16.0),
-                                    props: {
-                                        "variant": "Left",
-                                    },
-                                ),
-                            ))),
+                                AnimationAction(Push(Custom("Reset"))),
+                                SpawnAction(SpawnRelative((
+                                    object: (
+                                        type: Custom("ShooterBullet"),
+                                        pos: (x: -16.0, y: 0.0),
+                                        size: (w: 16.0, h: 16.0),
+                                        props: {
+                                            "variant": "Left",
+                                        },
+                                    ),
+                                ))),
                             ]),
                             OnAnimationEnd(Custom("Reset")): EntityAction(SwitchVariant("Default")),
                         },
                     ),
 
                     "Right": (
-                        components: (
-                        ),
                         events: {
                             Interval(1000): SpawnAction(SpawnRelative((
                                 object: (
@@ -113,12 +102,7 @@
 
                 collision_tag: (
                     labels: ["Enemy"],
-                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
-                ),
-
-                solid_tag: (
-                    labels: ["Enemy"],
-                    collides_with: ["Solid"],
+                    collides_with: ["Player", "Bullet", "Solid", "Jumppad"],
                 ),
             ),
         ),

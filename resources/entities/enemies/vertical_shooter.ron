@@ -5,19 +5,18 @@
             spritesheet_filename: "enemy_verticalshooter_test.png",
 
             entity: (
-                components: (
-                    size: (
-                        w: 30.0,
-                        h: 24.0,
-                    ),
-                    max_movement_velocity: (
-                        x: 100.0,
+                inherits: ["Enemy"],
+
+                size: (
+                    w: 30.0,
+                    h: 24.0,
+                ),
+
+                components: [
+                    MaxMovementVelocity((
                         y: 100.0,
-                    ),
-                    base_friction: (
-                        friction_y: 1000.0,
-                    ),
-                    animations: {
+                    )),
+                    Animations({
                         Custom("Default"): Once([
                             (3, 500),
                         ]),
@@ -36,37 +35,29 @@
                             (1, 120),
                             (0, 120),
                         ]),
-                    },
-                    hitbox: Custom([
+                    }),
+                    Hitbox(Custom([
                         (
                             top:    12.0,
                             bottom: -12.0,
                             left:   -14.0,
                             right:  14.0,
                         ),
-                    ]),
-                    health: (
+                    ])),
+                    Health((
                         health: 5,
                         max_health: 5,
-                    ),
-                    health_display: (
-                        position: Top,
-                        size: (32.0, 2.0),
-                        padding: 4.0,
-                        border_padding: 0.5,
-                    ),
-                    deals_damage: (
+                    )),
+                    DealsDamage((
                         damage: 1,
-                    ),
-                    movement_acceleration: (
+                    )),
+                    MovementAcceleration((
                         y: 400.0,
-                    ),
-                ),
+                    )),
+                    Gravity(None),
+                ],
 
                 events: {
-                    OnCollision(And([IsTag("Bullet"), IsState(Enter)])):
-                        HealthAction(Lose(1)),
-
                     Init: AnimationAction(Push(Custom("Default"))),
                     OnAnimationEnd(Custom("Default")): AnimationAction(Push(Custom("Charge"))),
                     OnAnimationEnd(Custom("Charge")): Group([
@@ -74,9 +65,9 @@
                         Random((
                             chance: 0.5,
                             on_success: Group([
-                                InsertComponents((
-                                    facing: Left, // spritesheet faces left
-                                )),
+                                InsertComponents([
+                                    Facing(Left), // spritesheet faces left
+                                ]),
                                 SpawnAction(SpawnRelative((
                                     object: (
                                         type: Custom("ShooterBullet"),
@@ -89,9 +80,9 @@
                                 ))),
                             ]),
                             on_failure: Group([
-                                InsertComponents((
-                                    facing: Right, // spritesheet faces left
-                                )),
+                                InsertComponents([
+                                    Facing(Right), // spritesheet faces left
+                                ]),
                                 SpawnAction(SpawnRelative((
                                     object: (
                                         type: Custom("ShooterBullet"),
@@ -110,11 +101,11 @@
 
                 variants: {
                     "Up": (
-                        components: (
-                            walker: (
+                        components: [
+                            Walker((
                                 y: Up,
-                            ),
-                        ),
+                            )),
+                        ],
                         events: {
                             OnCollision(And([
                                     IsTag("Solid"),
@@ -124,11 +115,11 @@
                         },
                     ),
                     "Down": (
-                        components: (
-                            walker: (
+                        components: [
+                            Walker((
                                 y: Down,
-                            ),
-                        ),
+                            )),
+                        ],
                         events: {
                             OnCollision(And([
                                     IsTag("Solid"),
@@ -138,16 +129,6 @@
                         },
                     ),
                 },
-
-                collision_tag: (
-                    labels: ["Enemy"],
-                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
-                ),
-
-                solid_tag: (
-                    labels: ["Enemy"],
-                    collides_with: ["Solid"],
-                ),
             ),
         ),
     }

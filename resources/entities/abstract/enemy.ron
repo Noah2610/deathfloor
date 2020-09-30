@@ -1,0 +1,20 @@
+#![enable(implicit_some)]
+//! Default enemy stuff.
+//! Most enemies should inherit this config.
+(
+    types: {
+        "Enemy": (
+            inherits: ["EnemyPhysics", "EnemyHealth"],
+
+            collision_tag: (
+                labels: ["Enemy"],
+                collides_with: ["Player", "Solid", "Bullet", "Jumppad"],
+            ),
+
+            solid_tag: (
+                labels: ["Enemy"],
+                collides_with: ["Solid"],
+            ),
+        ),
+    }
+)

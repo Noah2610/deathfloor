@@ -4,87 +4,62 @@ use crate::settings::prelude::HitboxConfig;
 use deathframe::amethyst::ecs::shred::ResourceId;
 use deathframe::amethyst::ecs::{Entities, SystemData, World, WriteStorage};
 
-/// List of posible components for an entity.
-/// All can optionally be added to an entity's config.
+/// Contains all possible, configurable components for this entity.
+/// Given as an array of entity config components.
 #[derive(Clone, Deserialize, Default)]
-#[serde(deny_unknown_fields)]
+#[serde(deny_unknown_fields, from = "Vec<EntityConfigComponent>")]
 pub struct EntityConfigComponents {
-    pub size:                  Option<Size>,
-    pub velocity:              Option<Velocity>,
-    pub gravity:               Option<Gravity>,
-    pub max_movement_velocity: Option<MaxMovementVelocity>,
-    pub movement_acceleration: Option<MovementAcceleration>,
-    pub base_friction:         Option<BaseFriction>,
-    pub animation:             Option<Animation>,
-    pub animations:            Option<AnimationsContainer<AnimationKey>>,
-    pub hitbox:                Option<HitboxConfig>,
-    pub walker:                Option<Walker>,
-    pub jumppad:               Option<Jumppad>,
-    pub scale_once:            Option<ScaleOnce>,
-    pub health:                Option<Health>,
-    pub health_display:        Option<HealthDisplay>,
-    pub deals_damage:          Option<DealsDamage>,
-    pub takes_damage:          Option<TakesDamage>,
-    pub bullet:                Option<Bullet>,
-    #[serde(rename = "ledge_detector")]
-    pub ledge_detector_data:   Option<LedgeDetectorData>,
-    pub death_on_contact:      Option<DeathOnContact>,
-    pub death_after_delay:     Option<DeathAfterDelay>,
-    pub interactable:          Option<Interactable>,
-    pub facing:                Option<Facing>,
-    pub jumper:                Option<Jumper>,
-    pub wall_jumper:           Option<WallJumper>,
-    pub wall_slider:           Option<WallSlider>,
-    pub shooter:               Option<Shooter>,
-    pub kill_velocity_min:     Option<KillVelocityMin>,
-    pub solid_pusher:          Option<SolidPusher>,
-    pub solid_pushable:        Option<SolidPushable>,
-    pub non_precise_movement:  Option<NonPreciseMovement>,
-    pub loader:                Option<Loader>,
-    pub loadable:              Option<Loadable>,
-    pub unloaded:              Option<Unloaded>,
+    pub components: Vec<EntityConfigComponent>,
 }
 
 impl Merge for EntityConfigComponents {
     /// `other` takes precedence.
-    #[rustfmt::skip]
-    fn merge(&mut self, other: EntityConfigComponents) {
-        *self = Self {
-            size:                  other.size.or(self.size.take()),
-            velocity:              other.velocity.or(self.velocity.take()),
-            gravity:               other.gravity.or(self.gravity.take()),
-            max_movement_velocity: other.max_movement_velocity.or(self.max_movement_velocity.take()),
-            movement_acceleration: other.movement_acceleration.or(self.movement_acceleration.take()),
-            base_friction:         other.base_friction.or(self.base_friction.take()),
-            animation:             other.animation.or(self.animation.take()),
-            animations:            other.animations.or(self.animations.take()),
-            hitbox:                other.hitbox.or(self.hitbox.take()),
-            walker:                other.walker.or(self.walker.take()),
-            jumppad:               other.jumppad.or(self.jumppad.take()),
-            scale_once:            other.scale_once.or(self.scale_once.take()),
-            health:                other.health.or(self.health.take()),
-            health_display:        other.health_display.or(self.health_display.take()),
-            deals_damage:          other.deals_damage.or(self.deals_damage.take()),
-            takes_damage:          other.takes_damage.or(self.takes_damage.take()),
-            bullet:                other.bullet.or(self.bullet.take()),
-            ledge_detector_data:   other.ledge_detector_data.or(self.ledge_detector_data.take()),
-            death_on_contact:      other.death_on_contact.or(self.death_on_contact.take()),
-            death_after_delay:     other.death_after_delay.or(self.death_after_delay.take()),
-            interactable:          other.interactable.or(self.interactable.take()),
-            facing:                other.facing.or(self.facing.take()),
-            jumper:                other.jumper.or(self.jumper.take()),
-            wall_jumper:           other.wall_jumper.or(self.wall_jumper.take()),
-            wall_slider:           other.wall_slider.or(self.wall_slider.take()),
-            shooter:               other.shooter.or(self.shooter.take()),
-            kill_velocity_min:     other.kill_velocity_min.or(self.kill_velocity_min.take()),
-            solid_pusher:          other.solid_pusher.or(self.solid_pusher.take()),
-            solid_pushable:        other.solid_pushable.or(self.solid_pushable.take()),
-            non_precise_movement:  other.non_precise_movement.or(self.non_precise_movement.take()),
-            loader:                other.loader.or(self.loader.take()),
-            loadable:              other.loadable.or(self.loadable.take()),
-            unloaded:              other.unloaded.or(self.unloaded.take()),
-        };
+    fn merge(&mut self, mut other: EntityConfigComponents) {
+        self.components.append(&mut other.components);
     }
+}
+
+impl From<Vec<EntityConfigComponent>> for EntityConfigComponents {
+    fn from(components: Vec<EntityConfigComponent>) -> Self {
+        Self { components }
+    }
+}
+
+/// Every possible entity config component.
+#[derive(Clone, Deserialize)]
+pub enum EntityConfigComponent {
+    Velocity(Option<Velocity>),
+    Gravity(Option<Gravity>),
+    MaxMovementVelocity(Option<MaxMovementVelocity>),
+    MovementAcceleration(Option<MovementAcceleration>),
+    BaseFriction(Option<BaseFriction>),
+    Animation(Option<Animation>),
+    Animations(Option<AnimationsContainer<AnimationKey>>),
+    Hitbox(Option<HitboxConfig>),
+    Walker(Option<Walker>),
+    Jumppad(Option<Jumppad>),
+    ScaleOnce(Option<ScaleOnce>),
+    Health(Option<Health>),
+    HealthDisplay(Option<HealthDisplay>),
+    DealsDamage(Option<DealsDamage>),
+    TakesDamage(Option<TakesDamage>),
+    Bullet(Option<Bullet>),
+    LedgeDetector(Option<LedgeDetectorData>),
+    DeathOnContact(Option<DeathOnContact>),
+    DeathAfterDelay(Option<DeathAfterDelay>),
+    Interactable(Option<Interactable>),
+    Facing(Option<Facing>),
+    Jumper(Option<Jumper>),
+    WallJumper(Option<WallJumper>),
+    WallSlider(Option<WallSlider>),
+    Shooter(Option<Shooter>),
+    KillVelocityMin(Option<KillVelocityMin>),
+    SolidPusher(Option<SolidPusher>),
+    SolidPushable(Option<SolidPushable>),
+    NonPreciseMovement(Option<NonPreciseMovement>),
+    Loader(Option<Loader>),
+    Loadable(Option<Loadable>),
+    Unloaded(Option<Unloaded>),
 }
 
 #[derive(SystemData)]

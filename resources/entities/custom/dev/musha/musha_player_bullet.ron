@@ -6,31 +6,31 @@
         "MushaPlayerBullet": (
             spritesheet: "player_bullet.png",
             entity: (
-                components: (
-                    /// The bullet's size.
-                    size: (
-                        w: 6,
-                        h: 6,
-                    ),
-                    hitbox: Size,
-                    velocity: (
+                size: (
+                    w: 6,
+                    h: 6,
+                ),
+
+                components: [
+                    Hitbox(Size),
+                    Velocity((
                         x: 0.0,
                         y: 250.0,
-                    ),
+                    )),
                     /// Bullet animation frames.
-                    animation: [
-                    (0, 100),
-                    (1, 100),
-                    (2, 100),
-                    (1, 100),
-                    ],
-                    death_on_contact: (
+                    Animation([
+                        (0, 100),
+                        (1, 100),
+                        (2, 100),
+                        (1, 100),
+                    ]),
+                    DeathOnContact((
                         collides_with: ["Solid", "Enemy"],
-                    ),
-                    death_after_delay: (
+                    )),
+                    DeathAfterDelay((
                         delay_ms: 2_000,
-                    ),
-                ),
+                    )),
+                ],
 
                 collision_tag: (
                     labels: ["Bullet"],

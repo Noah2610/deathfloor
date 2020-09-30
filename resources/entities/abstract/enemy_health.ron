@@ -1,0 +1,29 @@
+#![enable(implicit_some)]
+//! Default health / damage related enemy stuff.
+//! Includes stuff like health display, taking damage.
+//! The `Health` component itself should be overwritten by the inheriting config.
+(
+    types: {
+        "EnemyHealth": (
+            components: [
+                /// `Health` SHOULD BE OVERWRITTEN BY INHERITING CONFIG!
+                Health((
+                    health: 3,
+                    max_health: 3,
+                )),
+                HealthDisplay((
+                    position: Top,
+                    size: (32.0, 2.0),
+                    padding: 4.0,
+                    border_padding: 0.5,
+                )),
+            ],
+
+            events: {
+                // Take damage on player bullet collision.
+                OnCollision(And([IsTag("Bullet"), IsState(Enter)])):
+                    HealthAction(Lose(1)),
+            },
+        ),
+    }
+)

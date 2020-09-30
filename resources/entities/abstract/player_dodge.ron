@@ -15,18 +15,18 @@
                         collides_with: ["Tile", "Solid", "Jumppad", "Consumable"],
                     ),
 
-                    components: (
-                        gravity: (),
-                        base_friction: (),
-                        kill_velocity_min: (
+                    components: [
+                        Gravity(None),
+                        BaseFriction(None),
+                        KillVelocityMin((
                             min_velocity: 9000.0,
-                        ),
-                        animations: {
+                        )),
+                        Animations({
                             Walk: Cycle([
                                 (4, 1000),
                             ]),
-                        },
-                    ),
+                        }),
+                    ],
 
                     events: {
                         Init: If((

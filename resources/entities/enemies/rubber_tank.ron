@@ -5,24 +5,18 @@
             spritesheet_filename: "enemy_rubber_tank.png",
 
             entity: (
-                inherits: ["Walker"],
+                inherits: ["Enemy", "Walker"],
 
-                components: (
-                    size: (
-                        w: 48.0,
-                        h: 48.0,
-                    ),
-                    gravity: (
-                        y: -900.0,
-                    ),
-                    max_movement_velocity: (
+                size: (
+                    w: 48.0,
+                    h: 48.0,
+                ),
+
+                components: [
+                    MaxMovementVelocity((
                         x: 30.0,
-                        y: 200.0,
-                    ),
-                    base_friction: (
-                        friction_x: 1000.0,
-                    ),
-                    animations: {
+                    )),
+                    Animations({
                         Walk: Cycle([
                             (0, 100),
                             (1, 100),
@@ -42,37 +36,26 @@
                             (7,  70),
                             (6,  70),
                         ]),
-                    },
-                    hitbox: Custom([
+                    }),
+                    Hitbox(Custom([
                         (
                             top:    10.0,
                             bottom: -24.0,
                             left:   -20.0,
                             right:  20.0,
                         ),
-                    ]),
-                    health: (
+                    ])),
+                    Health((
                         health: 10,
                         max_health: 10,
-                    ),
-                    health_display: (
-                        position: Top,
-                        size: (32.0, 2.0),
-                        padding: 4.0,
-                        border_padding: 0.5,
-                    ),
-                    deals_damage: (
+                    )),
+                    DealsDamage((
                         damage: 5,
-                    ),
-                    movement_acceleration: (
+                    )),
+                    MovementAcceleration((
                         x: 120.0,
-                    ),
-                ),
-
-                events: {
-                    OnCollision(And([IsTag("Bullet"), IsState(Enter)])):
-                        HealthAction(Lose(1)),
-                },
+                    )),
+                ],
 
                 default_variant: "WalkLeft",
 
@@ -81,11 +64,11 @@
                         events: {
                             Delay(1800): Group([
                                 MoveAction(SetVelocity(x: 0.0)),
-                                InsertComponents((
-                                    walker: (
+                                InsertComponents([
+                                    Walker((
                                         x: None,
-                                    ),
-                                )),
+                                    )),
+                                ]),
                                 AnimationAction(Push(Custom("Shoot"))),
                             ]),
                             Delay(2000): Group([
@@ -110,11 +93,11 @@
                         events: {
                             Delay(1800): Group([
                                 MoveAction(SetVelocity(x: 0.0)),
-                                InsertComponents((
-                                    walker: (
+                                InsertComponents([
+                                    Walker((
                                         x: None,
-                                    ),
-                                )),
+                                    )),
+                                ]),
                             ]),
                             Delay(2000): Group([
                                 AnimationAction(Push(Custom("Shoot"))),
@@ -134,16 +117,6 @@
                         },
                     ),
                 },
-
-                collision_tag: (
-                    labels: ["Enemy"],
-                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
-                ),
-
-                solid_tag: (
-                    labels: ["Enemy"],
-                    collides_with: ["Solid"],
-                ),
             ),
         ),
     }

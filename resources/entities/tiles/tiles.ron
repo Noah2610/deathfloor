@@ -7,9 +7,9 @@
         /// Solid ground.
         Ground: (
             entity: (
-                components: (
-                    hitbox: Size,
-                ),
+                components: [
+                    Hitbox(Size),
+                ],
 
                 /// Entities check for general collision against this tile,
                 /// with the given collision labels.
@@ -28,14 +28,14 @@
 
         Jumppad: (
             entity: (
-                components: (
-                    hitbox: Size,
+                components: [
+                    Hitbox(Size),
 
-                    jumppad: (
+                    Jumppad((
                         /// Jumppad strength (x, y)
                         strength: (None, 400.0),
-                    ),
-                ),
+                    )),
+                ],
 
                 collision_tag: (
                     labels: ["Tile", "Jumppad"],

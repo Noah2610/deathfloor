@@ -19,18 +19,12 @@ pub(super) fn build(
             ))
         })?;
 
-    let size = settings
-        .entity
-        .as_ref()
-        .and_then(|config| config.components.as_ref())
-        .and_then(|comps| comps.size.clone())
-        .unwrap_or_else(|| object.size.into());
-
     let sprite_render_opt = settings.spritesheet_filename.map(|filename| {
         get_sprite_render(world, format!("spritesheets/{}", filename), 0)
     });
 
-    let mut entity_builder = base_object_entity(world, object)?.with(size);
+    let mut entity_builder =
+        base_object_entity(world, object)?.with::<Size>(object.size.into());
 
     if let Some(sprite_render) = sprite_render_opt {
         entity_builder = entity_builder.with(sprite_render?);

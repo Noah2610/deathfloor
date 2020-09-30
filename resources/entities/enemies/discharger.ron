@@ -5,62 +5,38 @@
             spritesheet_filename: "enemy_discharger.png",
 
             entity: (
-                inherits: ["Walker"],
+                inherits: ["Enemy", "Walker"],
 
-                components: (
-                    size: (
-                        w: 16.0,
-                        h: 24.0,
-                    ),
-                    base_friction: (
-                        friction_x: 1000.0,
-                    ),
-                    gravity: (
-                        x: None,
-                        y: -900.0,
-                    ),
-                    max_movement_velocity: (
-                        x: 100.0,
-                        y: 100.0,
-                    ),
-                    animations: {
+                size: (
+                    w: 16.0,
+                    h: 24.0,
+                ),
+
+                components: [
+                    Animations({
                         Walk: Cycle([
                             (0, 150),
                         ]),
                         Custom("Face"): Once([
                             (1, 1200),
                         ]),
-                    },
-                    hitbox: Custom([
+                    }),
+                    Hitbox(Custom([
                         (
                             top:    8.0,
                             bottom: -12.0,
                             left:   -7.0,
                             right:  7.0,
                         ),
-                    ]),
-                    health: (
+                    ])),
+                    Health((
                         health: 5,
                         max_health: 5,
-                    ),
-                    health_display: (
-                        position: Top,
-                        size: (32.0, 2.0),
-                        padding: 4.0,
-                        border_padding: 0.5,
-                    ),
-                    deals_damage: (
+                    )),
+                    DealsDamage((
                         damage: 1,
-                    ),
-                    movement_acceleration: (
-                        x: 250.0,
-                    ),
-                ),
-
-                events: {
-                    OnCollision(And([IsTag("Bullet"), IsState(Enter)])):
-                        HealthAction(Lose(1)),
-                },
+                    )),
+                ],
 
                 variants: {
                     // DEPRECATED
@@ -101,11 +77,9 @@
                         },
                     ),
                     "Discharge": (
-                        components: (
-                            walker: (
-                                x: None,
-                            ),
-                        ),
+                        components: [
+                            Walker(None),
+                        ],
                         events: {
                             Init: Group([
                                 AnimationAction(Push(Custom("Face"))),
@@ -141,16 +115,6 @@
                         },
                     ),
                 },
-
-                collision_tag: (
-                    labels: ["Enemy"],
-                    collides_with: ["Player", "Solid", "Jumppad", "Bullet"],
-                ),
-
-                solid_tag: (
-                    labels: ["Enemy"],
-                    collides_with: ["Solid"],
-                ),
             ),
         ),
     }

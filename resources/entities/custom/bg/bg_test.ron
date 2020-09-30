@@ -51,11 +51,9 @@
         ),
         "BgTestCell0": (
             spritesheet: "bg/bg_cell0.png",
-            entity: (),
         ),
         "BgMusha": (
             spritesheet: "bg/bg_musha_test.png",
-            entity: (),
         ),
     },
 )
