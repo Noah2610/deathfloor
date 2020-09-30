@@ -3,19 +3,21 @@
     types: {
         "PlayerDodge": (
             events: {
-                OnKeyDown(Custom("Dodge")): EntityAction(PushVariant("Dodge")),
+                OnKeyDown(Custom("Dodge")): If((
+                    if: Not(Equal(Variant(), "Dodge")),
+                    then: EntityAction(PushVariant("Dodge")),
+                )),
             },
 
             variants: {
                 "Dodge": (
-                    // Make immune by removing enemy collision.
-                    // Kinda hacky.
                     collision_tag: (
                         labels: ["Player", "Pusher"],
                         collides_with: ["Tile", "Solid", "Jumppad", "Consumable"],
                     ),
 
                     components: [
+                        TakesDamage(None),
                         Gravity(None),
                         BaseFriction(None),
                         KillVelocityMin((
