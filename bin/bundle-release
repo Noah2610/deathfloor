@@ -2,7 +2,7 @@
 # Bundles (already) built executable in `target/release`
 # together with the `resources/` directory into a ZIP file.
 
-_dir="$( dirname "$( realpath "$0" )" )"
+_dir="$( dirname "$0" )"
 # shellcheck source=./share.sh
 source "${_dir}/share.sh"
 unset _dir

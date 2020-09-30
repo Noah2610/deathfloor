@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # shellcheck source=./share.sh disable=SC2155
-_dir="$( dirname "$( realpath "$0" )" )"
+_dir="$( dirname "$0" )"
 source "${_dir}/share.sh"
 unset _dir
 
