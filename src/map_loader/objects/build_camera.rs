@@ -60,6 +60,8 @@ pub(super) fn build(
         bottom: -half_size.1,
         left:   -half_size.0,
         right:  half_size.0,
+        near:   0.0,
+        far:    pos.2,
     };
     let loader = Loader::new(half_size.0, half_size.1);
     let confined = {
