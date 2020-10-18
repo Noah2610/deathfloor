@@ -26,5 +26,8 @@
         "level16.json",
         "testlevel_sandstone1.json",
         "cell_test0.json",
+        "orange_test.json",
+        "blue_test.json",
+        "cave_test.json",
     ],
 )
