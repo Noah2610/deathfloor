@@ -3,11 +3,11 @@
 #![enable(implicit_some)]
 /// Player settings.
 (
-    spritesheet: "playable_characters/player_fast_short_outline.png",
+    spritesheet: "player.png",
 
     /// The player's entity config.
     entity: (
-        inherits: ["PlayableCharacters", "PlayerCrouch", "PlayerDodge", "PlayerMusha"],
+        inherits: ["PlayerCrouch", "PlayerDodge", "PlayerMusha"],
 
         size: (
             w: 32.0,
@@ -172,10 +172,7 @@
                     // SET CONTROLLABLE
                     // ---------------
 
-                    Init: Group([
-                        ControlAction(SetControllable(true)),
-                        EntityAction(SwitchVariant("Sonic")),
-                    ]),
+                    Init: ControlAction(SetControllable(true)),
 
                     // ---------------
                     // ENEMY KNOCKBACK
