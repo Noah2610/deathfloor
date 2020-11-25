@@ -55,7 +55,6 @@ jobs:
       - name: Install Rust Toolchain
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: nightly-2020-02-06
           profile: minimal
           default: true
           override: true
@@ -114,7 +113,6 @@ jobs:
       - name: Install Rust Toolchain
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: nightly-2020-02-06
           profile: minimal
           default: true
           override: true
@@ -166,7 +164,6 @@ jobs:
       - name: Install Rust Toolchain
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: nightly-2020-02-06
           profile: minimal
           default: true
           override: true
