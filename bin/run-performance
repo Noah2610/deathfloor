@@ -7,5 +7,5 @@ unset _dir
 
 CODEGEN_UNITS="256"
 
-RUSTFLAGS="-C codegen-units=${CODEGEN_UNITS}" \
+RUSTFLAGS="-C codegen-units=${CODEGEN_UNITS} ${RUSTFLAGS}" \
     "${ROOT}/bin/run" "$@"

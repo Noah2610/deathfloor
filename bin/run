@@ -10,10 +10,17 @@ unset _dir
 check "cargo"
 
 function main {
-    local args
-    local cmd
+    local args=()
+    local cmd=()
+    # shellcheck disable=SC2153
+    local rustflags="$RUSTFLAGS"
+
+    is_available "lld" \
+        && rustflags="-C link-arg=-fuse-ld=lld ${rustflags}"
+
     args=( --features "debug" "$@" )
     cmd=( \
+        RUSTFLAGS="\"${rustflags}\""
         cargo "$CARGO_CMD" \
         "${args[@]}" \
     )
@@ -22,7 +29,7 @@ function main {
     if should_run_in_terminal; then
         run_terminal "${cmd[@]}"
     else
-        "${cmd[@]}"
+        bash -c "${cmd[*]}"
     fi
 }
 

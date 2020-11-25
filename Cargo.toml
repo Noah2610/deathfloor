@@ -46,9 +46,10 @@ dev     = []
 opt-level        = 2
 debug            = true
 debug-assertions = true
-codegen-units    = 1
+codegen-units    = 1024
 incremental      = true
 overflow-checks  = true
+lto              = false
 
 [profile.release]
 opt-level        = 3
