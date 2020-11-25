@@ -82,7 +82,7 @@ jobs:
   # --------------------------
   # LINUX RELEASE -- CODEGEN-1
   build-linux-release-codegen-1:
-    name: Build Linux Release
+    name: Build Linux Release with codegen-units=1
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -143,7 +143,7 @@ jobs:
           args: --release --features debug
 
       - name: Bundle Release
-        run: bin/bundle-release linux
+        run: bin/bundle-release linux-codegen-1
         shell: bash
 
       - name: Upload Bundled Release
@@ -219,7 +219,7 @@ jobs:
   # ----------------------------
   # WINDOWS RELEASE -- CODEGEN-1
   build-windows-release-codegen-1:
-    name: Build Windows Release
+    name: Build Windows Release with codegen-units=1
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v2
@@ -269,7 +269,7 @@ jobs:
           args: --release --features debug
 
       - name: Bundle Release
-        run: bin/bundle-release windows
+        run: bin/bundle-release windows-codegen-1
         shell: bash
 
       - name: Upload Bundled Release
