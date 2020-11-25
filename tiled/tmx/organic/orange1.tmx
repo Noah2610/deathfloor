@@ -3,7 +3,7 @@
  <editorsettings>
   <export target="../../resources/levels/testlevel_organic_orange1.json" format="deathfloor-export"/>
  </editorsettings>
- <tileset firstgid="1" source="../tsx/tiles_organic_purple1.tsx"/>
+ <tileset firstgid="1" source="../../tsx/tiles_organic_purple1.tsx"/>
  <layer id="1" name="Tile Layer 1" width="240" height="27">
   <properties>
    <property name="z" type="float" value="-0.8"/>
