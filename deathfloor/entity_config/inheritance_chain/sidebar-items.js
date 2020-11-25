@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_EntityConfigInheritanceChain",""]],"struct":[["EntityConfigInheritanceChain",""]]});
+initSidebarItems({"struct":[["EntityConfigInheritanceChain",""]]});

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/quickcheck-0.8.5/src/tester.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>tester.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../quickcheck/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/quickcheck-0.9.2/src/tester.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>tester.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../quickcheck/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -443,14 +443,39 @@
 <span id="443">443</span>
 <span id="444">444</span>
 <span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
+<span id="463">463</span>
+<span id="464">464</span>
+<span id="465">465</span>
+<span id="466">466</span>
+<span id="467">467</span>
+<span id="468">468</span>
+<span id="469">469</span>
+<span id="470">470</span>
 </pre><div class="example-wrap"><pre class="rust ">
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">cmp</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">env</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">panic</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">env</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">cmp</span>;
 
-<span class="kw">use</span> <span class="ident">tester</span>::<span class="ident">Status</span>::{<span class="ident">Discard</span>, <span class="ident">Fail</span>, <span class="ident">Pass</span>};
-<span class="kw">use</span> {<span class="ident">Arbitrary</span>, <span class="ident">Gen</span>, <span class="ident">StdThreadGen</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">tester</span>::<span class="ident">Status</span>::{<span class="ident">Discard</span>, <span class="ident">Fail</span>, <span class="ident">Pass</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">Arbitrary</span>, <span class="ident">Gen</span>, <span class="ident">StdThreadGen</span>};
 
 <span class="doccomment">/// The main QuickCheck type for setting configuration and running QuickCheck.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">QuickCheck</span><span class="op">&lt;</span><span class="ident">G</span><span class="op">&gt;</span> {
@@ -548,7 +573,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">gen</span><span class="op">&lt;</span><span class="ident">N</span>: <span class="ident">Gen</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">gen</span>: <span class="ident">N</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">QuickCheck</span><span class="op">&lt;</span><span class="ident">N</span><span class="op">&gt;</span> {
         <span class="comment">// unfortunately this is necessary because using QuickCheck{ ..self, gen }</span>
         <span class="comment">// wouldn&#39;t work due to mismatched types.</span>
-        <span class="kw">let</span> <span class="ident">QuickCheck</span>{ <span class="ident">tests</span>, <span class="ident">max_tests</span>, <span class="ident">min_tests_passed</span>, .. } <span class="op">=</span> <span class="self">self</span>;
+        <span class="kw">let</span> <span class="ident">QuickCheck</span> { <span class="ident">tests</span>, <span class="ident">max_tests</span>, <span class="ident">min_tests_passed</span>, .. } <span class="op">=</span> <span class="self">self</span>;
         <span class="ident">QuickCheck</span> { <span class="ident">tests</span>, <span class="ident">max_tests</span>, <span class="ident">min_tests_passed</span>, <span class="ident">gen</span> }
     }
 
@@ -556,10 +581,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This actually refers to the minimum number of *valid* *passed* tests</span>
     <span class="doccomment">/// that needs to pass for the property to be considered successful.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">min_tests_passed</span>(
-        <span class="kw-2">mut</span> <span class="self">self</span>,
-        <span class="ident">min_tests_passed</span>: <span class="ident">u64</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">QuickCheck</span><span class="op">&lt;</span><span class="ident">G</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">min_tests_passed</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">min_tests_passed</span>: <span class="ident">u64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">QuickCheck</span><span class="op">&lt;</span><span class="ident">G</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">min_tests_passed</span> <span class="op">=</span> <span class="ident">min_tests_passed</span>;
         <span class="self">self</span>
     }
@@ -572,11 +594,13 @@
     <span class="doccomment">/// (If you&#39;re using Rust&#39;s unit testing infrastructure, then you&#39;ll</span>
     <span class="doccomment">/// want to use the `quickcheck` method, which will `panic!` on failure.)</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">quicktest</span><span class="op">&lt;</span><span class="ident">A</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">f</span>: <span class="ident">A</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">u64</span>, <span class="ident">TestResult</span><span class="op">&gt;</span>
-                    <span class="kw">where</span> <span class="ident">A</span>: <span class="ident">Testable</span> {
+    <span class="kw">where</span>
+        <span class="ident">A</span>: <span class="ident">Testable</span>,
+    {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">n_tests_passed</span> <span class="op">=</span> <span class="number">0</span>;
         <span class="kw">for</span> <span class="kw">_</span> <span class="kw">in</span> <span class="number">0</span>..<span class="self">self</span>.<span class="ident">max_tests</span> {
             <span class="kw">if</span> <span class="ident">n_tests_passed</span> <span class="op">&gt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">tests</span> {
-                <span class="kw">break</span>
+                <span class="kw">break</span>;
             }
             <span class="kw">match</span> <span class="ident">f</span>.<span class="ident">result</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">gen</span>) {
                 <span class="ident">TestResult</span> { <span class="ident">status</span>: <span class="ident">Pass</span>, .. } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">n_tests_passed</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>,
@@ -613,9 +637,12 @@
     <span class="doccomment">///     QuickCheck::new().quickcheck(revrev as fn(Vec&lt;usize&gt;) -&gt; bool);</span>
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">quickcheck</span><span class="op">&lt;</span><span class="ident">A</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">f</span>: <span class="ident">A</span>) <span class="kw">where</span> <span class="ident">A</span>: <span class="ident">Testable</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">quickcheck</span><span class="op">&lt;</span><span class="ident">A</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">f</span>: <span class="ident">A</span>)
+    <span class="kw">where</span>
+        <span class="ident">A</span>: <span class="ident">Testable</span>,
+    {
         <span class="comment">// Ignore log init failures, implying it has already been done.</span>
-        <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> ::<span class="ident">env_logger_init</span>();
+        <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">env_logger_init</span>();
 
         <span class="kw">let</span> <span class="ident">n_tests_passed</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">quicktest</span>(<span class="ident">f</span>) {
             <span class="prelude-val">Ok</span>(<span class="ident">n_tests_passed</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">n_tests_passed</span>,
@@ -627,16 +654,18 @@
         } <span class="kw">else</span> {
             <span class="macro">panic</span><span class="macro">!</span>(
                 <span class="string">&quot;(Unable to generate enough tests, {} not discarded.)&quot;</span>,
-                <span class="ident">n_tests_passed</span>)
+                <span class="ident">n_tests_passed</span>
+            )
         }
-
     }
 }
 
 <span class="doccomment">/// Convenience function for running QuickCheck.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This is an alias for `QuickCheck::new().quickcheck(f)`.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">quickcheck</span><span class="op">&lt;</span><span class="ident">A</span>: <span class="ident">Testable</span><span class="op">&gt;</span>(<span class="ident">f</span>: <span class="ident">A</span>) { <span class="ident">QuickCheck</span>::<span class="ident">new</span>().<span class="ident">quickcheck</span>(<span class="ident">f</span>) }
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">quickcheck</span><span class="op">&lt;</span><span class="ident">A</span>: <span class="ident">Testable</span><span class="op">&gt;</span>(<span class="ident">f</span>: <span class="ident">A</span>) {
+    <span class="ident">QuickCheck</span>::<span class="ident">new</span>().<span class="ident">quickcheck</span>(<span class="ident">f</span>)
+}
 
 <span class="doccomment">/// Describes the status of a single instance of a test.</span>
 <span class="doccomment">///</span>
@@ -650,14 +679,22 @@
 
 <span class="doccomment">/// Whether a test has passed, failed or been discarded.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
-<span class="kw">enum</span> <span class="ident">Status</span> { <span class="ident">Pass</span>, <span class="ident">Fail</span>, <span class="ident">Discard</span> }
+<span class="kw">enum</span> <span class="ident">Status</span> {
+    <span class="ident">Pass</span>,
+    <span class="ident">Fail</span>,
+    <span class="ident">Discard</span>,
+}
 
 <span class="kw">impl</span> <span class="ident">TestResult</span> {
     <span class="doccomment">/// Produces a test result that indicates the current test has passed.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">passed</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TestResult</span> { <span class="ident">TestResult</span>::<span class="ident">from_bool</span>(<span class="bool-val">true</span>) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">passed</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TestResult</span> {
+        <span class="ident">TestResult</span>::<span class="ident">from_bool</span>(<span class="bool-val">true</span>)
+    }
 
     <span class="doccomment">/// Produces a test result that indicates the current test has failed.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">failed</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TestResult</span> { <span class="ident">TestResult</span>::<span class="ident">from_bool</span>(<span class="bool-val">false</span>) }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">failed</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TestResult</span> {
+        <span class="ident">TestResult</span>::<span class="ident">from_bool</span>(<span class="bool-val">false</span>)
+    }
 
     <span class="doccomment">/// Produces a test result that indicates failure from a runtime error.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">error</span><span class="op">&lt;</span><span class="ident">S</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">msg</span>: <span class="ident">S</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TestResult</span> {
@@ -671,11 +708,7 @@
     <span class="doccomment">/// When a test is discarded, `quickcheck` will replace it with a</span>
     <span class="doccomment">/// fresh one (up to a certain limit).</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">discard</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TestResult</span> {
-        <span class="ident">TestResult</span> {
-            <span class="ident">status</span>: <span class="ident">Discard</span>,
-            <span class="ident">arguments</span>: <span class="macro">vec</span><span class="macro">!</span>[],
-            <span class="ident">err</span>: <span class="prelude-val">None</span>,
-        }
+        <span class="ident">TestResult</span> { <span class="ident">status</span>: <span class="ident">Discard</span>, <span class="ident">arguments</span>: <span class="macro">vec</span><span class="macro">!</span>[], <span class="ident">err</span>: <span class="prelude-val">None</span> }
     }
 
     <span class="doccomment">/// Converts a `bool` to a `TestResult`. A `true` value indicates that</span>
@@ -692,7 +725,11 @@
     <span class="doccomment">/// Tests if a &quot;procedure&quot; fails when executed. The test passes only if</span>
     <span class="doccomment">/// `f` generates a task failure during its execution.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">must_fail</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">F</span><span class="op">&gt;</span>(<span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TestResult</span>
-            <span class="kw">where</span> <span class="ident">F</span>: <span class="ident">FnOnce</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span>, <span class="ident">F</span>: <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>, <span class="ident">T</span>: <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span> {
+    <span class="kw">where</span>
+        <span class="ident">F</span>: <span class="ident">FnOnce</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span>,
+        <span class="ident">F</span>: <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+        <span class="ident">T</span>: <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+    {
         <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="ident">panic</span>::<span class="ident">AssertUnwindSafe</span>(<span class="ident">f</span>);
         <span class="ident">TestResult</span>::<span class="ident">from_bool</span>(<span class="ident">panic</span>::<span class="ident">catch_unwind</span>(<span class="ident">f</span>).<span class="ident">is_err</span>())
     }
@@ -702,7 +739,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_failure</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">status</span> {
             <span class="ident">Fail</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
-            <span class="ident">Pass</span><span class="op">|</span><span class="ident">Discard</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
+            <span class="ident">Pass</span> <span class="op">|</span> <span class="ident">Discard</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
         }
     }
 
@@ -714,15 +751,16 @@
 
     <span class="kw">fn</span> <span class="ident">failed_msg</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">err</span> {
-            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;[quickcheck] TEST FAILED. Arguments: ({})&quot;</span>,
-                        <span class="self">self</span>.<span class="ident">arguments</span>.<span class="ident">join</span>(<span class="string">&quot;, &quot;</span>))
-            }
-            <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;[quickcheck] TEST FAILED (runtime error). \
-                         Arguments: ({})\nError: {}&quot;</span>,
-                        <span class="self">self</span>.<span class="ident">arguments</span>.<span class="ident">join</span>(<span class="string">&quot;, &quot;</span>), <span class="ident">err</span>)
-            }
+            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format</span><span class="macro">!</span>(
+                <span class="string">&quot;[quickcheck] TEST FAILED. Arguments: ({})&quot;</span>,
+                <span class="self">self</span>.<span class="ident">arguments</span>.<span class="ident">join</span>(<span class="string">&quot;, &quot;</span>)
+            ),
+            <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format</span><span class="macro">!</span>(
+                <span class="string">&quot;[quickcheck] TEST FAILED (runtime error). \
+                 Arguments: ({})\nError: {}&quot;</span>,
+                <span class="self">self</span>.<span class="ident">arguments</span>.<span class="ident">join</span>(<span class="string">&quot;, &quot;</span>),
+                <span class="ident">err</span>
+            ),
         }
     }
 }
@@ -738,8 +776,8 @@
 <span class="doccomment">/// and potentially shrink those arguments if they produce a failure.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// It&#39;s unlikely that you&#39;ll have to implement this trait yourself.</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Testable</span> : <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span> {
-    <span class="kw">fn</span> <span class="ident">result</span><span class="op">&lt;</span><span class="ident">G</span>: <span class="ident">Gen</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">G</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TestResult</span>;
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Testable</span>: <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span> {
+    <span class="kw">fn</span> <span class="ident">result</span><span class="op">&lt;</span><span class="ident">G</span>: <span class="ident">Gen</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">G</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TestResult</span>;
 }
 
 <span class="kw">impl</span> <span class="ident">Testable</span> <span class="kw">for</span> <span class="ident">bool</span> {
@@ -755,11 +793,16 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Testable</span> <span class="kw">for</span> <span class="ident">TestResult</span> {
-    <span class="kw">fn</span> <span class="ident">result</span><span class="op">&lt;</span><span class="ident">G</span>: <span class="ident">Gen</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">G</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TestResult</span> { <span class="self">self</span>.<span class="ident">clone</span>() }
+    <span class="kw">fn</span> <span class="ident">result</span><span class="op">&lt;</span><span class="ident">G</span>: <span class="ident">Gen</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">G</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TestResult</span> {
+        <span class="self">self</span>.<span class="ident">clone</span>()
+    }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">A</span>, <span class="ident">E</span><span class="op">&gt;</span> <span class="ident">Testable</span> <span class="kw">for</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">A</span>, <span class="ident">E</span><span class="op">&gt;</span>
-        <span class="kw">where</span> <span class="ident">A</span>: <span class="ident">Testable</span>, <span class="ident">E</span>: <span class="ident">Debug</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span> {
+<span class="kw">where</span>
+    <span class="ident">A</span>: <span class="ident">Testable</span>,
+    <span class="ident">E</span>: <span class="ident">Debug</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+{
     <span class="kw">fn</span> <span class="ident">result</span><span class="op">&lt;</span><span class="ident">G</span>: <span class="ident">Gen</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">g</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">G</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TestResult</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
             <span class="prelude-val">Ok</span>(<span class="kw-2">ref</span> <span class="ident">r</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">r</span>.<span class="ident">result</span>(<span class="ident">g</span>),
@@ -769,7 +812,7 @@
 }
 
 <span class="doccomment">/// Return a vector of the debug formatting of each item in `args`</span>
-<span class="kw">fn</span> <span class="ident">debug_reprs</span>(<span class="ident">args</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">dyn</span> <span class="ident">Debug</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">debug_reprs</span>(<span class="ident">args</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">Debug</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
     <span class="ident">args</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{:?}&quot;</span>, <span class="ident">x</span>)).<span class="ident">collect</span>()
 }
 
@@ -835,7 +878,11 @@
 <span class="macro">testable_fn</span><span class="macro">!</span>(<span class="ident">A</span>, <span class="ident">B</span>, <span class="ident">C</span>, <span class="ident">D</span>, <span class="ident">E</span>, <span class="ident">F</span>, <span class="ident">G</span>, <span class="ident">H</span>);
 
 <span class="kw">fn</span> <span class="ident">safe</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">F</span><span class="op">&gt;</span>(<span class="ident">fun</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">String</span><span class="op">&gt;</span>
-        <span class="kw">where</span> <span class="ident">F</span>: <span class="ident">FnOnce</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span>, <span class="ident">F</span>: <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>, <span class="ident">T</span>: <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span> {
+<span class="kw">where</span>
+    <span class="ident">F</span>: <span class="ident">FnOnce</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span>,
+    <span class="ident">F</span>: <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+    <span class="ident">T</span>: <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+{
     <span class="ident">panic</span>::<span class="ident">catch_unwind</span>(<span class="ident">panic</span>::<span class="ident">AssertUnwindSafe</span>(<span class="ident">fun</span>)).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">any_err</span><span class="op">|</span> {
         <span class="comment">// Extract common types of panic payload:</span>
         <span class="comment">// panic and assert produce &amp;str or String</span>
@@ -850,12 +897,12 @@
 }
 
 <span class="doccomment">/// Convenient aliases.</span>
-<span class="kw">trait</span> <span class="ident">AShow</span> : <span class="ident">Arbitrary</span> <span class="op">+</span> <span class="ident">Debug</span> {}
+<span class="kw">trait</span> <span class="ident">AShow</span>: <span class="ident">Arbitrary</span> <span class="op">+</span> <span class="ident">Debug</span> {}
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">A</span>: <span class="ident">Arbitrary</span> <span class="op">+</span> <span class="ident">Debug</span><span class="op">&gt;</span> <span class="ident">AShow</span> <span class="kw">for</span> <span class="ident">A</span> {}
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">test</span> {
-    <span class="kw">use</span> {<span class="ident">QuickCheck</span>, <span class="ident">StdGen</span>};
+    <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">QuickCheck</span>, <span class="ident">StdGen</span>};
     <span class="kw">use</span> <span class="ident">rand</span>::{<span class="self">self</span>, <span class="ident">rngs</span>::<span class="ident">OsRng</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -863,8 +910,7 @@
         <span class="kw">fn</span> <span class="ident">thetest</span>(<span class="ident">vals</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
             <span class="ident">vals</span>.<span class="ident">iter</span>().<span class="ident">filter</span>(<span class="op">|</span><span class="kw-2">&amp;</span><span class="ident">v</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">v</span>).<span class="ident">count</span>() <span class="op">&lt;</span> <span class="number">2</span>
         }
-        <span class="kw">let</span> <span class="ident">failing_case</span> <span class="op">=</span>
-            <span class="ident">QuickCheck</span>::<span class="ident">new</span>()
+        <span class="kw">let</span> <span class="ident">failing_case</span> <span class="op">=</span> <span class="ident">QuickCheck</span>::<span class="ident">new</span>()
             .<span class="ident">quicktest</span>(<span class="ident">thetest</span> <span class="kw">as</span> <span class="kw">fn</span>(<span class="ident">vals</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>)
             .<span class="ident">unwrap_err</span>();
         <span class="kw">let</span> <span class="ident">expected_argument</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{:?}&quot;</span>, [<span class="bool-val">true</span>, <span class="bool-val">true</span>]);
@@ -873,7 +919,9 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">size_for_small_types_issue_143</span>() {
-        <span class="kw">fn</span> <span class="ident">t</span>(<span class="kw">_</span>: <span class="ident">i8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> { <span class="bool-val">true</span> }
+        <span class="kw">fn</span> <span class="ident">t</span>(<span class="kw">_</span>: <span class="ident">i8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+            <span class="bool-val">true</span>
+        }
         <span class="ident">QuickCheck</span>::<span class="ident">new</span>()
             .<span class="ident">gen</span>(<span class="ident">StdGen</span>::<span class="ident">new</span>(<span class="ident">rand</span>::<span class="ident">thread_rng</span>(), <span class="number">129</span>))
             .<span class="ident">quickcheck</span>(<span class="ident">t</span> <span class="kw">as</span> <span class="kw">fn</span>(<span class="ident">i8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>);
@@ -881,11 +929,13 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">different_generator</span>() {
-        <span class="kw">fn</span> <span class="ident">prop</span>(<span class="kw">_</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> { <span class="bool-val">true</span> }
-        <span class="ident">QuickCheck</span>::<span class="ident">with_gen</span>(<span class="ident">StdGen</span>::<span class="ident">new</span>(<span class="ident">OsRng</span>::<span class="ident">new</span>().<span class="ident">unwrap</span>(), <span class="number">129</span>))
+        <span class="kw">fn</span> <span class="ident">prop</span>(<span class="kw">_</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+            <span class="bool-val">true</span>
+        }
+        <span class="ident">QuickCheck</span>::<span class="ident">with_gen</span>(<span class="ident">StdGen</span>::<span class="ident">new</span>(<span class="ident">OsRng</span>, <span class="number">129</span>))
             .<span class="ident">quickcheck</span>(<span class="ident">prop</span> <span class="kw">as</span> <span class="kw">fn</span>(<span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>);
         <span class="ident">QuickCheck</span>::<span class="ident">new</span>()
-            .<span class="ident">gen</span>(<span class="ident">StdGen</span>::<span class="ident">new</span>(<span class="ident">OsRng</span>::<span class="ident">new</span>().<span class="ident">unwrap</span>(), <span class="number">129</span>))
+            .<span class="ident">gen</span>(<span class="ident">StdGen</span>::<span class="ident">new</span>(<span class="ident">OsRng</span>, <span class="number">129</span>))
             .<span class="ident">quickcheck</span>(<span class="ident">prop</span> <span class="kw">as</span> <span class="kw">fn</span>(<span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>);
     }
 }

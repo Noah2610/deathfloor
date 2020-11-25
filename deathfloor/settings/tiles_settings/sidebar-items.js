@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_TileSettings",""],["_IMPL_DESERIALIZE_FOR_TilesSettings",""]],"mod":[["prelude",""]],"struct":[["TileSettings",""],["TilesSettings",""]]});
+initSidebarItems({"mod":[["prelude",""]],"struct":[["TileSettings",""],["TilesSettings",""]]});

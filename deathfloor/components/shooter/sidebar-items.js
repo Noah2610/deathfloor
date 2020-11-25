@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_Shooter",""],["_IMPL_DESERIALIZE_FOR_ShooterDeser",""]],"struct":[["Shooter",""],["ShooterDeser",""]]});
+initSidebarItems({"struct":[["Shooter",""],["ShooterDeser",""]]});

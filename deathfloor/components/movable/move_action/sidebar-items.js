@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_MoveAction",""]],"enum":[["MoveAction","Move actions are used to manipulate the entity's velocity. The entity needs to at least have the `Velocity` and `Movable` components."]]});
+initSidebarItems({"enum":[["MoveAction","Move actions are used to manipulate the entity's velocity. The entity needs to at least have the `Velocity` and `Movable` components."]]});

@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_DeathAfterDelay",""],["_IMPL_DESERIALIZE_FOR_DeathAfterDelayDeser",""]],"struct":[["DeathAfterDelay",""],["DeathAfterDelayDeser",""]]});
+initSidebarItems({"struct":[["DeathAfterDelay",""],["DeathAfterDelayDeser",""]]});

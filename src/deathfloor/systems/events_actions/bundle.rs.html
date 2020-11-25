@@ -195,6 +195,11 @@
 <span id="195">195</span>
 <span id="196">196</span>
 <span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">actions</span>;
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">events</span>;
@@ -380,6 +385,11 @@
         <span class="ident">builder</span>.<span class="ident">add</span>(
             <span class="ident">actions</span>::<span class="ident">call</span>::<span class="ident">HandleActionCall</span>::<span class="ident">default</span>(),
             <span class="string">&quot;handle_action_call_system&quot;</span>,
+            <span class="ident">actions_deps</span>,
+        );
+        <span class="ident">builder</span>.<span class="ident">add</span>(
+            <span class="ident">actions</span>::<span class="ident">control_action</span>::<span class="ident">HandleActionControlAction</span>::<span class="ident">default</span>(),
+            <span class="string">&quot;handle_action_control_action_system&quot;</span>,
             <span class="ident">actions_deps</span>,
         );
         <span class="prelude-val">Ok</span>(())

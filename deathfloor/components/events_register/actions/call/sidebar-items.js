@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_Call",""]],"struct":[["Call","Call the `Function` event with the given name."]]});
+initSidebarItems({"struct":[["Call","Call the `Function` event with the given name."]]});

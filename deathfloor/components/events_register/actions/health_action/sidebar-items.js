@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_HealthAction",""]],"struct":[["HealthAction","Gain or lose health depending on the `HealthAction`. Entity needs the `Health` component for this to work."]]});
+initSidebarItems({"struct":[["HealthAction","Gain or lose health depending on the `HealthAction`. Entity needs the `Health` component for this to work."]]});

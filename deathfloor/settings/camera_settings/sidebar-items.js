@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_CameraSettings",""]],"struct":[["CameraSettings",""]]});
+initSidebarItems({"struct":[["CameraSettings",""]]});

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/hashbrown-0.7.1/src/raw/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../hashbrown/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/hashbrown-0.7.2/src/raw/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../hashbrown/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
 <span id="4">   4</span>
@@ -1526,6 +1526,10 @@
 <span id="1526">1526</span>
 <span id="1527">1527</span>
 <span id="1528">1528</span>
+<span id="1529">1529</span>
+<span id="1530">1530</span>
+<span id="1531">1531</span>
+<span id="1532">1532</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">alloc</span>::<span class="ident">alloc</span>::{<span class="ident">alloc</span>, <span class="ident">dealloc</span>, <span class="ident">handle_alloc_error</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">scopeguard</span>::<span class="ident">guard</span>;
@@ -1786,8 +1790,8 @@
 <span class="doccomment">/// is a ZST, then we instead track the index of the element in the table so</span>
 <span class="doccomment">/// that `erase` works properly.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Bucket</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
-    <span class="comment">// Using *const for variance</span>
-    <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">T</span>,
+    <span class="comment">// Using `NonNull` for variance and niche layout</span>
+    <span class="ident">ptr</span>: <span class="ident">NonNull</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
 }
 
 <span class="comment">// This Send impl is needed for rayon support. This is safe since Bucket is</span>
@@ -1803,13 +1807,24 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">Bucket</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;inline-more&quot;</span>, <span class="ident">inline</span>)]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_base_index</span>(<span class="ident">base</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">T</span>, <span class="ident">index</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_base_index</span>(<span class="ident">base</span>: <span class="ident">NonNull</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">index</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">mem</span>::<span class="ident">size_of</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>() <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
-            <span class="ident">index</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">T</span>
+            <span class="comment">// won&#39;t overflow because index must be less than length</span>
+            (<span class="ident">index</span> <span class="op">+</span> <span class="number">1</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>
         } <span class="kw">else</span> {
-            <span class="ident">base</span>.<span class="ident">add</span>(<span class="ident">index</span>)
+            <span class="ident">base</span>.<span class="ident">as_ptr</span>().<span class="ident">add</span>(<span class="ident">index</span>)
         };
-        <span class="self">Self</span> { <span class="ident">ptr</span> }
+        <span class="self">Self</span> {
+            <span class="ident">ptr</span>: <span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>),
+        }
+    }
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;inline-more&quot;</span>, <span class="ident">inline</span>)]</span>
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">to_base_index</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">base</span>: <span class="ident">NonNull</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
+        <span class="kw">if</span> <span class="ident">mem</span>::<span class="ident">size_of</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>() <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
+            <span class="self">self</span>.<span class="ident">ptr</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="ident">usize</span> <span class="op">-</span> <span class="number">1</span>
+        } <span class="kw">else</span> {
+            <span class="ident">offset_from</span>(<span class="self">self</span>.<span class="ident">ptr</span>.<span class="ident">as_ptr</span>(), <span class="ident">base</span>.<span class="ident">as_ptr</span>())
+        }
     }
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;inline-more&quot;</span>, <span class="ident">inline</span>)]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">as_ptr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span> {
@@ -1817,17 +1832,19 @@
             <span class="comment">// Just return an arbitrary ZST pointer which is properly aligned</span>
             <span class="ident">mem</span>::<span class="ident">align_of</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>
         } <span class="kw">else</span> {
-            <span class="self">self</span>.<span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>
+            <span class="self">self</span>.<span class="ident">ptr</span>.<span class="ident">as_ptr</span>()
         }
     }
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;inline-more&quot;</span>, <span class="ident">inline</span>)]</span>
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">add</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">offset</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">ptr</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">mem</span>::<span class="ident">size_of</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>() <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
-            (<span class="self">self</span>.<span class="ident">ptr</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">+</span> <span class="ident">offset</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">T</span>
+            (<span class="self">self</span>.<span class="ident">ptr</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="ident">usize</span> <span class="op">+</span> <span class="ident">offset</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span>
         } <span class="kw">else</span> {
-            <span class="self">self</span>.<span class="ident">ptr</span>.<span class="ident">add</span>(<span class="ident">offset</span>)
+            <span class="self">self</span>.<span class="ident">ptr</span>.<span class="ident">as_ptr</span>().<span class="ident">add</span>(<span class="ident">offset</span>)
         };
-        <span class="self">Self</span> { <span class="ident">ptr</span> }
+        <span class="self">Self</span> {
+            <span class="ident">ptr</span>: <span class="ident">NonNull</span>::<span class="ident">new_unchecked</span>(<span class="ident">ptr</span>),
+        }
     }
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;inline-more&quot;</span>, <span class="ident">inline</span>)]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
@@ -1957,11 +1974,7 @@
     <span class="doccomment">/// Returns the index of a bucket from a `Bucket`.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;inline-more&quot;</span>, <span class="ident">inline</span>)]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">bucket_index</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">bucket</span>: <span class="kw-2">&amp;</span><span class="ident">Bucket</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
-        <span class="kw">if</span> <span class="ident">mem</span>::<span class="ident">size_of</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>() <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
-            <span class="ident">bucket</span>.<span class="ident">ptr</span> <span class="kw">as</span> <span class="ident">usize</span>
-        } <span class="kw">else</span> {
-            <span class="ident">offset_from</span>(<span class="ident">bucket</span>.<span class="ident">ptr</span>, <span class="self">self</span>.<span class="ident">data</span>.<span class="ident">as_ptr</span>())
-        }
+        <span class="ident">bucket</span>.<span class="ident">to_base_index</span>(<span class="self">self</span>.<span class="ident">data</span>)
     }
 
     <span class="doccomment">/// Returns a pointer to a control byte.</span>
@@ -1976,7 +1989,7 @@
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">bucket</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Bucket</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
         <span class="macro">debug_assert_ne</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">bucket_mask</span>, <span class="number">0</span>);
         <span class="macro">debug_assert</span><span class="macro">!</span>(<span class="ident">index</span> <span class="op">&lt;</span> <span class="self">self</span>.<span class="ident">buckets</span>());
-        <span class="ident">Bucket</span>::<span class="ident">from_base_index</span>(<span class="self">self</span>.<span class="ident">data</span>.<span class="ident">as_ptr</span>(), <span class="ident">index</span>)
+        <span class="ident">Bucket</span>::<span class="ident">from_base_index</span>(<span class="self">self</span>.<span class="ident">data</span>, <span class="ident">index</span>)
     }
 
     <span class="doccomment">/// Erases an element from the table without dropping it.</span>
@@ -2465,7 +2478,7 @@
     <span class="doccomment">/// struct, we have to make the `iter` method unsafe.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;inline-more&quot;</span>, <span class="ident">inline</span>)]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">iter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RawIter</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">Bucket</span>::<span class="ident">from_base_index</span>(<span class="self">self</span>.<span class="ident">data</span>.<span class="ident">as_ptr</span>(), <span class="number">0</span>);
+        <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">Bucket</span>::<span class="ident">from_base_index</span>(<span class="self">self</span>.<span class="ident">data</span>, <span class="number">0</span>);
         <span class="ident">RawIter</span> {
             <span class="ident">iter</span>: <span class="ident">RawIterRange</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">ctrl</span>.<span class="ident">as_ptr</span>(), <span class="ident">data</span>, <span class="self">self</span>.<span class="ident">buckets</span>()),
             <span class="ident">items</span>: <span class="self">self</span>.<span class="ident">items</span>,
@@ -2565,16 +2578,11 @@
     <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">clone_from_spec</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">on_panic</span>: <span class="kw">impl</span> <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>));
 }
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Clone</span><span class="op">&gt;</span> <span class="ident">RawTableClone</span> <span class="kw">for</span> <span class="ident">RawTable</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;nightly&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;inline-more&quot;</span>, <span class="ident">inline</span>)]</span>
-    <span class="ident">default</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">clone_from_spec</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">on_panic</span>: <span class="kw">impl</span> <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>)) {
-        <span class="self">self</span>.<span class="ident">clone_from_impl</span>(<span class="ident">source</span>, <span class="ident">on_panic</span>);
-    }
-
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;nightly&quot;</span>))]</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;inline-more&quot;</span>, <span class="ident">inline</span>)]</span>
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">clone_from_spec</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">on_panic</span>: <span class="kw">impl</span> <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>)) {
-        <span class="self">self</span>.<span class="ident">clone_from_impl</span>(<span class="ident">source</span>, <span class="ident">on_panic</span>);
+    <span class="macro">default_fn</span><span class="macro">!</span> {
+        <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">clone_from_spec</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">on_panic</span>: <span class="kw">impl</span> <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span>)) {
+            <span class="self">self</span>.<span class="ident">clone_from_impl</span>(<span class="ident">source</span>, <span class="ident">on_panic</span>);
+        }
     }
 }
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;nightly&quot;</span>)]</span>
@@ -2638,7 +2646,7 @@
     }
 
     <span class="doccomment">/// Variant of `clone_from` to use when a hasher is available.</span>
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;nightly&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;raw&quot;</span>))]</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;raw&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clone_from_with_hasher</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="ident">hasher</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u64</span>) {
         <span class="comment">// If we have enough capacity in the table, just clear it and insert</span>
         <span class="comment">// elements one by one. We don&#39;t do this if we have the same number of</span>

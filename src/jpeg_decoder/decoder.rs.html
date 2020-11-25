@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/jpeg-decoder-0.1.18/src/decoder.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>decoder.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../jpeg_decoder/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/jpeg-decoder-0.1.20/src/decoder.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>decoder.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../jpeg_decoder/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -925,6 +925,58 @@
 <span id="925">925</span>
 <span id="926">926</span>
 <span id="927">927</span>
+<span id="928">928</span>
+<span id="929">929</span>
+<span id="930">930</span>
+<span id="931">931</span>
+<span id="932">932</span>
+<span id="933">933</span>
+<span id="934">934</span>
+<span id="935">935</span>
+<span id="936">936</span>
+<span id="937">937</span>
+<span id="938">938</span>
+<span id="939">939</span>
+<span id="940">940</span>
+<span id="941">941</span>
+<span id="942">942</span>
+<span id="943">943</span>
+<span id="944">944</span>
+<span id="945">945</span>
+<span id="946">946</span>
+<span id="947">947</span>
+<span id="948">948</span>
+<span id="949">949</span>
+<span id="950">950</span>
+<span id="951">951</span>
+<span id="952">952</span>
+<span id="953">953</span>
+<span id="954">954</span>
+<span id="955">955</span>
+<span id="956">956</span>
+<span id="957">957</span>
+<span id="958">958</span>
+<span id="959">959</span>
+<span id="960">960</span>
+<span id="961">961</span>
+<span id="962">962</span>
+<span id="963">963</span>
+<span id="964">964</span>
+<span id="965">965</span>
+<span id="966">966</span>
+<span id="967">967</span>
+<span id="968">968</span>
+<span id="969">969</span>
+<span id="970">970</span>
+<span id="971">971</span>
+<span id="972">972</span>
+<span id="973">973</span>
+<span id="974">974</span>
+<span id="975">975</span>
+<span id="976">976</span>
+<span id="977">977</span>
+<span id="978">978</span>
+<span id="979">979</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">byteorder</span>::<span class="ident">ReadBytesExt</span>;
 <span class="kw">use</span> <span class="ident">error</span>::{<span class="ident">Error</span>, <span class="prelude-ty">Result</span>, <span class="ident">UnsupportedFeature</span>};
@@ -962,6 +1014,17 @@
     <span class="ident">RGB24</span>,
     <span class="doccomment">/// CMYK, 8 bits per channel</span>
     <span class="ident">CMYK32</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">PixelFormat</span> {
+    <span class="doccomment">/// Determine the size in bytes of each pixel in this format</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pixel_bytes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
+            <span class="ident">PixelFormat</span>::<span class="ident">L8</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">1</span>,
+            <span class="ident">PixelFormat</span>::<span class="ident">RGB24</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">3</span>,
+            <span class="ident">PixelFormat</span>::<span class="ident">CMYK32</span> <span class="op">=</span><span class="op">&gt;</span> <span class="number">4</span>,
+        }
+    }
 }
 
 <span class="doccomment">/// Represents metadata of an image.</span>
@@ -1151,20 +1214,42 @@
                         }).<span class="ident">collect</span>();
                     }
 
+                    <span class="comment">// This was previously buggy, so let&#39;s explain the log here a bit. When a</span>
+                    <span class="comment">// progressive frame is encoded then the coefficients (DC, AC) of each</span>
+                    <span class="comment">// component (=color plane) can be split amongst scans. In particular it can</span>
+                    <span class="comment">// happen or at least occurs in the wild that a scan contains coefficient 0 of</span>
+                    <span class="comment">// all components. If now one but not all components had all other coefficients</span>
+                    <span class="comment">// delivered in previous scans then such a scan contains all components but</span>
+                    <span class="comment">// completes only some of them! (This is technically NOT permitted for all</span>
+                    <span class="comment">// other coefficients as the standard dictates that scans with coefficients</span>
+                    <span class="comment">// other than the 0th must only contain ONE component so we would either</span>
+                    <span class="comment">// complete it or not. We may want to detect and error in case more component</span>
+                    <span class="comment">// are part of a scan than allowed.) What a weird edge case.</span>
+                    <span class="comment">//</span>
+                    <span class="comment">// But this means we track precisely which components get completed here.</span>
+                    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">finished</span> <span class="op">=</span> [<span class="bool-val">false</span>; <span class="ident">MAX_COMPONENTS</span>];
+
                     <span class="kw">if</span> <span class="ident">scan</span>.<span class="ident">successive_approximation_low</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
-                        <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="ident">i</span> <span class="kw">in</span> <span class="ident">scan</span>.<span class="ident">component_indices</span>.<span class="ident">iter</span>() {
+                        <span class="kw">for</span> (<span class="kw-2">&amp;</span><span class="ident">i</span>, <span class="ident">component_finished</span>) <span class="kw">in</span> <span class="ident">scan</span>.<span class="ident">component_indices</span>.<span class="ident">iter</span>().<span class="ident">zip</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">finished</span>) {
+                            <span class="kw">if</span> <span class="self">self</span>.<span class="ident">coefficients_finished</span>[<span class="ident">i</span>] <span class="op">=</span><span class="op">=</span> <span class="op">!</span><span class="number">0</span> {
+                                <span class="kw">continue</span>;
+                            }
                             <span class="kw">for</span> <span class="ident">j</span> <span class="kw">in</span> <span class="ident">scan</span>.<span class="ident">spectral_selection</span>.<span class="ident">clone</span>() {
                                 <span class="self">self</span>.<span class="ident">coefficients_finished</span>[<span class="ident">i</span>] <span class="op">|</span><span class="op">=</span> <span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="ident">j</span>;
+                            }
+                            <span class="kw">if</span> <span class="self">self</span>.<span class="ident">coefficients_finished</span>[<span class="ident">i</span>] <span class="op">=</span><span class="op">=</span> <span class="op">!</span><span class="number">0</span> {
+                                <span class="kw-2">*</span><span class="ident">component_finished</span> <span class="op">=</span> <span class="bool-val">true</span>;
                             }
                         }
                     }
 
-                    <span class="kw">let</span> <span class="ident">is_final_scan</span> <span class="op">=</span> <span class="ident">scan</span>.<span class="ident">component_indices</span>.<span class="ident">iter</span>().<span class="ident">all</span>(<span class="op">|</span><span class="kw-2">&amp;</span><span class="ident">i</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">coefficients_finished</span>[<span class="ident">i</span>] <span class="op">=</span><span class="op">=</span> <span class="op">!</span><span class="number">0</span>);
-                    <span class="kw">let</span> (<span class="ident">marker</span>, <span class="ident">data</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">decode_scan</span>(<span class="kw-2">&amp;</span><span class="ident">frame</span>, <span class="kw-2">&amp;</span><span class="ident">scan</span>, <span class="ident">worker</span>.<span class="ident">as_mut</span>().<span class="ident">unwrap</span>(), <span class="ident">is_final_scan</span>)<span class="question-mark">?</span>;
+                    <span class="kw">let</span> (<span class="ident">marker</span>, <span class="ident">data</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">decode_scan</span>(<span class="kw-2">&amp;</span><span class="ident">frame</span>, <span class="kw-2">&amp;</span><span class="ident">scan</span>, <span class="ident">worker</span>.<span class="ident">as_mut</span>().<span class="ident">unwrap</span>(), <span class="kw-2">&amp;</span><span class="ident">finished</span>)<span class="question-mark">?</span>;
 
                     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">data</span>) <span class="op">=</span> <span class="ident">data</span> {
                         <span class="kw">for</span> (<span class="ident">i</span>, <span class="ident">plane</span>) <span class="kw">in</span> <span class="ident">data</span>.<span class="ident">into_iter</span>().<span class="ident">enumerate</span>().<span class="ident">filter</span>(<span class="op">|</span><span class="kw-2">&amp;</span>(<span class="kw">_</span>, <span class="kw-2">ref</span> <span class="ident">plane</span>)<span class="op">|</span> <span class="op">!</span><span class="ident">plane</span>.<span class="ident">is_empty</span>()) {
-                            <span class="ident">planes</span>[<span class="ident">i</span>] <span class="op">=</span> <span class="ident">plane</span>;
+                            <span class="kw">if</span> <span class="self">self</span>.<span class="ident">coefficients_finished</span>[<span class="ident">i</span>] <span class="op">=</span><span class="op">=</span> <span class="op">!</span><span class="number">0</span> {
+                                <span class="ident">planes</span>[<span class="ident">i</span>] <span class="op">=</span> <span class="ident">plane</span>;
+                            }
                         }
                     }
 
@@ -1274,7 +1359,7 @@
         }
 
         <span class="kw">let</span> <span class="ident">frame</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">frame</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>();
-        <span class="ident">compute_image</span>(<span class="kw-2">&amp;</span><span class="ident">frame</span>.<span class="ident">components</span>, <span class="kw-2">&amp;</span><span class="ident">planes</span>, <span class="ident">frame</span>.<span class="ident">output_size</span>, <span class="self">self</span>.<span class="ident">is_jfif</span>, <span class="self">self</span>.<span class="ident">color_transform</span>)
+        <span class="ident">compute_image</span>(<span class="kw-2">&amp;</span><span class="ident">frame</span>.<span class="ident">components</span>, <span class="ident">planes</span>, <span class="ident">frame</span>.<span class="ident">output_size</span>, <span class="self">self</span>.<span class="ident">is_jfif</span>, <span class="self">self</span>.<span class="ident">color_transform</span>)
     }
 
     <span class="kw">fn</span> <span class="ident">read_marker</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Marker</span><span class="op">&gt;</span> {
@@ -1290,7 +1375,14 @@
             <span class="comment">// byte which is not equal to 0 or X’FF’ (see Table B.1). Any marker may</span>
             <span class="comment">// optionally be preceded by any number of fill bytes, which are bytes</span>
             <span class="comment">// assigned code X’FF’.</span>
-            <span class="kw">let</span> <span class="ident">byte</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">reader</span>.<span class="ident">read_u8</span>()<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">byte</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">reader</span>.<span class="ident">read_u8</span>()<span class="question-mark">?</span>;
+
+            <span class="comment">// Section B.1.1.2</span>
+            <span class="comment">// &quot;Any marker may optionally be preceded by any number of fill bytes, which are bytes assigned code X’FF’.&quot;</span>
+            <span class="kw">while</span> <span class="ident">byte</span> <span class="op">=</span><span class="op">=</span> <span class="number">0xFF</span> {
+                <span class="ident">byte</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">reader</span>.<span class="ident">read_u8</span>()<span class="question-mark">?</span>;
+            }
+            
             <span class="kw">if</span> <span class="ident">byte</span> <span class="op">!</span><span class="op">=</span> <span class="number">0x00</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">byte</span> <span class="op">!</span><span class="op">=</span> <span class="number">0xFF</span> {
                 <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">Marker</span>::<span class="ident">from_u8</span>(<span class="ident">byte</span>).<span class="ident">unwrap</span>());
             }
@@ -1301,7 +1393,7 @@
                    <span class="ident">frame</span>: <span class="kw-2">&amp;</span><span class="ident">FrameInfo</span>,
                    <span class="ident">scan</span>: <span class="kw-2">&amp;</span><span class="ident">ScanInfo</span>,
                    <span class="ident">worker</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">PlatformWorker</span>,
-                   <span class="ident">produce_data</span>: <span class="ident">bool</span>)
+                   <span class="ident">finished</span>: <span class="kw-2">&amp;</span>[<span class="ident">bool</span>; <span class="ident">MAX_COMPONENTS</span>])
                    <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Marker</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>)<span class="op">&gt;</span> {
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">scan</span>.<span class="ident">component_indices</span>.<span class="ident">len</span>() <span class="op">&lt;</span><span class="op">=</span> <span class="ident">MAX_COMPONENTS</span>);
 
@@ -1328,9 +1420,9 @@
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error</span>::<span class="ident">Format</span>(<span class="string">&quot;scan makes use of unset ac huffman table&quot;</span>.<span class="ident">to_owned</span>()));
         }
 
-        <span class="kw">if</span> <span class="ident">produce_data</span> {
-            <span class="comment">// Prepare the worker thread for the work to come.</span>
-            <span class="kw">for</span> (<span class="ident">i</span>, <span class="ident">component</span>) <span class="kw">in</span> <span class="ident">components</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>() {
+        <span class="comment">// Prepare the worker thread for the work to come.</span>
+        <span class="kw">for</span> (<span class="ident">i</span>, <span class="ident">component</span>) <span class="kw">in</span> <span class="ident">components</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>() {
+            <span class="kw">if</span> <span class="ident">finished</span>[<span class="ident">i</span>] {
                 <span class="kw">let</span> <span class="ident">row_data</span> <span class="op">=</span> <span class="ident">RowData</span> {
                     <span class="ident">index</span>: <span class="ident">i</span>,
                     <span class="ident">component</span>: <span class="ident">component</span>.<span class="ident">clone</span>(),
@@ -1354,8 +1446,8 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">eob_run</span> <span class="op">=</span> <span class="number">0</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">mcu_row_coefficients</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">with_capacity</span>(<span class="ident">components</span>.<span class="ident">len</span>());
 
-        <span class="kw">if</span> <span class="ident">produce_data</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="op">!</span><span class="ident">is_progressive</span> {
-            <span class="kw">for</span> <span class="ident">component</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">components</span> {
+        <span class="kw">if</span> <span class="op">!</span><span class="ident">is_progressive</span> {
+            <span class="kw">for</span> (<span class="kw">_</span>, <span class="ident">component</span>) <span class="kw">in</span> <span class="ident">components</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>().<span class="ident">filter</span>(<span class="op">|</span><span class="kw-2">&amp;</span>(<span class="ident">i</span>, <span class="kw">_</span>)<span class="op">|</span> <span class="ident">finished</span>[<span class="ident">i</span>]) {
                 <span class="kw">let</span> <span class="ident">coefficients_per_mcu_row</span> <span class="op">=</span> <span class="ident">component</span>.<span class="ident">block_size</span>.<span class="ident">width</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">*</span> <span class="ident">component</span>.<span class="ident">vertical_sampling_factor</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">*</span> <span class="number">64</span>;
                 <span class="ident">mcu_row_coefficients</span>.<span class="ident">push</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="number">0i16</span>; <span class="ident">coefficients_per_mcu_row</span>]);
             }
@@ -1391,7 +1483,7 @@
                         <span class="kw">let</span> <span class="ident">mcu_row_offset</span> <span class="op">=</span> <span class="ident">mcu_y</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">*</span> <span class="ident">component</span>.<span class="ident">block_size</span>.<span class="ident">width</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">*</span> <span class="ident">component</span>.<span class="ident">vertical_sampling_factor</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">*</span> <span class="number">64</span>;
                         <span class="kw">let</span> <span class="ident">coefficients</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">is_progressive</span> {
                             <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">coefficients</span>[<span class="ident">scan</span>.<span class="ident">component_indices</span>[<span class="ident">i</span>]][<span class="ident">block_offset</span> .. <span class="ident">block_offset</span> <span class="op">+</span> <span class="number">64</span>]
-                        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">produce_data</span> {
+                        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">finished</span>[<span class="ident">i</span>] {
                             <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">mcu_row_coefficients</span>[<span class="ident">i</span>][<span class="ident">block_offset</span> <span class="op">-</span> <span class="ident">mcu_row_offset</span> .. <span class="ident">block_offset</span> <span class="op">-</span> <span class="ident">mcu_row_offset</span> <span class="op">+</span> <span class="number">64</span>]
                         } <span class="kw">else</span> {
                             <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">dummy_block</span>[..]
@@ -1447,9 +1539,9 @@
                 }
             }
 
-            <span class="kw">if</span> <span class="ident">produce_data</span> {
-                <span class="comment">// Send the coefficients from this MCU row to the worker thread for dequantization and idct.</span>
-                <span class="kw">for</span> (<span class="ident">i</span>, <span class="ident">component</span>) <span class="kw">in</span> <span class="ident">components</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>() {
+            <span class="comment">// Send the coefficients from this MCU row to the worker thread for dequantization and idct.</span>
+            <span class="kw">for</span> (<span class="ident">i</span>, <span class="ident">component</span>) <span class="kw">in</span> <span class="ident">components</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>() {
+                <span class="kw">if</span> <span class="ident">finished</span>[<span class="ident">i</span>] {
                     <span class="kw">let</span> <span class="ident">coefficients_per_mcu_row</span> <span class="op">=</span> <span class="ident">component</span>.<span class="ident">block_size</span>.<span class="ident">width</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">*</span> <span class="ident">component</span>.<span class="ident">vertical_sampling_factor</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">*</span> <span class="number">64</span>;
 
                     <span class="kw">let</span> <span class="ident">row_coefficients</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">is_progressive</span> {
@@ -1469,12 +1561,14 @@
             <span class="ident">marker</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">read_marker</span>().<span class="ident">ok</span>();
         }
 
-        <span class="kw">if</span> <span class="ident">produce_data</span> {
+        <span class="kw">if</span> <span class="ident">finished</span>.<span class="ident">iter</span>().<span class="ident">any</span>(<span class="op">|</span><span class="kw-2">&amp;</span><span class="ident">c</span><span class="op">|</span> <span class="ident">c</span>) {
             <span class="comment">// Retrieve all the data from the worker thread.</span>
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">data</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">Vec</span>::<span class="ident">new</span>(); <span class="ident">frame</span>.<span class="ident">components</span>.<span class="ident">len</span>()];
 
             <span class="kw">for</span> (<span class="ident">i</span>, <span class="kw-2">&amp;</span><span class="ident">component_index</span>) <span class="kw">in</span> <span class="ident">scan</span>.<span class="ident">component_indices</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>() {
-                <span class="ident">data</span>[<span class="ident">component_index</span>] <span class="op">=</span> <span class="ident">worker</span>.<span class="ident">get_result</span>(<span class="ident">i</span>)<span class="question-mark">?</span>;
+                <span class="kw">if</span> <span class="ident">finished</span>[<span class="ident">i</span>] {
+                    <span class="ident">data</span>[<span class="ident">component_index</span>] <span class="op">=</span> <span class="ident">worker</span>.<span class="ident">get_result</span>(<span class="ident">i</span>)<span class="question-mark">?</span>;
+                }
             }
 
             <span class="prelude-val">Ok</span>((<span class="ident">marker</span>, <span class="prelude-val">Some</span>(<span class="ident">data</span>)))
@@ -1694,7 +1788,7 @@
 }
 
 <span class="kw">fn</span> <span class="ident">compute_image</span>(<span class="ident">components</span>: <span class="kw-2">&amp;</span>[<span class="ident">Component</span>],
-                 <span class="ident">data</span>: <span class="kw-2">&amp;</span>[<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>],
+                 <span class="kw-2">mut</span> <span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>,
                  <span class="ident">output_size</span>: <span class="ident">Dimensions</span>,
                  <span class="ident">is_jfif</span>: <span class="ident">bool</span>,
                  <span class="ident">color_transform</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AdobeColorTransform</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> {
@@ -1704,24 +1798,29 @@
 
     <span class="kw">if</span> <span class="ident">components</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="number">1</span> {
         <span class="kw">let</span> <span class="ident">component</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">components</span>[<span class="number">0</span>];
-
-        <span class="kw">if</span> <span class="ident">component</span>.<span class="ident">size</span>.<span class="ident">width</span> <span class="op">%</span> <span class="number">8</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">component</span>.<span class="ident">size</span>.<span class="ident">height</span> <span class="op">%</span> <span class="number">8</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
-            <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">data</span>[<span class="number">0</span>].<span class="ident">clone</span>())
-        }
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">decoded</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">remove</span>(<span class="number">0</span>);
 
         <span class="kw">let</span> <span class="ident">width</span> <span class="op">=</span> <span class="ident">component</span>.<span class="ident">size</span>.<span class="ident">width</span> <span class="kw">as</span> <span class="ident">usize</span>;
         <span class="kw">let</span> <span class="ident">height</span> <span class="op">=</span> <span class="ident">component</span>.<span class="ident">size</span>.<span class="ident">height</span> <span class="kw">as</span> <span class="ident">usize</span>;
-
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buffer</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0u8</span>; <span class="ident">width</span> <span class="op">*</span> <span class="ident">height</span>];
+        <span class="kw">let</span> <span class="ident">size</span> <span class="op">=</span> <span class="ident">width</span> <span class="op">*</span> <span class="ident">height</span>;
         <span class="kw">let</span> <span class="ident">line_stride</span> <span class="op">=</span> <span class="ident">component</span>.<span class="ident">block_size</span>.<span class="ident">width</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">*</span> <span class="ident">component</span>.<span class="ident">dct_scale</span>;
 
-        <span class="kw">for</span> <span class="ident">y</span> <span class="kw">in</span> <span class="number">0</span> .. <span class="ident">height</span> {
-            <span class="kw">for</span> <span class="ident">x</span> <span class="kw">in</span> <span class="number">0</span> .. <span class="ident">width</span> {
-                <span class="ident">buffer</span>[<span class="ident">y</span> <span class="op">*</span> <span class="ident">width</span> <span class="op">+</span> <span class="ident">x</span>] <span class="op">=</span> <span class="ident">data</span>[<span class="number">0</span>][<span class="ident">y</span> <span class="op">*</span> <span class="ident">line_stride</span> <span class="op">+</span> <span class="ident">x</span>];
+        <span class="comment">// if the image width is a multiple of the block size,</span>
+        <span class="comment">// then we don&#39;t have to move bytes in the decoded data</span>
+        <span class="kw">if</span> <span class="ident">usize</span>::<span class="ident">from</span>(<span class="ident">output_size</span>.<span class="ident">width</span>) <span class="op">!</span><span class="op">=</span> <span class="ident">line_stride</span> {
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buffer</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0u8</span>; <span class="ident">width</span>];
+            <span class="comment">// The first line already starts at index 0, so we need to move only lines 1..height</span>
+            <span class="kw">for</span> <span class="ident">y</span> <span class="kw">in</span> <span class="number">1</span>..<span class="ident">height</span> {
+                <span class="kw">let</span> <span class="ident">destination_idx</span> <span class="op">=</span> <span class="ident">y</span> <span class="op">*</span> <span class="ident">width</span>;
+                <span class="kw">let</span> <span class="ident">source_idx</span> <span class="op">=</span> <span class="ident">y</span> <span class="op">*</span> <span class="ident">line_stride</span>;
+                <span class="comment">// We could use copy_within, but we need to support old rust versions</span>
+                <span class="ident">buffer</span>.<span class="ident">copy_from_slice</span>(<span class="kw-2">&amp;</span><span class="ident">decoded</span>[<span class="ident">source_idx</span>..][..<span class="ident">width</span>]);
+                <span class="kw">let</span> <span class="ident">destination</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">decoded</span>[<span class="ident">destination_idx</span>..][..<span class="ident">width</span>];
+                <span class="ident">destination</span>.<span class="ident">copy_from_slice</span>(<span class="kw-2">&amp;</span><span class="ident">buffer</span>);
             }
         }
-
-        <span class="prelude-val">Ok</span>(<span class="ident">buffer</span>)
+        <span class="ident">decoded</span>.<span class="ident">resize</span>(<span class="ident">size</span>, <span class="number">0</span>);
+        <span class="prelude-val">Ok</span>(<span class="ident">decoded</span>)
     }
     <span class="kw">else</span> {
         <span class="ident">compute_image_parallel</span>(<span class="ident">components</span>, <span class="ident">data</span>, <span class="ident">output_size</span>, <span class="ident">is_jfif</span>, <span class="ident">color_transform</span>)
@@ -1730,10 +1829,10 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span><span class="op">=</span><span class="string">&quot;rayon&quot;</span>)]</span>
 <span class="kw">fn</span> <span class="ident">compute_image_parallel</span>(<span class="ident">components</span>: <span class="kw-2">&amp;</span>[<span class="ident">Component</span>],
-                 <span class="ident">data</span>: <span class="kw-2">&amp;</span>[<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>],
-                 <span class="ident">output_size</span>: <span class="ident">Dimensions</span>,
-                 <span class="ident">is_jfif</span>: <span class="ident">bool</span>,
-                 <span class="ident">color_transform</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AdobeColorTransform</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+                          <span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+                          <span class="ident">output_size</span>: <span class="ident">Dimensions</span>,
+                          <span class="ident">is_jfif</span>: <span class="ident">bool</span>,
+                          <span class="ident">color_transform</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AdobeColorTransform</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="kw">use</span> <span class="ident">rayon</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 
     <span class="kw">let</span> <span class="ident">color_convert_func</span> <span class="op">=</span> <span class="ident">choose_color_convert_func</span>(<span class="ident">components</span>.<span class="ident">len</span>(), <span class="ident">is_jfif</span>, <span class="ident">color_transform</span>)<span class="question-mark">?</span>;
@@ -1745,8 +1844,8 @@
          .<span class="ident">with_max_len</span>(<span class="number">1</span>)
          .<span class="ident">enumerate</span>()
          .<span class="ident">for_each</span>(<span class="op">|</span>(<span class="ident">row</span>, <span class="ident">line</span>)<span class="op">|</span> {
-             <span class="ident">upsampler</span>.<span class="ident">upsample_and_interleave_row</span>(<span class="ident">data</span>, <span class="ident">row</span>, <span class="ident">output_size</span>.<span class="ident">width</span> <span class="kw">as</span> <span class="ident">usize</span>, <span class="ident">line</span>);
-             <span class="ident">color_convert_func</span>(<span class="ident">line</span>, <span class="ident">output_size</span>.<span class="ident">width</span> <span class="kw">as</span> <span class="ident">usize</span>);
+             <span class="ident">upsampler</span>.<span class="ident">upsample_and_interleave_row</span>(<span class="kw-2">&amp;</span><span class="ident">data</span>, <span class="ident">row</span>, <span class="ident">output_size</span>.<span class="ident">width</span> <span class="kw">as</span> <span class="ident">usize</span>, <span class="ident">line</span>);
+             <span class="ident">color_convert_func</span>(<span class="ident">line</span>);
          });
 
     <span class="prelude-val">Ok</span>(<span class="ident">image</span>)
@@ -1754,10 +1853,10 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span><span class="op">=</span><span class="string">&quot;rayon&quot;</span>))]</span>
 <span class="kw">fn</span> <span class="ident">compute_image_parallel</span>(<span class="ident">components</span>: <span class="kw-2">&amp;</span>[<span class="ident">Component</span>],
-                 <span class="ident">data</span>: <span class="kw-2">&amp;</span>[<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>],
-                 <span class="ident">output_size</span>: <span class="ident">Dimensions</span>,
-                 <span class="ident">is_jfif</span>: <span class="ident">bool</span>,
-                 <span class="ident">color_transform</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AdobeColorTransform</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+                          <span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+                          <span class="ident">output_size</span>: <span class="ident">Dimensions</span>,
+                          <span class="ident">is_jfif</span>: <span class="ident">bool</span>,
+                          <span class="ident">color_transform</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AdobeColorTransform</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">color_convert_func</span> <span class="op">=</span> <span class="ident">choose_color_convert_func</span>(<span class="ident">components</span>.<span class="ident">len</span>(), <span class="ident">is_jfif</span>, <span class="ident">color_transform</span>)<span class="question-mark">?</span>;
     <span class="kw">let</span> <span class="ident">upsampler</span> <span class="op">=</span> <span class="ident">Upsampler</span>::<span class="ident">new</span>(<span class="ident">components</span>, <span class="ident">output_size</span>.<span class="ident">width</span>, <span class="ident">output_size</span>.<span class="ident">height</span>)<span class="question-mark">?</span>;
     <span class="kw">let</span> <span class="ident">line_size</span> <span class="op">=</span> <span class="ident">output_size</span>.<span class="ident">width</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">*</span> <span class="ident">components</span>.<span class="ident">len</span>();
@@ -1765,8 +1864,8 @@
 
     <span class="kw">for</span> (<span class="ident">row</span>, <span class="ident">line</span>) <span class="kw">in</span> <span class="ident">image</span>.<span class="ident">chunks_mut</span>(<span class="ident">line_size</span>)
          .<span class="ident">enumerate</span>() {
-             <span class="ident">upsampler</span>.<span class="ident">upsample_and_interleave_row</span>(<span class="ident">data</span>, <span class="ident">row</span>, <span class="ident">output_size</span>.<span class="ident">width</span> <span class="kw">as</span> <span class="ident">usize</span>, <span class="ident">line</span>);
-             <span class="ident">color_convert_func</span>(<span class="ident">line</span>, <span class="ident">output_size</span>.<span class="ident">width</span> <span class="kw">as</span> <span class="ident">usize</span>);
+             <span class="ident">upsampler</span>.<span class="ident">upsample_and_interleave_row</span>(<span class="kw-2">&amp;</span><span class="ident">data</span>, <span class="ident">row</span>, <span class="ident">output_size</span>.<span class="ident">width</span> <span class="kw">as</span> <span class="ident">usize</span>, <span class="ident">line</span>);
+             <span class="ident">color_convert_func</span>(<span class="ident">line</span>);
          }
 
     <span class="prelude-val">Ok</span>(<span class="ident">image</span>)
@@ -1775,7 +1874,7 @@
 <span class="kw">fn</span> <span class="ident">choose_color_convert_func</span>(<span class="ident">component_count</span>: <span class="ident">usize</span>,
                              <span class="ident">_is_jfif</span>: <span class="ident">bool</span>,
                              <span class="ident">color_transform</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AdobeColorTransform</span><span class="op">&gt;</span>)
-                             <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw">fn</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>], <span class="ident">usize</span>)<span class="op">&gt;</span> {
+                             <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw">fn</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>])<span class="op">&gt;</span> {
     <span class="kw">match</span> <span class="ident">component_count</span> {
         <span class="number">3</span> <span class="op">=</span><span class="op">&gt;</span> {
             <span class="comment">// http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/JPEG.html#Adobe</span>
@@ -1799,37 +1898,36 @@
     }
 }
 
-<span class="kw">fn</span> <span class="ident">color_convert_line_null</span>(<span class="ident">_data</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>], <span class="ident">_width</span>: <span class="ident">usize</span>) {
+<span class="kw">fn</span> <span class="ident">color_convert_line_null</span>(<span class="ident">_data</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>]) {
 }
 
-<span class="kw">fn</span> <span class="ident">color_convert_line_ycbcr</span>(<span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>], <span class="ident">width</span>: <span class="ident">usize</span>) {
-    <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span> .. <span class="ident">width</span> {
-        <span class="kw">let</span> (<span class="ident">r</span>, <span class="ident">g</span>, <span class="ident">b</span>) <span class="op">=</span> <span class="ident">ycbcr_to_rgb</span>(<span class="ident">data</span>[<span class="ident">i</span> <span class="op">*</span> <span class="number">3</span>], <span class="ident">data</span>[<span class="ident">i</span> <span class="op">*</span> <span class="number">3</span> <span class="op">+</span> <span class="number">1</span>], <span class="ident">data</span>[<span class="ident">i</span> <span class="op">*</span> <span class="number">3</span> <span class="op">+</span> <span class="number">2</span>]);
-
-        <span class="ident">data</span>[<span class="ident">i</span> <span class="op">*</span> <span class="number">3</span>]     <span class="op">=</span> <span class="ident">r</span>;
-        <span class="ident">data</span>[<span class="ident">i</span> <span class="op">*</span> <span class="number">3</span> <span class="op">+</span> <span class="number">1</span>] <span class="op">=</span> <span class="ident">g</span>;
-        <span class="ident">data</span>[<span class="ident">i</span> <span class="op">*</span> <span class="number">3</span> <span class="op">+</span> <span class="number">2</span>] <span class="op">=</span> <span class="ident">b</span>;
+<span class="kw">fn</span> <span class="ident">color_convert_line_ycbcr</span>(<span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>]) {
+    <span class="kw">for</span> <span class="ident">chunk</span> <span class="kw">in</span> <span class="ident">data</span>.<span class="ident">chunks_exact_mut</span>(<span class="number">3</span>) {
+        <span class="kw">let</span> (<span class="ident">r</span>, <span class="ident">g</span>, <span class="ident">b</span>) <span class="op">=</span> <span class="ident">ycbcr_to_rgb</span>(<span class="ident">chunk</span>[<span class="number">0</span>], <span class="ident">chunk</span>[<span class="number">1</span>], <span class="ident">chunk</span>[<span class="number">2</span>]);
+        <span class="ident">chunk</span>[<span class="number">0</span>] <span class="op">=</span> <span class="ident">r</span>;
+        <span class="ident">chunk</span>[<span class="number">1</span>] <span class="op">=</span> <span class="ident">g</span>;
+        <span class="ident">chunk</span>[<span class="number">2</span>] <span class="op">=</span> <span class="ident">b</span>;
     }
 }
 
-<span class="kw">fn</span> <span class="ident">color_convert_line_ycck</span>(<span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>], <span class="ident">width</span>: <span class="ident">usize</span>) {
-    <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span> .. <span class="ident">width</span> {
-        <span class="kw">let</span> (<span class="ident">r</span>, <span class="ident">g</span>, <span class="ident">b</span>) <span class="op">=</span> <span class="ident">ycbcr_to_rgb</span>(<span class="ident">data</span>[<span class="ident">i</span> <span class="op">*</span> <span class="number">4</span>], <span class="ident">data</span>[<span class="ident">i</span> <span class="op">*</span> <span class="number">4</span> <span class="op">+</span> <span class="number">1</span>], <span class="ident">data</span>[<span class="ident">i</span> <span class="op">*</span> <span class="number">4</span> <span class="op">+</span> <span class="number">2</span>]);
-        <span class="kw">let</span> <span class="ident">k</span> <span class="op">=</span> <span class="ident">data</span>[<span class="ident">i</span> <span class="op">*</span> <span class="number">4</span> <span class="op">+</span> <span class="number">3</span>];
+<span class="kw">fn</span> <span class="ident">color_convert_line_ycck</span>(<span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>]) {
+    <span class="kw">for</span> <span class="ident">chunk</span> <span class="kw">in</span> <span class="ident">data</span>.<span class="ident">chunks_exact_mut</span>(<span class="number">4</span>) {
+        <span class="kw">let</span> (<span class="ident">r</span>, <span class="ident">g</span>, <span class="ident">b</span>) <span class="op">=</span> <span class="ident">ycbcr_to_rgb</span>(<span class="ident">chunk</span>[<span class="number">0</span>], <span class="ident">chunk</span>[<span class="number">1</span>], <span class="ident">chunk</span>[<span class="number">2</span>]);
+        <span class="kw">let</span> <span class="ident">k</span> <span class="op">=</span> <span class="ident">chunk</span>[<span class="number">3</span>];
+        <span class="ident">chunk</span>[<span class="number">0</span>] <span class="op">=</span> <span class="ident">r</span>;
+        <span class="ident">chunk</span>[<span class="number">1</span>] <span class="op">=</span> <span class="ident">g</span>;
+        <span class="ident">chunk</span>[<span class="number">2</span>] <span class="op">=</span> <span class="ident">b</span>;
+        <span class="ident">chunk</span>[<span class="number">3</span>] <span class="op">=</span> <span class="number">255</span> <span class="op">-</span> <span class="ident">k</span>;
 
-        <span class="ident">data</span>[<span class="ident">i</span> <span class="op">*</span> <span class="number">4</span>]     <span class="op">=</span> <span class="ident">r</span>;
-        <span class="ident">data</span>[<span class="ident">i</span> <span class="op">*</span> <span class="number">4</span> <span class="op">+</span> <span class="number">1</span>] <span class="op">=</span> <span class="ident">g</span>;
-        <span class="ident">data</span>[<span class="ident">i</span> <span class="op">*</span> <span class="number">4</span> <span class="op">+</span> <span class="number">2</span>] <span class="op">=</span> <span class="ident">b</span>;
-        <span class="ident">data</span>[<span class="ident">i</span> <span class="op">*</span> <span class="number">4</span> <span class="op">+</span> <span class="number">3</span>] <span class="op">=</span> <span class="number">255</span> <span class="op">-</span> <span class="ident">k</span>;
     }
 }
 
-<span class="kw">fn</span> <span class="ident">color_convert_line_cmyk</span>(<span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>], <span class="ident">width</span>: <span class="ident">usize</span>) {
-    <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span> .. <span class="ident">width</span> {
-        <span class="ident">data</span>[<span class="ident">i</span> <span class="op">*</span> <span class="number">4</span>]     <span class="op">=</span> <span class="number">255</span> <span class="op">-</span> <span class="ident">data</span>[<span class="ident">i</span> <span class="op">*</span> <span class="number">4</span>];
-        <span class="ident">data</span>[<span class="ident">i</span> <span class="op">*</span> <span class="number">4</span> <span class="op">+</span> <span class="number">1</span>] <span class="op">=</span> <span class="number">255</span> <span class="op">-</span> <span class="ident">data</span>[<span class="ident">i</span> <span class="op">*</span> <span class="number">4</span> <span class="op">+</span> <span class="number">1</span>];
-        <span class="ident">data</span>[<span class="ident">i</span> <span class="op">*</span> <span class="number">4</span> <span class="op">+</span> <span class="number">2</span>] <span class="op">=</span> <span class="number">255</span> <span class="op">-</span> <span class="ident">data</span>[<span class="ident">i</span> <span class="op">*</span> <span class="number">4</span> <span class="op">+</span> <span class="number">2</span>];
-        <span class="ident">data</span>[<span class="ident">i</span> <span class="op">*</span> <span class="number">4</span> <span class="op">+</span> <span class="number">3</span>] <span class="op">=</span> <span class="number">255</span> <span class="op">-</span> <span class="ident">data</span>[<span class="ident">i</span> <span class="op">*</span> <span class="number">4</span> <span class="op">+</span> <span class="number">3</span>];
+<span class="kw">fn</span> <span class="ident">color_convert_line_cmyk</span>(<span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>]) {
+    <span class="kw">for</span> <span class="ident">chunk</span> <span class="kw">in</span> <span class="ident">data</span>.<span class="ident">chunks_exact_mut</span>(<span class="number">4</span>) {
+        <span class="ident">chunk</span>[<span class="number">0</span>] <span class="op">=</span> <span class="number">255</span> <span class="op">-</span> <span class="ident">chunk</span>[<span class="number">0</span>];
+        <span class="ident">chunk</span>[<span class="number">1</span>] <span class="op">=</span> <span class="number">255</span> <span class="op">-</span> <span class="ident">chunk</span>[<span class="number">1</span>];
+        <span class="ident">chunk</span>[<span class="number">2</span>] <span class="op">=</span> <span class="number">255</span> <span class="op">-</span> <span class="ident">chunk</span>[<span class="number">2</span>];
+        <span class="ident">chunk</span>[<span class="number">3</span>] <span class="op">=</span> <span class="number">255</span> <span class="op">-</span> <span class="ident">chunk</span>[<span class="number">3</span>];
     }
 }
 
@@ -1843,14 +1941,20 @@
     <span class="kw">let</span> <span class="ident">g</span> <span class="op">=</span> <span class="ident">y</span> <span class="op">-</span> <span class="number">0.34414</span> <span class="op">*</span> <span class="ident">cb</span> <span class="op">-</span> <span class="number">0.71414</span> <span class="op">*</span> <span class="ident">cr</span>;
     <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="ident">y</span> <span class="op">+</span> <span class="number">1.77200</span> <span class="op">*</span> <span class="ident">cb</span>;
 
-    (<span class="ident">clamp</span>((<span class="ident">r</span> <span class="op">+</span> <span class="number">0.5</span>) <span class="kw">as</span> <span class="ident">i32</span>, <span class="number">0</span>, <span class="number">255</span>) <span class="kw">as</span> <span class="ident">u8</span>,
-     <span class="ident">clamp</span>((<span class="ident">g</span> <span class="op">+</span> <span class="number">0.5</span>) <span class="kw">as</span> <span class="ident">i32</span>, <span class="number">0</span>, <span class="number">255</span>) <span class="kw">as</span> <span class="ident">u8</span>,
-     <span class="ident">clamp</span>((<span class="ident">b</span> <span class="op">+</span> <span class="number">0.5</span>) <span class="kw">as</span> <span class="ident">i32</span>, <span class="number">0</span>, <span class="number">255</span>) <span class="kw">as</span> <span class="ident">u8</span>)
+    <span class="comment">// TODO: Rust has defined float-to-int conversion as saturating,</span>
+    <span class="comment">// which is exactly what we need here. However, as of this writing</span>
+    <span class="comment">// it still hasn&#39;t reached the stable channel.</span>
+    <span class="comment">// This can be simplified to `(r + 0.5) as u8` without any clamping</span>
+    <span class="comment">// as soon as our MSRV reaches the version that has saturating casts.</span>
+    <span class="comment">// The version without explicit clamping is also noticeably faster.</span>
+    (<span class="ident">clamp_to_u8</span>((<span class="ident">r</span> <span class="op">+</span> <span class="number">0.5</span>) <span class="kw">as</span> <span class="ident">i32</span>) <span class="kw">as</span> <span class="ident">u8</span>,
+     <span class="ident">clamp_to_u8</span>((<span class="ident">g</span> <span class="op">+</span> <span class="number">0.5</span>) <span class="kw">as</span> <span class="ident">i32</span>) <span class="kw">as</span> <span class="ident">u8</span>,
+     <span class="ident">clamp_to_u8</span>((<span class="ident">b</span> <span class="op">+</span> <span class="number">0.5</span>) <span class="kw">as</span> <span class="ident">i32</span>) <span class="kw">as</span> <span class="ident">u8</span>)
 }
 
-<span class="kw">fn</span> <span class="ident">clamp</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">PartialOrd</span><span class="op">&gt;</span>(<span class="ident">value</span>: <span class="ident">T</span>, <span class="ident">min</span>: <span class="ident">T</span>, <span class="ident">max</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">T</span> {
-    <span class="kw">if</span> <span class="ident">value</span> <span class="op">&lt;</span> <span class="ident">min</span> { <span class="kw">return</span> <span class="ident">min</span>; }
-    <span class="kw">if</span> <span class="ident">value</span> <span class="op">&gt;</span> <span class="ident">max</span> { <span class="kw">return</span> <span class="ident">max</span>; }
+<span class="kw">fn</span> <span class="ident">clamp_to_u8</span>(<span class="ident">value</span>: <span class="ident">i32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span> {
+    <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">std</span>::<span class="ident">cmp</span>::<span class="ident">max</span>(<span class="ident">value</span>, <span class="number">0</span>);
+    <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">std</span>::<span class="ident">cmp</span>::<span class="ident">min</span>(<span class="ident">value</span>, <span class="number">255</span>);
     <span class="ident">value</span>
 }
 </pre></div>

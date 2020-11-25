@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/amethyst_rendy-0.5.0/src/submodules/texture.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>texture.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../amethyst_rendy/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/amethyst_rendy-0.15.3/src/submodules/texture.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>texture.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../amethyst_rendy/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -210,6 +210,14 @@
 <span id="210">210</span>
 <span id="211">211</span>
 <span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Texture submodule for per-image submission.</span>
 <span class="kw">use</span> <span class="kw">crate</span>::{
@@ -222,7 +230,7 @@
     <span class="ident">types</span>::{<span class="ident">Backend</span>, <span class="ident">Texture</span>},
     <span class="ident">util</span>,
 };
-<span class="kw">use</span> <span class="ident">amethyst_assets</span>::{<span class="ident">AssetStorage</span>, <span class="ident">Handle</span>};
+<span class="kw">use</span> <span class="ident">amethyst_assets</span>::{<span class="ident">AssetStorage</span>, <span class="ident">Handle</span>, <span class="ident">WeakHandle</span>};
 <span class="kw">use</span> <span class="ident">amethyst_core</span>::<span class="ident">ecs</span>::{<span class="ident">Read</span>, <span class="ident">SystemData</span>, <span class="ident">World</span>};
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;profiler&quot;</span>)]</span>
@@ -237,7 +245,7 @@
         <span class="ident">set</span>: <span class="ident">Escape</span><span class="op">&lt;</span><span class="ident">DescriptorSet</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span><span class="op">&gt;</span>,
         <span class="ident">generation</span>: <span class="ident">u32</span>,
         <span class="ident">version</span>: <span class="ident">u32</span>,
-        <span class="ident">handle</span>: <span class="ident">Handle</span><span class="op">&lt;</span><span class="ident">Texture</span><span class="op">&gt;</span>,
+        <span class="ident">handle</span>: <span class="ident">WeakHandle</span><span class="op">&lt;</span><span class="ident">Texture</span><span class="op">&gt;</span>,
         <span class="ident">layout</span>: <span class="ident">hal</span>::<span class="ident">image</span>::<span class="ident">Layout</span>,
     },
 }
@@ -288,19 +296,27 @@
                     <span class="ident">handle</span>,
                     <span class="ident">layout</span>,
                 } <span class="kw">if</span> <span class="kw-2">*</span><span class="ident">generation</span> <span class="op">=</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">generation</span> <span class="op">=</span><span class="op">&gt;</span> {
-                    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">new_tex</span>, <span class="ident">new_version</span>)) <span class="op">=</span> <span class="ident">tex_storage</span>.<span class="ident">get_with_version</span>(<span class="ident">handle</span>) {
-                        <span class="kw">if</span> <span class="ident">version</span> <span class="op">!</span><span class="op">=</span> <span class="ident">new_version</span> {
-                            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">desc</span>) <span class="op">=</span> <span class="ident">texture_desc</span>(<span class="ident">new_tex</span>, <span class="kw-2">*</span><span class="ident">layout</span>) {
-                                <span class="kw">unsafe</span> {
-                                    <span class="kw">let</span> <span class="ident">set</span> <span class="op">=</span> <span class="ident">set</span>.<span class="ident">raw</span>();
-                                    <span class="ident">factory</span>.<span class="ident">write_descriptor_sets</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="ident">desc_write</span>(<span class="ident">set</span>, <span class="number">0</span>, <span class="ident">desc</span>)]);
+                    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">handle</span>) <span class="op">=</span> <span class="ident">handle</span>.<span class="ident">upgrade</span>() {
+                        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">new_tex</span>, <span class="ident">new_version</span>)) <span class="op">=</span> <span class="ident">tex_storage</span>.<span class="ident">get_with_version</span>(<span class="kw-2">&amp;</span><span class="ident">handle</span>)
+                        {
+                            <span class="kw">if</span> <span class="ident">version</span> <span class="op">!</span><span class="op">=</span> <span class="ident">new_version</span> {
+                                <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">desc</span>) <span class="op">=</span> <span class="ident">texture_desc</span>(<span class="ident">new_tex</span>, <span class="kw-2">*</span><span class="ident">layout</span>) {
+                                    <span class="kw">unsafe</span> {
+                                        <span class="kw">let</span> <span class="ident">set</span> <span class="op">=</span> <span class="ident">set</span>.<span class="ident">raw</span>();
+                                        <span class="ident">factory</span>
+                                            .<span class="ident">write_descriptor_sets</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="ident">desc_write</span>(<span class="ident">set</span>, <span class="number">0</span>, <span class="ident">desc</span>)]);
+                                    }
+                                    <span class="kw-2">*</span><span class="ident">version</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">new_version</span>;
+                                } <span class="kw">else</span> {
+                                    <span class="kw-2">*</span><span class="ident">state</span> <span class="op">=</span> <span class="ident">TextureState</span>::<span class="ident">Unloaded</span> {
+                                        <span class="ident">generation</span>: <span class="self">self</span>.<span class="ident">generation</span>,
+                                    };
                                 }
-                                <span class="kw-2">*</span><span class="ident">version</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">new_version</span>;
-                            } <span class="kw">else</span> {
-                                <span class="kw-2">*</span><span class="ident">state</span> <span class="op">=</span> <span class="ident">TextureState</span>::<span class="ident">Unloaded</span> {
-                                    <span class="ident">generation</span>: <span class="self">self</span>.<span class="ident">generation</span>,
-                                };
                             }
+                        } <span class="kw">else</span> {
+                            <span class="kw-2">*</span><span class="ident">state</span> <span class="op">=</span> <span class="ident">TextureState</span>::<span class="ident">Unloaded</span> {
+                                <span class="ident">generation</span>: <span class="self">self</span>.<span class="ident">generation</span>,
+                            };
                         }
                     } <span class="kw">else</span> {
                         <span class="kw-2">*</span><span class="ident">state</span> <span class="op">=</span> <span class="ident">TextureState</span>::<span class="ident">Unloaded</span> {
@@ -308,11 +324,10 @@
                         };
                     }
                 }
-                <span class="comment">// Todo: cleanup long unused textures</span>
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {}
             }
         }
-        <span class="self">self</span>.<span class="ident">generation</span> <span class="op">+</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">generation</span>.<span class="ident">wrapping_add</span>(<span class="number">1</span>);
+        <span class="self">self</span>.<span class="ident">generation</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">generation</span>.<span class="ident">wrapping_add</span>(<span class="number">1</span>);
     }
 
     <span class="doccomment">/// Try to insert a new texture for submission in this texture batch. Returns None if it fails.</span>
@@ -340,7 +355,7 @@
             <span class="ident">set</span>,
             <span class="ident">generation</span>: <span class="self">self</span>.<span class="ident">generation</span>,
             <span class="ident">version</span>: <span class="kw-2">*</span><span class="ident">version</span>,
-            <span class="ident">handle</span>: <span class="ident">handle</span>.<span class="ident">clone</span>(),
+            <span class="ident">handle</span>: <span class="ident">handle</span>.<span class="ident">downgrade</span>(),
             <span class="ident">layout</span>,
         })
     }
@@ -358,7 +373,8 @@
 
         <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">lookup</span>.<span class="ident">forward</span>(<span class="ident">handle</span>.<span class="ident">id</span>());
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">textures</span>.<span class="ident">get</span>(<span class="ident">id</span>) {
-            <span class="prelude-val">Some</span>(<span class="ident">TextureState</span>::<span class="ident">Loaded</span> { .. }) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="comment">// If handle is dead, new texture was loaded (handle id is reused)</span>
+            <span class="prelude-val">Some</span>(<span class="ident">TextureState</span>::<span class="ident">Loaded</span> { <span class="ident">handle</span>, .. }) <span class="kw">if</span> <span class="op">!</span><span class="ident">handle</span>.<span class="ident">is_dead</span>() <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">return</span> <span class="prelude-val">Some</span>((<span class="ident">TextureId</span>(<span class="ident">id</span> <span class="kw">as</span> <span class="ident">u32</span>), <span class="bool-val">false</span>));
             }
             <span class="prelude-val">Some</span>(<span class="ident">TextureState</span>::<span class="ident">Unloaded</span> { <span class="ident">generation</span> }) <span class="kw">if</span> <span class="kw-2">*</span><span class="ident">generation</span> <span class="op">=</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">generation</span> <span class="op">=</span><span class="op">&gt;</span> {
@@ -396,7 +412,7 @@
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">loaded</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">texture_id</span>: <span class="ident">TextureId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">textures</span>[<span class="ident">texture_id</span>.<span class="number">0</span> <span class="kw">as</span> <span class="ident">usize</span>] {
-            <span class="ident">TextureState</span>::<span class="ident">Loaded</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
+            <span class="ident">TextureState</span>::<span class="ident">Loaded</span> { <span class="ident">handle</span>, .. } <span class="kw">if</span> <span class="op">!</span><span class="ident">handle</span>.<span class="ident">is_dead</span>() <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">true</span>,
             <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
         }
     }

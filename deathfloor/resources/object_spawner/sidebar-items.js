@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_ObjectSpawnData",""]],"struct":[["ObjectSpawnData",""],["ObjectSpawner",""]]});
+initSidebarItems({"struct":[["ObjectSpawnData",""],["ObjectSpawner",""]]});

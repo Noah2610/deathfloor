@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/amethyst-0.15.0/src/app.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>app.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../amethyst/index.html'><div class='logo-container'><img src='https://amethyst.rs/brand/logo-standard.svg' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/amethyst-0.15.3/src/app.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>app.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../amethyst/index.html'><div class='logo-container'><img src='https://amethyst.rs/brand/logo-standard.svg' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -912,6 +912,7 @@
 <span id="912">912</span>
 <span id="913">913</span>
 <span id="914">914</span>
+<span id="915">915</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! The core engine framework.</span>
 
@@ -987,9 +988,10 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Logging</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Amethyst performs logging internally using the [log] crate. By default, `Application` will</span>
-<span class="doccomment">/// initialize a global logger that simply sends logs to the console. You can take advantage of</span>
-<span class="doccomment">/// this and use the logging macros in `log` once you&#39;ve created your `Application` instance:</span>
+<span class="doccomment">/// Amethyst performs logging internally using the [log] crate. By default, `CoreApplication`</span>
+<span class="doccomment">/// will initialize a global logger that simply sends logs to the console.</span>
+<span class="doccomment">/// You can take advantage of this and use the logging macros in `log` once</span>
+<span class="doccomment">/// you&#39;ve created your `CoreApplication` instance:</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">/// use amethyst::prelude::*;</span>
@@ -1051,11 +1053,11 @@
     <span class="ident">T</span>: <span class="ident">DataDispose</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
     <span class="ident">E</span>: <span class="ident">Clone</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="ident">Sync</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
-    <span class="doccomment">/// Creates a new Application with the given initial game state.</span>
+    <span class="doccomment">/// Creates a new CoreApplication with the given initial game state.</span>
     <span class="doccomment">/// This will create and allocate all the needed resources for</span>
     <span class="doccomment">/// the event loop of the game engine. It is a shortcut for convenience</span>
     <span class="doccomment">/// if you need more control over how the engine is configured you should</span>
-    <span class="doccomment">/// be using [build](struct.Application.html#method.build) instead.</span>
+    <span class="doccomment">/// be using [build](struct.CoreApplication.html#method.build) instead.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Parameters</span>
     <span class="doccomment">///</span>
@@ -1066,8 +1068,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns a `Result` type wrapping the `Application` type. See</span>
-    <span class="doccomment">/// [errors](struct.Application.html#errors) for a full list of</span>
+    <span class="doccomment">/// Returns a `Result` type wrapping the `CoreApplication` type. See</span>
+    <span class="doccomment">/// [errors](struct.CoreApplication.html#errors) for a full list of</span>
     <span class="doccomment">/// possible errors that can happen in the creation of a Application object.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Type Parameters</span>
@@ -1081,7 +1083,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// - `a`: The lifetime of the `State` objects.</span>
     <span class="doccomment">/// - `b`: This lifetime is inherited from `specs` and `shred`, it is</span>
-    <span class="doccomment">///        the minimum lifetime of the systems used by `Application`</span>
+    <span class="doccomment">///        the minimum lifetime of the systems used by `CoreApplication`</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
@@ -1137,7 +1139,7 @@
     <span class="doccomment">/// # Examples</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// See the example supplied in the</span>
-    <span class="doccomment">/// [`new`](struct.Application.html#examples) method.</span>
+    <span class="doccomment">/// [`new`](struct.CoreApplication.html#examples) method.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>)
     <span class="kw">where</span>
         <span class="kw">for</span><span class="op">&lt;</span><span class="lifetime">&#39;b</span><span class="op">&gt;</span> <span class="ident">R</span>: <span class="ident">EventReader</span><span class="op">&lt;</span><span class="lifetime">&#39;b</span>, <span class="ident">Event</span> <span class="op">=</span> <span class="ident">E</span><span class="op">&gt;</span>,
@@ -1279,7 +1281,7 @@
             {
                 <span class="self">self</span>.<span class="ident">world</span>.<span class="ident">write_resource</span>::<span class="op">&lt;</span><span class="ident">Time</span><span class="op">&gt;</span>().<span class="ident">start_fixed_update</span>();
             }
-            <span class="kw">while</span> { <span class="self">self</span>.<span class="ident">world</span>.<span class="ident">write_resource</span>::<span class="op">&lt;</span><span class="ident">Time</span><span class="op">&gt;</span>().<span class="ident">step_fixed_update</span>() } {
+            <span class="kw">while</span> <span class="self">self</span>.<span class="ident">world</span>.<span class="ident">write_resource</span>::<span class="op">&lt;</span><span class="ident">Time</span><span class="op">&gt;</span>().<span class="ident">step_fixed_update</span>() {
                 <span class="self">self</span>.<span class="ident">states</span>
                     .<span class="ident">fixed_update</span>(<span class="ident">StateData</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">world</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">data</span>));
             }
@@ -1321,9 +1323,9 @@
 }
 
 <span class="doccomment">/// `ApplicationBuilder` is an interface that allows for creation of an</span>
-<span class="doccomment">/// [`Application`](struct.Application.html)</span>
+<span class="doccomment">/// [`CoreApplication`](struct.CoreApplication.html)</span>
 <span class="doccomment">/// using a custom set of configuration. This is the normal way an</span>
-<span class="doccomment">/// [`Application`](struct.Application.html)</span>
+<span class="doccomment">/// [`CoreApplication`](struct.CoreApplication.html)</span>
 <span class="doccomment">/// object is created.</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">missing_debug_implementations</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ApplicationBuilder</span><span class="op">&lt;</span><span class="ident">S</span>, <span class="ident">T</span>, <span class="ident">E</span>, <span class="ident">R</span><span class="op">&gt;</span> {
@@ -1350,8 +1352,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns a `Result` type wrapping the `Application` type. See</span>
-    <span class="doccomment">/// [errors](struct.Application.html#errors) for a full list of</span>
+    <span class="doccomment">/// Returns a `Result` type wrapping the `CoreApplication` type. See</span>
+    <span class="doccomment">/// [errors](struct.CoreApplication.html#errors) for a full list of</span>
     <span class="doccomment">/// possible errors that can happen in the creation of a Application object.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Type parameters</span>
@@ -1363,11 +1365,11 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// - `a`: The lifetime of the `State` objects.</span>
     <span class="doccomment">/// - `b`: This lifetime is inherited from `specs` and `shred`, it is</span>
-    <span class="doccomment">///        the minimum lifetime of the systems used by `Application`</span>
+    <span class="doccomment">///        the minimum lifetime of the systems used by `CoreApplication`</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Application will return an error if the internal threadpool fails</span>
+    <span class="doccomment">/// CoreApplication will return an error if the internal threadpool fails</span>
     <span class="doccomment">/// to initialize correctly because of systems resource limitations</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Examples</span>

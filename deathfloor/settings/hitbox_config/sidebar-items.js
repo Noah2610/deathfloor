@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_HitboxConfig",""]],"enum":[["HitboxConfig",""]]});
+initSidebarItems({"enum":[["HitboxConfig",""]]});

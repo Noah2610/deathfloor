@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_LedgeDetectorCornerDetectorData",""]],"fn":[["default_corner_detector_size",""]],"struct":[["LedgeDetectorCornerDetector",""],["LedgeDetectorCornerDetectorBuilder","Builder for `LedgeDetectorCornerDetector`."],["LedgeDetectorCornerDetectorData",""]]});
+initSidebarItems({"fn":[["default_corner_detector_size",""]],"struct":[["LedgeDetectorCornerDetector",""],["LedgeDetectorCornerDetectorBuilder","Builder for `LedgeDetectorCornerDetector`."],["LedgeDetectorCornerDetectorData",""]]});

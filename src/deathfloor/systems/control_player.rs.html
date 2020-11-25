@@ -77,6 +77,15 @@
 <span id="77">77</span>
 <span id="78">78</span>
 <span id="79">79</span>
+<span id="80">80</span>
+<span id="81">81</span>
+<span id="82">82</span>
+<span id="83">83</span>
+<span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
+<span id="87">87</span>
+<span id="88">88</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">system_prelude</span>::<span class="kw-2">*</span>;
 
@@ -90,6 +99,7 @@
         <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Movable</span><span class="op">&gt;</span>,
         <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Facing</span><span class="op">&gt;</span>,
         <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Player</span><span class="op">&gt;</span>,
+        <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Controllable</span><span class="op">&gt;</span>,
     );
 
     <span class="kw">fn</span> <span class="ident">run</span>(
@@ -100,22 +110,30 @@
             <span class="kw-2">mut</span> <span class="ident">movables</span>,
             <span class="kw-2">mut</span> <span class="ident">facing_store</span>,
             <span class="ident">player_store</span>,
+            <span class="ident">controllable_store</span>,
         ): <span class="self">Self</span>::<span class="ident">SystemData</span>,
     ) {
         <span class="kw">let</span> <span class="ident">dt</span> <span class="op">=</span> <span class="ident">time</span>.<span class="ident">delta_seconds</span>() <span class="kw">as</span> <span class="ident">f32</span>;
 
-        <span class="kw">for</span> (<span class="ident">movable</span>, <span class="kw-2">mut</span> <span class="ident">facing</span>, <span class="kw">_</span>) <span class="kw">in</span>
-            (<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">movables</span>, (<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">facing_store</span>).<span class="ident">maybe</span>(), <span class="kw-2">&amp;</span><span class="ident">player_store</span>).<span class="ident">join</span>()
+        <span class="kw">for</span> (<span class="kw">_</span>, <span class="ident">movable</span>, <span class="kw-2">mut</span> <span class="ident">facing_opt</span>, <span class="ident">controllable</span>) <span class="kw">in</span> (
+            <span class="kw-2">&amp;</span><span class="ident">player_store</span>,
+            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">movables</span>,
+            (<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">facing_store</span>).<span class="ident">maybe</span>(),
+            <span class="kw-2">&amp;</span><span class="ident">controllable_store</span>,
+        )
+            .<span class="ident">join</span>()
         {
-            <span class="ident">Axis</span>::<span class="ident">for_each</span>(<span class="op">|</span><span class="ident">axis</span><span class="op">|</span> {
-                <span class="ident">handle_move_on_axis</span>(
-                    <span class="ident">axis</span>,
-                    <span class="ident">dt</span>,
-                    <span class="kw-2">&amp;</span><span class="ident">input_manager</span>,
-                    <span class="ident">movable</span>,
-                    <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">facing</span>,
-                );
-            });
+            <span class="kw">if</span> <span class="ident">controllable</span>.<span class="ident">is_controllable</span> {
+                <span class="ident">Axis</span>::<span class="ident">for_each</span>(<span class="op">|</span><span class="ident">axis</span><span class="op">|</span> {
+                    <span class="ident">handle_move_on_axis</span>(
+                        <span class="ident">axis</span>,
+                        <span class="ident">dt</span>,
+                        <span class="kw-2">&amp;</span><span class="ident">input_manager</span>,
+                        <span class="ident">movable</span>,
+                        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">facing_opt</span>,
+                    );
+                });
+            }
         }
     }
 }

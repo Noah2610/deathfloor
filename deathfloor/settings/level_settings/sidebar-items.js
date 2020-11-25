@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_LevelSettings",""]],"struct":[["LevelSettings",""]]});
+initSidebarItems({"struct":[["LevelSettings",""]]});

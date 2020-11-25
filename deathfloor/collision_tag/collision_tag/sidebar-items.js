@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_CollisionTag",""],["_IMPL_DESERIALIZE_FOR_CollisionTagWrapper",""]],"struct":[["CollisionTag",""],["CollisionTagBuilder","Builder for `CollisionTag`."],["CollisionTagWrapper","Wrapper for `CollisionTag`, used for deserialization."]]});
+initSidebarItems({"struct":[["CollisionTag",""],["CollisionTagBuilder","Builder for `CollisionTag`."],["CollisionTagWrapper","Wrapper for `CollisionTag`, used for deserialization."]]});

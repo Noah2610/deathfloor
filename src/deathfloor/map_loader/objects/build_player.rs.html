@@ -35,6 +35,11 @@
 <span id="35">35</span>
 <span id="36">36</span>
 <span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">helpers</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 
@@ -45,10 +50,15 @@
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">amethyst</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Entity</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">player_settings</span> <span class="op">=</span> <span class="ident">world</span>.<span class="ident">read_resource</span>::<span class="op">&lt;</span><span class="ident">Settings</span><span class="op">&gt;</span>().<span class="ident">player</span>.<span class="ident">clone</span>();
 
-    <span class="kw">let</span> <span class="ident">sprite_render</span> <span class="op">=</span> <span class="ident">get_sprite_render</span>(<span class="ident">world</span>, <span class="string">&quot;spritesheets/player.png&quot;</span>, <span class="number">1</span>)<span class="question-mark">?</span>;
+    <span class="kw">let</span> <span class="ident">sprite_render</span> <span class="op">=</span> <span class="ident">get_sprite_render</span>(
+        <span class="ident">world</span>,
+        <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;spritesheets/{}&quot;</span>, <span class="ident">player_settings</span>.<span class="ident">spritesheet_filename</span>),
+        <span class="number">1</span>,
+    )<span class="question-mark">?</span>;
 
     <span class="kw">let</span> <span class="ident">entity</span> <span class="op">=</span> <span class="ident">base_object_entity</span>(<span class="ident">world</span>, <span class="ident">object</span>)<span class="question-mark">?</span>
         .<span class="ident">with</span>(<span class="ident">Player</span>::<span class="ident">default</span>())
+        .<span class="ident">with</span>(<span class="ident">Controllable</span>::<span class="ident">default</span>())
         .<span class="ident">with</span>(<span class="ident">Velocity</span>::<span class="ident">default</span>())
         .<span class="ident">with</span>(<span class="ident">Movable</span>::<span class="ident">default</span>())
         .<span class="ident">with</span>(<span class="ident">JumppadAffected</span>::<span class="ident">default</span>())

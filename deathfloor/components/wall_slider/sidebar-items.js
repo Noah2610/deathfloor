@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_WallSlider",""]],"struct":[["WallSlider",""]]});
+initSidebarItems({"struct":[["WallSlider",""]]});

@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_Jumper",""],["_IMPL_DESERIALIZE_FOR_JumperStrength",""]],"struct":[["Jumper",""],["JumperStrength",""]]});
+initSidebarItems({"struct":[["Jumper",""],["JumperStrength",""]]});

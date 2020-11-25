@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_MaxMovementVelocity",""]],"struct":[["MaxMovementVelocity","The maximum velocity a `Movable` entity can have, when being moved."],["MaxMovementVelocityBuilder","Builder for `MaxMovementVelocity`."]]});
+initSidebarItems({"struct":[["MaxMovementVelocity","The maximum velocity a `Movable` entity can have, when being moved."],["MaxMovementVelocityBuilder","Builder for `MaxMovementVelocity`."]]});

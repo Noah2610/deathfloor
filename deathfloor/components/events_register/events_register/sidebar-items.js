@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_EventsRegister",""]],"struct":[["EventsRegister",""],["EventsRegisterData",""]]});
+initSidebarItems({"struct":[["EventsRegister",""],["EventsRegisterData",""]]});

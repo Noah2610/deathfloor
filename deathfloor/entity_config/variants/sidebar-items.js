@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_EntityConfigVariants",""]],"struct":[["EntityConfigVariants",""]]});
+initSidebarItems({"struct":[["EntityConfigVariants",""]]});

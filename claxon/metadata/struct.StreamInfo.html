@@ -15,7 +15,7 @@
 block duration in seconds, divide this by the sample rate.</p>
 </div><span id="structfield.max_block_size" class="structfield small-section-header"><a href="#structfield.max_block_size" class="anchor field"></a><code id="max_block_size.v">max_block_size: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a></code></span><div class='docblock'><p>The maximum block size (in inter-channel samples) used in the stream.</p>
 <p>This number is independent of the number of channels. To get the
-maximum block duratin in seconds, divide by the sample rate. To avoid
+maximum block duration in seconds, divide by the sample rate. To avoid
 allocations during decoding, a buffer of this size times the number of
 channels can be allocated up front and passed into
 <code>FrameReader::read_next_or_eof()</code>.</p>

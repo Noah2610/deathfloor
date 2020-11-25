@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_Jumppad",""]],"struct":[["Jumppad",""]]});
+initSidebarItems({"struct":[["Jumppad",""]]});

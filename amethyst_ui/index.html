@@ -49,7 +49,10 @@ This component also controls how that editing works.</p>
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.UiButtonAction.html" title='amethyst_ui::UiButtonAction struct'>UiButtonAction</a></td><td class='docblock-short'><p>Describes an action targeted at a <code>UiButton</code>.</p>
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.UiButtonActionRetrigger.html" title='amethyst_ui::UiButtonActionRetrigger struct'>UiButtonActionRetrigger</a></td><td class='docblock-short'><p>Attach this to an entity with a <code>UiButton</code> attached to it to
 trigger specific events when a user interaction happens.</p>
-</td></tr><tr class='module-item'><td><a class="struct" href="struct.UiButtonBuilder.html" title='amethyst_ui::UiButtonBuilder struct'>UiButtonBuilder</a></td><td class='docblock-short'><p>Convenience structure for building a button</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.UiButtonBuilder.html" title='amethyst_ui::UiButtonBuilder struct'>UiButtonBuilder</a></td><td class='docblock-short'><p>Convenience structure for building a button
+Note that since there can only be one &quot;ui_loader&quot; in use, and WidgetId of the UiBundle and
+UiButtonBuilder should match, you can only use one type of WidgetId, e.g. you cant use both
+UiButtonBuilder&lt;(), u32&gt; and UiButtonBuilder&lt;(), String&gt;.</p>
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.UiButtonBuilderResources.html" title='amethyst_ui::UiButtonBuilderResources struct'>UiButtonBuilderResources</a></td><td class='docblock-short'><p>Container for all the resources the builder needs to make a new UiButton.</p>
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.UiButtonData.html" title='amethyst_ui::UiButtonData struct'>UiButtonData</a></td><td class='docblock-short'><p>Loadable <code>UiButton</code> data</p>
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.UiButtonSystem.html" title='amethyst_ui::UiButtonSystem struct'>UiButtonSystem</a></td><td class='docblock-short'><p>This system manages button mouse events.  It changes images and text colors, as well as playing audio

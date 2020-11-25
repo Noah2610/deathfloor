@@ -88,6 +88,10 @@
 <span id="88">88</span>
 <span id="89">89</span>
 <span id="90">90</span>
+<span id="91">91</span>
+<span id="92">92</span>
+<span id="93">93</span>
+<span id="94">94</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">helpers</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">amethyst</span>::<span class="ident">ecs</span>::{<span class="ident">Entities</span>, <span class="ident">Join</span>, <span class="ident">ReadStorage</span>};
@@ -143,15 +147,19 @@
     <span class="kw">let</span> <span class="ident">size</span>: <span class="ident">Size</span> <span class="op">=</span> <span class="ident">camera_settings</span>.<span class="ident">size</span>.<span class="ident">into</span>();
 
     <span class="kw">let</span> <span class="ident">camera</span> <span class="op">=</span> <span class="ident">Camera</span>::<span class="ident">standard_2d</span>(<span class="ident">size</span>.<span class="ident">w</span>, <span class="ident">size</span>.<span class="ident">h</span>);
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">camera_ortho</span> <span class="op">=</span>
-        <span class="ident">CameraOrtho</span>::<span class="ident">normalized</span>(<span class="ident">CameraNormalizeMode</span>::<span class="ident">Contain</span>);
+    <span class="kw">let</span> <span class="ident">camera_ortho</span> <span class="op">=</span> <span class="ident">CameraOrtho</span>::<span class="ident">new</span>(
+        <span class="ident">CameraNormalizeMode</span>::<span class="ident">Contain</span>,
+        <span class="ident">camera_settings</span>.<span class="ident">world_coordinates</span>,
+    );
     <span class="kw">let</span> <span class="ident">half_size</span> <span class="op">=</span> (<span class="ident">size</span>.<span class="ident">w</span> <span class="op">*</span> <span class="number">0.5</span>, <span class="ident">size</span>.<span class="ident">h</span> <span class="op">*</span> <span class="number">0.5</span>);
-    <span class="ident">camera_ortho</span>.<span class="ident">world_coordinates</span> <span class="op">=</span> <span class="ident">CameraOrthoWorldCoordinates</span> {
-        <span class="ident">top</span>:    <span class="ident">half_size</span>.<span class="number">1</span>,
-        <span class="ident">bottom</span>: <span class="op">-</span><span class="ident">half_size</span>.<span class="number">1</span>,
-        <span class="ident">left</span>:   <span class="op">-</span><span class="ident">half_size</span>.<span class="number">0</span>,
-        <span class="ident">right</span>:  <span class="ident">half_size</span>.<span class="number">0</span>,
-    };
+    <span class="comment">// camera_ortho.world_coordinates = CameraOrthoWorldCoordinates {</span>
+    <span class="comment">//     top:    half_size.1,</span>
+    <span class="comment">//     bottom: -half_size.1,</span>
+    <span class="comment">//     left:   -half_size.0,</span>
+    <span class="comment">//     right:  half_size.0,</span>
+    <span class="comment">//     near:   0.0,</span>
+    <span class="comment">//     far:    pos.2,</span>
+    <span class="comment">// };</span>
     <span class="kw">let</span> <span class="ident">loader</span> <span class="op">=</span> <span class="ident">Loader</span>::<span class="ident">new</span>(<span class="ident">half_size</span>.<span class="number">0</span>, <span class="ident">half_size</span>.<span class="number">1</span>);
     <span class="kw">let</span> <span class="ident">confined</span> <span class="op">=</span> {
         <span class="kw">let</span> <span class="ident">confined_rect</span> <span class="op">=</span> <span class="ident">Rect</span>::<span class="ident">builder</span>()

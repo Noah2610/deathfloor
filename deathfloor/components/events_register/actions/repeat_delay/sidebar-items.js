@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_RepeatDelay",""]],"struct":[["RepeatDelay","Repeats the given `action` `loops` amount of times, with each iteration delayed by `delay_ms` amount of milliseconds."]]});
+initSidebarItems({"struct":[["RepeatDelay","Repeats the given `action` `loops` amount of times, with each iteration delayed by `delay_ms` amount of milliseconds."]]});

@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_ObjectType",""]],"enum":[["ObjectType",""]]});
+initSidebarItems({"enum":[["ObjectType",""]]});

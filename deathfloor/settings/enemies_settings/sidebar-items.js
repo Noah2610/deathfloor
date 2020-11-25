@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_EnemiesSettings",""],["_IMPL_DESERIALIZE_FOR_EnemySettings",""]],"mod":[["prelude",""]],"struct":[["EnemiesSettings",""],["EnemySettings",""]]});
+initSidebarItems({"mod":[["prelude",""]],"struct":[["EnemiesSettings",""],["EnemySettings",""]]});

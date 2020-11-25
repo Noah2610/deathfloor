@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_CustomEntitiesSettings",""],["_IMPL_DESERIALIZE_FOR_CustomEntitySettings",""]],"mod":[["prelude",""]],"struct":[["CustomEntitiesSettings",""],["CustomEntitySettings",""]]});
+initSidebarItems({"mod":[["prelude",""]],"struct":[["CustomEntitiesSettings",""],["CustomEntitySettings",""]]});

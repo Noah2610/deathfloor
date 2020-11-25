@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_TileType",""]],"enum":[["TileType",""]]});
+initSidebarItems({"enum":[["TileType",""]]});

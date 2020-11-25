@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/ctor-0.1.12/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../ctor/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/ctor-0.1.16/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../ctor/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -328,6 +328,31 @@
 <span id="328">328</span>
 <span id="329">329</span>
 <span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
+<span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="attribute">#![<span class="ident">recursion_limit</span> <span class="op">=</span> <span class="string">&quot;256&quot;</span>]</span>
 
@@ -428,12 +453,12 @@
 <span class="doccomment">///</span>
 <span class="doccomment">///```rust</span>
 <span class="doccomment">/// #[used]</span>
-<span class="doccomment">/// #[cfg_attr(target_os = &quot;linux&quot;, link_section = &quot;.init_array&quot;)]</span>
+<span class="doccomment">/// #[cfg_attr(any(target_os = &quot;linux&quot;, target_os = &quot;android&quot;), link_section = &quot;.init_array&quot;)]</span>
 <span class="doccomment">/// #[cfg_attr(target_os = &quot;freebsd&quot;, link_section = &quot;.init_array&quot;)]</span>
-<span class="doccomment">/// #[cfg_attr(target_os = &quot;macos&quot;, link_section = &quot;__DATA,__mod_init_func&quot;)]</span>
+<span class="doccomment">/// #[cfg_attr(any(target_os = &quot;macos&quot;, target_os = &quot;ios&quot;), link_section = &quot;__DATA,__mod_init_func&quot;)]</span>
 <span class="doccomment">/// #[cfg_attr(target_os = &quot;windows&quot;, link_section = &quot;.CRT$XCU&quot;)]</span>
 <span class="doccomment">/// static FOO: extern fn() = {</span>
-<span class="doccomment">///   #[cfg_attr(target_os = &quot;linux&quot;, link_section = &quot;.text.startup&quot;)]</span>
+<span class="doccomment">///   #[cfg_attr(any(target_os = &quot;linux&quot;, target_os = &quot;android&quot;), link_section = &quot;.text.startup&quot;)]</span>
 <span class="doccomment">///   extern fn foo() { /* ... */ };</span>
 <span class="doccomment">///   foo</span>
 <span class="doccomment">/// };</span>
@@ -468,16 +493,16 @@
         <span class="kw">let</span> <span class="ident">output</span> <span class="op">=</span> <span class="macro">quote</span><span class="macro">!</span>(
             <span class="attribute">#[<span class="ident">used</span>]</span>
             <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">non_upper_case_globals</span>)]</span>
-            <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>, <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;.init_array&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;android&quot;</span>), <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;.init_array&quot;</span>)]</span>
             <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;freebsd&quot;</span>, <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;.init_array&quot;</span>)]</span>
-            <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>, <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;__DATA,__mod_init_func&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;ios&quot;</span>), <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;__DATA,__mod_init_func&quot;</span>)]</span>
             <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">windows</span>, <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;.CRT$XCU&quot;</span>)]</span>
             #(#<span class="ident">attrs</span>)<span class="op">*</span>
             <span class="kw">static</span> #<span class="ident">ident</span>
             :
             #<span class="ident">unsafety</span> <span class="kw">extern</span> #<span class="ident">abi</span> #<span class="ident">constness</span> <span class="kw">fn</span>() <span class="op">=</span>
             {
-                <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>, <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;.text.startup&quot;</span>)]</span>
+                <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;android&quot;</span>), <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;.text.startup&quot;</span>)]</span>
                 #<span class="ident">unsafety</span> <span class="kw">extern</span> #<span class="ident">abi</span> #<span class="ident">constness</span> <span class="kw">fn</span> #<span class="ident">ident</span>() #<span class="ident">block</span>;
                 #<span class="ident">ident</span>
             }
@@ -544,14 +569,14 @@
 
             <span class="attribute">#[<span class="ident">used</span>]</span>
             <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">non_upper_case_globals</span>)]</span>
-            <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>, <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;.init_array&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;android&quot;</span>), <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;.init_array&quot;</span>)]</span>
             <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;freebsd&quot;</span>, <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;.init_array&quot;</span>)]</span>
-            <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>, <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;__DATA,__mod_init_func&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;ios&quot;</span>), <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;__DATA,__mod_init_func&quot;</span>)]</span>
             <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">windows</span>, <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;.CRT$XCU&quot;</span>)]</span>
             <span class="kw">static</span> #<span class="ident">ctor_ident</span>
             :
             <span class="kw">unsafe</span> <span class="kw">fn</span>() <span class="op">=</span> {
-                <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>, <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;.text.startup&quot;</span>)]</span>
+                <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;android&quot;</span>), <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;.text.startup&quot;</span>)]</span>
                 <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">initer</span>() {
                     #<span class="ident">storage_ident</span> <span class="op">=</span> <span class="prelude-val">Some</span>(#<span class="ident">expr</span>);
                 }; <span class="ident">initer</span> }
@@ -604,6 +629,11 @@
     } <span class="op">=</span> <span class="ident">function</span>;
 
     <span class="kw">let</span> <span class="ident">output</span> <span class="op">=</span> <span class="macro">quote</span><span class="macro">!</span>(
+        <span class="comment">// Targets that use `atexit`.</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">any</span>(
+            <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>,
+            <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;ios&quot;</span>,
+        )))]</span>
         <span class="kw">mod</span> #<span class="ident">ident</span> {
             <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
 
@@ -614,22 +644,42 @@
 
             <span class="attribute">#[<span class="ident">used</span>]</span>
             <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">non_upper_case_globals</span>)]</span>
-            <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>, <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;.init_array&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;android&quot;</span>), <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;.init_array&quot;</span>)]</span>
             <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;freebsd&quot;</span>, <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;.init_array&quot;</span>)]</span>
-            <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>, <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;__DATA,__mod_init_func&quot;</span>)]</span>
             <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">windows</span>, <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;.CRT$XCU&quot;</span>)]</span>
             #(#<span class="ident">attrs</span>)<span class="op">*</span>
             <span class="kw">static</span> <span class="ident">__dtor_export</span>
             :
             <span class="kw">unsafe</span> <span class="kw">extern</span> #<span class="ident">abi</span> #<span class="ident">constness</span> <span class="kw">fn</span>() <span class="op">=</span>
             {
-                <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>, <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;.text.exit&quot;</span>)]</span>
+                <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;android&quot;</span>), <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;.text.exit&quot;</span>)]</span>
                 #<span class="ident">unsafety</span> <span class="kw">extern</span> #<span class="ident">abi</span> #<span class="ident">constness</span> <span class="kw">fn</span> #<span class="ident">ident</span>() #<span class="ident">block</span>;
-                <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>, <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;.text.startup&quot;</span>)]</span>
+                <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;android&quot;</span>), <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;.text.startup&quot;</span>)]</span>
                 <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="kw">fn</span> <span class="ident">__dtor_atexit</span>() {
                     <span class="ident">atexit</span>(#<span class="ident">ident</span>);
                 };
                 <span class="ident">__dtor_atexit</span>
+            };
+        }
+
+        <span class="comment">// Targets that don&#39;t rely on `atexit`.</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(
+            <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>,
+            <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;ios&quot;</span>,
+        ))]</span>
+        <span class="kw">mod</span> #<span class="ident">ident</span> {
+            <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
+
+            <span class="attribute">#[<span class="ident">used</span>]</span>
+            <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">non_upper_case_globals</span>)]</span>
+            <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;ios&quot;</span>), <span class="ident">link_section</span> <span class="op">=</span> <span class="string">&quot;__DATA,__mod_term_func&quot;</span>)]</span>
+            #(#<span class="ident">attrs</span>)<span class="op">*</span>
+            <span class="kw">static</span> <span class="ident">__dtor_export</span>
+            :
+            <span class="kw">unsafe</span> <span class="kw">extern</span> #<span class="ident">abi</span> #<span class="ident">constness</span> <span class="kw">fn</span>() <span class="op">=</span>
+            {
+                <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="kw">fn</span> <span class="ident">__dtor</span>() #<span class="ident">block</span>;
+                <span class="ident">__dtor</span>
             };
         }
     );

@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_InsertComponents",""]],"struct":[["InsertComponents","Insert (add or overwrite existing) components. Can be given the same components as in the enemy config's `components` field."]]});
+initSidebarItems({"struct":[["InsertComponents","Insert (add or overwrite existing) components. Can be given the same components as in the enemy config's `components` field."]]});

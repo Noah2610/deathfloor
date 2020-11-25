@@ -207,6 +207,23 @@
 <span id="207">207</span>
 <span id="208">208</span>
 <span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">system_prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::<span class="ident">HashMap</span>;
@@ -275,6 +292,8 @@
     <span class="kw">type</span> <span class="ident">SystemData</span> <span class="op">=</span> (
         <span class="ident">Entities</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
         <span class="ident">ReadExpect</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">InputManager</span><span class="op">&lt;</span><span class="ident">IngameBindings</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Player</span><span class="op">&gt;</span>,
+        <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Controllable</span><span class="op">&gt;</span>,
         <span class="ident">WriteStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">Jumper</span><span class="op">&gt;</span>,
         <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">WallJumper</span><span class="op">&gt;</span>,
         <span class="ident">ReadStorage</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">WallSlider</span><span class="op">&gt;</span>,
@@ -289,6 +308,8 @@
         (
             <span class="ident">entities</span>,
             <span class="ident">input_manager</span>,
+            <span class="ident">player_store</span>,
+            <span class="ident">controllable_store</span>,
             <span class="kw-2">mut</span> <span class="ident">jumpers</span>,
             <span class="ident">wall_jumpers</span>,
             <span class="ident">wall_sliders</span>,
@@ -300,6 +321,8 @@
     ) {
         <span class="kw">for</span> (
             <span class="ident">entity</span>,
+            <span class="kw">_</span>,
+            <span class="ident">controllable</span>,
             <span class="ident">jumper</span>,
             <span class="ident">wall_jumper_opt</span>,
             <span class="ident">wall_slider_opt</span>,
@@ -309,6 +332,8 @@
             <span class="ident">velocity</span>,
         ) <span class="kw">in</span> (
             <span class="kw-2">&amp;</span><span class="ident">entities</span>,
+            <span class="kw-2">&amp;</span><span class="ident">player_store</span>,
+            <span class="kw-2">&amp;</span><span class="ident">controllable_store</span>,
             <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">jumpers</span>,
             <span class="ident">wall_jumpers</span>.<span class="ident">maybe</span>(),
             <span class="ident">wall_sliders</span>.<span class="ident">maybe</span>(),
@@ -319,93 +344,102 @@
         )
             .<span class="ident">join</span>()
         {
-            <span class="comment">// Set Jumper&#39;s original_gravity field</span>
-            <span class="kw">if</span> <span class="ident">jumper</span>.<span class="ident">original_gravity</span>.<span class="ident">is_none</span>() {
-                <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">original_gravity</span>) <span class="op">=</span>
-                    <span class="ident">gravity_opt</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">g</span><span class="op">|</span> (<span class="kw-2">*</span><span class="ident">g</span>).<span class="ident">clone</span>())
-                {
-                    <span class="ident">jumper</span>.<span class="ident">original_gravity</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">original_gravity</span>);
+            <span class="kw">if</span> <span class="ident">controllable</span>.<span class="ident">is_controllable</span> {
+                <span class="comment">// Set Jumper&#39;s original_gravity field</span>
+                <span class="kw">if</span> <span class="ident">jumper</span>.<span class="ident">original_gravity</span>.<span class="ident">is_none</span>() {
+                    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">original_gravity</span>) <span class="op">=</span>
+                        <span class="ident">gravity_opt</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">g</span><span class="op">|</span> (<span class="kw-2">*</span><span class="ident">g</span>).<span class="ident">clone</span>())
+                    {
+                        <span class="ident">jumper</span>.<span class="ident">original_gravity</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">original_gravity</span>);
+                    }
                 }
-            }
 
-            <span class="kw">let</span> <span class="ident">query_matches</span> <span class="op">=</span> <span class="ident">get_query_matches_from</span>(<span class="ident">collider</span>);
-            <span class="kw">let</span> <span class="ident">is_touching_horz</span> <span class="op">=</span> <span class="ident">query_matches</span>.<span class="ident">left</span> <span class="op">|</span><span class="op">|</span> <span class="ident">query_matches</span>.<span class="ident">right</span>;
+                <span class="kw">let</span> <span class="ident">query_matches</span> <span class="op">=</span> <span class="ident">get_query_matches_from</span>(<span class="ident">collider</span>);
+                <span class="kw">let</span> <span class="ident">is_touching_horz</span> <span class="op">=</span>
+                    <span class="ident">query_matches</span>.<span class="ident">left</span> <span class="op">|</span><span class="op">|</span> <span class="ident">query_matches</span>.<span class="ident">right</span>;
 
-            <span class="kw">let</span> <span class="ident">is_jump_key_down</span> <span class="op">=</span> <span class="ident">input_manager</span>.<span class="ident">is_down</span>(<span class="ident">Jump</span>);
-            <span class="kw">let</span> <span class="ident">is_jump_key_pressed</span> <span class="op">=</span> <span class="ident">input_manager</span>.<span class="ident">is_pressed</span>(<span class="ident">Jump</span>);
+                <span class="kw">let</span> <span class="ident">is_jump_key_down</span> <span class="op">=</span> <span class="ident">input_manager</span>.<span class="ident">is_down</span>(<span class="ident">Jump</span>);
+                <span class="kw">let</span> <span class="ident">is_jump_key_pressed</span> <span class="op">=</span> <span class="ident">input_manager</span>.<span class="ident">is_pressed</span>(<span class="ident">Jump</span>);
 
-            <span class="ident">jumper</span>.<span class="ident">did_jump</span> <span class="op">=</span> <span class="bool-val">false</span>;
+                <span class="ident">jumper</span>.<span class="ident">did_jump</span> <span class="op">=</span> <span class="bool-val">false</span>;
 
-            <span class="comment">// JUMP</span>
-            <span class="kw">if</span> <span class="ident">is_jump_key_down</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">query_matches</span>.<span class="ident">bottom</span> {
-                <span class="ident">movable</span>.<span class="ident">add_action</span>(<span class="ident">MoveAction</span>::<span class="ident">Jump</span>);
-                <span class="ident">jumper</span>.<span class="ident">is_jumping</span> <span class="op">=</span> <span class="bool-val">true</span>;
-                <span class="ident">jumper</span>.<span class="ident">did_jump</span> <span class="op">=</span> <span class="bool-val">true</span>;
-            }
+                <span class="comment">// JUMP</span>
+                <span class="kw">if</span> <span class="ident">is_jump_key_down</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">query_matches</span>.<span class="ident">bottom</span> {
+                    <span class="ident">movable</span>.<span class="ident">add_action</span>(<span class="ident">MoveAction</span>::<span class="ident">Jump</span>);
+                    <span class="ident">jumper</span>.<span class="ident">is_jumping</span> <span class="op">=</span> <span class="bool-val">true</span>;
+                    <span class="ident">jumper</span>.<span class="ident">did_jump</span> <span class="op">=</span> <span class="bool-val">true</span>;
+                }
 
-            <span class="comment">// WALL JUMP</span>
-            <span class="kw">if</span> <span class="ident">wall_jumper_opt</span>.<span class="ident">is_some</span>() {
-                <span class="kw">if</span> <span class="op">!</span><span class="ident">jumper</span>.<span class="ident">did_jump</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">is_jump_key_down</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">is_touching_horz</span> {
-                    <span class="attribute">#[<span class="ident">rustfmt</span>::<span class="ident">skip</span>]</span>
+                <span class="comment">// WALL JUMP</span>
+                <span class="kw">if</span> <span class="ident">wall_jumper_opt</span>.<span class="ident">is_some</span>() {
+                    <span class="kw">if</span> <span class="op">!</span><span class="ident">jumper</span>.<span class="ident">did_jump</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">is_jump_key_down</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">is_touching_horz</span>
+                    {
+                        <span class="attribute">#[<span class="ident">rustfmt</span>::<span class="ident">skip</span>]</span>
                     <span class="kw">let</span> <span class="ident">x_mult</span> <span class="op">=</span> <span class="kw">match</span> (<span class="ident">query_matches</span>.<span class="ident">left</span>, <span class="ident">query_matches</span>.<span class="ident">right</span>) {
                         (<span class="bool-val">true</span>,  <span class="bool-val">true</span>)  <span class="op">=</span><span class="op">&gt;</span> <span class="number">0.0</span>,            <span class="comment">// touching both sides, so no x boost</span>
                         (<span class="bool-val">true</span>,  <span class="bool-val">false</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="number">1.0</span>,            <span class="comment">// touching left, so jump to the right</span>
                         (<span class="bool-val">false</span>, <span class="bool-val">true</span>)  <span class="op">=</span><span class="op">&gt;</span> <span class="op">-</span><span class="number">1.0</span>,           <span class="comment">// touching right, so jump to the left</span>
                         (<span class="bool-val">false</span>, <span class="bool-val">false</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(), <span class="comment">// `is_touching_horz` is `true`, so this is unreachable</span>
                     };
-                    <span class="ident">movable</span>.<span class="ident">add_action</span>(<span class="ident">MoveAction</span>::<span class="ident">WallJump</span> { <span class="ident">x_mult</span> });
-                    <span class="ident">jumper</span>.<span class="ident">is_jumping</span> <span class="op">=</span> <span class="bool-val">true</span>;
-                    <span class="ident">jumper</span>.<span class="ident">did_jump</span> <span class="op">=</span> <span class="bool-val">true</span>;
-                }
-            }
-
-            <span class="comment">// WALL SLIDE</span>
-            <span class="kw">if</span> <span class="ident">wall_slider_opt</span>.<span class="ident">is_some</span>() {
-                <span class="kw">if</span> <span class="op">!</span><span class="ident">jumper</span>.<span class="ident">did_jump</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">is_touching_horz</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="op">!</span><span class="ident">query_matches</span>.<span class="ident">bottom</span>
-                {
-                    <span class="ident">movable</span>.<span class="ident">add_action</span>(<span class="ident">MoveAction</span>::<span class="ident">WallSlide</span>);
-                }
-            }
-
-            <span class="comment">// KILL JUMP</span>
-            <span class="kw">if</span> <span class="ident">jumper</span>.<span class="ident">is_jumping</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">input_manager</span>.<span class="ident">is_up</span>(<span class="ident">Jump</span>) {
-                <span class="ident">movable</span>.<span class="ident">add_action</span>(<span class="ident">MoveAction</span>::<span class="ident">KillJump</span>);
-                <span class="ident">jumper</span>.<span class="ident">is_jumping</span> <span class="op">=</span> <span class="bool-val">false</span>;
-            }
-
-            <span class="comment">// set appropriate GRAVITY</span>
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">mut</span> <span class="ident">gravity</span>) <span class="op">=</span> <span class="ident">gravity_opt</span> {
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">target_gravity_opt</span> <span class="op">=</span> <span class="prelude-val">None</span>;
-
-                <span class="kw">let</span> <span class="ident">vel_y</span> <span class="op">=</span> <span class="ident">velocity</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">Axis</span>::<span class="ident">Y</span>);
-                <span class="kw">if</span> <span class="ident">is_jump_key_pressed</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">vel_y</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">NORMAL_GRAVITY_BELOW_Y_VEL</span> {
-                    <span class="ident">target_gravity_opt</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">TargetGravity</span>::<span class="ident">Jump</span>);
-                } <span class="kw">else</span> <span class="kw">if</span> <span class="op">!</span><span class="ident">is_jump_key_pressed</span> {
-                    <span class="ident">target_gravity_opt</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">TargetGravity</span>::<span class="ident">Normal</span>);
-                } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">vel_y</span> <span class="op">&lt;</span> <span class="ident">NORMAL_GRAVITY_BELOW_Y_VEL</span> {
-                    <span class="ident">target_gravity_opt</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">TargetGravity</span>::<span class="ident">Normal</span>);
+                        <span class="ident">movable</span>.<span class="ident">add_action</span>(<span class="ident">MoveAction</span>::<span class="ident">WallJump</span> { <span class="ident">x_mult</span> });
+                        <span class="ident">jumper</span>.<span class="ident">is_jumping</span> <span class="op">=</span> <span class="bool-val">true</span>;
+                        <span class="ident">jumper</span>.<span class="ident">did_jump</span> <span class="op">=</span> <span class="bool-val">true</span>;
+                    }
                 }
 
-                <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">target_gravity</span>) <span class="op">=</span> <span class="ident">target_gravity_opt</span> {
-                    <span class="kw">if</span> <span class="self">self</span>
-                        .<span class="ident">player_gravities</span>
-                        .<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">entity</span>)
-                        .<span class="ident">map</span>(<span class="op">|</span><span class="ident">prev_gravity</span><span class="op">|</span> <span class="ident">prev_gravity</span> <span class="op">!</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">target_gravity</span>)
-                        .<span class="ident">unwrap_or</span>(<span class="bool-val">true</span>)
+                <span class="comment">// WALL SLIDE</span>
+                <span class="kw">if</span> <span class="ident">wall_slider_opt</span>.<span class="ident">is_some</span>() {
+                    <span class="kw">if</span> <span class="op">!</span><span class="ident">jumper</span>.<span class="ident">did_jump</span>
+                        <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">is_touching_horz</span>
+                        <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="op">!</span><span class="ident">query_matches</span>.<span class="ident">bottom</span>
                     {
-                        <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">target_gravity</span> {
-                            <span class="ident">TargetGravity</span>::<span class="ident">Normal</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">set_gravity</span>(
-                                <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gravity</span>,
-                                <span class="ident">jumper</span>.<span class="ident">original_gravity</span>.<span class="ident">as_ref</span>().<span class="ident">expect</span>(
-                                    <span class="string">&quot;Jumper should have set original_gravity \
-                                     by now&quot;</span>,
+                        <span class="ident">movable</span>.<span class="ident">add_action</span>(<span class="ident">MoveAction</span>::<span class="ident">WallSlide</span>);
+                    }
+                }
+
+                <span class="comment">// KILL JUMP</span>
+                <span class="kw">if</span> <span class="ident">jumper</span>.<span class="ident">is_jumping</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">input_manager</span>.<span class="ident">is_up</span>(<span class="ident">Jump</span>) {
+                    <span class="ident">movable</span>.<span class="ident">add_action</span>(<span class="ident">MoveAction</span>::<span class="ident">KillJump</span>);
+                    <span class="ident">jumper</span>.<span class="ident">is_jumping</span> <span class="op">=</span> <span class="bool-val">false</span>;
+                }
+
+                <span class="comment">// set appropriate GRAVITY</span>
+                <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">mut</span> <span class="ident">gravity</span>) <span class="op">=</span> <span class="ident">gravity_opt</span> {
+                    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">target_gravity_opt</span> <span class="op">=</span> <span class="prelude-val">None</span>;
+
+                    <span class="kw">let</span> <span class="ident">vel_y</span> <span class="op">=</span> <span class="ident">velocity</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">Axis</span>::<span class="ident">Y</span>);
+                    <span class="kw">if</span> <span class="ident">is_jump_key_pressed</span>
+                        <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">vel_y</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">NORMAL_GRAVITY_BELOW_Y_VEL</span>
+                    {
+                        <span class="ident">target_gravity_opt</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">TargetGravity</span>::<span class="ident">Jump</span>);
+                    } <span class="kw">else</span> <span class="kw">if</span> <span class="op">!</span><span class="ident">is_jump_key_pressed</span> {
+                        <span class="ident">target_gravity_opt</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">TargetGravity</span>::<span class="ident">Normal</span>);
+                    } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">vel_y</span> <span class="op">&lt;</span> <span class="ident">NORMAL_GRAVITY_BELOW_Y_VEL</span> {
+                        <span class="ident">target_gravity_opt</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">TargetGravity</span>::<span class="ident">Normal</span>);
+                    }
+
+                    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">target_gravity</span>) <span class="op">=</span> <span class="ident">target_gravity_opt</span> {
+                        <span class="kw">if</span> <span class="self">self</span>
+                            .<span class="ident">player_gravities</span>
+                            .<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">entity</span>)
+                            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">prev_gravity</span><span class="op">|</span> <span class="ident">prev_gravity</span> <span class="op">!</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">target_gravity</span>)
+                            .<span class="ident">unwrap_or</span>(<span class="bool-val">true</span>)
+                        {
+                            <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">target_gravity</span> {
+                                <span class="ident">TargetGravity</span>::<span class="ident">Normal</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">set_gravity</span>(
+                                    <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gravity</span>,
+                                    <span class="ident">jumper</span>.<span class="ident">original_gravity</span>.<span class="ident">as_ref</span>().<span class="ident">expect</span>(
+                                        <span class="string">&quot;Jumper should have set \
+                                         original_gravity by now&quot;</span>,
+                                    ),
                                 ),
-                            ),
-                            <span class="ident">TargetGravity</span>::<span class="ident">Jump</span> <span class="op">=</span><span class="op">&gt;</span> {
-                                <span class="ident">set_gravity</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gravity</span>, <span class="kw-2">&amp;</span><span class="ident">jumper</span>.<span class="ident">gravity</span>)
+                                <span class="ident">TargetGravity</span>::<span class="ident">Jump</span> <span class="op">=</span><span class="op">&gt;</span> {
+                                    <span class="ident">set_gravity</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gravity</span>, <span class="kw-2">&amp;</span><span class="ident">jumper</span>.<span class="ident">gravity</span>)
+                                }
                             }
+                            <span class="self">self</span>.<span class="ident">player_gravities</span>
+                                .<span class="ident">insert</span>(<span class="ident">entity</span>, <span class="ident">target_gravity</span>);
                         }
-                        <span class="self">self</span>.<span class="ident">player_gravities</span>.<span class="ident">insert</span>(<span class="ident">entity</span>, <span class="ident">target_gravity</span>);
                     }
                 }
             }

@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_SpawnAction",""]],"enum":[["SpawnAction",""]]});
+initSidebarItems({"enum":[["SpawnAction",""]]});

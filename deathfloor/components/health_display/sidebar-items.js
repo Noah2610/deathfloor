@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_HealthDisplay",""],["_IMPL_DESERIALIZE_FOR_HealthDisplayPosition",""]],"enum":[["HealthDisplayPosition",""]],"mod":[["prelude",""]],"struct":[["HealthDisplay",""]]});
+initSidebarItems({"enum":[["HealthDisplayPosition",""]],"mod":[["prelude",""]],"struct":[["HealthDisplay",""]]});

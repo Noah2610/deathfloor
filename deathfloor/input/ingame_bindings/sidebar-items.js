@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_IngameActionBinding",""],["_IMPL_DESERIALIZE_FOR_IngameAxisBinding",""],["_IMPL_SERIALIZE_FOR_IngameActionBinding",""],["_IMPL_SERIALIZE_FOR_IngameAxisBinding",""]],"enum":[["IngameActionBinding",""],["IngameAxisBinding",""]],"struct":[["IngameBindings",""]]});
+initSidebarItems({"enum":[["IngameActionBinding",""],["IngameAxisBinding",""]],"struct":[["IngameBindings",""]]});

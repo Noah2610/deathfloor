@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_PlayerBulletSettings",""]],"mod":[["prelude",""]],"struct":[["PlayerBulletSettings",""]]});
+initSidebarItems({"mod":[["prelude",""]],"struct":[["PlayerBulletSettings",""]]});

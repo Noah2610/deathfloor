@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_EnemyType",""]],"struct":[["EnemyType",""]]});
+initSidebarItems({"struct":[["EnemyType",""]]});

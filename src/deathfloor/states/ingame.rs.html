@@ -101,6 +101,9 @@
 <span id="101">101</span>
 <span id="102">102</span>
 <span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">state_prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">input</span>::<span class="ident">prelude</span>::{
@@ -180,7 +183,10 @@
         <span class="ident">data</span>: <span class="ident">StateData</span><span class="op">&lt;</span><span class="ident">GameData</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Trans</span><span class="op">&lt;</span><span class="ident">GameData</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span><span class="op">&gt;</span>, <span class="ident">StateEvent</span><span class="op">&gt;</span> {
         <span class="ident">data</span>.<span class="ident">data</span>.<span class="ident">update_only</span>(<span class="ident">data</span>.<span class="ident">world</span>, <span class="ident">DispatcherId</span>::<span class="ident">Ui</span>).<span class="ident">unwrap</span>();
-        <span class="ident">data</span>.<span class="ident">data</span>.<span class="ident">update</span>(<span class="ident">data</span>.<span class="ident">world</span>, <span class="ident">DispatcherId</span>::<span class="ident">Ingame</span>).<span class="ident">unwrap</span>();
+        <span class="ident">data</span>.<span class="ident">data</span>
+            .<span class="ident">update_only</span>(<span class="ident">data</span>.<span class="ident">world</span>, <span class="ident">DispatcherId</span>::<span class="ident">Ingame</span>)
+            .<span class="ident">unwrap</span>();
+        <span class="ident">data</span>.<span class="ident">data</span>.<span class="ident">update_core</span>(<span class="ident">data</span>.<span class="ident">world</span>);
 
         <span class="ident">update_object_spawner</span>(<span class="ident">data</span>.<span class="ident">world</span>);
 

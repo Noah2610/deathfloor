@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["_IMPL_DESERIALIZE_FOR_Random",""]],"struct":[["Random","Action that randomly triggers one or another action."]]});
+initSidebarItems({"struct":[["Random","Action that randomly triggers one or another action."]]});
