@@ -55,5 +55,12 @@
         "BgMusha": (
             spritesheet: "bg/bg_musha_test.png",
         ),
+        "BgBlue": (
+            spritesheet: "bg/bg_test11.3.png",
+        ),
+        "BgOrange": (
+            spritesheet: "bg/bg_test5.6.png",
+        ),
+
     },
 )
