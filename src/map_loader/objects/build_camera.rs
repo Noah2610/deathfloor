@@ -52,17 +52,19 @@ pub(super) fn build(
     let size: Size = camera_settings.size.into();
 
     let camera = Camera::standard_2d(size.w, size.h);
-    let mut camera_ortho =
-        CameraOrtho::normalized(CameraNormalizeMode::Contain);
+    let camera_ortho = CameraOrtho::new(
+        CameraNormalizeMode::Contain,
+        camera_settings.world_coordinates,
+    );
     let half_size = (size.w * 0.5, size.h * 0.5);
-    camera_ortho.world_coordinates = CameraOrthoWorldCoordinates {
-        top:    half_size.1,
-        bottom: -half_size.1,
-        left:   -half_size.0,
-        right:  half_size.0,
-        near:   0.0,
-        far:    pos.2,
-    };
+    // camera_ortho.world_coordinates = CameraOrthoWorldCoordinates {
+    //     top:    half_size.1,
+    //     bottom: -half_size.1,
+    //     left:   -half_size.0,
+    //     right:  half_size.0,
+    //     near:   0.0,
+    //     far:    pos.2,
+    // };
     let loader = Loader::new(half_size.0, half_size.1);
     let confined = {
         let confined_rect = Rect::builder()

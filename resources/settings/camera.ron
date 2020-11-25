@@ -9,6 +9,17 @@
         width:  384.0,
         height: 216.0,
     ),
+
     /// Z position, should be larger than any other entity's Z position.
     z: 10.0,
+
+    /// https://docs.amethyst.rs/stable/amethyst_utils/ortho_camera/struct.CameraOrthoWorldCoordinates.html
+    world_coordinates: (
+        top:     108.0, // size.height / 2 = 216 / 2
+        bottom: -108.0,
+        left:   -192.0, // size.width / 2 = 384 / 2
+        right:   192.0,
+        near:   -100.0, // z ???
+        far:     100.0,
+    ),
 )
