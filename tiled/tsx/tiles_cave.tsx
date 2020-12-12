@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.3.3" name="tiles_cave" tilewidth="8" tileheight="8" tilecount="10000" columns="100">
  <image source="../../resources/spritesheets/tiles/final/cave/tiles_cave.png" width="800" height="800"/>
+ <tile id="96" type="Ground"/>
+ <tile id="97" type="Ground"/>
+ <tile id="98" type="Ground"/>
+ <tile id="99" type="Ground"/>
+ <tile id="196" type="Ground"/>
+ <tile id="197" type="Ground"/>
+ <tile id="198" type="Ground"/>
+ <tile id="199" type="Ground"/>
  <tile id="205" type="Ground"/>
  <tile id="206" type="Ground"/>
  <tile id="207" type="Ground"/>
@@ -19,6 +27,10 @@
  <tile id="227" type="Ground"/>
  <tile id="228" type="Ground"/>
  <tile id="229" type="Ground"/>
+ <tile id="296" type="Ground"/>
+ <tile id="297" type="Ground"/>
+ <tile id="298" type="Ground"/>
+ <tile id="299" type="Ground"/>
  <tile id="305" type="Ground"/>
  <tile id="306" type="Ground"/>
  <tile id="307" type="Ground"/>
@@ -37,6 +49,10 @@
  <tile id="327" type="Ground"/>
  <tile id="328" type="Ground"/>
  <tile id="329" type="Ground"/>
+ <tile id="396" type="Ground"/>
+ <tile id="397" type="Ground"/>
+ <tile id="398" type="Ground"/>
+ <tile id="399" type="Ground"/>
  <tile id="405" type="Ground"/>
  <tile id="406" type="Ground"/>
  <tile id="407" type="Ground"/>
@@ -55,6 +71,46 @@
  <tile id="427" type="Ground"/>
  <tile id="428" type="Ground"/>
  <tile id="429" type="Ground"/>
+ <tile id="996" type="Ground"/>
+ <tile id="997" type="Ground"/>
+ <tile id="998" type="Ground"/>
+ <tile id="999" type="Ground"/>
+ <tile id="1096" type="Ground"/>
+ <tile id="1097" type="Ground"/>
+ <tile id="1098" type="Ground"/>
+ <tile id="1099" type="Ground"/>
+ <tile id="1196" type="Ground"/>
+ <tile id="1197" type="Ground"/>
+ <tile id="1198" type="Ground"/>
+ <tile id="1199" type="Ground"/>
+ <tile id="1296" type="Ground"/>
+ <tile id="1297" type="Ground"/>
+ <tile id="1298" type="Ground"/>
+ <tile id="1299" type="Ground"/>
+ <tile id="1396" type="Ground"/>
+ <tile id="1397" type="Ground"/>
+ <tile id="1398" type="Ground"/>
+ <tile id="1399" type="Ground"/>
+ <tile id="1496" type="Ground"/>
+ <tile id="1497" type="Ground"/>
+ <tile id="1498" type="Ground"/>
+ <tile id="1499" type="Ground"/>
+ <tile id="1596" type="Ground"/>
+ <tile id="1597" type="Ground"/>
+ <tile id="1598" type="Ground"/>
+ <tile id="1599" type="Ground"/>
+ <tile id="1696" type="Ground"/>
+ <tile id="1697" type="Ground"/>
+ <tile id="1698" type="Ground"/>
+ <tile id="1699" type="Ground"/>
+ <tile id="1796" type="Ground"/>
+ <tile id="1797" type="Ground"/>
+ <tile id="1798" type="Ground"/>
+ <tile id="1799" type="Ground"/>
+ <tile id="1896" type="Ground"/>
+ <tile id="1897" type="Ground"/>
+ <tile id="1898" type="Ground"/>
+ <tile id="1899" type="Ground"/>
  <tile id="5301" type="Ground"/>
  <tile id="5302" type="Ground"/>
  <tile id="5303" type="Ground"/>

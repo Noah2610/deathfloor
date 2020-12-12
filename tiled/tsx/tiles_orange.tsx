@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.3.3" name="tiles_orange" tilewidth="8" tileheight="8" tilecount="4096" columns="64">
  <image source="../../resources/spritesheets/tiles/final/orange/tiles_orange.png" width="512" height="512"/>
+ <tile id="843" type="Ground"/>
  <tile id="1601" type="Ground"/>
  <tile id="1602" type="Ground"/>
  <tile id="1604" type="Ground"/>
