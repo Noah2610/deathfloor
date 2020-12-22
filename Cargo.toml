@@ -49,7 +49,7 @@ debug-assertions = true
 codegen-units    = 256
 incremental      = true
 overflow-checks  = true
-lto              = false
+lto              = "off"
 
 [profile.release]
 opt-level        = 3
@@ -58,3 +58,4 @@ debug-assertions = false
 codegen-units    = 1
 incremental      = true
 overflow-checks  = false
+lto              = true
