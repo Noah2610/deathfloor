@@ -6,8 +6,7 @@ on:
 name: Build-Release
 
 jobs:
-  # ------------------------
-  # LINUX RELEASE -- DEFAULT
+  # {{{ LINUX RELEASE
   build-linux-release:
     name: Build Linux Release
     runs-on: ubuntu-18.04
@@ -76,86 +75,9 @@ jobs:
         with:
           name: release-linux
           path: releases
-  # END LINUX RELEASE -- DEFAULT
-  # ----------------------------
+  # }}} END LINUX RELEASE
 
-  # --------------------------
-  # LINUX RELEASE -- CODEGEN-1
-  build-linux-release-codegen-1:
-    name: Build Linux Release with codegen-units=1
-    runs-on: ubuntu-18.04
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Cache cargo registry
-        uses: actions/cache@v1
-        with:
-          path: ~/.cargo/registry
-          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo-registry
-      - name: Cache cargo index
-        uses: actions/cache@v1
-        with:
-          path: ~/.cargo/git
-          key: ${{ runner.os }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo-index
-      - name: Cache cargo build
-        uses: actions/cache@v1
-        with:
-          path: target
-          key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo-build-target
-
-      - name: Install Dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y \
-            gcc \
-            pkg-config \
-            openssl \
-            libasound2-dev \
-            cmake \
-            build-essential \
-            python3 \
-            libfreetype6-dev \
-            libexpat1-dev \
-            libxcb-composite0-dev \
-            libssl-dev \
-            libx11-dev
-        shell: bash
-
-      - name: Install Rust Toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          default: true
-          override: true
-
-      - name: Build Binary
-        uses: actions-rs/cargo@v1
-        env:
-          RUSTFLAGS: -C codegen-units=1
-        with:
-          command: build
-          args: --release --features debug
-
-      - name: Bundle Release
-        run: bin/bundle-release linux-codegen-1
-        shell: bash
-
-      - name: Upload Bundled Release
-        uses: actions/upload-artifact@v1
-        with:
-          name: release-linux
-          path: releases
-  # END LINUX RELEASE -- CODEGEN-1
-  # ------------------------------
-
-  # --------------------------
-  # WINDOWS RELEASE -- DEFAULT
+  # {{{ WINDOWS RELEASE
   build-windows-release:
     name: Build Windows Release
     runs-on: windows-2019
@@ -213,73 +135,9 @@ jobs:
         with:
           name: release-windows
           path: releases
-  # END WINDOWS RELEASE -- DEFAULT
-  # --------------------------
+  # }}} END WINDOWS RELEASE
 
-  # ----------------------------
-  # WINDOWS RELEASE -- CODEGEN-1
-  build-windows-release-codegen-1:
-    name: Build Windows Release with codegen-units=1
-    runs-on: windows-2019
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Cache cargo registry
-        uses: actions/cache@v1
-        with:
-          path: ~/.cargo/registry
-          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo-registry
-      - name: Cache cargo index
-        uses: actions/cache@v1
-        with:
-          path: ~/.cargo/git
-          key: ${{ runner.os }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo-index
-      - name: Cache cargo build
-        uses: actions/cache@v1
-        with:
-          path: target
-          key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo-build-target
-
-      - name: Install Dependencies
-        run: |
-          choco install \
-            curl \
-            zip
-        shell: bash
-
-      - name: Install Rust Toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          default: true
-          override: true
-
-      - name: Build Binary
-        uses: actions-rs/cargo@v1
-        env:
-          RUSTFLAGS: -C codegen-units=1
-        with:
-          command: build
-          args: --release --features debug
-
-      - name: Bundle Release
-        run: bin/bundle-release windows-codegen-1
-        shell: bash
-
-      - name: Upload Bundled Release
-        uses: actions/upload-artifact@v1
-        with:
-          name: release-windows
-          path: releases
-  # END WINDOWS RELEASE -- CODEGEN-1
-  # --------------------------------
-
+  # {{{ MACOS RELEASE
   build-macos-release:
     name: Build MacOS Release
     runs-on: macos-10.15
@@ -330,3 +188,4 @@ jobs:
         with:
           name: release-macos
           path: releases
+  # }}} END MACOS RELEASE

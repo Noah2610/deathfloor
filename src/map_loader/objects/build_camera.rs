@@ -1,11 +1,7 @@
 use super::helpers::prelude::*;
 use amethyst::ecs::{Entities, Join, ReadStorage};
 use amethyst::renderer::Camera;
-use amethyst::utils::ortho_camera::{
-    CameraNormalizeMode,
-    CameraOrtho,
-    CameraOrthoWorldCoordinates,
-};
+use amethyst::utils::ortho_camera::{CameraNormalizeMode, CameraOrtho};
 
 pub(super) fn build(
     world: &mut World,
@@ -57,14 +53,6 @@ pub(super) fn build(
         camera_settings.world_coordinates,
     );
     let half_size = (size.w * 0.5, size.h * 0.5);
-    // camera_ortho.world_coordinates = CameraOrthoWorldCoordinates {
-    //     top:    half_size.1,
-    //     bottom: -half_size.1,
-    //     left:   -half_size.0,
-    //     right:  half_size.0,
-    //     near:   0.0,
-    //     far:    pos.2,
-    // };
     let loader = Loader::new(half_size.0, half_size.1);
     let confined = {
         let confined_rect = Rect::builder()
