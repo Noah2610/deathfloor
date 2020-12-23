@@ -1,7 +1,7 @@
 use super::system_prelude::*;
 
 const WALK_ANIM_PADDING: f32 = 8.0;
-const JUMPING_ANIM_PADDING: f32 = 0.0;
+const RISING_FALLING_ANIM_PADDING: f32 = 0.0;
 
 #[derive(Default)]
 pub struct HandleAnimationsSystem;
@@ -48,9 +48,8 @@ impl<'a> System<'a> for HandleAnimationsSystem {
                 .unwrap_or(true);
 
             if should_play_anim {
-                let (did_jump, is_jumping) = jumper_opt
-                    .map(|jumper| (jumper.did_jump, jumper.is_jumping))
-                    .unwrap_or((false, false));
+                let did_jump =
+                    jumper_opt.map(|jumper| jumper.did_jump).unwrap_or(false);
                 let is_in_air = collider_opt
                     .map(|collider| {
                         collider
@@ -60,24 +59,26 @@ impl<'a> System<'a> for HandleAnimationsSystem {
                             .is_none()
                     })
                     .unwrap_or(false);
+                let moving_upwards = velocity.y > RISING_FALLING_ANIM_PADDING;
+                let moving_downwards = velocity.y < RISING_FALLING_ANIM_PADDING;
 
                 let anim_action = if did_jump
                     && animations.has_animation(&AnimationKey::Jump)
                 // JUMP ANIM
                 {
                     AnimationAction::Push(AnimationKey::Jump)
-                } else if is_jumping
-                    && is_in_air
-                    && velocity.y > JUMPING_ANIM_PADDING
-                    && animations.has_animation(&AnimationKey::Jumping)
-                // JUMPING ANIM
-                {
-                    AnimationAction::Play(AnimationKey::Jumping)
                 } else if is_in_air
-                    && animations.has_animation(&AnimationKey::InAir)
-                // IN-AIR ANIM
+                    && moving_upwards
+                    && animations.has_animation(&AnimationKey::Rising)
+                // RISING ANIM
                 {
-                    AnimationAction::Play(AnimationKey::InAir)
+                    AnimationAction::Play(AnimationKey::Rising)
+                } else if is_in_air
+                    && moving_downwards
+                    && animations.has_animation(&AnimationKey::Falling)
+                // FALLING ANIM
+                {
+                    AnimationAction::Play(AnimationKey::Falling)
                 } else {
                     // WALK / IDLE ANIM
                     AnimationAction::Play(match velocity.x {

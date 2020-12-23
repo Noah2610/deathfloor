@@ -22,17 +22,15 @@ pub enum AnimationKey {
     /// `Once` animation.
     Jump,
 
-    /// Plays after jump and after `Jump` animation played,
-    /// while jumping (while holding down the jump button),
-    /// while in-air, and while moving upwards (positive y velocity).
+    /// Played when moving upwards (positive y velocity).
     ///
     /// `Cycle` animation.
-    Jumping,
+    Rising,
 
-    /// Played when in the air and not jumping.
+    /// Played when moving downwards (negative y velocity).
     ///
     /// `Cycle` animation.
-    InAir,
+    Falling,
 
     /// Custom animations, can be played with `AnimationAction`.
     Custom(String),
@@ -47,25 +45,8 @@ impl AnimationKey {
     }
 }
 
-// TODO
-// `Default` implementation required by `Deserialize` for `AnimationsContainer`.
-// This doesn't seem right...
-impl Default for AnimationKey {
-    fn default() -> Self {
-        AnimationKey::Idle
-    }
-}
-
 impl fmt::Display for AnimationKey {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}", match self {
-            Self::Idle => "Idle".to_string(),
-            Self::Walk => "Walk".to_string(),
-            Self::Death => "Death".to_string(),
-            Self::Jump => "Jump".to_string(),
-            Self::Jumping => "Jumping".to_string(),
-            Self::InAir => "InAir".to_string(),
-            Self::Custom(s) => format!("Custom({})", s),
-        })
+        write!(f, "{:?}", self)
     }
 }

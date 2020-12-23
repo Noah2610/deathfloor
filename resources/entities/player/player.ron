@@ -149,10 +149,10 @@
                             (10, 25),
                             (12, 100),
                         ]),
-                        Jumping: Cycle([
+                        Rising: Cycle([
                             (5, 1000),
                         ]),
-                        InAir: Cycle([
+                        Falling: Cycle([
                             (0, 250),
                             (2, 250),
                         ]),
