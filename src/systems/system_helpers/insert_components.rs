@@ -323,6 +323,18 @@ pub fn insert_components(
                     }
                 }
             }
+            Comp::VariableRegister(variable_register) => {
+                match variable_register {
+                    Some(variable_register) => {
+                        storages
+                            .variable_register
+                            .insert(entity, variable_register)?;
+                    }
+                    None => {
+                        storages.variable_register.remove(entity);
+                    }
+                }
+            }
             Comp::Loader(loader) => match loader {
                 Some(loader) => {
                     storages.loader.insert(entity, loader)?;
