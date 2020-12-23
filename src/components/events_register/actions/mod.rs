@@ -16,6 +16,7 @@ mod random;
 mod repeat_delay;
 mod sound_action;
 mod spawn_action;
+mod variable_action;
 
 pub mod prelude {
     pub use super::animation_action::AnimationAction;
@@ -35,6 +36,7 @@ pub mod prelude {
     pub use super::repeat_delay::RepeatDelay;
     pub use super::sound_action::SoundAction;
     pub use super::spawn_action::SpawnAction;
+    pub use super::variable_action::VariableAction;
     pub use super::ActionTriggerStorages;
     pub use super::ActionType;
 }
@@ -63,6 +65,7 @@ pub enum ActionType {
     Call(Call),
     If(conditionals::IfAction),
     ControlAction(ControlAction),
+    VariableAction(VariableAction),
 }
 
 #[derive(SystemData)]
@@ -84,4 +87,5 @@ pub struct ActionTriggerStorages<'a> {
     pub call:              WriteStorage<'a, ActionTrigger<Call>>,
     pub if_action: WriteStorage<'a, ActionTrigger<conditionals::IfAction>>,
     pub control_action:    WriteStorage<'a, ActionTrigger<ControlAction>>,
+    pub variable_action:   WriteStorage<'a, ActionTrigger<VariableAction>>,
 }
