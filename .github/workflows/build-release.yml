@@ -6,6 +6,7 @@ on:
 name: Build-Release
 
 jobs:
+  # {{{ LINUX RELEASE
   build-linux-release:
     name: Build Linux Release
     runs-on: ubuntu-18.04
@@ -55,7 +56,6 @@ jobs:
       - name: Install Rust Toolchain
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: nightly-2020-02-06
           profile: minimal
           default: true
           override: true
@@ -64,7 +64,7 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --release
+          args: --release --features debug
 
       - name: Bundle Release
         run: bin/bundle-release linux
@@ -75,7 +75,9 @@ jobs:
         with:
           name: release-linux
           path: releases
+  # }}} END LINUX RELEASE
 
+  # {{{ WINDOWS RELEASE
   build-windows-release:
     name: Build Windows Release
     runs-on: windows-2019
@@ -114,7 +116,6 @@ jobs:
       - name: Install Rust Toolchain
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: nightly-2020-02-06
           profile: minimal
           default: true
           override: true
@@ -123,7 +124,7 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --release
+          args: --release --features debug
 
       - name: Bundle Release
         run: bin/bundle-release windows
@@ -134,7 +135,9 @@ jobs:
         with:
           name: release-windows
           path: releases
+  # }}} END WINDOWS RELEASE
 
+  # {{{ MACOS RELEASE
   build-macos-release:
     name: Build MacOS Release
     runs-on: macos-10.15
@@ -166,7 +169,6 @@ jobs:
       - name: Install Rust Toolchain
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: nightly-2020-02-06
           profile: minimal
           default: true
           override: true
@@ -186,3 +188,4 @@ jobs:
         with:
           name: release-macos
           path: releases
+  # }}} END MACOS RELEASE

@@ -4,5 +4,6 @@
 _ignore/
 /logs
 *.log
+cargo-timing*.html
 
-/releases
+/releases/

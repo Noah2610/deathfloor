@@ -5,7 +5,4 @@ _dir="$( dirname "$0" )"
 source "${_dir}/share.sh"
 unset _dir
 
-"${ROOT}/bin/run" \
-    -Z unstable-options \
-    --profile dev-performance \
-    "$@"
+"${ROOT}/bin/run" --release "$@"

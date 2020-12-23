@@ -1,5 +1,3 @@
-cargo-features = ["named-profiles"]
-
 [package]
 name = "deathfloor"
 version = "0.0.4"
@@ -11,13 +9,13 @@ license = "MIT"
 [dependencies]
 derive_builder = "0.9.0"
 rand = "0.7.3"
-serde_json = "1.0.44"
+serde_json = "1.0.58"
 specs-derive = "0.4.0"
 
 [dependencies.deathframe]
 version = "*"
 git = "https://github.com/Noah2610/deathframe"
-branch = "debug/feature-texture-scaling"
+branch = "develop"
 features = [
     "physics",
     "animation",
@@ -25,7 +23,7 @@ features = [
 ]
 
 [dependencies.serde]
-version = "1.0.104"
+version = "1.0.116"
 features = ["derive"]
 
 [dependencies.ron]
@@ -48,18 +46,16 @@ dev     = []
 opt-level        = 2
 debug            = true
 debug-assertions = true
-codegen-units    = 1
+codegen-units    = 256
 incremental      = true
 overflow-checks  = true
-
-[profile.dev-performance]
-inherits      = "dev"
-codegen-units = 256
+lto              = "off"
 
 [profile.release]
 opt-level        = 3
 debug            = false
 debug-assertions = false
-codegen-units    = 256
+codegen-units    = 1
 incremental      = true
 overflow-checks  = false
+lto              = true

@@ -76,7 +76,10 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Ingame {
         data: StateData<GameData<'a, 'b>>,
     ) -> Trans<GameData<'a, 'b>, StateEvent> {
         data.data.update_only(data.world, DispatcherId::Ui).unwrap();
-        data.data.update(data.world, DispatcherId::Ingame).unwrap();
+        data.data
+            .update_only(data.world, DispatcherId::Ingame)
+            .unwrap();
+        data.data.update_core(data.world);
 
         update_object_spawner(data.world);
 
