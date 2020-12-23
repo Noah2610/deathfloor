@@ -22,6 +22,7 @@ pub mod movable;
 pub mod movement_acceleration;
 pub mod player;
 pub mod shooter;
+pub mod variable_register;
 pub mod walker;
 pub mod wall_jumper;
 pub mod wall_slider;
@@ -57,6 +58,7 @@ pub mod prelude {
     pub use super::movement_acceleration::MovementAcceleration;
     pub use super::player::Player;
     pub use super::shooter::Shooter;
+    pub use super::variable_register::prelude::*;
     pub use super::walker::Walker;
     pub use super::wall_jumper::WallJumper;
     pub use super::wall_slider::WallSlider;
