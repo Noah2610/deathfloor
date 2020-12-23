@@ -1,4 +1,5 @@
 use super::prelude::*;
+use crate::animation_key::AnimationKey;
 use crate::components::prelude::*;
 use deathframe::amethyst::ecs::Entity;
 use deathframe::components::component_prelude::ByAxis;
@@ -35,6 +36,9 @@ pub enum ExpressionComponentValue {
 
     /// Returns a string name for the currently playing animation.
     Animation,
+
+    /// Returns `true` if the entity has the animation for the given `AnimationKey`.
+    HasAnimation(AnimationKey),
 
     /// Returns the variable value for the given variable name.
     /// Returns `Null` if the variable doesn't exist.
@@ -130,6 +134,14 @@ impl ExpressionComponentValue {
                     Value::Null
                 }
             }
+
+            Self::HasAnimation(target_anim) => Value::Bool(
+                storages
+                    .animations
+                    .get(entity)
+                    .map(|animations| animations.has_animation(target_anim))
+                    .unwrap_or(false),
+            ),
 
             Self::Var(name) => storages
                 .variable_register
