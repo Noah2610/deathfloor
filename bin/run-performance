@@ -5,7 +5,4 @@ _dir="$( dirname "$0" )"
 source "${_dir}/share.sh"
 unset _dir
 
-CODEGEN_UNITS="256"
-
-RUSTFLAGS="-C codegen-units=${CODEGEN_UNITS} ${RUSTFLAGS}" \
-    "${ROOT}/bin/run" "$@"
+"${ROOT}/bin/run" --release "$@"
