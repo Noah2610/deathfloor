@@ -1,4 +1,5 @@
 use std::cmp;
+use std::fmt;
 
 /// An `ExpressionValue` is the value that an entity config variable can have.
 /// It is based on JSON values.
@@ -54,6 +55,17 @@ impl Ord for ExpressionValue {
                 "Can't compare `ExpressionValue`s:\n`{:?}` and `{:?}`",
                 self, other,
             );
+        }
+    }
+}
+
+impl fmt::Display for ExpressionValue {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            Self::Null => write!(f, "Null"),
+            Self::Bool(b) => write!(f, "{}", b),
+            Self::Num(n) => write!(f, "{}", n),
+            Self::Str(s) => write!(f, "\"{}\"", s),
         }
     }
 }

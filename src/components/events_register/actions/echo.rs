@@ -1,18 +1,25 @@
-use std::fmt;
+use crate::expression::{Expression, ExpressionStorages};
+use deathframe::amethyst::ecs::Entity;
 
-/// Prints the given string to stdout.
+/// Prints the given expression to stdout.
 #[derive(Clone, Deserialize)]
-#[serde(deny_unknown_fields, from = "String")]
-pub struct Echo(pub String);
+#[serde(deny_unknown_fields, from = "Expression")]
+pub struct Echo(pub Expression);
 
-impl From<String> for Echo {
-    fn from(s: String) -> Self {
-        Self(s)
+impl From<Expression> for Echo {
+    fn from(exp: Expression) -> Self {
+        Self(exp)
     }
 }
 
-impl fmt::Display for Echo {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "> {}", self.0)
+impl Echo {
+    /// Returns the `Echo` action's string value to be printed.
+    pub fn value(
+        &self,
+        entity: Entity,
+        storages: &ExpressionStorages,
+    ) -> String {
+        let value = self.0.get(entity, storages);
+        format!("> {}", value)
     }
 }
