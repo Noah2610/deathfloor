@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["Echo","Prints the given string to stdout."]]});
+initSidebarItems({"struct":[["Echo","Prints the given expression to stdout."]]});

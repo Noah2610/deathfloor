@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ExpressionOperation","An `ExpressionOperation` is something that takes an expression, evaluates its value, does something to the `ExpressionValue`, then returns a new `ExpressionValue`. Stuff like arithmetic and logical operations."]]});

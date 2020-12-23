@@ -1,1 +1,1 @@
-initSidebarItems({"constant":[["JUMPING_ANIM_PADDING",""],["WALK_ANIM_PADDING",""]],"struct":[["HandleAnimationsSystem",""]]});
+initSidebarItems({"constant":[["RISING_FALLING_ANIM_PADDING",""],["WALK_ANIM_PADDING",""]],"struct":[["HandleAnimationsSystem",""]]});

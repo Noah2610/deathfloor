@@ -50,25 +50,6 @@
 <span id="50">50</span>
 <span id="51">51</span>
 <span id="52">52</span>
-<span id="53">53</span>
-<span id="54">54</span>
-<span id="55">55</span>
-<span id="56">56</span>
-<span id="57">57</span>
-<span id="58">58</span>
-<span id="59">59</span>
-<span id="60">60</span>
-<span id="61">61</span>
-<span id="62">62</span>
-<span id="63">63</span>
-<span id="64">64</span>
-<span id="65">65</span>
-<span id="66">66</span>
-<span id="67">67</span>
-<span id="68">68</span>
-<span id="69">69</span>
-<span id="70">70</span>
-<span id="71">71</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 
@@ -94,17 +75,15 @@
     <span class="doccomment">/// `Once` animation.</span>
     <span class="ident">Jump</span>,
 
-    <span class="doccomment">/// Plays after jump and after `Jump` animation played,</span>
-    <span class="doccomment">/// while jumping (while holding down the jump button),</span>
-    <span class="doccomment">/// while in-air, and while moving upwards (positive y velocity).</span>
+    <span class="doccomment">/// Played when moving upwards (positive y velocity).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `Cycle` animation.</span>
-    <span class="ident">Jumping</span>,
+    <span class="ident">Rising</span>,
 
-    <span class="doccomment">/// Played when in the air and not jumping.</span>
+    <span class="doccomment">/// Played when moving downwards (negative y velocity).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// `Cycle` animation.</span>
-    <span class="ident">InAir</span>,
+    <span class="ident">Falling</span>,
 
     <span class="doccomment">/// Custom animations, can be played with `AnimationAction`.</span>
     <span class="ident">Custom</span>(<span class="ident">String</span>),
@@ -119,26 +98,9 @@
     }
 }
 
-<span class="comment">// TODO</span>
-<span class="comment">// `Default` implementation required by `Deserialize` for `AnimationsContainer`.</span>
-<span class="comment">// This doesn&#39;t seem right...</span>
-<span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">AnimationKey</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="ident">AnimationKey</span>::<span class="ident">Idle</span>
-    }
-}
-
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">AnimationKey</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;{}&quot;</span>, <span class="kw">match</span> <span class="self">self</span> {
-            <span class="self">Self</span>::<span class="ident">Idle</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Idle&quot;</span>.<span class="ident">to_string</span>(),
-            <span class="self">Self</span>::<span class="ident">Walk</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Walk&quot;</span>.<span class="ident">to_string</span>(),
-            <span class="self">Self</span>::<span class="ident">Death</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Death&quot;</span>.<span class="ident">to_string</span>(),
-            <span class="self">Self</span>::<span class="ident">Jump</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Jump&quot;</span>.<span class="ident">to_string</span>(),
-            <span class="self">Self</span>::<span class="ident">Jumping</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;Jumping&quot;</span>.<span class="ident">to_string</span>(),
-            <span class="self">Self</span>::<span class="ident">InAir</span> <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;InAir&quot;</span>.<span class="ident">to_string</span>(),
-            <span class="self">Self</span>::<span class="ident">Custom</span>(<span class="ident">s</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Custom({})&quot;</span>, <span class="ident">s</span>),
-        })
+        <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;{:?}&quot;</span>, <span class="self">self</span>)
     }
 }
 </pre></div>

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ExpressionComponentValue","An `ExpressionComponentValue` is a sort of placeholder for a specific value on an entity, like its health or velocity."]]});

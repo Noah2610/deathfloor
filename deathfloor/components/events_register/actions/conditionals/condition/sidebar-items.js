@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["Condition","A condition used with conditional actions (such as `If`). A condition returns `true` or `false`."]],"mod":[["condition_expression",""],["condition_storages",""],["prelude",""]]});
+initSidebarItems({"struct":[["Condition","A condition used with conditional actions (such as `If`). Is simply a wrapper for an `Expression`, which when used as a conditional is converted to a boolean value (truthy/falsy)."]]});

@@ -16,23 +16,37 @@
 <span id="16">16</span>
 <span id="17">17</span>
 <span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
+<span id="21">21</span>
+<span id="22">22</span>
+<span id="23">23</span>
+<span id="24">24</span>
+<span id="25">25</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">expression</span>::{<span class="ident">Expression</span>, <span class="ident">ExpressionStorages</span>};
+<span class="kw">use</span> <span class="ident">deathframe</span>::<span class="ident">amethyst</span>::<span class="ident">ecs</span>::<span class="ident">Entity</span>;
 
-<span class="doccomment">/// Prints the given string to stdout.</span>
+<span class="doccomment">/// Prints the given expression to stdout.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
-<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">from</span> <span class="op">=</span> <span class="string">&quot;String&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Echo</span>(<span class="kw">pub</span> <span class="ident">String</span>);
+<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">deny_unknown_fields</span>, <span class="ident">from</span> <span class="op">=</span> <span class="string">&quot;Expression&quot;</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Echo</span>(<span class="kw">pub</span> <span class="ident">Expression</span>);
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Echo</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">s</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span>(<span class="ident">s</span>)
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Expression</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Echo</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">exp</span>: <span class="ident">Expression</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span>(<span class="ident">exp</span>)
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">Echo</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;&gt; {}&quot;</span>, <span class="self">self</span>.<span class="number">0</span>)
+<span class="kw">impl</span> <span class="ident">Echo</span> {
+    <span class="doccomment">/// Returns the `Echo` action&#39;s string value to be printed.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">value</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">entity</span>: <span class="ident">Entity</span>,
+        <span class="ident">storages</span>: <span class="kw-2">&amp;</span><span class="ident">ExpressionStorages</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+        <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="self">self</span>.<span class="number">0</span>.<span class="ident">get</span>(<span class="ident">entity</span>, <span class="ident">storages</span>);
+        <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;&gt; {}&quot;</span>, <span class="ident">value</span>)
     }
 }
 </pre></div>

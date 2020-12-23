@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["UpdateVariableAction",""]],"struct":[["UpdateVariableRegister","Component for storing variable update actions. Used with `VariableAction`s as an intermediate step between running action and actually setting variable value."]]});

@@ -96,11 +96,12 @@
 <span id="96">96</span>
 <span id="97">97</span>
 <span id="98">98</span>
+<span id="99">99</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">super</span>::<span class="ident">system_prelude</span>::<span class="kw-2">*</span>;
 
 <span class="kw">const</span> <span class="ident">WALK_ANIM_PADDING</span>: <span class="ident">f32</span> <span class="op">=</span> <span class="number">8.0</span>;
-<span class="kw">const</span> <span class="ident">JUMPING_ANIM_PADDING</span>: <span class="ident">f32</span> <span class="op">=</span> <span class="number">0.0</span>;
+<span class="kw">const</span> <span class="ident">RISING_FALLING_ANIM_PADDING</span>: <span class="ident">f32</span> <span class="op">=</span> <span class="number">0.0</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">HandleAnimationsSystem</span>;
@@ -147,9 +148,8 @@
                 .<span class="ident">unwrap_or</span>(<span class="bool-val">true</span>);
 
             <span class="kw">if</span> <span class="ident">should_play_anim</span> {
-                <span class="kw">let</span> (<span class="ident">did_jump</span>, <span class="ident">is_jumping</span>) <span class="op">=</span> <span class="ident">jumper_opt</span>
-                    .<span class="ident">map</span>(<span class="op">|</span><span class="ident">jumper</span><span class="op">|</span> (<span class="ident">jumper</span>.<span class="ident">did_jump</span>, <span class="ident">jumper</span>.<span class="ident">is_jumping</span>))
-                    .<span class="ident">unwrap_or</span>((<span class="bool-val">false</span>, <span class="bool-val">false</span>));
+                <span class="kw">let</span> <span class="ident">did_jump</span> <span class="op">=</span>
+                    <span class="ident">jumper_opt</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">jumper</span><span class="op">|</span> <span class="ident">jumper</span>.<span class="ident">did_jump</span>).<span class="ident">unwrap_or</span>(<span class="bool-val">false</span>);
                 <span class="kw">let</span> <span class="ident">is_in_air</span> <span class="op">=</span> <span class="ident">collider_opt</span>
                     .<span class="ident">map</span>(<span class="op">|</span><span class="ident">collider</span><span class="op">|</span> {
                         <span class="ident">collider</span>
@@ -159,24 +159,26 @@
                             .<span class="ident">is_none</span>()
                     })
                     .<span class="ident">unwrap_or</span>(<span class="bool-val">false</span>);
+                <span class="kw">let</span> <span class="ident">moving_upwards</span> <span class="op">=</span> <span class="ident">velocity</span>.<span class="ident">y</span> <span class="op">&gt;</span> <span class="ident">RISING_FALLING_ANIM_PADDING</span>;
+                <span class="kw">let</span> <span class="ident">moving_downwards</span> <span class="op">=</span> <span class="ident">velocity</span>.<span class="ident">y</span> <span class="op">&lt;</span> <span class="ident">RISING_FALLING_ANIM_PADDING</span>;
 
                 <span class="kw">let</span> <span class="ident">anim_action</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">did_jump</span>
                     <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">animations</span>.<span class="ident">has_animation</span>(<span class="kw-2">&amp;</span><span class="ident">AnimationKey</span>::<span class="ident">Jump</span>)
                 <span class="comment">// JUMP ANIM</span>
                 {
                     <span class="ident">AnimationAction</span>::<span class="ident">Push</span>(<span class="ident">AnimationKey</span>::<span class="ident">Jump</span>)
-                } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">is_jumping</span>
-                    <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">is_in_air</span>
-                    <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">velocity</span>.<span class="ident">y</span> <span class="op">&gt;</span> <span class="ident">JUMPING_ANIM_PADDING</span>
-                    <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">animations</span>.<span class="ident">has_animation</span>(<span class="kw-2">&amp;</span><span class="ident">AnimationKey</span>::<span class="ident">Jumping</span>)
-                <span class="comment">// JUMPING ANIM</span>
-                {
-                    <span class="ident">AnimationAction</span>::<span class="ident">Play</span>(<span class="ident">AnimationKey</span>::<span class="ident">Jumping</span>)
                 } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">is_in_air</span>
-                    <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">animations</span>.<span class="ident">has_animation</span>(<span class="kw-2">&amp;</span><span class="ident">AnimationKey</span>::<span class="ident">InAir</span>)
-                <span class="comment">// IN-AIR ANIM</span>
+                    <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">moving_upwards</span>
+                    <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">animations</span>.<span class="ident">has_animation</span>(<span class="kw-2">&amp;</span><span class="ident">AnimationKey</span>::<span class="ident">Rising</span>)
+                <span class="comment">// RISING ANIM</span>
                 {
-                    <span class="ident">AnimationAction</span>::<span class="ident">Play</span>(<span class="ident">AnimationKey</span>::<span class="ident">InAir</span>)
+                    <span class="ident">AnimationAction</span>::<span class="ident">Play</span>(<span class="ident">AnimationKey</span>::<span class="ident">Rising</span>)
+                } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">is_in_air</span>
+                    <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">moving_downwards</span>
+                    <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">animations</span>.<span class="ident">has_animation</span>(<span class="kw-2">&amp;</span><span class="ident">AnimationKey</span>::<span class="ident">Falling</span>)
+                <span class="comment">// FALLING ANIM</span>
+                {
+                    <span class="ident">AnimationAction</span>::<span class="ident">Play</span>(<span class="ident">AnimationKey</span>::<span class="ident">Falling</span>)
                 } <span class="kw">else</span> {
                     <span class="comment">// WALK / IDLE ANIM</span>
                     <span class="ident">AnimationAction</span>::<span class="ident">Play</span>(<span class="kw">match</span> <span class="ident">velocity</span>.<span class="ident">x</span> {

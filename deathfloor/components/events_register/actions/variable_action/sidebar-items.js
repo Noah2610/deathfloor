@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["VariableAction","Action that can change a `VariableRegister` variable value."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ExpressionValue","An `ExpressionValue` is the value that an entity config variable can have. It is based on JSON values."]]});
