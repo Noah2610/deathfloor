@@ -29,6 +29,29 @@ pub enum ExpressionOperation {
     /// Returns `true` if the first value is _greater than_ the second value.
     #[serde(alias = "Gt")]
     GreaterThan(Box<Expression>, Box<Expression>),
+
+    // ARITHMETIC OPERATIONS
+    //
+    /// Adds the given numbers together.
+    /// If any value is not a number, then `Null` is returned
+    /// and a warning message is printed to stdout.
+    Add(Box<Expression>, Box<Expression>),
+    /// Subtracts the second number from the first.
+    /// If any value is not a number, then `Null` is returned
+    /// and a warning message is printed to stdout.
+    Sub(Box<Expression>, Box<Expression>),
+    /// Multiplies the given numbers together.
+    /// If any value is not a number, then `Null` is returned
+    /// and a warning message is printed to stdout.
+    Mul(Box<Expression>, Box<Expression>),
+    /// Divides the first number by the second.
+    /// If any value is not a number, then `Null` is returned
+    /// and a warning message is printed to stdout.
+    Div(Box<Expression>, Box<Expression>),
+    /// Runs the modulo operation on the given numbers (euclidean, `rem_euclid` rust function).
+    /// If any value is not a number, then `Null` is returned
+    /// and a warning message is printed to stdout.
+    Mod(Box<Expression>, Box<Expression>),
 }
 
 impl ExpressionOperation {
@@ -83,6 +106,74 @@ impl ExpressionOperation {
                     false
                 },
             ),
+            Self::Add(a, b) => {
+                match (a.get(entity, storages), b.get(entity, storages)) {
+                    (Value::Num(a), Value::Num(b)) => Value::Num(a + b),
+                    (a, b) => {
+                        eprintln!(
+                            "[WARNING]\n    Can't ADD values that aren't both \
+                             numbers:\n    `{:?}` and `{:?}`",
+                            a, b,
+                        );
+                        Value::Null
+                    }
+                }
+            }
+            Self::Sub(a, b) => {
+                match (a.get(entity, storages), b.get(entity, storages)) {
+                    (Value::Num(a), Value::Num(b)) => Value::Num(a - b),
+                    (a, b) => {
+                        eprintln!(
+                            "[WARNING]\n    Can't SUBTRACT values that aren't \
+                             both numbers:\n    `{:?}` and `{:?}`",
+                            a, b,
+                        );
+                        Value::Null
+                    }
+                }
+            }
+            Self::Mul(a, b) => {
+                match (a.get(entity, storages), b.get(entity, storages)) {
+                    (Value::Num(a), Value::Num(b)) => Value::Num(a * b),
+                    (a, b) => {
+                        eprintln!(
+                            "[WARNING]\n    Can't MULTIPLY values that aren't \
+                             both numbers:\n    `{:?}` and `{:?}`",
+                            a, b,
+                        );
+                        Value::Null
+                    }
+                }
+            }
+            Self::Div(a, b) => {
+                match (a.get(entity, storages), b.get(entity, storages)) {
+                    (Value::Num(a), Value::Num(b)) => Value::Num(a / b),
+                    (a, b) => {
+                        eprintln!(
+                            "[WARNING]\n    Can't DIVIDE values that aren't \
+                             both numbers:\n    `{:?}` and `{:?}`",
+                            a, b,
+                        );
+                        Value::Null
+                    }
+                }
+            }
+            Self::Mod(a, b) => {
+                match (a.get(entity, storages), b.get(entity, storages)) {
+                    (Value::Num(a), Value::Num(b)) => {
+                        Value::Num(a.rem_euclid(b))
+                    }
+                    (a, b) => {
+                        eprintln!(
+                            "[WARNING]\n    Can't run MODULO operation on \
+                             values that aren't both numbers:\n    `{:?}` and \
+                             `{:?}`",
+                            a, b,
+                        );
+                        Value::Null
+                    }
+                }
+            }
         }
     }
 }
