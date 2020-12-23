@@ -30,11 +30,6 @@
                     ],
                     collides_with: ["Solid"],
                 )),
-                /// Overwrite this in the inheriting config
-                /// to set a different acceleration speed.
-                MovementAcceleration((
-                    x: 500.0,
-                )),
             ],
 
             variants: {

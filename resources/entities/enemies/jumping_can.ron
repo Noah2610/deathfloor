@@ -5,7 +5,7 @@
             spritesheet_filename: "enemy_jumping_can_blue.png",
 
             entity: (
-                inherits: ["Enemy"],
+                inherits: ["Enemy", "EnemyJumper"],
 
                 size: (
                     w: 24.0,
@@ -32,14 +32,7 @@
                             (3, 100),
                         ])
                     }),
-                    Gravity((
-                        x: None,
-                        y: -400.0,
-                    )),
-                    MaxMovementVelocity((
-                        x: 65.0,
-                        y: 250.0,
-                    )),
+                    BaseFriction(None),
                     Health((
                         health: 4,
                         max_health: 4,
@@ -87,17 +80,12 @@
                             Init: Group([
                                 SoundAction(PlayWithVolume(Jump, 0.5)),
                                 AnimationAction(Push(Custom("Jump"))),
+
                                 Random((
                                     chance: 0.5,
-                                    on_success: MoveAction(SetVelocity(
-                                        x: 200.0,
-                                        y: 400.0,
-                                    )),
-                                    on_failure: MoveAction(SetVelocity(
-                                        x: -200.0,
-                                        y: 400.0,
-                                    )),
-                                )),
+                                    on_success: Call("JumpLeft"),  // <-|
+                                    on_failure: Call("JumpRight"), // <-|
+                                )),                                //   |- These functions come from `EnemyJumper` abstract config.
                             ]),
                             OnCollision(And([IsTag("Solid"), IsState(Enter), IsSide(Bottom)])): Group([
                                 AnimationAction(Pop),

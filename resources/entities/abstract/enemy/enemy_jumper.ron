@@ -1,0 +1,39 @@
+#![enable(implicit_some)]
+//! The abstract `EnemyJumper` config sets some fitting physics settings
+//! for enemies that jump or leap, and provides functions `JumpLeft` and `JumpRight`.
+//! Used for `JumpingCan*` enemies.
+(
+    types: {
+        "EnemyJumper": (
+            components: [
+                Gravity((
+                    x: None,
+                    y: -800.0,
+                )),
+            ],
+
+            events: {
+                Function("JumpLeft"): Group([
+                    Call("PlayJumpAnim"),
+                    MoveAction(SetVelocity(
+                        x: -100.0,
+                        y: 400.0,
+                    )),
+                ]),
+
+                Function("JumpRight"): Group([
+                    Call("PlayJumpAnim"),
+                    MoveAction(SetVelocity(
+                        x: 100.0,
+                        y: 400.0,
+                    )),
+                ]),
+
+                Function("PlayJumpAnim"): If((
+                    if: HasAnimation(Jump),
+                    then: AnimationAction(Push(Jump)),
+                )),
+            },
+        ),
+    }
+)
