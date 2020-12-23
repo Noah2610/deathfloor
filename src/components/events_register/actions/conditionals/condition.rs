@@ -1,16 +1,5 @@
-pub mod prelude {
-    pub use super::condition_expression::ConditionExpression;
-    pub use super::Condition;
-    pub use super::ConditionStorages;
-}
-
-mod condition_expression;
-mod condition_storages;
-
-pub use condition_storages::ConditionStorages;
-
+use crate::expression::{Expression, ExpressionStorages};
 use deathframe::amethyst::ecs::Entity;
-use prelude::*;
 
 /// A _condition_ used with conditional actions (such as `If`).
 /// A condition returns `true` or `false`.
@@ -18,15 +7,15 @@ use prelude::*;
 pub enum Condition {
     /// Passes if both values are _equal_ (`==`).
     #[serde(alias = "Eq")]
-    Equal(ConditionExpression, ConditionExpression),
+    Equal(Expression, Expression),
 
     /// Passes if the first value is _less than_ the second value (`<`).
     #[serde(alias = "Lt")]
-    LessThan(ConditionExpression, ConditionExpression),
+    LessThan(Expression, Expression),
 
     /// Passes if the first value is _greater than_ the second value (`>`).
     #[serde(alias = "Gt")]
-    GreaterThan(ConditionExpression, ConditionExpression),
+    GreaterThan(Expression, Expression),
 
     /// Always passes (returns `true`).
     #[serde(alias = "true")]
@@ -49,7 +38,11 @@ pub enum Condition {
 }
 
 impl Condition {
-    pub fn passes(&self, entity: Entity, storages: &ConditionStorages) -> bool {
+    pub fn passes(
+        &self,
+        entity: Entity,
+        storages: &ExpressionStorages,
+    ) -> bool {
         use Condition::*;
         match self {
             Equal(one, two) => {

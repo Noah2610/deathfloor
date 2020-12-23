@@ -1,5 +1,5 @@
 use super::super::ActionType;
-use super::Condition;
+use super::condition::Condition;
 
 /// An action that triggers the action under the `then` field
 /// if the _condition_ under the `if` field passes.

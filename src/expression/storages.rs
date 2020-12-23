@@ -4,7 +4,7 @@ use deathframe::amethyst::ecs::shred::ResourceId;
 use deathframe::amethyst::ecs::{Entities, ReadStorage, SystemData, World};
 
 #[derive(SystemData)]
-pub struct ConditionStorages<'a> {
+pub struct ExpressionStorages<'a> {
     pub entities:               Entities<'a>,
     pub transform:              ReadStorage<'a, Transform>,
     pub velocity:               ReadStorage<'a, Velocity>,

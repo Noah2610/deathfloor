@@ -1,10 +1,10 @@
 use std::cmp;
 
-/// A `VariableValue` is the value that a entity config variable can have.
+/// An `ExpressionValue` is the value that an entity config variable can have.
 /// It is based on JSON values.
 #[derive(Clone, Debug, Deserialize)]
 #[serde(untagged)]
-pub enum VariableValue {
+pub enum ExpressionValue {
     #[serde(alias = "null")]
     Null,
     Bool(bool),
@@ -12,7 +12,7 @@ pub enum VariableValue {
     Str(String),
 }
 
-impl PartialEq for VariableValue {
+impl PartialEq for ExpressionValue {
     fn eq(&self, other: &Self) -> bool {
         if let Some(cmp::Ordering::Equal) = self.partial_cmp(other) {
             true
@@ -22,10 +22,10 @@ impl PartialEq for VariableValue {
     }
 }
 
-impl Eq for VariableValue {
+impl Eq for ExpressionValue {
 }
 
-impl PartialOrd for VariableValue {
+impl PartialOrd for ExpressionValue {
     fn partial_cmp(&self, other: &Self) -> Option<cmp::Ordering> {
         match (self, other) {
             (Self::Null, Self::Null) => Some(cmp::Ordering::Equal),
@@ -35,7 +35,7 @@ impl PartialOrd for VariableValue {
             (Self::Null, _) | (_, Self::Null) => None,
             (_, _) => {
                 eprintln!(
-                    "[WARNING]\n    Can't compare `VariableValue`s of \
+                    "[WARNING]\n    Can't compare `ExpressionValue`s of \
                      different types:\n    `{:?}` and `{:?}`",
                     self, other,
                 );
@@ -45,13 +45,13 @@ impl PartialOrd for VariableValue {
     }
 }
 
-impl Ord for VariableValue {
+impl Ord for ExpressionValue {
     fn cmp(&self, other: &Self) -> cmp::Ordering {
         if let Some(ordering) = self.partial_cmp(other) {
             ordering
         } else {
             panic!(
-                "Can't compare `VariableValue`s:\n`{:?}` and `{:?}`",
+                "Can't compare `ExpressionValue`s:\n`{:?}` and `{:?}`",
                 self, other,
             );
         }

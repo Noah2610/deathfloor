@@ -1,24 +1,20 @@
 use super::component_prelude::*;
+use crate::expression::ExpressionValue;
 use std::collections::HashMap;
 
 pub mod prelude {
     pub use super::VariableRegister;
-    pub use super::VariableValue;
 }
-
-mod variable_value;
-
-pub use variable_value::VariableValue;
 
 #[derive(Component, Deserialize, Clone, Default)]
 #[storage(DenseVecStorage)]
-#[serde(deny_unknown_fields, from = "HashMap<String, VariableValue>")]
+#[serde(deny_unknown_fields, from = "HashMap<String, ExpressionValue>")]
 pub struct VariableRegister {
-    pub variables: HashMap<String, VariableValue>,
+    pub variables: HashMap<String, ExpressionValue>,
 }
 
-impl From<HashMap<String, VariableValue>> for VariableRegister {
-    fn from(variables: HashMap<String, VariableValue>) -> Self {
+impl From<HashMap<String, ExpressionValue>> for VariableRegister {
+    fn from(variables: HashMap<String, ExpressionValue>) -> Self {
         Self { variables }
     }
 }

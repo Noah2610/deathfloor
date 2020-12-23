@@ -2,7 +2,7 @@ use std::fmt;
 
 /// Prints the given string to stdout.
 #[derive(Clone, Deserialize)]
-#[serde(from = "String")]
+#[serde(deny_unknown_fields, from = "String")]
 pub struct Echo(pub String);
 
 impl From<String> for Echo {

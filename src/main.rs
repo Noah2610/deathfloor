@@ -14,6 +14,7 @@ mod collision_tag;
 mod components;
 mod dispatcher_id;
 mod entity_config;
+mod expression;
 mod helpers;
 mod init;
 mod input;
