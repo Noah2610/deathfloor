@@ -7,15 +7,18 @@
 pub mod prelude {
     pub use super::Expression;
     pub use super::ExpressionComponentValue;
+    pub use super::ExpressionOperation;
     pub use super::ExpressionStorages;
     pub use super::ExpressionValue;
 }
 
 mod component_value;
+mod operation;
 mod storages;
 mod value;
 
 pub use component_value::ExpressionComponentValue;
+pub use operation::ExpressionOperation;
 pub use storages::ExpressionStorages;
 pub use value::ExpressionValue;
 
@@ -26,6 +29,7 @@ use deathframe::amethyst::ecs::{Entity, Join};
 pub enum Expression {
     EntityComponentValue(ExpressionEntityComponentValue),
     ComponentValue(ExpressionComponentValue),
+    Operation(ExpressionOperation),
     Value(ExpressionValue),
 }
 
@@ -56,6 +60,7 @@ impl Expression {
                     );
                     ExpressionValue::Null
                 }),
+            Self::Operation(operation) => operation.run(entity, storages),
         }
     }
 }

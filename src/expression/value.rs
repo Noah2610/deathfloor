@@ -13,6 +13,20 @@ pub enum ExpressionValue {
     Str(String),
 }
 
+impl ExpressionValue {
+    /// Returns `true` if this value is considered to be "truthy".
+    /// For us, only `Null` and `false` are "falsy" values,
+    /// every other value is considered "truthy".
+    pub fn is_truthy(&self) -> bool {
+        match self {
+            Self::Null => false,
+            Self::Bool(b) => *b,
+            Self::Num(_) => true,
+            Self::Str(_) => true,
+        }
+    }
+}
+
 impl PartialEq for ExpressionValue {
     fn eq(&self, other: &Self) -> bool {
         if let Some(cmp::Ordering::Equal) = self.partial_cmp(other) {
