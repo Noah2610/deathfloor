@@ -153,17 +153,15 @@
             height: layerSize.height * layer.map.tileHeight,
         };
         const layerProps = layer.properties();
-        const tilesetsToAdd = {};
 
         for (let y = 0; y < layerSize.height; y++) {
             for (let x = 0; x < layerSize.width; x++) {
                 const tile = layer.tileAt(x, y);
                 if (tile) {
                     const tileOutput = {};
-                    const tileset = tile.tileset;
-                    const tilesetName =
-                        tileset.image.split("/").pop() || "MISSING-TILESET.png";
-                    tilesetsToAdd[tilesetName] = tileset;
+                    const tilesetName = tile.tileset.image
+                        .replace(/^.+\/resources\/spritesheets\/tiles\//, "")
+                            || "MISSING-TILESET.png";
 
                     const tileProps = tile.properties();
                     const pos = invertPosY(
