@@ -32,7 +32,6 @@
                             (3, 100),
                         ])
                     }),
-                    BaseFriction(None),
                     Health((
                         health: 4,
                         max_health: 4,
@@ -40,6 +39,7 @@
                     DealsDamage((
                         damage: 2,
                     )),
+                    BaseFriction(None),
                 ],
 
                 default_variant: "Sit",

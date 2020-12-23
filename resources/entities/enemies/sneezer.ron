@@ -5,7 +5,7 @@
             spritesheet_filename: "enemy_sneezer.png",
 
             entity: (
-                inherits: ["Enemy"],
+                inherits: ["Enemy", "EnemyJumper"],
 
                 size: (
                     w: 32.0,
@@ -28,6 +28,7 @@
                     DealsDamage((
                         damage: 2,
                     )),
+                    BaseFriction(None),
                 ],
 
                 default_variant: "Sit",
@@ -69,14 +70,8 @@
                                 AnimationAction(Push(Custom("Jump"))),
                                 Random((
                                     chance: 0.5,
-                                    on_success: MoveAction(SetVelocity(
-                                        x: 200.0,
-                                        y: 400.0,
-                                    )),
-                                    on_failure: MoveAction(SetVelocity(
-                                        x: -200.0,
-                                        y: 400.0,
-                                    )),
+                                    on_success: Call("JumpLeft"),
+                                    on_failure: Call("JumpRight"),
                                 )),
                             ]),
                             OnCollision(And([IsTag("Solid"), IsState(Enter), IsSide(Bottom)])): Group([
