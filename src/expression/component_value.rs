@@ -1,6 +1,6 @@
 use super::prelude::*;
 use crate::components::prelude::*;
-use deathframe::amethyst::ecs::{Entity, Join};
+use deathframe::amethyst::ecs::Entity;
 use deathframe::components::component_prelude::ByAxis;
 use deathframe::core::geo::prelude::Axis;
 use deathframe::physics::query::prelude::{FindQuery, Query, QueryExpression};
@@ -35,6 +35,10 @@ pub enum ExpressionComponentValue {
 
     /// Returns a string name for the currently playing animation.
     Animation,
+
+    /// Returns the variable value for the given variable name.
+    /// Returns `Null` if the variable doesn't exist.
+    Var(String),
 }
 
 impl ExpressionComponentValue {
@@ -126,6 +130,12 @@ impl ExpressionComponentValue {
                     Value::Null
                 }
             }
+
+            Self::Var(name) => storages
+                .variable_register
+                .get(entity)
+                .and_then(|register| register.get(&name))
+                .unwrap_or(Value::Null),
         }
     }
 }

@@ -108,6 +108,7 @@ pub struct EntityConfigComponentsStorages<'a> {
     pub solid_pushable:                 WriteStorage<'a, SolidPushable>,
     pub non_precise_movement:           WriteStorage<'a, NonPreciseMovement>,
     pub variable_register:              WriteStorage<'a, VariableRegister>,
+    pub update_variable_register:       WriteStorage<'a, UpdateVariableRegister>,
     pub loader:                         WriteStorage<'a, Loader>,
     pub loadable:                       WriteStorage<'a, Loadable>,
     pub unloaded:                       WriteStorage<'a, Unloaded>,

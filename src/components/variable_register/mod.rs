@@ -3,8 +3,14 @@ use crate::expression::ExpressionValue;
 use std::collections::HashMap;
 
 pub mod prelude {
+    pub use super::update_variable_register::{
+        UpdateVariableAction,
+        UpdateVariableRegister,
+    };
     pub use super::VariableRegister;
 }
+
+mod update_variable_register;
 
 #[derive(Component, Deserialize, Clone, Default)]
 #[storage(DenseVecStorage)]
@@ -18,11 +24,7 @@ impl VariableRegister {
         let _ = self.variables.insert(name, value);
     }
 
-    pub fn get(
-        &self,
-        name: &str,
-        value: ExpressionValue,
-    ) -> Option<ExpressionValue> {
+    pub fn get(&self, name: &str) -> Option<ExpressionValue> {
         self.variables.get(name).cloned()
     }
 }

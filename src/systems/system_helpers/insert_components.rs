@@ -329,9 +329,14 @@ pub fn insert_components(
                         storages
                             .variable_register
                             .insert(entity, variable_register)?;
+                        storages.update_variable_register.insert(
+                            entity,
+                            UpdateVariableRegister::default(),
+                        )?;
                     }
                     None => {
                         storages.variable_register.remove(entity);
+                        storages.update_variable_register.remove(entity);
                     }
                 }
             }

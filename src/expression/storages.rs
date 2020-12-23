@@ -14,4 +14,5 @@ pub struct ExpressionStorages<'a> {
     pub entity_config_register: ReadStorage<'a, EntityConfigRegister>,
     pub collider:               ReadStorage<'a, Collider<CollisionTag>>,
     pub animations: ReadStorage<'a, AnimationsContainer<AnimationKey>>,
+    pub variable_register:      ReadStorage<'a, VariableRegister>,
 }

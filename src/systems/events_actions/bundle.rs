@@ -194,6 +194,11 @@ impl<'a, 'b, 'c> SystemBundle<'a, 'b> for EventsActionsBundle<'c> {
             "handle_action_variable_action_system",
             actions_deps,
         );
+        builder.add(
+            actions::variable_action::HandleUpdateVariableRegister::default(),
+            "handle_update_variable_register_system",
+            &["handle_action_variable_action_system"],
+        );
         Ok(())
     }
 }
