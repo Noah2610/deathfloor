@@ -29,6 +29,7 @@ fn register_components(world: &mut World) {
     world.register::<JumppadAffected>();
     world.register::<Enemy>();
     world.register::<Lifecycle>();
+    world.register::<PropRegister>();
 }
 
 fn load_spritesheets(world: &mut World) {

@@ -1,4 +1,5 @@
 use std::cmp;
+use std::convert::TryFrom;
 use std::fmt;
 
 /// An `ExpressionValue` is the value that an entity config variable can have.
@@ -80,6 +81,24 @@ impl fmt::Display for ExpressionValue {
             Self::Bool(b) => write!(f, "{}", b),
             Self::Num(n) => write!(f, "{}", n),
             Self::Str(s) => write!(f, "\"{}\"", s),
+        }
+    }
+}
+
+impl TryFrom<serde_json::Value> for ExpressionValue {
+    type Error = ();
+
+    fn try_from(json: serde_json::Value) -> Result<Self, Self::Error> {
+        use serde_json::Value as Json;
+
+        match json {
+            Json::Null => Ok(Self::Null),
+            Json::Bool(b) => Ok(Self::Bool(b)),
+            Json::Number(num) => {
+                num.as_f64().map(|f| Self::Num(f as f32)).ok_or(())
+            }
+            Json::String(s) => Ok(Self::Str(s)),
+            Json::Array(_) | Json::Object(_) => Err(()),
         }
     }
 }

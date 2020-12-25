@@ -16,10 +16,13 @@ pub(super) mod prelude {
 }
 
 use crate::entity_config::prelude::EntityConfig;
+use crate::expression::ExpressionValue;
 use crate::systems::system_helpers::prelude::add_entity_config;
 use amethyst::ecs::SystemData;
 use deathframe::resources::SpriteSheetHandles;
 use prelude::*;
+use std::collections::HashMap;
+use std::convert::TryFrom;
 use std::path::PathBuf;
 
 pub(super) fn base_entity<'a, T>(
@@ -47,11 +50,24 @@ where
     scale_x.map(|x| scale.x = x);
     scale_y.map(|y| scale.y = y);
 
+    let prop_register = PropRegister::from(
+        propful
+            .props()
+            .into_iter()
+            .filter_map(|(k, v)| {
+                ExpressionValue::try_from(v.clone())
+                    .ok()
+                    .map(|value| (k.to_string(), value))
+            })
+            .collect::<HashMap<String, ExpressionValue>>(),
+    );
+
     Ok(world
         .create_entity()
         .with(transform)
         .with(ScaleOnce::default())
-        .with(Transparent))
+        .with(Transparent)
+        .with(prop_register))
 }
 
 pub(super) fn get_sprite_render<P>(

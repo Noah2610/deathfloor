@@ -21,6 +21,7 @@ pub mod max_movement_velocity;
 pub mod movable;
 pub mod movement_acceleration;
 pub mod player;
+pub mod prop_register;
 pub mod shooter;
 pub mod variable_register;
 pub mod walker;
@@ -57,6 +58,7 @@ pub mod prelude {
     pub use super::movable::prelude::*;
     pub use super::movement_acceleration::MovementAcceleration;
     pub use super::player::Player;
+    pub use super::prop_register::PropRegister;
     pub use super::shooter::Shooter;
     pub use super::variable_register::prelude::*;
     pub use super::walker::Walker;
