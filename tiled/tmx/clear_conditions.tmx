@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="256" height="64" tilewidth="8" tileheight="8" infinite="0" nextlayerid="6" nextobjectid="8">
  <editorsettings>
-  <export target="../../resources/levels/dev_level.json" format="deathfloor-export"/>
+  <export target="../../resources/levels/clear_conditions.json" format="deathfloor-export"/>
  </editorsettings>
  <tileset firstgid="1" source="../tsx/testtiles7.tsx"/>
  <tileset firstgid="1025" source="../tsx/testtiles11.tsx"/>
@@ -154,10 +154,10 @@
   </properties>
   <object id="2" name="Door0" type="Custom(Door0)" x="248" y="432" width="16" height="56"/>
   <object id="3" name="Door0Button" type="Custom(Door0Button)" x="192" y="472" width="16" height="16"/>
-  <object id="4" name="Custom(Door1)" x="440" y="432" width="16" height="56"/>
-  <object id="5" name="Custom(Door1Enemy)" x="384" y="472" width="16" height="16"/>
-  <object id="6" name="Custom(Door1Enemy)" x="352" y="472" width="16" height="16"/>
-  <object id="7" name="Custom(Door1Enemy)" x="320" y="472" width="16" height="16"/>
+  <object id="4" name="Door1" type="Custom(Door1)" x="440" y="432" width="16" height="56"/>
+  <object id="5" name="Door1Enemy" type="Enemy(Door1Enemy)" x="384" y="472" width="16" height="16"/>
+  <object id="6" name="Door1Enemy" type="Enemy(Door1Enemy)" x="352" y="472" width="16" height="16"/>
+  <object id="7" name="Door1Enemy" type="Enemy(Door1Enemy)" x="320" y="472" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="2" name="player">
   <properties>

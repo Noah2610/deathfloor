@@ -1,0 +1,61 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "Door1Enemy": (
+            spritesheet_filename: "enemy_bounceboy.png",
+
+            entity: (
+                inherits: ["Enemy", "Walker"],
+
+                components: [
+                    Hitbox(Size),
+                    Animations({
+                        Walk: Cycle([
+                            (0, 120),
+                            (1, 120),
+                            (2, 120),
+                            (3, 120),
+                        ]),
+                    }),
+                    Health((
+                        health: 2,
+                        max_health: 2,
+                    )),
+                    DealsDamage((
+                        damage: 1,
+                    )),
+                ],
+
+                default_variant: "WalkLeft",
+
+                events: {
+                    OnDeath: Group([
+                        ForeignEntityAction((
+                            selector: (
+                                object: Custom("Door1"),
+                            ),
+                            action: Call("EnemyKilled"),
+                        )),
+                        SpawnAction(SpawnRelative((
+                            object: (
+                                type: Custom("Explosion"),
+                                pos: (x: 0.0, y: 0.0),
+                                size: (w: 48.0, h: 48.0),
+                            ),
+                        ))),
+                    ]),
+                },
+
+                collision_tag: (
+                    labels: ["Enemy", "Solid"],
+                    collides_with: ["Player", "Solid", "Bullet"],
+                ),
+
+                solid_tag: (
+                    labels: ["Enemy"],
+                    collides_with: ["Solid"],
+                ),
+            ),
+        ),
+    }
+)

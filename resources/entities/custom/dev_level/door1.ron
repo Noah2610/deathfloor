@@ -1,0 +1,59 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "Door1": (
+            spritesheet_filename: "environment_vent_grey_closed.png",
+
+            entity: (
+                inherits: ["Door"],
+
+                components: [
+                    Hitbox(Size),
+                    Animations({
+                        Idle: Cycle([
+                            (0, 200),
+                            (1, 200),
+                            (2, 200),
+                        ]),
+                        Custom("Open"): Cycle([
+                            (0, 1000),
+                        ]),
+                    }),
+                    VariableRegister({
+                        "enemy_kills_required": 3.0,
+                        "enemy_kills": 0.0,
+                    }),
+                ],
+
+                events: {
+                    Function("EnemyKilled"): If((
+                        // Var("enemy_kills") >= Var("enemy_kills_required") - 1
+                        if: GreaterEqual(
+                            Var("enemy_kills"),
+                            Sub(Var("enemy_kills_required"), 1.0),
+                        ),
+                        then: Call("Open"),
+                        else: VariableAction(Set(
+                            "enemy_kills",
+                            Add(Var("enemy_kills"), 1.0),
+                        )),
+                    )),
+                },
+
+                variants: {
+                    "Open": (
+                        events: {
+                            Init: SpawnAction(SpawnRelative((
+                                object: (
+                                    type: Custom("Explosion"),
+                                    pos: (x: 0.0, y: 0.0),
+                                    size: (w: 32.0, h: 64.0),
+                                ),
+                            ))),
+                        },
+                    ),
+                },
+            ),
+        ),
+    }
+)

@@ -26,9 +26,15 @@ pub enum ExpressionOperation {
     /// Returns `true` if the first value is _less than_ the second value.
     #[serde(alias = "Lt")]
     LessThan(Box<Expression>, Box<Expression>),
+    /// Returns `true` if the first value is _less than or equals to_ the second value.
+    #[serde(alias = "Le")]
+    LessEqual(Box<Expression>, Box<Expression>),
     /// Returns `true` if the first value is _greater than_ the second value.
     #[serde(alias = "Gt")]
     GreaterThan(Box<Expression>, Box<Expression>),
+    /// Returns `true` if the first value is _greater than or equals to_ the second value.
+    #[serde(alias = "Ge")]
+    GreaterEqual(Box<Expression>, Box<Expression>),
 
     // ARITHMETIC OPERATIONS
     //
@@ -95,8 +101,31 @@ impl ExpressionOperation {
                     false
                 },
             ),
+            Self::LessEqual(a, b) => Value::Bool(
+                if let Some(cmp::Ordering::Less) | Some(cmp::Ordering::Equal) =
+                    a.as_ref()
+                        .get(entity, storages)
+                        .partial_cmp(&b.as_ref().get(entity, storages))
+                {
+                    true
+                } else {
+                    false
+                },
+            ),
             Self::GreaterThan(a, b) => Value::Bool(
                 if let Some(cmp::Ordering::Greater) = a
+                    .as_ref()
+                    .get(entity, storages)
+                    .partial_cmp(&b.as_ref().get(entity, storages))
+                {
+                    true
+                } else {
+                    false
+                },
+            ),
+            Self::GreaterEqual(a, b) => Value::Bool(
+                if let Some(cmp::Ordering::Greater)
+                | Some(cmp::Ordering::Equal) = a
                     .as_ref()
                     .get(entity, storages)
                     .partial_cmp(&b.as_ref().get(entity, storages))
