@@ -20,6 +20,17 @@
                         ]),
                     }),
                 ],
+
+                events: {
+                    Function("Open"): ForeignEntityAction((
+                        selector: ( object: Enemy("Door1Enemy") ),
+                        action: Call("Activate"),
+                    )),
+                    Function("Close"): ForeignEntityAction((
+                        selector: ( object: Enemy("Door1Enemy") ),
+                        action: Call("Deactivate"),
+                    )),
+                },
             ),
         ),
     }

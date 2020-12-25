@@ -24,11 +24,37 @@
                     DealsDamage((
                         damage: 1,
                     )),
+                    VariableRegister({
+                        "is_active": false,
+                    }),
                 ],
 
-                default_variant: "WalkLeft",
+                // default_variant: "WalkLeft",
 
                 events: {
+                    Function("Activate"): If((
+                        if: Not(Or([
+                            Eq(Variant(), "WalkLeft"),
+                            Eq(Variant(), "WalkRight"),
+                        ])),
+                        then: Group([
+                            VariableAction(Set("is_active", true)),
+                            EntityAction(PushVariant("WalkLeft")),
+                        ]),
+                    )),
+
+                    Function("Deactivate"): If((
+                        if: Or([
+                            Eq(Variant(), "WalkLeft"),
+                            Eq(Variant(), "WalkRight"),
+                        ]),
+                        then: Group([
+                            VariableAction(Set("is_active", false)),
+                            EntityAction(PopVariant),
+                            InsertComponents([Walker(None)]),
+                        ]),
+                    )),
+
                     OnDeath: Group([
                         ForeignEntityAction((
                             selector: (
@@ -44,6 +70,29 @@
                             ),
                         ))),
                     ]),
+
+                    Interval(250): If((
+                        if: Var("is_active"),
+                        then: Random((
+                            chance: 0.5,
+                            on_success: If((
+                                if: Eq(Variant(), "WalkLeft"),
+                                then: EntityAction(SwitchVariant("WalkRight")),
+                                else: If((
+                                    if: Eq(Variant(), "WalkRight"),
+                                    then: EntityAction(SwitchVariant("WalkLeft")),
+                                )),
+                            )),
+                        )),
+                    )),
+
+                    Interval(500): If((
+                        if: Var("is_active"),
+                        then: Random((
+                            chance: 0.5,
+                            on_success: MoveAction(SetVelocity(y: 300.0)),
+                        )),
+                    )),
                 },
 
                 collision_tag: (

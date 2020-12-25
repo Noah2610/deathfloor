@@ -188,7 +188,7 @@
                         ]),
                     ])): Group([
                             MoveAction(AddVelocity(
-                            x: 500.0,
+                            x: 100.0,
                             y: 250.0,
                         )),
                         EntityAction(PushVariant("Knockback")),
@@ -204,7 +204,7 @@
                         ]),
                     ])): Group([
                         MoveAction(AddVelocity(
-                            x: -500.0,
+                            x: -100.0,
                             y: 250.0,
                         )),
                         EntityAction(PushVariant("Knockback")),
