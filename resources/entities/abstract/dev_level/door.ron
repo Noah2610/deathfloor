@@ -1,0 +1,55 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "Door": (
+            events: {
+                Init: If((
+                    if: HasAnimation(Idle),
+                    then: AnimationAction(Play(Idle)),
+                )),
+
+                Function("Open"): If((
+                    if: Not(Eq(Variant(), "Open")),
+                    then: EntityAction(PushVariant("Open")),
+                )),
+
+                Function("Close"): If((
+                    if: Eq(Variant(), "Open"),
+                    then: EntityAction(PopVariant),
+                )),
+
+                Function("ToggleOpen"): Group([
+                    If((
+                        if: Eq(Variant(), "Open"),
+                            then: Call("Close"),
+                        else: Call("Open"),
+                    )),
+                ]),
+            },
+
+            variants: {
+                "Open": (
+                    events: {
+                        Init: If((
+                            if: HasAnimation(Custom("Open")),
+                            then: AnimationAction(Play(Custom("Open"))),
+                        )),
+                    },
+                    collision_tag: (
+                        labels: [],
+                    ),
+                    solid_tag: (
+                        labels: [],
+                    ),
+                ),
+            },
+
+            collision_tag: (
+                labels: ["Tile", "Solid"],
+            ),
+            solid_tag: (
+                labels: ["Solid"],
+            ),
+        ),
+    }
+)

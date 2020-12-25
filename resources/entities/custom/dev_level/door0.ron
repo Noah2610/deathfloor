@@ -5,6 +5,8 @@
             spritesheet_filename: "environment_vent_grey_closed.png",
 
             entity: (
+                inherits: ["Door"],
+
                 components: [
                     Hitbox(Size),
                     Animations({
@@ -18,49 +20,6 @@
                         ]),
                     }),
                 ],
-
-                events: {
-                    Init: AnimationAction(Play(Idle)),
-
-                    Function("Open"): If((
-                        if: Not(Eq(Variant(), "Open")),
-                        then: EntityAction(PushVariant("Open")),
-                    )),
-
-                    Function("Close"): If((
-                        if: Eq(Variant(), "Open"),
-                        then: EntityAction(PopVariant),
-                    )),
-
-                    Function("ToggleOpen"): Group([
-                        If((
-                            if: Eq(Variant(), "Open"),
-                            then: Call("Close"),
-                            else: Call("Open"),
-                        )),
-                    ]),
-                },
-
-                variants: {
-                    "Open": (
-                        events: {
-                            Init: AnimationAction(Play(Custom("Open"))),
-                        },
-                        collision_tag: (
-                            labels: [],
-                        ),
-                        solid_tag: (
-                            labels: [],
-                        ),
-                    ),
-                },
-
-                collision_tag: (
-                    labels: ["Tile", "Solid"],
-                ),
-                solid_tag: (
-                    labels: ["Solid"],
-                ),
             ),
         ),
     }
