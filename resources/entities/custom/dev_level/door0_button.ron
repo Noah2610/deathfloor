@@ -1,0 +1,29 @@
+#![enable(implicit_some)]
+(
+    types: {
+        "Door0Button": (
+            spritesheet_filename: "environment_vent_grey_closed.png",
+
+            entity: (
+                components: [
+                    Hitbox(Size),
+                    Animation([
+                        (0, 200),
+                        (1, 200),
+                        (2, 200),
+                    ]),
+                    Interactable(()),
+                ],
+
+                events: {
+                    OnInteract: Echo("Interacted!"),
+                },
+
+                collision_tag: (
+                    labels: ["Interactable"],
+                    collides_with: [],
+                ),
+            ),
+        ),
+    }
+)

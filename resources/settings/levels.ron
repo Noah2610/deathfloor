@@ -4,6 +4,7 @@
 (
     // Relative to `resources/levels/`
     levels: [
+        "clear_conditions.json",
         "dev.json",
         "dev_pushable_blocks.json",
         "dev_camera_path.json",
