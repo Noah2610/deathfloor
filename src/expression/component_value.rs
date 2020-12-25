@@ -43,6 +43,10 @@ pub enum ExpressionComponentValue {
     /// Returns the variable value for the given variable name.
     /// Returns `Null` if the variable doesn't exist.
     Var(String),
+
+    /// Returns the value for the given prop name in the `PropRegister`.
+    /// Returns `Null` if the prop doesn't exist.
+    Prop(String),
 }
 
 impl ExpressionComponentValue {
@@ -145,6 +149,12 @@ impl ExpressionComponentValue {
 
             Self::Var(name) => storages
                 .variable_register
+                .get(entity)
+                .and_then(|register| register.get(&name))
+                .unwrap_or(Value::Null),
+
+            Self::Prop(name) => storages
+                .prop_register
                 .get(entity)
                 .and_then(|register| register.get(&name))
                 .unwrap_or(Value::Null),

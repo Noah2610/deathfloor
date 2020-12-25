@@ -15,4 +15,5 @@ pub struct ExpressionStorages<'a> {
     pub collider:               ReadStorage<'a, Collider<CollisionTag>>,
     pub animations: ReadStorage<'a, AnimationsContainer<AnimationKey>>,
     pub variable_register:      ReadStorage<'a, VariableRegister>,
+    pub prop_register:          ReadStorage<'a, PropRegister>,
 }
