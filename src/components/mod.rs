@@ -63,6 +63,7 @@ pub mod prelude {
     pub use super::wall_jumper::WallJumper;
     pub use super::wall_slider::WallSlider;
     pub use crate::collision_tag::prelude::*;
+    pub use crate::map_loader::types::ObjectType;
 }
 
 mod component_prelude {

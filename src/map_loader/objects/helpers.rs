@@ -19,6 +19,7 @@ pub(super) fn base_object_entity<'a>(
     let size: Size = object.size.into();
 
     Ok(base_entity(world, object)?
+        .with(object.object_type.clone())
         .with(size)
         .with(Lifecycle::default())
         .with(Movable::default()))

@@ -7,14 +7,21 @@
             entity: (
                 components: [
                     Hitbox(Size),
-                    Animation([
-                        (0, 200),
-                        (1, 200),
-                        (2, 200),
-                    ]),
+                    Animations({
+                        Idle: Cycle([
+                            (0, 200),
+                            (1, 200),
+                            (2, 200),
+                        ]),
+                        Custom("Open"): Cycle([
+                            (0, 1000),
+                        ]),
+                    }),
                 ],
 
                 events: {
+                    Init: AnimationAction(Play(Idle)),
+
                     Function("Open"): If((
                         if: Not(Eq(Variant(), "Open")),
                         then: EntityAction(PushVariant("Open")),
@@ -24,25 +31,35 @@
                         if: Eq(Variant(), "Open"),
                         then: EntityAction(PopVariant),
                     )),
+
+                    Function("ToggleOpen"): Group([
+                        If((
+                            if: Eq(Variant(), "Open"),
+                            then: Call("Close"),
+                            else: Call("Open"),
+                        )),
+                    ]),
                 },
 
                 variants: {
                     "Open": (
-                        components: [
-                            Animation([
-                                (0, 1000),
-                            ]),
-                        ],
+                        events: {
+                            Init: AnimationAction(Play(Custom("Open"))),
+                        },
                         collision_tag: (
                             labels: [],
-                            collides_with: [],
+                        ),
+                        solid_tag: (
+                            labels: [],
                         ),
                     ),
                 },
 
                 collision_tag: (
+                    labels: ["Tile", "Solid"],
+                ),
+                solid_tag: (
                     labels: ["Solid"],
-                    collides_with: [],
                 ),
             ),
         ),

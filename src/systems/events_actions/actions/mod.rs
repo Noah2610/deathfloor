@@ -6,6 +6,7 @@ pub mod control_action;
 pub mod delay;
 pub mod echo;
 pub mod entity_action;
+pub mod foreign_entity_action;
 pub mod group;
 pub mod health_action;
 pub mod if_action;

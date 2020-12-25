@@ -6,6 +6,7 @@ mod control_action;
 mod delay;
 mod echo;
 mod entity_action;
+mod foreign_entity_action;
 mod group;
 mod health_action;
 mod insert_components;
@@ -26,6 +27,10 @@ pub mod prelude {
     pub use super::delay::Delay;
     pub use super::echo::Echo;
     pub use super::entity_action::EntityAction;
+    pub use super::foreign_entity_action::{
+        ForeignEntityAction,
+        ForeignEntitySelector,
+    };
     pub use super::group::Group;
     pub use super::health_action::HealthAction;
     pub use super::insert_components::InsertComponents;
@@ -66,26 +71,29 @@ pub enum ActionType {
     If(conditionals::IfAction),
     ControlAction(ControlAction),
     VariableAction(VariableAction),
+    ForeignEntityAction(ForeignEntityAction),
 }
 
 #[derive(SystemData)]
 pub struct ActionTriggerStorages<'a> {
-    pub echo:              WriteStorage<'a, ActionTrigger<Echo>>,
-    pub group:             WriteStorage<'a, ActionTrigger<Group>>,
-    pub move_action:       WriteStorage<'a, ActionTrigger<MoveAction>>,
-    pub random:            WriteStorage<'a, ActionTrigger<Random>>,
-    pub delay:             WriteStorage<'a, ActionTrigger<Delay>>,
-    pub repeat_delay:      WriteStorage<'a, ActionTrigger<RepeatDelay>>,
+    pub echo:                  WriteStorage<'a, ActionTrigger<Echo>>,
+    pub group:                 WriteStorage<'a, ActionTrigger<Group>>,
+    pub move_action:           WriteStorage<'a, ActionTrigger<MoveAction>>,
+    pub random:                WriteStorage<'a, ActionTrigger<Random>>,
+    pub delay:                 WriteStorage<'a, ActionTrigger<Delay>>,
+    pub repeat_delay:          WriteStorage<'a, ActionTrigger<RepeatDelay>>,
     pub insert_components: WriteStorage<'a, ActionTrigger<InsertComponents>>,
-    pub health_action:     WriteStorage<'a, ActionTrigger<HealthAction>>,
-    pub animation_action:  WriteStorage<'a, ActionTrigger<AnimationAction>>,
-    pub sound_action:      WriteStorage<'a, ActionTrigger<SoundAction>>,
-    pub entity_action:     WriteStorage<'a, ActionTrigger<EntityAction>>,
-    pub spawn_action:      WriteStorage<'a, ActionTrigger<SpawnAction>>,
-    pub lifecycle_action:  WriteStorage<'a, ActionTrigger<LifecycleAction>>,
-    pub player_action:     WriteStorage<'a, ActionTrigger<PlayerAction>>,
-    pub call:              WriteStorage<'a, ActionTrigger<Call>>,
+    pub health_action:         WriteStorage<'a, ActionTrigger<HealthAction>>,
+    pub animation_action:      WriteStorage<'a, ActionTrigger<AnimationAction>>,
+    pub sound_action:          WriteStorage<'a, ActionTrigger<SoundAction>>,
+    pub entity_action:         WriteStorage<'a, ActionTrigger<EntityAction>>,
+    pub spawn_action:          WriteStorage<'a, ActionTrigger<SpawnAction>>,
+    pub lifecycle_action:      WriteStorage<'a, ActionTrigger<LifecycleAction>>,
+    pub player_action:         WriteStorage<'a, ActionTrigger<PlayerAction>>,
+    pub call:                  WriteStorage<'a, ActionTrigger<Call>>,
     pub if_action: WriteStorage<'a, ActionTrigger<conditionals::IfAction>>,
-    pub control_action:    WriteStorage<'a, ActionTrigger<ControlAction>>,
-    pub variable_action:   WriteStorage<'a, ActionTrigger<VariableAction>>,
+    pub control_action:        WriteStorage<'a, ActionTrigger<ControlAction>>,
+    pub variable_action:       WriteStorage<'a, ActionTrigger<VariableAction>>,
+    pub foreign_entity_action:
+        WriteStorage<'a, ActionTrigger<ForeignEntityAction>>,
 }

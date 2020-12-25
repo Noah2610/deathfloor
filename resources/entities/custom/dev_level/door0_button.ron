@@ -16,7 +16,14 @@
                 ],
 
                 events: {
-                    OnInteract: Echo("Interacted!"),
+                    OnInteract: Group([
+                        ForeignEntityAction((
+                            selector: (
+                                object: Custom("Door0"),
+                            ),
+                            action: Call("ToggleOpen"),
+                        )),
+                    ]),
                 },
 
                 collision_tag: (
